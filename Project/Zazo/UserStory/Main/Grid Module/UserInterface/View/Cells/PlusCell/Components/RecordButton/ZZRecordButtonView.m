@@ -9,12 +9,15 @@
 #import "ZZRecordButtonView.h"
 
 static CGFloat padding = 6.0f;
-static CGFloat diameter = 85.0f;
 
 @interface ZZRecordButtonView ()
 {
     BOOL _isAnimating;
 }
+
+@property (nonatomic, weak) UIView *borderView;
+@property (nonatomic, weak) UIView *circleView;
+
 @end
 
 @implementation ZZRecordButtonView
@@ -35,21 +38,21 @@ static CGFloat diameter = 85.0f;
     
     UIView *borderView = [UIView new];
     borderView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-    borderView.layer.cornerRadius = diameter /2;
     [self addSubview:borderView];
     [borderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    self.borderView = borderView;
     
     // circle
     
     UIView *circleView = [UIView new];
     circleView.backgroundColor = [UIColor whiteColor];
-    circleView.layer.cornerRadius = (diameter - 2*padding) /2;
     [self addSubview:circleView];
     [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets([self _insets]);
     }];
+    self.circleView = circleView;
     
     // container for animations
     
@@ -85,6 +88,16 @@ static CGFloat diameter = 85.0f;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self).centerOffset(CGPointMake(2, 2));
     }];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGFloat d = self.frame.size.width;
+    
+    self.borderView.layer.cornerRadius = d /2;
+    self.circleView.layer.cornerRadius = (d - 2*padding) /2;
 }
 
 - (void)animate
@@ -135,9 +148,9 @@ static CGFloat diameter = 85.0f;
     self.textLabel.textColor = tintColor;
 }
 
-- (CGSize)intrinsicContentSize
-{
-    return CGSizeMake(diameter, diameter);
-}
+//- (CGSize)intrinsicContentSize
+//{
+//    return CGSizeMake(diameter, diameter);
+//}
 
 @end

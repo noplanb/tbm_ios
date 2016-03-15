@@ -25,15 +25,11 @@
         [self backgroundView];
         [self userNameLabel];
         [self recordView];
-//        [self containFriendView];
-//        [self uploadingIndicator];
         [self uploadBarView];
-//        [self downloadIndicator];
         [self downloadBarView];
         [self animationView];
         [self numberBadge];
         [self sentBadge];
-        
     }
     
     return self;
@@ -62,12 +58,11 @@
         [_recordView addGestureRecognizer:recognizer];
         
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.bottom.equalTo(self.userNameLabel.mas_top).with.offset(-kSidePadding);
-//            make.left.top.equalTo(self).offset(kSidePadding);
-//            make.right.equalTo(self).offset(-kSidePadding);
             make.centerX.equalTo(self);
-            make.centerY.equalTo(self);
-            
+            make.centerY.equalTo(self).offset(-16);
+            make.width.equalTo(self.mas_width).multipliedBy(3.0f/4.0f).priorityHigh();
+            make.width.lessThanOrEqualTo(@85);
+            make.height.equalTo(_recordView.mas_width);
         }];
     }
     return _recordView;

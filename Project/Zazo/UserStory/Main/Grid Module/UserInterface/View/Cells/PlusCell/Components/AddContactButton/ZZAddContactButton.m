@@ -53,6 +53,9 @@
 {
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self).centerOffset(CGPointMake(0, -16));
+        make.width.equalTo(self.mas_width).multipliedBy(3.0f/4.0f).priorityHigh();
+        make.width.lessThanOrEqualTo(@85);
+        make.height.equalTo(self.mas_width);
     }];
     
     UIView *borderView = [UIView new];
@@ -90,14 +93,15 @@
     _textLabel.font = [UIFont zz_boldFontWithSize:16];
     _textLabel.text = @"Add contact";
     _textLabel.textColor = [UIColor grayColor];
-    _textLabel.minimumScaleFactor = 0.75;
+    _textLabel.minimumScaleFactor = 0.25;
+    _textLabel.adjustsFontSizeToFitWidth = YES;
     [_textLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     
     [self addSubview:_textLabel];
     
     [_textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.width.equalTo(self).offset(16);
+        make.width.equalTo(self).offset(-16);
         make.bottom.equalTo(self).offset(-16);
     }];
     
@@ -114,9 +118,6 @@
     self.imageView.image = image;
 
     self.textLabel.hidden = !isActive;
-    
-//    self.imageEdgeInsets =     // shadow compensation
-//    isActive ? UIEdgeInsetsMake(-8, -8, -16, -8) : UIEdgeInsetsZero;
 }
 
 - (void)setPlusViewHidden:(BOOL)hidden animated:(BOOL)animated completion:(ANCodeBlock)completion
