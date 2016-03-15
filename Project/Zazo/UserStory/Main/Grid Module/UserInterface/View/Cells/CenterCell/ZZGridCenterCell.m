@@ -10,7 +10,7 @@
 #import "ZZGridCenterCellViewModel.h"
 #import "UIImage+PDF.h"
 #import "ZZGridActionStoredSettings.h"
-
+#import "ZZRecordingView.h"
 
 static CGFloat const kLayoutConstRecordingLabelHeight = 22;
 static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
@@ -25,7 +25,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @property (nonatomic, strong) UIView* videoView;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
 @property (nonatomic, strong) CALayer* recordingOverlay;
-@property (nonatomic, strong) UILabel* recordingLabel;
+@property (nonatomic, strong) UIView* recordingView;
 
 @end
 
@@ -95,14 +95,14 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     [self.recordingOverlay removeFromSuperlayer];
     self.recordingOverlay = nil;
     self.recordingOverlay.hidden = NO;
-    self.recordingLabel.hidden = NO;
+    self.recordingView.hidden = NO;
     self.switchCameraButton.hidden = YES;
 }
 
 - (void)_hideRecordingOverlay
 {
     self.recordingOverlay.hidden = YES;
-    self.recordingLabel.hidden = YES;
+    self.recordingView.hidden = YES;
     self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
 }
 
@@ -183,26 +183,27 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     return _recordingContainer;
 }
 
-- (UILabel*)recordingLabel
+- (UIView *)recordingView
 {
-    if (!_recordingLabel)
+    if (!_recordingView)
     {
-        _recordingLabel = [UILabel new];
-        _recordingLabel.hidden = YES;
-        _recordingLabel.text = NSLocalizedString(@"grid-controller.cell.record.title", nil);
-        _recordingLabel.backgroundColor = [[UIColor an_colorWithHexString:kLayoutConstRecordingLabelBackgroundColor] colorWithAlphaComponent:0.5];
-        _recordingLabel.textColor = [UIColor whiteColor];
-        _recordingLabel.textAlignment = NSTextAlignmentCenter;
-        _recordingLabel.font = [UIFont systemFontOfSize:kLayoutConstRecordingLabelFontSize];
-        [self.recordingContainer addSubview:_recordingLabel];
         
-        [_recordingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.recordingContainer).with.offset(kLayoutConstRecordingBorderWidth);
-            make.bottom.right.equalTo(self.recordingContainer).with.offset(-kLayoutConstRecordingBorderWidth);
-            make.height.equalTo(@(kLayoutConstRecordingLabelHeight - kLayoutConstRecordingBorderWidth));
+        ZZRecordingView *recordingView =
+        [[NSBundle mainBundle] loadNibNamed:@"ZZRecordingView"
+                                      owner:nil
+                                    options:nil].firstObject;
+        
+        recordingView.hidden = YES;
+        [self.recordingContainer addSubview:recordingView];
+        
+        [recordingView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.recordingContainer);
+            make.top.equalTo(self.recordingContainer);            
         }];
+        
+        _recordingView = recordingView;
     }
-    return _recordingLabel;
+    return _recordingView;
 }
 
 - (CALayer*)recordingOverlay
