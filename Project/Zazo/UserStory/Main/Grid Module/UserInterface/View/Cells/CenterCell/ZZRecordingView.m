@@ -14,7 +14,7 @@
 {
     [UIView animateWithDuration:1
                           delay:0
-                        options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
+                        options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionOverrideInheritedDuration
                      animations:^{
                          self.recordIndicator.alpha = 0;
                      }

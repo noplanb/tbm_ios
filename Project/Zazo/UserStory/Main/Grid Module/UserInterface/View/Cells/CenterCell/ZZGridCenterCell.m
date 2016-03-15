@@ -11,12 +11,11 @@
 #import "UIImage+PDF.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRecordingView.h"
+#import "ZZCellEffectView.h"
 
-static CGFloat const kLayoutConstRecordingLabelHeight = 22;
-static CGFloat const kLayoutConstRecordingLabelFontSize = 0.55 * kLayoutConstRecordingLabelHeight;
 static NSString* kLayoutConstRecordingLabelBackgroundColor = @"000";
 static NSString* kLayoutConstWhiteTextColor  = @"fff";
-static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
+static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 
 @interface ZZGridCenterCell ()
 
@@ -26,6 +25,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
 @property (nonatomic, strong) CALayer* recordingOverlay;
 @property (nonatomic, strong) UIView* recordingView;
+@property (nonatomic, strong) ZZCellEffectView *effectView;
 
 @end
 
@@ -95,15 +95,26 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
     [self.recordingOverlay removeFromSuperlayer];
     self.recordingOverlay = nil;
     self.recordingOverlay.hidden = NO;
-    self.recordingView.hidden = NO;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.recordingView.alpha = 1;
+    }];
+    
     self.switchCameraButton.hidden = YES;
+    
 }
 
 - (void)_hideRecordingOverlay
 {
     self.recordingOverlay.hidden = YES;
-    self.recordingView.hidden = YES;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.recordingView.alpha = 0;
+    }];
+    
     self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
+    
+    [self.effectView showEffect:ZZCellEffectTypeWaveOut];
 }
 
 - (void)setVideoView:(UIView *)videoView
@@ -138,6 +149,8 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         }
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.videoView.layer addSublayer:_previewLayer];
+        
+        self.previewLayer.cornerRadius = 4;
     }
 }
 
@@ -193,7 +206,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
                                       owner:nil
                                     options:nil].firstObject;
         
-        recordingView.hidden = YES;
+        recordingView.alpha = 0;
         [self.recordingContainer addSubview:recordingView];
         
         [recordingView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -213,7 +226,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         _recordingOverlay = [CALayer layer];
         _recordingOverlay.hidden = YES;
         _recordingOverlay.frame = self.bounds;
-        _recordingOverlay.cornerRadius = 2;
+        _recordingOverlay.cornerRadius = 4;
         _recordingOverlay.backgroundColor = [UIColor clearColor].CGColor;
         _recordingOverlay.borderWidth = kLayoutConstRecordingBorderWidth;
         _recordingOverlay.borderColor = [UIColor redColor].CGColor;
@@ -221,6 +234,26 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 2.5;
         [self.videoView.layer addSublayer:_recordingOverlay];
     }
     return _recordingOverlay;
+}
+
+- (ZZCellEffectView *)effectView
+{
+    if (_effectView)
+    {
+        return _effectView;
+    }
+    
+    ZZCellEffectView *effectView = [ZZCellEffectView new];
+    [self addSubview:effectView];
+    
+    effectView.userInteractionEnabled = NO;
+    [effectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    
+    [effectView layoutIfNeeded];
+    
+    return _effectView = effectView;
 }
 
 @end

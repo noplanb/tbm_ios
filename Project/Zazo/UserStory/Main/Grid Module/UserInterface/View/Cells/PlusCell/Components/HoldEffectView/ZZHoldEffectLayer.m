@@ -11,7 +11,7 @@
 @import QuartzCore;
 
 
-static CGFloat ZZHoldEffectAnimationDuration = 0.35;
+static CGFloat ZZHoldEffectAnimationDuration = 0.5;
 
 @interface ZZHoldEffectLayer ()
 
