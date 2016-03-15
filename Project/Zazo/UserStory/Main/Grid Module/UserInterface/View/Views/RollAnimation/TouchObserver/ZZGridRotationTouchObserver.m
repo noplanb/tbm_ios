@@ -121,7 +121,9 @@ static CGFloat const kStartGridRotationOffset = 10;
 
 - (void)placeCells
 {
-    [self.rotator rotateCells:self.gridView.items onAngle:self.gridView.calculatedCellsOffset withGrid:self.gridHelper];
+    [self.rotator rotateCells:self.gridView.items
+                      onAngle:self.gridView.calculatedCellsOffset
+                     withGrid:self.gridHelper];
 }
 
 - (BOOL)_isEnableRotationWithRecorgnizer:(ZZRotationGestureRecognizer*)recognizer

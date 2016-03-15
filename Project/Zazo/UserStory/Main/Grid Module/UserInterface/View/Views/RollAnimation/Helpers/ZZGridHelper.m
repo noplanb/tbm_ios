@@ -38,8 +38,8 @@
 {
     _frame = rect;
 
-    self.horizontalInset = (rect.size.width - 3 * self.cellSize.width - 2 * self.spaceBetweenCells) / 2;
-    self.verticalInset = 5;
+    self.horizontalInset = 0;
+    self.verticalInset = 0;
     
     [self layoutCells];
 

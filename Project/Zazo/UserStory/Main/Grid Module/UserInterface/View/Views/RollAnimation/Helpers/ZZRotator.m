@@ -32,7 +32,9 @@
 - (void)rotateCells:(NSArray*)cells onAngle:(CGFloat)angle withGrid:(ZZGridHelper*)grid
 {
     [cells enumerateObjectsUsingBlock:^(UIView*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGRect frame = [self _frameForCellAtPosition:idx withOffset:angle withGrid:grid];
+        CGRect frame = [self _frameForCellAtPosition:idx
+                                          withOffset:angle
+                                            withGrid:grid];
         obj.frame = frame;
     }];
 
