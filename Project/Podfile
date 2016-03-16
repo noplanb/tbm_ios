@@ -36,6 +36,7 @@ target 'Zazo' do
     pod 'Masonry', '~> 0.6.2'
     pod 'MSSPopMasonry', '~> 0.0.1'
     pod 'TPKeyboardAvoiding'
+    pod 'OAStackView', '~> 1.0'    
 
     #Testing
     pod 'Reveal-iOS-SDK', '~> 1.6.1', :configurations => ['Debug']

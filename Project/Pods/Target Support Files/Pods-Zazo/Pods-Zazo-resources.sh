@@ -65,6 +65,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/OAStackView.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "OBFileTransfer/Pod/Assets/FileTransferAgents.plist"
@@ -74,6 +75,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/OAStackView.bundle"
 fi
 if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_resource "OBFileTransfer/Pod/Assets/FileTransferAgents.plist"
@@ -83,6 +85,7 @@ if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_resource "PBJVision/Source/Shaders/Shader.fsh"
   install_resource "PBJVision/Source/Shaders/Shader.vsh"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/OAStackView.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
