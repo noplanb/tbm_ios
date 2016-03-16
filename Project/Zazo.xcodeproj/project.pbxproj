@@ -265,6 +265,12 @@
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
 		152796251C8715290054D3D4 /* ZZGridStateView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CBB1BA49A0100925671 /* ZZGridStateView+Animation.m */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
+		153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536822D1C99539D006EDC12 /* ZZMainInteractor.m */; };
+		153682411C99539D006EDC12 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 153682331C99539D006EDC12 /* Main.strings */; };
+		153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 153682361C99539D006EDC12 /* ZZMainPresenter.m */; };
+		153682431C99539D006EDC12 /* ZZMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 153682391C99539D006EDC12 /* ZZMainVC.m */; };
+		153682441C99539D006EDC12 /* ZZMainWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823D1C99539D006EDC12 /* ZZMainWireframe.m */; };
+		153682451C99539D006EDC12 /* ZZMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823F1C99539D006EDC12 /* ZZMain.m */; };
 		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
@@ -1283,6 +1289,21 @@
 		1521582E1C8498E500260AFD /* ZZHoldEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZHoldEffects.h; sourceTree = "<group>"; };
 		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
 		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
+		1536822C1C99539D006EDC12 /* ZZMainInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractor.h; sourceTree = "<group>"; };
+		1536822D1C99539D006EDC12 /* ZZMainInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainInteractor.m; sourceTree = "<group>"; };
+		1536822E1C99539D006EDC12 /* ZZMainInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractorIO.h; sourceTree = "<group>"; };
+		153682301C99539D006EDC12 /* ZZMainModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainModuleDelegate.h; sourceTree = "<group>"; };
+		153682311C99539D006EDC12 /* ZZMainModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainModuleInterface.h; sourceTree = "<group>"; };
+		153682331C99539D006EDC12 /* Main.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Main.strings; sourceTree = "<group>"; };
+		153682351C99539D006EDC12 /* ZZMainPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainPresenter.h; sourceTree = "<group>"; };
+		153682361C99539D006EDC12 /* ZZMainPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainPresenter.m; sourceTree = "<group>"; };
+		153682381C99539D006EDC12 /* ZZMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainVC.h; sourceTree = "<group>"; };
+		153682391C99539D006EDC12 /* ZZMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainVC.m; sourceTree = "<group>"; };
+		1536823A1C99539D006EDC12 /* ZZMainViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainViewInterface.h; sourceTree = "<group>"; };
+		1536823C1C99539D006EDC12 /* ZZMainWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainWireframe.h; sourceTree = "<group>"; };
+		1536823D1C99539D006EDC12 /* ZZMainWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainWireframe.m; sourceTree = "<group>"; };
+		1536823E1C99539D006EDC12 /* ZZMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMain.h; sourceTree = "<group>"; };
+		1536823F1C99539D006EDC12 /* ZZMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMain.m; sourceTree = "<group>"; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
@@ -2860,6 +2881,7 @@
 		07636C781BA49A0100925671 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				153682291C99539D006EDC12 /* Main Module */,
 				07636C791BA49A0100925671 /* EditFriendList Module */,
 				07636C9C1BA49A0100925671 /* Grid Module */,
 				07636CED1BA49A0100925671 /* Menu Module */,
@@ -3946,6 +3968,84 @@
 			path = UserNameLabel;
 			sourceTree = "<group>";
 		};
+		153682291C99539D006EDC12 /* Main Module */ = {
+			isa = PBXGroup;
+			children = (
+				1536822A1C99539D006EDC12 /* ApplicationLogic */,
+				1536822F1C99539D006EDC12 /* ModuleInterface */,
+				153682321C99539D006EDC12 /* UserInterface */,
+				1536823E1C99539D006EDC12 /* ZZMain.h */,
+				1536823F1C99539D006EDC12 /* ZZMain.m */,
+			);
+			path = "Main Module";
+			sourceTree = "<group>";
+		};
+		1536822A1C99539D006EDC12 /* ApplicationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				1536822B1C99539D006EDC12 /* Interactor */,
+			);
+			path = ApplicationLogic;
+			sourceTree = "<group>";
+		};
+		1536822B1C99539D006EDC12 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				1536822C1C99539D006EDC12 /* ZZMainInteractor.h */,
+				1536822D1C99539D006EDC12 /* ZZMainInteractor.m */,
+				1536822E1C99539D006EDC12 /* ZZMainInteractorIO.h */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1536822F1C99539D006EDC12 /* ModuleInterface */ = {
+			isa = PBXGroup;
+			children = (
+				153682301C99539D006EDC12 /* ZZMainModuleDelegate.h */,
+				153682311C99539D006EDC12 /* ZZMainModuleInterface.h */,
+			);
+			path = ModuleInterface;
+			sourceTree = "<group>";
+		};
+		153682321C99539D006EDC12 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				153682331C99539D006EDC12 /* Main.strings */,
+				153682341C99539D006EDC12 /* Presenter */,
+				153682371C99539D006EDC12 /* View */,
+				1536823B1C99539D006EDC12 /* Wireframe */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		153682341C99539D006EDC12 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				153682351C99539D006EDC12 /* ZZMainPresenter.h */,
+				153682361C99539D006EDC12 /* ZZMainPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		153682371C99539D006EDC12 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				153682381C99539D006EDC12 /* ZZMainVC.h */,
+				153682391C99539D006EDC12 /* ZZMainVC.m */,
+				1536823A1C99539D006EDC12 /* ZZMainViewInterface.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1536823B1C99539D006EDC12 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				1536823C1C99539D006EDC12 /* ZZMainWireframe.h */,
+				1536823D1C99539D006EDC12 /* ZZMainWireframe.m */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
 		154C7F4A1C567EC000DFA0FD /* OBLogger */ = {
 			isa = PBXGroup;
 			children = (
@@ -4915,6 +5015,7 @@
 				07636E811BA49A0100925671 /* edit-friends-icon.pdf in Resources */,
 				182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */,
 				07636E781BA49A0100925671 /* icon_dots.pdf in Resources */,
+				153682411C99539D006EDC12 /* Main.strings in Resources */,
 				15ACCB761C8089220025798A /* Animations.xcassets in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
 				07636E721BA49A0100925671 /* home-page-add-icon.pdf in Resources */,
@@ -5477,9 +5578,11 @@
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
 				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
+				153682451C99539D006EDC12 /* ZZMain.m in Sources */,
 				07636E2B1BA49A0100925671 /* ZZBaseDomainModel.m in Sources */,
 				07636EA41BA49A0100925671 /* ZZSecretPresenter.m in Sources */,
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
+				153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */,
 				182255F21C16E08A003885A3 /* ZZNetworkTestVC.m in Sources */,
 				07636E421BA49A0100925671 /* TBMVideo.m in Sources */,
 				07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */,
@@ -5492,6 +5595,7 @@
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
+				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
 				07636EBF1BA49A0100925671 /* ZZGridCenterCellViewModel.m in Sources */,
@@ -5589,6 +5693,7 @@
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
+				153682441C99539D006EDC12 /* ZZMainWireframe.m in Sources */,
 				07636E2C1BA49A0100925671 /* ZZContactDomainModel.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
 				07636F0D1BA49A0100925671 /* TOWebViewController.m in Sources */,
@@ -5640,6 +5745,7 @@
 				07636EED1BA49A0100925671 /* ANDrawerNC.m in Sources */,
 				07636E581BA49A0100925671 /* ZZKeychainDataProvider.m in Sources */,
 				07636F061BA49A0100925671 /* TBMAlertController.m in Sources */,
+				153682431C99539D006EDC12 /* ZZMainVC.m in Sources */,
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
 				079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */,
 				18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */,
