@@ -29,7 +29,7 @@
     ZZMainPresenter* presenter = [ZZMainPresenter new];
 
     self.gridWireframe = [ZZGridWireframe new];
-    mainController.viewControllers = @[self.gridWireframe.gridController];
+    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController];
 
     interactor.output = presenter;
     

@@ -3,7 +3,13 @@
 // Copyright (c) 2016 No Plan B. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "ZZTabbarView.h"
+
+
+@interface ZZTabbarView ()
+
+@end
 
 
 @implementation ZZTabbarView
@@ -13,6 +19,8 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        self.distribution = OAStackViewDistributionFillEqually;
+
     }
 
     return self;
@@ -39,9 +47,52 @@
 
 - (UIView *)_viewFromItem:(id<ZZTabbarViewItem>)item
 {
-    UIImageView *view = [[UIImageView alloc] initWithImage:item.tabbarViewItemImage];
-    view.contentMode = UIViewContentModeCenter;
-    return view;
+    UIImage *image = nil;
+
+    if ([(NSObject *)item respondsToSelector:@selector(tabbarViewItemImage)])
+    {
+        image = item.tabbarViewItemImage;
+    }
+    else
+    {
+        image = [UIImage imageNamed:@"icon-drawer"];
+    }
+
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+    UIButton *button = [[UIButton alloc] init];
+    [button setImage:image forState:UIControlStateNormal];
+    [button addTarget:self
+               action:@selector(tapOnButton:)
+     forControlEvents:UIControlEventTouchUpInside];
+
+    button.tintColor = [UIColor grayColor];
+
+    button.contentMode = UIViewContentModeCenter;
+    return button;
+}
+
+- (void)tapOnButton:(UIButton *)button
+{
+    NSUInteger index = [self.arrangedSubviews indexOfObject:button];
+
+    if (index == NSNotFound)
+    {
+        return;
+    }
+
+    [self.delegate tabbarView:self didTapOnItemWithIndex:index];
+}
+
+- (void)setActiveItemIndex:(NSUInteger)activeItemIndex
+{
+    UIButton *previousActiveButton = self.arrangedSubviews[_activeItemIndex];
+    previousActiveButton.tintColor = [UIColor grayColor];
+
+    _activeItemIndex = activeItemIndex;
+
+    UIButton *actualActiveButton = self.arrangedSubviews[_activeItemIndex];
+    actualActiveButton.tintColor = self.window.tintColor;
 }
 
 

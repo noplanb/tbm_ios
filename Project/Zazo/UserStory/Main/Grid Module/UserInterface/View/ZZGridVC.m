@@ -19,7 +19,6 @@
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
 @property (nonatomic, strong) ZZGridRotationTouchObserver* touchObserver;
-@property (nonatomic, strong) UIPanGestureRecognizer* menuPanRecognizer;
 
 @end
 
@@ -30,19 +29,20 @@
     if (self = [super init])
     {
         CGRect frame = [UIScreen mainScreen].bounds;
-        frame.size.height -= 72;
+        frame.size.height -= 72; // tabbar
+
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
-        self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
-        self.touchObserver.delegate = self;
-
-        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
-            return [value boolValue];
-        }] subscribeNext:^(id x) {
-            [self.eventHandler hideHintIfNeeded];
-        }];
+//        self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
+//        self.touchObserver.delegate = self;
+//
+//        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
+//            return [value boolValue];
+//        }] subscribeNext:^(id x) {
+//            [self.eventHandler hideHintIfNeeded];
+//        }];
     }
     return self;
 }
@@ -71,10 +71,7 @@
 //        [self editFriendsSelected];
 //    }];
 //
-    self.menuPanRecognizer = [UIPanGestureRecognizer new];
-    [self.view addGestureRecognizer:self.menuPanRecognizer];
-    
-    [self.eventHandler attachToMenuPanGesture:self.menuPanRecognizer];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -253,7 +250,7 @@
 
 - (UIImage *)tabbarViewItemImage
 {
-    return [UIImage imageNamed:@"icon-drawer"];
+    return [UIImage imageNamed:@"grid"];
 }
 
 @end

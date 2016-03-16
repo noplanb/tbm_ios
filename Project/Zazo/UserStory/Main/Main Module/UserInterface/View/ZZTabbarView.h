@@ -6,14 +6,26 @@
 #import <Foundation/Foundation.h>
 #import "OAStackView.h"
 
+@class ZZTabbarView;
+
 @protocol ZZTabbarViewItem
 
 @property (nonatomic, strong) UIImage *tabbarViewItemImage;
 
 @end
 
+
+@protocol ZZTabbarViewDelegate
+
+- (void)tabbarView:(ZZTabbarView *)tabbarView didTapOnItemWithIndex:(NSUInteger)index;
+
+@end
+
+
 @interface ZZTabbarView : OAStackView
 
 @property (nonatomic, copy) NSArray <id<ZZTabbarViewItem>> *items;
+@property (nonatomic, weak) id<ZZTabbarViewDelegate> delegate;
+@property (nonatomic, assign) NSUInteger activeItemIndex;
 
 @end
