@@ -10,20 +10,13 @@
 #import "ANMessageDomainModel.h"
 
 @class ZZGridPresenter;
+@class ZZMainWireframe;
 
 @interface ZZGridWireframe : NSObject
 
 @property (nonatomic, strong) ZZGridPresenter* presenter;
-@property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
+@property (nonatomic, strong) ZZMainWireframe* mainWireframe;
 @property (nonatomic, strong) UIViewController* gridController;
-
-#pragma mark - Menu Events
-
-- (void)toggleMenu;
-- (void)closeMenu;
-
-- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan;
-
 
 #pragma mark - Details
 

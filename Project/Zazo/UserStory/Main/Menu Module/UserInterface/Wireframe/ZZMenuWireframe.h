@@ -8,10 +8,6 @@
 
 @interface ZZMenuWireframe : NSObject
 
-- (void)presentMenuControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
-- (void)toggleMenu;
-- (void)closeMenu;
-- (void)openMenu;
-- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan;
+@property (nonatomic, strong, readonly) UIViewController* menuController;
 
 @end

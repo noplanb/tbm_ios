@@ -14,6 +14,7 @@
 #import "ZZEditFriendListWireframe.h"
 #import "ZZSecretWireframe.h"
 #import "ZZDebugStateWireframe.h"
+#import "ZZMainWireframe.h"
 
 typedef NS_ENUM(NSInteger, ANSections)
 {
@@ -62,8 +63,8 @@ typedef NS_ENUM(NSInteger, ANSections)
             
         case ZZGridController:
         {
-            ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
-            [menuwireframe presentMenuControllerFromWindow:self.rootController.view.window completion:nil];
+            ZZMainWireframe*wireframe = [ZZMainWireframe new];
+            [wireframe presentMainControllerFromWindow:self.rootController.view.window completion:nil];
         } break;
             
         case ZZStateController:

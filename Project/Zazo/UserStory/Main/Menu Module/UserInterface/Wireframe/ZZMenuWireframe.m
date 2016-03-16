@@ -10,18 +10,13 @@
 #import "ZZMenuInteractor.h"
 #import "ZZMenuVC.h"
 #import "ZZMenuPresenter.h"
-#import "ANDrawerNC.h"
-#import "ZZGridWireframe.h"
-#import "ZZGridPresenter.h"
 #import "ZZGridUIConstants.h"
 #import "ZZAddressBookDataProvider.h"
 
 @interface ZZMenuWireframe ()
 
 @property (nonatomic, strong) ZZMenuPresenter* presenter;
-@property (nonatomic, strong) ZZMenuVC* menuController;
-@property (nonatomic, strong) ANDrawerNC* drawerController;
-
+@property (nonatomic, strong, readwrite) UIViewController* menuController;
 @property (nonatomic, strong) UIViewController* previousController;
 @property (nonatomic, copy) ANCodeBlock completionBlock;
 
@@ -29,106 +24,32 @@
 
 @implementation ZZMenuWireframe
 
-- (void)presentMenuControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock
+- (UIViewController *)menuController
 {
-    self.completionBlock = completionBlock;
+    if (!_menuController) {
+        [self _setup];
+    }
+    return _menuController;
+}
+
+- (void)_setup
+{
     ZZMenuVC* menuController = [ZZMenuVC new];
-    ANDrawerNC* drawerController = [self drawerControllerWithView:menuController.view];
-    drawerController.navigationBarHidden = YES;
     ZZMenuInteractor* interactor = [ZZMenuInteractor new];
     ZZMenuPresenter* presenter = [ZZMenuPresenter new];
     
     interactor.output = presenter;
-    drawerController.drawerDelegate = presenter;
-    
+
     menuController.eventHandler = presenter;
     
     presenter.interactor = interactor;
     presenter.wireframe = self;
     
     [presenter configurePresenterWithUserInterface:menuController];
-    
-    ANDispatchBlockToMainQueue(^{
-        window.rootViewController = drawerController;
-    });
-    
+
     self.presenter = presenter;
-    self.menuController = menuController;
-    self.drawerController = drawerController;
-    [self presentGridController];
-    [self _setupDrawerObserver];
-}
 
-
-#pragma mark - Menu
-
-- (void)presentGridController
-{
-//    ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
-//    gridWireframe.menuWireFrame = self;
-//    [gridWireframe presentGridControllerFromNavigationController:self.drawerController completion:self.completionBlock];
-//    self.presenter.menuModuleDelegate = gridWireframe.presenter;
-    
-}
-
-#pragma mark - Drawer Controller
-
-- (ANDrawerNC*)drawerControllerWithView:(UIView*)view
-{
-    NSInteger menuWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - CGRectGetWidth([UIScreen mainScreen].bounds)/4;
-    ANDrawerNC* drawerController = [ANDrawerNC drawerWithView:view width:menuWidth direction:ANDrawerOpenDirectionFromRight];
-    drawerController.useBackground = YES;
-    drawerController.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    drawerController.customTopPadding = kGridHeaderViewHeight;
-    drawerController.topPin = ANDrawerTopPinCustomOffset;
-    drawerController.avoidKeyboard = YES;
-    return drawerController;
-}
-
-- (void)toggleMenu
-{
-    [self.presenter menuToggled];
-    if ([ZZAddressBookDataProvider isAccessGranted])
-    {
-        ANDispatchBlockToMainQueue(^{
-            [self.drawerController toggle];
-        });
-    }
-}
-
-- (void)closeMenu
-{
-    ANDispatchBlockToMainQueue(^{
-       [self.drawerController updateStateToOpened:NO]; 
-    });
-}
-
-- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan
-{
-    [self.drawerController attachPanRecognizer:pan];
-}
-
-- (void)openMenu
-{
-    if (!self.drawerController.isOpen)
-    {
-        [self.drawerController toggle];
-    }
-}
-
-
-#pragma mark - Private
-
-- (void)_setupDrawerObserver
-{
-    [[RACObserve(self.drawerController, isOpen) filter:^BOOL(NSNumber* value) {
-        return [value boolValue];
-    }] subscribeNext:^(id x) {
-        ANDispatchBlockToMainQueue(^{
-            [self.menuController reset];
-            [self.presenter reloadContacts];
-        });
-    }];
+    _menuController = menuController;
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "ZZAuthPresenter.h"
 #import "ZZGridWireframe.h"
 #import "ZZNetworkTestWireframe.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZAuthWireframe ()
 
@@ -65,8 +66,9 @@
 
 - (void)presentGridController
 {
-    ZZMenuWireframe* menuwireframe = [ZZMenuWireframe new];
-    [menuwireframe presentMenuControllerFromWindow:self.authController.view.window completion:self.completionBlock];
+    ZZMainWireframe* wireframe = [ZZMainWireframe new];
+    [wireframe presentMainControllerFromWindow:self.authController.view.window
+                                    completion:self.completionBlock];
 }
 
 - (void)presentNetworkTestController

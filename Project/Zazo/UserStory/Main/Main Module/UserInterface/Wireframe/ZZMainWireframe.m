@@ -17,6 +17,7 @@
 @property (nonatomic, weak) UINavigationController* presentedController;
 
 @property (nonatomic, strong) ZZGridWireframe *gridWireframe;
+@property (nonatomic, strong) ZZMenuWireframe *menuWireframe;
 
 @end
 
@@ -29,7 +30,8 @@
     ZZMainPresenter* presenter = [ZZMainPresenter new];
 
     self.gridWireframe = [ZZGridWireframe new];
-    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController];
+    self.menuWireframe = [ZZMenuWireframe new];
+    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.menuController];
     mainController.activePageIndex = 1;
 
     interactor.output = presenter;

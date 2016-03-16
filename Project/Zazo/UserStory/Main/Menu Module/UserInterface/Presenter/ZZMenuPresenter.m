@@ -94,16 +94,6 @@
     [ZZContactsPermissionAlertBuilder showNeedAccessForAddressBookAlert];
 }
 
-- (void)openDrawerIfEnabled:(BOOL)isEnabled
-{
-    if (isEnabled)
-    {
-        ANDispatchBlockToMainQueue(^{
-            [self.wireframe openMenu];
-        });
-    }
-}
-
 #pragma mark ANDrawerNCDelegate
 
 - (void)drawerControllerWillAppearFromPanGesture:(ANDrawerNC *)controller;
@@ -129,7 +119,7 @@
 {   
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
-    [self.wireframe closeMenu];
+//    [self.wireframe closeMenu];
     [self.interactor enableUpdateContactData];
 }
 
@@ -138,7 +128,7 @@
 - (void)_applicationWillEnterInBackground
 {
     [self.interactor resetAddressBookData];
-    [self.wireframe closeMenu];
+//    [self.wireframe closeMenu];
 }
 
 

@@ -13,6 +13,7 @@
 #import "ZZEditFriendListWireframe.h"
 #import "ANMessagesWireframe.h"
 #import "ZZEditFriendListPresenter.h"
+#import "ZZMainWireframe.h"
 
 
 @interface ZZGridWireframe ()
@@ -39,23 +40,12 @@
     [self.presentedController popViewControllerAnimated:YES];
 }
 
-- (void)toggleMenu
-{
-    [self.menuWireFrame toggleMenu];
-}
-
-- (void)closeMenu
-{
-    [self.menuWireFrame closeMenu];
-}
-
-
 #pragma mark - Details
 
 - (void)presentEditFriendsController
 {
-    [self closeMenu];
-    
+
+
     ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
     [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
     wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
@@ -101,12 +91,6 @@
                                                                
                                                            }];
 }
-
-- (void)attachAdditionalPanGestureToMenu:(UIPanGestureRecognizer*)pan
-{
-    [self.menuWireFrame attachAdditionalPanGestureToMenu:pan];
-}
-
 
 #pragma mark - Private
 

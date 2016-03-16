@@ -72,11 +72,6 @@
     [self _startTouchObserve];
 }
 
-- (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan
-{
-    [self.wireframe attachAdditionalPanGestureToMenu:pan];
-}
-
 - (void)_setupNotifications
 {    
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -282,7 +277,7 @@
 
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
 {
-    [self.wireframe closeMenu];
+//    [self.wireframe closeMenu];
     
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
@@ -293,7 +288,7 @@
 
 - (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion
 {
-    [self.wireframe closeMenu];
+//    [self.wireframe closeMenu];
     
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
        if (completion)
@@ -348,7 +343,7 @@
     if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.actionHandler hideHint];
-        [self.wireframe toggleMenu];
+//        [self.wireframe toggleMenu];
         [self.userInterface menuWasOpened];
     }
 }

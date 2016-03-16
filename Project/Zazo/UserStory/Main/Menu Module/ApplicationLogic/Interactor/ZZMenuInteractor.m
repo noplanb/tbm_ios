@@ -125,7 +125,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
-            [self.output openDrawerIfEnabled:shouldOpen];
+//            [self.output openDrawerIfEnabled:shouldOpen];
             
             self.isLoading = NO;
             self.isLoaded = YES;
