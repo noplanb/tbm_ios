@@ -15,10 +15,7 @@
 
 @property (nonatomic, strong) ZZGridPresenter* presenter;
 @property (nonatomic, strong) ZZMenuWireframe* menuWireFrame;
-
-- (void)presentGridControllerFromNavigationController:(UINavigationController*)nc completion:(ANCodeBlock)completionBlock;
-- (void)dismissGridController;
-
+@property (nonatomic, strong) UIViewController* gridController;
 
 #pragma mark - Menu Events
 

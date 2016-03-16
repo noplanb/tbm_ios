@@ -11,7 +11,7 @@
 #import "ZZStartVC.h"
 #import "ZZStartPresenter.h"
 #import "ZZAuthWireframe.h"
-#import "ZZMenuWireframe.h"
+#import "ZZMainWireframe.h"
 #import "ZZNetworkTestWireframe.h"
 
 @interface ZZStartWireframe ()
@@ -62,8 +62,8 @@
 
 - (void)presentMenuControllerWithGrid
 {
-    ZZMenuWireframe* wireframe = [ZZMenuWireframe new];
-    [wireframe presentMenuControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+    ZZMainWireframe* wireframe = [ZZMainWireframe new];
+    [wireframe presentMainControllerFromWindow:self.presentedWindow completion:self.completionBlock];
 }
 
 - (void)presentRegistrationController

@@ -64,10 +64,10 @@
 
 - (void)presentGridController
 {
-    ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
-    gridWireframe.menuWireFrame = self;
-    [gridWireframe presentGridControllerFromNavigationController:self.drawerController completion:self.completionBlock];
-    self.presenter.menuModuleDelegate = gridWireframe.presenter;
+//    ZZGridWireframe* gridWireframe = [ZZGridWireframe new];
+//    gridWireframe.menuWireFrame = self;
+//    [gridWireframe presentGridControllerFromNavigationController:self.drawerController completion:self.completionBlock];
+//    self.presenter.menuModuleDelegate = gridWireframe.presenter;
     
 }
 

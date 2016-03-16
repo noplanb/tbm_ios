@@ -9,8 +9,9 @@
 #import "ZZGridViewInterface.h"
 #import "ZZGridModuleInterface.h"
 #import "ZZBaseVC.h"
+#import "ZZTabbarView.h"
 
-@interface ZZGridVC : ZZBaseVC <ZZGridViewInterface>
+@interface ZZGridVC : ZZBaseVC <ZZGridViewInterface, ZZTabbarViewItem>
 
 @property (nonatomic, weak) id<ZZGridModuleInterface> eventHandler;
 

@@ -29,7 +29,9 @@
 {
     if (self = [super init])
     {
-        self.gridView = [[ZZGridView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        CGRect frame = [UIScreen mainScreen].bounds;
+        frame.size.height -= 72;
+        self.gridView = [[ZZGridView alloc] initWithFrame:frame];
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
@@ -245,6 +247,13 @@
     NSInteger centerCellIndex = 4;
     ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
     [centerCell updataeRecordStateTo:isRecording];
+}
+
+#pragma mark ZZTabbarViewItem
+
+- (UIImage *)tabbarViewItemImage
+{
+    return [UIImage imageNamed:@"icon-drawer"];
 }
 
 @end

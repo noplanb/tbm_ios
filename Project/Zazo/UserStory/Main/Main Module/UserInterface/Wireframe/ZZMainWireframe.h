@@ -5,7 +5,7 @@
 
 @interface ZZMainWireframe : NSObject
 
-- (void)presentMainControllerFromNavigationController:(UINavigationController*)nc;
+- (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
 - (void)dismissMainController;
 
 @end

@@ -5,26 +5,32 @@
 
 #import "ZZMainWireframe.h"
 #import "ZZMainInteractor.h"
-#import "ZZMainVC.h"
+#import "ZZTabbarVC.h"
 #import "ZZMainPresenter.h"
 #import "ZZMain.h"
+#import "ZZGridWireframe.h"
 
 @interface ZZMainWireframe ()
 
 @property (nonatomic, weak) ZZMainPresenter* presenter;
-@property (nonatomic, weak) ZZMainVC* mainController;
+@property (nonatomic, weak) ZZTabbarVC * mainController;
 @property (nonatomic, weak) UINavigationController* presentedController;
+
+@property (nonatomic, strong) ZZGridWireframe *gridWireframe;
 
 @end
 
 @implementation ZZMainWireframe
 
-- (void)presentMainControllerFromNavigationController:(UINavigationController *)nc
+- (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
 {
-    ZZMainVC* mainController = [ZZMainVC new];
+    ZZTabbarVC * mainController = [ZZTabbarVC new];
     ZZMainInteractor* interactor = [ZZMainInteractor new];
     ZZMainPresenter* presenter = [ZZMainPresenter new];
-    
+
+    self.gridWireframe = [ZZGridWireframe new];
+    mainController.viewControllers = @[self.gridWireframe.gridController];
+
     interactor.output = presenter;
     
     mainController.eventHandler = presenter;
@@ -34,11 +40,10 @@
     [presenter configurePresenterWithUserInterface:mainController];
     
     ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:mainController animated:YES];
+        window.rootViewController = mainController;
     });
     
     self.presenter = presenter;
-    self.presentedController = nc;
     self.mainController = mainController;
 }
 

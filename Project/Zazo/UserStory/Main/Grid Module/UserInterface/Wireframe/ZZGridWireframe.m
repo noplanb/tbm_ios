@@ -11,16 +11,12 @@
 #import "ZZGridVC.h"
 #import "ZZGridPresenter.h"
 #import "ZZEditFriendListWireframe.h"
-
-#import "DeviceUtil.h"
-#import "TBMUser.h"
 #import "ANMessagesWireframe.h"
 #import "ZZEditFriendListPresenter.h"
 
 
 @interface ZZGridWireframe ()
 
-@property (nonatomic, strong) ZZGridVC* gridController;
 @property (nonatomic, strong) UINavigationController* presentedController;
 @property (nonatomic, strong) ANMessagesWireframe* messageWireframe;
 
@@ -28,21 +24,15 @@
 
 @implementation ZZGridWireframe
 
-- (void)presentGridControllerFromNavigationController:(UINavigationController*)nc completion:(ANCodeBlock)completionBlock
+- (UIViewController *)gridController
 {
-    [self _setup];
-    ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:self.gridController animated:YES];
-        
-        if (completionBlock)
-        {
-            completionBlock();
-        }
-        
-    });
-    
-    self.presentedController = nc;
+    if (!_gridController)
+    {
+        [self _setup];
+    }
+    return _gridController;
 }
+
 
 - (void)dismissGridController
 {
