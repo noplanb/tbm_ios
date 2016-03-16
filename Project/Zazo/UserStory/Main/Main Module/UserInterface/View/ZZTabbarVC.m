@@ -8,7 +8,7 @@
 #import "ZZTabbarView.h"
 #import <OAStackView.h>
 
-@interface ZZTabbarVC () <ZZTabbarViewDelegate>
+@interface ZZTabbarVC () <ZZTabbarViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) OAStackView *stackView;
@@ -29,34 +29,66 @@
     [self scrollView];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [self _scrollToActivePageIfNeededAnimated:NO];
+}
+
 - (void)setActivePageIndex:(NSUInteger)activePageIndex
 {
+    if (_activePageIndex == activePageIndex)
+    {
+        return;
+    }
+
     _activePageIndex = activePageIndex;
     self.tabbarView.activeItemIndex = activePageIndex;
-    CGPoint offset = CGPointMake(self.scrollView.bounds.size.width * activePageIndex, 0);
+
+    [self _scrollToActivePageIfNeededAnimated:YES];
+}
+
+- (void)_scrollToActivePageIfNeededAnimated:(BOOL)animated
+{
+    CGPoint offset = CGPointMake(self.scrollView.bounds.size.width * self.activePageIndex, 0);
+
+    if (CGPointEqualToPoint(self.scrollView.contentOffset, offset))
+    {
+        return;
+    }
+
+    ANCodeBlock changes = ^{
+        self.scrollView.contentOffset = offset;
+    };
+
+    if (!animated)
+    {
+        changes();
+        return;
+    }
 
     [UIView animateWithDuration:0.5
                           delay:0
          usingSpringWithDamping:50
           initialSpringVelocity:20
                         options:0
-                     animations:^{
-        self.scrollView.contentOffset = offset;
-    } completion:nil];
+                     animations:changes
+                     completion:nil];
+
 }
 
 - (UIScrollView *)scrollView
 {
     if (!_scrollView) {
         _scrollView = [UIScrollView new];
-
         _scrollView.pagingEnabled = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.delegate = self;
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.view);
             make.bottom.equalTo(self.tabbarView.mas_top);
         }];
-
     }
     return _scrollView;
 }
@@ -133,5 +165,23 @@
 {
     self.activePageIndex = index;
 }
+
+#pragma mark Scrollview Delegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (decelerate)
+    {
+        return;
+    }
+
+    self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self scrollViewDidEndDragging:scrollView willDecelerate:NO];
+}
+
 
 @end

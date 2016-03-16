@@ -35,14 +35,14 @@
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
-//        self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
-//        self.touchObserver.delegate = self;
-//
-//        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
-//            return [value boolValue];
-//        }] subscribeNext:^(id x) {
-//            [self.eventHandler hideHintIfNeeded];
-//        }];
+        self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
+        self.touchObserver.delegate = self;
+
+        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
+            return [value boolValue];
+        }] subscribeNext:^(id x) {
+            [self.eventHandler hideHintIfNeeded];
+        }];
     }
     return self;
 }

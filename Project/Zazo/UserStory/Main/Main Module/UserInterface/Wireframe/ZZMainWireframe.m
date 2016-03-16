@@ -30,6 +30,7 @@
 
     self.gridWireframe = [ZZGridWireframe new];
     mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController];
+    mainController.activePageIndex = 1;
 
     interactor.output = presenter;
     

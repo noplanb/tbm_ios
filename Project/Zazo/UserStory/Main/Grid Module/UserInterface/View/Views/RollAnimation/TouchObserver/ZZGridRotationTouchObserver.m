@@ -68,6 +68,13 @@ static CGFloat const kStartGridRotationOffset = 10;
     return self.isMoving;
 }
 
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    // Prevent scrolling from horizontal swiping:
+    CGPoint velocity = [gestureRecognizer velocityInView:self.gridView];
+    return fabs(velocity.y) > fabs(velocity.x);
+}
+
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
 {
     if ([self _isEnableRotationWithRecorgnizer:recognizer])
