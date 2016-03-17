@@ -188,8 +188,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         _switchCameraButton.hidden = ![ZZGridActionStoredSettings shared].frontCameraHintWasShown;
         [self addSubview:_switchCameraButton];
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.left.right.equalTo(self);
-            make.height.equalTo(@(40));
+            make.edges.equalTo(self);
         }];
         
         UIImageView* photoImage = [UIImageView new];
@@ -198,9 +197,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         photoImage.image = cameraImage;
         [_switchCameraButton addSubview:photoImage];
         [photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.bottom.equalTo(_switchCameraButton);
-            make.width.equalTo(@(30));
-            make.height.equalTo(@(30));
+            make.center.equalTo(_switchCameraButton);
         }];
     }
     return _switchCameraButton;

@@ -609,7 +609,7 @@
 		1822558D1C16CA06003885A3 /* icon_people.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BEC1BA49A0100925671 /* icon_people.pdf */; };
 		1822558E1C16CA06003885A3 /* machine.h.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D521BA49A0100925671 /* machine.h.motemplate */; };
 		1822558F1C16CA06003885A3 /* machine.m.motemplate in Resources */ = {isa = PBXBuildFile; fileRef = 07636D531BA49A0100925671 /* machine.m.motemplate */; };
-		182255901C16CA06003885A3 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; };
+		182255901C16CA06003885A3 /* icon_camera_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch@2x.png */; };
 		182255911C16CA06003885A3 /* home-page-view.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE41BA49A0100925671 /* home-page-view.pdf */; };
 		182255921C16CA06003885A3 /* home-camera-w-fill.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BE11BA49A0100925671 /* home-camera-w-fill.pdf */; };
 		182255931C16CA06003885A3 /* logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BDA1BA49A0100925671 /* logo.pdf */; };
@@ -640,7 +640,7 @@
 		182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182398D21BB27B36008D1324 /* CoreTelephony.framework */; };
 		182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */; };
 		182BCF681BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */; };
-		182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch.png */; };
+		182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch@2x.png */; };
 		183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 183774A41BFF440D00CE390D /* ZZGridUpdateService.m */; };
 		184504FA1BE12CC800C9C89B /* ZZVideoDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */; };
 		185DE9071BDE6F5000106F83 /* ZZSecretScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185DE9061BDE6F5000106F83 /* ZZSecretScreenController.m */; };
@@ -1391,7 +1391,7 @@
 		182398D21BB27B36008D1324 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder_withoutborder.pdf"; sourceTree = "<group>"; };
 		182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "contacts-placeholder-withoutborder2.pdf"; sourceTree = "<group>"; };
-		182D8D971BB5D45E0080E100 /* icon_camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_switch.png; sourceTree = "<group>"; };
+		182D8D971BB5D45E0080E100 /* icon_camera_switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera_switch@2x.png"; sourceTree = "<group>"; };
 		183774A31BFF440D00CE390D /* ZZGridUpdateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridUpdateService.h; sourceTree = "<group>"; };
 		183774A41BFF440D00CE390D /* ZZGridUpdateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridUpdateService.m; sourceTree = "<group>"; };
 		184504F81BE12CC800C9C89B /* ZZVideoDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoDataUpdater.h; sourceTree = "<group>"; };
@@ -2443,7 +2443,7 @@
 		07636BE01BA49A0100925671 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				182D8D971BB5D45E0080E100 /* icon_camera_switch.png */,
+				182D8D971BB5D45E0080E100 /* icon_camera_switch@2x.png */,
 				7952764D1BA71F2700E506D5 /* camera-icon.pdf */,
 				07636BE11BA49A0100925671 /* home-camera-w-fill.pdf */,
 				07636BE21BA49A0100925671 /* home-page-add-icon.pdf */,
@@ -4980,7 +4980,7 @@
 				1822558D1C16CA06003885A3 /* icon_people.pdf in Resources */,
 				1822558E1C16CA06003885A3 /* machine.h.motemplate in Resources */,
 				1822558F1C16CA06003885A3 /* machine.m.motemplate in Resources */,
-				182255901C16CA06003885A3 /* icon_camera_switch.png in Resources */,
+				182255901C16CA06003885A3 /* icon_camera_switch@2x.png in Resources */,
 				182255911C16CA06003885A3 /* home-page-view.pdf in Resources */,
 				182255921C16CA06003885A3 /* home-camera-w-fill.pdf in Resources */,
 				182255931C16CA06003885A3 /* logo.pdf in Resources */,
@@ -5037,7 +5037,7 @@
 				07636E7A1BA49A0100925671 /* icon_man.pdf in Resources */,
 				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
 				07636E7B1BA49A0100925671 /* icon_people.pdf in Resources */,
-				182D8D981BB5D45E0080E100 /* icon_camera_switch.png in Resources */,
+				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,
 				07636E741BA49A0100925671 /* home-page-view.pdf in Resources */,
 				07636E711BA49A0100925671 /* home-camera-w-fill.pdf in Resources */,
 				07636E6D1BA49A0100925671 /* logo.pdf in Resources */,
