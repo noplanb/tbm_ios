@@ -103,7 +103,14 @@ static APAddressBook* _addressBook = nil;
                 NSMutableDictionary* result = [NSMutableDictionary new];
                 [contacts enumerateObjectsUsingBlock:^(APContact*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                    
-                    ZZContactDomainModel* item = [ZZContactDomainModel modelWithFirstName:obj.name.firstName lastName:obj.name.lastName];
+                    NSString *firstName = obj.name.firstName;
+                    
+                    if (ANIsEmpty(firstName) && ANIsEmpty(obj.name.lastName) && !ANIsEmpty(obj.name.compositeName))
+                    {
+                        firstName = obj.name.compositeName; // Use company name if nothing else
+                    }
+                    
+                    ZZContactDomainModel* item = [ZZContactDomainModel modelWithFirstName:firstName lastName:obj.name.lastName];
                     ZZContactDomainModel* existingItem = result[[item.fullName lowercaseString]];
                     if (existingItem)
                     {
@@ -112,6 +119,8 @@ static APAddressBook* _addressBook = nil;
                     item = [self _fillUserModel:item fromContact:obj];
                     result[[item.fullName lowercaseString]] = item;
                 }];
+                
+                [result removeObjectForKey:@""];
                 
                 [NSObject an_handleSubcriber:subscriber withObject:result error:error];
             });
