@@ -44,8 +44,8 @@ static CGFloat const kNavigationBarIconHeight = 20;
     self = [super init];
     if (self)
     {
-        //TODO: convert in HEX
-
+        self.tintColor = [UIColor an_colorWithHexString:@"#1976d2"];
+        
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#9CBE45"];
         self.gridBackgroundColor = [UIColor an_colorWithHexString:@"#eeeeee"];
         
@@ -53,7 +53,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
         self.baseColor = [UIColor an_colorWithHexString:@"ac1e44"];
         
-        self.navBarFontColor = [UIColor whiteColor];
+        self.navBarFontColor = [UIColor blackColor];
         self.textGrayColor = [UIColor an_colorWithHexString:@"7b7b81"];
         self.textLightGrayColor = [UIColor an_colorWithHexString:@"8e8e93"];
         
@@ -100,21 +100,13 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
 - (void)setupAppearance
 {
-    [UIApplication sharedApplication].windows.firstObject.tintColor = [UIColor an_colorWithHexString:@"#1976d2"];
+    [UIApplication sharedApplication].windows.firstObject.tintColor = self.tintColor;
     [self _setupNavigationBar];
     [self _setupNavigationButtons];
 }
 
 - (void)_setupNavigationBar
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage an_imageWithColor:[UIColor an_colorWithHexString:@"1B1B19"]]
-                                       forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : self.navBarFontColor,
-                                      NSFontAttributeName            : [UIFont zz_regularFontWithSize:17],
-                                      NSKernAttributeName            : @(2.0)};
-    
-    [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];
 }
 
 - (void)_setupNavigationButtons
@@ -131,7 +123,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 - (void)_addNavItemWithName:(NSString*)name type:(ANBarButtonType)type
 {
     UIImage* icon = [UIImage imageWithPDFNamed:name atHeight:kNavigationBarIconHeight];
-    [UIBarButtonItem an_addImage:[icon an_imageByTintingWithColor:[UIColor whiteColor]] forType:type];
+    [UIBarButtonItem an_addImage:[icon an_imageByTintingWithColor:self.tintColor] forType:type];
 }
 
 - (id<ANColorThemeButtonInterface>)editFriendsTheme

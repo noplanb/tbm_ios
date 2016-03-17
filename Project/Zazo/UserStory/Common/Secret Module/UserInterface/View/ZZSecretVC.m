@@ -46,20 +46,28 @@
         @strongify(self);
         [self.eventHandler dismissController];
     }];
+    
+    UINavigationBar *bar = [UINavigationBar new];
+    [self.view addSubview:bar];
+    
+    [bar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.equalTo(@65);
+    }];
+    [bar pushNavigationItem:self.navigationItem animated:NO];
+    
+    self.contentView.tableView.contentInsetTop = 65;
+    self.contentView.tableView.contentOffsetY = -65;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-}
+    }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - User Interface

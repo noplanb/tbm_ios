@@ -26,6 +26,7 @@
 - (void)loadView
 {
     self.view = [UIView new];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self scrollView];
 }
 

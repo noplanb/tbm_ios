@@ -10,7 +10,8 @@
 
 @interface ZZColorTheme : ANColorTheme
 
-//TODO: move to category
+@property (nonatomic, strong) UIColor* tintColor;
+
 @property (nonatomic, strong) UIColor* baseCellTextColor;
 @property (nonatomic, strong) UIColor* authBackgroundColor;
 
