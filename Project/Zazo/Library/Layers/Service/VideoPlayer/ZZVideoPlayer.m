@@ -437,7 +437,7 @@
     if (!_moviePlayerController)
     {
         _moviePlayerController = [MPMoviePlayerController new];
-        [_moviePlayerController setScalingMode:MPMovieScalingModeFill];
+        [_moviePlayerController setScalingMode:MPMovieScalingModeAspectFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         for (UIView *aSubView in _moviePlayerController.view.subviews)
