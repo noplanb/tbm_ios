@@ -9,8 +9,9 @@
 #import "ZZMenuViewInterface.h"
 #import "ZZMenuModuleInterface.h"
 #import "ZZBaseVC.h"
+#import "ZZTabbarView.h"
 
-@interface ZZMenuVC : ZZBaseVC <ZZMenuViewInterface>
+@interface ZZMenuVC : ZZBaseVC <ZZMenuViewInterface, ZZTabbarViewItem>
 
 @property (nonatomic, weak) id<ZZMenuModuleInterface> eventHandler;
 

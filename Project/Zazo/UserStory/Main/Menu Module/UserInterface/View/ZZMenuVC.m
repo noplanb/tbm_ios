@@ -66,6 +66,11 @@
     [self.controller reloadContactData];
 }
 
+- (UIImage *)tabbarViewItemImage
+{
+    return [UIImage imageNamed:@"profile"];
+}
+
 #pragma mark - Controller Delegate
 
 - (void)itemSelected:(ZZMenuCellViewModel*)model
