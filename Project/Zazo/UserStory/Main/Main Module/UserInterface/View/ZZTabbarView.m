@@ -18,9 +18,7 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
         self.distribution = OAStackViewDistributionFillEqually;
-
     }
 
     return self;
@@ -67,7 +65,8 @@
      forControlEvents:UIControlEventTouchUpInside];
 
     button.tintColor = [UIColor grayColor];
-
+    button.backgroundColor = [UIColor whiteColor];
+    
     button.contentMode = UIViewContentModeCenter;
     return button;
 }
@@ -94,6 +93,5 @@
     UIButton *actualActiveButton = self.arrangedSubviews[_activeItemIndex];
     actualActiveButton.tintColor = self.window.tintColor;
 }
-
 
 @end

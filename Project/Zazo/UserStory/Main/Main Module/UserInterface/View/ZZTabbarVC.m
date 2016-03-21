@@ -26,7 +26,13 @@
 - (void)loadView
 {
     self.view = [UIView new];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
+    
+    CALayer *statusBarBackground = [CALayer layer];
+    statusBarBackground.backgroundColor = [ZZColorTheme shared].tintColor.CGColor;
+    statusBarBackground.frame = [UIApplication sharedApplication].statusBarFrame;
+    [self.view.layer addSublayer:statusBarBackground];
+    
     [self scrollView];
 }
 
@@ -87,7 +93,8 @@
         _scrollView.delegate = self;
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.equalTo(self.view);
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.mas_topLayoutGuideBottom);
             make.bottom.equalTo(self.tabbarView.mas_top);
         }];
     }

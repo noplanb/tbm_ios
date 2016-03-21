@@ -10,10 +10,6 @@
 
 @implementation ANBaseVC
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleDefault;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

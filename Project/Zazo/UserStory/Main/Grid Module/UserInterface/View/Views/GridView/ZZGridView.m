@@ -23,7 +23,6 @@
         [self itemsContainerView];
         
         self.isRotationEnabled = YES;
-        
         self.maxCellsOffset = (CGFloat) (M_PI * 2);
 
     }
@@ -37,7 +36,7 @@
 
 - (CGFloat)_topInset
 {
-    return 22;
+    return kGridItemSpacing();
 }
 
 - (CGFloat)_leftInset
@@ -52,9 +51,8 @@
 
 - (CGFloat)_bottomInset
 {
-    return kGridItemSpacing();
+    return 3*kGridItemSpacing();
 }
-
 
 
 - (void)layoutSubviews

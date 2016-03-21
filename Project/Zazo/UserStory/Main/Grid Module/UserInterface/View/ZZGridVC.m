@@ -24,6 +24,8 @@
 
 @implementation ZZGridVC
 
+@dynamic tabbarViewItemImage;
+
 - (instancetype)init
 {
     if (self = [super init])
@@ -60,9 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
-    
+
 //    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
 //        [self menuSelected];
 //    }];

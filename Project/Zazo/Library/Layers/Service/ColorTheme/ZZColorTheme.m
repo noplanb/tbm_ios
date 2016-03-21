@@ -90,8 +90,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridCellTintColor3 = [UIColor an_colorWithHexString:@"#e45000"];
         
         self.gridCellBadgeColor = [UIColor an_colorWithHexString:@"#f61665"];
-
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         
         [self setupAppearance];
     }
