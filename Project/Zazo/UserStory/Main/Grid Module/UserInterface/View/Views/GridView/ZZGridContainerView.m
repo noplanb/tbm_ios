@@ -11,6 +11,13 @@
 #import "ZZGridCell.h"
 #import "ZZGridCenterCell.h"
 
+@interface ZZGridContainerView ()
+
+@property (nonatomic, strong) UIView *dimView;
+@property (nonatomic, weak) ZZGridCell *activeCell;
+
+@end
+
 @implementation ZZGridContainerView
 
 - (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount
@@ -77,9 +84,65 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)showDimScreenForItemWithIndex:(NSUInteger)index
 {
-    [super layoutSubviews];
+    self.activeCell = (id)self.items[index];
+    
+    if (![self.activeCell isKindOfClass:[ZZGridCell class]])
+    {
+        return;
+    }
+    
+    
+    
+    [self bringSubviewToFront:self.dimView];
+    [self bringSubviewToFront:self.activeCell];
+    
+    [UIView transitionWithView:self.dimView
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        _dimView.alpha = 1;
+                        [self.activeCell setBadgesHidden:YES];
+                    }
+                    completion:^(BOOL finished) {
+                        
+                    }];
+    
 }
+
+- (void)hideDimScreen
+{
+    [UIView transitionWithView:self.dimView
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        _dimView.alpha = 0;
+                        [self.activeCell setBadgesHidden:NO];
+                    }
+                    completion:^(BOOL finished) {
+                        [self sendSubviewToBack:self.dimView];
+                    }];
+}
+
+- (UIView *)dimView
+{
+    if (!_dimView)
+    {
+        _dimView = [UIView new];
+        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        _dimView.alpha = 0;
+        _dimView.userInteractionEnabled = NO;
+        
+        [self addSubview:_dimView];
+        
+        [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
+        }];
+    }
+    
+    return _dimView;
+}
+
 
 @end

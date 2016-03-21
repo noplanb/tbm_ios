@@ -109,6 +109,55 @@
     [animationCell showContainFriendAnimation];
 }
 
+- (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    ZZGridCell *cell = [self cellForFriendModel:friendModel];
+    NSUInteger index = [self.gridView.itemsContainerView.items indexOfObject:cell];
+                        
+    if (index == NSNotFound)
+    {
+        return;
+    }
+    
+    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
+}
+
+- (void)hideDimScreen
+{
+    [self.gridView.itemsContainerView hideDimScreen];
+}
+
+- (ZZGridCell *)cellForFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    NSArray *items = self.gridView.itemsContainerView.items;
+    
+    __block ZZGridCell *result = nil;
+    
+    [items enumerateObjectsUsingBlock:^(ZZGridCell *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![obj isKindOfClass:[ZZGridCell class]])
+        {
+            return ;
+        }
+        
+        ZZGridCellViewModel *model = obj.model;
+        
+        if (![model isKindOfClass:[ZZGridCellViewModel class]])
+        {
+            return;
+        }
+        
+        if (![model.item.relatedUser isEqual:friendModel])
+        {
+            return;
+        }
+        
+        result = obj;
+        *stop = YES;
+    }];
+
+    return result;
+}
+
 - (BOOL)isGridRotating
 {
     return [self.touchObserver isGridRotate];

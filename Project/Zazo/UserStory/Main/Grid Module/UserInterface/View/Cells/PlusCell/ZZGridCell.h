@@ -15,5 +15,6 @@
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)hideAllAnimations;
 - (void)hideActiveBorder;
+- (void)setBadgesHidden:(BOOL)hidden;
 
 @end

@@ -12,4 +12,7 @@
 
 - (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount;
 
+- (void)showDimScreenForItemWithIndex:(NSUInteger)index;
+- (void)hideDimScreen;
+
 @end

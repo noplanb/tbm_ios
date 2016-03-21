@@ -459,6 +459,7 @@
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
+    [self.userInterface hideDimScreen];
 }
 
 
@@ -546,6 +547,7 @@
     
     if (state)
     {
+        [self.userInterface showDimScreenForFriendModel:model.item.relatedUser];        
         [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
     }
     else

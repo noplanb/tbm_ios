@@ -16,7 +16,6 @@
 - (void)stopPlaying;
 
 - (BOOL)isRecordingInProgress;
-- (void)attachToMenuPanGesture:(UIPanGestureRecognizer*)pan;
 - (void)hideHintIfNeeded;
 - (void)updatePositionForViewModels:(NSArray*)models;
 

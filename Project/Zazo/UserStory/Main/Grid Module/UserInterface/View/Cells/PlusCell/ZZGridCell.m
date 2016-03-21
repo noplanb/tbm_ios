@@ -12,6 +12,8 @@
 #import "ZZGridStateViewRecord.h"
 #import "ZZGridStateViewPreview.h"
 #import "ZZAddContactButton.h"
+#import "ZZSentBadge.h"
+#import "ZZNumberBadge.h"
 
 @class ZZAddContactButton;
 
@@ -52,6 +54,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
+        model.dimView = self;
         [self updateStateViewWithModel:model];
     });
 }
@@ -100,6 +103,13 @@ static CGFloat ZZCellBorderWidth = 4.0f;
         }
         
     });
+}
+
+- (void)setBadgesHidden:(BOOL)hidden
+{
+    CGFloat alpha = hidden ? 0 : 1;
+    self.stateView.sentBadge.alpha = alpha;
+    self.stateView.numberBadge.alpha = alpha;
 }
 
 - (void)_configureActiveBorderIfNeededWithModel:(ZZGridCellViewModel*)model

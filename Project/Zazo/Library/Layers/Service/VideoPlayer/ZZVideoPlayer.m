@@ -112,7 +112,6 @@
 
 - (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels
 {
-    
     [self _updateVideoPlayerStateIfNeeded];
     
     self.moviePlayerController.contentURL = nil;
