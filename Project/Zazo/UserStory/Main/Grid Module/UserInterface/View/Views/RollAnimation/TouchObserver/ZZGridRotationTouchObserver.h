@@ -25,5 +25,6 @@
 
 - (instancetype)initWithGridView:(ZZGridView*)gridView;
 - (BOOL)isGridRotate;
+- (void)placeCells;
 
 @end

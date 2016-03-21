@@ -54,7 +54,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-        model.dimView = self;
         [self updateStateViewWithModel:model];
     });
 }

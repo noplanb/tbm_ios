@@ -39,6 +39,8 @@
         
         self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
         self.touchObserver.delegate = self;
+        
+        self.gridView.itemsContainerView.touchObserver = self.touchObserver;
 
         [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
             return [value boolValue];
