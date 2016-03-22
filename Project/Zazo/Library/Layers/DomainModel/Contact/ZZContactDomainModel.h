@@ -13,12 +13,14 @@
 
 @interface ZZContactDomainModel : ANBaseDomainModel <ZZUserInterface>
 
-@property (nonatomic, copy) NSString* firstName;
-@property (nonatomic, copy) NSString* lastName;
-@property (nonatomic, strong) NSArray* phones;
-@property (nonatomic, strong) NSArray* emails;
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, copy) NSString *category;
 
-@property (nonatomic, strong) ZZCommunicationDomainModel* primaryPhone;
+@property (nonatomic, strong) NSArray *phones;
+@property (nonatomic, strong) NSArray *emails;
+
+@property (nonatomic, strong) ZZCommunicationDomainModel *primaryPhone;
 
 - (NSString*)fullName;
 - (ZZMenuContactType)contactType;

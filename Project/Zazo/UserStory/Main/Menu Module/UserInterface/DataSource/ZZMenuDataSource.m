@@ -9,6 +9,7 @@
 #import "ZZMenuDataSource.h"
 #import "ANMemoryStorage.h"
 #import "ANMemoryStorage+UpdateWithoutAnimations.h"
+#import "NSArray+ZZAdditions.h"
 
 @implementation ZZMenuDataSource
 
@@ -34,12 +35,21 @@
 
 - (void)setupAddressbookItems:(NSArray*)items
 {
-    ANDispatchBlockToMainQueue(^{
-        NSString* string = [NSString stringWithString:NSLocalizedString(@"menu.all-contacts.section.header.title.text", nil)];
-        [self.storage setSectionHeaderModel:string
-                            forSectionIndex:ZZMenuSectionsAddressbook];
+    
+    NSDictionary *groupedItems = [items zz_groupByKeyPath:@"category"];
+    NSArray *keys = [groupedItems allKeys];
+    keys = [keys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    
+    ANDispatchBlockToMainQueue(^{        
+        [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.storage setSectionHeaderModel:obj
+                                forSectionIndex:idx];
+            
+            [self _addItems:groupedItems[obj] toSection:idx];
+            
+        }];
     });
-    [self _addItems:items toSection:ZZMenuSectionsAddressbook];
+    
 }
 
 

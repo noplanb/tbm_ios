@@ -8,7 +8,7 @@
 
 #import "ZZMenuController.h"
 #import "ZZMenuDataSource.h"
-#import "ANBaseTableHeaderView.h"
+#import "ZZMenuTableHeaderView.h"
 
 @implementation ZZMenuController
 
@@ -18,9 +18,9 @@
     if (self)
     {
         self.tableView.rowHeight = 55.5;
-        self.tableView.sectionHeaderHeight = 60;
+        self.tableView.sectionHeaderHeight = 1;
         [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellViewModel class]];
-        [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];
+        [self registerHeaderClass:[ZZMenuTableHeaderView class] forModelClass:[NSString class]];
         self.displayHeaderOnEmptySection = NO;
     }
     return self;

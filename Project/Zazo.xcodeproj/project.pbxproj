@@ -257,6 +257,7 @@
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		0B6F69D89E12D07C3F133C76 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
 		0F1616006CECE1A43525C354 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
+		151EADA11CA18A9900CE0FDE /* ZZMenuTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */; };
 		152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158191C84932A00260AFD /* ZZRecordButtonView.m */; };
 		152158271C84932A00260AFD /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581C1C84932A00260AFD /* ZZDateLabel.m */; };
 		152158281C84932A00260AFD /* ZZGridCellGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581F1C84932A00260AFD /* ZZGridCellGradientView.m */; };
@@ -1275,6 +1276,8 @@
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
+		151EAD9F1CA18A9900CE0FDE /* ZZMenuTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuTableHeaderView.h; sourceTree = "<group>"; };
+		151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuTableHeaderView.m; sourceTree = "<group>"; };
 		152158181C84932A00260AFD /* ZZRecordButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordButtonView.h; sourceTree = "<group>"; };
 		152158191C84932A00260AFD /* ZZRecordButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordButtonView.m; sourceTree = "<group>"; };
 		1521581B1C84932A00260AFD /* ZZDateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDateLabel.h; sourceTree = "<group>"; };
@@ -4760,6 +4763,8 @@
 				795276471BA6B4AB00E506D5 /* ZZMenuCell.m */,
 				795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */,
 				795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */,
+				151EAD9F1CA18A9900CE0FDE /* ZZMenuTableHeaderView.h */,
+				151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5600,6 +5605,7 @@
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
+				151EADA11CA18A9900CE0FDE /* ZZMenuTableHeaderView.m in Sources */,
 				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,

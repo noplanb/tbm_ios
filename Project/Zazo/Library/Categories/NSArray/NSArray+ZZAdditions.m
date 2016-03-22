@@ -20,4 +20,32 @@
     }
 }
 
+- (NSDictionary *)zz_groupByKeyPath:(NSString *)keyPath
+{
+    NSArray *array = [self copy];
+    keyPath = [keyPath copy];
+    
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        id value = [obj valueForKeyPath:keyPath];
+        
+        if (!value)
+        {
+            return ;
+        }
+        
+        if (!result[value])
+        {
+            [result setObject:[NSMutableArray new] forKey:value];
+        }
+        
+        NSMutableArray *keyItems = result[value];
+        [keyItems addObject:obj];
+    }];
+    
+    return [result copy];
+}
+
 @end
