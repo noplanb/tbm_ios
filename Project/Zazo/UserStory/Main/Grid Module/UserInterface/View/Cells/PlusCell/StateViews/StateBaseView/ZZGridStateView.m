@@ -273,6 +273,7 @@
     }
     
     _sentBadge = [ZZSentBadge new];
+    _sentBadge.hidden = YES;
     [self addSubview:_sentBadge];
     
     [self updateSendBadgePosition];
