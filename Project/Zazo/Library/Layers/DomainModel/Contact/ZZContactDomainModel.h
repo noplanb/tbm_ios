@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSArray *phones;
 @property (nonatomic, strong) NSArray *emails;
+@property (nonatomic, strong) UIImage *thumbnail;
 
 @property (nonatomic, strong) ZZCommunicationDomainModel *primaryPhone;
 

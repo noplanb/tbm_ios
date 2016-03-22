@@ -144,6 +144,8 @@ static APAddressBook* _addressBook = nil;
             model = [ZZContactDomainModel modelWithFirstName:contact.name.firstName lastName:contact.name.lastName];
         }
         
+        model.thumbnail = contact.thumbnail;
+        
         NSArray* phones = [[contact.phones.rac_sequence map:^id(APPhone* value) {
             ZZCommunicationDomainModel* communication = [ZZCommunicationDomainModel new];
             communication.contact = value.number;

@@ -49,7 +49,7 @@ static UIImage* kImagePlaceholder = nil;
     self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
     if ([_item contactType] == ZZMenuContactTypeAddressbook)
     {
-        self.image = nil;
+        self.image = [item thumbnail];
     }
     else
     {

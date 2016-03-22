@@ -35,12 +35,11 @@
 
 - (void)setupAddressbookItems:(NSArray*)items
 {
-    
     NSDictionary *groupedItems = [items zz_groupByKeyPath:@"category"];
     NSArray *keys = [groupedItems allKeys];
     keys = [keys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     
-    ANDispatchBlockToMainQueue(^{        
+    ANDispatchBlockToMainQueue(^{
         [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.storage setSectionHeaderModel:obj
                                 forSectionIndex:idx];

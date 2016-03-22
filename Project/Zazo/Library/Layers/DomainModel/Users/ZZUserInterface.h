@@ -14,5 +14,6 @@
 - (NSString*)lastName;
 - (BOOL)hasApp;
 - (ZZMenuContactType)contactType;
+- (UIImage *)thumbnail;
 
 @end
