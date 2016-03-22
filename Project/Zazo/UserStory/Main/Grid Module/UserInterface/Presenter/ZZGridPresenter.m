@@ -31,6 +31,7 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZRootStateObserver.h"
 #import "ZZGridDataProvider.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZGridPresenter ()
 <
@@ -343,7 +344,7 @@
     if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.actionHandler hideHint];
-//        [self.wireframe toggleMenu];
+        [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
         [self.userInterface menuWasOpened];
     }
 }

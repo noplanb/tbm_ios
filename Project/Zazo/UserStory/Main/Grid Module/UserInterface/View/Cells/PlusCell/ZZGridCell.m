@@ -210,10 +210,10 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_itemSelected
 {
-    if (self.model.hasActiveContactIcon)
-    {
-        [self _hidePlusButtonAnimated];
-    }
+//    if (self.model.hasActiveContactIcon)
+//    {
+//        [self _hidePlusButtonAnimated];
+//    }
     
     [self.model itemSelected];
 }

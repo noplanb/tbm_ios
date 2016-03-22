@@ -9,6 +9,8 @@
 #import "ZZMainPresenter.h"
 #import "ZZMain.h"
 #import "ZZGridWireframe.h"
+#import "ZZGridPresenter.h"
+#import "ZZMenuPresenter.h"
 
 @interface ZZMainWireframe ()
 
@@ -31,11 +33,14 @@
 
     self.gridWireframe = [ZZGridWireframe new];
     self.menuWireframe = [ZZMenuWireframe new];
-    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.menuController];
-    mainController.activePageIndex = 1;
-
-    interactor.output = presenter;
     
+    self.gridWireframe.mainWireframe = self;
+    self.menuWireframe.mainWireframe = self;    
+    
+    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.menuController];
+    
+    self.menuWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
+    interactor.output = presenter;   
     mainController.eventHandler = presenter;
     
     presenter.interactor = interactor;
@@ -50,9 +55,9 @@
     self.mainController = mainController;
 }
 
-- (void)dismissMainController
+- (void)showTab:(ZZMainWireframeTab)tab
 {
-    [self.presentedController popViewControllerAnimated:YES];
+    self.presenter.activePageIndex = tab;
 }
 
 @end

@@ -12,7 +12,5 @@
 
 @property (nonatomic, strong) id<ZZMainModuleInterface> eventHandler;
 @property (nonatomic, strong) NSArray <UIViewController<ZZTabbarViewItem> *> *viewControllers;
-@property (nonatomic, assign) NSUInteger activePageIndex;
-
 
 @end

@@ -15,10 +15,8 @@
 
 @interface ZZMenuWireframe ()
 
-@property (nonatomic, strong) ZZMenuPresenter* presenter;
 @property (nonatomic, strong, readwrite) UIViewController* menuController;
-@property (nonatomic, strong) UIViewController* previousController;
-@property (nonatomic, copy) ANCodeBlock completionBlock;
+@property (nonatomic, strong, readwrite) ZZMenuPresenter* presenter;
 
 @end
 
@@ -26,10 +24,20 @@
 
 - (UIViewController *)menuController
 {
-    if (!_menuController) {
+    if (!_menuController)
+    {
         [self _setup];
     }
     return _menuController;
+}
+
+- (ZZMenuPresenter *)presenter
+{
+    if (!_presenter)
+    {
+        [self _setup];
+    }
+    return _presenter;
 }
 
 - (void)_setup

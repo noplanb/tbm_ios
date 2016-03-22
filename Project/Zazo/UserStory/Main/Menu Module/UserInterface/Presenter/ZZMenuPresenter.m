@@ -12,6 +12,7 @@
 #import "ZZMenuDataSource.h"
 #import "ZZContactsPermissionAlertBuilder.h"
 #import "ZZRootStateObserver.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZMenuPresenter ()
 <
@@ -23,6 +24,8 @@
 @end
 
 @implementation ZZMenuPresenter
+
+@synthesize menuModuleDelegate = _menuModuleDelegate;
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface
 {
@@ -119,7 +122,7 @@
 {   
     ZZMenuCellViewModel* model = (ZZMenuCellViewModel*)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
-//    [self.wireframe closeMenu];
+    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
     [self.interactor enableUpdateContactData];
 }
 

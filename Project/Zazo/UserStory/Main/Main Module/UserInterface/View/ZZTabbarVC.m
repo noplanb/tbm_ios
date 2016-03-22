@@ -41,6 +41,8 @@
     [self _scrollToActivePageIfNeededAnimated:NO];
 }
 
+@synthesize activePageIndex = _activePageIndex;
+
 - (void)setActivePageIndex:(NSUInteger)activePageIndex
 {
     if (_activePageIndex == activePageIndex)
@@ -73,10 +75,10 @@
         return;
     }
 
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:.5
                           delay:0
-         usingSpringWithDamping:50
-          initialSpringVelocity:20
+         usingSpringWithDamping:1
+          initialSpringVelocity:1
                         options:0
                      animations:changes
                      completion:nil];
