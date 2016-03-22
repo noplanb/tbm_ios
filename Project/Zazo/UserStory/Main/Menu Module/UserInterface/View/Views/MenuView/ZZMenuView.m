@@ -9,7 +9,7 @@
 #import "ZZMenuView.h"
 
 #pragma mark - Searchbar
-static CGFloat const kSearchBarHeight = 80;
+static CGFloat const kSearchBarHeight = 44;
 
 @implementation ZZMenuView
 
