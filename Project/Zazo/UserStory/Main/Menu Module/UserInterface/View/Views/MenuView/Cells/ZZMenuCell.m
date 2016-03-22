@@ -27,51 +27,51 @@ static CGFloat const kSeparatorHeight = 1;
     {
         self.backgroundColor = [UIColor clearColor];
 
-        UIView* bottomBorder = [UIView new];
-        bottomBorder.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
-        [self addSubview:bottomBorder];
-        
-        [bottomBorder mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).with.offset(kLeftOffset);
-            make.bottom.right.equalTo(self);
-            make.height.equalTo(@(kSeparatorHeight));
-        }];
-        UIView* topBorderView = [UIView new];
-        topBorderView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
-        [self addSubview:topBorderView];
-        
-        [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(bottomBorder.mas_left);
-            make.bottom.equalTo(bottomBorder.mas_top).with.offset(0);
-            make.right.equalTo(self);
-            make.height.equalTo(@(kSeparatorHeight));
-        }];
+//        UIView* bottomBorder = [UIView new];
+//        bottomBorder.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
+//        [self addSubview:bottomBorder];
+//        
+//        [bottomBorder mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self).with.offset(kLeftOffset);
+//            make.bottom.right.equalTo(self);
+//            make.height.equalTo(@(kSeparatorHeight));
+//        }];
+//        UIView* topBorderView = [UIView new];
+//        topBorderView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
+//        [self addSubview:topBorderView];
+//        
+//        [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(bottomBorder.mas_left);
+//            make.bottom.equalTo(bottomBorder.mas_top).with.offset(0);
+//            make.right.equalTo(self);
+//            make.height.equalTo(@(kSeparatorHeight));
+//        }];
     }
     return self;
 }
 
 - (void)updateConstraints
 {
-    if (ANIsEmpty(self.photoImageView.image))
-    {
-        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@0);
-        }];
-        
-        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right);
-        }];
-    }
-    else
-    {
-        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@36);
-        }];
-        
-        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right).with.offset(10);
-        }];
-    }
+//    if (ANIsEmpty(self.photoImageView.image))
+//    {
+//        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.width.equalTo(@0);
+//        }];
+//        
+//        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.photoImageView.mas_right);
+//        }];
+//    }
+//    else
+//    {
+//        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.width.equalTo(@36);
+//        }];
+//        
+//        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.photoImageView.mas_right).with.offset(10);
+//        }];
+//    }
     
     [super updateConstraints];
 }
@@ -94,11 +94,12 @@ static CGFloat const kSeparatorHeight = 1;
         _photoImageView = [UIImageView new];
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _photoImageView.backgroundColor = [UIColor clearColor];
+        _photoImageView.backgroundColor = [UIColor grayColor];
+        _photoImageView.layer.cornerRadius = 18;
         [self.contentView addSubview:_photoImageView];
         
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(20);
+            make.left.equalTo(self.contentView).offset(50);
             make.height.width.equalTo(@36);
             make.centerY.equalTo(self.contentView);
         }];
@@ -111,12 +112,12 @@ static CGFloat const kSeparatorHeight = 1;
     if (!_username)
     {
         _username = [UILabel new];
-        _username.font = [UIFont systemFontOfSize:18 weight:300];
-        _username.textColor = [UIColor an_colorWithHexString:@"a8a294"];
+        _username.font = [UIFont zz_regularFontWithSize:18];
+        _username.textColor = [UIColor blackColor];
         [self.contentView addSubview:_username];
         
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right).offset(10);
+            make.left.equalTo(self.photoImageView.mas_right).offset(20);
             make.right.equalTo(self.contentView).offset(-20);
             make.top.bottom.equalTo(self);
         }];
