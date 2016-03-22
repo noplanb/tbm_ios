@@ -214,7 +214,7 @@
 - (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user
 {
     ANDispatchBlockToMainQueue(^{
-        [[TBMTableModal shared] setupViewWithParentView:self.userInterface.view
+        [[TBMTableModal shared] setupViewWithParentView:[UIApplication sharedApplication].windows.firstObject.rootViewController.view
                                                   title:@"Choose phone number"
                                                 contact:user
                                                delegate:(id<TBMTableModalDelegate>)self];

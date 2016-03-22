@@ -219,6 +219,7 @@ static const CGFloat cancelButtonHeight = 45.f;
         frame.size.width = [self modalWidth];
         frame.size.height = [self modalHeight];
         _modalView = [[UIView alloc] initWithFrame:frame];
+        _modalView.center = self.parentView.center;
         _modalView.tag = self.modalTag;
         [_modalView addSubview:self.titleView];
         [_modalView addSubview:self.tableView];
