@@ -15,8 +15,10 @@ static UIImage* kImagePlaceholder = nil;
 
 @interface ZZMenuCellViewModel ()
 
-@property (nonatomic, strong) NSString* username;
-@property (nonatomic, strong) UIImage* image;
+@property (nonatomic, strong, readwrite) NSString *abbreviation;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *placeholderImageName;
 
 @end
 
@@ -47,9 +49,15 @@ static UIImage* kImagePlaceholder = nil;
 {
     _item = item;
     self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
+    
     if ([_item contactType] == ZZMenuContactTypeAddressbook)
     {
         self.image = [item thumbnail];
+        
+        if (!self.image)
+        {
+            self.abbreviation = [ZZUserPresentationHelper abbreviationWithFullname:self.username];
+        }
     }
     else
     {
@@ -60,7 +68,31 @@ static UIImage* kImagePlaceholder = nil;
 
 - (void)updateImageView:(UIImageView*)imageView
 {
-    imageView.image = self.image;
+    UIImage *image = self.image;
+    
+    if (!image)
+    {
+        image = [[UIImage imageNamed:self.placeholderImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        ZZColorPair *pair = [ZZColorPair randomPair];
+        imageView.backgroundColor = pair.backgroundColor;
+        imageView.tintColor = pair.tintColor;
+    }
+
+    imageView.image = image;
+    
+}
+
+- (NSString *)placeholderImageName
+{
+    if (!_placeholderImageName)
+    {
+        NSUInteger number = arc4random_uniform(4)+1;
+        _placeholderImageName = [NSString stringWithFormat:@"contact-pattern-%lu", (unsigned long)number];
+        
+    }
+    
+    return _placeholderImageName;
 }
 
 @end

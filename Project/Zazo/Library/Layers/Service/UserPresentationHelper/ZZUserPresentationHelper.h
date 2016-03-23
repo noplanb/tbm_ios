@@ -8,6 +8,7 @@
 
 @interface ZZUserPresentationHelper : NSObject
 
-+ (NSString*)fullNameWithFirstName:(NSString*)firstName lastName:(NSString*)lastName;
++ (NSString *)fullNameWithFirstName:(NSString*)firstName lastName:(NSString*)lastName;
++ (NSString *)abbreviationWithFullname:(NSString*)name;
 
 @end

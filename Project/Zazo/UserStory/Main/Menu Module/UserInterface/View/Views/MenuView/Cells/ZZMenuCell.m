@@ -8,14 +8,16 @@
 
 #import "ZZMenuCell.h"
 
-static CGFloat const kLeftOffset = 20;
-static CGFloat const kSeparatorHeight = 1;
+//static CGFloat const kLeftOffset = 20;
+//static CGFloat const kSeparatorHeight = 1;
 
 
 @interface ZZMenuCell ()
 
-@property (nonatomic, strong) UIImageView* photoImageView;
-@property (nonatomic, strong) UILabel* username;
+@property (nonatomic, strong) UIImageView *photoImageView;
+@property (nonatomic, strong) UILabel *username;
+@property (nonatomic, strong) UILabel *abbrevationLabel;
+
 
 @end
 
@@ -80,12 +82,32 @@ static CGFloat const kSeparatorHeight = 1;
 - (void)updateWithModel:(ZZMenuCellViewModel*)model
 {
     self.username.text = [model username];
+    self.abbrevationLabel.text = model.abbreviation;
+    
     [model updateImageView:self.photoImageView];
     [self setNeedsUpdateConstraints];
 }
 
 
 #pragma mark - Lazy Load
+
+- (UILabel *)abbrevationLabel
+{
+    if (!_abbrevationLabel)
+    {
+        _abbrevationLabel = [UILabel new];
+        _abbrevationLabel.font = [UIFont zz_regularFontWithSize:18];
+        _abbrevationLabel.textColor = [UIColor whiteColor];
+        _abbrevationLabel.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_abbrevationLabel];
+        
+        [_abbrevationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.photoImageView);
+        }];
+    }
+    return _abbrevationLabel;
+
+}
 
 - (UIImageView*)photoImageView
 {

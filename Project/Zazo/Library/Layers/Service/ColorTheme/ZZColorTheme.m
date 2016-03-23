@@ -77,9 +77,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
         
         self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
 
-//        self.gridCellBackgroundColor1 = [UIColor an_colorWithHexString:@"#3f51b5"];
-//        self.gridCellTintColor1 = [UIColor an_colorWithHexString:@"#1a237e"];
-        
         self.gridCellBackgroundColor1 = [UIColor an_colorWithHexString:@"#1871ca"];
         self.gridCellTintColor1 = [UIColor an_colorWithHexString:@"#0d46a0"];
         

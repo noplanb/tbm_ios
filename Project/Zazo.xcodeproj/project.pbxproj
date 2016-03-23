@@ -284,6 +284,11 @@
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
 		15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
+		15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */; };
+		15BA1DA41CA2D4CB00EAD614 /* contact-pattern-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */; };
+		15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */; };
+		15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */; };
+		15BA1DA91CA2D60800EAD614 /* ZZColorPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FD4BD21C8589E300DB24BE /* ZZHoldIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD4BD11C8589E300DB24BE /* ZZHoldIndicator.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
@@ -1323,6 +1328,12 @@
 		15ACCB731C8089220025798A /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
 		15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZLoadingAnimationView.h; sourceTree = "<group>"; };
 		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
+		15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-1.png"; sourceTree = "<group>"; };
+		15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-2.png"; sourceTree = "<group>"; };
+		15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-3.png"; sourceTree = "<group>"; };
+		15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-4.png"; sourceTree = "<group>"; };
+		15BA1DA71CA2D60800EAD614 /* ZZColorPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZColorPair.h; sourceTree = "<group>"; };
+		15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZColorPair.m; sourceTree = "<group>"; };
 		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
 		15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDispatchHelper.h; sourceTree = "<group>"; };
 		15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDispatchHelper.m; sourceTree = "<group>"; };
@@ -2219,6 +2230,8 @@
 			children = (
 				07636B8C1BA49A0100925671 /* ZZColorTheme.h */,
 				07636B8D1BA49A0100925671 /* ZZColorTheme.m */,
+				15BA1DA71CA2D60800EAD614 /* ZZColorPair.h */,
+				15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */,
 			);
 			path = ColorTheme;
 			sourceTree = "<group>";
@@ -2427,6 +2440,10 @@
 		07636BDB1BA49A0100925671 /* contacts */ = {
 			isa = PBXGroup;
 			children = (
+				15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */,
+				15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */,
+				15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */,
+				15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */,
 				182BCF671BB6D76100C45D2F /* contacts-placeholder-withoutborder2.pdf */,
 				182BCF651BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf */,
 				07636BDC1BA49A0100925671 /* contacts-placeholder.pdf */,
@@ -5015,10 +5032,13 @@
 				1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				07636E871BA49A0100925671 /* navbar_btn_close.pdf in Resources */,
+				15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */,
 				07636E8B1BA49A0100925671 /* ANGeneralErrorLocalizable.strings in Resources */,
 				07636DFD1BA49A0100925671 /* Images.xcassets in Resources */,
 				07636E8A1BA49A0100925671 /* navbar_btn_more.pdf in Resources */,
+				15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */,
 				07636DFB1BA49A0100925671 /* FeatureUnlock.wav in Resources */,
+				15BA1DA41CA2D4CB00EAD614 /* contact-pattern-2.png in Resources */,
 				07636E771BA49A0100925671 /* icon_arrow.pdf in Resources */,
 				182BCF661BB6D3AA00C45D2F /* contacts-placeholder_withoutborder.pdf in Resources */,
 				07636E8D1BA49A0100925671 /* Localizable.strings in Resources */,
@@ -5050,6 +5070,7 @@
 				07636E881BA49A0100925671 /* navbar_btn_done.pdf in Resources */,
 				07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */,
 				07636DFC1BA49A0100925671 /* head.png in Resources */,
+				15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */,
 				07636E7F1BA49A0100925671 /* icon_zazo.pdf in Resources */,
 				07636E701BA49A0100925671 /* edit-friends-user-has-app.pdf in Resources */,
 				07636E8C1BA49A0100925671 /* ANServerErrorLocalizable.strings in Resources */,
@@ -5740,6 +5761,7 @@
 				07636EDE1BA49A0100925671 /* ZZStartPresenter.m in Sources */,
 				152796251C8715290054D3D4 /* ZZGridStateView+Animation.m in Sources */,
 				07636EA61BA49A0100925671 /* ZZSecretScreenTextEditCellViewModel.m in Sources */,
+				15BA1DA91CA2D60800EAD614 /* ZZColorPair.m in Sources */,
 				7997E4F81BAABE85001697D5 /* JFMinimalNotificationArt.m in Sources */,
 				07636E1A1BA49A0100925671 /* main.m in Sources */,
 				07636E491BA49A0100925671 /* ZZAddressBookDataProvider.m in Sources */,

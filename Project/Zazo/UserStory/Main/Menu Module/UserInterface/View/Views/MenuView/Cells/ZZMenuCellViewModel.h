@@ -14,7 +14,8 @@
 
 + (instancetype)viewModelWithItem:(id<ZZUserInterface>)item;
 
-- (NSString*)username;
-- (void)updateImageView:(UIImageView*)imageView;
+@property (nonatomic, strong, readonly) NSString *abbreviation;
+- (NSString *)username;
+- (void)updateImageView:(UIImageView *)imageView;
 
 @end

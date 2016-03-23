@@ -7,6 +7,7 @@
 //
 
 #import "ANColorTheme.h"
+#import "ZZColorPair.h"
 
 @interface ZZColorTheme : ANColorTheme
 
