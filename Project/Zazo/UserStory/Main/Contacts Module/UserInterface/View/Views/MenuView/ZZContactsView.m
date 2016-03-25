@@ -17,9 +17,9 @@ static CGFloat const kSearchBarHeight = 44;
 {
     if (self = [super init])
     {
-//        self.backgroundColor = [ZZColorTheme shared].gridMenuColor;
-        [self searchBar];
+
         [self tableView];
+        [self searchBar];
     }
     return self;
 }
@@ -45,26 +45,36 @@ static CGFloat const kSearchBarHeight = 44;
 {
     if (!_searchBar)
     {
-//        [[UISearchBar appearance] setBackgroundImage:[UIImage new]];
-//        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-//         setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
-//                                    NSFontAttributeName: [UIFont zz_lightFontWithSize:16]}];
-        
-//        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-//         setTintColor:[UIColor whiteColor]];
-//        
-//        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-//         setTextColor:[UIColor whiteColor]];
-        
         _searchBar = [UISearchBar new];
         [self seapratorViewsWithSearchBar:_searchBar];
         _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-//        [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"searchbar"] forState:UIControlStateNormal];
+
         [self addSubview:_searchBar];
         [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.equalTo(self);
             make.height.equalTo(@(kSearchBarHeight));
         }];
+        
+        _searchBar.backgroundColor = [UIColor whiteColor];
+        _searchBar.barTintColor = [UIColor whiteColor];
+        _searchBar.translucent = NO;
+        
+        _searchBar.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        _searchBar.layer.shadowRadius = 2.0f;
+        _searchBar.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
+        _searchBar.layer.shadowOpacity = 1.0f;
+                
+        UITextField *searchTextField = [_searchBar valueForKey:@"_searchField"];
+        
+        searchTextField.backgroundColor = [UIColor whiteColor];
+        searchTextField.leftViewMode = UITextFieldViewModeNever;
+        searchTextField.rightViewMode = UITextFieldViewModeNever;
+        searchTextField.borderStyle = UITextBorderStyleNone;
+        
+        searchTextField.layer.borderColor = [UIColor clearColor].CGColor;
+        searchTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
+
+        
     }
     return _searchBar;
 }

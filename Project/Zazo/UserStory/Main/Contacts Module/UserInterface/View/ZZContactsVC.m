@@ -19,6 +19,8 @@
 
 @implementation ZZContactsVC
 
+@dynamic tabbarViewItemImage;
+
 - (instancetype)init
 {
     self = [super init];
