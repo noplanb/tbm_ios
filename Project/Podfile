@@ -58,8 +58,8 @@ target 'Zazo' do
     pod 'Rollbar', '~> 0.1.5'
 
     pod 'AFNetworking', '~> 2.6.0'
-    pod 'OBLogger', '~> 0.2.2'
-    pod 'OBFileTransfer', '0.8.1'
+    pod 'OBLogger', '~> 0.3.0'
+    pod 'OBFileTransfer', '0.9.2'
     #:path => '~/Development/OBFileTransfer/' #'~> 0.5.7'
     pod 'UIAlertView+Blocks', '~> 0.9'
     pod 'SDCAlertView', '~> 2.5.2'

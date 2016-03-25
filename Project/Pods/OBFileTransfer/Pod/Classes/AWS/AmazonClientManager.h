@@ -28,10 +28,11 @@
 +(AmazonS3Client *)s3;
 +(void)setTvmServerUrl: (NSString *) tvmServerUrl;
 +(void)setNoTvmCredentials:(AmazonCredentials *)credentials;
-+(void)setRegion: (AmazonRegion) region;
++(void)setRegion: (AmazonRegion)region;
++(void)setTimeOffset:(NSTimeInterval)offset;
 +(Response *)validateCredentials;
 +(void)wipeAllCredentials;
-+ (BOOL)wipeCredentialsOnAuthError:(NSError *)error;
++(BOOL)wipeCredentialsOnAuthError:(NSError *)error;
 
 +(NSString *)securityToken;
 

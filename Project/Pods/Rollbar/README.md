@@ -9,7 +9,7 @@ Objective-C library for crash reporting and logging with [Rollbar](https://rollb
 
 In your Podfile:
 
-    pod "Rollbar", "~> 0.1.5"
+    pod "Rollbar", "~> 0.1.6"
 
 Make sure to declare your platform as `ios` at the top of your Podfile. E.g:
 
@@ -17,7 +17,7 @@ Make sure to declare your platform as `ios` at the top of your Podfile. E.g:
 
 ### Without Cocoapods
 
-1. Download the [Rollbar framework](https://github.com/rollbar/rollbar-ios/releases/download/v0.1.5/Rollbar.zip).
+1. Download the [Rollbar framework](https://github.com/rollbar/rollbar-ios/releases/download/v0.1.6/Rollbar.zip).
 
 2. Extract the Rollbar directory in the zip file to your Xcode project directory.
 
@@ -47,6 +47,12 @@ That's all you need to do to report crashes to Rollbar. To get symbolicated stac
 Crashes will be saved to disk when they occur, then reported to Rollbar the next time the app is launched.
 
 Rollbar uses [PLCrashReporter](https://www.plcrashreporter.org/) to capture uncaught exceptions and fatal signals. Note that only one crash reporter can be active per app. If you initialize multiple crash reporters (i.e. Rollbar alongside other services), only the last one initialized will be active.
+
+### Bitcode
+
+Bitcode is an intermediate representation of a compiled iOS/watchOS program.  Apps you upload to iTunes Connect that contain bitcode will be compiled and linked on the App Store. Including bitcode will allow Apple to re-optimize your app binary in the future without the need to submit a new version of your app to the store.
+
+PLCrashReporter does not yet support symbolicating apps built with bitcode. Until a version of PLCrashReporter is available that supports symbolication with bitcode enabled, you'll need to disable bitcode in your project for Rollbar to be able to symbolicate your crash reports.
 
 ### Logging
 
@@ -143,14 +149,16 @@ dsym_file_path = os.path.join(os.environ['DWARF_DSYM_FOLDER_PATH'], os.environ['
 zip_location = '%s.zip' % (dsym_file_path)
 
 os.chdir(os.environ['DWARF_DSYM_FOLDER_PATH'])
-with zipfile.ZipFile(zip_location, 'w') as zipf:
+with zipfile.ZipFile(zip_location, 'w', zipfile.ZIP_DEFLATED) as zipf:
     for root, dirs, files in os.walk(os.environ['DWARF_DSYM_FILE_NAME']):
         zipf.write(root)
 
         for f in files:
             zipf.write(os.path.join(root, f))
 
+# You may need to change the following path to match your application settings and Xcode version
 info_file_path = os.path.join(os.environ['INSTALL_DIR'], os.environ['INFOPLIST_PATH'])
+
 p = subprocess.Popen('/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" -c "Print :CFBundleIdentifier" "%s"' % info_file_path,
                      stdout=subprocess.PIPE, shell=True)
 
@@ -163,6 +171,17 @@ p.communicate()
 ```
 
   Note: make sure you replace `POST_SERVER_ITEM_ACCESS_TOKEN` with a server scope access token from your project in Rollbar.
+
+  Note: This script will read your application version and idenfier information from the plist file found at ```info_file_path```. Depending
+  on your project settings and the version of Xcode you're using, this file may be in any of the following locations:
+
+  - $INSTALL_DIR/$INFOPLIST_PATH
+  - $BUILT_PRODUCTS_DIR/$INFOPLIST_PATH
+  - $SOURCE_ROUTE/$INFOPLIST_PATH
+  - $TARGET_BUILD_DIR/$INFOPLIST_PATH
+  - $CONFIGURATION_BUILD_DIR/$INFOPLIST_PATH
+  - $INFOPLIST_FILE
+  - $PRODUCT_SETTINGS_PATH
 
 
 ## Developing and building the library ##

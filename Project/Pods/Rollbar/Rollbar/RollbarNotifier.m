@@ -15,7 +15,7 @@
 #include <sys/utsname.h>
 
 
-static NSString *NOTIFIER_VERSION = @"0.1.5";
+static NSString *NOTIFIER_VERSION = @"0.1.6";
 static NSString *QUEUED_ITEMS_FILE_NAME = @"rollbar.items";
 static NSString *STATE_FILE_NAME = @"rollbar.state";
 
@@ -205,12 +205,12 @@ static BOOL isNetworkReachable = YES;
 - (NSDictionary*)buildClientData {
     NSNumber *timestamp = [NSNumber numberWithInteger:[[NSDate date] timeIntervalSince1970]]
     ;
-    NSDictionary *infoDictionary = [[NSBundle mainBundle]infoDictionary];
+    NSBundle *mainBundle = [NSBundle mainBundle];
     
-    NSString *version = infoDictionary[(NSString*)kCFBundleVersionKey];
-    NSString *shortVersion = infoDictionary[@"CFBundleShortVersionString"];
-    NSString *bundleName = infoDictionary[(NSString *)kCFBundleNameKey];
-    NSString *bundleIdentifier = infoDictionary[(NSString *)kCFBundleIdentifierKey];
+    NSString *version = [mainBundle objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey];
+    NSString *shortVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *bundleName = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+    NSString *bundleIdentifier = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
     
     struct utsname systemInfo;
     uname(&systemInfo);
