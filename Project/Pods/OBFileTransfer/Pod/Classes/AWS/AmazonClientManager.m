@@ -14,11 +14,11 @@
  */
 
 #import "AmazonClientManager.h"
-
-
 #import "AmazonKeyChainWrapper.h"
 #import "AmazonTVMClient.h"
 #import "OBLogger.h"
+#import <AWSRuntime/AmazonSDKUtil.h>
+#import "OBSystemTimeObserver.h"
 
 static AmazonS3Client       *s3  = nil;
 static AmazonTVMClient      * _tvm = nil;
@@ -32,13 +32,25 @@ NSString * const kAmazonTokenHeader = @"x-amz-security-token";
 
 @implementation AmazonClientManager
 
-+(AmazonS3Client *)s3
++ (AmazonS3Client *)s3
 {
     [AmazonClientManager validateCredentials];
+    [self observeClockChanges];
     return s3;
 }
 
-+(void)setTvmServerUrl: (NSString *) tvmServerUrl;
++ (void)observeClockChanges
+{
+    static OBSystemTimeObserver *observer;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        observer = [OBSystemTimeObserver new];
+        [observer startObserving];
+    });
+}
+
++ (void)setTvmServerUrl: (NSString *) tvmServerUrl;
 {
     if (tvmServerUrl == nil || [tvmServerUrl isEqualToString:@""]){
         OB_INFO(@"Using S3 without TokenVendingMachine");
@@ -65,6 +77,11 @@ NSString * const kAmazonTokenHeader = @"x-amz-security-token";
 +(void) setRegion: (AmazonRegion) region
 {
     _awsRegion = region;
+}
+
++(void)setTimeOffset:(NSTimeInterval)offset
+{
+    [AmazonSDKUtil setRuntimeClockSkew:offset];
 }
 
 +(Response *)validateCredentials
