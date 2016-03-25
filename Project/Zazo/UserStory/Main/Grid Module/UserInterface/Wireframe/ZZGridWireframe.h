@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZMenuWireframe.h"
+#import "ZZContactsWireframe.h"
 #import "ANMessageDomainModel.h"
 
 @class ZZGridPresenter;

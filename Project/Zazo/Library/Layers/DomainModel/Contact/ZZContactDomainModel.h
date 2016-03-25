@@ -8,7 +8,7 @@
 
 #import "ANBaseDomainModel.h"
 #import "ZZUserInterface.h"
-#import "ZZMenuEnumsAdditions.h"
+#import "ZZContactEnumsAdditions.h"
 #import "ZZCommunicationDomainModel.h"
 
 @interface ZZContactDomainModel : ANBaseDomainModel <ZZUserInterface>

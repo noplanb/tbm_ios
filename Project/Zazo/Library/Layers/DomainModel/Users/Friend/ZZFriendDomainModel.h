@@ -9,7 +9,7 @@
 #import "ZZBaseDomainModel.h"
 #import "ZZUserInterface.h"
 #import "ZZEditFriendEnumsAdditions.h"
-#import "ZZMenuEnumsAdditions.h"
+#import "ZZContactEnumsAdditions.h"
 #import "ZZVideoStatuses.h"
 
 @class FEMObjectMapping, ZZVideoDomainModel;

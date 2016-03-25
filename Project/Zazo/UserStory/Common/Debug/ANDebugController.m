@@ -10,7 +10,7 @@
 #import "ANBaseListTableCell.h"
 #import "ZZAuthWireframe.h"
 #import "ZZGridWireframe.h"
-#import "ZZMenuWireframe.h"
+#import "ZZContactsWireframe.h"
 #import "ZZEditFriendListWireframe.h"
 #import "ZZSecretWireframe.h"
 #import "ZZDebugStateWireframe.h"
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, ANSections)
     ZZAuthController,
     ZZGridController,
     ZZStateController,
-    ZZMenuController,
+    ZZContactsController,
     ZZEditFriendsController,
     ZZSecretController
 };
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, ANSections)
             [wireframe presentDebugStateControllerFromNavigationController:self.rootController.navigationController];
         } break;
             
-        case ZZMenuController:
+        case ZZContactsController:
         {
             
         } break;

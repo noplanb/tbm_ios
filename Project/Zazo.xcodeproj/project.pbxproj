@@ -180,13 +180,13 @@
 		07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE51BA49A0100925671 /* ZZGridRotationTouchObserver.m */; };
 		07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE81BA49A0100925671 /* ZZGridVC.m */; };
 		07636ED31BA49A0100925671 /* ZZGridWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CEC1BA49A0100925671 /* ZZGridWireframe.m */; };
-		07636ED41BA49A0100925671 /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZMenuInteractor.m */; };
-		07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZMenuDataSource.m */; };
-		07636ED61BA49A0100925671 /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */; };
-		07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZMenuView.m */; };
-		07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZMenuController.m */; };
-		07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZMenuVC.m */; };
-		07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */; };
+		07636ED41BA49A0100925671 /* ZZContactsInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZContactsInteractor.m */; };
+		07636ED51BA49A0100925671 /* ZZContactsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZContactsDataSource.m */; };
+		07636ED61BA49A0100925671 /* ZZContactsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZContactsPresenter.m */; };
+		07636ED71BA49A0100925671 /* ZZContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZContactsView.m */; };
+		07636EDA1BA49A0100925671 /* ZZContactsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZContactsController.m */; };
+		07636EDB1BA49A0100925671 /* ZZContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZContactsVC.m */; };
+		07636EDC1BA49A0100925671 /* ZZContactsWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZContactsWireframe.m */; };
 		07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D121BA49A0100925671 /* ZZStartInteractor.m */; };
 		07636EDE1BA49A0100925671 /* ZZStartPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1A1BA49A0100925671 /* ZZStartPresenter.m */; };
 		07636EDF1BA49A0100925671 /* ZZStartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1D1BA49A0100925671 /* ZZStartVC.m */; };
@@ -257,7 +257,7 @@
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
 		0B6F69D89E12D07C3F133C76 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
 		0F1616006CECE1A43525C354 /* libPods-Zazo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E41E78697128F1939352F7 /* libPods-Zazo.a */; };
-		151EADA11CA18A9900CE0FDE /* ZZMenuTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */; };
+		151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */; };
 		152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158191C84932A00260AFD /* ZZRecordButtonView.m */; };
 		152158271C84932A00260AFD /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581C1C84932A00260AFD /* ZZDateLabel.m */; };
 		152158281C84932A00260AFD /* ZZGridCellGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581F1C84932A00260AFD /* ZZGridCellGradientView.m */; };
@@ -316,7 +316,7 @@
 		1822545B1C16CA06003885A3 /* NSError+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */; };
 		1822545C1C16CA06003885A3 /* ZZGridDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B311BA49A0100925671 /* ZZGridDomainModel.m */; };
 		1822545D1C16CA06003885A3 /* ZZGridCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB31BA49A0100925671 /* ZZGridCenterCell.m */; };
-		1822545E1C16CA06003885A3 /* ZZMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZMenuView.m */; };
+		1822545E1C16CA06003885A3 /* ZZContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D011BA49A0100925671 /* ZZContactsView.m */; };
 		1822545F1C16CA06003885A3 /* ZZGridInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CA01BA49A0100925671 /* ZZGridInteractor.m */; };
 		182254601C16CA06003885A3 /* ZZRotator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE21BA49A0100925671 /* ZZRotator.m */; };
 		182254611C16CA06003885A3 /* ZZS3CredentialsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B341BA49A0100925671 /* ZZS3CredentialsDomainModel.m */; };
@@ -365,7 +365,7 @@
 		1822548D1C16CA06003885A3 /* ZZGridCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CCA1BA49A0100925671 /* ZZGridCellViewModel.m */; };
 		1822548E1C16CA06003885A3 /* ZZBaseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1C9D1BC51A4600044F83 /* ZZBaseEventHandler.m */; };
 		1822548F1C16CA06003885A3 /* ZZEditFriendCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C911BA49A0100925671 /* ZZEditFriendCellViewModel.m */; };
-		182254901C16CA06003885A3 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
+		182254901C16CA06003885A3 /* ZZContactCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZContactCellViewModel.m */; };
 		182254911C16CA06003885A3 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B671BA49A0100925671 /* TBMGridElement.m */; };
 		182254921C16CA06003885A3 /* ZZSecretInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C511BA49A0100925671 /* ZZSecretInteractor.m */; };
 		182254931C16CA06003885A3 /* ZZAccountTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B431BA49A0100925671 /* ZZAccountTransport.m */; };
@@ -386,7 +386,7 @@
 		182254A21C16CA06003885A3 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
 		182254A31C16CA06003885A3 /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */; };
 		182254A41C16CA06003885A3 /* ZZNotificationTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B591BA49A0100925671 /* ZZNotificationTransportService.m */; };
-		182254A51C16CA06003885A3 /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZMenuInteractor.m */; };
+		182254A51C16CA06003885A3 /* ZZContactsInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZContactsInteractor.m */; };
 		182254A61C16CA06003885A3 /* ANCrashlyticsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D451BA49A0100925671 /* ANCrashlyticsAdapter.m */; };
 		182254A71C16CA06003885A3 /* ZZGridStateViewRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC61BA49A0100925671 /* ZZGridStateViewRecord.m */; };
 		182254A81C16CA06003885A3 /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; };
@@ -420,7 +420,7 @@
 		182254C51C16CA06003885A3 /* ZZRootWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AF81BA49A0100925671 /* ZZRootWireframe.m */; };
 		182254C61C16CA06003885A3 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */; };
 		182254C71C16CA06003885A3 /* ZZRollbarAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90121BD43CEB001A4718 /* ZZRollbarAdapter.m */; };
-		182254C81C16CA06003885A3 /* ZZMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZMenuVC.m */; };
+		182254C81C16CA06003885A3 /* ZZContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D091BA49A0100925671 /* ZZContactsVC.m */; };
 		182254C91C16CA06003885A3 /* ZZGridStateViewPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC31BA49A0100925671 /* ZZGridStateViewPreview.m */; };
 		182254CA1C16CA06003885A3 /* ZZSentWelcomeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */; };
 		182254CB1C16CA06003885A3 /* NSArray+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */; };
@@ -433,7 +433,7 @@
 		182254D21C16CA06003885A3 /* ZZGridModelsMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1C1BA49A0100925671 /* ZZGridModelsMapper.m */; };
 		182254D31C16CA06003885A3 /* ANEnumAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D791BA49A0100925671 /* ANEnumAdditions.m */; };
 		182254D41C16CA06003885A3 /* ZZTouchControllerWithTouchDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BAB1BA49A0100925671 /* ZZTouchControllerWithTouchDelay.m */; };
-		182254D51C16CA06003885A3 /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */; };
+		182254D51C16CA06003885A3 /* ZZContactsPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CFC1BA49A0100925671 /* ZZContactsPresenter.m */; };
 		182254D61C16CA06003885A3 /* ZZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */; };
 		182254D71C16CA06003885A3 /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */; };
 		182254D81C16CA06003885A3 /* UIView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA61BA49A0100925671 /* UIView+Image.m */; };
@@ -473,7 +473,7 @@
 		182254FB1C16CA06003885A3 /* ZZGeometryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CDA1BA49A0100925671 /* ZZGeometryHelper.m */; };
 		182254FC1C16CA06003885A3 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CBE1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m */; };
 		182254FD1C16CA06003885A3 /* ZZSecretVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C731BA49A0100925671 /* ZZSecretVC.m */; };
-		182254FE1C16CA06003885A3 /* ZZMenuWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */; };
+		182254FE1C16CA06003885A3 /* ZZContactsWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D0D1BA49A0100925671 /* ZZContactsWireframe.m */; };
 		182254FF1C16CA06003885A3 /* ZZVideoDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 184504F91BE12CC800C9C89B /* ZZVideoDataUpdater.m */; };
 		182255001C16CA06003885A3 /* ZZGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CD11BA49A0100925671 /* ZZGridView.m */; };
 		182255011C16CA06003885A3 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
@@ -515,7 +515,7 @@
 		182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C591BA49A0100925671 /* ZZSecretDataSource.m */; };
 		182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B541BA49A0100925671 /* ZZRemoteStorageTransportService.m */; };
 		182255271C16CA06003885A3 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
-		182255281C16CA06003885A3 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
+		182255281C16CA06003885A3 /* ZZContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZContactCell.m */; };
 		182255291C16CA06003885A3 /* ZZCommonNetworkTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4A1BA49A0100925671 /* ZZCommonNetworkTransportService.m */; };
 		1822552A1C16CA06003885A3 /* ZZContentDataAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F52E021BFCAB6100042AAC /* ZZContentDataAccessor.m */; };
 		1822552B1C16CA06003885A3 /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; };
@@ -532,7 +532,7 @@
 		182255361C16CA06003885A3 /* ZZAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B831BA49A0100925671 /* ZZAlertBuilder.m */; };
 		182255371C16CA06003885A3 /* ZZGridDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E042AE1BBC2A3300318C6F /* ZZGridDataUpdater.m */; };
 		182255381C16CA06003885A3 /* UIImage+ANDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636AFD1BA49A0100925671 /* UIImage+ANDefault.m */; };
-		182255391C16CA06003885A3 /* ZZMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZMenuDataSource.m */; };
+		182255391C16CA06003885A3 /* ZZContactsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF91BA49A0100925671 /* ZZContactsDataSource.m */; };
 		1822553A1C16CA06003885A3 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F61BAABE85001697D5 /* UIView+Round.m */; };
 		1822553B1C16CA06003885A3 /* ZZHintsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D781BB03359007E1CBF /* ZZHintsConstants.m */; };
 		1822553C1C16CA06003885A3 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
@@ -548,7 +548,7 @@
 		182255461C16CA06003885A3 /* ZZStartInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D121BA49A0100925671 /* ZZStartInteractor.m */; };
 		182255471C16CA06003885A3 /* ZZCommonNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B481BA49A0100925671 /* ZZCommonNetworkTransport.m */; };
 		182255481C16CA06003885A3 /* ZZStartWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D231BA49A0100925671 /* ZZStartWireframe.m */; };
-		182255491C16CA06003885A3 /* ZZMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZMenuController.m */; };
+		182255491C16CA06003885A3 /* ZZContactsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D071BA49A0100925671 /* ZZContactsController.m */; };
 		1822554A1C16CA06003885A3 /* ANError.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D741BA49A0100925671 /* ANError.m */; };
 		1822554B1C16CA06003885A3 /* ZZDebugSettingsStateDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7181BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m */; };
 		1822554C1C16CA06003885A3 /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
@@ -709,8 +709,8 @@
 		79123D861BB14F8E007E1CBF /* ZZHintsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D851BB14F8E007E1CBF /* ZZHintsViewModel.m */; };
 		79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */; };
 		79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */; };
-		7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZMenuCell.m */; };
-		7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */; };
+		7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276471BA6B4AB00E506D5 /* ZZContactCell.m */; };
+		7952764B1BA6B4AB00E506D5 /* ZZContactCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 795276491BA6B4AB00E506D5 /* ZZContactCellViewModel.m */; };
 		7952764E1BA71F2700E506D5 /* camera-icon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7952764D1BA71F2700E506D5 /* camera-icon.pdf */; };
 		7997E4EB1BAABE2F001697D5 /* ZZGridActionStoredSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */; };
 		7997E4F71BAABE85001697D5 /* JFMinimalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4EE1BAABE85001697D5 /* JFMinimalNotification.m */; };
@@ -1120,24 +1120,24 @@
 		07636CE91BA49A0100925671 /* ZZGridViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridViewInterface.h; sourceTree = "<group>"; };
 		07636CEB1BA49A0100925671 /* ZZGridWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZGridWireframe.h; sourceTree = "<group>"; };
 		07636CEC1BA49A0100925671 /* ZZGridWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridWireframe.m; sourceTree = "<group>"; };
-		07636CF01BA49A0100925671 /* ZZMenuInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuInteractor.h; sourceTree = "<group>"; };
-		07636CF11BA49A0100925671 /* ZZMenuInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuInteractor.m; sourceTree = "<group>"; };
-		07636CF21BA49A0100925671 /* ZZMenuInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuInteractorIO.h; sourceTree = "<group>"; };
-		07636CF41BA49A0100925671 /* ZZMenuModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuModuleDelegate.h; sourceTree = "<group>"; };
-		07636CF51BA49A0100925671 /* ZZMenuModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuModuleInterface.h; sourceTree = "<group>"; };
-		07636CF81BA49A0100925671 /* ZZMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuDataSource.h; sourceTree = "<group>"; };
-		07636CF91BA49A0100925671 /* ZZMenuDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuDataSource.m; sourceTree = "<group>"; };
-		07636CFB1BA49A0100925671 /* ZZMenuPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuPresenter.h; sourceTree = "<group>"; };
-		07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuPresenter.m; sourceTree = "<group>"; };
-		07636D001BA49A0100925671 /* ZZMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuView.h; sourceTree = "<group>"; };
-		07636D011BA49A0100925671 /* ZZMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuView.m; sourceTree = "<group>"; };
-		07636D061BA49A0100925671 /* ZZMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuController.h; sourceTree = "<group>"; };
-		07636D071BA49A0100925671 /* ZZMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuController.m; sourceTree = "<group>"; };
-		07636D081BA49A0100925671 /* ZZMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuVC.h; sourceTree = "<group>"; };
-		07636D091BA49A0100925671 /* ZZMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuVC.m; sourceTree = "<group>"; };
-		07636D0A1BA49A0100925671 /* ZZMenuViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuViewInterface.h; sourceTree = "<group>"; };
-		07636D0C1BA49A0100925671 /* ZZMenuWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuWireframe.h; sourceTree = "<group>"; };
-		07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuWireframe.m; sourceTree = "<group>"; };
+		07636CF01BA49A0100925671 /* ZZContactsInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsInteractor.h; sourceTree = "<group>"; };
+		07636CF11BA49A0100925671 /* ZZContactsInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsInteractor.m; sourceTree = "<group>"; };
+		07636CF21BA49A0100925671 /* ZZContactsInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsInteractorIO.h; sourceTree = "<group>"; };
+		07636CF41BA49A0100925671 /* ZZContactsModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsModuleDelegate.h; sourceTree = "<group>"; };
+		07636CF51BA49A0100925671 /* ZZContactsModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsModuleInterface.h; sourceTree = "<group>"; };
+		07636CF81BA49A0100925671 /* ZZContactsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsDataSource.h; sourceTree = "<group>"; };
+		07636CF91BA49A0100925671 /* ZZContactsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsDataSource.m; sourceTree = "<group>"; };
+		07636CFB1BA49A0100925671 /* ZZContactsPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsPresenter.h; sourceTree = "<group>"; };
+		07636CFC1BA49A0100925671 /* ZZContactsPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsPresenter.m; sourceTree = "<group>"; };
+		07636D001BA49A0100925671 /* ZZContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsView.h; sourceTree = "<group>"; };
+		07636D011BA49A0100925671 /* ZZContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsView.m; sourceTree = "<group>"; };
+		07636D061BA49A0100925671 /* ZZContactsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsController.h; sourceTree = "<group>"; };
+		07636D071BA49A0100925671 /* ZZContactsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsController.m; sourceTree = "<group>"; };
+		07636D081BA49A0100925671 /* ZZContactsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsVC.h; sourceTree = "<group>"; };
+		07636D091BA49A0100925671 /* ZZContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsVC.m; sourceTree = "<group>"; };
+		07636D0A1BA49A0100925671 /* ZZContactsViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsViewInterface.h; sourceTree = "<group>"; };
+		07636D0C1BA49A0100925671 /* ZZContactsWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsWireframe.h; sourceTree = "<group>"; };
+		07636D0D1BA49A0100925671 /* ZZContactsWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsWireframe.m; sourceTree = "<group>"; };
 		07636D111BA49A0100925671 /* ZZStartInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartInteractor.h; sourceTree = "<group>"; };
 		07636D121BA49A0100925671 /* ZZStartInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartInteractor.m; sourceTree = "<group>"; };
 		07636D131BA49A0100925671 /* ZZStartInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZStartInteractorIO.h; sourceTree = "<group>"; };
@@ -1281,8 +1281,8 @@
 		07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListSpec.m; sourceTree = "<group>"; };
 		07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadFriendListTest.m; sourceTree = "<group>"; };
 		07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZStartScreenTestSpec.m; sourceTree = "<group>"; };
-		151EAD9F1CA18A9900CE0FDE /* ZZMenuTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuTableHeaderView.h; sourceTree = "<group>"; };
-		151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuTableHeaderView.m; sourceTree = "<group>"; };
+		151EAD9F1CA18A9900CE0FDE /* ZZContactsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsTableHeaderView.h; sourceTree = "<group>"; };
+		151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsTableHeaderView.m; sourceTree = "<group>"; };
 		152158181C84932A00260AFD /* ZZRecordButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordButtonView.h; sourceTree = "<group>"; };
 		152158191C84932A00260AFD /* ZZRecordButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordButtonView.m; sourceTree = "<group>"; };
 		1521581B1C84932A00260AFD /* ZZDateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDateLabel.h; sourceTree = "<group>"; };
@@ -1508,11 +1508,11 @@
 		79123D881BB14F9E007E1CBF /* ZZHintsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsDomainModel.m; sourceTree = "<group>"; };
 		79123D8A1BB15002007E1CBF /* ZZHintsModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsModelGenerator.h; sourceTree = "<group>"; };
 		79123D8B1BB15002007E1CBF /* ZZHintsModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsModelGenerator.m; sourceTree = "<group>"; };
-		795276461BA6B4AB00E506D5 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
-		795276471BA6B4AB00E506D5 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
-		795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellViewModel.h; sourceTree = "<group>"; };
-		795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellViewModel.m; sourceTree = "<group>"; };
-		7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuEnumsAdditions.h; sourceTree = "<group>"; };
+		795276461BA6B4AB00E506D5 /* ZZContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactCell.h; sourceTree = "<group>"; };
+		795276471BA6B4AB00E506D5 /* ZZContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactCell.m; sourceTree = "<group>"; };
+		795276481BA6B4AB00E506D5 /* ZZContactCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactCellViewModel.h; sourceTree = "<group>"; };
+		795276491BA6B4AB00E506D5 /* ZZContactCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactCellViewModel.m; sourceTree = "<group>"; };
+		7952764C1BA6BDEB00E506D5 /* ZZContactEnumsAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZContactEnumsAdditions.h; sourceTree = "<group>"; };
 		7952764D1BA71F2700E506D5 /* camera-icon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "camera-icon.pdf"; sourceTree = "<group>"; };
 		7997E4E91BAABE2F001697D5 /* ZZGridActionStoredSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridActionStoredSettings.h; path = ActionHandler/ZZGridActionStoredSettings.h; sourceTree = "<group>"; };
 		7997E4EA1BAABE2F001697D5 /* ZZGridActionStoredSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZGridActionStoredSettings.m; path = ActionHandler/ZZGridActionStoredSettings.m; sourceTree = "<group>"; };
@@ -2907,7 +2907,7 @@
 				153682291C99539D006EDC12 /* Main Module */,
 				07636C791BA49A0100925671 /* EditFriendList Module */,
 				07636C9C1BA49A0100925671 /* Grid Module */,
-				07636CED1BA49A0100925671 /* Menu Module */,
+				07636CED1BA49A0100925671 /* Contacts Module */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3292,20 +3292,20 @@
 			path = Wireframe;
 			sourceTree = "<group>";
 		};
-		07636CED1BA49A0100925671 /* Menu Module */ = {
+		07636CED1BA49A0100925671 /* Contacts Module */ = {
 			isa = PBXGroup;
 			children = (
 				07636CEE1BA49A0100925671 /* ApplicationLogic */,
 				07636CF31BA49A0100925671 /* ModuleInterface */,
 				07636CF61BA49A0100925671 /* UserInterface */,
 			);
-			path = "Menu Module";
+			path = "Contacts Module";
 			sourceTree = "<group>";
 		};
 		07636CEE1BA49A0100925671 /* ApplicationLogic */ = {
 			isa = PBXGroup;
 			children = (
-				7952764C1BA6BDEB00E506D5 /* ZZMenuEnumsAdditions.h */,
+				7952764C1BA6BDEB00E506D5 /* ZZContactEnumsAdditions.h */,
 				07636CEF1BA49A0100925671 /* Interactor */,
 			);
 			path = ApplicationLogic;
@@ -3314,9 +3314,9 @@
 		07636CEF1BA49A0100925671 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				07636CF01BA49A0100925671 /* ZZMenuInteractor.h */,
-				07636CF11BA49A0100925671 /* ZZMenuInteractor.m */,
-				07636CF21BA49A0100925671 /* ZZMenuInteractorIO.h */,
+				07636CF01BA49A0100925671 /* ZZContactsInteractor.h */,
+				07636CF11BA49A0100925671 /* ZZContactsInteractor.m */,
+				07636CF21BA49A0100925671 /* ZZContactsInteractorIO.h */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -3324,8 +3324,8 @@
 		07636CF31BA49A0100925671 /* ModuleInterface */ = {
 			isa = PBXGroup;
 			children = (
-				07636CF41BA49A0100925671 /* ZZMenuModuleDelegate.h */,
-				07636CF51BA49A0100925671 /* ZZMenuModuleInterface.h */,
+				07636CF41BA49A0100925671 /* ZZContactsModuleDelegate.h */,
+				07636CF51BA49A0100925671 /* ZZContactsModuleInterface.h */,
 			);
 			path = ModuleInterface;
 			sourceTree = "<group>";
@@ -3345,8 +3345,8 @@
 		07636CF71BA49A0100925671 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				07636CF81BA49A0100925671 /* ZZMenuDataSource.h */,
-				07636CF91BA49A0100925671 /* ZZMenuDataSource.m */,
+				07636CF81BA49A0100925671 /* ZZContactsDataSource.h */,
+				07636CF91BA49A0100925671 /* ZZContactsDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -3354,8 +3354,8 @@
 		07636CFA1BA49A0100925671 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				07636CFB1BA49A0100925671 /* ZZMenuPresenter.h */,
-				07636CFC1BA49A0100925671 /* ZZMenuPresenter.m */,
+				07636CFB1BA49A0100925671 /* ZZContactsPresenter.h */,
+				07636CFC1BA49A0100925671 /* ZZContactsPresenter.m */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -3364,11 +3364,11 @@
 			isa = PBXGroup;
 			children = (
 				07636CFE1BA49A0100925671 /* Views */,
-				07636D061BA49A0100925671 /* ZZMenuController.h */,
-				07636D071BA49A0100925671 /* ZZMenuController.m */,
-				07636D081BA49A0100925671 /* ZZMenuVC.h */,
-				07636D091BA49A0100925671 /* ZZMenuVC.m */,
-				07636D0A1BA49A0100925671 /* ZZMenuViewInterface.h */,
+				07636D061BA49A0100925671 /* ZZContactsController.h */,
+				07636D071BA49A0100925671 /* ZZContactsController.m */,
+				07636D081BA49A0100925671 /* ZZContactsVC.h */,
+				07636D091BA49A0100925671 /* ZZContactsVC.m */,
+				07636D0A1BA49A0100925671 /* ZZContactsViewInterface.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3384,8 +3384,8 @@
 		07636CFF1BA49A0100925671 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
-				07636D001BA49A0100925671 /* ZZMenuView.h */,
-				07636D011BA49A0100925671 /* ZZMenuView.m */,
+				07636D001BA49A0100925671 /* ZZContactsView.h */,
+				07636D011BA49A0100925671 /* ZZContactsView.m */,
 				795276451BA6B4AB00E506D5 /* Cells */,
 			);
 			path = MenuView;
@@ -3394,8 +3394,8 @@
 		07636D0B1BA49A0100925671 /* Wireframe */ = {
 			isa = PBXGroup;
 			children = (
-				07636D0C1BA49A0100925671 /* ZZMenuWireframe.h */,
-				07636D0D1BA49A0100925671 /* ZZMenuWireframe.m */,
+				07636D0C1BA49A0100925671 /* ZZContactsWireframe.h */,
+				07636D0D1BA49A0100925671 /* ZZContactsWireframe.m */,
 			);
 			path = Wireframe;
 			sourceTree = "<group>";
@@ -4776,12 +4776,12 @@
 		795276451BA6B4AB00E506D5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				795276461BA6B4AB00E506D5 /* ZZMenuCell.h */,
-				795276471BA6B4AB00E506D5 /* ZZMenuCell.m */,
-				795276481BA6B4AB00E506D5 /* ZZMenuCellViewModel.h */,
-				795276491BA6B4AB00E506D5 /* ZZMenuCellViewModel.m */,
-				151EAD9F1CA18A9900CE0FDE /* ZZMenuTableHeaderView.h */,
-				151EADA01CA18A9900CE0FDE /* ZZMenuTableHeaderView.m */,
+				795276461BA6B4AB00E506D5 /* ZZContactCell.h */,
+				795276471BA6B4AB00E506D5 /* ZZContactCell.m */,
+				795276481BA6B4AB00E506D5 /* ZZContactCellViewModel.h */,
+				795276491BA6B4AB00E506D5 /* ZZContactCellViewModel.m */,
+				151EAD9F1CA18A9900CE0FDE /* ZZContactsTableHeaderView.h */,
+				151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5282,7 +5282,7 @@
 				1822545B1C16CA06003885A3 /* NSError+ZZAdditions.m in Sources */,
 				1822545C1C16CA06003885A3 /* ZZGridDomainModel.m in Sources */,
 				1822545D1C16CA06003885A3 /* ZZGridCenterCell.m in Sources */,
-				1822545E1C16CA06003885A3 /* ZZMenuView.m in Sources */,
+				1822545E1C16CA06003885A3 /* ZZContactsView.m in Sources */,
 				1822545F1C16CA06003885A3 /* ZZGridInteractor.m in Sources */,
 				182254601C16CA06003885A3 /* ZZRotator.m in Sources */,
 				182254611C16CA06003885A3 /* ZZS3CredentialsDomainModel.m in Sources */,
@@ -5333,7 +5333,7 @@
 				1822548D1C16CA06003885A3 /* ZZGridCellViewModel.m in Sources */,
 				1822548E1C16CA06003885A3 /* ZZBaseEventHandler.m in Sources */,
 				1822548F1C16CA06003885A3 /* ZZEditFriendCellViewModel.m in Sources */,
-				182254901C16CA06003885A3 /* ZZMenuCellViewModel.m in Sources */,
+				182254901C16CA06003885A3 /* ZZContactCellViewModel.m in Sources */,
 				182254911C16CA06003885A3 /* TBMGridElement.m in Sources */,
 				182254921C16CA06003885A3 /* ZZSecretInteractor.m in Sources */,
 				182254931C16CA06003885A3 /* ZZAccountTransport.m in Sources */,
@@ -5355,7 +5355,7 @@
 				182254A21C16CA06003885A3 /* ZZContactsPermissionAlertBuilder.m in Sources */,
 				182254A31C16CA06003885A3 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				182254A41C16CA06003885A3 /* ZZNotificationTransportService.m in Sources */,
-				182254A51C16CA06003885A3 /* ZZMenuInteractor.m in Sources */,
+				182254A51C16CA06003885A3 /* ZZContactsInteractor.m in Sources */,
 				182254A61C16CA06003885A3 /* ANCrashlyticsAdapter.m in Sources */,
 				182254A71C16CA06003885A3 /* ZZGridStateViewRecord.m in Sources */,
 				182254A81C16CA06003885A3 /* ZZGridPresenter+UserDialogs.m in Sources */,
@@ -5393,7 +5393,7 @@
 				182254C51C16CA06003885A3 /* ZZRootWireframe.m in Sources */,
 				182254C61C16CA06003885A3 /* ZZVideoRecorder.m in Sources */,
 				182254C71C16CA06003885A3 /* ZZRollbarAdapter.m in Sources */,
-				182254C81C16CA06003885A3 /* ZZMenuVC.m in Sources */,
+				182254C81C16CA06003885A3 /* ZZContactsVC.m in Sources */,
 				182254C91C16CA06003885A3 /* ZZGridStateViewPreview.m in Sources */,
 				182254CA1C16CA06003885A3 /* ZZSentWelcomeEventHandler.m in Sources */,
 				182254CB1C16CA06003885A3 /* NSArray+ZZAdditions.m in Sources */,
@@ -5406,7 +5406,7 @@
 				182254D21C16CA06003885A3 /* ZZGridModelsMapper.m in Sources */,
 				182254D31C16CA06003885A3 /* ANEnumAdditions.m in Sources */,
 				182254D41C16CA06003885A3 /* ZZTouchControllerWithTouchDelay.m in Sources */,
-				182254D51C16CA06003885A3 /* ZZMenuPresenter.m in Sources */,
+				182254D51C16CA06003885A3 /* ZZContactsPresenter.m in Sources */,
 				182254D61C16CA06003885A3 /* ZZVideoPlayer.m in Sources */,
 				182254D71C16CA06003885A3 /* ZZHintsGotItView.m in Sources */,
 				18C893C91C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */,
@@ -5449,7 +5449,7 @@
 				182254FB1C16CA06003885A3 /* ZZGeometryHelper.m in Sources */,
 				182254FC1C16CA06003885A3 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,
 				182254FD1C16CA06003885A3 /* ZZSecretVC.m in Sources */,
-				182254FE1C16CA06003885A3 /* ZZMenuWireframe.m in Sources */,
+				182254FE1C16CA06003885A3 /* ZZContactsWireframe.m in Sources */,
 				182254FF1C16CA06003885A3 /* ZZVideoDataUpdater.m in Sources */,
 				182255001C16CA06003885A3 /* ZZGridView.m in Sources */,
 				182255011C16CA06003885A3 /* ZZViewedMessageEventHandler.m in Sources */,
@@ -5493,7 +5493,7 @@
 				182255251C16CA06003885A3 /* ZZSecretDataSource.m in Sources */,
 				182255261C16CA06003885A3 /* ZZRemoteStorageTransportService.m in Sources */,
 				182255271C16CA06003885A3 /* TBMVideoIdUtils.m in Sources */,
-				182255281C16CA06003885A3 /* ZZMenuCell.m in Sources */,
+				182255281C16CA06003885A3 /* ZZContactCell.m in Sources */,
 				182255291C16CA06003885A3 /* ZZCommonNetworkTransportService.m in Sources */,
 				1822552A1C16CA06003885A3 /* ZZContentDataAccessor.m in Sources */,
 				1822552B1C16CA06003885A3 /* ZZHintsDomainModel.m in Sources */,
@@ -5511,7 +5511,7 @@
 				182255361C16CA06003885A3 /* ZZAlertBuilder.m in Sources */,
 				182255371C16CA06003885A3 /* ZZGridDataUpdater.m in Sources */,
 				182255381C16CA06003885A3 /* UIImage+ANDefault.m in Sources */,
-				182255391C16CA06003885A3 /* ZZMenuDataSource.m in Sources */,
+				182255391C16CA06003885A3 /* ZZContactsDataSource.m in Sources */,
 				1822553A1C16CA06003885A3 /* UIView+Round.m in Sources */,
 				1822553B1C16CA06003885A3 /* ZZHintsConstants.m in Sources */,
 				153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */,
@@ -5528,7 +5528,7 @@
 				182255461C16CA06003885A3 /* ZZStartInteractor.m in Sources */,
 				182255471C16CA06003885A3 /* ZZCommonNetworkTransport.m in Sources */,
 				182255481C16CA06003885A3 /* ZZStartWireframe.m in Sources */,
-				182255491C16CA06003885A3 /* ZZMenuController.m in Sources */,
+				182255491C16CA06003885A3 /* ZZContactsController.m in Sources */,
 				1822554A1C16CA06003885A3 /* ANError.m in Sources */,
 				1822554B1C16CA06003885A3 /* ZZDebugSettingsStateDomainModel.m in Sources */,
 				1822554C1C16CA06003885A3 /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,
@@ -5564,7 +5564,7 @@
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
 				152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */,
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
-				07636ED71BA49A0100925671 /* ZZMenuView.m in Sources */,
+				07636ED71BA49A0100925671 /* ZZContactsView.m in Sources */,
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
@@ -5620,13 +5620,13 @@
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
-				7952764B1BA6B4AB00E506D5 /* ZZMenuCellViewModel.m in Sources */,
+				7952764B1BA6B4AB00E506D5 /* ZZContactCellViewModel.m in Sources */,
 				07636E401BA49A0100925671 /* TBMGridElement.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
-				151EADA11CA18A9900CE0FDE /* ZZMenuTableHeaderView.m in Sources */,
+				151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */,
 				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
@@ -5644,7 +5644,7 @@
 				1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */,
 				07636F0E1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07636E3B1BA49A0100925671 /* ZZNotificationTransportService.m in Sources */,
-				07636ED41BA49A0100925671 /* ZZMenuInteractor.m in Sources */,
+				07636ED41BA49A0100925671 /* ZZContactsInteractor.m in Sources */,
 				07636EEC1BA49A0100925671 /* ANCrashlyticsAdapter.m in Sources */,
 				07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */,
 				071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */,
@@ -5681,7 +5681,7 @@
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */,
 				079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */,
-				07636EDB1BA49A0100925671 /* ZZMenuVC.m in Sources */,
+				07636EDB1BA49A0100925671 /* ZZContactsVC.m in Sources */,
 				07636EC41BA49A0100925671 /* ZZGridStateViewPreview.m in Sources */,
 				1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */,
 				181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */,
@@ -5696,7 +5696,7 @@
 				07636E261BA49A0100925671 /* ZZGridModelsMapper.m in Sources */,
 				07636F001BA49A0100925671 /* ANEnumAdditions.m in Sources */,
 				07636E561BA49A0100925671 /* ZZTouchControllerWithTouchDelay.m in Sources */,
-				07636ED61BA49A0100925671 /* ZZMenuPresenter.m in Sources */,
+				07636ED61BA49A0100925671 /* ZZContactsPresenter.m in Sources */,
 				07636E5C1BA49A0100925671 /* ZZVideoPlayer.m in Sources */,
 				FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */,
 				18C893C81C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */,
@@ -5740,7 +5740,7 @@
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
 				181D1CBF1BC524E100044F83 /* ZZDeleteFriendsFeatureEventHandler.m in Sources */,
 				07636EAE1BA49A0100925671 /* ZZSecretVC.m in Sources */,
-				07636EDC1BA49A0100925671 /* ZZMenuWireframe.m in Sources */,
+				07636EDC1BA49A0100925671 /* ZZContactsWireframe.m in Sources */,
 				184504FA1BE12CC800C9C89B /* ZZVideoDataUpdater.m in Sources */,
 				07636EC91BA49A0100925671 /* ZZGridView.m in Sources */,
 				181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */,
@@ -5788,7 +5788,7 @@
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
-				7952764A1BA6B4AB00E506D5 /* ZZMenuCell.m in Sources */,
+				7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				18F52E031BFCAB6100042AAC /* ZZContentDataAccessor.m in Sources */,
 				79123D891BB14F9E007E1CBF /* ZZHintsDomainModel.m in Sources */,
@@ -5807,7 +5807,7 @@
 				07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */,
 				18E042AF1BBC2A3300318C6F /* ZZGridDataUpdater.m in Sources */,
 				07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */,
-				07636ED51BA49A0100925671 /* ZZMenuDataSource.m in Sources */,
+				07636ED51BA49A0100925671 /* ZZContactsDataSource.m in Sources */,
 				7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */,
 				79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */,
 				07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */,
@@ -5824,7 +5824,7 @@
 				07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */,
 				07636E341BA49A0100925671 /* ZZCommonNetworkTransport.m in Sources */,
 				07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */,
-				07636EDA1BA49A0100925671 /* ZZMenuController.m in Sources */,
+				07636EDA1BA49A0100925671 /* ZZContactsController.m in Sources */,
 				07636EFE1BA49A0100925671 /* ANError.m in Sources */,
 				07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */,
 				22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,

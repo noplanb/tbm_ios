@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import "ZZMenuEnumsAdditions.h"
+#import "ZZContactEnumsAdditions.h"
 
 @protocol ZZUserInterface <NSObject>
 

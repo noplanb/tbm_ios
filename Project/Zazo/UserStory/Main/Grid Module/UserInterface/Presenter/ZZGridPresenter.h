@@ -10,7 +10,7 @@
 #import "ZZGridViewInterface.h"
 #import "ZZGridModuleDelegate.h"
 #import "ZZGridModuleInterface.h"
-#import "ZZMenuModuleDelegate.h"
+#import "ZZContactsModuleDelegate.h"
 #import "ZZGridWireframe.h"
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZGridPresenterInterface.h"
@@ -21,7 +21,7 @@
 <
     ZZGridInteractorOutput,
     ZZGridModuleInterface,
-    ZZMenuModuleDelegate,
+        ZZContactsModuleDelegate,
     ZZEditFriendListModuleDelegate,
     ZZGridPresenterInterface,
     ZZGridInteractorOutputActionHandler

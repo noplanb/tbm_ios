@@ -10,7 +10,7 @@
 #import "ZZMain.h"
 #import "ZZGridWireframe.h"
 #import "ZZGridPresenter.h"
-#import "ZZMenuPresenter.h"
+#import "ZZContactsPresenter.h"
 
 @interface ZZMainWireframe ()
 
@@ -19,7 +19,7 @@
 @property (nonatomic, weak) UINavigationController* presentedController;
 
 @property (nonatomic, strong) ZZGridWireframe *gridWireframe;
-@property (nonatomic, strong) ZZMenuWireframe *menuWireframe;
+@property (nonatomic, strong) ZZContactsWireframe *menuWireframe;
 
 @end
 
@@ -32,12 +32,12 @@
     ZZMainPresenter* presenter = [ZZMainPresenter new];
 
     self.gridWireframe = [ZZGridWireframe new];
-    self.menuWireframe = [ZZMenuWireframe new];
+    self.menuWireframe = [ZZContactsWireframe new];
     
     self.gridWireframe.mainWireframe = self;
     self.menuWireframe.mainWireframe = self;    
     
-    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.menuController];
+    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.contactsController];
     
     self.menuWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
     interactor.output = presenter;   
