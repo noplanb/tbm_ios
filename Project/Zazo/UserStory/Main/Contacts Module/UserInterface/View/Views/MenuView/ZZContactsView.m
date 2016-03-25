@@ -63,7 +63,7 @@ static CGFloat const kSearchBarHeight = 44;
         _searchBar.layer.shadowRadius = 2.0f;
         _searchBar.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
         _searchBar.layer.shadowOpacity = 1.0f;
-                
+        
         UITextField *searchTextField = [_searchBar valueForKey:@"_searchField"];
         
         searchTextField.backgroundColor = [UIColor whiteColor];

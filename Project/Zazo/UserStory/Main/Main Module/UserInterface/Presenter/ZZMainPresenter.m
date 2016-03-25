@@ -15,7 +15,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMainViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
-    userInterface.activePageIndex = 1;
+    userInterface.activePageIndex = 0;
 }
 
 #pragma mark - Output
