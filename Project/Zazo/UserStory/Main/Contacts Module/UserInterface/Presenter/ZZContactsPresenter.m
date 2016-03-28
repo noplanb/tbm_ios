@@ -59,7 +59,6 @@
     [self.userInterface reloadContactView];
 }
 
-
 #pragma mark - Output
 
 - (void)addressBookDataLoaded:(NSArray*)data
