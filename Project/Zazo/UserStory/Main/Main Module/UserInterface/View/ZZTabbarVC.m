@@ -54,6 +54,8 @@
     self.tabbarView.activeItemIndex = activePageIndex;
 
     [self _scrollToActivePageIfNeededAnimated:YES];
+    
+    [self.viewControllers[activePageIndex] viewDidAppear:YES];
 }
 
 - (void)_scrollToActivePageIfNeededAnimated:(BOOL)animated
@@ -177,6 +179,11 @@
 }
 
 #pragma mark Scrollview Delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.viewControllers[self.activePageIndex] viewDidDisappear:YES];
+}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {

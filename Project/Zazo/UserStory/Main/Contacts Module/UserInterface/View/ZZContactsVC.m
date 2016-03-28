@@ -45,6 +45,12 @@
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.view endEditing:YES];
+    [self.controller searchBarCancelButtonClicked:self.controller.searchBar];
+    self.controller.searchBar.text = nil;
+}
 
 #pragma mark - View Interface 
 

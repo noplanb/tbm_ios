@@ -46,16 +46,15 @@ static CGFloat const kSearchBarHeight = 44;
     if (!_searchBar)
     {
         _searchBar = [UISearchBar new];
-        [self seapratorViewsWithSearchBar:_searchBar];
         _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-
+        
         [self addSubview:_searchBar];
         [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.equalTo(self);
             make.height.equalTo(@(kSearchBarHeight));
         }];
         
-        _searchBar.backgroundColor = [UIColor whiteColor];
+        _searchBar.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
         _searchBar.barTintColor = [UIColor whiteColor];
         _searchBar.translucent = NO;
         
@@ -66,43 +65,17 @@ static CGFloat const kSearchBarHeight = 44;
         
         UITextField *searchTextField = [_searchBar valueForKey:@"_searchField"];
         
-        searchTextField.backgroundColor = [UIColor whiteColor];
-        searchTextField.leftViewMode = UITextFieldViewModeNever;
+        searchTextField.backgroundColor = [UIColor clearColor];
+        searchTextField.leftViewMode = UITextFieldViewModeAlways;
         searchTextField.rightViewMode = UITextFieldViewModeNever;
         searchTextField.borderStyle = UITextBorderStyleNone;
         
         searchTextField.layer.borderColor = [UIColor clearColor].CGColor;
-        searchTextField.clearButtonMode=UITextFieldViewModeWhileEditing;
+        searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
         
     }
     return _searchBar;
-}
-
-- (void)seapratorViewsWithSearchBar:(UISearchBar* )searchBar
-{
-//    NSInteger leftOffset = 20;
-//    NSInteger separatorHeight = 1;
-//    
-//    UIView* bottomBorder = [UIView new];
-//    bottomBorder.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
-//    [searchBar addSubview:bottomBorder];
-//    
-//    [bottomBorder mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(searchBar).with.offset(leftOffset);
-//        make.bottom.right.equalTo(searchBar);
-//        make.height.equalTo(@(separatorHeight));
-//    }];
-//    UIView* topBorderView = [UIView new];
-//    topBorderView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
-//    [searchBar addSubview:topBorderView];
-//    
-//    [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(bottomBorder.mas_left);
-//        make.bottom.equalTo(bottomBorder.mas_top).with.offset(0);
-//        make.right.equalTo(searchBar);
-//        make.height.equalTo(@(separatorHeight));
-//    }];
 }
 
 @end
