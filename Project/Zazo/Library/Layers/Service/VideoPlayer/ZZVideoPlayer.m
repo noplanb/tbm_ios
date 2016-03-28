@@ -360,6 +360,9 @@
             // Allow play from ear even if locked. User wont know its available till he unlocks it.
             [[AVAudioSession sharedInstance] startPlaying];
             
+            relatedUserModel = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
+            playedVideoModel = [ZZVideoDataProvider itemWithID:playedVideoModel.videoID];
+            
             [self _updateFriendVideoStatusWithFriend:relatedUserModel video:playedVideoModel videoIndex:index];
             
             [self.moviePlayerController play];
