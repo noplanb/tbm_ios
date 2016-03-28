@@ -182,7 +182,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.viewControllers[self.activePageIndex] viewDidDisappear:YES];
+    [self.viewControllers[self.activePageIndex] viewWillDisappear:YES];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
