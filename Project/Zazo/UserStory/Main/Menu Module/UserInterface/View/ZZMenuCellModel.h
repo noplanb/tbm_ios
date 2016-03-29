@@ -11,4 +11,7 @@
 @property (nonatomic, strong) UIImage *icon;
 @property (nonatomic, copy) NSString *title;
 
++ (instancetype)modelWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;
+- (instancetype)initWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;
+
 @end

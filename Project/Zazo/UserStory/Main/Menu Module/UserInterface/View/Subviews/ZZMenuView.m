@@ -24,9 +24,9 @@
 
 - (void)makeLayout
 {
-    [self addSubview:_tableView];
+    [self addSubview:self.tableView];
 
-    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
 }

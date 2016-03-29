@@ -5,7 +5,6 @@
 
 @interface ZZMenuWireframe : NSObject
 
-- (void)presentMenuControllerFromNavigationController:(UINavigationController*)nc;
-- (void)dismissMenuController;
+@property (nonatomic, strong, readonly) UIViewController* menuController;
 
 @end

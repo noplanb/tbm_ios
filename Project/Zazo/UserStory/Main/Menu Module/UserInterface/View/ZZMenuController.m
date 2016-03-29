@@ -4,9 +4,24 @@
 //
 
 #import "ZZMenuController.h"
+#import "ZZMenuCell.h"
+#import "ZZMenuCellModel.h"
 
 
-@implementation ZZMenuController {
+@implementation ZZMenuController
 
+- (instancetype)initWithTableView:(UITableView *)tableView
+{
+    self = [super initWithTableView:tableView];
+    
+    if (!self)
+    {
+        return nil;
+    }
+    
+    [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellModel class]];
+    
+    return self;
 }
+
 @end

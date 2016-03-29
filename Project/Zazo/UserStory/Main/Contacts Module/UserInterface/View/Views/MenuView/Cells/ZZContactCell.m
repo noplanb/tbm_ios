@@ -28,54 +28,8 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
         self.backgroundColor = [UIColor clearColor];
-
-//        UIView* bottomBorder = [UIView new];
-//        bottomBorder.backgroundColor = [UIColor colorWithRed:0.34 green:0.34 blue:0.33 alpha:1.0f];
-//        [self addSubview:bottomBorder];
-//        
-//        [bottomBorder mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self).with.offset(kLeftOffset);
-//            make.bottom.right.equalTo(self);
-//            make.height.equalTo(@(kSeparatorHeight));
-//        }];
-//        UIView* topBorderView = [UIView new];
-//        topBorderView.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:1.0f];
-//        [self addSubview:topBorderView];
-//        
-//        [topBorderView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(bottomBorder.mas_left);
-//            make.bottom.equalTo(bottomBorder.mas_top).with.offset(0);
-//            make.right.equalTo(self);
-//            make.height.equalTo(@(kSeparatorHeight));
-//        }];
     }
     return self;
-}
-
-- (void)updateConstraints
-{
-//    if (ANIsEmpty(self.photoImageView.image))
-//    {
-//        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.width.equalTo(@0);
-//        }];
-//        
-//        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.photoImageView.mas_right);
-//        }];
-//    }
-//    else
-//    {
-//        [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.width.equalTo(@36);
-//        }];
-//        
-//        [self.username mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.photoImageView.mas_right).with.offset(10);
-//        }];
-//    }
-    
-    [super updateConstraints];
 }
 
 

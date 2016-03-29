@@ -12,14 +12,24 @@
 @interface ZZMenuWireframe ()
 
 @property (nonatomic, weak) ZZMenuPresenter* presenter;
-@property (nonatomic, weak) ZZMenuVC* menuController;
+@property (nonatomic, strong, readwrite) ZZMenuVC * menuController;
 @property (nonatomic, weak) UINavigationController* presentedController;
 
 @end
 
 @implementation ZZMenuWireframe
 
-- (void)presentMenuControllerFromNavigationController:(UINavigationController *)nc
+- (ZZMenuVC *)menuController
+{
+    if (!_menuController)
+    {
+        [self _setup];
+    }
+    
+    return _menuController;
+}
+
+- (void)_setup
 {
     ZZMenuVC* menuController = [ZZMenuVC new];
     ZZMenuInteractor* interactor = [ZZMenuInteractor new];
@@ -33,18 +43,9 @@
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:menuController];
     
-    ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:menuController animated:YES];
-    });
-    
     self.presenter = presenter;
-    self.presentedController = nc;
     self.menuController = menuController;
 }
 
-- (void)dismissMenuController
-{
-    [self.presentedController popViewControllerAnimated:YES];
-}
 
 @end

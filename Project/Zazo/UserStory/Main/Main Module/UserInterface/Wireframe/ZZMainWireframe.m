@@ -11,6 +11,7 @@
 #import "ZZGridWireframe.h"
 #import "ZZGridPresenter.h"
 #import "ZZContactsPresenter.h"
+#import "ZZMenuWireframe.h"
 
 @interface ZZMainWireframe ()
 
@@ -19,7 +20,8 @@
 @property (nonatomic, weak) UINavigationController* presentedController;
 
 @property (nonatomic, strong) ZZGridWireframe *gridWireframe;
-@property (nonatomic, strong) ZZContactsWireframe *menuWireframe;
+@property (nonatomic, strong) ZZContactsWireframe *contactsWireframe;
+@property (nonatomic, strong) ZZMenuWireframe *menuWireframe;
 
 @end
 
@@ -32,14 +34,15 @@
     ZZMainPresenter* presenter = [ZZMainPresenter new];
 
     self.gridWireframe = [ZZGridWireframe new];
-    self.menuWireframe = [ZZContactsWireframe new];
-    
+    self.contactsWireframe = [ZZContactsWireframe new];
+    self.menuWireframe = [ZZMenuWireframe new];
+
     self.gridWireframe.mainWireframe = self;
-    self.menuWireframe.mainWireframe = self;    
+    self.contactsWireframe.mainWireframe = self;    
     
-    mainController.viewControllers = @[[UIViewController new], self.gridWireframe.gridController, self.menuWireframe.contactsController];
+    mainController.viewControllers = @[self.menuWireframe.menuController, self.gridWireframe.gridController, self.contactsWireframe.contactsController];
     
-    self.menuWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
+    self.contactsWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
     interactor.output = presenter;   
     mainController.eventHandler = presenter;
     

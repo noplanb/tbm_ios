@@ -7,4 +7,5 @@
 #import "ANTableController.h"
 
 @interface ZZMenuController : ANTableController
+
 @end
