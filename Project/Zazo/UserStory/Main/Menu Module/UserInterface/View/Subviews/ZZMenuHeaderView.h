@@ -7,4 +7,7 @@
 
 
 @interface ZZMenuHeaderView : UIView
+
+@property (nonatomic, copy) NSString *title;
+
 @end

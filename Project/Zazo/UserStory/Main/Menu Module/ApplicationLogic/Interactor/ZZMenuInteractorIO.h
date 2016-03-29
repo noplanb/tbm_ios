@@ -5,7 +5,7 @@
 
 @protocol ZZMenuInteractorInput <NSObject>
 
-
+- (NSString * )username;
 
 @end
 

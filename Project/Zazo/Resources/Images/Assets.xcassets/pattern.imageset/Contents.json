@@ -6,11 +6,25 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "pattern.png",
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 711,
+          "height" : 951
+        },
+        "cap-insets" : {
+          "bottom" : 0,
+          "top" : 0,
+          "right" : 0,
+          "left" : 0
+        }
+      },
       "idiom" : "universal",
+      "filename" : "pattern.png",
       "scale" : "3x"
     }
   ],

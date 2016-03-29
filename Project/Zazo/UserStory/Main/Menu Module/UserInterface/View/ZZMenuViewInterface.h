@@ -5,5 +5,6 @@
 
 @protocol ZZMenuViewInterface <NSObject>
 
+- (void)showUsername:(NSString *)username;
 
 @end

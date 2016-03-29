@@ -15,6 +15,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    [self.userInterface showUsername:[self.interactor username]];
 }
 
 #pragma mark - Output

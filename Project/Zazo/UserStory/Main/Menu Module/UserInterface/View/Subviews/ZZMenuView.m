@@ -27,26 +27,34 @@
     [self addSubview:self.tableView];
 
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.left.right.bottom.equalTo(self);
     }];
-}
 
-- (ZZMenuHeaderView *)headerView
-{
-    if (!_headerView) {
-        _headerView = [[ZZMenuHeaderView alloc] init];
-    }
-    return _headerView;
+    [self addSubview:self.headerView];
+
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.bottom.equalTo(self.tableView.mas_top);
+    }];
 }
 
 - (UITableView *)tableView
 {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] init];
-        _tableView.tableHeaderView = self.headerView;
+    if (!_tableView)
+    {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     }
     return _tableView;
 }
 
+
+- (ZZMenuHeaderView *)headerView
+{
+    if (!_headerView)
+    {
+        _headerView = [[ZZMenuHeaderView alloc] init];
+    }
+    return _headerView;
+}
 
 @end

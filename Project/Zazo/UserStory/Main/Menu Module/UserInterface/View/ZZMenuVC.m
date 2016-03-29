@@ -9,6 +9,7 @@
 #import "ANMemoryStorage.h"
 #import "ZZMenuController.h"
 #import "ZZMenuCellModel.h"
+#import "ZZMenuHeaderView.h"
 
 @interface ZZMenuVC ()
 
@@ -65,6 +66,13 @@
 - (ZZMenuView *)menuView
 {
     return (id)self.view;
+}
+
+#pragma mark Input
+
+- (void)showUsername:(NSString *)username
+{
+    self.menuView.headerView.title = username;
 }
 
 @end
