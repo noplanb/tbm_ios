@@ -27,7 +27,6 @@
 - (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
 - (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
 
-- (void)loadFeedbackModel;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
 
 - (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
@@ -48,7 +47,6 @@
 - (void)dataLoadingDidFailWithError:(NSError*)error;
 
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model;
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
 
 - (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
 - (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)model;

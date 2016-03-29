@@ -24,4 +24,12 @@
     return self;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    [self.delegate controller:self didSelectModel:
+            [self.storage objectAtIndexPath:indexPath]];
+}
+
 @end

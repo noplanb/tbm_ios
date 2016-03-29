@@ -42,19 +42,6 @@
 
 #pragma mark - Details
 
-- (void)presentEditFriendsController
-{
-    ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
-    [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
-    wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
-}
-
-- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
-{
-    self.messageWireframe = [ANMessagesWireframe new];
-    [self.messageWireframe presentEmailControllerFromViewController:self.gridController withModel:model completion:nil];
-}
-
 - (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
 {
     self.messageWireframe = [ANMessagesWireframe new];

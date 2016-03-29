@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ZZMenuModuleInterface.h"
 
 @interface ZZMenuCellModel : NSObject
 
 @property (nonatomic, strong) UIImage *icon;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) ZZMenuItemType type;
 
 + (instancetype)modelWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;
 - (instancetype)initWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;

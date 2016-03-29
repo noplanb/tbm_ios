@@ -5,6 +5,7 @@
 
 #import "ZZMenuPresenter.h"
 #import "ZZMenu.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZMenuPresenter ()
 
@@ -20,11 +21,42 @@
 
 #pragma mark - Output
 
-
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
+{
+    [self.wireframe presentSendFeedbackWithModel:model];
+}
 
 
 #pragma mark - Module Interface
 
+- (void)eventDidTapItemWithType:(ZZMenuItemType)type
+{
+    switch (type)
+    {
+        case ZZMenuItemTypeContacts:
+            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            break;
+        case ZZMenuItemTypeInviteFriends:
+            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            break;
+
+        case ZZMenuItemTypeEditFriends:
+            [self.wireframe presentEditFriendsController];
+            break;
+
+        case ZZMenuItemTypeHelp:
+            [self.interactor loadFeedbackModel];
+            break;
+
+        case ZZMenuItemTypeSecretScreen:
+            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            break;
+
+        default:
+            break;
+    }
+
+}
 
 
 @end

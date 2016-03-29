@@ -11,7 +11,7 @@
 #import "ZZMenuCellModel.h"
 #import "ZZMenuHeaderView.h"
 
-@interface ZZMenuVC ()
+@interface ZZMenuVC () <ZZMenuControllerDelegate>
 
 @property (readonly) ZZMenuView *menuView;
 @property (nonatomic, strong) ZZMenuController *controller;
@@ -28,6 +28,7 @@
     
     self.controller = [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
     self.controller.storage = [self _makeStorage];
+    self.controller.delegate = self;
 }
 
 - (ANMemoryStorage *)_makeStorage
@@ -43,17 +44,28 @@
     ZZMenuCellModel *contacts =
             [ZZMenuCellModel modelWithTitle:@"Contacts" iconWithImageNamed:@"contacts"];
 
-    ZZMenuCellModel *settings =
-            [ZZMenuCellModel modelWithTitle:@"Setting" iconWithImageNamed:@"settings"];
-
     ZZMenuCellModel *helpFeedback =
             [ZZMenuCellModel modelWithTitle:@"Help & feedback" iconWithImageNamed:@"feedback"];
 
+    inviteFriends.type = ZZMenuItemTypeEditFriends;
+    editFriends.type = ZZMenuItemTypeEditFriends;
+    contacts.type = ZZMenuItemTypeContacts;
+    helpFeedback.type = ZZMenuItemTypeHelp;
+
     [storage addItem:inviteFriends toSection:0];
-    [storage addItem:editFriends toSection:1];
-    [storage addItem:contacts toSection:1];
-    [storage addItem:settings toSection:2];
-    [storage addItem:helpFeedback toSection:2];
+    [storage addItem:editFriends toSection:0];
+    [storage addItem:contacts toSection:0];
+    [storage addItem:helpFeedback toSection:0];
+
+#ifdef DEBUG
+
+    ZZMenuCellModel *secretScreen =
+            [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
+
+    secretScreen.type = ZZMenuItemTypeSecretScreen;
+    [storage addItem:secretScreen toSection:0];
+
+#endif
 
     return storage;
 }
@@ -74,5 +86,13 @@
 {
     self.menuView.headerView.title = username;
 }
+
+#pragma mark Menu Controller delegate
+
+- (void)controller:(ZZMenuController *)controller didSelectModel:(ZZMenuCellModel *)model
+{
+    [self.eventHandler eventDidTapItemWithType:model.type];
+}
+
 
 @end

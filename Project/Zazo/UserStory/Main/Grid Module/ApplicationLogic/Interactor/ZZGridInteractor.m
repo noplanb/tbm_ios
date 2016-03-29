@@ -186,13 +186,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark - Feedback
 
-- (void)loadFeedbackModel
-{
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
-}
-
-
 #pragma mark - Edit Friends
 
 - (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)friendModel toVisible:(BOOL)isVisible

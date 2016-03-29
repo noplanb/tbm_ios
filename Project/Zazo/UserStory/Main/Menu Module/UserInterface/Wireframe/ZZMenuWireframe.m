@@ -8,12 +8,17 @@
 #import "ZZMenuVC.h"
 #import "ZZMenuPresenter.h"
 #import "ZZMenu.h"
+#import "ZZMainWireframe.h"
+#import "ANMessagesWireframe.h"
+#import "ZZEditFriendListWireframe.h"
+#import "ANMessageDomainModel.h"
 
 @interface ZZMenuWireframe ()
 
 @property (nonatomic, weak) ZZMenuPresenter* presenter;
 @property (nonatomic, strong, readwrite) ZZMenuVC * menuController;
 @property (nonatomic, weak) UINavigationController* presentedController;
+@property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 
 @end
 
@@ -47,5 +52,17 @@
     self.menuController = menuController;
 }
 
+- (void)presentEditFriendsController
+{
+    ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
+    [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
+//    wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
+}
+
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
+{
+    self.messageWireframe = [ANMessagesWireframe new];
+    [self.messageWireframe presentEmailControllerFromViewController:self.menuController withModel:model completion:nil];
+}
 
 @end

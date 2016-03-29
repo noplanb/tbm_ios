@@ -213,11 +213,6 @@
 
 #pragma mark - Output
 
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
-{
-    [self.wireframe presentSendFeedbackWithModel:model];
-}
-
 - (void)updatedFeatureWithFriendMkeys:(NSArray *)friendsMkeys
 {
     [self.actionHandler updateFeaturesWithFriendsMkeys:friendsMkeys];
@@ -616,11 +611,6 @@
 - (void)presentEditFriendsController
 {
     [self.wireframe presentEditFriendsController];
-}
-
-- (void)presentSendEmailController
-{
-    [self.interactor loadFeedbackModel];
 }
 
 - (BOOL)isRecordingInProgress

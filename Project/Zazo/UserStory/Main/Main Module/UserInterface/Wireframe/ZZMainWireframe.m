@@ -39,7 +39,8 @@
 
     self.gridWireframe.mainWireframe = self;
     self.contactsWireframe.mainWireframe = self;    
-    
+    self.menuWireframe.mainWireframe = self;
+
     mainController.viewControllers = @[self.menuWireframe.menuController, self.gridWireframe.gridController, self.contactsWireframe.contactsController];
     
     self.contactsWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
