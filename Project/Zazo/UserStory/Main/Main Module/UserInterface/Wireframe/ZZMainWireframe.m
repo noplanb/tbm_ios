@@ -64,7 +64,14 @@
     presentedController.navigationBarHidden = YES;
 
     ANDispatchBlockToMainQueue(^{
-        window.rootViewController = presentedController;
+        
+        [UIView transitionFromView:window.rootViewController.view
+                            toView:presentedController.view
+                          duration:0.65f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        completion:^(BOOL finished){
+                            window.rootViewController = presentedController;
+                        }];
     });
     
     self.presentedController = presentedController;

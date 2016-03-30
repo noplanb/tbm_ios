@@ -49,7 +49,7 @@
     self.startController = startController;
     self.presentedWindow = window;
     
-    [presenter configurePresenterWithUserInterface:startController];
+    [presenter configurePresenterWithUserInterface:(id)startController];
 }
 
 - (void)dismissStartController
