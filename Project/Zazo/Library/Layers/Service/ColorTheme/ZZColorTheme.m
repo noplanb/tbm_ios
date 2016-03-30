@@ -29,16 +29,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
     return _sharedClient;
 }
 
-+ (void)load
-{
-    [self setupFonts];
-}
-
-+ (void)setupFonts
-{
-    
-}
-
 - (instancetype)init
 {
     self = [super init];
@@ -53,7 +43,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
 
         self.baseColor = [UIColor an_colorWithHexString:@"ac1e44"];
         
-        self.navBarFontColor = [UIColor blackColor];
+        self.navBarFontColor = [UIColor whiteColor];
         self.textGrayColor = [UIColor an_colorWithHexString:@"7b7b81"];
         self.textLightGrayColor = [UIColor an_colorWithHexString:@"8e8e93"];
         
@@ -96,12 +86,18 @@ static CGFloat const kNavigationBarIconHeight = 20;
 - (void)setupAppearance
 {
     [UIApplication sharedApplication].windows.firstObject.tintColor = self.tintColor;
-    [self _setupNavigationBar];
+    
     [self _setupNavigationButtons];
-}
-
-- (void)_setupNavigationBar
-{
+    
+    UINavigationBar *appearance = [UINavigationBar appearance];
+    
+    appearance.barTintColor = self.tintColor;
+    appearance.tintColor = self.navBarFontColor;
+    
+    NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : self.navBarFontColor};
+    [appearance setTitleTextAttributes:titleAttributes];
+    
+    appearance.translucent = NO;
 }
 
 - (void)_setupNavigationButtons

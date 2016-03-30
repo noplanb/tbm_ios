@@ -36,9 +36,9 @@
 {
     self.nameLabel.text = [model username];
     self.phoneNumberLabel.text = [model phoneNumber];
+    self.deleteAndRestoreButton.isLoading = [model isUpdating];
     [model updatePhotoImageView:self.photoImageView];
     [model updateDeleteButton:self.deleteAndRestoreButton];
-    self.deleteAndRestoreButton.isLoading = [model isUpdating];
     
     self.backgroundColor = [model cellBackgroundColor];
     
@@ -118,7 +118,8 @@
     {
         _deleteAndRestoreButton = [ANProgressButton buttonWithTheme:[ZZColorTheme shared].editFriendsTheme];
       
-        [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
+//        [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
+        
         _deleteAndRestoreButton.titleLabel.font = [UIFont zz_regularFontWithSize:15];
         [_deleteAndRestoreButton addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_deleteAndRestoreButton];

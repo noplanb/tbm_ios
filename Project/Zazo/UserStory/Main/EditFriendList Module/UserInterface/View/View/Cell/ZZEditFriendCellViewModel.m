@@ -35,6 +35,8 @@ static UIImage* kImagePlaceholder = nil;
 
 - (void)updateDeleteButton:(UIButton*)button
 {
+    button.hidden = self.isUpdating;
+    
     if ([self.item isCreator])
     {
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
@@ -65,12 +67,12 @@ static UIImage* kImagePlaceholder = nil;
 {
     if (state == ZZContactActionButtonStateDelete)
     {
-        [button setBackgroundColor:[UIColor colorWithRed:0.6 green:0.76 blue:0.22 alpha:1]];
+//        [button setBackgroundColor:[UIColor colorWithRed:0.6 green:0.76 blue:0.22 alpha:1]];
         [button setTitle:NSLocalizedString(@"edit-friend.delete.button.title", nil) forState:UIControlStateNormal];
     }
     else
     {
-        [button setBackgroundColor:[UIColor colorWithRed:0.96 green:0.54 blue:0.17 alpha:1]];
+//        [button setBackgroundColor:[UIColor colorWithRed:0.96 green:0.54 blue:0.17 alpha:1]];
         [button setTitle:NSLocalizedString(@"edit-friend.restore.button.title", nil) forState:UIControlStateNormal];
     }
 }
@@ -125,7 +127,7 @@ static UIImage* kImagePlaceholder = nil;
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
             self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
         {
-            cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
+            cellColor = [UIColor an_colorWithHexString:@"ffffff"];
         }
         else
         {
@@ -137,7 +139,7 @@ static UIImage* kImagePlaceholder = nil;
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
             self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
         {
-            cellColor = [UIColor an_colorWithHexString:@"f1efe9"];
+            cellColor = [UIColor an_colorWithHexString:@"ffffff"];
         }
         else
         {

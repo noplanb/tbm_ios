@@ -18,8 +18,18 @@
 
 @implementation ZZTabbarVC
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _activePageIndex = NSUIntegerMax;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [super viewDidLoad];
 }
 
@@ -47,6 +57,13 @@
 {
     if (_activePageIndex == activePageIndex)
     {
+        UIViewController *activeViewController = self.viewControllers[activePageIndex];
+        
+        if ([activeViewController isKindOfClass:[UINavigationController class]])
+        {
+            [((UINavigationController *)activeViewController) popToRootViewControllerAnimated:YES];
+        }
+        
         return;
     }
 
@@ -172,6 +189,7 @@
 }
 
 #pragma mark ZZTabbarViewDelegate
+
 
 - (void)tabbarView:(ZZTabbarView *)tabbarView didTapOnItemWithIndex:(NSUInteger)index
 {

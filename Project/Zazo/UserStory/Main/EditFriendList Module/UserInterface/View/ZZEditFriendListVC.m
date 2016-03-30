@@ -47,11 +47,11 @@
     
     self.title = NSLocalizedString(@"edit-friend.nav.title.text", nil);
     
-    @weakify(self);
-    [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
-        @strongify(self);
-        [self.eventHandler dismissController];
-    }];
+//    @weakify(self);
+//    [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
+//        @strongify(self);
+//        [self.eventHandler dismissController];
+//    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

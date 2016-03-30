@@ -23,7 +23,7 @@
 
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
 {
-    [self.wireframe presentSendFeedbackWithModel:model];
+    [self.wireframe.mainWireframe presentSendFeedbackWithModel:model];
 }
 
 
@@ -41,7 +41,7 @@
             break;
 
         case ZZMenuItemTypeEditFriends:
-            [self.wireframe presentEditFriendsController];
+            [self.wireframe.mainWireframe presentEditFriendsController];
             break;
 
         case ZZMenuItemTypeHelp:

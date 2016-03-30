@@ -13,6 +13,10 @@
 #import "ZZContactsPresenter.h"
 #import "ZZMenuWireframe.h"
 
+#import "ANMessagesWireframe.h"
+#import "ZZEditFriendListWireframe.h"
+#import "ANMessageDomainModel.h"
+
 @interface ZZMainWireframe ()
 
 @property (nonatomic, weak) ZZMainPresenter* presenter;
@@ -22,6 +26,7 @@
 @property (nonatomic, strong) ZZGridWireframe *gridWireframe;
 @property (nonatomic, strong) ZZContactsWireframe *contactsWireframe;
 @property (nonatomic, strong) ZZMenuWireframe *menuWireframe;
+@property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 
 @end
 
@@ -41,7 +46,9 @@
     self.contactsWireframe.mainWireframe = self;    
     self.menuWireframe.mainWireframe = self;
 
-    mainController.viewControllers = @[self.menuWireframe.menuController, self.gridWireframe.gridController, self.contactsWireframe.contactsController];
+    mainController.viewControllers = @[self.menuWireframe.menuController,
+                                       self.gridWireframe.gridController,
+                                       self.contactsWireframe.contactsController];
     
     self.contactsWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
     interactor.output = presenter;   
@@ -50,10 +57,17 @@
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:mainController];
+
+    UINavigationController *presentedController =
+    [[UINavigationController alloc] initWithRootViewController:mainController];
     
+    presentedController.navigationBarHidden = YES;
+
     ANDispatchBlockToMainQueue(^{
-        window.rootViewController = mainController;
+        window.rootViewController = presentedController;
     });
+    
+    self.presentedController = presentedController;
     
     self.presenter = presenter;
     self.mainController = mainController;
@@ -62,6 +76,20 @@
 - (void)showTab:(ZZMainWireframeTab)tab
 {
     self.presenter.activePageIndex = tab;
+}
+
+- (void)presentEditFriendsController
+{
+    ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
+    [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
+//    wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
+}
+
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
+{
+    self.messageWireframe = [ANMessagesWireframe new];
+    [self.messageWireframe presentEmailControllerFromViewController:self.presentedController
+                                                          withModel:model completion:nil];
 }
 
 @end
