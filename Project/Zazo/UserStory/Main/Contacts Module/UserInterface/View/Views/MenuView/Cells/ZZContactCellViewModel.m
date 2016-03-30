@@ -19,6 +19,7 @@ static UIImage* kImagePlaceholder = nil;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *placeholderImageName;
+@property (nonatomic, strong, readonly) ZZColorPair *colorPair;
 
 @end
 
@@ -73,14 +74,23 @@ static UIImage* kImagePlaceholder = nil;
     if (!image)
     {
         image = [[UIImage imageNamed:self.placeholderImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
-        ZZColorPair *pair = [ZZColorPair randomPair];
-        imageView.backgroundColor = pair.backgroundColor;
-        imageView.tintColor = pair.tintColor;
+        imageView.backgroundColor = self.colorPair.backgroundColor;
+        imageView.tintColor = self.colorPair.tintColor;
     }
 
     imageView.image = image;
+}
+
+@synthesize colorPair = _colorPair;
+
+- (ZZColorPair *)colorPair
+{
+    if (!_colorPair)
+    {
+        _colorPair = [ZZColorPair randomPair];
+    }
     
+    return _colorPair;
 }
 
 - (NSString *)placeholderImageName

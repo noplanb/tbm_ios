@@ -17,7 +17,6 @@ static CGFloat const kSearchBarHeight = 44;
 {
     if (self = [super init])
     {
-
         [self tableView];
         [self searchBar];
     }
@@ -32,10 +31,11 @@ static CGFloat const kSearchBarHeight = 44;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.contentInset = UIEdgeInsetsMake(kSearchBarHeight, 0, 0, 0);
+        
         [self addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.searchBar.mas_bottom).with.offset(0);
-            make.left.bottom.right.equalTo(self);
+            make.top.left.bottom.right.equalTo(self);
         }];
     }
     return _tableView;
