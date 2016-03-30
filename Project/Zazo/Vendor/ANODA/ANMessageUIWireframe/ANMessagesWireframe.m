@@ -57,7 +57,6 @@ UINavigationControllerDelegate
         }
         
         composer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        composer.navigationBar.tintColor = [ZZColorTheme shared].tintColor;
         
         ANDispatchBlockToMainQueue(^{
             [vc presentViewController:composer animated:YES completion:nil];

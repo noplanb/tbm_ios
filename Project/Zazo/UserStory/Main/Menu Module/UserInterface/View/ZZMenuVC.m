@@ -47,7 +47,7 @@
     ZZMenuCellModel *helpFeedback =
             [ZZMenuCellModel modelWithTitle:@"Help & feedback" iconWithImageNamed:@"feedback"];
 
-    inviteFriends.type = ZZMenuItemTypeEditFriends;
+    inviteFriends.type = ZZMenuItemTypeInviteFriends;
     editFriends.type = ZZMenuItemTypeEditFriends;
     contacts.type = ZZMenuItemTypeContacts;
     helpFeedback.type = ZZMenuItemTypeHelp;

@@ -47,21 +47,23 @@
     
     self.title = NSLocalizedString(@"edit-friend.nav.title.text", nil);
     
-//    @weakify(self);
-//    [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
-//        @strongify(self);
-//        [self.eventHandler dismissController];
-//    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark - User Interface
