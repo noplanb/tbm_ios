@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+extern NSString * const ZZNeedsToShowSecretScreenNotificationName;
+
 @interface ZZRootWireframe : NSObject
 
 - (void)showStartViewControllerInWindow:(UIWindow*)window completionBlock:(ANCodeBlock)completionBlock;

@@ -32,24 +32,20 @@
     [self showRootController:vc inWindow:window];
     
 #else
-  
-//    #ifdef NETTEST
-//        ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
-//        [testWireframe presentNetworkTestControllerFromWindow:window];
-//    
-//    #else
-        ZZStartWireframe* wireframe = [ZZStartWireframe new];
-        [wireframe presentStartControllerFromWindow:window completion:completionBlock];
-//    #endif
-    
+    ZZStartWireframe* wireframe = [ZZStartWireframe new];
+    [wireframe presentStartControllerFromWindow:window completion:completionBlock];
 #endif
 
     self.secretWireframe = [ZZSecretWireframe new];
-    self.secretController = [ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
+    
+    self.secretController =
+    [ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
                                          touchType:ZZSecretScreenTouchTypeWithoutDelay
                                             window:window completionBlock:^{
-            [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
-    }];
+                                                
+                                                [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
+                                                
+                                            }];
 }
 
 - (void)showRootController:(UIViewController*)vc inWindow:(UIWindow *)window

@@ -49,7 +49,7 @@
             break;
 
         case ZZMenuItemTypeSecretScreen:
-//            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            [self.wireframe showSecretScreen];
             break;
 
         default:

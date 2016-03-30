@@ -15,6 +15,8 @@
 #import "ZZStrategyNavigationLeftRight.h"
 #import "ZZEnvelopStrategy.h"
 
+NSString * const ZZNeedsToShowSecretScreenNotificationName = @"ZZNeedsToShowSecretScreenNotificationName";
+
 static CGFloat const kDefaultTouchDelay = 0.2;
 
 @interface ZZSecretScreenController ()
@@ -39,11 +41,18 @@ static CGFloat const kDefaultTouchDelay = 0.2;
     
     
 #ifdef RELEASE
+    
     [secretController _startObserveWithWindow:window];
+    
 #else
-        [secretController _startObserveWithWindow:window];
-        [secretController _setupMotionControllerWithCompletionBlock:completionBlock];
+    
+    [secretController _startObserveWithWindow:window];
+    [secretController _setupMotionControllerWithCompletionBlock:completionBlock];
 
+    [[NSNotificationCenter defaultCenter] addObserver:secretController
+                                             selector:@selector(_needsToShowSecretScreenNotification)
+                                                 name:ZZNeedsToShowSecretScreenNotificationName
+                                               object:nil];
 #endif
     
     return secretController;
@@ -51,6 +60,11 @@ static CGFloat const kDefaultTouchDelay = 0.2;
 
 
 #pragma mark - Private
+
+- (void)_needsToShowSecretScreenNotification
+{
+    self.touchController.completionBlock();
+}
 
 - (void)_setupMotionControllerWithCompletionBlock:(ANCodeBlock)completionBlock
 {

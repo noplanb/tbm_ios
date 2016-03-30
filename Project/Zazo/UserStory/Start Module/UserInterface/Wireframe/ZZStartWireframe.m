@@ -36,10 +36,8 @@
     ZZStartPresenter* presenter = [ZZStartPresenter new];
     
     interactor.output = presenter;
-    
-        presenter.interactor = interactor;
+    presenter.interactor = interactor;
     presenter.wireframe = self;
-    
    
     ANDispatchBlockToMainQueue(^{
         window.rootViewController = startController;

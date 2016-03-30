@@ -9,6 +9,7 @@
 #import "ZZMenuPresenter.h"
 #import "ZZMenu.h"
 #import "ZZMainWireframe.h"
+#import "ZZRootWireframe.h"
 
 @interface ZZMenuWireframe ()
 
@@ -46,6 +47,11 @@
     
     self.presenter = presenter;
     _menuController = menuController;
+}
+
+- (void)showSecretScreen
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZZNeedsToShowSecretScreenNotificationName object:nil];
 }
 
 @end
