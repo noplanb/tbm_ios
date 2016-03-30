@@ -439,10 +439,12 @@
         [_moviePlayerController setScalingMode:MPMovieScalingModeAspectFill];
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
+        
         for (UIView *aSubView in _moviePlayerController.view.subviews)
         {
             aSubView.backgroundColor = [UIColor clearColor];
         }
+        
         [_moviePlayerController.view addSubview:self.tapButton];
     }
     return _moviePlayerController;

@@ -7,7 +7,7 @@
 
 @interface ZZMenuHeaderView ()
 
-@property (nonatomic, strong, readonly) CAGradientLayer *gradientLayer;
+//@property (nonatomic, strong, readonly) CAGradientLayer *gradientLayer;
 @property (nonatomic, strong, readonly) UIImageView *patternView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -15,7 +15,7 @@
 
 @implementation ZZMenuHeaderView
 
-@dynamic gradientLayer;
+//@dynamic gradientLayer;
 
 - (instancetype)init
 {
@@ -25,7 +25,7 @@
         self.clipsToBounds = YES;
         self.layoutMargins = UIEdgeInsetsMake(16, 16, 16, 16);
         
-        [self _makeGradient];
+        [self _makeBackground];
         [self _makePattern];
         [self _makeTitle];
     }
@@ -33,12 +33,14 @@
     return self;
 }
 
-- (void)_makeGradient
+- (void)_makeBackground
 {
-    UIColor *colorA = [UIColor an_colorWithHexString:@"#1976d2"];
-    UIColor *colorB = [UIColor an_colorWithHexString:@"#1561ad"];
+    self.backgroundColor = [UIColor an_colorWithHexString:@"1976d2"];
     
-    self.gradientLayer.colors = @[(id)colorA.CGColor, (id)colorB.CGColor];
+//    UIColor *colorA =
+//    UIColor *colorB = [UIColor an_colorWithHexString:@"#1561ad"];
+//    
+//    self.gradientLayer.colors = @[(id)colorA.CGColor, (id)colorB.CGColor];
 
 }
 
@@ -72,15 +74,15 @@
     self.titleLabel.text = title;
 }
 
-+ (Class)layerClass
-{
-    return [CAGradientLayer class];
-}
+//+ (Class)layerClass
+//{
+//    return [CAGradientLayer class];
+//}
 
-- (CAGradientLayer *)gradientLayer
-{
-    return (id)self.layer;
-}
+//- (CAGradientLayer *)gradientLayer
+//{
+//    return (id)self.layer;
+//}
 
 - (CGSize)intrinsicContentSize
 {

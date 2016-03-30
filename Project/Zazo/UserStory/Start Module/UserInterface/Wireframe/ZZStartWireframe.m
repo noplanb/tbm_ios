@@ -17,8 +17,7 @@
 @interface ZZStartWireframe ()
 
 @property (nonatomic, strong) ZZStartPresenter* presenter;
-@property (nonatomic, strong) ZZStartVC* startController;
-@property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) UIViewController* startController;
 @property (nonatomic, strong) UIWindow* presentedWindow;
 @property (nonatomic, copy) ANCodeBlock completionBlock;
 
@@ -29,26 +28,24 @@
 - (void)presentStartControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock
 {
     self.completionBlock = completionBlock;
-    ZZStartVC* startController = [ZZStartVC new];
+    
+    UIViewController *startController =
+    [UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil].instantiateInitialViewController;
+    
     ZZStartInteractor* interactor = [ZZStartInteractor new];
     ZZStartPresenter* presenter = [ZZStartPresenter new];
     
     interactor.output = presenter;
     
-    startController.eventHandler = presenter;
-    
-    presenter.interactor = interactor;
+        presenter.interactor = interactor;
     presenter.wireframe = self;
     
-    UINavigationController* nc = [UINavigationController new];
-    nc.viewControllers = @[startController];
-    
+   
     ANDispatchBlockToMainQueue(^{
-        window.rootViewController = nc;
+        window.rootViewController = startController;
     });
     
     self.presenter = presenter;
-    self.presentedController = nc;
     self.startController = startController;
     self.presentedWindow = window;
     
@@ -57,7 +54,7 @@
 
 - (void)dismissStartController
 {
-    [self.presentedController popViewControllerAnimated:YES];
+
 }
 
 - (void)presentMenuControllerWithGrid

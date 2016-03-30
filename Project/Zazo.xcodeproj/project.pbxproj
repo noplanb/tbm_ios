@@ -296,6 +296,7 @@
 		15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */; };
 		15BA1DA91CA2D60800EAD614 /* ZZColorPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */; };
 		15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */; };
+		15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15FD4BD21C8589E300DB24BE /* ZZHoldIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD4BD11C8589E300DB24BE /* ZZHoldIndicator.m */; };
 		180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */ = {isa = PBXBuildFile; fileRef = 180254A21BB2C5A400138A52 /* ZZVideoStatuses.m */; };
@@ -1362,6 +1363,7 @@
 		15BA1DA71CA2D60800EAD614 /* ZZColorPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZColorPair.h; sourceTree = "<group>"; };
 		15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZColorPair.m; sourceTree = "<group>"; };
 		15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MenuIcons.xcassets; sourceTree = "<group>"; };
+		15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
 		15FC5BC61C18166B005296C7 /* ZZDispatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDispatchHelper.h; sourceTree = "<group>"; };
 		15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDispatchHelper.m; sourceTree = "<group>"; };
@@ -2444,6 +2446,7 @@
 		07636BC91BA49A0100925671 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */,
 				182255FC1C1714CE003885A3 /* TestVideo */,
 				18C83C091BECC0A000E488D1 /* Fonts */,
 				07636BD71BA49A0100925671 /* Images */,
@@ -5194,6 +5197,7 @@
 				07636E7C1BA49A0100925671 /* icon_plus.pdf in Resources */,
 				07636E791BA49A0100925671 /* icon_eye.pdf in Resources */,
 				07636E6F1BA49A0100925671 /* Contacts-plaiceholder-men.pdf in Resources */,
+				15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */,
 				07636E7D1BA49A0100925671 /* icon_rounded_man.pdf in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
 				07636E821BA49A0100925671 /* Search-icon.pdf in Resources */,
@@ -6098,7 +6102,6 @@
 			baseConfigurationReference = 4FC21B5A7A35E4EA460D592B /* Pods-Zazo.ad-hoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
@@ -6116,7 +6119,7 @@
 					"AD-HOC=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
@@ -6349,7 +6352,6 @@
 			baseConfigurationReference = 00159322A8A39BC248A7DF72 /* Pods-Zazo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
@@ -6363,7 +6365,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
@@ -6382,7 +6384,6 @@
 			baseConfigurationReference = 876645398B11246519CD8699 /* Pods-Zazo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
@@ -6400,7 +6401,7 @@
 					"RELEASE=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
