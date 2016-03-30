@@ -11,8 +11,6 @@
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;
-- (void)presentEditFriendsController;
-- (void)presentSendEmailController;
 - (void)stopPlaying;
 
 - (BOOL)isRecordingInProgress;

@@ -10,7 +10,7 @@ static inline CGFloat const kGridItemSpacing();
 
 CGSize ZZGridItemSize;
 
-static void ZZSetGridSize(CGSize size)
+static inline void ZZSetGridSize(CGSize size)
 {
     NSUInteger ZZRowCount = 3;
     NSUInteger ZZColumnCount = 3;

@@ -35,6 +35,11 @@ const struct ZZUserDomainModelAttributes ZZUserDomainModelAttributes = {
     }];
 }
 
+- (UIImage *)thumbnail
+{
+    return nil;
+}
+
 - (BOOL)hasApp
 {
     return YES;

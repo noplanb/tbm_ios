@@ -608,11 +608,6 @@
 
 #pragma mark - Detail Screens
 
-- (void)presentEditFriendsController
-{
-    [self.wireframe presentEditFriendsController];
-}
-
 - (BOOL)isRecordingInProgress
 {
     return [[ZZVideoRecorder shared] isRecording];

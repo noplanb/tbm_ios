@@ -23,6 +23,5 @@
 - (void)friendsDataLoaded:(NSArray *)friendsData;
 - (void)friendsDataLoadingDidFailWithError:(NSError *)error;
 - (void)needsPermissionForAddressBook;
-- (void)openDrawerIfEnabled:(BOOL)isEnabled;
 
 @end

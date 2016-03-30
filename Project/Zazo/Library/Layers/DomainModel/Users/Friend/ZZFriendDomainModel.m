@@ -45,6 +45,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return self;
 }
 
+- (UIImage *)thumbnail
+{
+    return nil;
+}
+
 + (FEMObjectMapping*)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {

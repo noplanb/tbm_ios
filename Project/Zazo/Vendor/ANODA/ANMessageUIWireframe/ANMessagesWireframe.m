@@ -161,25 +161,13 @@ UINavigationControllerDelegate
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[]];
  
-    if (IOS8_OR_HIGHER)
+    controller.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError)
     {
-        controller.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError)
-        {
-            if (self.sharingCompletion) {
-                self.sharingCompletion(completed);
-            }
-        };
-    }
-    else
-    {
-        controller.completionHandler = ^(NSString * __nullable activityType, BOOL completed)
-        {
-            if (self.sharingCompletion) {
-                self.sharingCompletion(completed);
-            }
-        };
-    }
-    
+        if (self.sharingCompletion) {
+            self.sharingCompletion(completed);
+        }
+    };
+
     if ([controller respondsToSelector:@selector(popoverPresentationController)])
     {
         // On iPad the activity view controller will be displayed as a popover using the new UIPopoverPresentationController, it requires that you specify an anchor point for the presentation of the popover using one of the three following properties: barButtonItem, sourceView, sourceRect
@@ -188,7 +176,6 @@ UINavigationControllerDelegate
     }
     
     ANDispatchBlockToMainQueue(^{
-        
         [vc presentViewController:controller animated:YES completion:nil];
     });
 }

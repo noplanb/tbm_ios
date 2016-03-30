@@ -31,23 +31,13 @@
     if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
     {
         OB_INFO(@"registerForPushNotification");
-        if ([self _isIOS8OrHigher])
-        {
-            OB_INFO(@"registerForPushNotification: ios8+");
-            UIUserNotificationType types = UIUserNotificationTypeBadge |
-            UIUserNotificationTypeSound |
-            UIUserNotificationTypeAlert;
-            
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }
-        else
-        {
-            OB_INFO(@"registerForPushNotification: < ios8");
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert |
-                                                                                   UIRemoteNotificationTypeSound |
-                                                                                   UIRemoteNotificationTypeBadge)];
-        }
+
+        UIUserNotificationType types = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
 }
 
@@ -154,17 +144,7 @@
  */
 - (BOOL)_userHasGrantedPushAccess
 {
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-    {
-        // ios8
-        return self.notificationAllowedTypes != UIRemoteNotificationTypeNone;
-    }
-    else
-    {
-        // ios < 8
-        // Note this never gets called in the case user has not granted access in io7 see above. So it is kind of useless.
-        return [[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone;
-    }
+    return self.notificationAllowedTypes != UIUserNotificationTypeNone;
 }
 
 - (void)handlePushNotification:(NSDictionary*)userInfo

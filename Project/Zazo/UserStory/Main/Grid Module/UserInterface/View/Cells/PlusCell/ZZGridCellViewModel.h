@@ -101,6 +101,4 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (BOOL)isEnablePlayingVideo;
 - (BOOL)isVideoPlayed;
 
-- (void)setupRecrodHintRecognizerOnView:(UIView*)view;
-- (void)removeRecordHintRecognizerFromView:(UIView*)view;
 @end

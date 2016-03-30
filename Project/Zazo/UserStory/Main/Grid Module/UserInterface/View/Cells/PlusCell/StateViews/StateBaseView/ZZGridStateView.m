@@ -185,6 +185,11 @@
     }
 }
 
+- (void)showAppearAnimation
+{
+    
+}
+
 #pragma mark - Lazy Load
 
 - (UIView *)backgroundView
