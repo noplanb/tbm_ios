@@ -4,7 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OAStackView.h"
 
 @class ZZTabbarView;
 
@@ -22,7 +21,7 @@
 @end
 
 
-@interface ZZTabbarView : OAStackView
+@interface ZZTabbarView : UIView
 
 @property (nonatomic, copy) NSArray <id<ZZTabbarViewItem>> *items;
 @property (nonatomic, weak) id<ZZTabbarViewDelegate> delegate;

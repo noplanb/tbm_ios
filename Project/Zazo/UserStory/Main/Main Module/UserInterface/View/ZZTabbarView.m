@@ -5,9 +5,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ZZTabbarView.h"
-
+#import <OAStackView.h>
 
 @interface ZZTabbarView ()
+
+@property (nonatomic, strong, readonly) OAStackView *stackView;
 
 @end
 
@@ -18,28 +20,50 @@
 {
     self = [super init];
     if (self) {
-        self.distribution = OAStackViewDistributionFillEqually;
+
+        [self _makeStackView];
+
+        CALayer *layer = self.layer;
+        layer.shadowOffset = CGSizeMake(0.0f, -1.0f);
+        layer.shadowRadius = 1.0f;
+        layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
+        layer.shadowOpacity = 1.0f;
+
+
     }
 
     return self;
 }
 
+- (void)_makeStackView
+{
+    _stackView = [OAStackView new];
+    [self addSubview:self.stackView];
+    
+    [self.stackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+        
+    }];
+
+    self.stackView.distribution = OAStackViewDistributionFillEqually;
+}
+
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 66);
+    return CGSizeMake(UIViewNoIntrinsicMetric, 60);
 }
 
 - (void)setItems:(NSArray <id<ZZTabbarViewItem>> *)items
 {
     _items = [items copy];
 
-    [self.arrangedSubviews enumerateObjectsUsingBlock:^(__kindof UIView *subview, NSUInteger idx, BOOL *stop) {
-        [self removeArrangedSubview:subview];
+    [self.stackView.arrangedSubviews enumerateObjectsUsingBlock:^(__kindof UIView *subview, NSUInteger idx, BOOL *stop) {
+        [self.stackView removeArrangedSubview:subview];
     }];
 
     [items enumerateObjectsUsingBlock:^(id<ZZTabbarViewItem> item, NSUInteger idx, BOOL *stop) {
         UIView *view = [self _viewFromItem:item];
-        [self addArrangedSubview:view];
+        [self.stackView addArrangedSubview:view];
     }];
 }
 
@@ -73,7 +97,7 @@
 
 - (void)tapOnButton:(UIButton *)button
 {
-    NSUInteger index = [self.arrangedSubviews indexOfObject:button];
+    NSUInteger index = [self.stackView.arrangedSubviews indexOfObject:button];
 
     if (index == NSNotFound)
     {
@@ -85,12 +109,12 @@
 
 - (void)setActiveItemIndex:(NSUInteger)activeItemIndex
 {
-    UIButton *previousActiveButton = self.arrangedSubviews[_activeItemIndex];
+    UIButton *previousActiveButton = self.stackView.arrangedSubviews[_activeItemIndex];
     previousActiveButton.tintColor = [UIColor grayColor];
 
     _activeItemIndex = activeItemIndex;
 
-    UIButton *actualActiveButton = self.arrangedSubviews[_activeItemIndex];
+    UIButton *actualActiveButton = self.stackView.arrangedSubviews[_activeItemIndex];
     actualActiveButton.tintColor = self.window.tintColor;
 }
 
