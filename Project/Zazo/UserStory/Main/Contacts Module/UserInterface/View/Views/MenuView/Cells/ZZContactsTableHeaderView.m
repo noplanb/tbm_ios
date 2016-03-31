@@ -21,7 +21,7 @@
     [super setup];
     self.bottomLabelInset = -35;
     self.titleLabel.font = [UIFont zz_regularFontWithSize:21];
-    
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (CALayer *)border
@@ -43,6 +43,7 @@
     
     CGFloat offset = 106;
     self.border.frame = CGRectMake(offset, 0, self.frame.size.width - offset, 1);
+    self.titleLabel.width = 24;
 }
 
 @end
