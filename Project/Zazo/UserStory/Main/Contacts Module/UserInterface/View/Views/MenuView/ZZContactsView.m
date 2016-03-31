@@ -32,6 +32,8 @@ static CGFloat const kSearchBarHeight = 44;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.contentInset = UIEdgeInsetsMake(kSearchBarHeight, 0, 0, 0);
+        _tableView.scrollsToTop = YES;
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         
         [self addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {

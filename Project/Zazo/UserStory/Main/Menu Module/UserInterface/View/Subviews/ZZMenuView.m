@@ -44,6 +44,7 @@
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.contentInset = UIEdgeInsetsMake(8,0,0,0);
+        _tableView.scrollsToTop = NO;
     }
     return _tableView;
 }

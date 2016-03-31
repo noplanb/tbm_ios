@@ -112,6 +112,8 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
+        _scrollView.scrollsToTop = NO;
+        
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
