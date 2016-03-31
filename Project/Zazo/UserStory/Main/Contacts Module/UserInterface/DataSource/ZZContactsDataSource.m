@@ -25,6 +25,9 @@
 
 - (void)setupFriendsThatHaveAppItems:(NSArray*)items
 {
+    [self.storage setSectionHeaderModel:@"★"
+                        forSectionIndex:ZZMenuSectionsFriendsHasApp];
+
     [self _addItems:items toSection:ZZMenuSectionsFriendsHasApp];
 }
 
@@ -42,9 +45,9 @@
     ANDispatchBlockToMainQueue(^{
         [keys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.storage setSectionHeaderModel:obj
-                                forSectionIndex:idx];
+                                forSectionIndex:idx + 1];
             
-            [self _addItems:groupedItems[obj] toSection:idx];
+            [self _addItems:groupedItems[obj] toSection:idx + 1];
             
         }];
     });

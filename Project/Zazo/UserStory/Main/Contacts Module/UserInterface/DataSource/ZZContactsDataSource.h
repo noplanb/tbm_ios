@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, ZZMenuSections)
 @property (nonatomic, strong) ANMemoryStorage* storage;
 
 - (void)setupAddressbookItems:(NSArray*)items;
-- (void)setupFriendsItems:(NSArray*)items;
+//- (void)setupFriendsItems:(NSArray*)items;
 - (void)setupFriendsThatHaveAppItems:(NSArray*)items;
 
 @end

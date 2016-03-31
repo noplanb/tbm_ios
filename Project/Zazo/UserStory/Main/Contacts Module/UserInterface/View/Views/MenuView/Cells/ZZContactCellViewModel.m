@@ -51,19 +51,11 @@ static UIImage* kImagePlaceholder = nil;
     _item = item;
     self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
     
-    if ([_item contactType] == ZZMenuContactTypeAddressbook)
+    self.image = [item thumbnail];
+    
+    if (!self.image)
     {
-        self.image = [item thumbnail];
-        
-        if (!self.image)
-        {
-            self.abbreviation = [ZZUserPresentationHelper abbreviationWithFullname:self.username];
-        }
-    }
-    else
-    {
-        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
-        self.image = image ? : kImagePlaceholder;
+        self.abbreviation = [ZZUserPresentationHelper abbreviationWithFullname:self.username];
     }
 }
 
