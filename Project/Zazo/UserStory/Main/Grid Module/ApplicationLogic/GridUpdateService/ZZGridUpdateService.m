@@ -101,14 +101,14 @@
  *  @return Array of friends with unviewed messages
  */
 
-- (NSArray*)_friendsAbleToUpdate
+- (NSArray *)_friendsAbleToUpdate
 {
     NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
     NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
  
     [allFriendsSet minusSet:gridFriendSet];
 
-    __block NSMutableArray* friendsToUpdate = [NSMutableArray new];
+    NSMutableArray* friendsToUpdate = [NSMutableArray new];
     
     [[allFriendsSet allObjects] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
