@@ -85,6 +85,7 @@ static CGFloat padding = 6.0f;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera"]];
     [container addSubview:imageView];
     self.imageView = imageView;
+    imageView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self).centerOffset(CGPointMake(2, 2));
     }];
