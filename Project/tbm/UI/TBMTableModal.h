@@ -12,7 +12,6 @@
 
 - (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact;
 
-
 @end
 
 @interface TBMTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
@@ -21,8 +20,8 @@
                           title:(NSString *)title
                         contact:(ZZContactDomainModel*)contact
                        delegate:(id<TBMTableModalDelegate>)delegate;
-- (void) show;
-- (void) hide;
+- (void)show;
+- (void)hide;
 
 + (instancetype)shared;
 

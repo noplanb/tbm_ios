@@ -25,9 +25,8 @@
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain
 {
     
-    TBMAlertController *alert = [self alertControllerWithAttributedTitle:[self _attributedStringForTitle:title]
-                                                        attributedMessage:[self _attributedStringForMessage:message]
-                                                           preferredStyle:SDCAlertControllerStyleAlert];
+    TBMAlertController *alert = [super alertControllerWithTitle:title message:message preferredStyle:SDCAlertControllerStyleAlert];
+                                 
     
     if (alert.legacyAlertView || forcePlain)
     {
@@ -98,10 +97,6 @@
                                                            preferredStyle:preferredStyle];
     
     // Set our custom visual style for the alerts
-    TBMAlertControllerVisualStyle *visualStyle = [[TBMAlertControllerVisualStyle alloc] init];
-    visualStyle.alertControllerView = alertController.alert;
-    
-    alertController.visualStyle = visualStyle;
     
     return alertController;
     
@@ -123,17 +118,10 @@
     [super viewWillAppear:animated];
     
     // Main background color of alert
-    self.alert.backgroundColor = [UIColor colorWithRed:0.95f green:0.94f blue:0.91f alpha:1.0f];
     
     // Title bar background
-    float barHeight = (self.attributedTitle ? 70 : 60);
-    UIView *topBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, barHeight)];
-    topBG.backgroundColor = [UIColor colorWithRed:0.96f green:0.55f blue:0.19f alpha:1.0f];
-    [self.alert addSubview:topBG];
-    [self.alert sendSubviewToBack:topBG];
     
     // Translucent overlay that covers entire screen (sits behind alert)
-    self.view.backgroundColor = [UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:0.8f];
 }
 
 #pragma mark - Alert View
