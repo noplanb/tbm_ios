@@ -71,6 +71,7 @@
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         completion:^(BOOL finished){
                             window.rootViewController = presentedController;
+                            completionBlock();
                         }];
     });
     
