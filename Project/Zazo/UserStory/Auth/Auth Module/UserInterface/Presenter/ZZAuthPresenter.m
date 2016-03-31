@@ -188,15 +188,11 @@
 
 - (void)registrationFlowCompletedSuccessfully
 {
-    [self.userInterface hideVerificationCodeInputView:^{
-        
 #ifdef NETTEST
         [self.wireframe presentNetworkTestController];
 #else
         [self.wireframe presentGridController];
 #endif
-        
-    }];
 }
 
 @end
