@@ -7,7 +7,6 @@
 //
 
 #import "ZZGridStateView.h"
-#import "ZZGridStateView+Animation.h"
 #import "ZZGridUIConstants.h"
 #import "ZZGridCellGradientView.h"
 #import "ZZLoadingAnimationView.h"
@@ -45,8 +44,8 @@
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
         {
-            // TODO: implement
-//            [self showUploadIconWithoutAnimation];
+            [self updateSendBadgePosition];
+            self.sentBadge.hidden = NO;
         }
 
         model.playerContainerView = self;
@@ -154,7 +153,8 @@
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
                                      toView:self.sentBadge
                                  completion:^{
-                                    self.sentBadge.hidden = NO;
+                                     self.sentBadge.hidden = NO;
+                                     [self.sentBadge animate];
                                      
                                     completionBlock();
                                  }];
@@ -166,6 +166,27 @@
     [self.animationView animateWithType:ZZLoadingAnimationTypeDownloading
                                  toView:self.numberBadge
                              completion:completionBlock];
+}
+
+
+- (void)_showVideoCountLabelWithCount:(NSInteger)count
+{
+    BOOL shouldAnimate = self.numberBadge.count < count;
+    
+    self.numberBadge.hidden = NO;
+    self.numberBadge.count = count;
+    
+    if (shouldAnimate)
+    {
+        [self.numberBadge animate];
+    }
+}
+
+- (void)_hideVideoCountLabel
+{
+    self.numberBadge.count = 0;
+    [self updateSendBadgePosition];
+    self.numberBadge.hidden = YES;
 }
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber

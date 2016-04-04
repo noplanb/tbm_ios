@@ -32,43 +32,18 @@ static CGFloat ZZBadgeAnimationDuration = 1.0f;
 
 - (void)animate
 {
-    if (self.hidden)
-    {
-        self.layer.transform = CATransform3DMakeScale(0.01, 0.01, 1);
-        self.hidden = NO;
-    }
-    else
-    {
-        self.layer.transform = CATransform3DMakeScale(0.7, 0.7, 1);
-    }
-
-    self.layer.transform = CATransform3DIdentity;
-
-}
-
-- (nullable id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
-{
-    if (self.hidden)
-    {
-        return nil;
-    }
-    
-    if ([event isEqualToString:@"transform"])
-    {
-        CASpringAnimation *animation = [CASpringAnimation animation];
-        animation.fromValue = [NSValue valueWithCATransform3D:layer.transform];
-        animation.duration = ZZBadgeAnimationDuration;
-
-//        animation.duration = 10
-        animation.mass = 1;
-        animation.damping = 5;
-        animation.stiffness = 100;
-        animation.initialVelocity = 0;
+    [UIView animateWithDuration:0.2 animations:^{
         
-        return animation;
-    }
+        self.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1);
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.layer.transform = CATransform3DIdentity;
+        }];
+        
+    }];
 
-    return nil;
 }
 
 - (CGSize)intrinsicContentSize
