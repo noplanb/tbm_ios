@@ -99,6 +99,11 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 
 - (void)_switchCamera
 {
+    if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    {
+        return;
+    }
+    
     if (self.snapshotView)
     {
         [self.snapshotView removeFromSuperview];
