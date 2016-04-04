@@ -147,15 +147,16 @@
         
         [self updateSendBadgePosition];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.sentBadge animate];
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+//        });
         
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
                                      toView:self.sentBadge
                                  completion:^{
+                                    self.sentBadge.hidden = NO;
                                      
-                                     completionBlock();
+                                    completionBlock();
                                  }];
     });
 }
@@ -205,7 +206,6 @@
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     backgroundView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
     switch (arc4random_uniform(3) ) {
         case 0:
             backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;

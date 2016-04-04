@@ -156,15 +156,15 @@
 //    [self _hideAllAnimationViews];
 //    self.sentBadge.hidden = YES;
     
-    BOOL shouldAnimate = self.numberBadge.count < count;
+//    BOOL shouldAnimate = self.numberBadge.count < count;
     
     self.numberBadge.hidden = NO;
     self.numberBadge.count = count;
     
-    if (shouldAnimate)
-    {
-        [self.numberBadge animate];
-    }
+//    if (shouldAnimate)
+//    {
+//        [self.numberBadge animate];
+//    }
 }
 
 - (void)_hideVideoCountLabel

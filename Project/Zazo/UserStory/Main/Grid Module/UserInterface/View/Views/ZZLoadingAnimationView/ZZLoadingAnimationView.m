@@ -73,6 +73,7 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
     self.completion = [completion copy];
     
     self.imageView.animationImages = [self _framesForAnimationType:type];
+    self.imageView.animationDuration = ZZLoadingAnimationDuration;
     [self _animateToView:targetView];
 }
 
@@ -80,44 +81,63 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
 {
     [self _prepareBeginState];
     
+    self.imageView.alpha = 1;
     [self.imageView startAnimating];
     [self.imageView sizeToFit];
     
-    [UIView animateWithDuration:0.5f animations:^{
+    __block CGFloat timing = ZZLoadingAnimationDuration;
+    CGFloat inAnimationDuration = 0.5f;
+    timing -= inAnimationDuration;
+    
+    [UIView animateWithDuration:inAnimationDuration animations:^{
+        
         self.backgroundColor = [self.tintColor colorWithAlphaComponent:0.75];
+        
     } completion:^(BOOL finished) {
+        
         if(finished)
         {
-            [UIView animateWithDuration:0.4f
-                                  delay:1.3f
-                 usingSpringWithDamping:1.0f
-                  initialSpringVelocity:0.5f
-                                options:0
+            
+            CGFloat outAnimationDuration = 0.25f;
+            timing -= outAnimationDuration;
+            
+            [UIView animateWithDuration:outAnimationDuration
+                                  delay:timing
+                                options:UIViewAnimationOptionAllowAnimatedContent
                              animations:^{
-                                 
-                                 [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                     make.centerX.equalTo(targetView.mas_centerX);
-                                     make.centerY.equalTo(targetView.mas_centerY);
-                                 }];
-                                 
-                                 [self layoutIfNeeded];
-                                 self.backgroundColor = [UIColor clearColor];
-                                 
-                             } completion:^(BOOL finished) {
-                                 
-                                 if (finished)
-                                 {
-                                     [self _endAnimation];
-                                 }
-                             }];
-
+                
+                [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(targetView.mas_centerX);
+                    make.centerY.equalTo(targetView.mas_centerY);
+                }];
+                
+                [self layoutIfNeeded];
+                self.backgroundColor = [UIColor clearColor];
+                
+            } completion:^(BOOL finished) {
+                
+                if (finished)
+                {
+                    self.imageView.image = self.imageView.animationImages.lastObject;
+                    
+                    [self _endAnimation];
+                    
+                    [UIView animateWithDuration:0.25
+                                     animations:^{
+                                         self.imageView.alpha = 0;
+                                         
+                                     }];
+                }
+                
+            }];
+            
         }
     }];    
 }
 
 - (void)_prepareBeginState
 {
-    [self.imageView stopAnimating];
+//    [self.imageView stopAnimating];
     self.backgroundColor = [UIColor clearColor];
     
     [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -134,6 +154,7 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
         ANCodeBlock completion = [self.completion copy];
         completion();
         self.completion = nil;
+        
     }
 
 }
