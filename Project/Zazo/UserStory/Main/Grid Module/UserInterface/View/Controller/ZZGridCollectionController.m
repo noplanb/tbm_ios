@@ -105,7 +105,7 @@
         if ([model isKindOfClass:[ZZGridCellViewModel class]])
         {
             ZZGridCellViewModel* viewModel = model;
-// TODO: (rinat) Check if this is right comparsion
+
             if ([viewModel.item.relatedUser isEqual:friendModel])
             {
                 gridCell =(ZZGridCell*)obj;

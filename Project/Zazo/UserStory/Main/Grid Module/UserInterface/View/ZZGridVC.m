@@ -53,6 +53,7 @@
 
 - (NSArray*)items
 {
+    [self.view layoutIfNeeded];
     return self.gridView.items;
 }
 
