@@ -253,9 +253,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 {
     if (self.model.hasActiveContactIcon)
     {
-        [self.plusButton setPlusViewHidden:YES animated:NO completion:nil];
         self.plusButton.isActive = self.model.hasActiveContactIcon;
-        [self.plusButton setPlusViewHidden:NO animated:YES completion:nil];
     }
 }
 

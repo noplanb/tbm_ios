@@ -204,6 +204,7 @@
     backgroundView.image = [UIImage imageNamed:@"pattern"];
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    backgroundView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     
     switch (arc4random_uniform(3) ) {
         case 0:
