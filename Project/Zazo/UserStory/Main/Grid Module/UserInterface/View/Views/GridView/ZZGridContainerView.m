@@ -14,8 +14,9 @@
 
 @interface ZZGridContainerView ()
 
-@property (nonatomic, strong) UIView *dimView;
+@property (nonatomic, strong) UIVisualEffectView *dimView;
 @property (nonatomic, weak) ZZGridCell *activeCell;
+@property (nonatomic, strong, readonly) UILabel *textLabel; // Displayed above cell when dim view is shown
 
 @end
 
@@ -89,7 +90,7 @@
 {
     self.activeCell = (id)self.items[index];
     
-    if (![self.activeCell isKindOfClass:[ZZGridCell class]])
+    if (![self.activeCell isKindOfClass:[ZZGridCell class]]) // ignore center cell
     {
         return;
     }
@@ -97,13 +98,40 @@
     [self bringSubviewToFront:self.dimView];
     [self bringSubviewToFront:self.activeCell];
     
+    [self updateTextLabel];
+    
     [self restoreFrames]; // bringSubviewToFront resets cell's frames (why?!)
     
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:0.2
                      animations:^{
         _dimView.alpha = 1;
         [self.activeCell setBadgesHidden:YES];
     }];
+}
+
+- (BOOL)isCellOnTop:(ZZGridCell *)cell
+{
+    return cell.frame.origin.y < 1; // it may be ~0.00123
+}
+
+- (void)updateTextLabel
+{
+    [self.textLabel sizeToFit];
+    
+    CGPoint origin = self.activeCell.origin;
+    
+    if ([self isCellOnTop:self.activeCell])
+    {
+        origin.y += self.activeCell.height + 12; // move label to cell's bottom
+    }
+    else
+    {
+        origin.y -= self.textLabel.height; // move label to cell's top
+    }
+    
+    origin.x += 8; // move little bit left
+    
+    self.textLabel.origin = origin;
 }
 
 - (void)restoreFrames
@@ -114,7 +142,7 @@
 
 - (void)hideDimScreen
 {
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:0.2
                      animations:^{
         _dimView.alpha = 0;
         [self.activeCell setBadgesHidden:NO];
@@ -129,13 +157,15 @@
     }];
 }
 
-- (UIView *)dimView
+- (UIVisualEffectView *)dimView
 {
     if (!_dimView)
     {
-        _dimView = [UIView new];
-        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        
+        _dimView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         _dimView.alpha = 0;
+        
         
         [self addSubview:_dimView];
         
@@ -145,6 +175,35 @@
     }
     
     return _dimView;
+}
+
+@synthesize textLabel = _textLabel;
+
+- (UILabel *)textLabel
+{
+    if (!_textLabel)
+    {
+        UIVisualEffect *blurEffect = self.dimView.effect;
+        
+        UIVisualEffectView *vibrancyView =
+        [[UIVisualEffectView alloc] initWithEffect:[UIVibrancyEffect effectForBlurEffect:(id)blurEffect]];
+        
+        UILabel *label = [UILabel new];
+        label.text = @"Test";
+        [label sizeToFit];
+        label.center = CGPointMake(200, 250);
+        
+        [_dimView.contentView addSubview:vibrancyView];
+        [vibrancyView.contentView addSubview:label];
+        
+        [vibrancyView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_dimView);
+        }];
+
+        _textLabel = label;
+    }
+    
+    return _textLabel;
 }
 
 

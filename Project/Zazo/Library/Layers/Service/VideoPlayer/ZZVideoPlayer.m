@@ -36,6 +36,7 @@
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 @property (nonatomic, strong) NSMutableArray* playedVideoUrls;
 @property (nonatomic, strong) NSURL* currentPlayedUrl;
+@property (nonatomic, strong, readonly) UILabel *date;
 
 @end
 
