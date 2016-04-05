@@ -11,16 +11,12 @@
 
 #import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
-#import "MagicalRecord.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZGridActionStoredSettings.h"
-#import "ZZRemoteStorageValueGenerator.h"
 #import "ZZRemoteStorageTransportService.h"
-#import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
-#import "ZZVideoDataUpdater.h"
 #import "ZZFileHelper.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataHelper.h"
@@ -40,13 +36,6 @@
 @end
 
 @implementation ZZVideoPlayer
-
-+ (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate
-{
-    ZZVideoPlayer* player = [self new];
-    player.delegate = delegate;
-    return player;
-}
 
 - (instancetype)init
 {
@@ -98,7 +87,7 @@
     ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:actualVideoModel.videoID];
     
     NSInteger twoNotViewedVideosCount = 2;
-    NSInteger nextVideoIndex = 1;
+    NSUInteger nextVideoIndex = 1;
     
     if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
         ([ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] == twoNotViewedVideosCount) &&
@@ -129,10 +118,8 @@
     }
     if (!ANIsEmpty(videoModels))//&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
     {
-//        ZZVideoDomainModel* playedVideoModel = [self.videoModelsArray firstObject];
         ZZVideoDomainModel* playedVideoModel = [self _actualVideoDomainModelWithSortedModels:self.videoModelsArray];
-        
-        
+
         self.playedFriend = [ZZFriendDataProvider friendWithItemID:playedVideoModel.relatedUserID];
         self.currentPlayedUrl = playedVideoModel.videoURL;
         
@@ -270,9 +257,9 @@
 
 #pragma mark - Configure Next played index
 
-- (NSInteger)_nextVideoIndex
+- (NSUInteger)_nextVideoIndex
 {
-    __block NSInteger index = NSNotFound;
+    __block NSUInteger index = NSNotFound;
     [self.playedVideoUrls enumerateObjectsUsingBlock:^(NSURL*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.path isEqualToString:self.currentPlayedUrl.path])
         {
@@ -309,7 +296,7 @@
 
 - (void)_playNext
 {
-    NSInteger index = [self _nextVideoIndex];
+    NSUInteger index = [self _nextVideoIndex];
     
     NSURL* nextUrl = nil;
     
@@ -373,7 +360,6 @@
     }
 }
 
-
 //TODO: temprorary
 - (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
                                     video:(ZZVideoDomainModel*)videoModel
@@ -406,7 +392,6 @@
         [videoModelsCopy addObject:lastVideoModel];
         self.videoModelsArray = videoModelsCopy;
     }
-
 }
 
 - (void)_playerStateWasUpdated

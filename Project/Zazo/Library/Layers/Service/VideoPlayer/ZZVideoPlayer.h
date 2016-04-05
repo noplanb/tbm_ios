@@ -13,7 +13,6 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel;
-- (BOOL)isNetworkEnabled;
 
 @end
 
@@ -21,8 +20,6 @@
 
 @property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlayingVideo;
-
-+ (instancetype)videoPlayerWithDelegate:(id<ZZVideoPlayerDelegate>)delegate;
 
 - (ZZFriendDomainModel*)playedFriendModel;
 - (void)updateWithFriendModel:(ZZFriendDomainModel*)friendModel;

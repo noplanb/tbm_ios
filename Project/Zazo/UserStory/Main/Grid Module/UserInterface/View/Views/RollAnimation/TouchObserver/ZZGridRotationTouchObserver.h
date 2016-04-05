@@ -20,6 +20,8 @@
 
 @interface ZZGridRotationTouchObserver : NSObject
 
+@property (nonatomic, assign) BOOL enabled;
+
 @property (nonatomic, weak) id <ZZGridRotationTouchObserverDelegate> delegate;
 @property (nonatomic, assign) BOOL isMoving;
 

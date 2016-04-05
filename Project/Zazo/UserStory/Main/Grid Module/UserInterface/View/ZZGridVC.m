@@ -11,7 +11,6 @@
 #import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZGridRotationTouchObserver.h"
-#import "ZZActionSheetController.h"
 #import "ZZGridUIConstants.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
@@ -65,22 +64,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    self.gridView.headerView.menuButton.rac_command = [RACCommand commandWithBlock:^{
-//        [self menuSelected];
-//    }];
-//
-//    self.gridView.headerView.editFriendsButton.rac_command = [RACCommand commandWithBlock:^{
-//        [self editFriendsSelected];
-//    }];
-//
-
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.controller updateInitialViewFramesIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.eventHandler stopPlaying];
 }
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
@@ -123,11 +118,14 @@
     }
     
     [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
+    
+    self.touchObserver.enabled = NO;
 }
 
 - (void)hideDimScreen
 {
     [self.gridView.itemsContainerView hideDimScreen];
+    self.touchObserver.enabled = YES;
 }
 
 - (void)updateActiveCellTitleTo:(NSString *)title

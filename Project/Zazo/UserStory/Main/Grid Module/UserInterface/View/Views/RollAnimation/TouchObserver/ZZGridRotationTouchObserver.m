@@ -180,4 +180,18 @@ static CGFloat const kStartGridRotationOffset = 10;
     }];
 }
 
+#pragma mark Enabled property
+
+@dynamic enabled;
+
+- (void)setEnabled:(BOOL)enabled
+{
+    self.rotationRecognizer.enabled = enabled;
+}
+
+- (BOOL)enabled
+{
+    return self.rotationRecognizer.enabled;
+}
+
 @end
