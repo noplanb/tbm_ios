@@ -710,6 +710,7 @@
 		677DB95CE584049E41381FE6 /* ZZNumberBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */; };
 		677DBA4AFB50F79654935EE2 /* ZZMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB5DDAA060ED2FC95CE24 /* ZZMenuController.m */; };
 		677DBA7DD9C55B865491A9BA /* UIFont+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB383E3F8392A390FAF95 /* UIFont+ZZAdditions.m */; };
+		677DBBC5B7FAC4FDD716A18B /* NSDate+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB2AA249F1B5708FC5802 /* NSDate+ZZAdditions.m */; };
 		677DBD7A4FCDDC3B119C5B63 /* ZZNumberBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */; };
 		677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */; };
 		677DBED704921BCE2D8790A4 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBF19084E4148FA07B8BE /* ZZMenuCell.m */; };
@@ -1514,6 +1515,7 @@
 		677DB0925A9D4E9737C755FB /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		677DB15E93D69B95C60A5DB7 /* ZZMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuView.m; sourceTree = "<group>"; };
 		677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNumberBadge.m; sourceTree = "<group>"; };
+		677DB2AA249F1B5708FC5802 /* NSDate+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZZAdditions.m"; sourceTree = "<group>"; };
 		677DB335EE8BA15A32F90A43 /* ZZMenuHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuHeaderView.m; sourceTree = "<group>"; };
 		677DB33D4056017387FEE9FF /* ZZTabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarView.m; sourceTree = "<group>"; };
 		677DB3433ACC9D769CB3E754 /* ZZBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadge.m; sourceTree = "<group>"; };
@@ -1533,6 +1535,7 @@
 		677DBC3663F023AA5444040D /* ZZNumberBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNumberBadge.h; sourceTree = "<group>"; };
 		677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDownloadErrorHandler.m; sourceTree = "<group>"; };
 		677DBC76BD09284DC59566C4 /* ZZCacheCleaner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCacheCleaner.h; sourceTree = "<group>"; };
+		677DBE304171F0CFA33E16DD /* NSDate+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZZAdditions.h"; sourceTree = "<group>"; };
 		677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAddContactButton.m; sourceTree = "<group>"; };
 		677DBF19084E4148FA07B8BE /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		677DBF53C2AFCBD7CE09D5E5 /* ZZMenuCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellModel.h; sourceTree = "<group>"; };
@@ -1836,6 +1839,8 @@
 				072B6A411BD52F94000B824E /* NSError */,
 				07636AFB1BA49A0100925671 /* UIImage */,
 				677DB6C1462C9189ADADF393 /* UIFont */,
+				677DB2AA249F1B5708FC5802 /* NSDate+ZZAdditions.m */,
+				677DBE304171F0CFA33E16DD /* NSDate+ZZAdditions.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -6002,6 +6007,7 @@
 				677DBA4AFB50F79654935EE2 /* ZZMenuController.m in Sources */,
 				677DBED704921BCE2D8790A4 /* ZZMenuCell.m in Sources */,
 				677DB23996D92F32B5FC62D8 /* ZZAlertTableStyle.m in Sources */,
+				677DBBC5B7FAC4FDD716A18B /* NSDate+ZZAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

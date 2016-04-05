@@ -32,6 +32,7 @@
 #import "ZZRootStateObserver.h"
 #import "ZZGridDataProvider.h"
 #import "ZZMainWireframe.h"
+#import "NSDate+ZZAdditions.h"
 
 @interface ZZGridPresenter ()
 <
@@ -449,9 +450,14 @@
 
 #pragma mark - Video Player Delegate
 
-- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL{}
+- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
+{
+    NSTimeInterval timestamp = videoModel.videoID.doubleValue/1000;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    [self.userInterface updateActiveCellTitleTo:[date zz_formattedDate]];
+}
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
@@ -466,7 +472,7 @@
     return  [self.videoPlayer isVideoPlayingWithFriendModel:friendModel];
 }
 
-- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel*)userModel
+- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel *)userModel
 {
     if (![[ZZVideoRecorder shared] isRecording])
     {

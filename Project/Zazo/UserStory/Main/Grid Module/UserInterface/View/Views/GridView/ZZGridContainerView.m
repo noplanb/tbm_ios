@@ -161,7 +161,7 @@
 {
     if (!_dimView)
     {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         
         _dimView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         _dimView.alpha = 0;
@@ -189,9 +189,6 @@
         [[UIVisualEffectView alloc] initWithEffect:[UIVibrancyEffect effectForBlurEffect:(id)blurEffect]];
         
         UILabel *label = [UILabel new];
-        label.text = @"Test";
-        [label sizeToFit];
-        label.center = CGPointMake(200, 250);
         
         [_dimView.contentView addSubview:vibrancyView];
         [vibrancyView.contentView addSubview:label];
@@ -206,5 +203,17 @@
     return _textLabel;
 }
 
+@dynamic titleText;
+
+- (void)setTitleText:(NSString *)titleText
+{
+    self.textLabel.text = titleText.uppercaseString;
+    [self updateTextLabel];
+}
+
+- (NSString *)titleText
+{
+    return self.textLabel.text;
+}
 
 @end

@@ -130,6 +130,11 @@
     [self.gridView.itemsContainerView hideDimScreen];
 }
 
+- (void)updateActiveCellTitleTo:(NSString *)title
+{
+    self.gridView.itemsContainerView.titleText = title;
+}
+
 - (ZZGridCell *)cellForFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSArray *items = self.gridView.itemsContainerView.items;

@@ -36,7 +36,6 @@
 @property (nonatomic, strong) ZZFriendDomainModel* playedFriend;
 @property (nonatomic, strong) NSMutableArray* playedVideoUrls;
 @property (nonatomic, strong) NSURL* currentPlayedUrl;
-@property (nonatomic, strong, readonly) UILabel *date;
 
 @end
 
@@ -155,7 +154,7 @@
             [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
             
             
-            [self.delegate videoPlayerURLWasStartPlaying:[ZZVideoDataProvider videoUrlWithVideoModel:viewedVideo]];
+            [self.delegate videoPlayerDidStartVideoModel:viewedVideo];
             
             self.isPlayingVideo = YES;
             
@@ -352,8 +351,8 @@
                                                                          toStatus:ZZRemoteStorageVideoStatusViewed
                                                                        friendMkey:relatedUserModel.mKey
                                                                        friendCKey:relatedUserModel.cKey];
-            
-            [self.delegate videoPlayerURLWasStartPlaying:nextUrl];
+
+            [self.delegate videoPlayerDidStartVideoModel:playedVideoModel];
             
             self.isPlayingVideo = YES;
             
@@ -414,7 +413,14 @@
 {
     if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
     {
-        [self.delegate videoPlayerURLWasStartPlaying:self.moviePlayerController.contentURL];
+        NSUInteger index = [self.playedVideoUrls indexOfObject:self.moviePlayerController.contentURL];
+
+        if (index == NSNotFound)
+        {
+            return;
+        }
+
+        [self.delegate videoPlayerDidStartVideoModel:self.videoModelsArray[index]];
     }
 }
 

@@ -10,25 +10,11 @@
 #import "ZZGridUIConstants.h"
 #import "ZZDateLabel.h"
 #import "ZZGridCell.h"
-
-typedef enum : NSUInteger {
-    ZZDateFormatTemplateToday,
-    ZZDateFormatTemplateWeek,
-    ZZDateFormatTemplateYear,
-} ZZDateFormatTemplateName;
-
-static NSString *ZZDateFormatTemplate[] = {
-    @"jjmm",    //ZZDateFormatTemplateToday
-    @"Ejjmm",   //ZZDateFormatTemplateWeek
-    @"MMMd"     //ZZDateFormatTemplateYear
-};
-
-//static CGFloat const kThumbnailBorderWidth = 2;
+#import "NSDate+ZZAdditions.h"
 
 @interface ZZGridStateViewPreview ()
 
 @property (nonatomic, assign) BOOL isVideoPlaying;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -40,8 +26,6 @@ static NSString *ZZDateFormatTemplate[] = {
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        
         [self thumbnailImageView];
         [self userNameLabel];
 //        [self containFriendView];
@@ -71,41 +55,7 @@ static NSString *ZZDateFormatTemplate[] = {
 
 - (void)_updateVideoSentDate:(NSDate *)date
 {
-    self.dateLabel.text = [self _formattedDate:date];
-}
-
-- (NSString *)_formattedDate:(NSDate *)date
-{
-    if (ANIsEmpty(date))
-    {
-        return nil;
-    }
-    
-    BOOL isToday = date.an_isToday;
-    NSUInteger sevenDays = 7;
-    
-    NSString *template;
-    
-    if (isToday)
-    {
-        template = ZZDateFormatTemplate[ZZDateFormatTemplateToday];
-    }
-    else if ([date an_daysBetweenDate:[NSDate date]] <= sevenDays)
-    {
-        template = ZZDateFormatTemplate[ZZDateFormatTemplateWeek];
-    }
-    else
-    {
-        template = ZZDateFormatTemplate[ZZDateFormatTemplateYear];
-    }
-
-    self.dateFormatter.dateFormat =
-    [NSDateFormatter dateFormatFromTemplate:template
-                                    options:0
-                                     locale:[NSLocale currentLocale]];
-
-    return [self.dateFormatter stringFromDate:date];
-
+    self.dateLabel.text = [date zz_formattedDate];
 }
 
 - (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel*)model

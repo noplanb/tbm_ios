@@ -22,6 +22,8 @@
 - (void)hideDimScreen;
 
 - (void)updateRollingStateTo:(BOOL)isEnabled;
+- (void)updateActiveCellTitleTo:(NSString *)title;
+
 - (void)menuWasOpened;
 - (void)updateLoadingStateTo:(BOOL)isLoading;
 - (void)updateRecordViewStateTo:(BOOL)isRecording;

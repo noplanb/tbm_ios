@@ -7,12 +7,12 @@
 //
 
 
-@class ZZFriendDomainModel;
+@class ZZFriendDomainModel, ZZVideoDomainModel;
 
 @protocol ZZVideoPlayerDelegate <NSObject>
 
-- (void)videoPlayerURLWasStartPlaying:(NSURL*)videoURL;
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL*)videoURL withPlayedUserModel:(ZZFriendDomainModel*)playedFriendModel;
+- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
+- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel;
 - (BOOL)isNetworkEnabled;
 
 @end
