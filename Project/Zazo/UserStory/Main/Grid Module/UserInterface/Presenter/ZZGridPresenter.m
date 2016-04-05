@@ -33,6 +33,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZMainWireframe.h"
 #import "NSDate+ZZAdditions.h"
+#import "ZZMainModuleInterface.h"
 
 @interface ZZGridPresenter ()
 <
@@ -464,6 +465,10 @@
     [self.userInterface hideDimScreen];
 }
 
+- (void)videoPlayingProgress:(CGFloat)progress
+{
+    self.wireframe.mainWireframe.moduleInterface.progressBarPosition = progress;
+}
 
 #pragma mark - Data source delegate
 

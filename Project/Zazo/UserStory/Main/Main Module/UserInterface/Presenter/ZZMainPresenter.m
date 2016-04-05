@@ -22,7 +22,6 @@
 
 
 
-
 #pragma mark - Module Interface
 
 @dynamic activePageIndex;
@@ -37,5 +36,16 @@
     self.userInterface.activePageIndex = activePageIndex;
 }
 
+@dynamic progressBarPosition;
+
+- (void)setProgressBarPosition:(CGFloat)progressBarPosition
+{
+    self.userInterface.progressBarPosition = progressBarPosition;
+}
+
+- (CGFloat)progressBarPosition
+{
+    return self.userInterface.progressBarPosition;
+}
 
 @end

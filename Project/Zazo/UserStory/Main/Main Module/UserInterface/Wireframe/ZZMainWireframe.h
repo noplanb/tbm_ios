@@ -10,6 +10,7 @@ typedef enum : NSUInteger {
 } ZZMainWireframeTab;
 
 @class ANMessageDomainModel;
+@protocol ZZMainModuleInterface;
 
 @interface ZZMainWireframe : NSObject
 
@@ -18,5 +19,7 @@ typedef enum : NSUInteger {
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 - (void)presentEditFriendsController;
+
+@property (nonatomic, readonly) id<ZZMainModuleInterface> moduleInterface;
 
 @end

@@ -3,18 +3,21 @@
 // Copyright (c) 2016 No Plan B. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ZZTabbarView.h"
 #import <OAStackView.h>
+#import "UIView+ZZAdditions.h"
 
 @interface ZZTabbarView ()
 
 @property (nonatomic, strong, readonly) OAStackView *stackView;
+@property (nonatomic, strong, readonly) UIView *indicatorPrototypeView;
 
 @end
 
 
 @implementation ZZTabbarView
+
+@synthesize indicatorPrototypeView = _indicatorPrototypeView;
 
 - (instancetype)init
 {
@@ -22,13 +25,14 @@
     if (self) {
 
         [self _makeStackView];
+        [self _makeSlider];
 
         CALayer *layer = self.layer;
         layer.shadowOffset = CGSizeMake(0.0f, -1.0f);
         layer.shadowRadius = 1.0f;
         layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
         layer.shadowOpacity = 1.0f;
-
+        
 
     }
 
@@ -46,6 +50,29 @@
     }];
 
     self.stackView.distribution = OAStackViewDistributionFillEqually;
+}
+
+- (void)_makeSlider
+{
+    UISlider *slider = [UISlider new];
+    slider.userInteractionEnabled = NO;
+    slider.alpha = 0;
+    
+    _progressView = slider;
+
+    [self addSubview:slider];
+
+    [slider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.centerY.equalTo(self.mas_top);
+    }];
+
+    _indicatorPrototypeView =
+    [[NSBundle mainBundle] loadNibNamed:@"ZZTabbarViewPositionIndicator"
+                                  owner:nil
+                                options:nil].firstObject;
+
+    [slider setThumbImage:self.indicatorPrototypeView.zz_renderToImage forState:UIControlStateNormal];
 }
 
 - (CGSize)intrinsicContentSize

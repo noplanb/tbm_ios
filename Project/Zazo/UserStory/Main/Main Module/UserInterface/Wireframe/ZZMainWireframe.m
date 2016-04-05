@@ -100,4 +100,11 @@
                                                           withModel:model completion:nil];
 }
 
+@dynamic moduleInterface;
+
+- (id<ZZMainModuleInterface>)moduleInterface
+{
+    return self.presenter;
+}
+
 @end

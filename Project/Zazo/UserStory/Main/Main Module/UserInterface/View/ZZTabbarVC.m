@@ -5,7 +5,7 @@
 
 #import "ZZTabbarVC.h"
 #import "ZZMain.h"
-#import "ZZTabbarView.h"
+#import "TabbarView/ZZTabbarView.h"
 #import <OAStackView.h>
 
 @interface ZZTabbarVC () <ZZTabbarViewDelegate, UIScrollViewDelegate>
@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) OAStackView *stackView;
 @property (nonatomic, strong) ZZTabbarView *tabbarView;
+
+@property (nonatomic, assign) BOOL progressBarVisibilityIsBeingChanged;
 
 @end
 
@@ -22,6 +24,7 @@
 {
     self = [super init];
     if (self) {
+        _progressBarVisibilityIsBeingChanged = NO;
         _activePageIndex = NSUIntegerMax;
     }
     return self;
@@ -73,6 +76,48 @@
     [self _scrollToActivePageIfNeededAnimated:YES];
     
     [self.viewControllers[activePageIndex] viewDidAppear:YES];
+}
+
+@dynamic progressBarPosition;
+
+- (void)setProgressBarPosition:(CGFloat)progressBarPosition
+{
+    BOOL progressBarMustBeVisible = progressBarPosition > 0.01;
+    BOOL progressBarIsVisible = self.tabbarView.progressView.alpha > 0.99;
+    
+    if (progressBarMustBeVisible)
+    {
+        self.tabbarView.progressView.value = progressBarPosition;
+    }
+
+    if (self.progressBarVisibilityIsBeingChanged)
+    {
+        return;
+    }
+        
+    if (progressBarMustBeVisible != progressBarIsVisible)
+    {
+        self.progressBarVisibilityIsBeingChanged = YES;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.tabbarView.progressView.alpha = progressBarMustBeVisible ? 1 : 0;
+        } completion:^(BOOL finished) {
+            self.progressBarVisibilityIsBeingChanged = NO;
+            
+            if (!progressBarMustBeVisible)
+            {
+                self.tabbarView.progressView = 0;
+            }
+            
+            
+        }];
+    }
+    
+}
+
+- (CGFloat)progressBarPosition
+{
+    return self.tabbarView.progressView.value;
 }
 
 - (void)_scrollToActivePageIfNeededAnimated:(BOOL)animated

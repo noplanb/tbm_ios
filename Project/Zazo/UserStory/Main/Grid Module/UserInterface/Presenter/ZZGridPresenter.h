@@ -21,7 +21,7 @@
 <
     ZZGridInteractorOutput,
     ZZGridModuleInterface,
-        ZZContactsModuleDelegate,
+    ZZContactsModuleDelegate,
     ZZEditFriendListModuleDelegate,
     ZZGridPresenterInterface,
     ZZGridInteractorOutputActionHandler
