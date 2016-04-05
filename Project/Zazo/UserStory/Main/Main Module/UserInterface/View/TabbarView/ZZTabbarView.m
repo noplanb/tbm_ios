@@ -145,4 +145,22 @@
     actualActiveButton.tintColor = self.window.tintColor;
 }
 
+- (void)setProgressViewBadge:(NSUInteger)progressViewBadge
+{
+    _progressViewBadge = progressViewBadge;
+    
+    ANDispatchBlockToBackgroundQueue(^{
+        UILabel *label = self.indicatorPrototypeView.subviews.firstObject;
+        label.text = [NSString stringWithFormat:@"%lu", (unsigned long)progressViewBadge];
+        UIImage *badge = self.indicatorPrototypeView.zz_renderToImage;
+        
+        ANDispatchBlockToMainQueue(^{
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.progressView setThumbImage:badge forState:UIControlStateNormal];
+            }];
+        });
+    });
+}
+
 @end

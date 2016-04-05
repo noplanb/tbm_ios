@@ -448,7 +448,6 @@
     return [self.reachability isReachable];
 }
 
-
 #pragma mark - Video Player Delegate
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
@@ -468,6 +467,11 @@
 - (void)videoPlayingProgress:(CGFloat)progress
 {
     self.wireframe.mainWireframe.moduleInterface.progressBarPosition = progress;
+}
+
+- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos
+{
+    self.wireframe.mainWireframe.moduleInterface.progressBarBadge = startedVideoIndex + 1;
 }
 
 #pragma mark - Data source delegate

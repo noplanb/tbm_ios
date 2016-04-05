@@ -48,4 +48,16 @@
     return self.userInterface.progressBarPosition;
 }
 
+@dynamic progressBarBadge;
+
+- (void)setProgressBarBadge:(NSUInteger)progressBarBadge
+{
+    self.userInterface.progressBarBadge = progressBarBadge;
+}
+
+- (NSUInteger)progressBarBadge
+{
+    return self.userInterface.progressBarBadge;
+}
+
 @end

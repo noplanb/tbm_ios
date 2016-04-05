@@ -144,6 +144,8 @@
 {
 //    [self _updateFriendVideoStatusWithFriend:relatedUserModel video:playedVideoModel videoIndex:index];
     
+    [self.delegate didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:videoModel] totalVideos:self.videoModels.count];
+    
     self.currentVideoModel = videoModel;
     self.currentFriendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
     self.currentURL = videoModel.videoURL;

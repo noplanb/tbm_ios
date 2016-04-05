@@ -29,4 +29,6 @@
 
 @property (nonatomic, weak) UISlider *progressView;
 
+@property (nonatomic, assign) NSUInteger progressViewBadge;
+
 @end
