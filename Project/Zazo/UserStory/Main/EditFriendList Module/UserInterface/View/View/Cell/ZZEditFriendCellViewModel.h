@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, ZZEditFriendButtonType)
 @property (nonatomic, assign) BOOL isUpdating;
 
 - (void)updatePhotoImageView:(UIImageView *)imageView;
-- (void)updateDeleteButton:(UIButton *)button;
+- (void)updateSwitch:(UISwitch *)aSwitch;
 
 - (NSString *)username;
 - (NSString *)phoneNumber;

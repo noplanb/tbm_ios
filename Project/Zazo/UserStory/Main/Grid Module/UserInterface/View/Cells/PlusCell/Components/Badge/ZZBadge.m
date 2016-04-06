@@ -6,7 +6,7 @@
 #import "ZZBadge.h"
 #import "ZZGridUIConstants.h"
 
-static CGFloat ZZBadgeAnimationDuration = 1.0f;
+//static CGFloat ZZBadgeAnimationDuration = 1.0f;
 
 @implementation ZZBadge
 

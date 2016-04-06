@@ -33,20 +33,20 @@ static UIImage* kImagePlaceholder = nil;
     [self.delegate deleteAndRestoreButtonSelectedWithModel:self];
 }
 
-- (void)updateDeleteButton:(UIButton*)button
+- (void)updateSwitch:(UISwitch *)aSwitch
 {
-    button.hidden = self.isUpdating;
+    aSwitch.enabled = !self.isUpdating;
     
     if ([self.item isCreator])
     {
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
             self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
         {
-            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
+            [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateDelete];
         }
         else
         {
-            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
+            [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateRestore];
         }
     }
     else
@@ -54,27 +54,18 @@ static UIImage* kImagePlaceholder = nil;
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
             self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
         {
-            [self _updateButton:button toState:ZZContactActionButtonStateDelete];
+            [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateDelete];
         }
         else
         {
-            [self _updateButton:button toState:ZZContactActionButtonStateRestore];
+            [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateRestore];
         }
     }
 }
 
-- (void)_updateButton:(UIButton *)button toState:(ZZContactActionButtonState)state
+- (void)_updateSwitch:(UISwitch *)aSwitch toState:(ZZContactActionButtonState)state
 {
-    if (state == ZZContactActionButtonStateDelete)
-    {
-//        [button setBackgroundColor:[UIColor colorWithRed:0.6 green:0.76 blue:0.22 alpha:1]];
-        [button setTitle:NSLocalizedString(@"edit-friend.delete.button.title", nil) forState:UIControlStateNormal];
-    }
-    else
-    {
-//        [button setBackgroundColor:[UIColor colorWithRed:0.96 green:0.54 blue:0.17 alpha:1]];
-        [button setTitle:NSLocalizedString(@"edit-friend.restore.button.title", nil) forState:UIControlStateNormal];
-    }
+    [aSwitch setOn:state animated:NO];
 }
 
 

@@ -10,6 +10,6 @@
 
 @interface ZZEditFriendCell : ANTableViewCell <ANModelTransfer>
 
-@property (nonatomic, strong) ANProgressButton* deleteAndRestoreButton;
+@property (nonatomic, strong) UISwitch* deleteSwitch;
 
 @end

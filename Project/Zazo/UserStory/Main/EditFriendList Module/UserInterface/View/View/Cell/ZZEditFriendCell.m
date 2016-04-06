@@ -36,9 +36,9 @@
 {
     self.nameLabel.text = [model username];
     self.phoneNumberLabel.text = [model phoneNumber];
-    self.deleteAndRestoreButton.isLoading = [model isUpdating];
+    self.deleteSwitch.enabled = ![model isUpdating];
     [model updatePhotoImageView:self.photoImageView];
-    [model updateDeleteButton:self.deleteAndRestoreButton];
+    [model updateSwitch:self.deleteSwitch];
     
     self.backgroundColor = [model cellBackgroundColor];
     
@@ -47,7 +47,7 @@
 
 - (void)_deleteButtonSelected
 {
-    self.deleteAndRestoreButton.isLoading = YES;
+    self.deleteSwitch.enabled = NO;
     [self.currentModel deleteAndRestoreButtonSelected];
 }
 
@@ -86,7 +86,7 @@
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.photoImageView.mas_right).offset(10);
             make.top.equalTo(self.photoImageView.mas_top);
-            make.right.equalTo(self.deleteAndRestoreButton.mas_left).offset(-5);
+            make.right.equalTo(self.deleteSwitch.mas_left).offset(-5);
             make.bottom.equalTo(self.contentView.mas_centerY);
         }];
     }
@@ -112,27 +112,24 @@
     return _phoneNumberLabel;
 }
 
-- (ANProgressButton *)deleteAndRestoreButton
+- (UISwitch *)deleteSwitch
 {
-    if (!_deleteAndRestoreButton)
+    if (!_deleteSwitch)
     {
-        _deleteAndRestoreButton = [ANProgressButton buttonWithTheme:[ZZColorTheme shared].editFriendsTheme];
+        _deleteSwitch = [UISwitch new];
       
-//        [_deleteAndRestoreButton setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
+//        [_deleteSwitch setTitleColor:[UIColor an_colorWithHexString:@"202020"] forState:UIControlStateNormal];
         
-        _deleteAndRestoreButton.titleLabel.font = [UIFont zz_regularFontWithSize:15];
-        [_deleteAndRestoreButton addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_deleteAndRestoreButton];
+        [_deleteSwitch addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:_deleteSwitch];
         
-        [_deleteAndRestoreButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_deleteSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
-            make.height.equalTo(@40);
-            make.width.equalTo(@60);
             make.right.equalTo(self.contentView).with.offset(-8);
         }];
     }
     
-    return _deleteAndRestoreButton;
+    return _deleteSwitch;
 }
 
 - (UIView *)separator

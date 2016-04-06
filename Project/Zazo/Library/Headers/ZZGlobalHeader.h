@@ -46,7 +46,6 @@ static NSString* const kGlobalApplicationVersion = @"45";
 #import "UINavigationItem+ANAdditions.h"
 #import "UIBarButtonItem+ANAdditions.h"
 
-#import "ANProgressButton.h"
 #import "NSDate+ANUIAdditions.h"
 #import "UIImage+ANAdditions.h"
 #import "OBLogger.h"

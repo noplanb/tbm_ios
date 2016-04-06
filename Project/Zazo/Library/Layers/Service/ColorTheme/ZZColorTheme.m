@@ -117,19 +117,5 @@ static CGFloat const kNavigationBarIconHeight = 20;
     [UIBarButtonItem an_addImage:[icon an_imageByTintingWithColor:self.tintColor] forType:type];
 }
 
-- (id<ANColorThemeButtonInterface>)editFriendsTheme
-{
-    if (!_editFriendsTheme)
-    {
-        _editFriendsTheme = [ANColorThemeButton new];
-        
-        _editFriendsTheme.normalStateBackground = [UIColor clearColor];
-        _editFriendsTheme.selectedStateBackground = [UIColor clearColor];
-        _editFriendsTheme.disabledStateBackground = [UIColor clearColor];
-        _editFriendsTheme.normalStateFontColor = self.baseColor;
-        _editFriendsTheme.font = [UIFont zz_regularFontWithSize:18];
-    }
-    return _editFriendsTheme;
-}
 
 @end

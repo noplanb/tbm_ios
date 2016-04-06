@@ -34,11 +34,6 @@ PODS:
   - ANLogger (1.0.2):
     - ANCategories (~> 1.0.6)
     - CocoaLumberjack (~> 2.0.0)
-  - ANProgressButton (1.0.2):
-    - ANCategories (~> 1.0)
-    - ANColorTheme (~> 1.0)
-    - MSSPopMasonry
-    - ReactiveCocoa (~> 2.4.2)
   - ANStorage (1.1.4):
     - ANHelperFunctions (~> 1)
     - ANLogger (~> 1)
@@ -112,7 +107,6 @@ DEPENDENCIES:
   - ANColorTheme (~> 1.0.4)
   - ANHelperFunctions (~> 1.0.3)
   - ANLogger (~> 1.0.2)
-  - ANProgressButton (~> 1.0.2)
   - ANStorage (~> 1.1.4)
   - ANTableController (~> 1.1.5)
   - ANTableViews (~> 1.0.13)
@@ -161,7 +155,6 @@ SPEC CHECKSUMS:
   ANHelperFunctions: 39cbb913f8af9b52fc8921ba4051583a7bfc13ab
   ANKeyboardHandler: 800b1f318d59cd7746be449286ebbd78ee81465a
   ANLogger: 5ed038a64e650b0576f13d6816fa4b53367553e2
-  ANProgressButton: a4e7c57c47b9d5dc38a3e56529efae09a6bc185c
   ANStorage: 5bd2a8f7e9f22fb626373c3bc9726eec6735d05d
   ANTableController: 94f423ba5c2ac44ea8cb060aa1ae99a5b2ac3893
   ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586

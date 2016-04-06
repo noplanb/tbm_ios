@@ -45,8 +45,6 @@
 @property (nonatomic, strong) UIColor* gridBackgroundColor;
 @property (nonatomic, strong) UIColor* gridMenuColor;
 
-@property (nonatomic, strong) id <ANColorThemeButtonInterface> editFriendsTheme;
-
 + (instancetype)shared;
 
 @end
