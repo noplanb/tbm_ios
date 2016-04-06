@@ -28,6 +28,8 @@
 - (void)updateSwitch:(UISwitch *)aSwitch;
 
 - (NSString *)username;
+- (NSString *)abbreviation;
+
 //- (NSString *)phoneNumber;
 
 - (void)switchStateChanged;

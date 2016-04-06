@@ -10,6 +10,6 @@
 
 @interface ZZEditFriendCell : ANTableViewCell <ANModelTransfer>
 
-@property (nonatomic, strong) UISwitch* deleteSwitch;
+@property (nonatomic, strong) UISwitch *deleteSwitch;
 
 @end

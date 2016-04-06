@@ -29,7 +29,6 @@
         self.contentView = [ZZEditFriendView new];
         self.controller = [[ZZEditFriendListController alloc] initWithTableView:self.contentView.editFriendsTableView];
         self.controller.tableView.backgroundView = nil;
-        self.controller.tableView.backgroundColor = [UIColor colorWithRed:0.85 green:0.84 blue:0.81 alpha:1];
         self.controller.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.controller.delegate = self;
     }

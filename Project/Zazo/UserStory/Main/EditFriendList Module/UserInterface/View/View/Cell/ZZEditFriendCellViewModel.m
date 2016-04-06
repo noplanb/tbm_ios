@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 
 #import "ZZEditFriendCellViewModel.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZUserPresentationHelper.h"
 
 @interface ZZEditFriendCellViewModel ()
 
@@ -85,9 +86,19 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     imageView.tintColor = self.colorPair.tintColor;
 }
 
-- (NSString*)username
+- (NSString *)username
 {
     return [self.item fullName];
+}
+
+- (NSString *)abbreviation
+{
+    if (!self.image)
+    {
+        return [ZZUserPresentationHelper abbreviationWithFullname:self.username];
+    }
+    
+    return nil;
 }
 
 @synthesize colorPair = _colorPair;
