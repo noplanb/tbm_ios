@@ -18,7 +18,7 @@ static UIImage* kImagePlaceholder = nil;
 @property (nonatomic, strong, readwrite) NSString *abbreviation;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSString *placeholderImageName;
+@property (nonatomic, strong, readonly) UIImage *placeholderImage;
 @property (nonatomic, strong, readonly) ZZColorPair *colorPair;
 
 @end
@@ -65,7 +65,7 @@ static UIImage* kImagePlaceholder = nil;
     
     if (!image)
     {
-        image = [[UIImage imageNamed:self.placeholderImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        image = self.placeholderImage;
         imageView.backgroundColor = self.colorPair.backgroundColor;
         imageView.tintColor = self.colorPair.tintColor;
     }
@@ -85,16 +85,16 @@ static UIImage* kImagePlaceholder = nil;
     return _colorPair;
 }
 
-- (NSString *)placeholderImageName
+@synthesize placeholderImage = _placeholderImage;
+
+- (UIImage *)placeholderImage
 {
-    if (!_placeholderImageName)
+    if (!_placeholderImage)
     {
-        NSUInteger number = arc4random_uniform(4)+1;
-        _placeholderImageName = [NSString stringWithFormat:@"contact-pattern-%lu", (unsigned long)number];
-        
+        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
     }
     
-    return _placeholderImageName;
+    return _placeholderImage;
 }
 
 @end

@@ -12,14 +12,14 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     ZZContactActionButtonStateRestore = 1,
 };
 
-static UIImage* kImagePlaceholder = nil;
-
 #import "ZZEditFriendCellViewModel.h"
 #import "ZZThumbnailGenerator.h"
 
 @interface ZZEditFriendCellViewModel ()
 
 @property (nonatomic, strong) UIImage* image;
+@property (nonatomic, strong, readonly) UIImage *placeholderImage;
+@property (nonatomic, strong, readonly) ZZColorPair *colorPair;
 
 @end
 
@@ -27,10 +27,10 @@ static UIImage* kImagePlaceholder = nil;
 
 #pragma mark - Actions
 
-- (void)deleteAndRestoreButtonSelected
+- (void)switchStateChanged
 {
     self.isUpdating = YES;
-    [self.delegate deleteAndRestoreButtonSelectedWithModel:self];
+    [self.delegate switchValueChangedWithModel:self];
 }
 
 - (void)updateSwitch:(UISwitch *)aSwitch
@@ -65,21 +65,7 @@ static UIImage* kImagePlaceholder = nil;
 
 - (void)_updateSwitch:(UISwitch *)aSwitch toState:(ZZContactActionButtonState)state
 {
-    [aSwitch setOn:state animated:NO];
-}
-
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            kImagePlaceholder = [UIImage imageNamed:@"zazo_color"];
-        });
-    }
-    return self;
+    [aSwitch setOn:!state animated:NO];
 }
 
 - (void)setItem:(id<ZZUserInterface>)item
@@ -88,15 +74,15 @@ static UIImage* kImagePlaceholder = nil;
     
     if (_item.isHasApp)
     {
-        UIImage* image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
-        self.image = image ? : kImagePlaceholder;
+        self.image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
     }
 }
 
-
 - (void)updatePhotoImageView:(UIImageView*)imageView
 {
-    imageView.image = self.image;
+    imageView.image = self.image ?: self.placeholderImage;
+    imageView.backgroundColor = self.colorPair.backgroundColor;
+    imageView.tintColor = self.colorPair.tintColor;
 }
 
 - (NSString*)username
@@ -104,41 +90,33 @@ static UIImage* kImagePlaceholder = nil;
     return [self.item fullName];
 }
 
-- (NSString *)phoneNumber
+@synthesize colorPair = _colorPair;
+
+- (ZZColorPair *)colorPair
 {
-    return [NSObject an_safeString:self.item.mobileNumber];
+    if (!_colorPair)
+    {
+        _colorPair = [ZZColorPair randomPair];
+    }
+    
+    return _colorPair;
 }
 
-- (UIColor *)cellBackgroundColor
+@synthesize placeholderImage = _placeholderImage;
+
+- (UIImage *)placeholderImage
 {
-    UIColor *cellColor;
-    
-    if ([self.item isCreator])
+    if (!_placeholderImage)
     {
-        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
-        {
-            cellColor = [UIColor an_colorWithHexString:@"ffffff"];
-        }
-        else
-        {
-            cellColor = [UIColor an_colorWithHexString:@"ddd9ce"];
-        }
-    }
-    else
-    {
-        if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
-        {
-            cellColor = [UIColor an_colorWithHexString:@"ffffff"];
-        }
-        else
-        {
-            cellColor = [UIColor an_colorWithHexString:@"ddd9ce"];
-        }
+        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
     }
     
-    return cellColor;
+    return _placeholderImage;
 }
+
+//- (NSString *)phoneNumber
+//{
+//    return [NSObject an_safeString:self.item.mobileNumber];
+//}
 
 @end

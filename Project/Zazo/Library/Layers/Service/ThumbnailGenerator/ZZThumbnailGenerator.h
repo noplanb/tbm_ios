@@ -20,6 +20,8 @@
 + (void)deleteLastThumbForUserWithID:(NSString*)friendID;
 + (UIImage*)legacyThumbImageForFriend:(ZZFriendDomainModel*)friendModel;
 + (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel*)friendModel;
++ (UIImage*)thumbnailPlaceholderImage;
+
 
 #pragma mark - Video
 

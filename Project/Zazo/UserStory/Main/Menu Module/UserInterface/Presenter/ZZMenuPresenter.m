@@ -6,6 +6,8 @@
 #import "ZZMenuPresenter.h"
 #import "ZZMenu.h"
 #import "ZZMainWireframe.h"
+#import "ZZGridWireframe.h"
+
 
 @interface ZZMenuPresenter ()
 
@@ -42,6 +44,7 @@
 
         case ZZMenuItemTypeEditFriends:
             [self.wireframe.mainWireframe presentEditFriendsController];
+            
             break;
 
         case ZZMenuItemTypeHelp:

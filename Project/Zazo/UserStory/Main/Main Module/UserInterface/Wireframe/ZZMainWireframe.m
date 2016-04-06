@@ -12,7 +12,7 @@
 #import "ZZGridPresenter.h"
 #import "ZZContactsPresenter.h"
 #import "ZZMenuWireframe.h"
-
+#import "ZZEditFriendListPresenter.h"
 #import "ANMessagesWireframe.h"
 #import "ZZEditFriendListWireframe.h"
 #import "ANMessageDomainModel.h"
@@ -90,7 +90,7 @@
 {
     ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
     [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
-//    wireFrame.presenter.editFriendListModuleDelegate = self.presenter;
+    wireFrame.presenter.editFriendListModuleDelegate = self.gridWireframe.presenter;
 }
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;

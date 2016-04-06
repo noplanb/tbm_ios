@@ -44,7 +44,7 @@
 
 #pragma mark - ZZEditFriendCellViewModelDelegate
 
-- (void)deleteAndRestoreButtonSelectedWithModel:(ZZEditFriendCellViewModel *)model
+- (void)switchValueChangedWithModel:(ZZEditFriendCellViewModel *)model
 {
     [self.delegate changeContactStatusTypeForModel:model];
 }

@@ -6,20 +6,14 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, ZZEditFriendButtonType)
-{
-    ZZEditFriendButtonTypeDelete,
-    ZZEditFriendButtonTypeRestore
-};
-
-
 #import "ZZFriendDomainModel.h"
 #import "ZZEditFriendEnumsAdditions.h"
+
 @class ZZEditFriendCellViewModel;
 
 @protocol ZZEditFriendCellViewModelDelegate <NSObject>
 
-- (void)deleteAndRestoreButtonSelectedWithModel:(ZZEditFriendCellViewModel *)model;
+- (void)switchValueChangedWithModel:(ZZEditFriendCellViewModel *)model;
 
 @end
 
@@ -34,9 +28,8 @@ typedef NS_ENUM(NSInteger, ZZEditFriendButtonType)
 - (void)updateSwitch:(UISwitch *)aSwitch;
 
 - (NSString *)username;
-- (NSString *)phoneNumber;
-- (UIColor *)cellBackgroundColor;
+//- (NSString *)phoneNumber;
 
-- (void)deleteAndRestoreButtonSelected;
+- (void)switchStateChanged;
 
 @end

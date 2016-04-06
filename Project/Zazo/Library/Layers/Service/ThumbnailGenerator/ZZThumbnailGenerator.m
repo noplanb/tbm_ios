@@ -114,6 +114,12 @@
     return ([self legacyThumbImageForFriend:friend] != nil);
 }
 
++ (UIImage*)thumbnailPlaceholderImage
+{
+    NSUInteger number = arc4random_uniform(4)+1;
+    return [[UIImage imageNamed:[NSString stringWithFormat:@"contact-pattern-%lu", (unsigned long)number]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
 
 #pragma mark - Video 
 
