@@ -12,13 +12,8 @@
 #import "ZZContactsModuleDelegate.h"
 #import "ZZContactsModuleInterface.h"
 #import "ZZGridModuleDelegate.h"
-#import "ANDrawerNC.h"
 
-@interface ZZContactsPresenter : NSObject
-<ZZContactsInteractorOutput,
-        ZZContactsModuleInterface,
-    ANDrawerNCDelegate
->
+@interface ZZContactsPresenter : NSObject <ZZContactsInteractorOutput, ZZContactsModuleInterface>
 
 @property (nonatomic, strong) id<ZZContactsInteractorInput> interactor;
 @property (nonatomic, strong) ZZContactsWireframe * wireframe;

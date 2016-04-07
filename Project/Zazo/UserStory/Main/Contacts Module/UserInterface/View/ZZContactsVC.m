@@ -45,6 +45,11 @@
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.eventHandler menuToggled];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.view endEditing:YES];

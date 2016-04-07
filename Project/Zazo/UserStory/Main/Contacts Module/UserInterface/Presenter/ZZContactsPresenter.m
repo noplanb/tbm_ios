@@ -19,7 +19,7 @@
     ZZRootStateObserverDelegate
 >
 
-@property (nonatomic, strong) ZZContactsDataSource * dataSource;
+@property (nonatomic, strong) ZZContactsDataSource *dataSource;
 
 @end
 
@@ -33,7 +33,7 @@
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:NO];
+    [self.interactor loadDataIncludeAddressBookRequest:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
@@ -50,7 +50,7 @@
 
 - (void)reloadContactMenuData
 {
-    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:NO];
+    [self.interactor loadDataIncludeAddressBookRequest:YES];
     [self.userInterface reloadContactView];
 }
 
@@ -88,19 +88,13 @@
 
 - (void)menuToggled
 {
-    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:YES];
+    [self.interactor loadDataIncludeAddressBookRequest:NO];
+    [self.userInterface reloadContactView];
 }
 
 - (void)needsPermissionForAddressBook
 {
     [ZZContactsPermissionAlertBuilder showNeedAccessForAddressBookAlert];
-}
-
-#pragma mark ANDrawerNCDelegate
-
-- (void)drawerControllerWillAppearFromPanGesture:(ANDrawerNC *)controller;
-{
-    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:YES];
 }
 
 #pragma mark - Root state observer delegate
@@ -113,7 +107,6 @@
         [self.interactor enableUpdateContactData];
     }
 }
-
 
 #pragma mark - Module Interface
 

@@ -41,17 +41,17 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isLoaded = NO;
 }
 
-- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
 {
     self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
     
     if (!self.wasSetuped)
     {
-        [self _setupDataAfterFirstLaunchWithAddressBookRequest:shouldRequest shouldOpenDrawer:shouldOpen];
+        [self _setupDataAfterFirstLaunchWithAddressBookRequest:shouldRequest];
     }
     else
     {
-        [self _setupDataWithAddressBookRequest:shouldRequest shouldOpenDrawer:shouldOpen];
+        [self _setupDataWithAddressBookRequest:shouldRequest];
     }
 }
 
@@ -63,16 +63,16 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 #pragma mark - Private
 
-- (void)_setupDataAfterFirstLaunchWithAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+- (void)_setupDataAfterFirstLaunchWithAddressBookRequest:(BOOL)shouldRequest
 {
     self.wasSetuped = YES;
     ANDispatchBlockToBackgroundQueue(^{
         [self _loadFriends];
-        [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
+        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
     });
 }
 
-- (void)_setupDataWithAddressBookRequest:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+- (void)_setupDataWithAddressBookRequest:(BOOL)shouldRequest
 {
     ANDispatchBlockToMainQueue(^{
         if (self.isForceUpdate)
@@ -92,7 +92,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             }
         }
         
-        [self _loadAddressBookContactsWithRequestAccess:shouldRequest shouldOpenDrawer:shouldOpen];
+        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
     });
 }
 
@@ -116,7 +116,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     [self _sortFriendsFromArray:friends];
 }
 
-- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest shouldOpenDrawer:(BOOL)shouldOpen
+- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
 {
     if (!self.isLoading && !self.isLoaded)
     {
@@ -125,7 +125,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
-//            [self.output openDrawerIfEnabled:shouldOpen];
             
             self.isLoading = NO;
             self.isLoaded = YES;

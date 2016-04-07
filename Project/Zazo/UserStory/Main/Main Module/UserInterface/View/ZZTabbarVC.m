@@ -260,12 +260,13 @@
     }
 
     self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
+    [self.viewControllers[self.activePageIndex] viewDidAppear:YES];
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewDidEndDragging:scrollView willDecelerate:NO];
 }
-
 
 @end
