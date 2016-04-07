@@ -70,8 +70,8 @@
         _photoImageView = [UIImageView new];
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _photoImageView.backgroundColor = [UIColor grayColor];
         _photoImageView.layer.cornerRadius = 18;
+        
         [self.contentView addSubview:_photoImageView];
         
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,6 +99,11 @@
         }];
     }
     return _username;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    self.backgroundColor = highlighted ? [UIColor colorWithWhite:0.9 alpha:1] : [ZZColorTheme shared].gridBackgroundColor;
 }
 
 @end
