@@ -10,6 +10,8 @@
 #import "NSString+ZZAdditions.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZFriendDomainModel.h"
+
 
 static UIImage* kImagePlaceholder = nil;
 
@@ -52,6 +54,16 @@ static UIImage* kImagePlaceholder = nil;
     self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
     
     self.image = [item thumbnail];
+    
+    if (!self.image && [_item isKindOfClass:[ZZFriendDomainModel class]])
+    {
+        ZZFriendDomainModel *friendModel = (id)item;
+        
+        if (friendModel.isHasApp)
+        {
+            self.image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
+        }
+    }
     
     if (!self.image)
     {
