@@ -33,7 +33,7 @@
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest:NO shouldOpenDrawer:NO];
+    [self.interactor loadDataIncludeAddressBookRequest:YES shouldOpenDrawer:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
