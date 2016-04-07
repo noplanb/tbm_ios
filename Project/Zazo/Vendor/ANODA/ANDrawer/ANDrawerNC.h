@@ -21,30 +21,21 @@ typedef NS_ENUM(NSInteger, ANDrawerTopPin)
     ANDrawerTopPinCustomOffset,
 };
 
-@protocol ANDrawerNCDelegate <NSObject>
-
-- (void)drawerControllerWillAppearFromPanGesture:(ANDrawerNC *)controller;
-
-@end
-
 @interface ANDrawerNC : UINavigationController
 
 @property (nonatomic, assign) BOOL isOpen;
 @property (nonatomic, assign) BOOL useBackground;
-@property (nonatomic, assign) UIColor* backgroundColor;
+@property (nonatomic, assign) UIColor *backgroundColor;
 @property (nonatomic, assign) BOOL closeOnPushNewController;
 @property (nonatomic, assign) BOOL avoidKeyboard;
 @property (nonatomic, assign) ANDrawerTopPin topPin;
 @property (nonatomic, assign) CGFloat customTopPadding;
 
-//initialization
-+ (instancetype)drawerWithView:(UIView*)view width:(CGFloat)width direction:(ANDrawerOpenDirection)direction;
++ (instancetype)drawerWithView:(UIView *)view
+                         width:(CGFloat)width
+                     direction:(ANDrawerOpenDirection)direction;
 
-@property (nonatomic, weak) id<ANDrawerNCDelegate> drawerDelegate;
-
-//update state
 - (void)toggle;
 - (void)updateStateToOpened:(BOOL)isOpen;
-- (void)attachPanRecognizer:(UIPanGestureRecognizer*)recognizer;
 
 @end
