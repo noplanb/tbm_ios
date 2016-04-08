@@ -20,31 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - ANBaseDomainModel (1.0):
-    - ReactiveCocoa (~> 2.4.2)
-  - ANCategories (1.0.6):
-    - ANHelperFunctions (~> 1.0)
-    - ReactiveCocoa (~> 2.4.2)
-  - ANColorTheme (1.0.4):
-    - ANCategories (~> 1.0)
-    - ANHelperFunctions (~> 1.0)
   - ANHelperFunctions (1.0.3)
-  - ANKeyboardHandler (1.0.2):
-    - ANHelperFunctions (~> 1.0)
-  - ANLogger (1.0.2):
-    - ANCategories (~> 1.0.6)
-    - CocoaLumberjack (~> 2.0.0)
-  - ANStorage (1.1.4):
-    - ANHelperFunctions (~> 1)
-    - ANLogger (~> 1)
-  - ANTableController (1.1.5):
-    - ANHelperFunctions (~> 1.0.3)
-    - ANKeyboardHandler (~> 1.0.2)
-    - ANStorage (~> 1.1)
-  - ANTableViews (1.0.13):
-    - ANCategories (~> 1.0)
-    - ANHelperFunctions (~> 1.0)
-    - ANStorage (~> 1.0)
   - APAddressBook (0.2.3):
     - APAddressBook/Core (= 0.2.3)
   - APAddressBook/Core (0.2.3)
@@ -82,13 +58,6 @@ PODS:
   - PBJVision (0.4.6)
   - pop (1.0.9)
   - RBBAnimation (0.4.0)
-  - ReactiveCocoa (2.4.7):
-    - ReactiveCocoa/UI (= 2.4.7)
-  - ReactiveCocoa/Core (2.4.7):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.4.7)
-  - ReactiveCocoa/UI (2.4.7):
-    - ReactiveCocoa/Core
   - Reveal-iOS-SDK (1.6.2)
   - Rollbar (0.1.6)
   - SDCAlertView (2.5.4):
@@ -102,14 +71,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
-  - ANBaseDomainModel (~> 1.0)
-  - ANCategories (~> 1.0.6)
-  - ANColorTheme (~> 1.0.4)
   - ANHelperFunctions (~> 1.0.3)
-  - ANLogger (~> 1.0.2)
-  - ANStorage (~> 1.1.4)
-  - ANTableController (~> 1.1.5)
-  - ANTableViews (~> 1.0.13)
   - APAddressBook (~> 0.2.1)
   - CocoaLumberjack (~> 2.0.1)
   - Crashlytics (~> 3.7.0)
@@ -149,15 +111,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  ANBaseDomainModel: ed24258ecfad8c4829e13c032c07caee7baaf575
-  ANCategories: e27e6963e30875ff0e46352179b06aecaefe4037
-  ANColorTheme: 5fcbfba22ba047c68a9f4b92c5012fc9d02c1dc8
   ANHelperFunctions: 39cbb913f8af9b52fc8921ba4051583a7bfc13ab
-  ANKeyboardHandler: 800b1f318d59cd7746be449286ebbd78ee81465a
-  ANLogger: 5ed038a64e650b0576f13d6816fa4b53367553e2
-  ANStorage: 5bd2a8f7e9f22fb626373c3bc9726eec6735d05d
-  ANTableController: 94f423ba5c2ac44ea8cb060aa1ae99a5b2ac3893
-  ANTableViews: 5d1e4e4dfb581ed47ab75f1952f111f91dd00586
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
@@ -178,7 +132,6 @@ SPEC CHECKSUMS:
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
-  ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   Rollbar: 5500ff0227e60d4ebb3615341c18ca44df988bcb
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
