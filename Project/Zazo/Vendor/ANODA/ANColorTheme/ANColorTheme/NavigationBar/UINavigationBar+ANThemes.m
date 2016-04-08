@@ -21,9 +21,9 @@
     //TODO: image from background color
     [appearance setBackgroundImage:[theme backgroundImage] forBarMetrics:UIBarMetricsDefault];
     
-    NSDictionary* titleAttributes = @{UITextAttributeTextColor : [theme titleFontColor],
-                                      UITextAttributeTextShadowColor : [UIColor clearColor],
-                                      UITextAttributeFont : [theme titleFont]};
+    NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : [theme titleFontColor],
+                                      NSShadowAttributeName : [UIColor clearColor],
+                                      NSFontAttributeName : [theme titleFont]};
     
     [appearance setTitleTextAttributes:titleAttributes];
     

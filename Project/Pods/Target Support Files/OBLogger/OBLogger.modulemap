@@ -1,0 +1,6 @@
+framework module OBLogger {
+  umbrella header "OBLogger-umbrella.h"
+
+  export *
+  module * { export * }
+}

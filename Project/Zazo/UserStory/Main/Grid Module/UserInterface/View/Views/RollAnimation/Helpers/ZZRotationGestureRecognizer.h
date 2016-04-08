@@ -7,10 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "POPAnimation.h"
-#import "POPAnimatableProperty.h"
-#import "POPDecayAnimation.h"
-#import "POPSpringAnimation.h"
 #import "ZZGeometryHelper.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 

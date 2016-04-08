@@ -134,14 +134,14 @@ self.updatedRowIndexPaths.count    ? [self debugStringWithObject:self.updatedRow
 
 - (BOOL)isEmpty
 {
-    return !(self.deletedSectionIndexes.count +
+    return !((self.deletedSectionIndexes.count +
              self.insertedSectionIndexes.count +
              self.updatedSectionIndexes.count +
              self.deletedRowIndexPaths.count +
              self.insertedRowIndexPaths.count +
              self.updatedRowIndexPaths.count +
              self.movedRowsIndexPaths.count
-             ) > 0;
+             ) > 0);
 }
 
 @end

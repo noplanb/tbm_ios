@@ -17,7 +17,7 @@
 #import "ZZFeatureEventStrategyBase.h"
 #import "TBMFriend.h"
 #import "TBMVideo.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "ZZGridInteractor.h"
 #import "ZZRollbarAdapter.h"
 #import "ZZContentDataAccessor.h"

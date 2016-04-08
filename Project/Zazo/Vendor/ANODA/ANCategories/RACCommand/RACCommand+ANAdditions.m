@@ -7,7 +7,7 @@
 //
 
 #import "RACCommand+ANAdditions.h"
-#import "RACSignal.h"
+@import ReactiveCocoa;
 
 @implementation RACCommand (ANAdditions)
 

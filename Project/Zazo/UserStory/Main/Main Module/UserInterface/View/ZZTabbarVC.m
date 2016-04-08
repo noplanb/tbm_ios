@@ -6,7 +6,7 @@
 #import "ZZTabbarVC.h"
 #import "ZZMain.h"
 #import "TabbarView/ZZTabbarView.h"
-#import <OAStackView.h>
+@import OAStackView;
 
 @interface ZZTabbarVC () <ZZTabbarViewDelegate, UIScrollViewDelegate>
 

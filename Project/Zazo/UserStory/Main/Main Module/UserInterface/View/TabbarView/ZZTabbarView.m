@@ -4,8 +4,8 @@
 //
 
 #import "ZZTabbarView.h"
-#import <OAStackView.h>
 #import "UIView+ZZAdditions.h"
+@import OAStackView;
 
 @interface ZZTabbarView ()
 

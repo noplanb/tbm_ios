@@ -8,7 +8,7 @@
 
 #import "ZZTestGenerator.h"
 #import "TBMFriend.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "TBMVideo.h"
 #import "ZZRemoteStorageValueGenerator.h"
 #import "TBMRemoteStorageHandler.h"

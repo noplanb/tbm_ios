@@ -25,8 +25,7 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
-#import <NSString+ANAdditions.h>
-
+#import "NSString+ANAdditions.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 

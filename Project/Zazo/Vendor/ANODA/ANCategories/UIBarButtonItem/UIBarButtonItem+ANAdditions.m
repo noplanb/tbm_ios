@@ -6,8 +6,9 @@
 //
 
 #import "UIBarButtonItem+ANAdditions.h"
-#import "UIButton+RACCommandSupport.h"
 #import "ANHelperFunctions.h"
+
+@import ReactiveCocoa;
 
 static NSMutableDictionary* kImageNames;
 

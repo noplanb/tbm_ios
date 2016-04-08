@@ -6,7 +6,7 @@
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
-#import <OBLogger/OBLogger.h>
+@import OBLogger;
 
 @interface OBLogger (ZZAdditions)
 

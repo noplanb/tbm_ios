@@ -10,6 +10,7 @@
 #import "ZZRotator.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZGridHelper.h"
+@import pop;
 
 static CGFloat const kStartGridRotationOffset = 10;
 

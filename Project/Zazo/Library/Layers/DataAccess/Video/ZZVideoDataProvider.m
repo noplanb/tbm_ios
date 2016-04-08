@@ -10,7 +10,7 @@
 #import "ZZVideoModelsMapper.h"
 #import "ZZVideoDomainModel.h"
 #import "TBMVideo.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "ZZFriendDataProvider+Entities.h"
 #import "ZZContentDataAccessor.h"
 #import "TBMFriend.h"
@@ -44,7 +44,7 @@
             NSArray* items = [TBMVideo MR_findByAttribute:TBMVideoAttributes.videoId withValue:itemID inContext:[self _context]];
             if (items.count > 1)
             {
-                ANLogWarning(@"TBMVideo contains dupples for %@", itemID);
+                ZZLogWarning(@"TBMVideo contains dupples for %@", itemID);
             }
             itemEntity = [items firstObject];
         }

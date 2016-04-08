@@ -223,7 +223,6 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 
 - (void)storageDidPerformUpdate:(ANStorageUpdate *)update
 {
-    BOOL isUpdateEmpty = [update isEmpty];
     if (update && ![update isEmpty])
     {
         if (self.shouldAnimateTableViewUpdates)

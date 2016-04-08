@@ -8,6 +8,7 @@
 @class UIView;
 @class ZZGridHelper;
 @class ZZGridView;
+@import pop;
 
 @protocol ZZRotatorDelegate <NSObject>
 

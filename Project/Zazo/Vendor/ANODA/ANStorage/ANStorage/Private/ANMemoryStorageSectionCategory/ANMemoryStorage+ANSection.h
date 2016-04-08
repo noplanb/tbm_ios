@@ -18,7 +18,6 @@
 
 #pragma mark - Views Models
 
-- (void)_setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
 
 /**
  Set header models for sections. `ANSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section header models.
@@ -35,7 +34,7 @@
 
 // Remove all items in section and replace them with array of items. After replacement is done, storageNeedsReload delegate method is called.
 
-- (void)_setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex;
+//- (void)_setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex;
 - (ANSectionModel*)_sectionAtIndex:(NSUInteger)sectionNumber createIfNotExist:(BOOL)createIfNotExist;
 - (ANSectionModel *)_createSectionIfNotExist:(NSUInteger)sectionNumber;
 

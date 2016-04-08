@@ -32,7 +32,7 @@
 + (void)showMessageForError:(NSError *)error
 {
     if (!error) return;
-    ANLogError(error);
+    ZZLogError(@"Error: %@", error);
 }
 
 + (void)handleCoreDataInternalError:(NSError *)error

@@ -7,7 +7,7 @@
 //
 
 #import "ZZFriendDataUpdater.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "TBMFriend.h"
 #import "ZZFriendModelsMapper.h"
 #import "ZZFriendDataProvider+Entities.h"
@@ -163,7 +163,7 @@
         NSArray* items = [TBMFriend MR_findAllWithPredicate:predicate inContext:[self _context]];
         if (items.count > 1)
         {
-            ANLogWarning(@"TBMFriend contains dupples for tbmID = %@", itemID);
+            ZZLogWarning(@"TBMFriend contains dupples for tbmID = %@", itemID);
         }
         item = [items firstObject];
     }

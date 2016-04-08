@@ -41,7 +41,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSInteger index
  */
-- (NSInteger)an_indexOfWeekDay;
+//- (NSInteger)an_indexOfWeekDay;
 
 
 #pragma mark - Day

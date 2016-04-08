@@ -82,3 +82,19 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-ZazoTests/Expecta.framework"
+  install_framework "Pods-ZazoTests/KIF.framework"
+  install_framework "Pods-ZazoTests/Specta.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-ZazoTests/Expecta.framework"
+  install_framework "Pods-ZazoTests/KIF.framework"
+  install_framework "Pods-ZazoTests/Specta.framework"
+fi
+if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
+  install_framework "Pods-ZazoTests/Expecta.framework"
+  install_framework "Pods-ZazoTests/KIF.framework"
+  install_framework "Pods-ZazoTests/Specta.framework"
+fi

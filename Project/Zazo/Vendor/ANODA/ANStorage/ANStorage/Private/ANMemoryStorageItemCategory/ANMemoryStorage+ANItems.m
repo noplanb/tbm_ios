@@ -178,7 +178,7 @@
     
     if (fromIndexPath && toIndexPath)
     {
-        id testItem = [fromSection.objects objectAtIndex:fromIndexPath.row];
+//        id testItem = [fromSection.objects objectAtIndex:fromIndexPath.row];
         
         [self startUpdate];
         [fromSection.objects removeObjectAtIndex:fromIndexPath.row];

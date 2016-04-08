@@ -10,7 +10,7 @@
 #import "UIFont+ANAdditions.h"
 #import "UILabel+ANAdditions.h"
 
-static CGFloat const kANLabelSmallOffset = 10.0f;
+//static CGFloat const kANLabelSmallOffset = 10.0f;
 static CGFloat const kAdjustmentPadding = 5.0f;
 
 @interface ANBaseTableHeaderView ()

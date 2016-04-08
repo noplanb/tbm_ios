@@ -11,7 +11,6 @@
 #import "ZZGridModelsMapper.h"
 #import "ZZFriendDataProvider.h"
 #import "TBMFriend.h"
-#import "MagicalRecord.h"
 #import "ZZFriendDomainModel.h"
 #import "ZZFriendModelsMapper.h"
 #import "ZZGridDataProvider.h"

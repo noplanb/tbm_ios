@@ -96,7 +96,7 @@
     }
     else
     {
-        cell = [UITableViewCell new];
+        cell = (id)[UITableViewCell new];
     }
     return cell;
 }

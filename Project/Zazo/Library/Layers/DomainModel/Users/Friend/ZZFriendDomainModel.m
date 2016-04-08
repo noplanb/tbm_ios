@@ -10,7 +10,7 @@
 #import "FEMObjectMapping.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZStoredSettingsManager.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {

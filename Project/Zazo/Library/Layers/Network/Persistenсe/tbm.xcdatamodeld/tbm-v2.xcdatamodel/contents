@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="TBMFriend" representedClassName="TBMFriend" syncable="YES">
+        <attribute name="cid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="ckey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="everSent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendshipCreatorMKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendshipStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasApp" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFriendshipCreator" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastIncomingVideoStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastVideoStatusEventType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="mkey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outgoingVideoId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outgoingVideoStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="timeOfLastAction" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="uploadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="gridElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMGridElement" inverseName="friend" inverseEntity="TBMGridElement" syncable="YES"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TBMVideo" inverseName="friend" inverseEntity="TBMVideo" syncable="YES"/>
+    </entity>
+    <entity name="TBMGridElement" representedClassName="TBMGridElement" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="gridElement" inverseEntity="TBMFriend" syncable="YES"/>
+    </entity>
+    <entity name="TBMUser" representedClassName="TBMUser" syncable="YES">
+        <attribute name="auth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idTbm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isInvitee" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isRegistered" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mkey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TBMVideo" representedClassName="TBMVideo" syncable="YES">
+        <attribute name="downloadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="videoId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="345"/>
+        <element name="TBMGridElement" positionX="-209" positionY="153" width="128" height="75"/>
+        <element name="TBMUser" positionX="-216" positionY="-117" width="128" height="165"/>
+        <element name="TBMVideo" positionX="234" positionY="260" width="128" height="105"/>
+    </elements>
+</model>

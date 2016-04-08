@@ -1,0 +1,6 @@
+framework module OBFileTransfer {
+  umbrella header "OBFileTransfer-umbrella.h"
+
+  export *
+  module * { export * }
+}

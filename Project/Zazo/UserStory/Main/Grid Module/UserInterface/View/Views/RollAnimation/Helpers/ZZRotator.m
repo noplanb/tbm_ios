@@ -4,8 +4,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-#import <pop/POPDecayAnimation.h>
-#import <pop/POPSpringAnimation.h>
+@import pop;
+
 #import "ZZRotator.h"
 #import "ZZGridHelper.h"
 #import "ZZGeometryHelper.h"

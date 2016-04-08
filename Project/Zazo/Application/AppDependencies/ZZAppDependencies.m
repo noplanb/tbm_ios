@@ -17,8 +17,6 @@
 #import "ZZApplicationRootService.h"
 #import "ZZGridActionStoredSettings.h"
 #import "OBLogger+ZZAdditions.h"
-#import "MagicalRecordInternal.h"
-#import "MagicalRecord+Options.h"
 #import "ZZCacheCleaner.h"
 
 @interface ZZAppDependencies ()
@@ -46,7 +44,6 @@
         [ZZCacheCleaner cleanIfNeeded];
         
         ANDispatchBlockToBackgroundQueue(^{
-            [ANLogger initializeLogger];
             [ZZColorTheme shared];
         });
         
@@ -87,7 +84,7 @@
 
 - (void)handleApplicationDidBecomeActive
 {
-    [[OBLogger instance] logEvent:OBLogEventAppForeground];
+    ZZLogEvent(@"APP ENTERED FOREGROUND");
     
     if (self.wasSetuped)
     {
@@ -113,7 +110,7 @@
 {
     ZZLogInfo(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
     [ZZContentDataAccessor saveDataBase];
-    [[OBLogger instance] logEvent:OBLogEventAppBackground];
+    ZZLogEvent(@"APP ENTERED BACKGROUND");
 }
 
 

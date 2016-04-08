@@ -8,7 +8,7 @@
 
 #import "ZZUserDataProvider+Entities.h"
 #import "ZZUserModelsMapper.h"
-#import "MagicalRecord.h"
+@import MagicalRecord;
 #import "ZZContentDataAccessor.h"
 
 @implementation ZZUserDataProvider

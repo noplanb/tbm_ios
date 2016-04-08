@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-#import "RACCommand.h"
+@import ReactiveCocoa;
+
 #import "ANHelperFunctions.h"
 
 @interface RACCommand (ANAdditions)
