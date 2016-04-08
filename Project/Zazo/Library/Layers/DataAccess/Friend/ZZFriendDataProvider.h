@@ -24,8 +24,7 @@
 #pragma mark - Other
 
 + (NSInteger)friendsCount;
-
-
++ (NSSet <NSString *> *)allUsernamesExceptFriendWithID:(NSString *)friendID;
 + (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
 + (ZZFriendDomainModel*)lastActionFriendWithoutGrid;
 

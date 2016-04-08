@@ -102,6 +102,27 @@
 
 #pragma mark - Other
 
++ (NSSet <NSString *> *)allUsernamesExceptFriendWithID:(NSString *)friendID
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        
+        NSPredicate *friendPredicate = [NSPredicate predicateWithFormat:@"%K != %@", TBMFriendAttributes.idTbm, friendID];
+
+        NSArray <TBMFriend *> *items =
+        [TBMFriend MR_findAllSortedBy:TBMFriendAttributes.idTbm
+                            ascending:YES
+                        withPredicate:friendPredicate
+                            inContext:[self _context]];
+        
+        NSArray <NSString *> *names = [items.rac_sequence map:^id(id value) {
+            return [value firstName];
+        }].array;
+        
+        return [NSSet setWithArray:names];
+    });
+
+}
+
 + (ZZFriendDomainModel*)lastActionFriendWithoutGrid
 {
     return ZZDispatchOnMainThreadAndReturn(^id{

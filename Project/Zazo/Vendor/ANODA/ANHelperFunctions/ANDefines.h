@@ -7,6 +7,7 @@
 
 #pragma mark - iPhone Device Number
 
+#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
 #define IS_IPHONE_5             ([[UIScreen mainScreen] bounds].size.height == 568.0f)
 #define IS_IPHONE_6             ([[UIScreen mainScreen] bounds].size.height == 667.f)
 #define IS_IPHONE_6_PLUS        ([[UIScreen mainScreen] bounds].size.height == 736.f)
@@ -17,7 +18,6 @@
 
 #define IS_IPAD                 (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
-
 #pragma mark - Screen scale
 
 #define IS_RETINA               ([UIScreen mainScreen].scale >= 2)
@@ -26,6 +26,7 @@
 
 #pragma mark - IOS Version
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION          ([[[UIDevice currentDevice] systemVersion] floatValue])
 #define IOS7                    (7.0 <= SYSTEM_VERSION && SYSTEM_VERSION < 8.0)
 #define IOS8                    (8.0 <= SYSTEM_VERSION && SYSTEM_VERSION < 9.0)

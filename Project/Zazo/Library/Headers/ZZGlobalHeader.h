@@ -25,14 +25,9 @@ static NSString* const kGlobalApplicationVersion = @"45";
 #import "ANHelperFunctions.h"
 #import "ZZDispatchHelper.h"
 #import "ANDefines.h"
-
 #import "FrameAccessor.h"
 #import "Masonry.h"
-
-//reactive cocoa
-//#import "RACEXTScope.h"
 #import "RACCommand+ANAdditions.h"
-
 #import "ZZColorTheme.h"
 
 
@@ -60,14 +55,4 @@ static NSString* const kGlobalApplicationVersion = @"45";
 
 #define ZZLogEvent(s, ... ) OB_EVENT(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
-#define IS_IPHONE_4             ([[UIScreen mainScreen] bounds].size.height == 480.0f)
-
-
 typedef void(^ZZBoolBlock)(BOOL isSuccess);
-
-
-
-
-

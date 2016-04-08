@@ -19,17 +19,9 @@
 
 + (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
 {
-    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
-    ZZFriendDomainModel* aFriendModel = [ZZFriendDataProvider friendWithItemID: friendID];
-    
-    for (ZZFriendDomainModel *friendModel in friends)
-    {
-        if (![aFriendModel.idTbm isEqual:friendModel.idTbm] && [firstName isEqualToString:friendModel.firstName])
-            return NO;
-    }
-    return YES;
+    NSSet <NSString *> *names = [ZZFriendDataProvider allUsernamesExceptFriendWithID:friendID];
+    return ![names containsObject:firstName];
 }
-
 
 #pragma mark - Friend video helpers
 
