@@ -24,52 +24,20 @@ static APAddressBook* _addressBook = nil;
     _addressBook = nil;
 }
 
-+ (RACSignal*)loadContactsWithContactsRequest:(BOOL)shouldRequest
++ (RACSignal*)loadContactsWithContactsRequest
 {
-    if (shouldRequest)
+    RACSignal* loadSignal = [RACSignal empty];
+    if ([self isAccessGranted])
     {
-        return [[self _requestAccess] flattenMap:^RACStream *(id value) {
-            
-            if ([value boolValue])
-            {
-                return [self _loadData];
-            }
-            else
-            {
-                return [RACSignal error:nil];
-            }
-        }];
+        loadSignal = [self _loadData];
     }
-    else
-    {
-        RACSignal* loadSignal = [RACSignal empty];
-        if ([self isAccessGranted])
-        {
-            loadSignal = [self _loadData];
-        }
-        return loadSignal;
-    }
+    return loadSignal;
 }
 
 + (BOOL)isAccessGranted
 {
     return ([APAddressBook access] == APAddressBookAccessGranted);
 }
-
-+ (RACSignal*)_requestAccess
-{
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        
-        APAddressBook* aBook = [self _addressbook];
-        
-        [aBook requestAccess:^(BOOL granted, NSError *error) {
-            [NSObject an_handleSubcriber:subscriber withObject:@(granted) error:error];
-        }];
-        
-        return [RACDisposable disposableWithBlock:^{}];
-    }];
-}
-
 
 #pragma mark - Private
 

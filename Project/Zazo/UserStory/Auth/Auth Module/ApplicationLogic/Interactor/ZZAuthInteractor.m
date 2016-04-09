@@ -128,7 +128,6 @@
         [self loadFriends];
 
         [ZZStoredSettingsManager shared].isPushNotificatonEnabled = YES;
-        [ZZNotificationsHandler registerToPushNotifications];
 
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
                                            notificationObject:nil];

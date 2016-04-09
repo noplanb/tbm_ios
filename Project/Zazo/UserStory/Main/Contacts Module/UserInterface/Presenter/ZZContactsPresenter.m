@@ -33,7 +33,7 @@
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest:YES];
+    [self.interactor loadDataIncludeAddressBookRequest];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
@@ -50,7 +50,7 @@
 
 - (void)reloadContactMenuData
 {
-    [self.interactor loadDataIncludeAddressBookRequest:YES];
+    [self.interactor loadDataIncludeAddressBookRequest];
     [self.userInterface reloadContactView];
 }
 
@@ -88,7 +88,7 @@
 
 - (void)menuToggled
 {
-    [self.interactor loadDataIncludeAddressBookRequest:NO];
+    [self.interactor loadDataIncludeAddressBookRequest];
     [self.userInterface reloadContactView];
 }
 

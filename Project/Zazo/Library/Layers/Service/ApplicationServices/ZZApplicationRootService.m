@@ -125,6 +125,8 @@
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler startService];
             [self.downloadErrorHandler startService];
+            [[ZZVideoRecorder shared] setup];
+            [[ZZVideoRecorder shared] startPreview];            
         }];
     }
 }

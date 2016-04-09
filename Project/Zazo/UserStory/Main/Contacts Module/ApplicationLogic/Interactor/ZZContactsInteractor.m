@@ -41,17 +41,17 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isLoaded = NO;
 }
 
-- (void)loadDataIncludeAddressBookRequest:(BOOL)shouldRequest
+- (void)loadDataIncludeAddressBookRequest
 {
     self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
     
     if (!self.wasSetuped)
     {
-        [self _setupDataAfterFirstLaunchWithAddressBookRequest:shouldRequest];
+        [self _setupDataAfterFirstLaunchWithAddressBookRequest];
     }
     else
     {
-        [self _setupDataWithAddressBookRequest:shouldRequest];
+        [self _setupDataWithAddressBookRequest];
     }
 }
 
@@ -63,16 +63,16 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 #pragma mark - Private
 
-- (void)_setupDataAfterFirstLaunchWithAddressBookRequest:(BOOL)shouldRequest
+- (void)_setupDataAfterFirstLaunchWithAddressBookRequest
 {
     self.wasSetuped = YES;
     ANDispatchBlockToBackgroundQueue(^{
         [self _loadFriends];
-        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+        [self _loadAddressBookContactsWithRequestAccess];
     });
 }
 
-- (void)_setupDataWithAddressBookRequest:(BOOL)shouldRequest
+- (void)_setupDataWithAddressBookRequest
 {
     ANDispatchBlockToMainQueue(^{
         if (self.isForceUpdate)
@@ -92,7 +92,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             }
         }
         
-        [self _loadAddressBookContactsWithRequestAccess:shouldRequest];
+        [self _loadAddressBookContactsWithRequestAccess];
     });
 }
 
@@ -116,13 +116,13 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     [self _sortFriendsFromArray:friends];
 }
 
-- (void)_loadAddressBookContactsWithRequestAccess:(BOOL)shouldRequest
+- (void)_loadAddressBookContactsWithRequestAccess
 {
     if (!self.isLoading && !self.isLoaded)
     {
         self.isLoading = YES;
-        [ZZStoredSettingsManager shared].wasPermissionAccess = shouldRequest;
-        [[ZZAddressBookDataProvider loadContactsWithContactsRequest:shouldRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
+//        [ZZStoredSettingsManager shared].wasPermissionAccess = shouldRequest;
+        [[ZZAddressBookDataProvider loadContactsWithContactsRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
             

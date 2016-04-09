@@ -24,6 +24,11 @@
 
 + (void)start
 {
+    if (![[[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"] isEqualToString:@"com.zazo.Zazo"])
+    {
+        return; // Avoid creating app accounts in Fabric when CFBundleIdentifier temporary changed
+    }
+    
     [Fabric with:@[CrashlyticsKit]];
     
     // Setup listening log notifications

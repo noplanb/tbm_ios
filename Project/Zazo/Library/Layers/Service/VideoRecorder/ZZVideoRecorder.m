@@ -309,7 +309,10 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)_didBecomeActive
 {
     ANDispatchBlockToMainQueue(^{
-        [self.recorder startPreview];
+        if (self.isSetup)
+        {
+            [self.recorder startPreview];
+        }
     });
 }
 

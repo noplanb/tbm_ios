@@ -240,9 +240,7 @@
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
         isTwoCamerasAvailable && isSwitchCameraAvailable];
         
-        [[ZZVideoRecorder shared] setup];
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
-        [[ZZVideoRecorder shared] startPreview];
         
         [self _showRecordWelcomeIfNeededWithData:data];
     });
