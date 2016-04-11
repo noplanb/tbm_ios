@@ -56,7 +56,7 @@ static CGFloat const kSearchBarHeight = 44;
             make.height.equalTo(@(kSearchBarHeight));
         }];
         
-        _searchBar.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
+        _searchBar.backgroundColor = [UIColor whiteColor];
         _searchBar.barTintColor = [UIColor whiteColor];
         _searchBar.translucent = NO;
         
