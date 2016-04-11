@@ -28,7 +28,6 @@
     if (self) {
         _progressBarVisibilityIsBeingChanged = NO;
         _activePageIndex = NSUIntegerMax;
-        _previousContentOffset = CGPointZero;
     }
     return self;
 }

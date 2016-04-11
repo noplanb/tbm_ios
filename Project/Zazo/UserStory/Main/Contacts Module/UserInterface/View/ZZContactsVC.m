@@ -45,7 +45,7 @@
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [self.eventHandler menuToggled];
 }

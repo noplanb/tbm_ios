@@ -60,7 +60,6 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isForceUpdate = YES;
 }
 
-
 #pragma mark - Private
 
 - (void)_setupDataAfterFirstLaunchWithAddressBookRequest
@@ -163,7 +162,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         
         self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
         [self.output friendsThatHasAppLoaded:self.sortedFriends];
-         self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
+        self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
     });
 }
 
