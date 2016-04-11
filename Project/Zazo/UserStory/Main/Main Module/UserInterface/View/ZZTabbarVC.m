@@ -14,6 +14,8 @@
 @property (nonatomic, strong) OAStackView *stackView;
 @property (nonatomic, strong) ZZTabbarView *tabbarView;
 
+@property (nonatomic, weak) UIViewController *controllerThatWillAppear;
+
 @property (nonatomic, assign) BOOL progressBarVisibilityIsBeingChanged;
 
 @end
@@ -26,6 +28,7 @@
     if (self) {
         _progressBarVisibilityIsBeingChanged = NO;
         _activePageIndex = NSUIntegerMax;
+        _previousContentOffset = CGPointZero;
     }
     return self;
 }
@@ -124,7 +127,7 @@
 
 - (void)_scrollToActivePageIfNeededAnimated:(BOOL)animated
 {
-    CGPoint offset = CGPointMake(self.scrollView.bounds.size.width * self.activePageIndex, 0);
+    CGPoint offset = [self _offsetForPage:self.activePageIndex];
 
     if (CGPointEqualToPoint(self.scrollView.contentOffset, offset))
     {
@@ -247,6 +250,44 @@
 
 #pragma mark Scrollview Delegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint offsetForCurrentPage = [self _offsetForPage:self.activePageIndex];
+    
+    CGFloat movement = offsetForCurrentPage.x - scrollView.contentOffset.x;
+    
+    BOOL directionRight = movement < 0;
+    
+    if (directionRight && [self _isLastPage:self.activePageIndex])
+    {
+        return;
+    }
+    
+    if (!directionRight && [self _isFirstPage:self.activePageIndex])
+    {
+        return;
+    }
+    
+    NSInteger direction = directionRight ? 1 : -1;
+    NSUInteger nextIndex = self.activePageIndex + direction;
+    id controllerThatWillAppear = self.viewControllers[nextIndex];
+    
+    UIViewController *currentVC = self.viewControllers[self.activePageIndex];
+    
+    if (controllerThatWillAppear == currentVC)
+    {
+        return; // it's current page
+    }
+    
+    if (controllerThatWillAppear == self.controllerThatWillAppear)
+    {
+        return; // viewWillAppear already called
+    }
+    
+    self.controllerThatWillAppear = controllerThatWillAppear;
+    [self.controllerThatWillAppear viewWillAppear:YES];
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.viewControllers[self.activePageIndex] viewWillDisappear:YES];
@@ -261,12 +302,31 @@
 
     self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
     [self.viewControllers[self.activePageIndex] viewDidAppear:YES];
+    
+    self.controllerThatWillAppear = nil;
 
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewDidEndDragging:scrollView willDecelerate:NO];
+}
+
+#pragma mark Support
+
+- (BOOL)_isLastPage:(NSUInteger)index
+{
+    return self.viewControllers.count == index + 1;
+}
+
+- (BOOL)_isFirstPage:(NSUInteger)index
+{
+    return index == 0;
+}
+
+- (CGPoint)_offsetForPage:(NSUInteger)index
+{
+    return CGPointMake(self.scrollView.bounds.size.width * index, 0);
 }
 
 @end
