@@ -140,8 +140,6 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
         BOOL hasSpace = ([ZZFileHelper loadFreeDiskspaceValue] > 250LL * 1024 * 1024);
         
-        hasSpace = NO;
-        
         NSError* error = hasSpace ? nil : [self _errorWithPermissionType:ZZApplicationPermissionTypeFreeStorage];
         [self an_handleSubcriber:subscriber withObject:@(hasSpace) error:error];
         return [RACDisposable disposableWithBlock:^{}];
