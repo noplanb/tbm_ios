@@ -76,6 +76,10 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
         permissionScope.closeButton.hidden = YES;
         
+        permissionScope.headerLabel.text = @"Zazo";
+        permissionScope.bodyLabel.text = @"We need a few things before you get started";
+        permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
+        
         [permissions enumerateObjectsUsingBlock:^(id<Permission>  _Nonnull permission, NSUInteger idx, BOOL * _Nonnull stop) {
             [permissionScope addPermission:permission
                                    message:[self _messageForPermission:permission]];
@@ -99,16 +103,16 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     switch (permission.type)
     {
         case PermissionTypeContacts:
-            return @"Text for contacts";
+            return @"Zazo needs access to address book to show your friends";
             break;
         case PermissionTypeNotifications:
-            return @"Text for notifications";
+            return @"For sending notification when messages from friends arrive";
             break;
         case PermissionTypeMicrophone:
-            return @"Text for Mic";
+            return @"For recording audio in messages";
             break;
         case PermissionTypeCamera:
-            return @"Text for camera";
+            return @"For recording video in messages";
             break;
             
         default:
@@ -121,8 +125,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 + (RACSignal *)_askPermissionsStep1
 {
     return [self _askForPermissions:@[
-                                      [MicrophonePermission new],
-                                      [CameraPermission new]
+                                      [CameraPermission new],
+                                      [MicrophonePermission new]
                                       ]];
 }
 
