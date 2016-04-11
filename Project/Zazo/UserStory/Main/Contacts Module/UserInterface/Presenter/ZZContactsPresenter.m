@@ -29,11 +29,12 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZContactsViewInterface>*)userInterface
 {
+    
     self.userInterface = userInterface;
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
     
-    [self.interactor loadDataIncludeAddressBookRequest];
+    [self.interactor loadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
@@ -50,7 +51,7 @@
 
 - (void)reloadContactMenuData
 {
-    [self.interactor loadDataIncludeAddressBookRequest];
+    [self.interactor loadData];
     [self.userInterface reloadContactView];
 }
 
@@ -88,7 +89,7 @@
 
 - (void)menuToggled
 {
-    [self.interactor loadDataIncludeAddressBookRequest];
+    [self.interactor loadData];
     [self.userInterface reloadContactView];
 }
 

@@ -49,15 +49,11 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         return nil; // another permission check in progress;
     }
     
-    return [[[[[self _checkFreeSpace]
+    return [[[[self _checkFreeSpace]
                
                flattenMap:^RACStream *(id value) {
                    
-                   return [self _askPermissionsStep1];
-                   
-               }] flattenMap:^RACStream *(id value) {
-                   
-                   return [self _askPermissionsStep2];
+                   return [self _askPermissions];
                    
                }] flattenMap:^RACStream *(id value) {
         
@@ -76,9 +72,9 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
         permissionScope.closeButton.hidden = YES;
         
-        permissionScope.headerLabel.text = @"Zazo";
+        permissionScope.headerLabel.text = @"Permissions";
         permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
-        permissionScope.bodyLabel.text = @"We need a few things before you get started";
+        permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
         permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
         
         [permissions enumerateObjectsUsingBlock:^(id<Permission>  _Nonnull permission, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -104,16 +100,16 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     switch (permission.type)
     {
         case PermissionTypeContacts:
-            return @"Zazo needs access to address book to show your friends";
+            return @"To show your friends";
             break;
         case PermissionTypeNotifications:
-            return @"For sending notification when messages from friends arrive";
+            return @"To receive messages";
             break;
         case PermissionTypeMicrophone:
-            return @"For recording audio in messages";
+            return @"To record messages";
             break;
         case PermissionTypeCamera:
-            return @"For recording video in messages";
+            return @"To record messages";
             break;
             
         default:
@@ -123,21 +119,22 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     return nil;
 }
 
-+ (RACSignal *)_askPermissionsStep1
++ (RACSignal *)_askPermissions
 {
     return [self _askForPermissions:@[
                                       [CameraPermission new],
-                                      [MicrophonePermission new]
+                                      [MicrophonePermission new],
+                                      [[NotificationsPermission alloc] initWithNotificationCategories:nil]
                                       ]];
 }
 
-+ (RACSignal *)_askPermissionsStep2
-{
-    return [self _askForPermissions:@[
-                                      [[NotificationsPermission alloc] initWithNotificationCategories:nil],
-                                      [ContactsPermission new]
-                                      ]];
-}
+//+ (RACSignal *)_askPermissionsStep2
+//{
+//    return [self _askForPermissions:@[
+//                                      
+//                                      [ContactsPermission new]
+//                                      ]];
+//}
 
 + (RACSignal*)_checkFreeSpace
 {

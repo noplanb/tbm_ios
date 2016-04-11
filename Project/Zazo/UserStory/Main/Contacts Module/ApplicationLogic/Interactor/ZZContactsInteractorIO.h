@@ -8,7 +8,7 @@
 
 @protocol ZZContactsInteractorInput <NSObject>
 
-- (void)loadDataIncludeAddressBookRequest;
+- (void)loadData;
 - (void)resetAddressBookData;
 - (void)enableUpdateContactData;
 

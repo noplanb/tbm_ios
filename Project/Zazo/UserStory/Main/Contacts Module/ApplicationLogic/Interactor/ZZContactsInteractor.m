@@ -41,7 +41,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isLoaded = NO;
 }
 
-- (void)loadDataIncludeAddressBookRequest
+- (void)loadData
 {
     self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
     
