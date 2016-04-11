@@ -77,6 +77,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         permissionScope.closeButton.hidden = YES;
         
         permissionScope.headerLabel.text = @"Zazo";
+        permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
         permissionScope.bodyLabel.text = @"We need a few things before you get started";
         permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
         
