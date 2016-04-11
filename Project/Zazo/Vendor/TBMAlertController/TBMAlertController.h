@@ -18,4 +18,7 @@
 + (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain;
 + (id)badConnectionAlert;
 
+// Dismisses alert automatically when application minimized:
+- (void)dismissWithApplicationAutomatically;
+
 @end

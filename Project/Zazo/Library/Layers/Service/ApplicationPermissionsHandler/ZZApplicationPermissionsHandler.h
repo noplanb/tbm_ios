@@ -8,7 +8,6 @@
 
 @interface ZZApplicationPermissionsHandler : NSObject
 
-+ (RACSignal*)checkApplicationPermissions;
-+ (void)showUserDeclinedPushAccessAlert;
++ (RACSignal *)checkApplicationPermissions;
 
 @end

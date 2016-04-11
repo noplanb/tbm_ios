@@ -11,6 +11,13 @@
 #import "SDCIntrinsicallySizedView.h"
 #import "TBMAlertControllerVisualStyle.h"
 
+@interface TBMAlertController ()
+
+@property (nonatomic, assign) BOOL dismissWithApplication;
+
+@end
+
+
 @implementation TBMAlertController
 
 @dynamic alert;
@@ -156,6 +163,35 @@
             action.handler(action);
         }
     }];
+}
+
+#pragma mark dismissWithApplication
+
+- (void)dismissWithApplicationAutomatically
+{
+    if (self.dismissWithApplication)
+    {
+        return;
+    }
+    
+    self.dismissWithApplication = YES;
+    
+    [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(_appWillDisappearNotification)
+         name:UIApplicationDidEnterBackgroundNotification
+         object:nil];
+    
+}
+
+- (void)_appWillDisappearNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
+    
+    self.dismissWithApplication = NO;
+    [self dismissWithCompletion:nil];
 }
 
 @end

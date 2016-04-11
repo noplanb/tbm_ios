@@ -80,7 +80,7 @@
     }
     else
     {
-        [ZZApplicationPermissionsHandler showUserDeclinedPushAccessAlert];
+        ZZLogInfo(@"BOOT: Push access declined");
     }
 }
 
@@ -96,7 +96,6 @@
 - (void)applicationDidFailToRegisterWithError:(NSError *)error
 {
     ZZLogError(@"ERROR: didFailToRegisterForRemoteNotificationsWithError: %@", error);
-    [ZZApplicationPermissionsHandler showUserDeclinedPushAccessAlert];
 }
 
 #pragma mark - Private
@@ -119,29 +118,6 @@
     return [[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)];
 }
 
-
-
-
-/**
- * Pre IOS8 Idosynracies (IOS7 and lower):
- * User clicks NO when asked the first time:
- *   - AppDelegate never calls didRegisterForRemoteNotificationsWithDeviceToken or didFailToRegisterForRemoteNotificationsWithError
- *   - So we never know that user has denied push notifications
- *
- * User clicks NO then activates them in notification center
- *   - AppDlelegate calls didRegisterForRemoteNotificationsWithDeviceToken
- *   - enabledNotificationTypes returns non zero
- *
- * User clicks YES when asked the first time:
- *   - AppDlelegate calls didRegisterForRemoteNotificationsWithDeviceToken
- *   - enabledNotificationTypes returns non zero
- *
- * User clicks YES then deactivates them in notification center
- *   - AppDelegate never calls didRegisterForRemoteNotificationsWithDeviceToken or didFailToRegisterForRemoteNotificationsWithError
- *   - So we never know that user has denied push notifications.
- *
- * In IOS7 and earlier we never know if user has not granted push access or has revoked it.
- */
 - (BOOL)_userHasGrantedPushAccess
 {
     return self.notificationAllowedTypes != UIUserNotificationTypeNone;
@@ -149,12 +125,6 @@
 
 - (void)handlePushNotification:(NSDictionary*)userInfo
 {
-    //TODO: remove this return
-#ifdef DISABLE_INCOMING_NOTIFICATIONS
-    ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler: DISABLED");
-    return;
-#endif
-    
     ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self.delegate requestBackground];
     
