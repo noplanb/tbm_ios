@@ -40,7 +40,7 @@ PODS:
   - MagicalRecord/Core (2.3.2)
   - Masonry (0.6.4)
   - OAStackView (1.0.1)
-  - OBFileTransfer (0.9.2):
+  - OBFileTransfer (0.9.3):
     - OBLogger
   - OBLogger (0.3.0)
   - PBJVision (0.4.6)
@@ -80,7 +80,7 @@ DEPENDENCIES:
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
   - OAStackView (~> 1.0)
-  - OBFileTransfer (= 0.9.2)
+  - OBFileTransfer (= 0.9.3)
   - OBLogger (~> 0.3.0)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - PermissionScope
@@ -120,7 +120,7 @@ SPEC CHECKSUMS:
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   OAStackView: 95e7cb79cbea25c2342f496a44bdbe8bd4c8d510
-  OBFileTransfer: 25cbf90d46f08b8c1b6eec351778299cedfacd8b
+  OBFileTransfer: b75b7572697137ebd66752d142354e535e955ef2
   OBLogger: dee914ef6b0be49a41f0985301fe7720a4381814
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   PermissionScope: 860828c5516d349b6f49e5491799cfef33c5ccc7
