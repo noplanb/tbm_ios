@@ -8,6 +8,8 @@
 
 #import "ZZBaseEventHandler.h"
 
+extern NSString * const ZZDeleteFriendsFeatureUnlockedNotificationName;
+
 @interface ZZDeleteFriendsFeatureEventHandler : ZZBaseEventHandler
 
 @end

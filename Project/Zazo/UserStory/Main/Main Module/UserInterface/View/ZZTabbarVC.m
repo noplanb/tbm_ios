@@ -167,6 +167,7 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
         _scrollView.scrollsToTop = NO;
+        _scrollView.bounces = NO;
         
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
