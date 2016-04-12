@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
     __block ZZInviteType selectedType = ZZInviteTypeUnknown;
     
-    TBMAlertController *alert =
+    ZZAlertController *alert =
     [ZZAlertBuilder alertWithTitle:@"Send link"];
 
     UITextView *textView = [UITextView new];

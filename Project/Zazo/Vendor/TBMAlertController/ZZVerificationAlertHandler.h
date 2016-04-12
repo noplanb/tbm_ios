@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 @protocol TBMVerificationAlertDelegate <NSObject>
 
 - (void)didEnterVerificationCode:(NSString *)code;
@@ -15,7 +15,7 @@
 @end
 
 
-@interface TBMVerificationAlertHandler: NSObject
+@interface ZZVerificationAlertHandler: NSObject
 
 @property (nonatomic) NSString *phoneNumber;
 

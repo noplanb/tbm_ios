@@ -1,18 +1,18 @@
 //
-//  TBMVerificationAlertHandler.m
+//  ZZVerificationAlertHandler.m
 //  Zazo
 //
 //  Created by Sani Elfishawy on 5/15/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMVerificationAlertHandler.h"
-#import "TBMAlertControllerVisualStyle.h"
-//#import "OBLogger.h"
+#import "ZZVerificationAlertHandler.h"
 #import "ZZPhoneHelper.h"
+#import "SDCAlertControllerVisualStyle.h"
 
-@interface TBMVerificationAlertHandler()
-@property (nonatomic) TBMAlertController *alertController;
+@interface ZZVerificationAlertHandler ()
+
+@property (nonatomic) ZZAlertController *alertController;
 @property (nonatomic) UITextField *codeTextField;
 @property (nonatomic) SDCAlertAction *confirmationAction;
 @property (nonatomic) UIButton *callMeButton;
@@ -27,7 +27,7 @@ static const float LayoutConstTextFieldHeight = 40.0f;
 static const float LayoutConstCallButtonHeight = 40.0f;
 
 
-@implementation TBMVerificationAlertHandler
+@implementation ZZVerificationAlertHandler
 
 static NSString *TITLE = @"Enter Code";
 static NSString *MESSAGE = @"We sent a code";
@@ -67,9 +67,9 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark alert construction
 
-- (TBMAlertController *)makeAlertController
+- (ZZAlertController *)makeAlertController
 {
-    return [TBMAlertController alertControllerWithTitle:@"Enter Code"
+    return [ZZAlertController alertControllerWithTitle:@"Enter Code"
                                                 message:@""];
 }
 

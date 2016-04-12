@@ -1,31 +1,31 @@
 //
-//  TBMTableModal.m
+//  ZZTableModal.m
 //  SDCAlertViewControllerWithTableView
 //
 //  Created by Sani Elfishawy on 11/17/14.
 //  Copyright (c) 2014 No Plan B. All rights reserved.
 //
 
-#import "TBMTableModal.h"
+#import "ZZTableModal.h"
 #import "ZZCommunicationDomainModel.h"
 #import "ZZContactDomainModel.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZAlertTableStyle.h"
 
-@interface TBMTableModal()
+@interface ZZTableModal()
 
 @property (nonatomic, strong)  NSString *title;
 @property (nonatomic, strong)  NSArray *rowData;
 @property (nonatomic, weak)  id <TBMTableModalDelegate> delegate;
 @property(nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZZContactDomainModel* currentContact;
-@property (nonatomic, strong) TBMAlertController *alertController;
+@property (nonatomic, strong) ZZAlertController *alertController;
 
 @end
 
 static NSString *TBMTableReuseId = @"tableModalReuseId";
 
-@implementation TBMTableModal
+@implementation ZZTableModal
 
 - (void)setupViewWithParentView:(UIView *)parentView
                      title:(NSString *)title
@@ -55,7 +55,7 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 //--------------
 - (void) show
 {
-    self.alertController = [TBMAlertController alertControllerWithTitle:self.title message:nil];
+    self.alertController = [ZZAlertController alertControllerWithTitle:self.title message:nil];
 
     ZZAlertTableStyle *style = [ZZAlertTableStyle new];
     style.size = self.tableView.frame.size;

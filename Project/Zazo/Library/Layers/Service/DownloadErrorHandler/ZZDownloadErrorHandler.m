@@ -8,7 +8,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDataUpdater.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZVideoFileHandler.h"
 
 @interface ZZDownloadErrorHandler ()  <ZZVideoStatusHandlerDelegate>
@@ -119,8 +119,8 @@
 
 - (void)_showRetryConfirmationDialog:(void (^)(BOOL needsRetry))completion
 {
-    TBMAlertController *alertController =
-            [TBMAlertController alertControllerWithTitle:@"Download Error"
+    ZZAlertController *alertController =
+            [ZZAlertController alertControllerWithTitle:@"Download Error"
                                                  message:@"Problem downloading a zazo.\nCheck your connection"];
     [alertController addAction:
             [SDCAlertAction actionWithTitle:@"Discard"

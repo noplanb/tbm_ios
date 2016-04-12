@@ -1,5 +1,5 @@
 //
-//  TBMTableModal.h
+//  ZZTableModal.h
 //  SDCAlertViewControllerWithTableView
 //
 //  Created by Sani Elfishawy on 11/17/14.
@@ -14,7 +14,7 @@
 
 @end
 
-@interface TBMTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
+@interface ZZTableModal : NSObject <UITableViewDelegate, UITableViewDataSource>
 
 - (void)setupViewWithParentView:(UIView *)parentView
                           title:(NSString *)title

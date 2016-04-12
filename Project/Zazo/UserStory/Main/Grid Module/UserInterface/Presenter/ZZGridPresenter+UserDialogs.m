@@ -12,8 +12,8 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZContactDomainModel.h"
 #import "ZZAPIRoutes.h"
-#import "TBMAlertController.h"
-#import "TBMTableModal.h"
+#import "ZZAlertController.h"
+#import "ZZTableModal.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridDataSource.h"
 #import "ZZPhoneHelper.h"
@@ -184,11 +184,11 @@
 
 - (void)_addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
 {
-    TBMAlertController *alert;
+    ZZAlertController *alert;
     
     if ([error.userInfo objectForKey:@"msg"])
     {
-        alert = [TBMAlertController alertControllerWithTitle:@"Error" message:[error.userInfo objectForKey:@"msg"]];
+        alert = [ZZAlertController alertControllerWithTitle:@"Error" message:[error.userInfo objectForKey:@"msg"]];
         
         [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
             [alert dismissWithCompletion:nil];
@@ -196,7 +196,7 @@
     }
     else
     {
-        alert = [TBMAlertController badConnectionAlert];
+        alert = [ZZAlertController badConnectionAlert];
         
         [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
             [alert dismissWithCompletion:nil];
@@ -214,11 +214,11 @@
 - (void)_showChooseNumberDialogForUser:(ZZContactDomainModel*)user
 {
     ANDispatchBlockToMainQueue(^{
-        [[TBMTableModal shared] setupViewWithParentView:[UIApplication sharedApplication].windows.firstObject.rootViewController.view
+        [[ZZTableModal shared] setupViewWithParentView:[UIApplication sharedApplication].windows.firstObject.rootViewController.view
                                                   title:@"Choose phone number"
                                                 contact:user
                                                delegate:(id<TBMTableModalDelegate>)self];
-        [[TBMTableModal shared] show];
+        [[ZZTableModal shared] show];
     });
 }
 

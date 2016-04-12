@@ -11,7 +11,7 @@
 #import "PBJVision.h"
 #import "iToast.h"
 #import "NSError+ZZAdditions.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZSoundEffectPlayer.h"
 #import "ZZAlertBuilder.h"
 #import "AVAudioSession+ZZAudioSession.h"

@@ -8,7 +8,7 @@
 
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZFileHelper.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 
 @import AVFoundation;
 #import "AVAudioSession+ZZAudioSession.h"
@@ -180,14 +180,14 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     NSString *message =
     [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", appName];
     
-    TBMAlertController *alert =
-    [TBMAlertController alertControllerWithTitle:@"No Available Storage"
+    ZZAlertController *alert =
+    [ZZAlertController alertControllerWithTitle:@"No Available Storage"
                                          message:message];
     
     [self _presentAlertController:alert];
 }
 
-+ (void)_presentAlertController:(TBMAlertController*)alert
++ (void)_presentAlertController:(ZZAlertController*)alert
 {
     [alert dismissWithApplicationAutomatically];
     

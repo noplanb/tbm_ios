@@ -1,12 +1,12 @@
 //
-//  TBMAlertController.m
+//  ZZAlertController.m
 //  tbm
 //
 //  Created by Matt Wayment on 1/8/15.
 //  Copyright (c) 2015 No Plan B. All rights reserved.
 //
 
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 
 @interface SDCAlertController (Private)
 
@@ -14,13 +14,13 @@
 
 @end
 
-@interface TBMAlertController ()
+@interface ZZAlertController ()
 
 @property (nonatomic, assign) BOOL dismissWithApplication;
 
 @end
 
-@implementation TBMAlertController
+@implementation ZZAlertController
 
 @dynamic alert;
 
