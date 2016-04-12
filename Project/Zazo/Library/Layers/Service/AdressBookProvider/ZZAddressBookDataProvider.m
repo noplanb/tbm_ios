@@ -24,7 +24,7 @@ static APAddressBook* _addressBook = nil;
     _addressBook = nil;
 }
 
-+ (RACSignal*)loadContactsWithContactsRequest
++ (RACSignal*)loadContacts
 {
     RACSignal* loadSignal = [RACSignal empty];
     if ([self isAccessGranted])

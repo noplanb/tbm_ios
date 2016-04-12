@@ -11,6 +11,9 @@
 
 @property (nonatomic, strong) UIImage *tabbarViewItemImage;
 
+@optional
+- (void)tabbarItemDidAppear;
+
 @end
 
 

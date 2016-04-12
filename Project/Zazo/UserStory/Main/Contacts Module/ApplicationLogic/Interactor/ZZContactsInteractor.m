@@ -16,6 +16,7 @@
 #import "ZZUserDataProvider.h"
 #import "ZZStoredSettingsManager.h"
 
+@import PermissionScope;
 
 static const NSInteger kDelayBetweenFriendUpdate = 30;
 
@@ -39,6 +40,30 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 {
     [ZZAddressBookDataProvider resetAddressBook];
     self.isLoaded = NO;
+}
+
+- (void)requestAddressBookPermission:(void(^)(BOOL success))completion;
+{
+    PermissionScope *permissionScope =
+    [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
+    
+    permissionScope.headerLabel.text = @"Permissions";
+    permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
+    permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
+    permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
+    [permissionScope addPermission:[ContactsPermission new] message:@"To show your friends"];
+    
+    [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> * _Nonnull result) {
+        if (completed && completion)
+        {
+            completion(YES);
+        }
+    } cancelled:^(NSArray<PermissionResult *> * _Nonnull result) {
+        if (completion)
+        {
+            completion(NO);
+        }
+    }];
 }
 
 - (void)loadData
@@ -120,8 +145,8 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     if (!self.isLoading && !self.isLoaded)
     {
         self.isLoading = YES;
-//        [ZZStoredSettingsManager shared].wasPermissionAccess = shouldRequest;
-        [[ZZAddressBookDataProvider loadContactsWithContactsRequest] subscribeNext:^(NSArray *addressBookContactsArray) {
+
+        [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
             
             [self.output addressBookDataLoaded:addressBookContactsArray];
             

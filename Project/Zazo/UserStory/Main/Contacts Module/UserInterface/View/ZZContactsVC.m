@@ -50,6 +50,11 @@
     [self.eventHandler menuToggled];
 }
 
+- (void)tabbarItemDidAppear
+{
+    [self.eventHandler viewDidAppear];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.view endEditing:YES];

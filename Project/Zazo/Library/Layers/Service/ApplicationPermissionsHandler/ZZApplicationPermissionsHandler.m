@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         return nil; // another permission check in progress;
     }
     
-    return [[[[self _checkFreeSpace]
+    return [[[[[self _checkFreeSpace]
                
                flattenMap:^RACStream *(id value) {
                    
@@ -60,6 +60,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                    return [self _checkAudioSession];
     }] doError:^(NSError *error) {
         [self _handlePermissionError:error];
+    }] doCompleted:^{
+        permissionScope = nil;
     }];
 }
 
@@ -99,9 +101,6 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 {
     switch (permission.type)
     {
-        case PermissionTypeContacts:
-            return @"To show your friends";
-            break;
         case PermissionTypeNotifications:
             return @"To receive messages";
             break;
@@ -127,14 +126,6 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                                       [[NotificationsPermission alloc] initWithNotificationCategories:nil]
                                       ]];
 }
-
-//+ (RACSignal *)_askPermissionsStep2
-//{
-//    return [self _askForPermissions:@[
-//                                      
-//                                      [ContactsPermission new]
-//                                      ]];
-//}
 
 + (RACSignal*)_checkFreeSpace
 {

@@ -29,7 +29,6 @@
 
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZContactsViewInterface>*)userInterface
 {
-    
     self.userInterface = userInterface;
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
@@ -65,6 +64,7 @@
 - (void)addressBookDataLoaded:(NSArray*)data
 {
     [self.dataSource setupAddressbookItems:data];
+    [self.userInterface reloadContactView];
 }
 
 - (void)friendsThatHasAppLoaded:(NSArray*)friendsData
@@ -110,6 +110,22 @@
 }
 
 #pragma mark - Module Interface
+
+- (void)viewDidAppear
+{
+    [self.interactor requestAddressBookPermission:^(BOOL success) {
+        
+        if (success)
+        {
+            [self.interactor enableUpdateContactData];
+            [self.interactor loadData];
+        }
+        else
+        {
+            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
+        }
+    }];
+}
 
 - (void)itemSelected:(id)item
 {   

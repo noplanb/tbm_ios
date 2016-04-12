@@ -77,7 +77,12 @@
 
     [self _scrollToActivePageIfNeededAnimated:YES];
     
-    [self.viewControllers[activePageIndex] viewDidAppear:YES];
+    UIViewController<ZZTabbarViewItem> *item = self.viewControllers[activePageIndex];
+    
+    if ([item respondsToSelector:@selector(tabbarItemDidAppear)])
+    {
+        [item tabbarItemDidAppear];
+    }
 }
 
 @dynamic progressBarPosition;
@@ -300,7 +305,6 @@
     }
 
     self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-    [self.viewControllers[self.activePageIndex] viewDidAppear:YES];
     
     self.controllerThatWillAppear = nil;
 
