@@ -126,6 +126,8 @@
             [SDCAlertAction actionWithTitle:@"Discard"
                                       style:SDCAlertActionStyleCancel
                                     handler:^(SDCAlertAction *action) {
+                                        
+                                        [Answers logCustomEventWithName:@"RetryDialogDiscard" customAttributes:nil];
                                         completion(NO);
                                     }]];
 
@@ -133,6 +135,8 @@
             [SDCAlertAction actionWithTitle:@"Try again"
                                       style:SDCAlertActionStyleDefault
                                     handler:^(SDCAlertAction *action) {
+                                        
+                                        [Answers logCustomEventWithName:@"RetryDialogTryAgain" customAttributes:nil];
                                         completion(YES);
                                     }]];
 
