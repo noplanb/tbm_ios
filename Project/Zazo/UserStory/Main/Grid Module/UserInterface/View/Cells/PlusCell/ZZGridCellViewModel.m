@@ -35,16 +35,6 @@
 
 @dynamic isRecording;
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-
-    }
-    return self;
-}
-
 - (void)setUsernameLabel:(UILabel *)usernameLabel
 {
     _usernameLabel = usernameLabel;
@@ -86,15 +76,18 @@
     });
 }
 
-
-- (BOOL)isRecording {
+- (BOOL)isRecording
+{
     return !CGPointEqualToPoint(self.initialRecordPoint, CGPointZero);
 }
 
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isRecording viewModel:self withCompletionBlock:completionBlock];
+    [self.delegate recordingStateUpdatedToState:isRecording
+                                      viewModel:self
+                            withCompletionBlock:completionBlock];
+    
     [self reloadDebugVideoStatus];
 }
 
@@ -379,9 +372,18 @@
 
 - (UIImage*)_videoThumbnail
 {
-    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+    NSSortDescriptor *sortDescriptor =
+        [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    
+    NSPredicate *predicate =
+        [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
+    
+    NSArray *videoModels = self.item.relatedUser.videos;
+    
+    videoModels = [videoModels filteredArrayUsingPredicate:predicate];
+    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    ZZVideoDomainModel *lastModel = [videoModels lastObject];
     
     if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
     {

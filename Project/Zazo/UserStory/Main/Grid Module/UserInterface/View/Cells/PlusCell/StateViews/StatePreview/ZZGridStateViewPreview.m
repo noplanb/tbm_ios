@@ -70,13 +70,7 @@
 {
     UIImage* thumbImage = [model videoThumbnailImage];
     
-    if (!thumbImage)
-    {
-//        self.thumbnailImageView.contentMode = UIViewContentModeCenter;
-//        self.thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridStatusViewThumbnailDefaultColor;
-//        thumbImage = [model thumbnailPlaceholderImage];
-    }
-    else
+    if (thumbImage)
     {
         self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
         

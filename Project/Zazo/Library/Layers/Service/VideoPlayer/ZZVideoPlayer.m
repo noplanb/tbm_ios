@@ -64,17 +64,17 @@
 - (void)addNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_playNext:)
+                                             selector:@selector(_moviePlayerPlaybackDidFinishNotification:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_playerStateWasUpdated)
+                                             selector:@selector(_moviePlayerStateWasUpdatedNotification)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stop)
+                                             selector:@selector(_applicationWillResignNotication)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
 }
@@ -83,7 +83,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 #pragma mark - Public
 
@@ -114,7 +113,7 @@
 
 - (void)playOnView:(UIView *)view withVideoModels:(NSArray *)videoModels
 {
-    [self _updateVideoPlayerStateIfNeeded];
+    [self _stopVideoPlayerStateIfNeeded];
     
     self.moviePlayerController.contentURL = nil;
     
@@ -125,16 +124,13 @@
     
     if (view != self.moviePlayerController.view.superview && view)
     {
-        self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
+        self.moviePlayerController.view.frame = view.bounds;
     }
     
     if (!ANIsEmpty(videoModels)) //&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
-    {
-        self.moviePlayerController.view.frame = view.bounds;
-        [view addSubview:self.moviePlayerController.view];
-
+    {        
         ZZVideoDomainModel *viewedVideo = [self _actualVideoDomainModelWithSortedModels:self.videoModels];
         [self _playVideoModel:viewedVideo];
     }
@@ -172,6 +168,7 @@
 {
     self.moviePlayerController.contentURL = self.currentURL;
     [self.moviePlayerController play];
+    
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
     
     [self makePlaybackTimer];
@@ -193,7 +190,7 @@
 
 }
 
-- (void)_updateVideoPlayerStateIfNeeded
+- (void)_stopVideoPlayerStateIfNeeded
 {
     if (self.isPlayingVideo)
     {
@@ -223,8 +220,6 @@
     [self.videoDurations enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
         self.totalVideoDuration += obj.doubleValue;
     }];
-    
-    
 }
 
 - (void)stop
@@ -271,7 +266,7 @@
 
 #pragma mark - Private
 
-- (void)_playNext:(NSNotification*)notification
+- (void)_moviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
     ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
     NSError *error = (NSError *) notification.userInfo[@"error"];
@@ -349,7 +344,6 @@
     }
     else
     {
-        
         ZZVideoDomainModel *lastModel = [self.videoModels lastObject];
         
         self.isPlayingVideo = NO;
@@ -365,7 +359,7 @@
     }
 }
 
-//TODO: temprorary
+//TODO: temporary
 - (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
                                     video:(ZZVideoDomainModel*)videoModel
                                videoIndex:(NSInteger)index
@@ -399,7 +393,7 @@
     }
 }
 
-- (void)_playerStateWasUpdated
+- (void)_moviePlayerStateWasUpdatedNotification
 {
     if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
     {
@@ -414,9 +408,12 @@
     }
 }
 
+- (void)_applicationWillResignNotication
+{
+    [self stop];
+}
 
 #pragma mark - Helpers
-
 
 - (ZZFriendDomainModel*)playedFriendModel
 {
@@ -440,6 +437,8 @@
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         
+        _moviePlayerController.backgroundView.backgroundColor = [UIColor whiteColor];
+        
         for (UIView *aSubView in _moviePlayerController.view.subviews)
         {
             aSubView.backgroundColor = [UIColor clearColor];
@@ -450,7 +449,7 @@
     return _moviePlayerController;
 }
 
-- (UIButton*)tapButton
+- (UIButton *)tapButton
 {
     if (!_tapButton)
     {
