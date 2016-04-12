@@ -14,9 +14,9 @@
 
 @property (nonatomic, strong) SDCAlertControllerView *alert;
 
-+ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
-+ (id)alertControllerWithTitle:(NSString *)title message:(NSString *)message forcePlain:(BOOL)forcePlain;
 + (id)badConnectionAlert;
+
++ (instancetype)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
 
 // Dismisses alert automatically when application minimized:
 - (void)dismissWithApplicationAutomatically;

@@ -70,8 +70,7 @@ static NSString *MESSAGE = @"We sent a code";
 - (TBMAlertController *)makeAlertController
 {
     return [TBMAlertController alertControllerWithTitle:@"Enter Code"
-                                                message:@""
-                                             forcePlain:[self forcePlain]];
+                                                message:@""];
 }
 
 - (void)addContentAndActionsToAlertController
