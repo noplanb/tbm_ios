@@ -103,12 +103,6 @@ static CGFloat const kNavigationBarIconHeight = 20;
 - (void)_setupNavigationButtons
 {
     [self _addNavItemWithName:@"navbar_btn_back" type:ANBarButtonTypeBack];
-    [self _addNavItemWithName:@"navbar_btn_close" type:ANBarButtonTypeClose];
-    [self _addNavItemWithName:@"navbar_btn_done" type:ANBarButtonTypeDone];
-    
-    [self _addNavItemWithName:@"navbar_btn_add" type:ANBarButtonTypeAdd];
-    [self _addNavItemWithName:@"navbar_btn_edit" type:ANBarButtonTypeEdit];
-    [self _addNavItemWithName:@"navbar_btn_more" type:ANBarButtonTypeMore];
 }
 
 - (void)_addNavItemWithName:(NSString*)name type:(ANBarButtonType)type

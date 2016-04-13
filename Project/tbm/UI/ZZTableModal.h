@@ -21,7 +21,6 @@
                         contact:(ZZContactDomainModel*)contact
                        delegate:(id<TBMTableModalDelegate>)delegate;
 - (void)show;
-- (void)hide;
 
 + (instancetype)shared;
 
