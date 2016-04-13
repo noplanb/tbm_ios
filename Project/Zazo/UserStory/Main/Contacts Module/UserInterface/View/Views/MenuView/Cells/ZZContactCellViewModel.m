@@ -7,7 +7,6 @@
 //
 
 #import "ZZContactCellViewModel.h"
-#import "NSString+ZZAdditions.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZFriendDomainModel.h"

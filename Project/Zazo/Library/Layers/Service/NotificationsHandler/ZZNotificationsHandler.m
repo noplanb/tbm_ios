@@ -130,10 +130,6 @@
     
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
-        ZZNotificationDomainModel* notification;
-        notification = [FEMObjectDeserializer deserializeObjectExternalRepresentation:userInfo
-                                                                         usingMapping:[ZZNotificationDomainModel mapping]];
-        
         if ([self isVideoReceivedType:userInfo])
         {
             [self handleVideoReceivedNotification:userInfo];

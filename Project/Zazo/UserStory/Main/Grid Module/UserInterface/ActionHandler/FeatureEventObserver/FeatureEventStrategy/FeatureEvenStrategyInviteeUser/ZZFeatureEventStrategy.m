@@ -1,17 +1,17 @@
 //
-//  ZZFeatureEventStrategyInviteeUser.m
+//  ZZFeatureEventStrategy.m
 //  Zazo
 //
 //  Created by ANODA on 10/8/15.
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZFeatureEventStrategyInviteeUser.h"
+#import "ZZFeatureEventStrategy.h"
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
 #import "ZZUserDomainModel.h"
 
-@implementation ZZFeatureEventStrategyInviteeUser
+@implementation ZZFeatureEventStrategy
 
 #pragma mark - Use Both Cameras
 

@@ -1,5 +1,5 @@
 //
-//  ZZFeatureEventStrategyRegisteredUser.h
+//  ZZFeatureEventStrategy.h
 //  Zazo
 //
 //  Created by ANODA on 10/8/15.
@@ -8,6 +8,7 @@
 
 #import "ZZFeatureEventStrategyBase.h"
 
-@interface ZZFeatureEventStrategyRegisteredUser : ZZFeatureEventStrategyBase
+@interface ZZFeatureEventStrategy : ZZFeatureEventStrategyBase
+
 
 @end

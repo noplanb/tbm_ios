@@ -60,13 +60,8 @@
 #define NAVIGATION_BUTTON_SIZE              CGSizeMake(31,31)
 #define NAVIGATION_BUTTON_SPACING           40
 #define NAVIGATION_BUTTON_SPACING_IPAD      20
-#define NAVIGATION_BAR_HEIGHT               (MINIMAL_UI ? 64.0f : 44.0f)
-#define NAVIGATION_TOGGLE_ANIM_TIME         0.3
 
-/* Toolbar Properties */
-#define TOOLBAR_HEIGHT      44.0f
-
-/* Hieght of the loading progress bar view */
+/* Height of the loading progress bar view */
 #define LOADING_BAR_HEIGHT          2
 
 /* Unique URL triggered when JavaScript reports page load is complete */

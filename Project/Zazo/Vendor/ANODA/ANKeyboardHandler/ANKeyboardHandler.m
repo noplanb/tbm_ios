@@ -9,11 +9,7 @@
 #import "ANHelperFunctions.h"
 
 @interface ANKeyboardHandler ()
-{
-    struct {
-        BOOL shouldNotifityKeyboardState : YES;
-    } _delegateExistingMethods;
-}
+
 @property (nonatomic, weak) UIScrollView* target;
 @property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
 @property (nonatomic, assign) BOOL isKeyboardShown; //sometimes IOS send unbalanced show/hide notifications
@@ -117,7 +113,7 @@
 - (void)handleKeyboardWithNotification:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
-    CGFloat kbHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    CGFloat kbHeight = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     kbHeight = self.isKeyboardShown ? kbHeight : -kbHeight;
     
