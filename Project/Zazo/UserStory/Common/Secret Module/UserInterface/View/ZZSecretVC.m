@@ -40,33 +40,17 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"secret-controller.header.title", nil);
-    
-    @weakify(self);
-    [self addLeftNavigationButtonWithType:ANBarButtonTypeBack block:^{
-        @strongify(self);
-        [self.eventHandler dismissController];
-    }];
-    
-    UINavigationBar *bar = [UINavigationBar new];
-    [self.view addSubview:bar];
-    
-    [bar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.height.equalTo(@65);
-    }];
-    [bar pushNavigationItem:self.navigationItem animated:NO];
-    
-    self.contentView.tableView.contentInsetTop = 65;
-    self.contentView.tableView.contentOffsetY = -65;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
-    }
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [super viewWillDisappear:animated];
 }
 
