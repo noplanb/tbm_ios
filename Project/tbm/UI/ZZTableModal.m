@@ -50,9 +50,10 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
     return _sharedClient;
 }
 
-//--------------
-// Show and hide
-//--------------
+//-----
+// Show
+//-----
+
 - (void) show
 {
     self.alertController = [ZZAlertController alertControllerWithTitle:self.title message:nil];
@@ -68,11 +69,6 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
      [SDCAlertAction actionWithTitle:@"Cancel"
                                style:SDCAlertActionStyleCancel
                              handler:nil]];
-}
-
-- (void) hide
-{
-    [self.alertController dismissWithCompletion:nil];
 }
 
 #pragma mark -  Dimension calculations
@@ -150,9 +146,12 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.currentContact.primaryPhone = self.currentContact.phones[indexPath.row];
-    [self.delegate updatePrimaryPhoneNumberForContact:self.currentContact];
-    [self hide];
+    [self.alertController dismissWithCompletion:^{
+        
+        self.currentContact.primaryPhone = self.currentContact.phones[indexPath.row];
+        [self.delegate updatePrimaryPhoneNumberForContact:self.currentContact];
+
+    }];
 }
 
 - (UITableView *)tableView {
