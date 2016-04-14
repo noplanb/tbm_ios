@@ -13,8 +13,9 @@
 
 @protocol ZZHintsControllerDelegate <NSObject>
 
-- (void)hintWasDissmissedWithType:(ZZHintsType)type;
-- (UIView*)hintPresetedView;
+- (void)hintWasDismissedWithType:(ZZHintsType)type;
+- (UIView *)hintPresentedView;
+- (void)showMenuTab;
 
 @end
 
@@ -29,5 +30,7 @@
          formatParameter:(NSString*)parameter;
 
 - (void)hideHintView;
+
+@property (nonatomic, assign) CGPoint frameOffset;
 
 @end

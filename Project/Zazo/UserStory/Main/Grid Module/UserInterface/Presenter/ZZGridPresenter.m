@@ -12,18 +12,13 @@
 #import "ZZVideoPlayer.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
-#import "ZZAPIRoutes.h"
 #import "ZZGridAlertBuilder.h"
-#import "ZZUserDataProvider.h"
-#import "ZZAlertController.h"
-#import "ZZGridCenterCellViewModel.h"
 #import "ZZGridActionHandler.h"
 #import "ZZTableModal.h"
 #import "ZZGridPresenter+UserDialogs.h"
 #import "ZZGridPresenter+ActionHandler.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZSoundEffectPlayer.h"
-#import "ZZVideoStatuses.h"
 #import "ZZVideoDataProvider.h"
 #import "TBMVideoIdUtils.h"
 #import "ZZFriendDataProvider.h"
@@ -122,11 +117,6 @@
     {
         [self.dataSource setupWithModels:data];
     }
-}
-
-- (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model
-{
-    [self.dataSource updateCellWithModel:model];
 }
 
 - (void)_handleAppBecomeActive
@@ -273,8 +263,6 @@
 
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
 {
-//    [self.wireframe closeMenu];
-    
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
@@ -284,8 +272,6 @@
 
 - (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion
 {
-//    [self.wireframe closeMenu];
-    
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
        if (completion)
        {
@@ -354,6 +340,10 @@
     [self.interactor updateGridViewModels:models];
 }
 
+- (UIView *)presentedView
+{
+    return self.wireframe.mainWireframe.moduleInterface.overlayView;
+}
 
 #pragma mark - DataSource Delegate
 
@@ -476,7 +466,7 @@
 
 - (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
-    return  [self.videoPlayer isVideoPlayingWithFriendModel:friendModel];
+    return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel];
 }
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel *)userModel
@@ -636,11 +626,6 @@
     return _soundPlayer;
 }
 
-- (UIView *)recordingView
-{
-    return [self.dataSource centerViewModel].recordView;
-}
-
 #pragma mark - Action Handler Delegate
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature
@@ -654,18 +639,15 @@
     }
 }
 
-- (id)modelAtIndex:(NSInteger)index
-{
-    id model = [self.dataSource viewModelAtIndex:index];
-    return model;
-
-}
-
 - (NSInteger)friendsCountOnGrid
 {
     return [self.dataSource frindsOnGridNumber];
 }
 
+- (void)showMenuTab
+{
+    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabMenu];
+}
 
 #pragma mark - Interactor Action Handler
 
@@ -704,7 +686,7 @@
      subscribeNext:^(RACTuple *touches) {
          for (id event in touches)
          {
-             NSSet* touches = [event allTouches];
+             NSSet *touches = [event allTouches];
              [self _handleTouches:touches];
          };
      }];

@@ -10,7 +10,6 @@
 #import "ZZGridDataSource.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZGridDataProvider.h"
-#import "ZZGridDomainModel.h"
 #import "ZZVideoDomainModel.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
@@ -80,7 +79,7 @@ ZZGridCenterCellViewModelDelegate
     NSInteger index = [self viewModelIndexWithModelIndex:model.index];
     if (index != NSNotFound)
     {
-        ZZGridCellViewModel* viewModel = [self.models objectAtIndex:index];
+        ZZGridCellViewModel* viewModel = self.models[index];
         [self _updateActiveContactIconInModels:@[viewModel]];
         [self _configureCellViewModel:viewModel withDomainModel:model];
         [self _reloadModelAtIndex:index];
@@ -124,10 +123,15 @@ ZZGridCenterCellViewModelDelegate
 {
     viewModel.item = model;
     viewModel.delegate = self;
-    viewModel.hasDownloadedVideo = [model.relatedUser hasIncomingVideo] && model.relatedUser.videos.firstObject.incomingStatusValue > ZZVideoIncomingStatusDownloading;
+
+    viewModel.hasDownloadedVideo =
+            [model.relatedUser hasIncomingVideo] &&
+                    model.relatedUser.videos.firstObject.incomingStatusValue > ZZVideoIncomingStatusDownloading;
     
-    viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];//[value.relatedUser hasIncomingVideo];
-    viewModel.isUploadedVideoViewed = (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed);
+    viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];
+    
+    viewModel.isUploadedVideoViewed =
+            model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed;
     
     if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
         model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
@@ -164,13 +168,7 @@ ZZGridCenterCellViewModelDelegate
 
 - (ZZGridCenterCellViewModel*)centerViewModel
 {
-    return [self.models objectAtIndex:kGridCenterCellIndex];
-}
-
-- (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model
-{
-//    [self updateCellWithModel:(id)model];
-    [self _reloadModelAtIndex:kGridCenterCellIndex];
+    return self.models[kGridCenterCellIndex];
 }
 
 - (id)viewModelAtIndex:(NSInteger)index
@@ -178,7 +176,7 @@ ZZGridCenterCellViewModelDelegate
     id model = nil;
     if (self.models.count > index)
     {
-        model = [self.models objectAtIndex:index];
+        model = self.models[index];
     }
     return model;
 }
@@ -305,21 +303,6 @@ ZZGridCenterCellViewModelDelegate
 - (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model
 {
     return [self.delegate isVideoPlayingEnabledWithModel:model];
-}
-
-- (BOOL)isNetworkEnabled
-{
-    return [self.delegate isNetworkEnabled];
-}
-
-- (void)showRecorderHint
-{
-    [self.delegate showRecorderHint];
-}
-
-- (NSArray *)gridModels
-{
-    return self.models;
 }
 
 #pragma mark - Center Cell Delegate

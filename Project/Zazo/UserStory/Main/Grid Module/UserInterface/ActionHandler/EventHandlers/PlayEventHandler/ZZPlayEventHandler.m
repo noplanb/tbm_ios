@@ -18,7 +18,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
 {
     self.hintModel = model;
     if (event == ZZGridActionEventTypeGridLoaded &&
-        [self.delegate frinedsNumberOnGrid] == 1 &&
+            [self.delegate friendsNumberOnGrid] == 1 &&
         [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm]  > 0 &&
         ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
@@ -30,7 +30,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         }
     }
     else if (event == ZZGridActionEventTypeBecomeMessage &&
-        [self.delegate frinedsNumberOnGrid] == 1 &&
+            [self.delegate friendsNumberOnGrid] == 1 &&
          ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
         
@@ -42,7 +42,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         }
     }
     else if (event == ZZGridActionEventTypeBecomeMessage &&
-             [self.delegate frinedsNumberOnGrid] > 1 &&
+            [self.delegate friendsNumberOnGrid] > 1 &&
              ![ZZGridActionStoredSettings shared].playHintWasShown &&
              ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {

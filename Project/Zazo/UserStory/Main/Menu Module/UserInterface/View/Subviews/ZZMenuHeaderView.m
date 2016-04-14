@@ -7,15 +7,12 @@
 
 @interface ZZMenuHeaderView ()
 
-//@property (nonatomic, strong, readonly) CAGradientLayer *gradientLayer;
 @property (nonatomic, strong, readonly) UIImageView *patternView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
 @implementation ZZMenuHeaderView
-
-//@dynamic gradientLayer;
 
 - (instancetype)init
 {
@@ -36,12 +33,6 @@
 - (void)_makeBackground
 {
     self.backgroundColor = [UIColor an_colorWithHexString:@"1976d2"];
-    
-//    UIColor *colorA =
-//    UIColor *colorB = [UIColor an_colorWithHexString:@"#1561ad"];
-//    
-//    self.gradientLayer.colors = @[(id)colorA.CGColor, (id)colorB.CGColor];
-
 }
 
 - (void)_makePattern
@@ -73,16 +64,6 @@
 {
     self.titleLabel.text = title;
 }
-
-//+ (Class)layerClass
-//{
-//    return [CAGradientLayer class];
-//}
-
-//- (CAGradientLayer *)gradientLayer
-//{
-//    return (id)self.layer;
-//}
 
 - (CGSize)intrinsicContentSize
 {

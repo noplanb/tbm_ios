@@ -36,6 +36,8 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
          formatParameter:(NSString*)parameter
 {
     
+    focusFrame = CGRectOffset(focusFrame, self.frameOffset.x, self.frameOffset.y);
+    
     self.showedHintType = type;
     
     if (self.hintsView &&
@@ -62,16 +64,27 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     
     if (model.type == ZZHintsTypeDeleteFriendUsageHint)
     {
-        focusFrame = CGRectMake(SCREEN_WIDTH - kEditFriendsButtonWidth, 0, kEditFriendsButtonWidth,kGridHeaderViewHeight);
+        focusFrame = [self _rectForEditFriendsCell];
+        [self.delegate showMenuTab];
     }
     
     [viewModel updateFocusFrame:focusFrame];
     
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
     
-    [[self.delegate hintPresetedView] addSubview:self.hintsView];
+    [[self.delegate hintPresentedView] addSubview:self.hintsView];
     [self _removeViewAfterDelayIfNeededWithType:type];
     
+}
+
+- (CGRect)_rectForEditFriendsCell
+{
+    CGFloat rowHeight = 44;
+    CGFloat headerHeight = 150;
+    CGFloat rowIndex = 1;
+    CGFloat tableTopInset = 8;
+    
+    return CGRectMake(0, headerHeight + rowHeight * rowIndex + self.frameOffset.y + tableTopInset, SCREEN_WIDTH, rowHeight);
 }
 
 - (void)hideHintView
@@ -107,7 +120,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
                 self.hintsView = nil;
                 CGFloat kDelayAfterViewRemoved = 0.3;
                 ANDispatchBlockAfter(kDelayAfterViewRemoved, ^{
-                    [self.delegate hintWasDissmissedWithType:ZZHintsTypeSentHint];
+                    [self.delegate hintWasDismissedWithType:ZZHintsTypeSentHint];
                 });
             }
         });
@@ -132,37 +145,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (void)hintViewHiddenWithType:(ZZHintsType)type
 {
     self.hintsView = nil;
-    [self.delegate hintWasDissmissedWithType:type];
+    [self.delegate hintWasDismissedWithType:type];
 }
-
-//
-//- (void)showHintWithModel:(ZZHintsDomainModel*)model forFocusFrame:(CGRect)focusFrame
-//{
-//    [self _clearView];
-//    ZZHintsViewModel* viewModel = [ZZHintsViewModel viewModelWithItem:model];
-//    [viewModel updateFocusFrame:focusFrame];
-//    self.hintModel = model;
-//    [self.hintsView updateWithHintsViewModel:viewModel];
-//}
-//
-//#pragma mark - Private
-//
-//- (void)_clearView
-//{
-//    [_hintsView removeFromSuperview];
-//    _hintsView = nil;
-//}
-//
-//#pragma mark - Lazy Load
-//
-//- (ZZHintsView*)hintsView
-//{
-//    if (!_hintsView)
-//    {
-//        _hintsView = [[ZZHintsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//        [[[UIApplication sharedApplication] keyWindow] addSubview:_hintsView];
-//    }
-//    return _hintsView;
-//}
 
 @end

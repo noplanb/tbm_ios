@@ -57,8 +57,6 @@
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
-- (void)updateGridWithDownloadAnimationModel:(ZZGridDomainModel*)model;
-//- (void)updateGridWithGridDomainModel:(ZZGridDomainModel*)model;
 - (void)reloadGridModel:(ZZGridDomainModel*)model;
 - (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel*)model;
 - (void)reloadGridWithData:(NSArray*)data;

@@ -60,4 +60,10 @@
     return self.userInterface.progressBarBadge;
 }
 
+- (UIView *)overlayView
+{
+    return self.userInterface.view;
+}
+
+
 @end
