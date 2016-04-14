@@ -48,7 +48,7 @@ target 'Zazo' do
 
     #Logging
     pod 'Rollbar', '~> 0.1.5'
-    pod 'OBLogger', '~> 0.3.0'
+    pod 'OBLogger', '~> 0.4.0'
 end
 
 

@@ -42,7 +42,7 @@ PODS:
   - OAStackView (1.0.1)
   - OBFileTransfer (0.9.3):
     - OBLogger
-  - OBLogger (0.3.0)
+  - OBLogger (0.4.0)
   - PBJVision (0.4.6)
   - PermissionScope (1.0.2)
   - pop (1.0.9)
@@ -81,7 +81,7 @@ DEPENDENCIES:
   - Masonry (~> 0.6.2)
   - OAStackView (~> 1.0)
   - OBFileTransfer (= 0.9.3)
-  - OBLogger (~> 0.3.0)
+  - OBLogger (~> 0.4.0)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - PermissionScope
   - pop (~> 1.0)
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   OAStackView: 95e7cb79cbea25c2342f496a44bdbe8bd4c8d510
   OBFileTransfer: b75b7572697137ebd66752d142354e535e955ef2
-  OBLogger: dee914ef6b0be49a41f0985301fe7720a4381814
+  OBLogger: 401d6270b2a00cfd4c7fae3841178ebcc125b927
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   PermissionScope: 860828c5516d349b6f49e5491799cfef33c5ccc7
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
