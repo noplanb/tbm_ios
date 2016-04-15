@@ -171,7 +171,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         // Base View
         view.addSubview(effectView)
         if backgroundTapCancels {
-            let tap = UITapGestureRecognizer(target: self, action: Selector("cancel"))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(PermissionScope.cancel))
             tap.delegate = self
             view.addGestureRecognizer(tap)
         }
@@ -198,7 +198,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         
         // close button
         closeButton.setTitle("Close".localized, forState: .Normal)
-        closeButton.addTarget(self, action: Selector("cancel"), forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addTarget(self, action: #selector(PermissionScope.cancel), forControlEvents: UIControlEvents.TouchUpInside)
         
         contentView.addSubview(closeButton)
         
@@ -288,7 +288,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
                     label.frame.offsetInPlace(dx: -self.contentView.frame.origin.x, dy: -self.contentView.frame.origin.y)
                     label.frame.offsetInPlace(dx: 0, dy: -((dialogHeight/2)-205) + CGFloat(index * baseOffset))
                     
-                    index++
+                    index += 1
             })
         }
     }
@@ -340,7 +340,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         }
         
         button.addTarget(self, action: Selector("request\(type)"), forControlEvents: .TouchUpInside)
-        button.addTarget(self, action: Selector("hide"), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(PermissionScope.hide), forControlEvents: .TouchUpInside)
         
         return button
     }
@@ -571,7 +571,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
             name: UIApplicationWillResignActiveNotification,
             object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: Selector("finishedShowingNotificationPermission"),
+            selector: #selector(PermissionScope.finishedShowingNotificationPermission),
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         notificationTimer?.invalidate()
     }
@@ -629,9 +629,9 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
                 .first { $0 is NotificationsPermission } as? NotificationsPermission
             let notificationsPermissionSet = notificationsPermission?.notificationCategories
 
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("showingNotificationPermission"), name: UIApplicationWillResignActiveNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PermissionScope.showingNotificationPermission), name: UIApplicationWillResignActiveNotification, object: nil)
             
-            notificationTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("finishedShowingNotificationPermission"), userInfo: nil, repeats: false)
+            notificationTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(PermissionScope.finishedShowingNotificationPermission), userInfo: nil, repeats: false)
             
             UIApplication.sharedApplication().registerUserNotificationSettings(
                 UIUserNotificationSettings(forTypes: [.Alert, .Sound, .Badge],
@@ -1061,7 +1061,6 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     Hides the modal viewcontroller with an animation.
     */
     public func hide() {
-        let window = UIApplication.sharedApplication().keyWindow!
 
         self.effectView.transform = CGAffineTransformIdentity;
         
@@ -1136,7 +1135,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         alert.addAction(UIAlertAction(title: "Show me".localized,
             style: .Default,
             handler: { action in
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("appForegroundedAfterSettings"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PermissionScope.appForegroundedAfterSettings), name: UIApplicationDidBecomeActiveNotification, object: nil)
                 
                 let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
                 UIApplication.sharedApplication().openURL(settingsUrl!)
@@ -1170,7 +1169,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         alert.addAction(UIAlertAction(title: "Show me".localized,
             style: .Default,
             handler: { action in
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("appForegroundedAfterSettings"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PermissionScope.appForegroundedAfterSettings), name: UIApplicationDidBecomeActiveNotification, object: nil)
                 
                 let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
                 UIApplication.sharedApplication().openURL(settingsUrl!)
