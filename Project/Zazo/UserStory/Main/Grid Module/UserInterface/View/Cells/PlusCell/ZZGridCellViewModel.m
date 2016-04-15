@@ -121,8 +121,9 @@
     ZZGridCellViewModelState stateWithAdditionalState = state;
     
     if (self.hasUploadedVideo &&
-             !self.isUploadedVideoViewed &&
-             self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+       !self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming &&
+        self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }

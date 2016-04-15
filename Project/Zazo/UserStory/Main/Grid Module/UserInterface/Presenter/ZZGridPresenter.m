@@ -526,10 +526,6 @@
             });
         }
         
-        if (isEnabled)
-        {
-            [self.dataSource.controllerDelegate reloadItem:viewModel];
-        }
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
 }
