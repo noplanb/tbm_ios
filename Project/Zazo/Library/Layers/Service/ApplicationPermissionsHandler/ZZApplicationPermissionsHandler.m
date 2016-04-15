@@ -14,7 +14,7 @@
 #import "AVAudioSession+ZZAudioSession.h"
 #import "NSObject+ANRACAdditions.h"
 
-@import PermissionScope;
+#import "Zazo-Swift.h"
 
 static PermissionScope *permissionScope;
 
