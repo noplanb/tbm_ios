@@ -32,7 +32,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     /// Color for the close button's text color.
     public var closeButtonTextColor        = UIColor(red: 0, green: 0.47, blue: 1, alpha: 1)
     /// Color for the permission buttons' text color.
-    public var permissionButtonTextColor   = UIColor(red: 0, green: 0.47, blue: 1, alpha: 1)
+    public var permissionButtonTextColor   = UIColor.whiteColor()
     /// Color for the permission buttons' border color.
     public var permissionButtonBorderColor = UIColor(red: 0, green: 0.47, blue: 1, alpha: 1)
     /// Width for the permission buttons.
@@ -49,16 +49,24 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     public var closeButton                  = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 32))
     /// Offset used to position the Close button.
     public var closeOffset                  = CGSizeZero
-    /// Color used for permission buttons with authorized status
-    public var authorizedButtonColor        = UIColor(red: 0, green: 0.47, blue: 1, alpha: 1)
-    /// Color used for permission buttons with unauthorized status. By default, inverse of `authorizedButtonColor`.
-    public var unauthorizedButtonColor:UIColor?
+    
+    public var buttonBackgroundColor                    = UIColor(red: 0, green: 0.47, blue: 1, alpha: 1)
+    public var authorizedButtonBackgroundColor          = UIColor.clearColor()
+    public var unauthorizedButtonBackgroundColor        = UIColor.orangeColor()
+    
+    
     /// Messages for the body label of the dialog presented when requesting access.
     lazy var permissionMessages: [PermissionType : String] = [PermissionType : String]()
     
     // MARK: View hierarchy for custom alert
-    let baseView    = UIView()
-    public let contentView = UIView()
+    
+    let effectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+    
+    var contentView: UIView {
+        get {
+            return effectView.contentView;
+        }
+    }
 
     // MARK: - Various lazy managers
     lazy var locationManager:CLLocationManager = {
@@ -158,21 +166,18 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         // Set up main view
         view.frame = UIScreen.mainScreen().bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-        view.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.7)
-        view.addSubview(baseView)
+        view.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.3)
+
         // Base View
-        baseView.frame = view.frame
-        baseView.addSubview(contentView)
+        view.addSubview(effectView)
         if backgroundTapCancels {
             let tap = UITapGestureRecognizer(target: self, action: Selector("cancel"))
             tap.delegate = self
-            baseView.addGestureRecognizer(tap)
+            view.addGestureRecognizer(tap)
         }
         // Content View
-        contentView.backgroundColor = UIColor.whiteColor()
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
-        contentView.layer.borderWidth = 0.5
+        effectView.layer.cornerRadius = 10
+        effectView.layer.masksToBounds = true
 
         // header label
         headerLabel.font = UIFont.systemFontOfSize(22)
@@ -234,7 +239,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         }
         
         let y = (screenSize.height - dialogHeight) / 2
-        contentView.frame = CGRect(x:x, y:y, width:Constants.UI.contentWidth, height:dialogHeight)
+        effectView.frame = CGRect(x:x, y:y, width:Constants.UI.contentWidth, height:dialogHeight)
 
         // offset the header from the content center, compensate for the content's offset
         headerLabel.center = contentView.center
@@ -269,10 +274,10 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
                     let prettyDescription = type.prettyDescription
                     if currentStatus == .Authorized {
                         self.setButtonAuthorizedStyle(button)
-                        button.setTitle("Allowed \(prettyDescription)".localized.uppercaseString, forState: .Normal)
+                        button.setTitle("Allow \(prettyDescription)".localized.uppercaseString, forState: .Normal)
                     } else if currentStatus == .Unauthorized {
                         self.setButtonUnauthorizedStyle(button)
-                        button.setTitle("Denied \(prettyDescription)".localized.uppercaseString, forState: .Normal)
+                        button.setTitle("Allow \(prettyDescription)".localized.uppercaseString, forState: .Normal)
                     } else if currentStatus == .Disabled {
                         //                setButtonDisabledStyle(button)
                         button.setTitle("\(prettyDescription) Disabled".localized.uppercaseString, forState: .Normal)
@@ -322,9 +327,8 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 220, height: 40))
         button.setTitleColor(permissionButtonTextColor, forState: .Normal)
         button.titleLabel?.font = buttonFont
-
-        button.layer.borderWidth = permissionButtonΒorderWidth
-        button.layer.borderColor = permissionButtonBorderColor.CGColor
+        
+        button.backgroundColor = buttonBackgroundColor
         button.layer.cornerRadius = permissionButtonCornerRadius
 
         // this is a bit of a mess, eh?
@@ -336,6 +340,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         }
         
         button.addTarget(self, action: Selector("request\(type)"), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: Selector("hide"), forControlEvents: .TouchUpInside)
         
         return button
     }
@@ -346,9 +351,6 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     - parameter button: Permission button
     */
     func setButtonAuthorizedStyle(button: UIButton) {
-        button.layer.borderWidth = 0
-        button.backgroundColor = authorizedButtonColor
-        button.setTitleColor(.whiteColor(), forState: .Normal)
     }
     
     /**
@@ -358,7 +360,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     */
     func setButtonUnauthorizedStyle(button: UIButton) {
         button.layer.borderWidth = 0
-        button.backgroundColor = unauthorizedButtonColor ?? authorizedButtonColor.inverseColor
+        button.backgroundColor = unauthorizedButtonBackgroundColor ?? authorizedButtonBackgroundColor.inverseColor
         button.setTitleColor(.whiteColor(), forState: .Normal)
     }
 
@@ -1018,7 +1020,6 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(view)
         view.frame = window.bounds
-        baseView.frame = window.bounds
 
         for button in permissionButtons {
             button.removeFromSuperview()
@@ -1044,15 +1045,14 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         self.view.setNeedsLayout()
         
         // slide in the view
-        self.baseView.frame.origin.y = self.view.bounds.origin.y - self.baseView.frame.size.height
         self.view.alpha = 0
-        
+        self.effectView.transform = CGAffineTransformScale(self.view.transform, 0.9, 0.9);
         UIView.animateWithDuration(0.2, delay: 0.0, options: [], animations: {
-            self.baseView.center.y = window.center.y + 15
+            self.effectView.transform = CGAffineTransformIdentity;
             self.view.alpha = 1
         }, completion: { finished in
             UIView.animateWithDuration(0.2, animations: {
-                self.baseView.center = window.center
+                self.view.center = window.center
             })
         })
     }
@@ -1063,9 +1063,10 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     public func hide() {
         let window = UIApplication.sharedApplication().keyWindow!
 
+        self.effectView.transform = CGAffineTransformIdentity;
+        
         dispatch_async(dispatch_get_main_queue(), {
             UIView.animateWithDuration(0.2, animations: {
-                self.baseView.frame.origin.y = window.center.y + 400
                 self.view.alpha = 0
             }, completion: { finished in
                 self.view.removeFromSuperview()
@@ -1082,7 +1083,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     
     public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         // this prevents our tap gesture from firing for subviews of baseview
-        if touch.view == baseView {
+        if touch.view == view {
             return true
         }
         return false
@@ -1129,12 +1130,9 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
             })
         }
         
-        let alert = UIAlertController(title: "Permission for \(permission.prettyDescription) was denied.".localized,
-            message: "Please enable access to \(permission.prettyDescription) in the Settings app".localized,
+        let alert = UIAlertController(title: "\(permission.prettyDescription.capitalizedString) was Denied.".localized,
+            message: "Please enable \(permission.prettyDescription) in Settings".localized,
             preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK".localized,
-            style: .Cancel,
-            handler: nil))
         alert.addAction(UIAlertAction(title: "Show me".localized,
             style: .Default,
             handler: { action in

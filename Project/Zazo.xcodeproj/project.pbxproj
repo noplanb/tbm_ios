@@ -207,6 +207,11 @@
 		151A6C321CA5688800F2B53D /* ZZMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C281CA5688800F2B53D /* ZZMenuVC.m */; };
 		151A6C331CA5688800F2B53D /* ZZMenuWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C2C1CA5688800F2B53D /* ZZMenuWireframe.m */; };
 		151A6C341CA5688800F2B53D /* ZZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C2E1CA5688800F2B53D /* ZZMenu.m */; };
+		151BB3431CC124EC007CE007 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB33E1CC124EC007CE007 /* Constants.swift */; };
+		151BB3441CC124EC007CE007 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB33F1CC124EC007CE007 /* Extensions.swift */; };
+		151BB3451CC124EC007CE007 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3401CC124EC007CE007 /* Permissions.swift */; };
+		151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3411CC124EC007CE007 /* PermissionScope.swift */; };
+		151BB3471CC124EC007CE007 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3421CC124EC007CE007 /* Structs.swift */; };
 		151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */; };
 		152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158191C84932A00260AFD /* ZZRecordButtonView.m */; };
 		152158271C84932A00260AFD /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581C1C84932A00260AFD /* ZZDateLabel.m */; };
@@ -1167,6 +1172,11 @@
 		151A6C2C1CA5688800F2B53D /* ZZMenuWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuWireframe.m; sourceTree = "<group>"; };
 		151A6C2D1CA5688800F2B53D /* ZZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenu.h; sourceTree = "<group>"; };
 		151A6C2E1CA5688800F2B53D /* ZZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenu.m; sourceTree = "<group>"; };
+		151BB33E1CC124EC007CE007 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		151BB33F1CC124EC007CE007 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		151BB3401CC124EC007CE007 /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		151BB3411CC124EC007CE007 /* PermissionScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionScope.swift; sourceTree = "<group>"; };
+		151BB3421CC124EC007CE007 /* Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		151EAD9F1CA18A9900CE0FDE /* ZZContactsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsTableHeaderView.h; sourceTree = "<group>"; };
 		151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsTableHeaderView.m; sourceTree = "<group>"; };
 		152158181C84932A00260AFD /* ZZRecordButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordButtonView.h; sourceTree = "<group>"; };
@@ -3414,6 +3424,7 @@
 		07636D241BA49A0100925671 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				151BB33D1CC124EC007CE007 /* PermissionScope */,
 				7997E4EC1BAABE85001697D5 /* JFMinimalNotification */,
 				07636D251BA49A0100925671 /* ANODA */,
 				07636D881BA49A0100925671 /* TBMAlertController */,
@@ -3764,6 +3775,18 @@
 				151A6C2C1CA5688800F2B53D /* ZZMenuWireframe.m */,
 			);
 			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		151BB33D1CC124EC007CE007 /* PermissionScope */ = {
+			isa = PBXGroup;
+			children = (
+				151BB33E1CC124EC007CE007 /* Constants.swift */,
+				151BB33F1CC124EC007CE007 /* Extensions.swift */,
+				151BB3401CC124EC007CE007 /* Permissions.swift */,
+				151BB3411CC124EC007CE007 /* PermissionScope.swift */,
+				151BB3421CC124EC007CE007 /* Structs.swift */,
+			);
+			path = PermissionScope;
 			sourceTree = "<group>";
 		};
 		152158161C84932A00260AFD /* Components */ = {
@@ -6037,6 +6060,7 @@
 				158960451CB7B61D0040D8E3 /* UILabel+ANAdditions.m in Sources */,
 				151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */,
 				158960421CB7B61D0040D8E3 /* UIColor+ANAdditions.m in Sources */,
+				151BB3471CC124EC007CE007 /* Structs.swift in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
 				07636EA71BA49A0100925671 /* ZZSecretSegmentCell.m in Sources */,
 				1589606C1CB7B61E0040D8E3 /* ANNetworkSessionManager.m in Sources */,
@@ -6105,6 +6129,7 @@
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				15B823051CB7BBD4006473E1 /* TBMVideo.m in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
+				151BB3431CC124EC007CE007 /* Constants.swift in Sources */,
 				15B823021CB7BBD4006473E1 /* TBMFriend.m in Sources */,
 				1583CDB51C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */,
 				1589607D1CB7B61E0040D8E3 /* ANTableController+Private.m in Sources */,
@@ -6140,6 +6165,7 @@
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
+				151BB3441CC124EC007CE007 /* Extensions.swift in Sources */,
 				07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */,
 				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
 				15B823041CB7BBD4006473E1 /* TBMUser.m in Sources */,
@@ -6219,6 +6245,7 @@
 				07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */,
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
+				151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
@@ -6236,6 +6263,7 @@
 				79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */,
 				154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */,
 				07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */,
+				151BB3451CC124EC007CE007 /* Permissions.swift in Sources */,
 				18E042AF1BBC2A3300318C6F /* ZZGridDataUpdater.m in Sources */,
 				07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */,
 				158960501CB7B61D0040D8E3 /* UITextField+ANThemes.m in Sources */,

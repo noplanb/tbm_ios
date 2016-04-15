@@ -44,7 +44,6 @@ PODS:
     - OBLogger
   - OBLogger (0.4.0)
   - PBJVision (0.4.6)
-  - PermissionScope (1.0.2)
   - pop (1.0.9)
   - RBBAnimation (0.4.0)
   - ReactiveCocoa (2.4.7):
@@ -83,7 +82,6 @@ DEPENDENCIES:
   - OBFileTransfer (= 0.9.3)
   - OBLogger (~> 0.4.0)
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
-  - PermissionScope
   - pop (~> 1.0)
   - ReactiveCocoa (~> 2.4.7)
   - Reveal-iOS-SDK (~> 1.6.1)
@@ -123,7 +121,6 @@ SPEC CHECKSUMS:
   OBFileTransfer: b75b7572697137ebd66752d142354e535e955ef2
   OBLogger: 401d6270b2a00cfd4c7fae3841178ebcc125b927
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
-  PermissionScope: 860828c5516d349b6f49e5491799cfef33c5ccc7
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
