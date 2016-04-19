@@ -6437,7 +6437,7 @@
 					"AD-HOC=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
@@ -6684,7 +6684,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
@@ -6720,7 +6720,7 @@
 					"RELEASE=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Zazo/Application/BundleFiles/Zazo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;

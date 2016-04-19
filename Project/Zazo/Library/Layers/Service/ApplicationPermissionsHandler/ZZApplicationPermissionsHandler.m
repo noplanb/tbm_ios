@@ -204,7 +204,9 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     
     if (permissionScope.statusMicrophone != PermissionStatusAuthorized)
     {
+#if !(TARGET_OS_SIMULATOR)
         [permissions addObject:[MicrophonePermission new]];
+#endif
     }
     
     if (permissionScope.statusNotifications != PermissionStatusAuthorized)

@@ -48,8 +48,6 @@
     [self.tableDataSource updateServerCustomURLValue:value];
 }
 
-#pragma mark - Module Interface
-
 #pragma mark - ZZSecretDataSourceDelegate
 
 - (void)actionWithType:(ZZSecrectScreenActionsType)type
