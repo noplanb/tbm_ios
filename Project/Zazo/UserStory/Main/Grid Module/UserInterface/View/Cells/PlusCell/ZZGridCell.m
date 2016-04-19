@@ -64,7 +64,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
         
         if ([self _isNeedToChangeStateViewWithModel:model])
         {
-
             if (model.state & ZZGridCellViewModelStateAdd)
             {
                 [self _updatePlusButtonImage];
@@ -244,10 +243,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
-    if (self.model.hasActiveContactIcon)
-    {
-        self.plusButton.isActive = self.model.hasActiveContactIcon;
-    }
+    self.plusButton.isActive = self.model.hasActiveContactIcon;
 }
 
 - (UIEdgeInsets)_defaultInsets
