@@ -34,9 +34,9 @@
 
 - (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
 {
-    ZZTabbarVC * mainController = [ZZTabbarVC new];
-    ZZMainInteractor* interactor = [ZZMainInteractor new];
-    ZZMainPresenter* presenter = [ZZMainPresenter new];
+    ZZTabbarVC *mainController = [ZZTabbarVC new];
+    ZZMainInteractor *interactor = [ZZMainInteractor new];
+    ZZMainPresenter *presenter = [ZZMainPresenter new];
 
     self.gridWireframe = [ZZGridWireframe new];
     self.contactsWireframe = [ZZContactsWireframe new];
@@ -88,7 +88,7 @@
 
 - (void)presentEditFriendsController
 {
-    ZZEditFriendListWireframe* wireFrame = [ZZEditFriendListWireframe new];
+    ZZEditFriendListWireframe *wireFrame = [ZZEditFriendListWireframe new];
     [wireFrame presentEditFriendListControllerFromNavigationController:self.presentedController];
     wireFrame.presenter.editFriendListModuleDelegate = self.gridWireframe.presenter;
 }
@@ -98,6 +98,11 @@
     self.messageWireframe = [ANMessagesWireframe new];
     [self.messageWireframe presentEmailControllerFromViewController:self.presentedController
                                                           withModel:model completion:nil];
+}
+
+- (void)popToRootVC
+{
+    [self.presentedController popToRootViewControllerAnimated:YES];
 }
 
 @dynamic moduleInterface;

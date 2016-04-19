@@ -16,11 +16,18 @@
 {
     self.userInterface = userInterface;
     userInterface.activePageIndex = 1;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_applicationDidEnterBackgroundNotification)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
 }
 
-#pragma mark - Output
-
-
+- (void)_applicationDidEnterBackgroundNotification
+{
+    [self.wireframe showTab:ZZMainWireframeTabGrid];
+    [self.wireframe popToRootVC];
+}
 
 #pragma mark - Module Interface
 
