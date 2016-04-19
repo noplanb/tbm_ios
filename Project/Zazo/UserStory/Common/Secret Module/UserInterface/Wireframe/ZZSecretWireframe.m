@@ -47,11 +47,6 @@
     self.secretController = secretController;
 }
 
-- (void)dismissSecretController
-{
-    [self.secretController dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc
 {
     if (ANIsEmpty(self.secretController))
@@ -60,9 +55,9 @@
     }
     else
     {
-        if (self.secretController == nc.presentedViewController)
+        if (self.secretController == nc.visibleViewController)
         {
-            [self dismissSecretController];
+            [nc popToRootViewControllerAnimated:YES];
         }
         else
         {
