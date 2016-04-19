@@ -14,7 +14,7 @@
 
 @interface ZZGridContainerView ()
 
-@property (nonatomic, strong) UIVisualEffectView *dimView;
+@property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, weak) ZZGridCell *activeCell;
 @property (nonatomic, strong, readonly) UILabel *textLabel; // Displayed above cell when dim view is shown
 
@@ -157,15 +157,14 @@
     }];
 }
 
-- (UIVisualEffectView *)dimView
+- (UIView *)dimView
 {
     if (!_dimView)
     {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        _dimView = [UIView new];
         
-        _dimView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
         _dimView.alpha = 0;
-        
         
         [self addSubview:_dimView];
         
@@ -183,20 +182,11 @@
 {
     if (!_textLabel)
     {
-        UIVisualEffect *blurEffect = self.dimView.effect;
-        
-        UIVisualEffectView *vibrancyView =
-        [[UIVisualEffectView alloc] initWithEffect:[UIVibrancyEffect effectForBlurEffect:(id)blurEffect]];
-        
         UILabel *label = [UILabel new];
+        label.textColor = [UIColor whiteColor];
         
-        [_dimView.contentView addSubview:vibrancyView];
-        [vibrancyView.contentView addSubview:label];
-        
-        [vibrancyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(_dimView);
-        }];
-
+        [_dimView addSubview:label];
+    
         _textLabel = label;
     }
     
