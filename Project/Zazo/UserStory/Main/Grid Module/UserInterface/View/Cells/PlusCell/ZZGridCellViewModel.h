@@ -75,7 +75,6 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
-- (void)nudgeSelected;
 - (void)itemSelected;
 
 - (NSArray*)playerVideoURLs;

@@ -345,6 +345,11 @@
     return self.wireframe.mainWireframe.moduleInterface.overlayView;
 }
 
+- (void)didTapOnDimView
+{
+    [self.videoPlayer stop];
+}
+
 #pragma mark - DataSource Delegate
 
 - (void)showRecorderHint

@@ -244,7 +244,7 @@
 {
     self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
-    [self.moviePlayerController stop];
+    [self.moviePlayerController pause];
     self.currentFriendModel.isVideoStopped = YES;
     [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                 withPlayedUserModel:self.currentFriendModel];
@@ -277,7 +277,7 @@
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
             
             self.isPlayingVideo = NO;
-            [self.moviePlayerController stop];
+//            [self.moviePlayerController stop];
             CGFloat delayAfterToastRemoved = 0.4;
             ANDispatchBlockAfter(delayAfterToastRemoved, ^{
                 [self _playNext];

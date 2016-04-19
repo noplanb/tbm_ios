@@ -163,7 +163,7 @@
     {
         _dimView = [UIView new];
         
-        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         _dimView.alpha = 0;
         
         [self addSubview:_dimView];
@@ -171,9 +171,20 @@
         [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
         }];
+        
+        UITapGestureRecognizer *recognizer =
+            [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                    action:@selector(_didTapToDimView)];;
+        
+        [_dimView addGestureRecognizer:recognizer];
     }
     
     return _dimView;
+}
+
+- (void)_didTapToDimView
+{
+    [self.delegate gridContainerViewDidTapOnDimView:self];
 }
 
 @synthesize textLabel = _textLabel;

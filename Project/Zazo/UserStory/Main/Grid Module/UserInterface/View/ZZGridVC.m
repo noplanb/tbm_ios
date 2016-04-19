@@ -13,7 +13,7 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZGridUIConstants.h"
 
-@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
+@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, ZZGridContainerViewDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -33,6 +33,8 @@
         frame.size.height -= 72; // tabbar
 
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
+        self.gridView.itemsContainerView.delegate = self;
+        
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
@@ -271,6 +273,13 @@
 - (UIImage *)tabbarViewItemImage
 {
     return [UIImage imageNamed:@"grid"];
+}
+
+#pragma mark ZZGridContainerViewDelegate
+
+- (void)gridContainerViewDidTapOnDimView:(ZZGridContainerView *)containerView
+{
+    [self.eventHandler didTapOnDimView];
 }
 
 @end

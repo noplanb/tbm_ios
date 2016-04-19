@@ -50,11 +50,6 @@
 
 #pragma mark - Module Interface
 
-- (void)dismissController
-{
-    [self.wireframe dismissSecretController];
-}
-
 #pragma mark - ZZSecretDataSourceDelegate
 
 - (void)actionWithType:(ZZSecrectScreenActionsType)type

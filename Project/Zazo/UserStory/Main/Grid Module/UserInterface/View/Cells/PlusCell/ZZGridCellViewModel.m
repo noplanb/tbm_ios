@@ -18,7 +18,7 @@
 
 @interface ZZGridCellViewModel ()
 
-@property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *recordRecognizer;
 @property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
@@ -175,15 +175,6 @@
 {
     [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
     [self reloadDebugVideoStatus];
-}
-
-- (void)nudgeSelected
-{
-    if (![self.delegate isGridRotate])
-    {
-        [self reloadDebugVideoStatus];
-        [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
-    }
 }
 
 - (NSString*)firstName
