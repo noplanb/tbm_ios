@@ -227,6 +227,11 @@
     [self.delegate showMenuTab];
 }
 
+- (void)showGridTab
+{
+    [self.delegate showGridTab];
+}
+
 #pragma mark - Feature Event Observer Delegate
 
 - (void)showNextFeatureDialog

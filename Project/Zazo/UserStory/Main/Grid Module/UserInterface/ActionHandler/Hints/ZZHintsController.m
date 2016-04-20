@@ -67,6 +67,10 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
         focusFrame = [self _rectForEditFriendsCell];
         [self.delegate showMenuTab];
     }
+    else
+    {
+        [self.delegate showGridTab];
+    }
     
     [viewModel updateFocusFrame:focusFrame];
     

@@ -19,6 +19,7 @@
 - (BOOL)isVideoPlayingNow;
 - (NSInteger)friendsCountOnGrid;
 - (void)showMenuTab;
+- (void)showGridTab;
 - (UIView *)presentedView;
 
 @end

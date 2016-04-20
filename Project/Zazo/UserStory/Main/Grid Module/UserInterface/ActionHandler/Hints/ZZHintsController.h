@@ -16,6 +16,7 @@
 - (void)hintWasDismissedWithType:(ZZHintsType)type;
 - (UIView *)hintPresentedView;
 - (void)showMenuTab;
+- (void)showGridTab;
 
 @end
 

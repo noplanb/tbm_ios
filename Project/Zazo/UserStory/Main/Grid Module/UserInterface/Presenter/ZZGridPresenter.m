@@ -656,6 +656,11 @@
     [self.wireframe.mainWireframe showTab:ZZMainWireframeTabMenu];
 }
 
+- (void)showGridTab
+{
+    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
+}
+
 #pragma mark - Interactor Action Handler
 
 - (void)handleModel:(ZZGridDomainModel *)model withEvent:(ZZGridActionEventType)event
