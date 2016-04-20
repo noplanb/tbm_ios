@@ -47,11 +47,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.menuView.tableView.contentOffsetY = -self.menuView.tableView.contentInsetTop;
     [self.eventHandler menuToggled];
 }
 
 - (void)tabbarItemDidAppear
 {
+    self.menuView.tableView.contentOffsetY = -self.menuView.tableView.contentInsetTop;
     [self.eventHandler viewDidAppear];
 }
 
