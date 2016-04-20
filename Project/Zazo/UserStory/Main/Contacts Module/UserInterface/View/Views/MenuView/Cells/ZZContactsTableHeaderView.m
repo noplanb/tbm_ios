@@ -46,4 +46,26 @@
     self.titleLabel.width = 24;
 }
 
+- (void)updateWithModel:(NSString*)model
+{
+    if ([model isEqualToString:@"★"])
+    {
+        self.titleLabel.attributedText = [self _z];
+    }
+    else
+    {
+        self.titleLabel.text = [NSLocalizedString(model, nil) uppercaseString];
+    }
+}
+
+- (NSAttributedString *)_z
+{
+    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+    textAttachment.image = [UIImage imageNamed:@"z.png"];
+    
+    NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:textAttachment];
+    
+    return string;
+}
+
 @end
