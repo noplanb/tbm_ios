@@ -12,7 +12,7 @@
 #import "ZZGridHelper.h"
 @import pop;
 
-static CGFloat const kStartGridRotationOffset = 10;
+static CGFloat const kStartGridRotationOffset = 20;
 
 @interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
