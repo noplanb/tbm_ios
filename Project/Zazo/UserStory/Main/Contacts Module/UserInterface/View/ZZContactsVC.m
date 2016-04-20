@@ -96,6 +96,9 @@
     ANDispatchBlockToMainQueue(^{
         [self.controller.searchBar resignFirstResponder];
         [self.view endEditing:YES];
+        [self.controller searchBarCancelButtonClicked:self.controller.searchBar];
+        self.controller.searchBar.text = nil;
+
     });
     [self.eventHandler itemSelected:model];
 }
