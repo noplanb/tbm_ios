@@ -211,6 +211,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     {
         [self.recorder setCameraDevice:PBJCameraDeviceFront];
     }
+    
+    _isCameraSwitched = self.recorder.cameraDevice == PBJCameraDeviceBack;
 }
 
 #pragma mark - UI messages

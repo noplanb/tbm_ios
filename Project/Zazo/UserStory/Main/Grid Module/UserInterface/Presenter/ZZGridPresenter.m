@@ -123,6 +123,12 @@
 {
     [self.actionHandler resetLastHintAndShowIfNeeded];
     [self.interactor updateGridIfNeeded];
+    
+    if ([ZZVideoRecorder shared].isCameraSwitched)
+    {
+        [[ZZVideoRecorder shared] switchCamera:nil];
+    }
+        
 }
 
 - (void)_handleResignActive
