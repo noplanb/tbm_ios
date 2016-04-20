@@ -203,7 +203,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         [_switchCameraButton addSubview:photoImage];
         [photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_switchCameraButton);
-            make.bottom.equalTo(self).offset(-2);
+            make.bottom.equalTo(self).offset(-6);
         }];
     }
     return _switchCameraButton;
