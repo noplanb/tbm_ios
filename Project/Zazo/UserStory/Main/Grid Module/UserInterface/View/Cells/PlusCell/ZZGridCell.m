@@ -243,6 +243,18 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
+    //TODO: not very good solution:
+    
+    static ZZGridCell *activeCell;
+    
+    if (self.model.hasActiveContactIcon && activeCell.model.item.index != self.model.item.index)
+    {
+        activeCell.plusButton.isActive = NO;
+        activeCell = self;
+    }
+    
+    // end TODO
+    
     self.plusButton.isActive = self.model.hasActiveContactIcon;
 }
 
