@@ -17,7 +17,7 @@
     self = [super initWithTableView:tableView];
     if (self)
     {
-        self.tableView.rowHeight = 55.5;
+        self.tableView.rowHeight = 66;
         self.tableView.sectionHeaderHeight = 1;
         [self registerCellClass:[ZZContactCell class] forModelClass:[ZZContactCellViewModel class]];
         [self registerHeaderClass:[ZZContactsTableHeaderView class] forModelClass:[NSString class]];

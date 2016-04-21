@@ -19,7 +19,7 @@
 - (void)setup
 {
     [super setup];
-    self.bottomLabelInset = -35;
+    self.bottomLabelInset = -40;
     self.titleLabel.font = [UIFont zz_regularFontWithSize:21];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
@@ -41,7 +41,7 @@
 {
     [super layoutSubviews];
     
-    CGFloat offset = 106;
+    CGFloat offset = 122;
     self.border.frame = CGRectMake(offset, 0, self.frame.size.width - offset, 1);
     self.titleLabel.width = 24;
 }
