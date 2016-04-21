@@ -57,6 +57,11 @@
     [self.eventHandler viewDidAppear];
 }
 
+- (void)tabbarItemDidDisappear
+{
+    [self viewWillDisappear:NO];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.view endEditing:YES];

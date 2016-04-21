@@ -71,6 +71,14 @@
         
         return;
     }
+    
+    UIViewController<ZZTabbarViewItem> *currentItem =
+        _activePageIndex == NSUIntegerMax ? nil : self.viewControllers[_activePageIndex];
+    
+    if ([currentItem respondsToSelector:@selector(tabbarItemDidDisappear)])
+    {
+        [currentItem tabbarItemDidDisappear];
+    }
 
     _activePageIndex = activePageIndex;
     self.tabbarView.activeItemIndex = activePageIndex;
