@@ -39,7 +39,7 @@
     [presenter configurePresenterWithUserInterface:secretController];
     
     ANDispatchBlockToMainQueue(^{
-        [nc pushViewController:secretController animated:YES];
+        [nc pushViewController:secretController animated:NO];
     });
     
     self.presenter = presenter;

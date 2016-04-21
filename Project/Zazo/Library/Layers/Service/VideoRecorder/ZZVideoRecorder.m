@@ -68,6 +68,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 {
     if (!self.isSetup)
     {
+        self.isSetup = YES;
+
         self.videoProcessor = [TBMVideoProcessor new];
         
         self.isFirstLaunchAttempt = YES;
@@ -84,7 +86,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
         self.recorder.usesApplicationAudioSession = YES;
         self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
-        self.isSetup = YES;
     }
 }
 
