@@ -208,11 +208,7 @@
     }].array;
 
     self.videoDurations = [self.videoURLs.rac_sequence map:^id(id value) {
-
-        AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:value options:nil];
-        CMTime duration = sourceAsset.duration;
-        return @(duration.value / (CGFloat)duration.timescale);
-
+        return [self _durationByURL:value];
     }].array;
 
     self.totalVideoDuration = 0;
@@ -220,6 +216,13 @@
     [self.videoDurations enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
         self.totalVideoDuration += obj.doubleValue;
     }];
+}
+
+- (NSNumber *)_durationByURL:(NSURL *)url
+{
+    AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:url options:nil];
+    CMTime duration = sourceAsset.duration;
+    return @(duration.value / (CGFloat)duration.timescale);
 }
 
 - (void)stop
@@ -378,10 +381,10 @@
 - (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* acutalVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
+    NSArray* actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     NSMutableArray* videoModelsCopy = [self.videoModels mutableCopy];
-    ZZVideoDomainModel* lastVideoModel = [acutalVideos lastObject];
+    ZZVideoDomainModel* lastVideoModel = [actualVideos lastObject];
     
     NSURL* lastVideoUrl = [ZZVideoDataProvider videoUrlWithVideoModel: lastVideoModel];
     
@@ -390,6 +393,10 @@
         self.videoURLs = [self.videoURLs arrayByAddingObject:lastVideoUrl];
         [videoModelsCopy addObject:lastVideoModel];
         self.videoModels = videoModelsCopy;
+        
+        NSNumber *duration = [self _durationByURL:lastVideoUrl];
+        self.videoDurations = [self.videoDurations arrayByAddingObject:duration];
+        self.totalVideoDuration += duration.doubleValue;
     }
 }
 
