@@ -40,7 +40,7 @@
 
 //Edit Friend Module
 
-"edit-friend.nav.title.text" = "Edit friends";
+"edit-friend.nav.title.text" = "Edit Friends";
 "edit-friend.delete.button.title" = "Delete";
 "edit-friend.restore.button.title" = "Restore";
 

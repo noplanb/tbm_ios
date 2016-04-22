@@ -89,14 +89,14 @@ static CGFloat const kNavigationBarIconHeight = 20;
     
     [self _setupNavigationButtons];
     
-//    UINavigationBar *appearance = [UINavigationBar appearance];
-//    
+    UINavigationBar *appearance = [UINavigationBar appearance];
+//
 //    appearance.barTintColor = self.tintColor;
 //    appearance.tintColor = self.navBarFontColor;
 //    
-//    NSDictionary* titleAttributes = @{NSForegroundColorAttributeName : self.navBarFontColor};
-//    [appearance setTitleTextAttributes:titleAttributes];
-//    
+    NSDictionary* titleAttributes = @{NSFontAttributeName : [UIFont zz_mediumFontWithSize:20]};
+    [appearance setTitleTextAttributes:titleAttributes];
+//
 //    appearance.translucent = NO;
 }
 

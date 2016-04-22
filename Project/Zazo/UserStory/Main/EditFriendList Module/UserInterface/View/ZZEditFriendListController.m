@@ -21,7 +21,7 @@
     {
         [self registerCellClass:[ZZEditFriendCell class] forModelClass:[ZZEditFriendCellViewModel class]];
         self.displayHeaderOnEmptySection = NO;
-        self.tableView.rowHeight = 60;
+        self.tableView.rowHeight = 66;
     }
     return self;
 }

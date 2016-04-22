@@ -273,7 +273,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     ZZAlertController *alert =
     [ZZAlertController alertControllerWithTitle:@"No Available Storage"
                                          message:message];
-    
+       
     [self _presentAlertController:alert];
 }
 

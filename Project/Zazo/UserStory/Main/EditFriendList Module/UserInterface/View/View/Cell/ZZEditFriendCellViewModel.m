@@ -125,9 +125,9 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     return _placeholderImage;
 }
 
-//- (NSString *)phoneNumber
-//{
-//    return [NSObject an_safeString:self.item.mobileNumber];
-//}
+- (NSString *)phoneNumber
+{
+    return [NSObject an_safeString:self.item.mobileNumber];
+}
 
 @end
