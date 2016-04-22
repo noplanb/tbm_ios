@@ -8,7 +8,7 @@
 
 @interface ZZAddressBookDataProvider : NSObject
 
-+ (RACSignal*)loadContactsWithContactsRequest;
++ (RACSignal*)loadContacts;
 + (void)resetAddressBook;
 
 + (BOOL)isAccessGranted;

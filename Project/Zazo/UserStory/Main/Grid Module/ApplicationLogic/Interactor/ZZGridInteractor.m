@@ -51,6 +51,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         self.gridUpdateService = [ZZGridUpdateService new];
         self.gridUpdateService.delegate = self;
+        
     }
     
     return self;

@@ -17,4 +17,6 @@
 - (void)hideHintIfNeeded;
 - (void)updatePositionForViewModels:(NSArray*)models;
 
+- (void)didTapOnDimView;
+
 @end

@@ -71,11 +71,14 @@ static CGFloat const kSearchBarHeight = 44;
         searchTextField.leftViewMode = UITextFieldViewModeAlways;
         searchTextField.rightViewMode = UITextFieldViewModeNever;
         searchTextField.borderStyle = UITextBorderStyleNone;
-        
+        searchTextField.font = [UIFont zz_regularFontWithSize:18];
         searchTextField.layer.borderColor = [UIColor clearColor].CGColor;
         searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
         
+        searchTextField.leftView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.5, 1.5), -18, 0);
+        
+        [_searchBar setImage:[UIImage imageNamed:@"clear-button"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+
     }
     return _searchBar;
 }

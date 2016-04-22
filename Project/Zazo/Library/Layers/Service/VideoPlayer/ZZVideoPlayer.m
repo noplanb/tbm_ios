@@ -64,17 +64,17 @@
 - (void)addNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_playNext:)
+                                             selector:@selector(_moviePlayerPlaybackDidFinishNotification:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_playerStateWasUpdated)
+                                             selector:@selector(_moviePlayerStateWasUpdatedNotification)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stop)
+                                             selector:@selector(_applicationWillResignNotication)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
 }
@@ -83,7 +83,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 #pragma mark - Public
 
@@ -114,7 +113,7 @@
 
 - (void)playOnView:(UIView *)view withVideoModels:(NSArray *)videoModels
 {
-    [self _updateVideoPlayerStateIfNeeded];
+    [self _stopVideoPlayerStateIfNeeded];
     
     self.moviePlayerController.contentURL = nil;
     
@@ -125,16 +124,13 @@
     
     if (view != self.moviePlayerController.view.superview && view)
     {
-        self.moviePlayerController.view.frame = view.bounds;
         [view addSubview:self.moviePlayerController.view];
         [view bringSubviewToFront:self.moviePlayerController.view];
+        self.moviePlayerController.view.frame = view.bounds;
     }
     
     if (!ANIsEmpty(videoModels)) //&& ![self.currentPlayQueue isEqualToArray:URLs]) //TODO: if current playback state is equal to user's play list
-    {
-        self.moviePlayerController.view.frame = view.bounds;
-        [view addSubview:self.moviePlayerController.view];
-
+    {        
         ZZVideoDomainModel *viewedVideo = [self _actualVideoDomainModelWithSortedModels:self.videoModels];
         [self _playVideoModel:viewedVideo];
     }
@@ -172,6 +168,7 @@
 {
     self.moviePlayerController.contentURL = self.currentURL;
     [self.moviePlayerController play];
+    
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
     
     [self makePlaybackTimer];
@@ -193,7 +190,7 @@
 
 }
 
-- (void)_updateVideoPlayerStateIfNeeded
+- (void)_stopVideoPlayerStateIfNeeded
 {
     if (self.isPlayingVideo)
     {
@@ -211,11 +208,7 @@
     }].array;
 
     self.videoDurations = [self.videoURLs.rac_sequence map:^id(id value) {
-
-        AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:value options:nil];
-        CMTime duration = sourceAsset.duration;
-        return @(duration.value / (CGFloat)duration.timescale);
-
+        return [self _durationByURL:value];
     }].array;
 
     self.totalVideoDuration = 0;
@@ -223,8 +216,13 @@
     [self.videoDurations enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
         self.totalVideoDuration += obj.doubleValue;
     }];
-    
-    
+}
+
+- (NSNumber *)_durationByURL:(NSURL *)url
+{
+    AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:url options:nil];
+    CMTime duration = sourceAsset.duration;
+    return @(duration.value / (CGFloat)duration.timescale);
 }
 
 - (void)stop
@@ -249,7 +247,7 @@
 {
     self.isPlayingVideo = NO;
     [self.moviePlayerController.view removeFromSuperview];
-    [self.moviePlayerController stop];
+    [self.moviePlayerController pause];
     self.currentFriendModel.isVideoStopped = YES;
     [self.delegate videoPlayerURLWasFinishedPlaying:self.moviePlayerController.contentURL
                                 withPlayedUserModel:self.currentFriendModel];
@@ -271,7 +269,7 @@
 
 #pragma mark - Private
 
-- (void)_playNext:(NSNotification*)notification
+- (void)_moviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
     ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification: %@", notification.userInfo);
     NSError *error = (NSError *) notification.userInfo[@"error"];
@@ -282,7 +280,7 @@
             [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
             
             self.isPlayingVideo = NO;
-            [self.moviePlayerController stop];
+//            [self.moviePlayerController stop];
             CGFloat delayAfterToastRemoved = 0.4;
             ANDispatchBlockAfter(delayAfterToastRemoved, ^{
                 [self _playNext];
@@ -349,7 +347,6 @@
     }
     else
     {
-        
         ZZVideoDomainModel *lastModel = [self.videoModels lastObject];
         
         self.isPlayingVideo = NO;
@@ -365,7 +362,7 @@
     }
 }
 
-//TODO: temprorary
+//TODO: temporary
 - (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
                                     video:(ZZVideoDomainModel*)videoModel
                                videoIndex:(NSInteger)index
@@ -384,10 +381,10 @@
 - (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* acutalVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
+    NSArray* actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     NSMutableArray* videoModelsCopy = [self.videoModels mutableCopy];
-    ZZVideoDomainModel* lastVideoModel = [acutalVideos lastObject];
+    ZZVideoDomainModel* lastVideoModel = [actualVideos lastObject];
     
     NSURL* lastVideoUrl = [ZZVideoDataProvider videoUrlWithVideoModel: lastVideoModel];
     
@@ -396,10 +393,14 @@
         self.videoURLs = [self.videoURLs arrayByAddingObject:lastVideoUrl];
         [videoModelsCopy addObject:lastVideoModel];
         self.videoModels = videoModelsCopy;
+        
+        NSNumber *duration = [self _durationByURL:lastVideoUrl];
+        self.videoDurations = [self.videoDurations arrayByAddingObject:duration];
+        self.totalVideoDuration += duration.doubleValue;
     }
 }
 
-- (void)_playerStateWasUpdated
+- (void)_moviePlayerStateWasUpdatedNotification
 {
     if (self.moviePlayerController.playbackState == MPMoviePlaybackStatePlaying)
     {
@@ -414,9 +415,12 @@
     }
 }
 
+- (void)_applicationWillResignNotication
+{
+    [self stop];
+}
 
 #pragma mark - Helpers
-
 
 - (ZZFriendDomainModel*)playedFriendModel
 {
@@ -440,6 +444,8 @@
         _moviePlayerController.controlStyle = MPMovieControlStyleNone;
         _moviePlayerController.view.backgroundColor = [UIColor clearColor];
         
+        _moviePlayerController.backgroundView.backgroundColor = [UIColor whiteColor];
+        
         for (UIView *aSubView in _moviePlayerController.view.subviews)
         {
             aSubView.backgroundColor = [UIColor clearColor];
@@ -450,7 +456,7 @@
     return _moviePlayerController;
 }
 
-- (UIButton*)tapButton
+- (UIButton *)tapButton
 {
     if (!_tapButton)
     {

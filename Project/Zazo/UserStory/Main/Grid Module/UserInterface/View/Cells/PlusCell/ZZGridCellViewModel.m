@@ -9,24 +9,16 @@
 @import AVFoundation;
 
 #import "ZZGridCellViewModel.h"
-#import "ZZVideoPlayer.h"
-#import "NSObject+ANSafeValues.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZVideoRecorder.h"
 #import "ZZThumbnailGenerator.h"
-#import "ZZVideoStatuses.h"
 #import "ZZStoredSettingsManager.h"
-#import "ZZFriendDataProvider.h"
-#import "iToast.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZFriendDataHelper.h"
 
 
 @interface ZZGridCellViewModel ()
 
-@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
-@property (nonatomic, strong) UILongPressGestureRecognizer* recordRecognizer;
-@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *recordRecognizer;
 @property (nonatomic, assign) CGPoint initialRecordPoint;
 
 @end
@@ -34,16 +26,6 @@
 @implementation ZZGridCellViewModel
 
 @dynamic isRecording;
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-
-    }
-    return self;
-}
 
 - (void)setUsernameLabel:(UILabel *)usernameLabel
 {
@@ -86,15 +68,18 @@
     });
 }
 
-
-- (BOOL)isRecording {
+- (BOOL)isRecording
+{
     return !CGPointEqualToPoint(self.initialRecordPoint, CGPointZero);
 }
 
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isRecording viewModel:self withCompletionBlock:completionBlock];
+    [self.delegate recordingStateUpdatedToState:isRecording
+                                      viewModel:self
+                            withCompletionBlock:completionBlock];
+    
     [self reloadDebugVideoStatus];
 }
 
@@ -124,7 +109,7 @@
     {
         modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
-    
+
     modelState = [self _additionalModelStateWithState:modelState];
     
     
@@ -135,13 +120,10 @@
 {
     ZZGridCellViewModelState stateWithAdditionalState = state;
     
-    if (self.isRecording)
-    {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateRecording);
-    }
-    else if (self.hasUploadedVideo &&
-             !self.isUploadedVideoViewed &&
-             self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+    if (self.hasUploadedVideo &&
+       !self.isUploadedVideoViewed &&
+        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming &&
+        self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }
@@ -162,7 +144,7 @@
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
     }
-    
+
     // green border state
     if (self.badgeNumber > 0)
     {
@@ -173,7 +155,7 @@
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
-    
+
     // badge state
     if (self.badgeNumber == 1
         && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
@@ -195,21 +177,6 @@
     [self reloadDebugVideoStatus];
 }
 
-- (void)nudgeSelected
-{
-    if (![self.delegate isGridRotate])
-    {
-        [self reloadDebugVideoStatus];
-        [self.delegate nudgeSelectedWithUserModel:self.item.relatedUser];
-    }
-}
-
-- (void)togglePlayer
-{
-    [self.videoPlayer toggle];
-    self.usernameLabel.text = [self videoStatusString];
-}
-
 - (NSString*)firstName
 {
     return [NSObject an_safeString:self.item.relatedUser.firstName];
@@ -220,24 +187,12 @@
     return self.item.relatedUser.videos;
 }
 
-- (UIImage*)thumbSnapshot
-{
-    return [self _videoThumbnail];
-}
-
-
 #pragma mark - Video Thumbnail
 
 - (UIImage *)videoThumbnailImage
 {
     return [self _videoThumbnail];
 }
-
-//- (UIImage*)thumbnailPlaceholderImage
-//{
-////    UIImage *image = [UIImage imageOrPDFNamed:@"pattern"];
-//    return nil;
-//}
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate
@@ -257,16 +212,6 @@
     }];
 }
 
-//- (void)setupRecrodHintRecognizerOnView:(UIView*)view
-//{
-//    [view addGestureRecognizer:self.tapRecognizer];
-//}
-
-//- (void)removeRecordHintRecognizerFromView:(UIView*)view
-//{
-//    [view removeGestureRecognizer:self.tapRecognizer];
-//}
-
 - (UILongPressGestureRecognizer *)recordRecognizer
 {
     if (!_recordRecognizer)
@@ -278,27 +223,7 @@
     return _recordRecognizer;
 }
 
-//- (UITapGestureRecognizer *)tapRecognizer
-//{
-//    if (!_tapRecognizer)
-//    {
-//        _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_showRecorderHing)];
-//        
-//    }
-//    
-//    return _tapRecognizer;
-//}
-
-#pragma mark - Private
-
-
-
 #pragma mark  - Recording recognizer handle
-
-- (void)_showRecorderHing
-{
-    [self.delegate showRecorderHint];
-}
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
@@ -367,21 +292,22 @@
     }
 }
 
-
-- (NSString*)videoStatus
-{
-    NSInteger status = self.item.relatedUser.lastIncomingVideoStatus;
-    return ZZVideoIncomingStatusShortStringFromEnumValue(status);
-}
-
-
 #pragma mark - Generate Thumbnail
 
 - (UIImage*)_videoThumbnail
 {
-    NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    NSArray* sortedVideoArray = [self.item.relatedUser.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    ZZVideoDomainModel* lastModel = [sortedVideoArray lastObject];
+    NSSortDescriptor *sortDescriptor =
+        [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    
+    NSPredicate *predicate =
+        [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
+    
+    NSArray *videoModels = self.item.relatedUser.videos;
+    
+    videoModels = [videoModels filteredArrayUsingPredicate:predicate];
+    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    ZZVideoDomainModel *lastModel = [videoModels lastObject];
     
     if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
     {
@@ -402,11 +328,6 @@
 - (BOOL)isVideoPlayed
 {
     return [self.delegate isVideoPlayingWithModel:self];
-}
-
-- (void)_showMessage:(NSString*)message
-{
-    [[iToast makeText:message]show];
 }
 
 @end

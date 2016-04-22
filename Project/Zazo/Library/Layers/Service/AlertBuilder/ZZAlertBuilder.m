@@ -42,24 +42,24 @@
             actionButtonTitle:(NSString*)actionButtonTitle
                        action:(ANCodeBlock)completion
 {
-    TBMAlertController *alert = [self alertWithTitle:title
+    ZZAlertController *alert = [self alertWithTitle:title
                                              details:details
                                    cancelButtonTitle:cancelTitle
                                   cancelButtonAction:cancelAction
                                    actionButtonTitle:actionButtonTitle
                                               action:completion];
     
-    [self presentAlert:(TBMAlertController *)alert];
+    [self presentAlert:(ZZAlertController *)alert];
 }
 
-+ (TBMAlertController *)alertWithTitle:(NSString*)title
++ (ZZAlertController *)alertWithTitle:(NSString*)title
                                details:(NSString*)details
                      cancelButtonTitle:(NSString*)cancelTitle
                     cancelButtonAction:(ANCodeBlock)cancelAction
                      actionButtonTitle:(NSString*)actionButtonTitle
                                 action:(ANCodeBlock)completion
 {
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
+    ZZAlertController *alert = [ZZAlertController alertControllerWithTitle:[NSObject an_safeString:title]
                                                                      message:[NSObject an_safeString:details]];
     
     if (!ANIsEmpty(cancelTitle))
@@ -96,13 +96,13 @@
     return alert;
 }
 
-+ (TBMAlertController *)alertWithTitle:(NSString*)title
++ (ZZAlertController *)alertWithTitle:(NSString*)title
                                details:(NSString*)details
                      cancelButtonTitle:(NSString*)cancelTitle
                     cancelButtonAction:(ANCodeBlock)cancelAction
                                actions:(NSArray <SDCAlertAction *> *)actions
 {
-    TBMAlertController *alert =
+    ZZAlertController *alert =
     [self alertWithTitle:title
                  details:details
        cancelButtonTitle:cancelTitle
@@ -117,9 +117,9 @@
     return alert;
 }
 
-+ (TBMAlertController *)alertWithTitle:(NSString*)title
++ (ZZAlertController *)alertWithTitle:(NSString*)title
 {
-    TBMAlertController *alert = [TBMAlertController alertControllerWithTitle:[NSObject an_safeString:title]
+    ZZAlertController *alert = [ZZAlertController alertControllerWithTitle:[NSObject an_safeString:title]
                                                                      message:@""];
     
     return alert;
@@ -131,18 +131,18 @@
            cancelButtonAction:(ANCodeBlock)cancelAction
                       actions:(NSArray <SDCAlertAction *> *)actions
 {
-    TBMAlertController *alert =
+    ZZAlertController *alert =
     [self alertWithTitle:title
                  details:details
        cancelButtonTitle:cancelTitle
       cancelButtonAction:cancelAction
                  actions:actions];
     
-    [self presentAlert:(TBMAlertController *)alert];
+    [self presentAlert:(ZZAlertController *)alert];
 
 }
 
-+ (void)presentAlert:(TBMAlertController *)alert
++ (void)presentAlert:(ZZAlertController *)alert
 {
     ANDispatchBlockToMainQueue(^{
         [alert presentWithCompletion:nil];

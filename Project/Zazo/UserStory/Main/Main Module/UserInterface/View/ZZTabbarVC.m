@@ -71,13 +71,26 @@
         
         return;
     }
+    
+    UIViewController<ZZTabbarViewItem> *currentItem =
+        _activePageIndex == NSUIntegerMax ? nil : self.viewControllers[_activePageIndex];
+    
+    if ([currentItem respondsToSelector:@selector(tabbarItemDidDisappear)])
+    {
+        [currentItem tabbarItemDidDisappear];
+    }
 
     _activePageIndex = activePageIndex;
     self.tabbarView.activeItemIndex = activePageIndex;
 
     [self _scrollToActivePageIfNeededAnimated:YES];
     
-    [self.viewControllers[activePageIndex] viewDidAppear:YES];
+    UIViewController<ZZTabbarViewItem> *item = self.viewControllers[activePageIndex];
+    
+    if ([item respondsToSelector:@selector(tabbarItemDidAppear)])
+    {
+        [item tabbarItemDidAppear];
+    }
 }
 
 @dynamic progressBarPosition;
@@ -162,6 +175,7 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
         _scrollView.scrollsToTop = NO;
+        _scrollView.bounces = NO;
         
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -300,7 +314,6 @@
     }
 
     self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-    [self.viewControllers[self.activePageIndex] viewDidAppear:YES];
     
     self.controllerThatWillAppear = nil;
 

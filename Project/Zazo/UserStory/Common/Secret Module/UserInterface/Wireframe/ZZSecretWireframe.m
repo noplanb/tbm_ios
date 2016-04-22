@@ -39,17 +39,12 @@
     [presenter configurePresenterWithUserInterface:secretController];
     
     ANDispatchBlockToMainQueue(^{
-        [nc presentViewController:secretController animated:YES completion:nil];
+        [nc pushViewController:secretController animated:NO];
     });
     
     self.presenter = presenter;
     self.presentedController = nc;
     self.secretController = secretController;
-}
-
-- (void)dismissSecretController
-{
-    [self.secretController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc
@@ -60,9 +55,9 @@
     }
     else
     {
-        if (self.secretController == nc.presentedViewController)
+        if (self.secretController == nc.visibleViewController)
         {
-            [self dismissSecretController];
+            [nc popToRootViewControllerAnimated:YES];
         }
         else
         {

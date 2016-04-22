@@ -22,7 +22,8 @@
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
 
         [self _makeStackView];
         [self _makeSlider];
@@ -32,8 +33,6 @@
         layer.shadowRadius = 1.0f;
         layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
         layer.shadowOpacity = 1.0f;
-        
-
     }
 
     return self;

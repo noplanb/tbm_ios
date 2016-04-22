@@ -25,8 +25,6 @@
 - (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer;
 
 - (void)reloadStorage;
-- (void)updateCenterCellWithModel:(ZZGridCenterCellViewModel*)model;
-
 - (ZZGridCenterCellViewModel*)centerViewModel;
 
 - (id)viewModelAtIndex:(NSInteger)index;
@@ -39,7 +37,5 @@
 - (NSInteger)frindsOnGridNumber;
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel;
 - (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel;
-
-- (NSArray*)gridModels;
 
 @end

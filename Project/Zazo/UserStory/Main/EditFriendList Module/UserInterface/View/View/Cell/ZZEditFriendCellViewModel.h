@@ -30,7 +30,7 @@
 - (NSString *)username;
 - (NSString *)abbreviation;
 
-//- (NSString *)phoneNumber;
+- (NSString *)phoneNumber;
 
 - (void)switchStateChanged;
 

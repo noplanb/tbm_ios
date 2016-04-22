@@ -64,7 +64,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
         
         if ([self _isNeedToChangeStateViewWithModel:model])
         {
-
             if (model.state & ZZGridCellViewModelStateAdd)
             {
                 [self _updatePlusButtonImage];
@@ -152,22 +151,15 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_setupRecordRecognizerWithModel:(ZZGridCellViewModel *)model
 {
-//    if ([self.stateView isKindOfClass:[ZZGridStateViewNudge class]])
-//    {
-//        ZZGridStateViewNudge* nudgeStateView = (ZZGridStateViewNudge*)self.stateView;
-//        [model setupRecorderRecognizerOnView:nudgeStateView.recordView withAnimationDelegate:self];
-//    }
-//    else
-        if ([self.stateView isKindOfClass:[ZZGridStateViewRecord class]])
+    if ([self.stateView isKindOfClass:[ZZGridStateViewRecord class]])
     {
         ZZGridStateViewRecord* recordStateView = (ZZGridStateViewRecord*)self.stateView;
-        [model setupRecorderRecognizerOnView:recordStateView.recordView withAnimationDelegate:self];
+        [model setupRecorderRecognizerOnView:recordStateView withAnimationDelegate:self];
     }
     else if ([self.stateView isKindOfClass:[ZZGridStateViewPreview class]])
     {
         ZZGridStateViewPreview* previewStateView = (ZZGridStateViewPreview*)self.stateView;
         [model setupRecorderRecognizerOnView:previewStateView.thumbnailImageView withAnimationDelegate:self];
-//        [model removeRecordHintRecognizerFromView:self];
     }
 }
 
@@ -251,10 +243,19 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_updatePlusButtonImage
 {
-    if (self.model.hasActiveContactIcon)
+    //TODO: not very good solution:
+    
+    static ZZGridCell *activeCell;
+    
+    if (self.model.hasActiveContactIcon && activeCell.model.item.index != self.model.item.index)
     {
-        self.plusButton.isActive = self.model.hasActiveContactIcon;
+        activeCell.plusButton.isActive = NO;
+        activeCell = self;
     }
+    
+    // end TODO
+    
+    self.plusButton.isActive = self.model.hasActiveContactIcon;
 }
 
 - (UIEdgeInsets)_defaultInsets

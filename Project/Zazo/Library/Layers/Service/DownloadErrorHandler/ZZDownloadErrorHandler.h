@@ -20,12 +20,6 @@
 
 // Both decisions will be applied to all videos currently failed to download
 
-@protocol ZZDownloadErrorHandlerUI
-
-- (void)showRetryConfirmationDialog:(void (^)(BOOL needsRetry))completion;
-
-@end
-
 @interface ZZDownloadErrorHandler : NSObject
 
 - (void)startService;

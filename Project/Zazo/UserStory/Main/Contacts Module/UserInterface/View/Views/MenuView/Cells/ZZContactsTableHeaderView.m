@@ -19,7 +19,7 @@
 - (void)setup
 {
     [super setup];
-    self.bottomLabelInset = -35;
+    self.bottomLabelInset = -40;
     self.titleLabel.font = [UIFont zz_regularFontWithSize:21];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
@@ -41,9 +41,31 @@
 {
     [super layoutSubviews];
     
-    CGFloat offset = 106;
+    CGFloat offset = 122;
     self.border.frame = CGRectMake(offset, 0, self.frame.size.width - offset, 1);
     self.titleLabel.width = 24;
+}
+
+- (void)updateWithModel:(NSString*)model
+{
+    if ([model isEqualToString:@"★"])
+    {
+        self.titleLabel.attributedText = [self _z];
+    }
+    else
+    {
+        self.titleLabel.text = [NSLocalizedString(model, nil) uppercaseString];
+    }
+}
+
+- (NSAttributedString *)_z
+{
+    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+    textAttachment.image = [UIImage imageNamed:@"z.png"];
+    
+    NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:textAttachment];
+    
+    return string;
 }
 
 @end

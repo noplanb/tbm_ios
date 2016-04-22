@@ -24,7 +24,7 @@ static APAddressBook* _addressBook = nil;
     _addressBook = nil;
 }
 
-+ (RACSignal*)loadContactsWithContactsRequest
++ (RACSignal*)loadContacts
 {
     RACSignal* loadSignal = [RACSignal empty];
     if ([self isAccessGranted])
@@ -78,8 +78,8 @@ static APAddressBook* _addressBook = nil;
                         firstName = obj.name.compositeName; // Use company name if nothing else
                     }
                     
-                    ZZContactDomainModel* item = [ZZContactDomainModel modelWithFirstName:firstName lastName:obj.name.lastName];
-                    ZZContactDomainModel* existingItem = result[[item.fullName lowercaseString]];
+                    ZZContactDomainModel *item = [ZZContactDomainModel modelWithFirstName:firstName lastName:obj.name.lastName];
+                    ZZContactDomainModel *existingItem = result[[item.fullName lowercaseString]];
                     if (existingItem)
                     {
                         item = existingItem;

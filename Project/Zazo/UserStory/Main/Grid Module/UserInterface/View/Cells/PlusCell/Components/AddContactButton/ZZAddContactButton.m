@@ -32,6 +32,7 @@
         [self _makeLayout];
         [self _makeLongTapRecognizer];
         
+        _isActive = YES;
         self.isActive = NO;
     }
 
@@ -110,6 +111,12 @@
 }
 
 - (void)setIsActive:(BOOL)isActive {
+    
+    if (isActive == _isActive)
+    {
+        return;
+    }
+    
     _isActive = isActive;
 
     NSString *imageName = isActive ? @"contact-button-pink" : @"contact-button-gray";

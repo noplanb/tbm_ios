@@ -8,9 +8,7 @@
 
 #import "ZZFeatureEventObserver.h"
 #import "ZZFeatureEventStrategyBase.h"
-#import "ZZUserDataProvider.h"
-#import "ZZFeatureEventStrategyInviteeUser.h"
-#import "ZZFeatureEventStrategyRegisteredUser.h"
+#import "ZZFeatureEventStrategy.h"
 
 @interface ZZFeatureEventObserver () <ZZFeatureEventStrategyDelegate>
 
@@ -40,7 +38,7 @@
 //    
 //    if (authUser.isInvitee)
 //    {
-          self.strategy = [ZZFeatureEventStrategyInviteeUser new];
+          self.strategy = [ZZFeatureEventStrategy new];
           self.strategy.delegate = self;
 //    }
 //    else

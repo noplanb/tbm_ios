@@ -13,5 +13,6 @@
 - (void)itemSelected:(id)item;
 - (void)menuToggled;
 - (ZZContactsDataSource *)dataSource;
+- (void)viewDidAppear;
 
 @end

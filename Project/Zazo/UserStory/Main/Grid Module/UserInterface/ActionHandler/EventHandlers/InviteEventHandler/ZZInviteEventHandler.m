@@ -17,7 +17,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     self.hintModel = model;
 
     if (event == ZZGridActionEventTypeGridLoaded &&
-        [self.delegate frinedsNumberOnGrid] == 0)
+            [self.delegate friendsNumberOnGrid] == 0)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
         self.isLastAcitionDone = YES;

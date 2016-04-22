@@ -9,7 +9,7 @@
 #import "ZZAuthPresenter.h"
 #import "ZZErrorHandler.h"
 #import "ZZUserDomainModel.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZAuthInteractorConstants.h"
 #import "RollbarReachability.h"
 
@@ -172,7 +172,7 @@
 
 - (void)loadFriendsDidFailWithError:(NSError *)error
 {
-    TBMAlertController *alert = [TBMAlertController badConnectionAlert];
+    ZZAlertController *alert = [ZZAlertController badConnectionAlert];
     [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
         [self.interactor loadFriends];
     }]];

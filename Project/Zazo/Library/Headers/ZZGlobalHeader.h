@@ -30,7 +30,6 @@ static NSString* const kGlobalApplicationVersion = @"45";
 #import "RACCommand+ANAdditions.h"
 #import "ZZColorTheme.h"
 
-
 //#pragma mark - UI Categories
 
 #import "UIFont+ZZAdditions.h"
@@ -44,6 +43,7 @@ static NSString* const kGlobalApplicationVersion = @"45";
 #import "OBLogger.h"
 #import "ZZConstants.h"
 
+@import Crashlytics;
 
 #define ZZLogInfo(s, ... ) OB_INFO(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 

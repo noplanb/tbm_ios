@@ -10,7 +10,7 @@
 #import "ZZAuthContentView.h"
 #import "ZZTextFieldsDelegate.h"
 #import "NSObject+ANSafeValues.h"
-#import "TBMVerificationAlertHandler.h"
+#import "ZZVerificationAlertHandler.h"
 
 @interface ZZAuthVC ()<TBMVerificationAlertDelegate>
 
@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSNumber* animationDuration;
 @property (nonatomic, strong) ZZTextFieldsDelegate* textFieldDelegate;
 @property (nonatomic, assign) BOOL isKeyboardShown;
-@property (nonatomic, strong) TBMVerificationAlertHandler *alertHandler;
+@property (nonatomic, strong) ZZVerificationAlertHandler *alertHandler;
 
 @end
 
@@ -104,7 +104,7 @@
 - (void)showVerificationCodeInputViewWithPhoneNumber:(NSString*)phoneNumber
 {
     self.alertHandler =
-    [[TBMVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
+    [[ZZVerificationAlertHandler alloc] initWithPhoneNumber:phoneNumber
                                                     delegate:self];
     
     [self.alertHandler presentAlert];

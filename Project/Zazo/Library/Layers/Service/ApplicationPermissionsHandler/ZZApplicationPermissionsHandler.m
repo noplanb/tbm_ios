@@ -8,13 +8,13 @@
 
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZFileHelper.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 
 @import AVFoundation;
 #import "AVAudioSession+ZZAudioSession.h"
 #import "NSObject+ANRACAdditions.h"
 
-@import PermissionScope;
+#import "Zazo-Swift.h"
 
 static PermissionScope *permissionScope;
 
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         return nil; // another permission check in progress;
     }
     
-    return [[[[self _checkFreeSpace]
+    return [[[[[self _checkFreeSpace]
                
                flattenMap:^RACStream *(id value) {
                    
@@ -60,6 +60,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                    return [self _checkAudioSession];
     }] doError:^(NSError *error) {
         [self _handlePermissionError:error];
+    }] doCompleted:^{
+        permissionScope = nil;
     }];
 }
 
@@ -69,39 +71,83 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-        permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
-        permissionScope.closeButton.hidden = YES;
-        
-        permissionScope.headerLabel.text = @"Permissions";
-        permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
-        permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
-        permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
-        
-        [permissions enumerateObjectsUsingBlock:^(id<Permission>  _Nonnull permission, NSUInteger idx, BOOL * _Nonnull stop) {
-            [permissionScope addPermission:permission
-                                   message:[self _messageForPermission:permission]];
-        }];
-        
-        [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> * _Nonnull result) {
-            if (completed)
-            {
-                [subscriber sendNext:result];
-            }
-        } cancelled:^(NSArray<PermissionResult *> * _Nonnull result) {
-            [subscriber sendCompleted];
-        }];
-        
+        [self _showAlertSubscriber:subscriber permissions:permissions];
         return nil;
     }];
+}
+
++ (void)_showAlertSubscriber:(id<RACSubscriber>)subscriber permissions:(NSArray <id <Permission>> * _Nonnull)permissions
+{
+    if (ANIsEmpty(permissions))
+    {
+        [subscriber sendNext:nil];
+        return;
+    }
+    
+    permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
+    permissionScope.closeButton.hidden = YES;
+    
+    permissionScope.headerLabel.text = @"Permissions";
+    permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
+    permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
+    permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
+    
+    [permissions enumerateObjectsUsingBlock:^(id<Permission>  _Nonnull permission, NSUInteger idx, BOOL * _Nonnull stop) {
+        [permissionScope addPermission:permission
+                               message:[self _actualMessageForPermission:permission]];
+    }];
+    
+    [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> * _Nonnull result) {
+        
+//        [permissionScope hide];
+        
+        if (completed)
+        {
+            [subscriber sendNext:nil];
+        }
+        else
+        {
+            [self _showAlertSubscriber:subscriber permissions:[self _permissions]];
+        }
+        
+    } cancelled:^(NSArray<PermissionResult *> * _Nonnull result) {
+        
+        [subscriber sendCompleted];
+        
+    }];
+
+}
+
++ (NSString *)_actualMessageForPermission:(id<Permission>)permission
+{
+    return [self _permissionIsForbidden:permission] ? [self _messageForForbiddenPermission:permission] : [self _messageForPermission:permission];
+}
+
++ (BOOL)_permissionIsForbidden:(id<Permission>)permission
+{
+    switch (permission.type)
+    {
+        case PermissionTypeNotifications:
+            return permissionScope.statusNotifications == PermissionStatusUnauthorized;
+            break;
+        case PermissionTypeMicrophone:
+            return permissionScope.statusMicrophone == PermissionStatusUnauthorized;
+            break;
+        case PermissionTypeCamera:
+            return permissionScope.statusCamera == PermissionStatusUnauthorized;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return NO;
 }
 
 + (NSString *)_messageForPermission:(id<Permission>)permission
 {
     switch (permission.type)
     {
-        case PermissionTypeContacts:
-            return @"To show your friends";
-            break;
         case PermissionTypeNotifications:
             return @"To receive messages";
             break;
@@ -119,22 +165,57 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     return nil;
 }
 
-+ (RACSignal *)_askPermissions
++ (NSString *)_messageForForbiddenPermission:(id<Permission>)permission
 {
-    return [self _askForPermissions:@[
-                                      [CameraPermission new],
-                                      [MicrophonePermission new],
-                                      [[NotificationsPermission alloc] initWithNotificationCategories:nil]
-                                      ]];
+    switch (permission.type)
+    {
+        case PermissionTypeNotifications:
+            return @"Notifications are required\nto receive messages";
+            break;
+        case PermissionTypeMicrophone:
+            return @"Microphone is required\nto record messages";
+            break;
+        case PermissionTypeCamera:
+            return @"Camera is required\nto record messages";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
 }
 
-//+ (RACSignal *)_askPermissionsStep2
-//{
-//    return [self _askForPermissions:@[
-//                                      
-//                                      [ContactsPermission new]
-//                                      ]];
-//}
++ (RACSignal *)_askPermissions
+{
+    return [self _askForPermissions:[self _permissions]];
+}
+
++ (NSArray *)_permissions
+{
+    PermissionScope *permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
+
+    NSMutableArray *permissions = [NSMutableArray new];
+    
+    if (permissionScope.statusCamera != PermissionStatusAuthorized)
+    {
+        [permissions addObject:[CameraPermission new]];
+    }
+    
+    if (permissionScope.statusMicrophone != PermissionStatusAuthorized)
+    {
+#if !(TARGET_OS_SIMULATOR)
+        [permissions addObject:[MicrophonePermission new]];
+#endif
+    }
+    
+    if (permissionScope.statusNotifications != PermissionStatusAuthorized)
+    {
+        [permissions addObject:[[NotificationsPermission alloc] initWithNotificationCategories:nil]];
+    }
+
+    return [permissions copy];
+}
 
 + (RACSignal*)_checkFreeSpace
 {
@@ -189,14 +270,14 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     NSString *message =
     [NSString stringWithFormat:@"No available storage on device. Close %@. Delete some videos and photos. Be sure to delete permanently from recently deleted folder. Then try again.", appName];
     
-    TBMAlertController *alert =
-    [TBMAlertController alertControllerWithTitle:@"No Available Storage"
+    ZZAlertController *alert =
+    [ZZAlertController alertControllerWithTitle:@"No Available Storage"
                                          message:message];
-    
+       
     [self _presentAlertController:alert];
 }
 
-+ (void)_presentAlertController:(TBMAlertController*)alert
++ (void)_presentAlertController:(ZZAlertController*)alert
 {
     [alert dismissWithApplicationAutomatically];
     

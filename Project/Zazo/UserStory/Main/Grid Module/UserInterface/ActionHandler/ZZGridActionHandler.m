@@ -8,9 +8,6 @@
 
 #import "ZZGridActionHandler.h"
 #import "ZZHintsController.h"
-#import "ZZHintsModelGenerator.h"
-#import "ZZHintsDomainModel.h"
-#import "ZZGridUIConstants.h"
 #import "ZZVideoRecorder.h"
 #import "ZZBaseEventHandler.h"
 #import "ZZInviteEventHandler.h"
@@ -25,12 +22,10 @@
 #import "ZZDeleteFriendsFeatureEventHandler.h"
 #import "ZZEarpieceFeatureEventHandler.h"
 #import "ZZSpinFeatureEventHandler.h"
-#import "ZZGridCellViewModel.h"
 #import "ZZFeatureEventObserver.h"
 #import "TBMFeatureUnlockDialogView.h"
 #import "TBMNextFeatureDialogView.h"
 #import "ZZStoredSettingsManager.h"
-
 
 @interface ZZGridActionHandler ()
 <
@@ -39,13 +34,9 @@
  ZZEventHandlerDelegate
 >
 
-@property (nonatomic, strong) ZZHintsController* hintsController;
-@property(nonatomic, strong) NSSet* hints;
-
-@property(nonatomic, strong, readonly) ZZHintsDomainModel* presentedHint;
-@property(nonatomic, assign) ZZGridActionEventType filterEvent; //Filter multuply times of event throwing
-@property (nonatomic, strong) ZZInviteEventHandler* startEventHandler;
-@property (nonatomic, strong) ZZFeatureEventObserver* featureEventObserver;
+@property (nonatomic, strong) ZZHintsController *hintsController;
+@property (nonatomic, strong) ZZInviteEventHandler *startEventHandler;
+@property (nonatomic, strong) ZZFeatureEventObserver *featureEventObserver;
 @property (nonatomic, assign) NSInteger lastActionIndex;
 
 @end
@@ -177,7 +168,7 @@
                                  withModel:model
                            formatParameter:formatParametr];
     
-    UIView *view = [self.userInterface presentedView];
+    UIView *view = [self.delegate presentedView];
     
     [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[TBMFeatureUnlockDialogView class]])
@@ -191,28 +182,26 @@
 
 #pragma mark - Hints Controller Delegate methods
 
-- (void)hintWasDissmissedWithType:(ZZHintsType)type
+- (void)hintWasDismissedWithType:(ZZHintsType)type
 {
     if (type == ZZHintsTypeSentHint)
     {
-//        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2];
         [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2 friendModel:nil];
-        
     }
     
-    if (type == ZZHintsTypeInviteSomeElseHint)
+    else if (type == ZZHintsTypeInviteSomeElseHint)
     {
         [self _showNextFeatureHintIfNeeded];
     }
     
-    if ((type == ZZHintsTypeFrontCameraUsageHint ||
+    else if ((type == ZZHintsTypeFrontCameraUsageHint ||
         type == ZZHintsTypeAbortRecordingUsageHint ||
         type == ZZHintsTypeDeleteFriendUsageHint ||
          type == ZZHintsTypeEarpieceUsageHint ||
          type == ZZHintsTypeSpinUsageHint) &&
         ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.userInterface presentedView] completionBlock:^{
+        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
             
         }];
     }
@@ -222,17 +211,26 @@
 {
     if (![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
-        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.userInterface presentedView] completionBlock:^{
+        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
             
         }];
     }
 }
 
-- (UIView *)hintPresetedView
+- (UIView *)hintPresentedView
 {
-   return [self.userInterface presentedView];
+   return [self.delegate presentedView];
 }
 
+- (void)showMenuTab
+{
+    [self.delegate showMenuTab];
+}
+
+- (void)showGridTab
+{
+    [self.delegate showGridTab];
+}
 
 #pragma mark - Feature Event Observer Delegate
 
@@ -248,7 +246,7 @@
         case ZZGridActionFeatureTypeSwitchCamera:
         {
             NSInteger centerViewIndex = 4;
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
             }];
@@ -257,7 +255,7 @@
         case ZZGridActionFeatureTypeAbortRec:
         {
             NSInteger middleRightIndex = 5;
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeAbortRec];
             }];
@@ -265,7 +263,7 @@
         } break;
         case ZZGridActionFeatureTypeDeleteFriend:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeDeleteFriend];
             }];
@@ -273,7 +271,7 @@
         } break;
         case ZZGridActionFeatureTypeEarpiece:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeEarpiece];
             }];
@@ -281,7 +279,7 @@
         } break;
         case ZZGridActionFeatureTypeSpinWheel:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.userInterface presentedView] completionBlock:^{
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSpinWheel];
             }];
@@ -302,7 +300,7 @@
 
 #pragma mark - Event Handler Delegate
 
-- (NSInteger)frinedsNumberOnGrid
+- (NSInteger)friendsNumberOnGrid
 {
     return [self.delegate friendsCountOnGrid];
 }
@@ -346,6 +344,7 @@
     {
         _hintsController = [ZZHintsController new];
         _hintsController.delegate = self;
+        _hintsController.frameOffset = CGPointMake(0, 20);
     }
     return _hintsController;
 }

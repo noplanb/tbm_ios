@@ -47,7 +47,19 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.menuView.tableView.contentOffsetY = -self.menuView.tableView.contentInsetTop;
     [self.eventHandler menuToggled];
+}
+
+- (void)tabbarItemDidAppear
+{
+    self.menuView.tableView.contentOffsetY = -self.menuView.tableView.contentInsetTop;
+    [self.eventHandler viewDidAppear];
+}
+
+- (void)tabbarItemDidDisappear
+{
+    [self viewWillDisappear:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -91,6 +103,9 @@
     ANDispatchBlockToMainQueue(^{
         [self.controller.searchBar resignFirstResponder];
         [self.view endEditing:YES];
+        [self.controller searchBarCancelButtonClicked:self.controller.searchBar];
+        self.controller.searchBar.text = nil;
+
     });
     [self.eventHandler itemSelected:model];
 }

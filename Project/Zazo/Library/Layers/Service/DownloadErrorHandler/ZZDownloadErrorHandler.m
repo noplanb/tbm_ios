@@ -8,7 +8,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZVideoDataUpdater.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZVideoFileHandler.h"
 
 @interface ZZDownloadErrorHandler ()  <ZZVideoStatusHandlerDelegate>
@@ -119,13 +119,15 @@
 
 - (void)_showRetryConfirmationDialog:(void (^)(BOOL needsRetry))completion
 {
-    TBMAlertController *alertController =
-            [TBMAlertController alertControllerWithTitle:@"Download Error"
+    ZZAlertController *alertController =
+            [ZZAlertController alertControllerWithTitle:@"Download Error"
                                                  message:@"Problem downloading a zazo.\nCheck your connection"];
     [alertController addAction:
             [SDCAlertAction actionWithTitle:@"Discard"
                                       style:SDCAlertActionStyleCancel
                                     handler:^(SDCAlertAction *action) {
+                                        
+                                        [Answers logCustomEventWithName:@"RetryDialogDiscard" customAttributes:nil];
                                         completion(NO);
                                     }]];
 
@@ -133,6 +135,8 @@
             [SDCAlertAction actionWithTitle:@"Try again"
                                       style:SDCAlertActionStyleDefault
                                     handler:^(SDCAlertAction *action) {
+                                        
+                                        [Answers logCustomEventWithName:@"RetryDialogTryAgain" customAttributes:nil];
                                         completion(YES);
                                     }]];
 

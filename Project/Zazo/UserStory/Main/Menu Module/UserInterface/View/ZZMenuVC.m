@@ -27,47 +27,15 @@
     [super viewDidLoad];
     
     self.controller = [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
-    self.controller.storage = [self _makeStorage];
     self.controller.delegate = self;
 }
 
-- (ANMemoryStorage *)_makeStorage
+@synthesize storage = _storage;
+
+- (void)setStorage:(ANMemoryStorage *)storage
 {
-    ANMemoryStorage *storage = [ANMemoryStorage storage];
-
-    ZZMenuCellModel *inviteFriends =
-            [ZZMenuCellModel modelWithTitle:@"Invite friends" iconWithImageNamed:@"invite-friends"];
-
-    ZZMenuCellModel *editFriends=
-            [ZZMenuCellModel modelWithTitle:@"Edit Zazo friends" iconWithImageNamed:@"edit-friends"];
-
-    ZZMenuCellModel *contacts =
-            [ZZMenuCellModel modelWithTitle:@"Contacts" iconWithImageNamed:@"contacts"];
-
-    ZZMenuCellModel *helpFeedback =
-            [ZZMenuCellModel modelWithTitle:@"Help & feedback" iconWithImageNamed:@"feedback"];
-
-    inviteFriends.type = ZZMenuItemTypeInviteFriends;
-    editFriends.type = ZZMenuItemTypeEditFriends;
-    contacts.type = ZZMenuItemTypeContacts;
-    helpFeedback.type = ZZMenuItemTypeHelp;
-
-    [storage addItem:inviteFriends toSection:0];
-    [storage addItem:editFriends toSection:0];
-    [storage addItem:contacts toSection:0];
-    [storage addItem:helpFeedback toSection:0];
-
-#ifdef DEBUG
-
-    ZZMenuCellModel *secretScreen =
-            [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
-
-    secretScreen.type = ZZMenuItemTypeSecretScreen;
-    [storage addItem:secretScreen toSection:0];
-
-#endif
-
-    return storage;
+    self.controller.storage = storage;
+    _storage = storage;
 }
 
 - (void)loadView

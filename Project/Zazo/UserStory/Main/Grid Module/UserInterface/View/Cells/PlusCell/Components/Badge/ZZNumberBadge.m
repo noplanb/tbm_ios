@@ -32,7 +32,7 @@
 
         self.hidden = YES;
         self.layer.delegate = self;
-        self.count = NSUIntegerMax; // Skip initial count setting animation
+        self.count = 0;
 
     }
 
@@ -43,9 +43,8 @@
 {
     _count = count;
 
-    {
-        self.textLayer.string = [NSString stringWithFormat:@"%li", (long)count];
-    }
+    self.textLayer.string = count > 0 ? [NSString stringWithFormat:@"%li", (long)count] : @"";
+
 }
 
 @end

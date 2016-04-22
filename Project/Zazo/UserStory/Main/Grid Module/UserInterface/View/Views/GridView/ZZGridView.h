@@ -7,7 +7,6 @@
 //
 
 #import "ZZRotationGestureRecognizer.h"
-#import "ZZGridViewHeader.h"
 #import "ZZGridContainerView.h"
 
 @protocol ZZGridViewDelegate <NSObject>

@@ -21,7 +21,6 @@ target 'Zazo' do
     pod 'UIAlertView+Blocks', '~> 0.9'
     pod 'SDCAlertView', '~> 2.5.2'
     pod 'SDCAutoLayout', '~> 2.0.3'
-    pod 'PermissionScope'
     
     #Network
     pod 'OBFileTransfer', '0.9.3'
@@ -48,7 +47,7 @@ target 'Zazo' do
 
     #Logging
     pod 'Rollbar', '~> 0.1.5'
-    pod 'OBLogger', '~> 0.3.0'
+    pod 'OBLogger', '~> 0.4.0'
 end
 
 

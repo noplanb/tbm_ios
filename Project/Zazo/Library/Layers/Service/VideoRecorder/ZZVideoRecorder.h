@@ -30,7 +30,10 @@ extern CGFloat const kZZVideoRecorderDelayBeforeNextMessage;
 - (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
 - (BOOL)areBothCamerasAvailable;
+
 - (void)switchCamera:(ANCodeBlock)completion;
+@property (nonatomic, assign, readonly) BOOL isCameraSwitched;
+
 - (void)cancelRecordingWithReason:(NSString*)reason;
 
 - (void)cancelRecording;

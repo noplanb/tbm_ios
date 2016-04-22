@@ -11,7 +11,7 @@
 #import "PBJVision.h"
 #import "iToast.h"
 #import "NSError+ZZAdditions.h"
-#import "TBMAlertController.h"
+#import "ZZAlertController.h"
 #import "ZZSoundEffectPlayer.h"
 #import "ZZAlertBuilder.h"
 #import "AVAudioSession+ZZAudioSession.h"
@@ -68,6 +68,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 {
     if (!self.isSetup)
     {
+        self.isSetup = YES;
+
         self.videoProcessor = [TBMVideoProcessor new];
         
         self.isFirstLaunchAttempt = YES;
@@ -81,10 +83,9 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
         self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
         self.recorder.outputFormat = PBJOutputFormatPreset;
         self.recorder.videoBitRate = PBJVideoBitRate640x480;
-        self.recorder.captureSessionPreset = AVCaptureSessionPresetMedium;
+        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
         self.recorder.usesApplicationAudioSession = YES;
         self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
-        self.isSetup = YES;
     }
 }
 
@@ -211,6 +212,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     {
         [self.recorder setCameraDevice:PBJCameraDeviceFront];
     }
+    
+    _isCameraSwitched = self.recorder.cameraDevice == PBJCameraDeviceBack;
 }
 
 #pragma mark - UI messages

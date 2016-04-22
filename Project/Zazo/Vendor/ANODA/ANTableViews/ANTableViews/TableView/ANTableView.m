@@ -24,10 +24,8 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
     if (self)
     {
         self.delaysContentTouches = NO;
-        if (IOS7_OR_HIGHER)
-        {
-            self.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-        }
+        self.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+
         [self setupAppearance];
     }
     return self;

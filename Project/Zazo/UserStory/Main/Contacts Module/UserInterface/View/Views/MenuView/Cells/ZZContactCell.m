@@ -50,7 +50,7 @@
     if (!_abbrevationLabel)
     {
         _abbrevationLabel = [UILabel new];
-        _abbrevationLabel.font = [UIFont zz_regularFontWithSize:18];
+        _abbrevationLabel.font = [UIFont zz_regularFontWithSize:25];
         _abbrevationLabel.textColor = [UIColor whiteColor];
         _abbrevationLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_abbrevationLabel];
@@ -63,20 +63,20 @@
 
 }
 
-- (UIImageView*)photoImageView
+- (UIImageView *)photoImageView
 {
     if (!_photoImageView)
     {
         _photoImageView = [UIImageView new];
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _photoImageView.layer.cornerRadius = 18;
+        _photoImageView.layer.cornerRadius = 25;
         
         [self.contentView addSubview:_photoImageView];
         
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(50);
-            make.height.width.equalTo(@36);
+            make.left.equalTo(self.contentView).offset(55);
+            make.height.width.equalTo(@50);
             make.centerY.equalTo(self.contentView);
         }];
     }
@@ -88,12 +88,12 @@
     if (!_username)
     {
         _username = [UILabel new];
-        _username.font = [UIFont zz_regularFontWithSize:18];
+        _username.font = [UIFont zz_lightFontWithSize:23];
         _username.textColor = [UIColor blackColor];
         [self.contentView addSubview:_username];
         
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.photoImageView.mas_right).offset(20);
+            make.left.equalTo(self.photoImageView.mas_right).offset(15);
             make.right.equalTo(self.contentView).offset(-20);
             make.top.bottom.equalTo(self);
         }];

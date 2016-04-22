@@ -13,7 +13,7 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZGridUIConstants.h"
 
-@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
+@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, ZZGridContainerViewDelegate>
 
 @property (nonatomic, strong) ZZGridView* gridView;
 @property (nonatomic, strong) ZZGridCollectionController* controller;
@@ -33,6 +33,8 @@
         frame.size.height -= 72; // tabbar
 
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
+        self.gridView.itemsContainerView.delegate = self;
+        
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
         
@@ -65,7 +67,6 @@
 {
     [super viewDidLoad];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -200,45 +201,12 @@
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }
 
-
 #pragma mark - GridView Event Delgate
-
-- (void)menuSelected
-{
-    [self.eventHandler presentMenu];
-}
-
-//- (void)editFriendsSelected
-//{
-//    if (![self.eventHandler isRecordingInProgress])
-//    {
-//
-//        [ZZActionSheetController actionSheetWithPresentedView:self.view
-//                                                        frame:self.gridView.headerView.editFriendsButton.frame
-//                                              completionBlock:^(ZZEditMenuButtonType selectedType) {
-//
-//                                                  switch (selectedType)
-//                                                  {
-//                                                      case ZZEditMenuButtonTypeEditFriends:
-//                                                      {
-//                                                          [self.eventHandler presentEditFriendsController];
-//                                                      } break;
-//
-//                                                      case ZZEditMenuButtonTypeSendFeedback:
-//                                                      {
-//                                                          [self.eventHandler presentSendEmailController];
-//                                                      } break;
-//                                                      default: break;
-//                                                  }
-//                                              }];
-//    }
-//}
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
 {
     self.gridView.isRotationEnabled = isEnabled;
 }
-
 
 #pragma mark - Action Hadler User Interface Delegate
 
@@ -251,7 +219,6 @@
 {
     return self.view;
 }
-
 
 #pragma mark Private
 
@@ -306,6 +273,13 @@
 - (UIImage *)tabbarViewItemImage
 {
     return [UIImage imageNamed:@"grid"];
+}
+
+#pragma mark ZZGridContainerViewDelegate
+
+- (void)gridContainerViewDidTapOnDimView:(ZZGridContainerView *)containerView
+{
+    [self.eventHandler didTapOnDimView];
 }
 
 @end

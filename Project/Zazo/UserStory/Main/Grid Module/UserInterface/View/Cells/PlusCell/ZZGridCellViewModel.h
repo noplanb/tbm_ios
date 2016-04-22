@@ -16,8 +16,6 @@
 
 @end
 
-
-
 @protocol ZZGridCellViewModelDelegate <NSObject>
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -33,12 +31,8 @@
 - (BOOL)isGridRotate;
 - (void)addUserToItem:(ZZGridCellViewModel*)model;
 - (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel*)model;
-- (BOOL)isNetworkEnabled;
-- (void)showRecorderHint;
 
 @end
-
-
 
 typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 {
@@ -48,13 +42,13 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
     ZZGridCellViewModelStateFriendHasApp = 1 << 2,
     ZZGridCellViewModelStateFriendHasNoApp = 1 << 3,
     ZZGridCellViewModelStatePreview = 1 << 4,
+
     //additional state
     ZZGridCellViewModelStateVideoWasUploaded = 1 << 5,
     ZZGridCellViewModelStateVideoWasViewed = 1 << 6,
     ZZGridCellViewModelStateVideoDownloading = 1 << 7,
     ZZGridCellViewModelStateVideoDownloaded = 1 << 8,
     ZZGridCellViewModelStateNeedToShowBorder = 1 << 9,
-    ZZGridCellViewModelStateRecording = 1 << 14,
 
     //badge state
     ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
@@ -81,14 +75,12 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)updateRecordingStateTo:(BOOL)isRecording
            withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
 
-- (void)nudgeSelected;
 - (void)itemSelected;
 
 - (NSArray*)playerVideoURLs;
 - (NSString*)firstName;
 
 - (UIImage*)videoThumbnailImage;
-//- (UIImage*)thumbnailPlaceholderImage;
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
 - (ZZGridCellViewModelState)state;
@@ -96,7 +88,6 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (void)setupRecorderRecognizerOnView:(UIView*)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate;
 
-- (NSString*)videoStatus;
 - (void)reloadDebugVideoStatus;
 - (BOOL)isEnablePlayingVideo;
 - (BOOL)isVideoPlayed;

@@ -67,11 +67,11 @@
     
     if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
     {
-//        [self _setupNumberBadgeWithModel:model];
+
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
-//        [self _setupNumberBadgeWithModel:model];
+
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloaded)
     {
@@ -145,10 +145,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self updateSendBadgePosition];
-        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-//        });
         
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
                                      toView:self.sentBadge
@@ -227,6 +223,7 @@
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     backgroundView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    
     switch (arc4random_uniform(3) ) {
         case 0:
             backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
@@ -244,27 +241,6 @@
         default:
             break;
     }
-    
-//    switch (arc4random_uniform(5)) {
-//        case 0:
-//            backgroundView.contentMode = UIViewContentModeTopLeft;
-//            break;
-//        case 1:
-//            backgroundView.contentMode = UIViewContentModeTopRight;
-//            break;
-//        case 2:
-//            backgroundView.contentMode = UIViewContentModeBottomLeft;
-//            break;
-//        case 3:
-//            backgroundView.contentMode = UIViewContentModeBottomRight;
-//            break;
-//        case 4:
-//            backgroundView.contentMode = UIViewContentModeCenter;
-//            break;
-//            
-//        default:
-//            break;
-//    }
     
     [self addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -369,7 +345,7 @@
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.textColor = [ZZColorTheme shared].gridCellTextColor;
         _userNameLabel.font = [UIFont zz_regularFontWithSize:kUserNameFontSize];
-//        _userNameLabel.backgroundColor = [ZZColorTheme shared].gridCellUserNameGrayColor;;
+
         [self addSubview:_userNameLabel];
 
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

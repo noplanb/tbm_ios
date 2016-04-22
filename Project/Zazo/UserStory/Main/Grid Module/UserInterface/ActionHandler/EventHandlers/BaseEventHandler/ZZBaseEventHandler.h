@@ -16,7 +16,7 @@
 
 @protocol ZZEventHandlerDelegate <NSObject>
 
-- (NSInteger)frinedsNumberOnGrid;
+- (NSInteger)friendsNumberOnGrid;
 
 @end
 

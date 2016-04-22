@@ -16,9 +16,11 @@
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature;
-- (id)modelAtIndex:(NSInteger)index;
 - (BOOL)isVideoPlayingNow;
 - (NSInteger)friendsCountOnGrid;
+- (void)showMenuTab;
+- (void)showGridTab;
+- (UIView *)presentedView;
 
 @end
 

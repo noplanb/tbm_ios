@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
 - (void)presentEditFriendsController;
+- (void)popToRootVC;
 
 @property (nonatomic, readonly) id<ZZMainModuleInterface> moduleInterface;
 
