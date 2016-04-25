@@ -27,7 +27,6 @@
 @property (nonatomic, strong) ZZApplicationRootService* rootService;
 
 @property (nonatomic, assign) BOOL wasSetuped;
-@property (nonatomic, assign) BOOL isBackgroundMode;
 
 @end
 
@@ -61,7 +60,6 @@
         if (remoteNotification)
         {
             [self handlePushNotification:remoteNotification];
-            self.isBackgroundMode = YES;
         }
         [self installRootViewControllerIntoWindow:window];
     }];
@@ -88,8 +86,6 @@
 - (void)handleApplicationDidBecomeActive
 {
     ZZLogEvent(@"APP ENTERED FOREGROUND");
-    
-    self.isBackgroundMode = NO;
     
     if (self.wasSetuped)
     {
@@ -125,7 +121,7 @@
     [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
         self.wasSetuped = YES;
         
-        if (!self.isBackgroundMode)
+        if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground)
         {
             [self.rootService checkApplicationPermissionsAndResources];
         }
