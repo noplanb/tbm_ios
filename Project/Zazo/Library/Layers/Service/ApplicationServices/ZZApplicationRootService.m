@@ -56,6 +56,9 @@
         self.downloadErrorHandler = [ZZDownloadErrorHandler new];
         self.downloadErrorHandler.videoFileHandler = self.videoFileHandler;
 
+        [self.videoFileHandler startService];
+        [self.downloadErrorHandler startService];
+
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         
@@ -123,8 +126,6 @@
             
             [ZZNotificationsHandler registerToPushNotifications];
             [ZZVideoDataProvider printAll];
-            [self.videoFileHandler startService];
-            [self.downloadErrorHandler startService];
             [[ZZVideoRecorder shared] setup];
             [[ZZVideoRecorder shared] startPreview];            
         }];

@@ -25,7 +25,9 @@
 @property (nonatomic, strong) CTCallCenter* callCenter;
 @property (nonatomic, strong) ZZNotificationsHandler* notificationsHandler;
 @property (nonatomic, strong) ZZApplicationRootService* rootService;
+
 @property (nonatomic, assign) BOOL wasSetuped;
+@property (nonatomic, assign) BOOL isBackgroundMode;
 
 @end
 
@@ -59,6 +61,7 @@
         if (remoteNotification)
         {
             [self handlePushNotification:remoteNotification];
+            self.isBackgroundMode = YES;
         }
         [self installRootViewControllerIntoWindow:window];
     }];
@@ -86,11 +89,12 @@
 {
     ZZLogEvent(@"APP ENTERED FOREGROUND");
     
+    self.isBackgroundMode = NO;
+    
     if (self.wasSetuped)
     {
         [self.rootService checkApplicationPermissionsAndResources];
     }
-    self.wasSetuped = YES;
     
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
 }
@@ -119,7 +123,12 @@
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window
 {
     [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
-        [self.rootService checkApplicationPermissionsAndResources];
+        self.wasSetuped = YES;
+        
+        if (!self.isBackgroundMode)
+        {
+            [self.rootService checkApplicationPermissionsAndResources];
+        }
     }];
 }
 
