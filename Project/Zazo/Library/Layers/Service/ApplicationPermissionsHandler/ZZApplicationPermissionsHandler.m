@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         
                    return [self _checkAudioSession];
     }] doError:^(NSError *error) {
+        permissionScope = nil;
         [self _handlePermissionError:error];
     }] doCompleted:^{
         permissionScope = nil;
