@@ -6,7 +6,7 @@
 //
 
 #ifdef RELEASE
-#warning Don't forget update this number
+#error Don't forget update this number
 #endif
 static NSString* const kGlobalApplicationVersion = @"45";
 
