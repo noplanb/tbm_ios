@@ -205,7 +205,44 @@
 
 - (void)showAppearAnimation
 {
+    CAShapeLayer *oval = [CAShapeLayer layer];
+    oval.delegate = self;
+    oval.backgroundColor = [UIColor clearColor].CGColor;
     
+    CGFloat diameter = self.frame.size.width + self.frame.size.height;
+    
+    CGRect rect = CGRectMake((self.frame.size.width - diameter) /2,
+                             (self.frame.size.height - diameter) /2,
+                             diameter,
+                             diameter);
+    
+    oval.path = CGPathCreateWithEllipseInRect(rect, nil);
+    oval.fillColor = [UIColor blackColor].CGColor;
+    oval.frame = self.bounds;
+    
+    self.layer.mask = oval;
+    
+    oval.transform = CATransform3DMakeScale(0.1, 0.1, 1);
+    oval.transform = CATransform3DIdentity;
+
+}
+
+- (nullable id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
+{
+    if ([event isEqualToString:@"transform"])
+    {
+        if (CATransform3DEqualToTransform(self.layer.mask.transform, CATransform3DIdentity))
+        {
+            return nil;
+        }
+        
+        CABasicAnimation *animation = [CABasicAnimation animation];
+        animation.fromValue = [NSValue valueWithCATransform3D:self.layer.mask.transform];
+        animation.duration = 1;
+        return animation;
+    }
+    
+    return nil;
 }
 
 #pragma mark - Lazy Load

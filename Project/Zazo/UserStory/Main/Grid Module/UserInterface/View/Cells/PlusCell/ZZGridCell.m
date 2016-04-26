@@ -167,7 +167,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)setStateView:(ZZGridStateView*)stateView
 {
-    BOOL shouldShowAppearAnimation = self.plusButton.isActive;
     
     if (_stateView != stateView)
     {
@@ -181,10 +180,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     
     [stateView layoutIfNeeded];
     
-    if (shouldShowAppearAnimation)
-    {
-        [stateView showAppearAnimation];
-    }
 }
 
 
@@ -193,6 +188,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 - (void)showContainFriendAnimation
 {
     //TODO: implement
+    [self.stateView showAppearAnimation];
 }
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
