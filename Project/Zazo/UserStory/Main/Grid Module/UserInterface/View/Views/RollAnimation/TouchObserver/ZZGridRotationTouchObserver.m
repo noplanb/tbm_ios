@@ -39,6 +39,8 @@ static CGFloat const kStartGridRotationOffset = 10;
     self = [super init];
     if (self)
     {
+        _enabled = YES;
+        
         self.gridView = gridView;
         self.gridView.delegate = self;
         self.gridHelper = [ZZGridHelper new];
@@ -48,7 +50,12 @@ static CGFloat const kStartGridRotationOffset = 10;
         self.rotationRecognizer.delegate = self;
         [self.gridView.itemsContainerView addGestureRecognizer:self.rotationRecognizer];
         
-        [RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown) subscribeNext:^(id x) {
+        RACSignal *featureUnlocked = RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown);
+        RACSignal *featureEnabled = RACObserve(self, enabled);
+    
+        [[RACSignal combineLatest:@[featureUnlocked, featureEnabled] reduce:^id(NSNumber *unlocked, NSNumber *enabled){
+            return @(unlocked.boolValue && enabled.boolValue);
+        }] subscribeNext:^(id x) {
             self.rotationRecognizer.enabled = [x boolValue];
         }];
         
@@ -179,20 +186,6 @@ static CGFloat const kStartGridRotationOffset = 10;
     }] subscribeNext:^(RACTuple *touches) {
         [self.rotationRecognizer stateChanged];
     }];
-}
-
-#pragma mark Enabled property
-
-@dynamic enabled;
-
-- (void)setEnabled:(BOOL)enabled
-{
-    self.rotationRecognizer.enabled = enabled;
-}
-
-- (BOOL)enabled
-{
-    return self.rotationRecognizer.enabled;
 }
 
 @end
