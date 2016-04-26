@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, weak) ZZGridCell *activeCell;
 @property (nonatomic, strong, readonly) UILabel *textLabel; // Displayed above cell when dim view is shown
+@property (nonatomic, weak, readonly) UIGestureRecognizer *dimTapRecognizer;
 
 @end
 
@@ -107,6 +108,8 @@
         _dimView.alpha = 1;
         [self.activeCell setBadgesHidden:YES];
     }];
+    
+    self.dimTapRecognizer.enabled = YES;
 }
 
 - (BOOL)isCellOnTop:(ZZGridCell *)cell
@@ -142,6 +145,8 @@
 
 - (void)hideDimScreen
 {
+    self.dimTapRecognizer.enabled = NO;
+    
     [UIView animateWithDuration:0.2
                      animations:^{
         _dimView.alpha = 0;
@@ -174,7 +179,9 @@
         
         UITapGestureRecognizer *recognizer =
             [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                    action:@selector(_didTapToDimView)];;
+                                                    action:@selector(_didTapToDimView)];
+        
+        _dimTapRecognizer = recognizer;
         
         [_dimView addGestureRecognizer:recognizer];
     }

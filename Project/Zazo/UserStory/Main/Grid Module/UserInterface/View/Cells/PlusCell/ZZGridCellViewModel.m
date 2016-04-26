@@ -110,8 +110,7 @@
         modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
 
-    modelState = [self _additionalModelStateWithState:modelState];
-    
+    modelState = [self _additionalModelStateWithState:modelState];    
     
     return modelState;
 }

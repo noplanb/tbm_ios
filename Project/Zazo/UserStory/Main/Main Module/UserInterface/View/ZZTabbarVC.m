@@ -112,6 +112,7 @@
     
     if (progressBarMustBeVisible != progressBarIsVisible)
     {
+        
         self.progressBarVisibilityIsBeingChanged = YES;
         
         NSLog(@"progressBarPosition %1.5f, progressBarMustBeVisible = %d", progressBarPosition, progressBarMustBeVisible);

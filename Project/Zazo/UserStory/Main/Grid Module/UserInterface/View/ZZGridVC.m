@@ -79,6 +79,11 @@
     [self.eventHandler stopPlaying];
 }
 
+- (void)tabbarItemDidDisappear
+{
+    [self.eventHandler stopPlaying];
+}
+
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource
 {
     [self.controller updateDataSource:dataSource];

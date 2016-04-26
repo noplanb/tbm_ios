@@ -83,6 +83,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (UIImage*)videoThumbnailImage;
 
 - (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
+
 - (ZZGridCellViewModelState)state;
 
 - (void)setupRecorderRecognizerOnView:(UIView*)view
