@@ -57,7 +57,7 @@
     return self;
 }
 
-- (void)startService
+- (void)applicationBecameActive
 {
 //    [self updateS3CredentialsWithRequest];
     [self handleStuckDownloadsWithCompletionHandler:^{

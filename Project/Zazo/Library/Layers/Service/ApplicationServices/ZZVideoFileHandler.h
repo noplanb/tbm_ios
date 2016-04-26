@@ -31,7 +31,7 @@
 
 @property (nonatomic, weak) id<ZZVideoFileHandlerDelegate> delegate;
 
-- (void)startService;
+- (void)applicationBecameActive;
 
 - (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
 - (void)queueDownloadWithFriendID:(NSString*)friendID videoId:(NSString *)videoId;
