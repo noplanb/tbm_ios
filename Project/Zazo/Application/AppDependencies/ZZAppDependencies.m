@@ -26,7 +26,7 @@
 @property (nonatomic, strong) ZZNotificationsHandler* notificationsHandler;
 @property (nonatomic, strong) ZZApplicationRootService* rootService;
 
-@property (nonatomic, assign) BOOL wasSetuped;
+@property (nonatomic, assign) BOOL initialisationCompleted;
 
 @end
 
@@ -87,7 +87,7 @@
 {
     ZZLogEvent(@"APP ENTERED FOREGROUND");
     
-    if (self.wasSetuped)
+    if (self.initialisationCompleted)
     {
         [self.rootService checkApplicationPermissionsAndResources];
     }
@@ -119,7 +119,7 @@
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window
 {
     [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
-        self.wasSetuped = YES;
+        self.initialisationCompleted = YES;
         
         if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground)
         {
