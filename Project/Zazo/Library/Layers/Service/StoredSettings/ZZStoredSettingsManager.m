@@ -106,7 +106,14 @@ static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificatio
 
 - (BOOL)isPushNotificatonEnabled
 {
-    return [NSObject an_boolForKey:kZZServerIsPushNotificationEnabled];
+    BOOL enabled = [NSObject an_boolForKey:kZZServerIsPushNotificationEnabled];
+    
+    if (!enabled && self.serverEndpointState == ZZConfigServerStateProduction) // Ignore `isPushNotificatonEnabled` option on production server
+    {
+        enabled = YES;
+    }
+    
+    return enabled;
 }
 
 #pragma mark - User
