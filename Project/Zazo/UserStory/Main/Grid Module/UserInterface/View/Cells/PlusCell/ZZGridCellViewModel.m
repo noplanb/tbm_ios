@@ -94,7 +94,14 @@
     else if (!ANIsEmpty(self.item.relatedUser) &&
              self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {
-        modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
+        if (self.hasDownloadedVideo)
+        {
+            modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
+        }
+        else
+        {
+            modelState = ZZGridCellViewModelStateFriendHasApp | ZZGridCellViewModelStateVideoFailedPermanently;
+        }
     }
     else if (self.hasDownloadedVideo)
     {
