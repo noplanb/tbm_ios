@@ -6,11 +6,12 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
+@import AVFoundation;
+
 #import "ZZApplicationPermissionsHandler.h"
 #import "ZZFileHelper.h"
 #import "ZZAlertController.h"
-
-@import AVFoundation;
+#import "UIViewController+Current.h"
 #import "AVAudioSession+ZZAudioSession.h"
 #import "NSObject+ANRACAdditions.h"
 
@@ -55,7 +56,9 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
                    
                    return [self _askPermissions];
                    
-               }] flattenMap:^RACStream *(id value) {
+               }]
+             
+              flattenMap:^RACStream *(id value) {
         
                    return [self _checkAudioSession];
     }] doError:^(NSError *error) {
@@ -97,6 +100,8 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
         [permissionScope addPermission:permission
                                message:[self _actualMessageForPermission:permission]];
     }];
+    
+    permissionScope.viewControllerForAlerts = [UIViewController sdc_currentViewController];
     
     [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> * _Nonnull result) {
         

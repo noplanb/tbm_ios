@@ -1072,7 +1072,6 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
             })
         })
         
-        notificationTimer?.invalidate()
         notificationTimer = nil
     }
     

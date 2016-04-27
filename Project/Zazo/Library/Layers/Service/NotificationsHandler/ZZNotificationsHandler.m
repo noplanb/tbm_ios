@@ -113,11 +113,6 @@
     }];
 }
 
-+ (BOOL)_isIOS8OrHigher
-{
-    return [[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)];
-}
-
 - (BOOL)_userHasGrantedPushAccess
 {
     return self.notificationAllowedTypes != UIUserNotificationTypeNone;
