@@ -79,5 +79,6 @@ extern const struct ZZFriendDomainModelAttributes {
 
 - (BOOL)isCreator;
 - (BOOL)hasIncomingVideo;
+- (BOOL)hasDownloadedVideo;
 
 @end

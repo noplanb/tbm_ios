@@ -124,9 +124,7 @@ ZZGridCenterCellViewModelDelegate
     viewModel.item = model;
     viewModel.delegate = self;
 
-    viewModel.hasDownloadedVideo =
-            [model.relatedUser hasIncomingVideo] &&
-                    model.relatedUser.videos.firstObject.incomingStatusValue > ZZVideoIncomingStatusDownloading;
+    viewModel.hasDownloadedVideo = [model.relatedUser hasDownloadedVideo];
     
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];
     

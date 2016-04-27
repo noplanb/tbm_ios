@@ -6,11 +6,13 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@import MagicalRecord;
+
 #import "ZZFriendDomainModel.h"
+#import "ZZVideoDomainModel.h"
 #import "FEMObjectMapping.h"
 #import "ZZUserPresentationHelper.h"
 #import "ZZStoredSettingsManager.h"
-@import MagicalRecord;
 #import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
@@ -95,6 +97,24 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return [self.videos count] > 0;
 }
 
+- (BOOL)hasDownloadedVideo
+{
+    if (ANIsEmpty(self.videos))
+    {
+        return NO;
+    }
+    
+    for (ZZVideoDomainModel *videoModel in self.videos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
+            videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
 
 #pragma mark - Getters / Setters
 

@@ -96,8 +96,7 @@
     {
         modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
     }
-    else if ((self.item.relatedUser.hasApp && self.hasDownloadedVideo) ||
-             (self.item.relatedUser.videos.count > 0 && self.hasDownloadedVideo))
+    else if (self.hasDownloadedVideo)
     {
         modelState = ZZGridCellViewModelStatePreview;
     }
