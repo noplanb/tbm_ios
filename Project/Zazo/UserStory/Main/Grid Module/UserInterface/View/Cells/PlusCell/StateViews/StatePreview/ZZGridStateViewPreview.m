@@ -28,10 +28,9 @@
     {
         [self thumbnailImageView];
         [self userNameLabel];
-//        [self containFriendView];
         [self dateLabel];
         [self animationView];
-        [self holdIndicatorView];
+//        [self holdIndicatorView];
         [self effectView];
         [self sentBadge];
         [self numberBadge];

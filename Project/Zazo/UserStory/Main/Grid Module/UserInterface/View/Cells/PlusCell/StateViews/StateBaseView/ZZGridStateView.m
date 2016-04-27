@@ -39,7 +39,7 @@
     ANDispatchBlockToMainQueue(^{
         self.model = model;
 
-        self.holdIndicatorView.alpha = model.isRecording ? 1 : 0;
+//        self.holdIndicatorView.alpha = model.isRecording ? 1 : 0;
 
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
@@ -431,26 +431,26 @@
     return holdEffectView;
 }
 
-- (ZZHoldIndicator *)holdIndicatorView
-{
-    if (_holdIndicatorView)
-    {
-        return _holdIndicatorView;
-    }
-    
-    _holdIndicatorView = [ZZHoldIndicator new];
-
-    [self addSubview:_holdIndicatorView];
-    
-    [_holdIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-    }];
-
-    [_holdIndicatorView layoutIfNeeded];
-    _holdIndicatorView.userInteractionEnabled = NO;
-
-    return _holdIndicatorView;
-}
+//- (ZZHoldIndicator *)holdIndicatorView
+//{
+//    if (_holdIndicatorView)
+//    {
+//        return _holdIndicatorView;
+//    }
+//    
+//    _holdIndicatorView = [ZZHoldIndicator new];
+//
+//    [self addSubview:_holdIndicatorView];
+//    
+//    [_holdIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self);
+//    }];
+//
+//    [_holdIndicatorView layoutIfNeeded];
+//    _holdIndicatorView.userInteractionEnabled = NO;
+//
+//    return _holdIndicatorView;
+//}
 
 #pragma mark Touches
 

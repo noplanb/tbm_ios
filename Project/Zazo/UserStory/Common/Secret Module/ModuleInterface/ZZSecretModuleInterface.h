@@ -8,6 +8,4 @@
 
 @protocol ZZSecretModuleInterface <NSObject>
 
-- (void)dismissController;
-
 @end

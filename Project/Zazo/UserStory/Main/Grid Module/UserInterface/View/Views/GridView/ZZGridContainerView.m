@@ -174,7 +174,7 @@
         [self addSubview:_dimView];
         
         [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
+            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing()-50, -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
         }];
         
         UITapGestureRecognizer *recognizer =
