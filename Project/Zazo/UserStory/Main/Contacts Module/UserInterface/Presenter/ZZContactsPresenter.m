@@ -119,6 +119,8 @@
         {
             [self.interactor enableUpdateContactData];
             [self.interactor loadData];
+            [self.userInterface reloadContactView];
+
         }
         else
         {
