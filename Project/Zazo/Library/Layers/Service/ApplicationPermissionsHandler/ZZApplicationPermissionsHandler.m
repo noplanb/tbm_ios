@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
               flattenMap:^RACStream *(id value) {
         
                    return [self _checkAudioSession];
+                  
     }] doError:^(NSError *error) {
         permissionScope = nil;
         [self _handlePermissionError:error];

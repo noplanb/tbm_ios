@@ -1072,7 +1072,6 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
             })
         })
         
-        notificationTimer = nil
     }
     
     // MARK: - Delegates
