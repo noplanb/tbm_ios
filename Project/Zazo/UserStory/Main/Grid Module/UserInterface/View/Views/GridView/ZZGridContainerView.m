@@ -12,6 +12,8 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridRotationTouchObserver.h"
 
+static CGFloat ZZGridContainerViewTopOffset = -50;
+
 @interface ZZGridContainerView ()
 
 @property (nonatomic, strong) UIView *dimView;
@@ -134,6 +136,8 @@
     
     origin.x += 8; // move little bit left
     
+    origin.y -= ZZGridContainerViewTopOffset;
+    
     self.textLabel.origin = origin;
 }
 
@@ -174,7 +178,7 @@
         [self addSubview:_dimView];
         
         [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing()-50, -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
+            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing() + ZZGridContainerViewTopOffset, -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
         }];
         
         UITapGestureRecognizer *recognizer =
