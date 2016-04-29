@@ -139,6 +139,13 @@
     self.gridView.itemsContainerView.titleText = title;
 }
 
+- (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel
+{
+    ZZGridCell *cell = [self cellForFriendModel:friendModel];
+    
+    [cell setDownloadProgress:progress];
+}
+
 - (ZZGridCell *)cellForFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSArray *items = self.gridView.itemsContainerView.items;

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "Zazo-Swift.h"
 
 static NSMutableDictionary <NSNumber *, NSArray <UIImage *> *> *AnimationsFramesCache; // to avoid frames loading each time
 
@@ -19,6 +20,7 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
 
 @property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, copy) ANCodeBlock completion;
+@property (nonatomic, strong) DownloadingView *downloadingView;
 
 @end
 
@@ -42,6 +44,10 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
 {
     self.userInteractionEnabled = NO;
     
+    _downloadingView = [[DownloadingView alloc] initWithFrame:CGRectMake(0, 0, 62, 62)];
+    _downloadingView.alpha = 0;
+    [self addSubview:_downloadingView];
+    
     if (!AnimationsFramesCache)
     {
         AnimationsFramesCache = [NSMutableDictionary new];
@@ -53,6 +59,71 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
     [self addSubview:imageView];
     
     self.imageView = imageView;
+}
+
+- (void)startDownloading
+{
+    [self _prepareBeginState];
+    
+    self.downloadingView.alpha = 0;
+    self.downloadingView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    [self.downloadingView startAnimating];
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        self.backgroundColor = [self.tintColor colorWithAlphaComponent:0.75];
+        self.downloadingView.transform = CGAffineTransformIdentity;
+        self.downloadingView.alpha = 1;
+
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)finishDownloadingToView:(UIView *)targetView
+                     completion:(ANCodeBlock)completion
+{
+    self.completion = completion;
+    
+    [self.downloadingView finishAnimating:^{
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:UIViewAnimationOptionAllowAnimatedContent
+                         animations:^{
+                             
+                             self.downloadingView.transform = CGAffineTransformMakeScale(0.3, 0.3);
+                             
+                             [self.downloadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                 make.centerX.equalTo(targetView.mas_centerX);
+                                 make.centerY.equalTo(targetView.mas_centerY);
+                             }];
+                             
+                             [self layoutIfNeeded];
+                             self.backgroundColor = [UIColor clearColor];
+                             
+                         } completion:^(BOOL finished) {
+                             
+                             
+                             [self _endAnimation];
+                             
+                             [UIView animateWithDuration: finished ? 0.25 : 0
+                                              animations:^{
+                                                  self.downloadingView.alpha = 0;
+                                              }];
+                             
+                         }];
+
+    }];
+    
+
+        
+}
+
+- (void)setDownloadProgress:(CGFloat)downloadProgress
+{
+    _downloadProgress = downloadProgress;
+    
+    self.downloadingView.done = downloadProgress;
 }
 
 #pragma mark Animations
@@ -130,6 +201,10 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
     self.backgroundColor = [UIColor clearColor];
     
     [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self);
+    }];
+    
+    [self.downloadingView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
     }];
 

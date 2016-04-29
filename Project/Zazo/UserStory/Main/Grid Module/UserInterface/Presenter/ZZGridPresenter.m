@@ -221,6 +221,11 @@
      [self _handleSentWelcomeHintWithFriendDomainModel:model];
 }
 
+- (void)updateDownloadProgress:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel
+{
+    
+    [self.userInterface updateDownloadingProgressTo:progress forModel:friendModel];
+}
 
 #pragma mark - EVENT InviteHint
 

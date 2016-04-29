@@ -34,7 +34,7 @@
 >
 
 @property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
-@property (nonatomic, strong) ZZApplicationDataUpdaterService* dataUpdater;
+@property (nonatomic, strong) ZZApplicationDataUpdaterService *dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
 @property (nonatomic, strong) ZZDownloadErrorHandler *downloadErrorHandler;
 
@@ -137,7 +137,6 @@
     [self.videoFileHandler handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
 }
 
-
 #pragma mark - File Handler Delegate
 
 - (void)requestBackground
@@ -181,6 +180,11 @@
     [self.dataUpdater updateApplicationBadge];
 }
 
+- (void)updateVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress
+{
+    [[ZZVideoStatusHandler sharedInstance] notifyVideoID:videoID downloadProgress:progress];
+
+}
 
 #pragma mark - Video status handlerfriendID
 

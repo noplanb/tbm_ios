@@ -170,6 +170,17 @@
     }
 }
 
+- (void)fileTransferProgress:(NSString *)marker progress:(OBTransferProgress)progress
+{
+    ZZFileTransferMarkerDomainModel *markerModel =
+        [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
+
+    if (!markerModel.isUpload)
+    {
+        [self.delegate updateVideoID:markerModel.videoID downloadProgress:progress.percentDone/100.0f];
+    }
+}
+
 - (void)updateS3CredentialsWithRequest
 {
     [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {

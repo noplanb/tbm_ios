@@ -7,8 +7,8 @@
 //
 
 #import "ZZVideoStatuses.h"
+#import "ZZVideoDomainModel.h"
 
-@class ZZVideoDomainModel;
 @class ZZFriendDomainModel;
 
 @interface ZZVideoDataProvider : NSObject

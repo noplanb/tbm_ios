@@ -270,4 +270,17 @@
     });
 }
 
+- (void)notifyVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress
+{
+    ANDispatchBlockToMainQueue(^{
+        for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
+        {
+            if ([delegate respondsToSelector:@selector(videoID:downloadProgress:)]) {
+                [delegate videoID:videoID downloadProgress:progress];
+            }
+        }
+    });
+
+}
+
 @end

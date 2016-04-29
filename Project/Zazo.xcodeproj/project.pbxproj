@@ -299,6 +299,7 @@
 		158960841CB7B61E0040D8E3 /* ANTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 158960281CB7B61D0040D8E3 /* ANTableViewCell.m */; };
 		158960851CB7B61E0040D8E3 /* ANTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602A1CB7B61D0040D8E3 /* ANTableViewHeaderFooterView.m */; };
 		158960861CB7B61E0040D8E3 /* ANTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602D1CB7B61D0040D8E3 /* ANTableView.m */; };
+		1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589C1561CD3C74800AB7E8C /* DownloadingView.swift */; };
 		15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
 		15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */; };
@@ -1354,6 +1355,7 @@
 		1589602A1CB7B61D0040D8E3 /* ANTableViewHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTableViewHeaderFooterView.m; sourceTree = "<group>"; };
 		1589602C1CB7B61D0040D8E3 /* ANTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTableView.h; sourceTree = "<group>"; };
 		1589602D1CB7B61D0040D8E3 /* ANTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTableView.m; sourceTree = "<group>"; };
+		1589C1561CD3C74800AB7E8C /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -4555,6 +4557,7 @@
 				15ACCB731C8089220025798A /* Animations.xcassets */,
 				15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */,
 				15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */,
+				1589C1561CD3C74800AB7E8C /* DownloadingView.swift */,
 			);
 			path = ZZLoadingAnimationView;
 			sourceTree = "<group>";
@@ -6260,6 +6263,7 @@
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
+				1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */,
 				07636E351BA49A0100925671 /* ZZCommonNetworkTransportService.m in Sources */,
 				18F52E031BFCAB6100042AAC /* ZZContentDataAccessor.m in Sources */,

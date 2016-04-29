@@ -17,8 +17,8 @@ extern const struct ZZGridDomainModelAttributes {
 
 @interface ZZGridDomainModel : ZZBaseDomainModel
 
-@property (nonatomic, copy) NSString* itemID;
-@property (nonatomic, strong) ZZFriendDomainModel* relatedUser;
+@property (nonatomic, copy) NSString *itemID;
+@property (nonatomic, strong) ZZFriendDomainModel *relatedUser;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL isDownloadAnimationViewed;
 - (NSInteger)indexPathIndexForItem;

@@ -16,9 +16,10 @@
 
 - (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoId;
 - (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoId status:(NSString *)status;
+- (void)updateVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress;
+
 - (void)updateBadgeCounter;
 - (void)updateDataRequired;
-
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status withFriendID:(NSString*)friendID videoId:(NSString*)videoId;
 - (void)setAndNotifyUploadRetryCount:(NSInteger)count withFriendID:(NSString*)friendID videoID:(NSString*)videoID;

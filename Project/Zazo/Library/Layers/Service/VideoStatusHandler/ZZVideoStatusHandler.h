@@ -12,8 +12,13 @@
 
 @optional
 
-- (void)videoStatusChangedWithFriendID:(NSString*)friendID;
-- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friend videoId:(NSString *)videoId status:(NSString *)status;
+- (void)videoStatusChangedWithFriendID:(NSString *)friendID;
+
+- (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel
+                                     videoId:(NSString *)videoId
+                                      status:(NSString *)status;
+
+- (void)videoID:(NSString *)videoID downloadProgress:(CGFloat)progress;
 
 @end
 
@@ -46,9 +51,7 @@
 
 
 - (void)notifyFriendChangedWithId:(NSString*)friendID;
-
-//TODO:
-
+- (void)notifyVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress;
 - (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString*)friendID videoID:(NSString*)videoID;
 - (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID;
 

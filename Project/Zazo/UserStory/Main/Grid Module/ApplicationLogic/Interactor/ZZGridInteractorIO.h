@@ -67,6 +67,8 @@
 - (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;
 - (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel*)model;
 
+- (void)updateDownloadProgress:(CGFloat)progree forModel:(ZZFriendDomainModel*)friendModel;
+
 - (void)showAlreadyContainFriend:(ZZFriendDomainModel*)friendModel compeltion:(ANCodeBlock)completion;
 
 @end

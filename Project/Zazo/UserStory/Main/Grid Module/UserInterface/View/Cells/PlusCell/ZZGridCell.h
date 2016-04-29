@@ -12,9 +12,9 @@
 @interface ZZGridCell : UIView <ANModelTransfer>
 
 - (void)showContainFriendAnimation;
-- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock;
 - (void)hideAllAnimations;
 - (void)hideActiveBorder;
 - (void)setBadgesHidden:(BOOL)hidden;
+- (void)setDownloadProgress:(CGFloat)progress;
 
 @end

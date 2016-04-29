@@ -21,4 +21,11 @@ extern CGFloat ZZLoadingAnimationDuration;
                  toView:(UIView *)targetView
              completion:(ANCodeBlock)completion;
 
+
+- (void)startDownloading;
+- (void)finishDownloadingToView:(UIView *)targetView
+                     completion:(ANCodeBlock)completion;
+
+@property (nonatomic, assign) CGFloat downloadProgress;
+
 @end

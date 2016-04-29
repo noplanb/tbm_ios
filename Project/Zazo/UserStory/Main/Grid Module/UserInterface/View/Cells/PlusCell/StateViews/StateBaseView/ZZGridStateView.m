@@ -39,8 +39,6 @@
     ANDispatchBlockToMainQueue(^{
         self.model = model;
 
-//        self.holdIndicatorView.alpha = model.isRecording ? 1 : 0;
-
         // upload video animation
         if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
         {
@@ -67,15 +65,17 @@
     
     if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
     {
-
+        [self _setupDownloadedStateWithModel:model];
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
     {
-
+        [self _setupDownloadedStateWithModel:model];
     }
     else if (self.model.state & ZZGridCellViewModelStateVideoDownloaded)
     {
-        [self _setupDownloadedStateWithModel:model];
+        [self.animationView finishDownloadingToView:self.numberBadge completion:^{
+            [self _setupNumberBadgeWithModel:model];
+        }];
     }
     else
     {
@@ -89,9 +89,6 @@
 
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self _setupNumberBadgeWithModel:model];
-    });
 }
 
 - (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel*)model
@@ -159,11 +156,8 @@
 
 - (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
 {
-    [self.animationView animateWithType:ZZLoadingAnimationTypeDownloading
-                                 toView:self.numberBadge
-                             completion:completionBlock];
+    [self.animationView startDownloading];
 }
-
 
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
@@ -431,25 +425,14 @@
     return holdEffectView;
 }
 
-//- (ZZHoldIndicator *)holdIndicatorView
+//- (DownloadingView *)downloadingView
 //{
-//    if (_holdIndicatorView)
+//    if (!_downloadingView)
 //    {
-//        return _holdIndicatorView;
+//        _downloadingView = [[DownloadingView alloc] initWithFrame:CGRectMake(0, 0, 62, 62)];
 //    }
 //    
-//    _holdIndicatorView = [ZZHoldIndicator new];
-//
-//    [self addSubview:_holdIndicatorView];
-//    
-//    [_holdIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.equalTo(self);
-//    }];
-//
-//    [_holdIndicatorView layoutIfNeeded];
-//    _holdIndicatorView.userInteractionEnabled = NO;
-//
-//    return _holdIndicatorView;
+//    return _downloadingView;
 //}
 
 #pragma mark Touches

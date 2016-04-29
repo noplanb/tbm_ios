@@ -31,6 +31,7 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) UIView *backGradientView;
 @property (nonatomic, strong) ZZLoadingAnimationView *animationView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
+
 //@property (nonatomic, strong) ZZHoldIndicator *holdIndicatorView;
 
 - (instancetype)initWithPresentedView:(ZZGridCell*)presentedView;

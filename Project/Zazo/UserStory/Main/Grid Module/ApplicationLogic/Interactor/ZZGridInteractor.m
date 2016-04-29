@@ -26,6 +26,7 @@
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
 #import "NSString+ANAdditions.h"
+#import "ZZVideoDataProvider.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -211,7 +212,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark - Private
 
-- (NSArray*)_gridModels
+- (NSArray *)_gridModels
 {
     NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
     gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
@@ -222,7 +223,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     return sortedArray;
 }
 
-- (ZZFriendDomainModel*)_loadFirstFriendFromMenu:(NSArray*)array
+- (ZZFriendDomainModel *)_loadFirstFriendFromMenu:(NSArray*)array
 {
     NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
     gridUsers = gridUsers ? : @[];
@@ -343,6 +344,23 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 
 #pragma mark - Video Status Handler delegate
+
+- (void)videoID:(NSString *)videoID downloadProgress:(CGFloat)progress
+{
+    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:videoID];
+    
+    if (videoModel.incomingStatusValue != ZZVideoIncomingStatusDownloading)
+    {
+        return;
+    }
+    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
+    
+    if (friendModel)
+    {
+        [self.output updateDownloadProgress:progress forModel:friendModel];
+    }
+}
 
 - (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {

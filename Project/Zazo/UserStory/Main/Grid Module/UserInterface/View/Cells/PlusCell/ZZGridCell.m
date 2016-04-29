@@ -14,6 +14,7 @@
 #import "ZZAddContactButton.h"
 #import "ZZSentBadge.h"
 #import "ZZNumberBadge.h"
+#import "ZZLoadingAnimationView.h"
 
 @class ZZAddContactButton;
 
@@ -124,7 +125,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_showActiveBorder
 {
-    self.backgroundColor = self.tintColor;
+    self.backgroundColor = [ZZColorTheme shared].tintColor;
 }
 
 - (void)hideActiveBorder
@@ -132,6 +133,10 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     self.backgroundColor = [UIColor whiteColor];
 }
 
+- (void)setDownloadProgress:(CGFloat)progress
+{
+    self.stateView.animationView.downloadProgress = progress;
+}
 
 - (BOOL)_isNeedToChangeStateViewWithModel:(ZZGridCellViewModel*)model
 {
@@ -182,18 +187,12 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     
 }
 
-
 #pragma mark - Animation part
 
 - (void)showContainFriendAnimation
 {
     //TODO: implement
     [self.stateView showAppearAnimation];
-}
-
-- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
-{
-    [self.stateView showDownloadAnimationWithCompletionBlock:completionBlock];
 }
 
 - (void)_itemSelected
