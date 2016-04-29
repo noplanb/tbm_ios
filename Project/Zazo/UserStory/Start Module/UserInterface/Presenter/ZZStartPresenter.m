@@ -9,6 +9,11 @@
 #import "ZZStartPresenter.h"
 #import "ZZAlertBuilder.h"
 
+@interface ZZStartPresenter ()
+
+@property (nonatomic, copy) ANCodeBlock completionBlock;
+
+@end
 
 @implementation ZZStartPresenter
 
@@ -26,11 +31,6 @@
     [self.wireframe presentRegistrationController];
 }
 
-- (void)needUpdateAndCanSkip:(BOOL)canBeSkipped logged:(BOOL)isLoggedIn
-{
-    [self _needUpdate:canBeSkipped];
-}
-
 - (void)applicationIsUpToDateAndUserLogged:(BOOL)isUserLoggedIn
 {
     if (isUserLoggedIn)
@@ -39,51 +39,12 @@
     }
 }
 
-- (void)userVersionStateLoadingDidFailWithError:(NSError*)error
-{
-
-}
-
-
 #pragma mark Private
 
-- (void)_needUpdate:(BOOL)canBeSkipped
-{
-    NSString* message = canBeSkipped ? [self _makeMessageWithQualifier:@"out of date"] : [self _makeMessageWithQualifier:@"obsolete"];
-    NSString* cancelButtonTitle = canBeSkipped ? @"Later" : nil;
-    NSString* actionButtonTitle = @"Update";
-    NSString* title = @"Update Available";
-    
-    ANCodeBlock updateBlock = ^{
-
-        if (!canBeSkipped)
-        {
-            [self _needUpdate:NO];
-        }
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppstoreURLString]];
-        
-    };
-    
-    [ZZAlertBuilder presentAlertWithTitle:title
-                                  details:message
-                        cancelButtonTitle:cancelButtonTitle
-                       cancelButtonAction:canBeSkipped ? ^{
-
-                       }: nil
-                        actionButtonTitle:actionButtonTitle
-                                   action:updateBlock];
-}
 
 - (void)_showMenuWithGrid
 {
     [self.wireframe presentMenuControllerWithGrid];
-}
-
-- (NSString*)_makeMessageWithQualifier:(NSString *)q
-{
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 
 - (void)presentNetworkTestController

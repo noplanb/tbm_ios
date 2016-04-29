@@ -13,6 +13,7 @@
 #import "ZZAuthWireframe.h"
 #import "ZZMainWireframe.h"
 #import "ZZNetworkTestWireframe.h"
+#import "ZZUpdateHelper.h"
 
 @interface ZZStartWireframe ()
 
@@ -58,16 +59,22 @@
 - (void)presentMenuControllerWithGrid
 {
     ZZMainWireframe* wireframe = [ZZMainWireframe new];
-    [wireframe presentMainControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+    [wireframe presentMainControllerFromWindow:self.presentedWindow completion:^{
+
+        [[ZZUpdateHelper shared] checkForUpdates];
+        
+        if (self.completionBlock)
+        {
+            self.completionBlock();
+        }
+    }];
 }
 
 - (void)presentRegistrationController
 {
     ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:^{
-        self.completionBlock();
-        [self.presenter.interactor checkVersionStateForUserLoggedInState:YES];
-    }];
+    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+    [[ZZUpdateHelper shared] checkForUpdates];
 }
 
 - (void)presentNetworkTestController

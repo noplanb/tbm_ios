@@ -657,6 +657,7 @@
 		677DB23996D92F32B5FC62D8 /* ZZAlertTableStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB955F2482A039E2CC9E8 /* ZZAlertTableStyle.m */; };
 		677DB26F0CAB06F7FD8907DD /* ZZAddContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */; };
 		677DB304F8FA993A67051917 /* ANKeyboardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB9358274FB4DC7AD5558 /* ANKeyboardHandler.m */; };
+		677DB43AE98B29B6729E7169 /* ZZUpdateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBE71337B54A607E4C238 /* ZZUpdateHelper.m */; };
 		677DB48B363B8DEFE4DBCECF /* ZZBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB3433ACC9D769CB3E754 /* ZZBadge.m */; };
 		677DB500457AAAB203AA20F5 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
 		677DB5F5A7401439DEC6B2D8 /* ANHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4B8B7066D164F3ED055 /* ANHelperFunctions.m */; };
@@ -1541,6 +1542,7 @@
 		677DB7A90D38DEF1F20E30AD /* NSDate+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ZZAdditions.m"; sourceTree = "<group>"; };
 		677DB84276445E6B1BD579B7 /* ZZMenuCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCellModel.m; sourceTree = "<group>"; };
 		677DB8A6A2814AE5992F581E /* ANBaseDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseDomainModel.m; sourceTree = "<group>"; };
+		677DB90F4DE8F8D1C1AD4311 /* ZZUpdateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZUpdateHelper.h; sourceTree = "<group>"; };
 		677DB91FC3C9FBEFFA203C34 /* UIFont+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ZZAdditions.h"; sourceTree = "<group>"; };
 		677DB932E3B08F622FB31357 /* ZZAddContactButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAddContactButton.h; sourceTree = "<group>"; };
 		677DB9358274FB4DC7AD5558 /* ANKeyboardHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANKeyboardHandler.m; sourceTree = "<group>"; };
@@ -1554,6 +1556,7 @@
 		677DBCF8C39EE2BF01CE23C9 /* ANBaseDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseDomainModel.h; sourceTree = "<group>"; };
 		677DBDAB78C8CDD0C921F6BA /* NSDate+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ZZAdditions.h"; sourceTree = "<group>"; };
 		677DBE13BC51E8232086F8ED /* ANDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDefines.h; sourceTree = "<group>"; };
+		677DBE71337B54A607E4C238 /* ZZUpdateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZUpdateHelper.m; sourceTree = "<group>"; };
 		677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAddContactButton.m; sourceTree = "<group>"; };
 		677DBEE0F61F000A23841FC2 /* ANHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHelperFunctions.h; sourceTree = "<group>"; };
 		677DBEF5494B9162399CA3E8 /* ZZTabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTabbarView.h; sourceTree = "<group>"; };
@@ -1891,6 +1894,7 @@
 				07636B081BA49A0100925671 /* PhoneHelper */,
 				07636B0B1BA49A0100925671 /* TextFieldsDelegate */,
 				15A177821C1AB6FD0031480F /* ZZDispatchHelper */,
+				677DB969DDCC3EB1B7E292C2 /* UpdateHelper */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -5204,6 +5208,15 @@
 			path = AddContactButton;
 			sourceTree = "<group>";
 		};
+		677DB969DDCC3EB1B7E292C2 /* UpdateHelper */ = {
+			isa = PBXGroup;
+			children = (
+				677DBE71337B54A607E4C238 /* ZZUpdateHelper.m */,
+				677DB90F4DE8F8D1C1AD4311 /* ZZUpdateHelper.h */,
+			);
+			path = UpdateHelper;
+			sourceTree = "<group>";
+		};
 		677DBA770C79AEEDDCFDECA6 /* NSDate */ = {
 			isa = PBXGroup;
 			children = (
@@ -6322,6 +6335,7 @@
 				677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */,
 				677DB5F5A7401439DEC6B2D8 /* ANHelperFunctions.m in Sources */,
 				677DB304F8FA993A67051917 /* ANKeyboardHandler.m in Sources */,
+				677DB43AE98B29B6729E7169 /* ZZUpdateHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
