@@ -69,6 +69,11 @@ public class DownloadingLayer: CALayer
         }
     }
     
+    public func resetArrow() {
+        self.arrowLayer.bounds = self.arrowPath().bounds
+        self.arrowLayer.transform = CATransform3DIdentity
+    }
+    
     public override func layoutSublayers() {
         super.layoutSublayers()
         
@@ -146,6 +151,9 @@ public class DownloadingView: UIView
     }
     
     public func startAnimating() {
+        
+        self.downloadingLayer.resetArrow()
+        
         let animation = CABasicAnimation(keyPath: "transform.rotation")
         
         animation.toValue = M_PI * 2.0
@@ -176,6 +184,7 @@ public class DownloadingView: UIView
             CATransaction.setAnimationDuration(0.265)
             CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
             CATransaction.setCompletionBlock({
+                
                 closure()
             })
             
