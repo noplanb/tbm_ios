@@ -28,7 +28,6 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION          ([[[UIDevice currentDevice] systemVersion] floatValue])
 #define IOS8                    (8.0 <= SYSTEM_VERSION && SYSTEM_VERSION < 9.0)
-#define IOS8_OR_HIGHER          (8.0 <= SYSTEM_VERSION)
 
 
 #pragma mark - Device Orientation

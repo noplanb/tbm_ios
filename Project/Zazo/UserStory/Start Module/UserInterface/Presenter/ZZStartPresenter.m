@@ -65,35 +65,14 @@
         
     };
     
-    if (IOS8_OR_HIGHER)
-    {
-        [ZZAlertBuilder presentAlertWithTitle:@"Update Available"
-                                      details:message
-                            cancelButtonTitle:canBeSkipped ? @"Later" : nil
-                           cancelButtonAction:canBeSkipped ? ^{
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:message
+                        cancelButtonTitle:cancelButtonTitle
+                       cancelButtonAction:canBeSkipped ? ^{
 
-                           }: nil
-                            actionButtonTitle:@"Update" action:updateBlock];
-    }
-    else
-    {
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:cancelButtonTitle
-                                          otherButtonTitles:actionButtonTitle, nil];
-        [alertView show];
-        
-        @weakify(alertView);
-        [[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber* buttonIndex) {
-            @strongify(alertView);
-            
-            if ([buttonIndex integerValue] != alertView.cancelButtonIndex)
-            {
-                updateBlock();
-            }
-        }];
-    }
+                       }: nil
+                        actionButtonTitle:actionButtonTitle
+                                   action:updateBlock];
 }
 
 - (void)_showMenuWithGrid
