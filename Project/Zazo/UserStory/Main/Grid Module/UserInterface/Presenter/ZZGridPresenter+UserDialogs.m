@@ -20,6 +20,7 @@
 #import "ZZContentDataAccessor.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZCommunicationDomainModel.h"
+#import "ZZUserDataProvider.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -108,7 +109,14 @@
 - (NSString *)_defaultInvitationMessageForModel:(ZZFriendDomainModel *)friendModel
 {
     NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-    return [NSString stringWithFormat:@"I sent you a message on %@. Get the app: %@%li", appName, kInviteFriendBaseURL, (long)friendModel.cid];
+    NSString *appURL = [@[kInviteFriendBaseURL, @(friendModel.cid)] componentsJoinedByString:@""];
+    
+    ZZUserDomainModel *userModel = [ZZUserDataProvider authenticatedUser];
+    
+    NSString *message =
+    [NSString stringWithFormat:@"%@, I sent you a quick video message on %@. I use it pretty often. It's especially great when driving. To see my message download Zazo from the app store or here: %@. Yes, it's legit/safe to install. -%@", friendModel.firstName, appName, appURL, userModel.fullName];
+    
+    return message;
 }
 
 - (void)_showInvitationDialogType:(ZZInviteType)type
