@@ -14,6 +14,7 @@
 #import "ZZHoldIndicator.h"
 #import "ZZNumberBadge.h"
 #import "ZZSentBadge.h"
+#import "ZZVideoDataProvider.h"
 
 @interface ZZGridStateView ()
 
@@ -71,7 +72,8 @@
     {
         [self _setupDownloadedStateWithModel:model];
     }
-    else if (self.model.state & ZZGridCellViewModelStateVideoDownloaded)
+    else if ((self.model.state & ZZGridCellViewModelStateVideoDownloaded) &&
+             ([self _countOfDownloadsForModel:model] == 0))
     {
         [self.animationView finishDownloadingToView:self.numberBadge completion:^{
             [self _setupNumberBadgeWithModel:model];
@@ -83,12 +85,23 @@
     }
 }
 
+- (NSUInteger)_countOfDownloadsForModel:(ZZGridCellViewModel *)gridModel
+{
+    return [ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading
+                                           fromFriend:gridModel.item.relatedUser.idTbm];
+    
+}
+
 - (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
 {
+    if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading fromFriend:model.item.relatedUser.idTbm] > 1)
+    {
+        return; // No need show animation again if already downloading
+    }
+    
     [self showDownloadAnimationWithCompletionBlock:^{
 
     }];
-    
 }
 
 - (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel*)model
@@ -181,7 +194,6 @@
 
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber
 {
-    
     if (badgeNumber > 0)
     {
         if (!self.isSentBadgeShifted)

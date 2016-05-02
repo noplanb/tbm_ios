@@ -17,6 +17,8 @@ func delay(delay:Double, closure:()->()) {
         dispatch_get_main_queue(), closure)
 }
 
+let minEndStroke: CGFloat = 0.05;
+
 public class DownloadingLayer: CALayer
 {
     var backCircle = CAShapeLayer()
@@ -44,7 +46,7 @@ public class DownloadingLayer: CALayer
         
         animatingProgressLayer.fillColor = UIColor.clearColor().CGColor
         animatingProgressLayer.lineWidth = circleLineWidth
-        animatingProgressLayer.strokeEnd = 0
+        animatingProgressLayer.strokeEnd = minEndStroke
         
         let arrow = arrowPath()
         arrowLayer.path = arrow.CGPath
@@ -144,9 +146,17 @@ public class DownloadingView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var done = 0.0 {
+    public var done = minEndStroke {
         didSet {
-            self.downloadingLayer.animatingProgressLayer.strokeEnd = CGFloat(done)
+            
+            if done < minEndStroke {
+                done = minEndStroke
+            }
+            
+            if oldValue < done || done == minEndStroke {
+                self.downloadingLayer.animatingProgressLayer.strokeEnd = CGFloat(done)
+            }
+            
         }
     }
     
@@ -163,15 +173,20 @@ public class DownloadingView: UIView
         
         self.downloadingLayer.animatingProgressLayer.addAnimation(animation, forKey: "animating ProgressLayer")
         
-        self.done = 0.1
+        self.done = 0
     }
     
-    public func finishAnimating(closure:()->()) {
+    public func finishAnimating(completion:()->()) {
         
         var frame = downloadingLayer.arrowLayer.frame
         
+        let arrowTranslateDuration = 0.35
+        let frameAnimationDelay = 0.085
+        let frameAnimationDuration = 0.265
+        let completionDelay = arrowTranslateDuration + frameAnimationDelay + frameAnimationDuration
+        
         CATransaction.begin()
-        CATransaction.setAnimationDuration(0.35)
+        CATransaction.setAnimationDuration(arrowTranslateDuration)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
         
         downloadingLayer.arrowLayer.transform =
@@ -179,20 +194,20 @@ public class DownloadingView: UIView
         
         CATransaction.commit()
         
-        delay(0.085) {
+        delay(frameAnimationDelay) {
+            
             CATransaction.begin()
-            CATransaction.setAnimationDuration(0.265)
+            CATransaction.setAnimationDuration(frameAnimationDuration)
             CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
-            CATransaction.setCompletionBlock({
-                
-                closure()
-            })
             
             frame.size.height = 0
             self.downloadingLayer.arrowLayer.frame = frame
             
             CATransaction.commit()
-            
+        }
+        
+        delay(completionDelay) { 
+            completion()
         }
     }
     

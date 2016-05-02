@@ -15,10 +15,12 @@
 
 + (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
 + (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoId;
+
 + (NSArray <ZZVideoDomainModel *> *)videosWithStatus:(ZZVideoIncomingStatus)status;
 
 #pragma mark - Count
 
++ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status fromFriend:(NSString *)friendID;
 + (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status;
 + (NSUInteger)countAllVideos;
 

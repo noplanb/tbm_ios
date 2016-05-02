@@ -98,16 +98,38 @@
 
 #pragma mark - Load
 
-+ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status
++ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status fromFriend:(NSString *)friendID
 {
     NSNumber *count =
-            ZZDispatchOnMainThreadAndReturn(^id{
-                NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(status)];
-                return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
-
-            });
-
+    ZZDispatchOnMainThreadAndReturn(^id{
+        
+        NSPredicate *predicate;
+        NSPredicate *statusPredicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMVideoAttributes.status, @(status)];
+        
+        if (ANIsEmpty(friendID))
+        {
+            predicate = statusPredicate;
+        }
+        else
+        {
+            NSPredicate *friendIDPredicate =
+                [NSPredicate predicateWithFormat:@"%K.idTbm = %@", TBMVideoRelationships.friend, friendID];
+            
+            predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[statusPredicate, friendIDPredicate]];
+            
+        }
+        
+        return @([TBMVideo MR_countOfEntitiesWithPredicate:predicate inContext:[self _context]]);
+        
+    });
+    
     return count.unsignedIntegerValue;
+    
+}
+
++ (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status
+{
+    return [self countVideosWithStatus:status fromFriend:nil];
 }
 
 + (NSUInteger)countAllVideos
