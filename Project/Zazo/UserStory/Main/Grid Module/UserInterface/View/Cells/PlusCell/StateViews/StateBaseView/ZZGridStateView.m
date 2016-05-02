@@ -79,6 +79,13 @@
             [self _setupNumberBadgeWithModel:model];
         }];
     }
+    else if ((self.model.state & ZZGridCellViewModelStateVideoFailedPermanently) &&
+             [self _countOfDownloadsForModel:model] == 0)
+    {
+        [self.animationView finishDownloadingToView:self.numberBadge completion:^{
+            [self _setupNumberBadgeWithModel:model];
+        }];
+    }
     else
     {
         [self _setupNumberBadgeWithModel:model];
