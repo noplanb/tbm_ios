@@ -39,6 +39,18 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     if (self)
     {
         self.clipsToBounds = YES;
+        
+#ifdef MAKING_SCREENSHOTS
+        UIImageView *photoLayer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"prethumb0"]];
+        photoLayer.contentMode = UIViewContentModeScaleAspectFill;
+        photoLayer.layer.cornerRadius = 4;
+        photoLayer.layer.masksToBounds = YES;
+        [self addSubview:photoLayer];
+        [photoLayer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+#endif
+
     }
     return self;
 }
@@ -56,7 +68,10 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     self.model = model;
     [self.model setupLongRecognizerOnView:self];
     ANDispatchBlockToMainQueue(^{
+        
+#ifndef MAKING_SCREENSHOTS
         self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
+#endif
         if (!self.videoView)
         {
             self.videoView = model.recordView;

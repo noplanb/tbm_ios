@@ -165,6 +165,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)_sortFriendsFromArray:(NSArray *)array
 {
+#ifdef MAKING_SCREENSHOTS
+    return;
+#endif
+    
     ANDispatchBlockToMainQueue(^{
         NSMutableArray* friendsHasAppArray = [NSMutableArray new];
         

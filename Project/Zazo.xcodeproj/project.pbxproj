@@ -228,8 +228,6 @@
 		153682451C99539D006EDC12 /* ZZMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823F1C99539D006EDC12 /* ZZMain.m */; };
 		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
-		1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
-		1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1583CDB51C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
 		1583CDB61C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
@@ -5498,7 +5496,6 @@
 				182255961C16CA06003885A3 /* BeepSin30.wav in Resources */,
 				182255971C16CA06003885A3 /* head.png in Resources */,
 				1822559B1C16CA06003885A3 /* ANServerErrorLocalizable.strings in Resources */,
-				1557CFC01C6E1EB000FE5C57 /* Assets.xcassets in Resources */,
 				1822559E1C16CA06003885A3 /* app_logo.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5510,7 +5507,6 @@
 				15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */,
 				151A6C301CA5688800F2B53D /* Menu.strings in Resources */,
 				07636E861BA49A0100925671 /* navbar_btn_back.pdf in Resources */,
-				1557CFC21C6E1FE900FE5C57 /* Assets.xcassets in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */,
 				158960581CB7B61D0040D8E3 /* machine.h.motemplate in Resources */,

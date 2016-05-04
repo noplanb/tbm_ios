@@ -67,6 +67,7 @@
     [storage addItem:helpFeedback toSection:0];
     
 #ifdef DEBUG
+#ifndef MAKING_SCREENSHOTS
     
     ZZMenuCellModel *secretScreen =
     [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
@@ -74,6 +75,7 @@
     secretScreen.type = ZZMenuItemTypeSecretScreen;
     [storage addItem:secretScreen toSection:0];
     
+#endif
 #endif
     
     return storage;

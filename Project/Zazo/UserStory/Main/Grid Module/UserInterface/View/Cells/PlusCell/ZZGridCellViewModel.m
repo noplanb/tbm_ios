@@ -31,12 +31,35 @@
 {
     _usernameLabel = usernameLabel;
     ANDispatchBlockToMainQueue(^{
+        
        _usernameLabel.text = [self videoStatusString];
     });
 }
 
-- (NSString*)videoStatusString
+- (NSString *)_stubUserNameForIndex:(NSUInteger)index
 {
+    NSArray *stubNames = @[
+                           @"Leila",
+                           @"Nia",
+                           @"Shani",
+                           @"Gabby",
+                           @"Mary",
+                           @"Sachi",
+                           @"Alexis",
+                           @"Veronika"                           
+                           ];
+    
+    return stubNames[index];
+}
+
+- (NSString *)videoStatusString
+{
+    
+#ifdef MAKING_SCREENSHOTS
+    return [self _stubUserNameForIndex:self.item.index];
+#endif
+
+    
     ZZFriendDomainModel* friendModel = self.item.relatedUser;
 
     NSString* videoStatusString = nil;
@@ -196,6 +219,11 @@
 
 - (UIImage *)videoThumbnailImage
 {
+    
+#ifdef MAKING_SCREENSHOTS
+    return [UIImage imageNamed:[NSString stringWithFormat:@"prethumb%ld", (long)self.item.index + 1]];
+#endif
+    
     return [self _videoThumbnail];
 }
 

@@ -18,6 +18,7 @@ static NSString* const kGlobalApplicationVersion = @"46";
 #define DEBUG_LOGIN_USER
 #define STAGESERVER
 #define HINTS
+#define MAKING_SCREENSHOTS
 #endif
 
 //helpers

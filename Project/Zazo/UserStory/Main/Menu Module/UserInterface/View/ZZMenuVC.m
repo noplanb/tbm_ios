@@ -52,7 +52,12 @@
 
 - (void)showUsername:(NSString *)username
 {
+#ifdef MAKING_SCREENSHOTS
+    self.menuView.headerView.title = @"Jimmy Nelson";
+
+#else
     self.menuView.headerView.title = username;
+#endif
 }
 
 #pragma mark Menu Controller delegate
