@@ -201,6 +201,7 @@
 		07F0E7F61B8CD7A900036AB2 /* ZZLoadFriendListSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EB1B8CD7A900036AB2 /* ZZLoadFriendListSpec.m */; };
 		07F0E7F71B8CD7A900036AB2 /* ZZLoadFriendListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EC1B8CD7A900036AB2 /* ZZLoadFriendListTest.m */; };
 		07F0E7F81B8CD7A900036AB2 /* ZZStartScreenTestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F0E7EE1B8CD7A900036AB2 /* ZZStartScreenTestSpec.m */; };
+		150A9E0A1CDB942B007E7441 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		151A6C2F1CA5688800F2B53D /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */; };
 		151A6C301CA5688800F2B53D /* Menu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 151A6C221CA5688800F2B53D /* Menu.strings */; };
 		151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C251CA5688800F2B53D /* ZZMenuPresenter.m */; };
@@ -5510,6 +5511,7 @@
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */,
 				158960581CB7B61D0040D8E3 /* machine.h.motemplate in Resources */,
+				150A9E0A1CDB942B007E7441 /* Assets.xcassets in Resources */,
 				07636E8B1BA49A0100925671 /* ANGeneralErrorLocalizable.strings in Resources */,
 				07636DFD1BA49A0100925671 /* Images.xcassets in Resources */,
 				15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */,
