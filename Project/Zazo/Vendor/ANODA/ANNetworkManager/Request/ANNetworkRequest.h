@@ -7,25 +7,25 @@
 
 #pragma mark - HTTP Method Type
 
-extern NSString* const kAuthTokenHeader;
-extern NSString* const kMultipartFormBoundary;
+extern NSString *const kAuthTokenHeader;
+extern NSString *const kMultipartFormBoundary;
 
 #import "ANEnumAdditions.h"
 
 @interface ANNetworkRequest : NSMutableURLRequest
 
-@property (nonatomic, strong) NSString* token;
+@property (nonatomic, strong) NSString *token;
 
-+ (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion;
++ (void)setBaseURL:(NSString *)baseURL andAPIVersion:(NSString *)apiVersion;
 
 + (instancetype)requestWithPath:(NSString *)path
-                     parameters:(NSDictionary*)params
+                     parameters:(NSDictionary *)params
                      httpMethod:(ANHttpMethodType)httpMethodType;
 
-+ (instancetype)requestMultipartWithPath:(NSString*)path photo:(UIImage*)photo;
++ (instancetype)requestMultipartWithPath:(NSString *)path photo:(UIImage *)photo;
 
-- (instancetype)initWithPath:(NSString*)path
-                  parameters:(NSDictionary*)params
+- (instancetype)initWithPath:(NSString *)path
+                  parameters:(NSDictionary *)params
                   httpMethod:(ANHttpMethodType)httpMethodType;
 
 @end

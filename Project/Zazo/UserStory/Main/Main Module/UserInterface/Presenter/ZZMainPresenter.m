@@ -12,11 +12,11 @@
 
 @implementation ZZMainPresenter
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZMainViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZMainViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     userInterface.activePageIndex = 1;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationDidEnterBackgroundNotification)
                                                  name:UIApplicationDidEnterBackgroundNotification

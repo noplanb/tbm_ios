@@ -11,7 +11,7 @@
 
 @interface ZZContactDomainModel ()
 
-@property (nonatomic, copy) NSString* fullName;
+@property (nonatomic, copy) NSString *fullName;
 
 @end
 
@@ -19,18 +19,18 @@
 
 + (instancetype)modelWithFirstName:(NSString *)firstName lastName:(NSString *)lastName
 {
-    ZZContactDomainModel* model = [self new];
+    ZZContactDomainModel *model = [self new];
     model.firstName = firstName;
     model.lastName = lastName;
     model.fullName = [ZZUserPresentationHelper fullNameWithFirstName:model.firstName lastName:model.lastName];
-    
+
     if (ANIsEmpty(firstName))
     {
         firstName = @"…";
     }
-    
+
     model.category = [firstName substringWithRange:NSMakeRange(0, 1)];
-    
+
     return model;
 }
 
@@ -44,12 +44,12 @@
     return ZZMenuContactTypeAddressbook;
 }
 
-- (void)setPhones:(NSArray*)phones
+- (void)setPhones:(NSArray *)phones
 {
     _phones = phones;
 }
 
-- (ZZCommunicationDomainModel*)primaryPhone
+- (ZZCommunicationDomainModel *)primaryPhone
 {
     if (!_primaryPhone)
     {
@@ -63,15 +63,15 @@
 
 #pragma mark - Override
 
-- (BOOL)isEqualToContactDomainModel:(ZZContactDomainModel*)model
+- (BOOL)isEqualToContactDomainModel:(ZZContactDomainModel *)model
 {
     if (!model)
     {
         return NO;
     }
-    
+
     BOOL haveEqualItems = (ANIsEmpty(self.fullName) && ANIsEmpty(model.fullName)) ||
-    [self.fullName isEqualToString:model.fullName];
+            [self.fullName isEqualToString:model.fullName];
     return haveEqualItems;
 }
 

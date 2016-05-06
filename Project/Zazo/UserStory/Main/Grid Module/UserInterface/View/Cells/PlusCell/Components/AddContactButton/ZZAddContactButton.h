@@ -8,7 +8,7 @@
 
 @interface ZZAddContactButton : UIButton
 
-@property(nonatomic, assign) BOOL isActive;
+@property (nonatomic, assign) BOOL isActive;
 
 - (void)setPlusViewHidden:(BOOL)hidden animated:(BOOL)flag completion:(ANCodeBlock)completion;
 

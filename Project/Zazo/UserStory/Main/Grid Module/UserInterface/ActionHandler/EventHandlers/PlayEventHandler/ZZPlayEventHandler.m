@@ -13,14 +13,14 @@
 
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     self.hintModel = model;
     if (event == ZZGridActionEventTypeGridLoaded &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm]  > 0 &&
-        ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0 &&
+            ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         self.isLastAcitionDone = YES;
@@ -31,9 +31,9 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else if (event == ZZGridActionEventTypeBecomeMessage &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-         ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
+            ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
-        
+
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         self.isLastAcitionDone = YES;
         if (completionBlock)
@@ -43,10 +43,10 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else if (event == ZZGridActionEventTypeBecomeMessage &&
             [self.delegate friendsNumberOnGrid] > 1 &&
-             ![ZZGridActionStoredSettings shared].playHintWasShown &&
-             ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
+            ![ZZGridActionStoredSettings shared].playHintWasShown &&
+            ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
-        
+
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         self.isLastAcitionDone = YES;
         if (completionBlock)
@@ -57,16 +57,16 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     else
     {
         self.hintModel = nil;
-         self.isLastAcitionDone = NO;
-        if(!ANIsEmpty(self.eventHandler))
+        self.isLastAcitionDone = NO;
+        if (!ANIsEmpty(self.eventHandler))
         {
-            
+
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
         else
         {
             if (completionBlock)
-            {  
+            {
                 completionBlock(ZZHintsTypeNoHint, model);
             }
         }
@@ -74,7 +74,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
 }
 
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     if (self.isLastAcitionDone)
     {
@@ -82,7 +82,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         [ZZGridActionStoredSettings shared].playHintWasShown = NO;
         if (completionBlock)
         {
-            completionBlock(ZZGridActionEventTypeBecomeMessage,self.hintModel);
+            completionBlock(ZZGridActionEventTypeBecomeMessage, self.hintModel);
         }
     }
     else

@@ -17,6 +17,6 @@
 
 @interface ZZMenuController : ANTableController
 
-@property (nonatomic, weak) id<ZZMenuControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZMenuControllerDelegate> delegate;
 
 @end

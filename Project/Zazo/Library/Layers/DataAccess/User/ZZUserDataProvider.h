@@ -10,7 +10,8 @@
 
 @interface ZZUserDataProvider : NSObject
 
-+ (ZZUserDomainModel*)authenticatedUser;
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)model;
++ (ZZUserDomainModel *)authenticatedUser;
+
++ (ZZUserDomainModel *)upsertUserWithModel:(ZZUserDomainModel *)model;
 
 @end

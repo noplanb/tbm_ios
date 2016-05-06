@@ -8,15 +8,19 @@
 
 @interface ZZFriendsTransport : NSObject
 
-+ (RACSignal*)loadFriendList;
-+ (RACSignal*)loadFriendProfileWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)changeContactVisibilityStatusWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)loadFriendList;
+
++ (RACSignal *)loadFriendProfileWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)changeContactVisibilityStatusWithParameters:(NSDictionary *)parameters;
 
 
 #pragma mark - Invitations
 
-+ (RACSignal*)checkIsUserHasProfileWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)inviteUserWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)updateUserWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)checkIsUserHasProfileWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)inviteUserWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)updateUserWithParameters:(NSDictionary *)parameters;
 
 @end

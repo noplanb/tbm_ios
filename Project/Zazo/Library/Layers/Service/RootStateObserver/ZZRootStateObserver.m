@@ -10,13 +10,14 @@
 
 @interface ZZRootStateObserver ()
 
-@property (nonatomic, strong) NSMutableArray* observers;
+@property (nonatomic, strong) NSMutableArray *observers;
 
 @end
 
 @implementation ZZRootStateObserver
 
-+ (id)sharedInstance {
++ (id)sharedInstance
+{
     static ZZRootStateObserver *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -38,12 +39,12 @@
 
 #pragma mark - Observer Storage
 
-- (void)addRootStateObserver:(id<ZZRootStateObserverDelegate>)observer
+- (void)addRootStateObserver:(id <ZZRootStateObserverDelegate>)observer
 {
     [self.observers addObject:observer];
 }
 
-- (void)removeRootStateObserver:(id<ZZRootStateObserverDelegate>)observer
+- (void)removeRootStateObserver:(id <ZZRootStateObserverDelegate>)observer
 {
     [self.observers removeObject:observer];
 }

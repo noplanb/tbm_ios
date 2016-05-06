@@ -8,6 +8,7 @@
 @protocol ANSectionInterface <NSObject>
 
 - (NSArray *)objects;
+
 - (NSUInteger)numberOfObjects;
 
 @end

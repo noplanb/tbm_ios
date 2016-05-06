@@ -9,5 +9,4 @@
 @protocol ZZStartViewInterface <NSObject>
 
 
-
 @end

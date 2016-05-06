@@ -17,18 +17,18 @@
     if (self)
     {
         [self setBaseURL:apiBaseURL() andAPIVersion:@""];
-        
-        RACSignal* authSignal = RACObserve([ZZStoredSettingsManager shared], authToken);
-        RACSignal* itemIDSignal = RACObserve([ZZStoredSettingsManager shared], userID);
-        
-        [[RACSignal combineLatest:@[authSignal, itemIDSignal] reduce:^id(NSString* authToken, NSString* userID){
-            
-             return @(!ANIsEmpty(authToken) && !ANIsEmpty(userID));
+
+        RACSignal *authSignal = RACObserve([ZZStoredSettingsManager shared], authToken);
+        RACSignal *itemIDSignal = RACObserve([ZZStoredSettingsManager shared], userID);
+
+        [[RACSignal combineLatest:@[authSignal, itemIDSignal] reduce:^id(NSString *authToken, NSString *userID) {
+
+            return @(!ANIsEmpty(authToken) && !ANIsEmpty(userID));
         }] subscribeNext:^(id x) {
-            
+
             if ([x boolValue])
             {
-                NSURLCredential* credentials = [[NSURLCredential alloc] initWithUser:[ZZStoredSettingsManager shared].userID
+                NSURLCredential *credentials = [[NSURLCredential alloc] initWithUser:[ZZStoredSettingsManager shared].userID
                                                                             password:[ZZStoredSettingsManager shared].authToken
                                                                          persistence:NSURLCredentialPersistenceForSession];
                 self.session.credential = credentials;
@@ -49,7 +49,7 @@
     return [super requestWithPath:path parameters:params httpMethod:httpMethod];
 }
 
-- (void)logResponse:(NSHTTPURLResponse*)httpResponse description:(NSString*)description json:(NSDictionary*)json
+- (void)logResponse:(NSHTTPURLResponse *)httpResponse description:(NSString *)description json:(NSDictionary *)json
 {
 #ifdef HTTPLog
     NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n",
@@ -60,11 +60,11 @@
 #endif
 }
 
-- (void)handleResponse:(NSDictionary*)json subscriber:(id<RACSubscriber>)subscriber
+- (void)handleResponse:(NSDictionary *)json subscriber:(id <RACSubscriber>)subscriber
 {
     if ([json isKindOfClass:[NSDictionary class]])
     {
-        NSString* status = json[@"status"];
+        NSString *status = json[@"status"];
         if ([status isEqualToString:@"success"])
         {
             [subscriber sendNext:json];
@@ -72,12 +72,12 @@
         }
         else if ([status isEqualToString:@"failure"])
         {
-            NSDictionary* errorObject = @{@"status" : status};
+            NSDictionary *errorObject = @{@"status" : status};
             if ([[json objectForKey:@"title"] isEqualToString:@"Bad Phone"])
             {
                 errorObject = json;
             }
-            NSError* error = [[NSError alloc] initWithDomain:@"" code:1 userInfo:errorObject];
+            NSError *error = [[NSError alloc] initWithDomain:@"" code:1 userInfo:errorObject];
             [self handleError:error subscriber:subscriber];
         }
         else
@@ -94,12 +94,12 @@
 
 }
 
-- (void)handleError:(NSError*)error subscriber:(id<RACSubscriber>)subscriber
+- (void)handleError:(NSError *)error subscriber:(id <RACSubscriber>)subscriber
 {
     [subscriber sendError:error];
 }
 
-- (void)injectSideEffectToRequest:(ANNetworkRequest*)request
+- (void)injectSideEffectToRequest:(ANNetworkRequest *)request
 {
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 }

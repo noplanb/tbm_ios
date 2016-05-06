@@ -9,10 +9,10 @@
 #import "ZZDebugFriendStateDomainModel.h"
 
 const struct ZZDebugFriendStateDomainModelAttributes ZZDebugFriendStateDomainModelAttributes = {
-    .username = @"username",
-    .userID = @"userID",
-    .incomingVideoItems = @"incomingVideoItems",
-    .outgoingVideoItems = @"outgoingVideoItems",
+        .username = @"username",
+        .userID = @"userID",
+        .incomingVideoItems = @"incomingVideoItems",
+        .outgoingVideoItems = @"outgoingVideoItems",
 };
 
 @implementation ZZDebugFriendStateDomainModel

@@ -15,10 +15,10 @@
 @property (nonatomic, assign, readonly) CGFloat railsHeightToWidthRatio;
 @property (nonatomic, strong) NSArray *cellFlowFrames;
 
-@property(assign, nonatomic) CGFloat verticalInset;
-@property(assign, nonatomic) CGFloat horizontalInset;
+@property (assign, nonatomic) CGFloat verticalInset;
+@property (assign, nonatomic) CGFloat horizontalInset;
 
-@property (nonatomic, strong) NSArray* originalFrames;
+@property (nonatomic, strong) NSArray *originalFrames;
 
 @end
 
@@ -40,7 +40,7 @@
 
     self.horizontalInset = 0;
     self.verticalInset = 0;
-    
+
     [self layoutCells];
 
     [self setRails];
@@ -56,19 +56,19 @@
     {
         for (int xIndex = 0; xIndex < 3; xIndex++)
         {
-            CGFloat newX = x + xIndex*(self.cellSize.width + self.spaceBetweenCells);
-            CGFloat newY = y + yIndex*(self.cellSize.height + self.spaceBetweenCells);
+            CGFloat newX = x + xIndex * (self.cellSize.width + self.spaceBetweenCells);
+            CGFloat newY = y + yIndex * (self.cellSize.height + self.spaceBetweenCells);
             CGRect frame = CGRectMake(newX, newY, self.cellSize.width, self.cellSize.height);
             [cellsFrames addObject:[NSValue valueWithCGRect:frame]];
         }
     }
-    
+
     self.originalFrames = cellsFrames;
-    
+
     NSMutableArray *res = [cellsFrames mutableCopy];
     NSArray *transform;
     transform = [self cellMatrix];
-    
+
     for (int index = 0; index < 9; index++)
     {
         NSUInteger flowIndex = [transform[index] unsignedIntegerValue];
@@ -83,14 +83,14 @@
 - (NSArray *)cellMatrix
 {
     return @[@(ZZGridSpinPositionTypeTopLeft),
-             @(ZZGridSpinPositionTypeTopCenter),
-             @(ZZGridSpinPositionTypeTopRight),
-             @(ZZGridSpinPositionTypeCenterRight),
-             @(ZZGridSpinPositionTypeBottomRight),
-             @(ZZGridSpinPositionTypeBottomCenter),
-             @(ZZGridSpinPositionTypeBottomLeft),
-             @(ZZGridSpinPositionTypeCenterLeft),
-             @(ZZGridSpinPositionTypeCamera)];
+            @(ZZGridSpinPositionTypeTopCenter),
+            @(ZZGridSpinPositionTypeTopRight),
+            @(ZZGridSpinPositionTypeCenterRight),
+            @(ZZGridSpinPositionTypeBottomRight),
+            @(ZZGridSpinPositionTypeBottomCenter),
+            @(ZZGridSpinPositionTypeBottomLeft),
+            @(ZZGridSpinPositionTypeCenterLeft),
+            @(ZZGridSpinPositionTypeCamera)];
 }
 
 - (void)setRails
@@ -114,16 +114,16 @@
     CGPoint result = CGPointZero;
     if (self.cellFlowFrames.count > index)
     {
-        NSValue* frameValue = self.originalFrames[index];
+        NSValue *frameValue = self.originalFrames[index];
         CGRect frame = [frameValue CGRectValue];
-        
+
         result = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
     }
 
     return result;
 }
 
-- (void)moveCellCenter:(CGPoint*)center byAngle:(double)angle
+- (void)moveCellCenter:(CGPoint *)center byAngle:(double)angle
 {
     CGPoint p = (*center);
     double remain = angle;

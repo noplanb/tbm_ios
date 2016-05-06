@@ -11,12 +11,12 @@
 
 @interface ZZMainPresenter : NSObject <ZZMainInteractorOutput, ZZMainModuleInterface>
 
-@property (nonatomic, strong) id<ZZMainInteractorInput> interactor;
-@property (nonatomic, strong) ZZMainWireframe* wireframe;
+@property (nonatomic, strong) id <ZZMainInteractorInput> interactor;
+@property (nonatomic, strong) ZZMainWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZMainViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZMainModuleDelegate> mainModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZMainViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZMainModuleDelegate> mainModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZMainViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZMainViewInterface> *)userInterface;
 
 @end

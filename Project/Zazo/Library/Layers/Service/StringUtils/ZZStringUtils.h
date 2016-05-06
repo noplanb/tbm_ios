@@ -8,7 +8,8 @@
 
 @interface ZZStringUtils : NSObject
 
-+ (NSString*)jsonWithDictionary:(NSDictionary*)dict;
-+ (NSDictionary*)dictionaryWithJson:(NSString*)jsonString;
++ (NSString *)jsonWithDictionary:(NSDictionary *)dict;
+
++ (NSDictionary *)dictionaryWithJson:(NSString *)jsonString;
 
 @end

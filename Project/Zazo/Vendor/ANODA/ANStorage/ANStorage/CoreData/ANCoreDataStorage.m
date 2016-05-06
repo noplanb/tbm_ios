@@ -16,7 +16,7 @@
 
 + (instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller
 {
-    ANCoreDataStorage * storage = [self new];
+    ANCoreDataStorage *storage = [self new];
 
     storage.fetchedResultsController = controller;
     storage.fetchedResultsController.delegate = storage;
@@ -40,23 +40,23 @@
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
--(id)headerModelForSectionIndex:(NSInteger)index
+- (id)headerModelForSectionIndex:(NSInteger)index
 {
     NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method");
-    
+
     return [self supplementaryModelOfKind:self.supplementaryHeaderKind
                           forSectionIndex:index];
 }
 
--(id)footerModelForSectionIndex:(NSInteger)index
+- (id)footerModelForSectionIndex:(NSInteger)index
 {
     NSAssert(self.supplementaryFooterKind, @"supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method");
-    
+
     return [self supplementaryModelOfKind:self.supplementaryFooterKind
                           forSectionIndex:index];
 }
 
--(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
+- (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
 {
     if ([kind isEqualToString:self.supplementaryHeaderKind])
     {
@@ -122,16 +122,16 @@
          *  IF you using TableMove cell method, you should nahdle any section - reliable parameters inside cell.
          * Moving cell don't cause cell reloading or tableViewCellForRowAtIndexPath
          */
-        
+
         BOOL isNotInserted = ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO);
         BOOL isNotDeleted = ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section] == NO);
         BOOL isNotDeletedNewPath = ([self.currentUpdate.deletedSectionIndexes containsIndex:newIndexPath.section] == NO);
-        
+
         BOOL isCorrectMove = isNotDeleted && isNotInserted && isNotDeletedNewPath;
-            
+
         if (isCorrectMove && self.useMovingRows)
         {
-            ANStorageMovedIndexPath* move = [ANStorageMovedIndexPath new];
+            ANStorageMovedIndexPath *move = [ANStorageMovedIndexPath new];
             move.fromIndexPath = indexPath;
             move.toIndexPath = newIndexPath;
             [self.currentUpdate.movedRowsIndexPaths addObject:move];
@@ -148,7 +148,7 @@
             }
         }
 
-        
+
         //TODO: debug
 //        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO)
 //        {
@@ -159,7 +159,7 @@
 //        {
 //            [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
 //        }
-        
+
     }
     else if (type == NSFetchedResultsChangeUpdate)
     {

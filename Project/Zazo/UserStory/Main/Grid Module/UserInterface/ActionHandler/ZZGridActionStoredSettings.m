@@ -9,24 +9,24 @@
 #import "ZZGridActionStoredSettings.h"
 #import "NSObject+ANUserDefaults.h"
 
-static NSString* const kZZHintsDidStartPlayKey = @"kZZHintsDidStartPlayKey";
-static NSString* const kZZHintsDidStartRecordKey = @"kZZHintsDidStartRecordKey";
-static NSString* const kAbortRecordUsageHintDidShowKey = @"kAbortRecordUsageHintDidShowKey";
-static NSString* const kDeleteFriendUsageUsageHintDidShowKey = @"kDeleteFriendUsageUsageHintDidShowKey";
-static NSString* const kEarpieceUsageUsageHintDidShowKey = @"kEarpieceUsageUsageHintDidShowKey";
-static NSString* const kFrontCameraUsageUsageHintDidShowKey = @"kFrontCameraUsageUsageHintDidShowKey";
-static NSString* const kInviteHintDidShowKey = @"kInviteHintDidShowKey";
-static NSString* const kInviteSomeoneElseKey = @"kInviteSomeoneElseKey";
-static NSString* const kPlayHintDidShowKey = @"kPlayHintDidShowKey";
-static NSString* const kRecordHintDidShowKey = @"kRecordHintDidShowKey";
-static NSString* const kRecordWelcomeHintDidShowKey = @"kRecordWelcomeHintDidShowKey";
-static NSString* const kSentHintDidShowKey = @"kSentHintDidShowKey";
-static NSString* const kSpinUsageUsageUsageHintDidShowKey = @"kSpinUsageUsageUsageHintDidShowKey";
-static NSString* const kViewedHintDidShowKey = @"kViewedHintDidShowKey";
-static NSString* const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
-static NSString* const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPlayKey";
-static NSString* const kInviteSomeoneElseShowedDuringSession = @"inviteSomeoneElseShowedDuringSession";
-static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
+static NSString *const kZZHintsDidStartPlayKey = @"kZZHintsDidStartPlayKey";
+static NSString *const kZZHintsDidStartRecordKey = @"kZZHintsDidStartRecordKey";
+static NSString *const kAbortRecordUsageHintDidShowKey = @"kAbortRecordUsageHintDidShowKey";
+static NSString *const kDeleteFriendUsageUsageHintDidShowKey = @"kDeleteFriendUsageUsageHintDidShowKey";
+static NSString *const kEarpieceUsageUsageHintDidShowKey = @"kEarpieceUsageUsageHintDidShowKey";
+static NSString *const kFrontCameraUsageUsageHintDidShowKey = @"kFrontCameraUsageUsageHintDidShowKey";
+static NSString *const kInviteHintDidShowKey = @"kInviteHintDidShowKey";
+static NSString *const kInviteSomeoneElseKey = @"kInviteSomeoneElseKey";
+static NSString *const kPlayHintDidShowKey = @"kPlayHintDidShowKey";
+static NSString *const kRecordHintDidShowKey = @"kRecordHintDidShowKey";
+static NSString *const kRecordWelcomeHintDidShowKey = @"kRecordWelcomeHintDidShowKey";
+static NSString *const kSentHintDidShowKey = @"kSentHintDidShowKey";
+static NSString *const kSpinUsageUsageUsageHintDidShowKey = @"kSpinUsageUsageUsageHintDidShowKey";
+static NSString *const kViewedHintDidShowKey = @"kViewedHintDidShowKey";
+static NSString *const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
+static NSString *const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPlayKey";
+static NSString *const kInviteSomeoneElseShowedDuringSession = @"inviteSomeoneElseShowedDuringSession";
+static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 
 //static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
 
@@ -69,7 +69,7 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [ZZGridActionStoredSettings shared].viewedHintWasShown = NO;
     [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
     [ZZGridActionStoredSettings shared].welcomeHintWasShown = NO;
-    
+
     [ZZGridActionStoredSettings shared].frontCameraHintWasShown = NO;
     [ZZGridActionStoredSettings shared].abortRecordHintWasShown = NO;
     [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = NO;
@@ -81,7 +81,7 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [ZZGridActionStoredSettings shared].hintsDidStartPlay = NO;
     [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = NO;
-    
+
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kSendMessageCounterKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:kUsersIdsArrayKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -160,7 +160,7 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 - (void)setDeleteFriendHintWasShown:(BOOL)deleteFriendHintWasShown
 {
     [NSObject an_updateBool:deleteFriendHintWasShown forKey:kDeleteFriendUsageUsageHintDidShowKey];
-    
+
 }
 
 - (BOOL)earpieceHintWasShown
@@ -171,7 +171,7 @@ static NSString* const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 - (void)setEarpieceHintWasShown:(BOOL)earpieceHintWasShown
 {
     [NSObject an_updateBool:earpieceHintWasShown forKey:kEarpieceUsageUsageHintDidShowKey];
-    
+
 }
 
 - (BOOL)frontCameraHintWasShown

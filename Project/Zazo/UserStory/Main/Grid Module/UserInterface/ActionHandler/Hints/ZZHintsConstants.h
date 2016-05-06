@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, ZZHintsBottomImageType)
 NSString *const kZZTutorialFontName;
 
 
-typedef NS_ENUM(NSInteger,ZZHintArrowFocusPosition)
+typedef NS_ENUM(NSInteger, ZZHintArrowFocusPosition)
 {
     ZZHintArrowFocusPositionTopLeft,
     ZZHintArrowFocusPositionTopRight,
@@ -67,36 +67,36 @@ typedef NS_ENUM(NSInteger,ZZHintArrowFocusPosition)
 static inline NSInteger kHintArrowLabelFontSize()
 {
     NSInteger fontSize = 30;
-    
+
     if (IS_IPAD)
     {
         fontSize = 70;
     }
-    
-    return  fontSize;
+
+    return fontSize;
 }
 
 static inline ZZHintArrowFocusPosition kMiddleTopArrowFocusPositionDependsOnDevice()
 {
     ZZHintArrowFocusPosition focusPosition = ZZHintArrowFocusPositionMiddleRight;
-    
+
     if (IS_IPAD)
     {
         focusPosition = ZZHintArrowFocusPositionBottomRight;
     }
-    
+
     return focusPosition;
 }
 
 static inline ZZHintArrowFocusPosition kMiddleBottomArrowFocusPositionDopendsOnDevice()
 {
     ZZHintArrowFocusPosition focusPosition = ZZHintArrowFocusPositionMiddleRight;
-    
+
     if (IS_IPAD)
     {
         focusPosition = ZZHintArrowFocusPositionTopRight;
     }
-    
+
     return focusPosition;
 }
 

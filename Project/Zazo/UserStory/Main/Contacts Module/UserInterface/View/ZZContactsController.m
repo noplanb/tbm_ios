@@ -30,12 +30,12 @@
 {
     self.storage = dataSource.storage;
     self.searchingStorage = dataSource.storage;
-    
-    self.memoryStorage.storagePredicateBlock = ^NSPredicate *(NSString* searchString, NSInteger scope){
-        
-        NSPredicate* firstNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.firstName", searchString];
-        NSPredicate* lastNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@",@"item.lastName", searchString];
-        return [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate,lastNamePredicate]];
+
+    self.memoryStorage.storagePredicateBlock = ^NSPredicate *(NSString *searchString, NSInteger scope) {
+
+        NSPredicate *firstNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", @"item.firstName", searchString];
+        NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", @"item.lastName", searchString];
+        return [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
     };
 }
 
@@ -74,11 +74,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ZZContactCellViewModel * model = [self.currentStorage objectAtIndexPath:indexPath];
+    ZZContactCellViewModel *model = [self.currentStorage objectAtIndexPath:indexPath];
     [self.delegate itemSelected:model];
 }
 
-- (void)_performAnimatedUpdate:(ANStorageUpdate*)update
+- (void)_performAnimatedUpdate:(ANStorageUpdate *)update
 {
     ANDispatchBlockToMainQueue(^{
         [self.tableView reloadData];

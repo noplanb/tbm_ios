@@ -10,18 +10,19 @@
 
 @protocol ZZSecretSegmentCellViewModelDelegate <NSObject>
 
-- (void)viewModel:(ZZSecretSegmentCellViewModel*)model updatedSegmentValueTo:(NSInteger)value;
+- (void)viewModel:(ZZSecretSegmentCellViewModel *)model updatedSegmentValueTo:(NSInteger)value;
 
 @end
 
 @interface ZZSecretSegmentCellViewModel : NSObject
 
-@property (nonatomic, weak) id<ZZSecretSegmentCellViewModelDelegate> delegate;
+@property (nonatomic, weak) id <ZZSecretSegmentCellViewModelDelegate> delegate;
 @property (nonatomic, assign) NSInteger selectedIndex;
 
-+ (instancetype)viewModelWithTitles:(NSArray*)titles;
++ (instancetype)viewModelWithTitles:(NSArray *)titles;
 
-- (NSArray*)titles;
+- (NSArray *)titles;
+
 - (void)updateSelectedValueTo:(NSInteger)value;
 
 @end

@@ -20,10 +20,11 @@ typedef NS_ENUM(NSInteger, ZZMenuSections)
 
 @interface ZZContactsDataSource : NSObject
 
-@property (nonatomic, strong) ANMemoryStorage* storage;
+@property (nonatomic, strong) ANMemoryStorage *storage;
 
-- (void)setupAddressbookItems:(NSArray*)items;
+- (void)setupAddressbookItems:(NSArray *)items;
+
 //- (void)setupFriendsItems:(NSArray*)items;
-- (void)setupFriendsThatHaveAppItems:(NSArray*)items;
+- (void)setupFriendsThatHaveAppItems:(NSArray *)items;
 
 @end

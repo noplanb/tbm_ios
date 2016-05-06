@@ -8,7 +8,8 @@
 
 @interface NSObject (ANSafeValues)
 
-+ (NSString*)an_safeString:(NSString*)value;
-+ (NSDictionary*)an_safeDictionary:(NSDictionary*)dict;
++ (NSString *)an_safeString:(NSString *)value;
+
++ (NSDictionary *)an_safeDictionary:(NSDictionary *)dict;
 
 @end

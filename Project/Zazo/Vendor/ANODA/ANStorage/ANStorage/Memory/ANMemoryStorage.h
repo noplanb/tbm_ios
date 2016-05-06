@@ -10,13 +10,13 @@
 #import "ANHelperFunctions.h"
 #import "ANStorageMovedIndexPath.h"
 
-typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSInteger scope);
+typedef NSPredicate *(^ANMemoryStoragePredicate)(NSString *searchString, NSInteger scope);
 
 @interface ANMemoryStorage : ANBaseStorage <ANStorageInterface>
 
-@property (nonatomic, strong) NSMutableArray* sections;
+@property (nonatomic, strong) NSMutableArray *sections;
 
-+(instancetype)storage;
++ (instancetype)storage;
 
 - (void)batchUpdateWithBlock:(ANCodeBlock)block;
 
@@ -31,10 +31,11 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
 - (void)addItem:(id)item;
 
 // Add items to section 0.
-- (void)addItems:(NSArray*)items;
+- (void)addItems:(NSArray *)items;
 
 - (void)addItem:(id)item toSection:(NSUInteger)sectionIndex;
-- (void)addItems:(NSArray*)items toSection:(NSUInteger)sectionIndex;
+
+- (void)addItems:(NSArray *)items toSection:(NSUInteger)sectionIndex;
 
 - (void)addItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
 
@@ -47,10 +48,12 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
 #pragma mark - Removing Items
 
 - (void)removeItem:(id)item;
+
 - (void)removeItemsAtIndexPaths:(NSArray *)indexPaths;
 
 // Removing items. If some item is not found, it is skipped.
-- (void)removeItems:(NSArray*)items;
+- (void)removeItems:(NSArray *)items;
+
 - (void)removeAllItems;
 
 #pragma mark - Changing and Reorder Items
@@ -58,17 +61,20 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
 // Replace itemToReplace with replacingItem. If itemToReplace is not found, or replacingItem is nil, this method does nothing.
 - (void)replaceItem:(id)itemToReplace withItem:(id)replacingItem;
 
-- (void)moveItemFromIndexPath:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath;
+- (void)moveItemFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
 
 #pragma mark Clear Storage
+
 - (void)clearStorageUpdate;
 
 
 #pragma mark - Sections
 
-- (void)removeSections:(NSIndexSet*)indexSet;
-- (ANSectionModel*)sectionAtIndex:(NSUInteger)sectionIndex;
-- (ANSectionModel*)sectionAtIndex:(NSUInteger)sectionIndex createIfNeeded:(BOOL)shouldCreate;
+- (void)removeSections:(NSIndexSet *)indexSet;
+
+- (ANSectionModel *)sectionAtIndex:(NSUInteger)sectionIndex;
+
+- (ANSectionModel *)sectionAtIndex:(NSUInteger)sectionIndex createIfNeeded:(BOOL)shouldCreate;
 
 #pragma mark - Views Models
 
@@ -80,9 +86,11 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
  @param headerModels Section header models to use.
  */
 - (void)setSectionHeaderModels:(NSArray *)headerModels;
+
 - (void)setSectionFooterModels:(NSArray *)footerModels;
 
 - (void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionIndex;
+
 - (void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionIndex;
 
 
@@ -94,7 +102,9 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
 #pragma mark - Get Items
 
 - (NSArray *)itemsInSection:(NSUInteger)sectionIndex;
+
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath;
+
 - (NSIndexPath *)indexPathForItem:(id)item;
 
 
@@ -105,13 +115,17 @@ typedef NSPredicate*(^ANMemoryStoragePredicate)(NSString* searchString, NSIntege
 #pragma mark - Updates
 
 - (ANStorageUpdate *)loadCurrentUpdate;
+
 - (BOOL)isButchModelCreating;
+
 - (void)createCurrentUpdate;
+
 - (void)startUpdate;
+
 - (void)finishUpdate;
 
 #pragma mark Update storage methods
 
-- (void)updateStorageWithBlock:(void(^)())block;
+- (void)updateStorageWithBlock:(void (^)())block;
 
 @end

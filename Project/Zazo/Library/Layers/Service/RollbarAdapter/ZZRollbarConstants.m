@@ -9,21 +9,21 @@
 #import "ZZRollbarConstants.h"
 
 static NSString *logLevelString[] = {
-    @"debug",
-    @"info",
-    @"warning",
-    @"error",
-    @"critical"
+        @"debug",
+        @"info",
+        @"warning",
+        @"error",
+        @"critical"
 };
 
-NSString* ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel type)
+NSString *ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel type)
 {
     return logLevelString[type];
 }
 
-ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString* string)
+ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString *string)
 {
-    NSArray* array = [NSArray arrayWithObjects:logLevelString count:5];
+    NSArray *array = [NSArray arrayWithObjects:logLevelString count:5];
     return [array indexOfObject:[NSObject an_safeString:string]];
 }
 
@@ -31,19 +31,19 @@ ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString* string)
 #pragma mark - Server state
 
 static NSString *serverTypeString[] = {
-    @"development",
-    @"production",
-    @"staging"
+        @"development",
+        @"production",
+        @"staging"
 };
 
-NSString* ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState type)
+NSString *ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState type)
 {
     return logLevelString[type];
 }
 
-ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString* string)
+ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString *string)
 {
-    NSArray* array = [NSArray arrayWithObjects:serverTypeString count:3];
+    NSArray *array = [NSArray arrayWithObjects:serverTypeString count:3];
     return [array indexOfObject:[NSObject an_safeString:string]];
 }
 

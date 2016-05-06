@@ -16,7 +16,7 @@
 
 @interface ZZNetworkTestInteractor () <ZZVideoStatusHandlerDelegate>
 
-@property (nonatomic, strong) ZZSendVideoService* sendVideoService;
+@property (nonatomic, strong) ZZSendVideoService *sendVideoService;
 @property (nonatomic, strong, readwrite) NSString *sentVideoID;
 
 @end
@@ -55,23 +55,23 @@
 - (void)startSendingVideo
 {
     self.sentVideoID =
-    [self.sendVideoService sendVideo];
-    
+            [self.sendVideoService sendVideo];
+
     ZZLogInfo(@"🛂 upload started %@", self.sentVideoID);
 
 }
 
 - (void)stopSendingVideo
 {
-    
+
 }
 
 
 #pragma mark - Video status handler delegate method
 
-- (void)videoStatusChangedWithFriendID:(NSString*)friendID
+- (void)videoStatusChangedWithFriendID:(NSString *)friendID
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
     [self.output videosatusChangedWithFriend:friendModel];
 }
 

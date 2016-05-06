@@ -11,9 +11,9 @@
 #import "ZZVideoProcessor.h"
 #import "ZZConfig.h"
 
-static NSString* const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
-static NSString* const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
-NSString* const kVideoProcessorErrorReason = @"Problem processing video";
+static NSString *const kVideoProcessorDidFinishProcessing = @"TBMVideoProcessorDidFinishProcessing";
+static NSString *const kVideoProcessorDidFail = @"TBMVideoProcessorDidFailProcessing";
+NSString *const kVideoProcessorErrorReason = @"Problem processing video";
 
 @interface ZZVideoProcessor ()
 
@@ -32,28 +32,31 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 {
     self.videoUrl = url;
     self.tempVideoUrl = [self generateTempVideoUrl];
-    
-    if (! [self moveVideoToTemp])
+
+    if (![self moveVideoToTemp])
     {
         return;
     }
-    
+
     [self convertToMpeg4];
 }
 
 - (void)convertToMpeg4
 {
-    
+
     [self logFileSize:self.tempVideoUrl];
-    
+
     AVAsset *asset = [AVAsset assetWithURL:self.tempVideoUrl];
     self.exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
     self.exportSession.outputFileType = AVFileTypeMPEG4;
     self.exportSession.outputURL = self.videoUrl;
-    [self.exportSession exportAsynchronouslyWithCompletionHandler:^{[self didFinishConvertingToMpeg4];}];
+    [self.exportSession exportAsynchronouslyWithCompletionHandler:^{
+        [self didFinishConvertingToMpeg4];
+    }];
 }
 
-- (void)didFinishConvertingToMpeg4 {
+- (void)didFinishConvertingToMpeg4
+{
     if (self.exportSession.status != AVAssetExportSessionStatusCompleted)
     {
         NSString *description = [NSString stringWithFormat:@"export session completed with non complete status: %ld  error: %@", (long)self.exportSession.status, self.exportSession.error];
@@ -61,10 +64,10 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
         [self handleError:error];
         return;
     }
-    
+
     [self logFileSize:self.videoUrl];
     [self removeTempFile];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kVideoProcessorDidFinishProcessing
                                                         object:self
                                                       userInfo:[self notificationUserInfoWithError:nil]];
@@ -72,15 +75,15 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 
 #pragma mark - Util
 
-- (BOOL) moveVideoToTemp
+- (BOOL)moveVideoToTemp
 {
-    
+
     NSError *error = nil;
     NSError *dontCareError = nil;
-    
+
     [[NSFileManager defaultManager] removeItemAtURL:self.tempVideoUrl error:&dontCareError];
     [[NSFileManager defaultManager] moveItemAtURL:self.videoUrl toURL:self.tempVideoUrl error:&error];
-    
+
     if (error != nil)
     {
 //        NSError *newError = [NSError errorWithError:error reason:kVideoProcessorErrorReason];
@@ -88,13 +91,13 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
         // TODO: add error handler
         return NO;
     }
-    
+
     [[NSFileManager defaultManager] removeItemAtURL:self.videoUrl error:&dontCareError];
-    
+
     return YES;
 }
 
-- (void) logFileSize:(NSURL *)url
+- (void)logFileSize:(NSURL *)url
 {
     NSError *dontCareError = nil;
     [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&dontCareError];
@@ -104,14 +107,15 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 - (NSURL *)generateTempVideoUrl
 {
     double seconds = [[NSDate date] timeIntervalSince1970];
-    NSString *filename =  [NSString stringWithFormat:@"temp_%.0f", seconds * 1000.0];
+    NSString *filename = [NSString stringWithFormat:@"temp_%.0f", seconds * 1000.0];
     NSURL *url = [[ZZConfig videosDirectoryUrl] URLByAppendingPathComponent:filename];
-    
+
     return [url URLByAppendingPathExtension:@"mov"];
 }
 
 
 #pragma mark Util
+
 - (void)handleError:(NSError *)error
 {
     [self handleError:error dispatch:YES];
@@ -135,22 +139,23 @@ NSString* const kVideoProcessorErrorReason = @"Problem processing video";
 {
     if (error == nil)
     {
-        return @{@"videoUrl":self.videoUrl};
+        return @{@"videoUrl" : self.videoUrl};
     }
     else
     {
-        return @{@"videoUrl":self.videoUrl, @"error": error};
+        return @{@"videoUrl" : self.videoUrl, @"error" : error};
     }
 }
 
-- (NSError *)videoProcessorErrorWithMethod:(NSString *)method description:(NSString *)description{
+- (NSError *)videoProcessorErrorWithMethod:(NSString *)method description:(NSString *)description
+{
     NSString *domain = [NSString stringWithFormat:@"VideoProcessor#%@", method];
     return [NSError errorWithDomain:domain
                                code:1
                            userInfo:@{
-                                      NSLocalizedDescriptionKey: description,
-                                      NSLocalizedFailureReasonErrorKey:kVideoProcessorErrorReason
-                                      }];
+                                   NSLocalizedDescriptionKey : description,
+                                   NSLocalizedFailureReasonErrorKey : kVideoProcessorErrorReason
+                           }];
 }
 
 

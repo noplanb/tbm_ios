@@ -12,25 +12,25 @@
 
 @interface ZZDebugStateCellViewModel ()
 
-@property (nonatomic, strong) ZZDebugVideoStateDomainModel* item;
+@property (nonatomic, strong) ZZDebugVideoStateDomainModel *item;
 
 @end
 
 @implementation ZZDebugStateCellViewModel
 
-+ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel*)item
++ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel *)item
 {
-    ZZDebugStateCellViewModel* model = [self new];
+    ZZDebugStateCellViewModel *model = [self new];
     model.item = item;
     return model;
 }
 
-- (NSString*)title
+- (NSString *)title
 {
     return [NSObject an_safeString:self.item.itemID];
 }
 
-- (NSString*)status
+- (NSString *)status
 {
     return [NSObject an_safeString:self.item.status];
 }

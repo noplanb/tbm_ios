@@ -10,8 +10,8 @@
 
 @interface ZZSecretValueCellViewModel ()
 
-@property (nonatomic, copy) NSString* title;
-@property (nonatomic, copy) NSString* details;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *details;
 
 @end
 
@@ -19,10 +19,10 @@
 
 + (instancetype)viewModelWithTitle:(NSString *)title details:(NSString *)details
 {
-    ZZSecretValueCellViewModel* model = [self new];
+    ZZSecretValueCellViewModel *model = [self new];
     model.title = title;
     model.details = details;
-    
+
     return model;
 }
 

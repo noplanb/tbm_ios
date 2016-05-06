@@ -8,7 +8,8 @@
 
 #import "ANBaseDomainModel.h"
 
-extern const struct ZZDebugSettingsStateDomainModelAttributes {
+extern const struct ZZDebugSettingsStateDomainModelAttributes
+{
     __unsafe_unretained NSString *serverURLString;
     __unsafe_unretained NSString *serverIndex;
     __unsafe_unretained NSString *isDebugEnabled;
@@ -23,13 +24,13 @@ extern const struct ZZDebugSettingsStateDomainModelAttributes {
 
 @interface ZZDebugSettingsStateDomainModel : ANBaseDomainModel
 
-@property (nonatomic, strong) NSString* serverURLString;
+@property (nonatomic, strong) NSString *serverURLString;
 @property (nonatomic, assign) NSInteger serverIndex;
 @property (nonatomic, assign) BOOL isDebugEnabled;
-@property (nonatomic, strong) NSString* version;
-@property (nonatomic, strong) NSString* firstName;
-@property (nonatomic, strong) NSString* lastName;
-@property (nonatomic, strong) NSString* phoneNumber;
+@property (nonatomic, strong) NSString *version;
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, assign) BOOL useRollbarSDK;
 @property (nonatomic, assign) BOOL sendIncorrectFilesize;
 

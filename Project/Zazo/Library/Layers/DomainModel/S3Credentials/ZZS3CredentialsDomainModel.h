@@ -10,7 +10,8 @@
 
 @class FEMObjectMapping;
 
-extern const struct ZZS3CredentialsDomainModelAttributes {
+extern const struct ZZS3CredentialsDomainModelAttributes
+{
     __unsafe_unretained NSString *region;
     __unsafe_unretained NSString *bucket;
     __unsafe_unretained NSString *accessKey;
@@ -19,12 +20,12 @@ extern const struct ZZS3CredentialsDomainModelAttributes {
 
 @interface ZZS3CredentialsDomainModel : ANBaseDomainModel
 
-@property (nonatomic, copy) NSString* region;
-@property (nonatomic, copy) NSString* bucket;
-@property (nonatomic, copy) NSString* accessKey;
-@property (nonatomic, copy) NSString* secretKey;
+@property (nonatomic, copy) NSString *region;
+@property (nonatomic, copy) NSString *bucket;
+@property (nonatomic, copy) NSString *accessKey;
+@property (nonatomic, copy) NSString *secretKey;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
 
 - (BOOL)isValid;
 

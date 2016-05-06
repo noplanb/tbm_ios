@@ -12,17 +12,19 @@
 
 #pragma mark - Outgoing
 
-NSString* ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus);
-ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromSrting(NSString*);
+NSString *ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus);
+
+ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromSrting(NSString *);
 
 
 #pragma mark - Incoming
 
-NSString* ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus);
-ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString*);
+NSString *ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus);
+
+ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString *);
 
 
 #pragma mark - Server
 
-NSString* ZZServerFormattedStringFromEnumValue(ZZConfigServerState);
+NSString *ZZServerFormattedStringFromEnumValue(ZZConfigServerState);
 

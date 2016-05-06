@@ -15,7 +15,7 @@
 
 @interface ZZAuthPresenter ()
 
-@property (nonatomic, strong) RollbarReachability* reachability;
+@property (nonatomic, strong) RollbarReachability *reachability;
 
 @end
 
@@ -28,15 +28,15 @@
     {
         self.reachability = [RollbarReachability reachabilityForInternetConnection];
     }
-    
+
     return self;
 }
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZAuthViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZAuthViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     [self.interactor loadUserData];
-    
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"])
     {
         [self.userInterface enableLogoTapRecognizer];
@@ -45,17 +45,17 @@
 
 #pragma mark - Module Interface
 
-- (void)registrationWithFirstName:(NSString*)firstName
-                         lastName:(NSString*)lastName
-                      countryCode:(NSString*)countryCode
-                            phone:(NSString*)phoneNumber
+- (void)registrationWithFirstName:(NSString *)firstName
+                         lastName:(NSString *)lastName
+                      countryCode:(NSString *)countryCode
+                            phone:(NSString *)phoneNumber
 {
-    ZZUserDomainModel* model = [ZZUserDomainModel new];
+    ZZUserDomainModel *model = [ZZUserDomainModel new];
     model.firstName = firstName;
     model.lastName = lastName;
     model.countryCode = countryCode;
     model.plainPhoneNumber = phoneNumber;
-    
+
     [self.interactor registerUser:model];
 }
 
@@ -64,7 +64,7 @@
     [self.interactor userRequestCallInsteadSmsCode];
 }
 
-- (void)verifySMSCode:(NSString*)code
+- (void)verifySMSCode:(NSString *)code
 {
     [self.userInterface updateStateToLoading:YES message:@"Checking verification code.."];
     [self.interactor validateSMSCode:code];
@@ -73,9 +73,9 @@
 - (void)handleLogoTap
 {
     static NSUInteger tapCount;
-    
+
     tapCount++;
-    
+
     if (tapCount > 3)
     {
         [self.wireframe showSecretScreen];
@@ -89,7 +89,7 @@
     return [self.reachability isReachable];
 }
 
-- (void)userDataLoadedSuccessfully:(ZZUserDomainModel*)user
+- (void)userDataLoadedSuccessfully:(ZZUserDomainModel *)user
 {
     [self.userInterface updateFirstName:user.firstName lastName:user.lastName];
     [self.userInterface updateCountryCode:user.countryCode phoneNumber:user.plainPhoneNumber];
@@ -105,24 +105,24 @@
     [self.userInterface updateStateToLoading:YES message:@"Sending verification code..."];
 }
 
-- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString*)phoneNumber
+- (void)registrationCompletedSuccessfullyWithPhoneNumber:(NSString *)phoneNumber
 {
     [self.userInterface updateStateToLoading:NO message:nil];
     ANDispatchBlockToMainQueue(^{
         [self.userInterface showVerificationCodeInputViewWithPhoneNumber:phoneNumber];
-        
-        #ifdef DEBUG_LOGIN_USER
+
+#ifdef DEBUG_LOGIN_USER
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.interactor validateSMSCode:@"0000"];
         });
-        #endif
+#endif
     });
 }
 
 - (void)registrationDidFailWithError:(NSError *)error
 {
     [self.userInterface updateStateToLoading:NO message:nil];
-    
+
     if (error.code == kErrorWrongMobileErrorCode)
     {
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.bad.mobile.number.title", nil)
@@ -131,16 +131,16 @@
     else
     {
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.try.again.title", nil)
-                                             message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
+                                                 message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
     }
 }
 
-- (void)smsCodeValidationCompletedWithError:(NSError*)error
+- (void)smsCodeValidationCompletedWithError:(NSError *)error
 {
     [self.userInterface updateStateToLoading:NO message:nil];
-    
+
     //TODO: separate errors with server invalid code error + bad connection and other
-    
+
     if ([self isNetworkEnabled] && ![self _isServerConnectionError:error])
     {
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
@@ -151,10 +151,10 @@
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:NSLocalizedString(@"auth-error.try.again.title", nil)
                                                  message:NSLocalizedString(@"auth-error.bad.connection.message", nil)];
     }
-    
+
 }
 
-- (BOOL)_isServerConnectionError:(NSError*)error
+- (BOOL)_isServerConnectionError:(NSError *)error
 {
     return (error.code == kErrorServerConnectionErrorCode);
 }
@@ -193,7 +193,7 @@
         [self.interactor loadFriends];
     }]];
     ANDispatchBlockToMainQueue(^{
-       [alert presentWithCompletion:nil]; 
+        [alert presentWithCompletion:nil];
     });
 }
 
@@ -205,9 +205,9 @@
 - (void)registrationFlowCompletedSuccessfully
 {
 #ifdef NETTEST
-        [self.wireframe presentNetworkTestController];
+    [self.wireframe presentNetworkTestController];
 #else
-        [self.wireframe presentGridController];
+    [self.wireframe presentGridController];
 #endif
 }
 

@@ -13,9 +13,9 @@
 
 @interface ZZDebugStateWireframe ()
 
-@property (nonatomic, strong) ZZDebugStatePresenter* presenter;
-@property (nonatomic, strong) ZZDebugStateVC* debugstateController;
-@property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) ZZDebugStatePresenter *presenter;
+@property (nonatomic, strong) ZZDebugStateVC *debugstateController;
+@property (nonatomic, strong) UINavigationController *presentedController;
 
 @end
 
@@ -23,22 +23,22 @@
 
 - (void)presentDebugStateControllerFromNavigationController:(UINavigationController *)nc
 {
-    ZZDebugStateVC* debugstateController = [ZZDebugStateVC new];
-    ZZDebugStateInteractor* interactor = [ZZDebugStateInteractor new];
-    ZZDebugStatePresenter* presenter = [ZZDebugStatePresenter new];
-    
+    ZZDebugStateVC *debugstateController = [ZZDebugStateVC new];
+    ZZDebugStateInteractor *interactor = [ZZDebugStateInteractor new];
+    ZZDebugStatePresenter *presenter = [ZZDebugStatePresenter new];
+
     interactor.output = presenter;
-    
+
     debugstateController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:debugstateController];
-    
+
     ANDispatchBlockToMainQueue(^{
         [nc pushViewController:debugstateController animated:YES];
     });
-    
+
     self.presenter = presenter;
     self.presentedController = nc;
     self.debugstateController = debugstateController;

@@ -16,7 +16,7 @@
 
 #pragma mark - Checks
 
-+ (BOOL)isFileExistsAtURL:(NSURL*)fileURL
++ (BOOL)isFileExistsAtURL:(NSURL *)fileURL
 {
     BOOL isFileExists = NO;
     if (!ANIsEmpty(fileURL))
@@ -26,7 +26,7 @@
     return isFileExists;
 }
 
-+ (unsigned long long)fileSizeWithURL:(NSURL*)fileURL
++ (unsigned long long)fileSizeWithURL:(NSURL *)fileURL
 {
     if ([self isFileExistsAtURL:fileURL])
     {
@@ -40,7 +40,7 @@
     return 0;
 }
 
-+ (BOOL)isFileValidWithFileURL:(NSURL*)fileURL
++ (BOOL)isFileValidWithFileURL:(NSURL *)fileURL
 {
     return [self fileSizeWithURL:fileURL] > 0;
 }
@@ -48,18 +48,18 @@
 
 #pragma mark - File Operations
 
-+ (NSURL*)fileURLInDocumentsDirectoryWithName:(NSString*)fileName
++ (NSURL *)fileURLInDocumentsDirectoryWithName:(NSString *)fileName
 {
-    NSURL* url = nil;
+    NSURL *url = nil;
     if (!ANIsEmpty(fileName))
     {
-        NSURL* documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+        NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
         url = [documentsURL URLByAppendingPathComponent:[fileName stringByAppendingPathExtension:@"png"]];
     }
     return url;
 }
 
-+ (void)deleteFileWithURL:(NSURL*)fileURL
++ (void)deleteFileWithURL:(NSURL *)fileURL
 {
     if ([self isFileExistsAtURL:fileURL])
     {
@@ -70,15 +70,15 @@
     }
 }
 
-+ (NSURL*)fileURlWithFileName:(NSString*)fileName withType:(NSString*)type
++ (NSURL *)fileURlWithFileName:(NSString *)fileName withType:(NSString *)type
 {
-    NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
-    NSURL* url = [NSURL fileURLWithPath:path];
-    
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+    NSURL *url = [NSURL fileURLWithPath:path];
+
     return url;
 }
 
-+ (BOOL)copyFileWithUrl:(NSURL*)fromUrl toUrl:(NSURL*)toUrl error:(NSError**)error;
++ (BOOL)copyFileWithUrl:(NSURL *)fromUrl toUrl:(NSURL *)toUrl error:(NSError **)error;
 {
     BOOL copyResult = [[NSFileManager defaultManager] copyItemAtPath:fromUrl.path
                                                               toPath:toUrl.path
@@ -89,19 +89,19 @@
 
 #pragma mark - Media File
 
-+ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl
++ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL *)fileUrl
 {
     BOOL isFileCorrupted = YES;
-    MPMoviePlayerViewController* playerController = [[MPMoviePlayerViewController alloc] initWithContentURL:fileUrl];
-    MPMoviePlayerController* player = [playerController moviePlayer];
+    MPMoviePlayerViewController *playerController = [[MPMoviePlayerViewController alloc] initWithContentURL:fileUrl];
+    MPMoviePlayerController *player = [playerController moviePlayer];
     player.movieSourceType = MPMovieSourceTypeFile;
     [player prepareToPlay];
-    
+
     if (player.loadState == MPMovieLoadStatePlayable)
     {
         isFileCorrupted = NO;
     }
-    
+
     return isFileCorrupted;
 }
 
@@ -112,21 +112,21 @@
     NSError *error = nil;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject]
-                                                                                       error: &error];
-    
+                                                                                       error:&error];
+
     if (dictionary)
     {
-        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
+        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemSize];
         NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
         totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
         totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
         NSLog(@"Storage capacity %llu MiB with %llu MiB free storage available.",
-              ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
+                ((totalSpace / 1024ll) / 1024ll), ((totalFreeSpace / 1024ll) / 1024ll));
     }
     else
     {
         NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld",
-              [error domain], (long)[error code]);
+                [error domain], (long)[error code]);
     }
     return totalFreeSpace;
 }

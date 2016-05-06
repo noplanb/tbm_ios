@@ -24,7 +24,7 @@
 
 @implementation ZZGridStateView
 
-- (instancetype)initWithPresentedView:(ZZGridCell*)presentedView
+- (instancetype)initWithPresentedView:(ZZGridCell *)presentedView
 {
     self = [super init];
     if (self)
@@ -35,7 +35,7 @@
     return self;
 }
 
-- (void)updateWithModel:(ZZGridCellViewModel*)model
+- (void)updateWithModel:(ZZGridCellViewModel *)model
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
@@ -52,7 +52,7 @@
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
 
-        self.sentBadge.state =  model.state & ZZGridCellViewModelStateVideoWasViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
+        self.sentBadge.state = model.state & ZZGridCellViewModelStateVideoWasViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
 
         [self _setupDownloadAnimationsWithModel:model];
     });
@@ -61,9 +61,9 @@
 
 #pragma mark - Downloaded Animation behavior
 
-- (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel*)model
+- (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel *)model
 {
-    
+
     if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
     {
         [self _setupDownloadedStateWithModel:model];
@@ -73,14 +73,14 @@
         [self _setupDownloadedStateWithModel:model];
     }
     else if ((self.model.state & ZZGridCellViewModelStateVideoDownloaded) &&
-             ([self _countOfDownloadsForModel:model] == 0))
+            ([self _countOfDownloadsForModel:model] == 0))
     {
         [self.animationView finishDownloadingToView:self.numberBadge completion:^{
             [self _setupNumberBadgeWithModel:model];
         }];
     }
     else if ((self.model.state & ZZGridCellViewModelStateVideoFailedPermanently) &&
-             [self _countOfDownloadsForModel:model] == 0)
+            [self _countOfDownloadsForModel:model] == 0)
     {
         [self.animationView finishDownloadingToView:self.numberBadge completion:^{
             [self _setupNumberBadgeWithModel:model];
@@ -96,22 +96,22 @@
 {
     return [ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading
                                            fromFriend:gridModel.item.relatedUser.idTbm];
-    
+
 }
 
-- (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel*)model
+- (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel *)model
 {
     if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading fromFriend:model.item.relatedUser.idTbm] > 1)
     {
         return; // No need show animation again if already downloading
     }
-    
+
     [self showDownloadAnimationWithCompletionBlock:^{
 
     }];
 }
 
-- (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel*)model
+- (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel *)model
 {
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
@@ -133,7 +133,7 @@
 
     }
     else if ((model.state & ZZGridCellViewModelStatePreview) &&
-             (model.state & ZZGridCellViewModelStateVideoDownloading))
+            (model.state & ZZGridCellViewModelStateVideoDownloading))
     {
         [self updateBadgeWithNumber:model.badgeNumber];
     }
@@ -149,32 +149,32 @@
 - (CGFloat)_indicatorCalculatedWidth
 {
     return fminf(kLayoutConstIndicatorMaxWidth,
-                 kLayoutConstIndicatorFractionalWidth * kGridItemSize().width);
+            kLayoutConstIndicatorFractionalWidth * kGridItemSize().width);
 }
 
 
 #pragma mark - Animation part
 
-- (void)showUploadAnimationWithCompletionBlock:(void(^)())completionBlock;
+- (void)showUploadAnimationWithCompletionBlock:(void (^)())completionBlock;
 {
     [self.effectView showEffect:ZZCellEffectTypeWaveIn];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
+
         [self updateSendBadgePosition];
-        
+
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
                                      toView:self.sentBadge
                                  completion:^{
                                      self.sentBadge.hidden = NO;
                                      [self.sentBadge animate];
-                                     
-                                    completionBlock();
+
+                                     completionBlock();
                                  }];
     });
 }
 
-- (void)showDownloadAnimationWithCompletionBlock:(void(^)())completionBlock
+- (void)showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock
 {
     [self.animationView startDownloading];
 }
@@ -182,10 +182,10 @@
 - (void)_showVideoCountLabelWithCount:(NSInteger)count
 {
     BOOL shouldAnimate = self.numberBadge.count < count;
-    
+
     self.numberBadge.hidden = NO;
     self.numberBadge.count = count;
-    
+
     if (shouldAnimate)
     {
         [self.numberBadge animate];
@@ -207,7 +207,7 @@
         {
             self.sentBadge.hidden = YES;
         }
-        
+
         [self _showVideoCountLabelWithCount:badgeNumber];
     }
     else
@@ -221,26 +221,26 @@
     CAShapeLayer *oval = [CAShapeLayer layer];
     oval.delegate = self;
     oval.backgroundColor = [UIColor clearColor].CGColor;
-    
+
     CGFloat diameter = self.frame.size.width + self.frame.size.height;
-    
-    CGRect rect = CGRectMake((self.frame.size.width - diameter) /2,
-                             (self.frame.size.height - diameter) /2,
-                             diameter,
-                             diameter);
-    
+
+    CGRect rect = CGRectMake((self.frame.size.width - diameter) / 2,
+            (self.frame.size.height - diameter) / 2,
+            diameter,
+            diameter);
+
     oval.path = CGPathCreateWithEllipseInRect(rect, nil);
     oval.fillColor = [UIColor blackColor].CGColor;
     oval.frame = self.bounds;
-    
+
     self.layer.mask = oval;
-    
+
     oval.transform = CATransform3DMakeScale(0.1, 0.1, 1);
     oval.transform = CATransform3DIdentity;
 
 }
 
-- (nullable id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
+- (nullable id <CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
 {
     if ([event isEqualToString:@"transform"])
     {
@@ -248,13 +248,13 @@
         {
             return nil;
         }
-        
+
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = [NSValue valueWithCATransform3D:self.layer.mask.transform];
         animation.duration = 1;
         return animation;
     }
-    
+
     return nil;
 }
 
@@ -262,19 +262,20 @@
 
 - (UIView *)backgroundView
 {
-    
+
     if (_backgroundView)
     {
         return _backgroundView;
     }
-    
+
     UIImageView *backgroundView = [UIImageView new];
     backgroundView.image = [UIImage imageNamed:@"pattern"];
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     backgroundView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
-    switch (arc4random_uniform(3) ) {
+
+    switch (arc4random_uniform(3))
+    {
         case 0:
             backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
             backgroundView.tintColor = [ZZColorTheme shared].gridCellTintColor1;
@@ -287,11 +288,11 @@
             backgroundView.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor3;
             backgroundView.tintColor = [ZZColorTheme shared].gridCellTintColor3;
             break;
-            
+
         default:
             break;
     }
-    
+
     [self addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
@@ -312,7 +313,7 @@
         [_numberBadge mas_makeConstraints:^(MASConstraintMaker *make) {
             [self makePositionForFirstBadge:make];
         }];
-        
+
         [_numberBadge layoutIfNeeded];
     }
     return _numberBadge;
@@ -324,13 +325,13 @@
     {
         return _sentBadge;
     }
-    
+
     _sentBadge = [ZZSentBadge new];
     _sentBadge.hidden = YES;
     [self addSubview:_sentBadge];
-    
+
     [self updateSendBadgePosition];
-    
+
     return _sentBadge;
 }
 
@@ -339,14 +340,14 @@
     [self.sentBadge mas_updateConstraints:^(MASConstraintMaker *make) {
         [self makePositionForSentBadge:make];
     }];
-    
+
     [self.sentBadge layoutIfNeeded];
 }
 
 - (void)makePositionForSentBadge:(MASConstraintMaker *)maker
 {
     self.isSentBadgeShifted = self.model.badgeNumber > 0;
-    
+
     if (self.isSentBadgeShifted)
     {
         [self makePositionForSecondBadge:maker];
@@ -375,19 +376,19 @@
     {
         return _animationView;
     }
-    
+
     _animationView = [ZZLoadingAnimationView new];
-    
+
     [self addSubview:_animationView];
-    
+
     [_animationView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
+
     return _animationView;
 }
 
-- (ZZUserNameLabel*)userNameLabel
+- (ZZUserNameLabel *)userNameLabel
 {
     if (!_userNameLabel)
     {
@@ -411,16 +412,16 @@
     if (!_backGradientView)
     {
         ZZGridCellGradientView *view = [ZZGridCellGradientView new];
-        
+
         _backGradientView = view;
-        
+
         [self addSubview:view];
-        
+
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
     }
-    
+
     return _backGradientView;
 }
 
@@ -430,7 +431,7 @@
     {
         return _effectView;
     }
-    
+
     ZZCellEffectView *holdEffectView = [ZZCellEffectView new];
     [self addSubview:holdEffectView];
     [holdEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -438,9 +439,9 @@
     }];
     [holdEffectView layoutIfNeeded];
     holdEffectView.userInteractionEnabled = NO;
-    
+
     _effectView = holdEffectView;
-    
+
     return holdEffectView;
 }
 

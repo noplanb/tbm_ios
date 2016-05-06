@@ -16,10 +16,12 @@ typedef NS_ENUM(NSInteger, ZZPhoneFormatType)
 
 @interface ZZPhoneHelper : NSObject
 
-+ (NSArray*)validatePhonesFromContactModel:(ZZContactDomainModel*)model;
-+ (NSString*)formatMobileNumberToE164AndServerFormat:(NSString*)number;
-+ (NSString*)clearPhone:(NSString*)phone;
++ (NSArray *)validatePhonesFromContactModel:(ZZContactDomainModel *)model;
 
-+ (NSString*)phone:(NSString *)phone withFormat:(ZZPhoneFormatType)format;
++ (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number;
+
++ (NSString *)clearPhone:(NSString *)phone;
+
++ (NSString *)phone:(NSString *)phone withFormat:(ZZPhoneFormatType)format;
 
 @end

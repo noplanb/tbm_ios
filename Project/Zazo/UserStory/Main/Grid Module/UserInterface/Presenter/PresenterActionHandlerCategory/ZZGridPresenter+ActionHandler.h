@@ -11,9 +11,13 @@
 
 @interface ZZGridPresenter (ActionHandler)
 
-- (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel*)model;
+- (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel *)model;
+
 - (void)_handleInviteEvent;
-- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel*)model;
-- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel;
-- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model;
+
+- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel *)model;
+
+- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel *)cellViewModel;
+
+- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel *)model;
 @end

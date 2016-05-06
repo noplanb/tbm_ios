@@ -12,8 +12,8 @@
 
 @interface ZZContactsWireframe : NSObject
 
-@property (nonatomic, strong, readonly) UIViewController*contactsController;
-@property (nonatomic, strong, readonly) ZZContactsPresenter * presenter;
-@property (nonatomic, strong) ZZMainWireframe* mainWireframe;
+@property (nonatomic, strong, readonly) UIViewController *contactsController;
+@property (nonatomic, strong, readonly) ZZContactsPresenter *presenter;
+@property (nonatomic, strong) ZZMainWireframe *mainWireframe;
 
 @end

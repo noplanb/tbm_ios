@@ -13,12 +13,12 @@
 #import "ZZFileHelper.h"
 #import "ZZFriendDataProvider.h"
 
-static NSString* const kUploadFileName = @"IMG_0764";
-static NSString* const kUploadFileType = @"MOV";
+static NSString *const kUploadFileName = @"IMG_0764";
+static NSString *const kUploadFileType = @"MOV";
 
 @interface ZZSendVideoService ()
 
-@property (nonatomic, strong) NSString* actualFriendID;
+@property (nonatomic, strong) NSString *actualFriendID;
 
 @end
 
@@ -34,19 +34,19 @@ static NSString* const kUploadFileType = @"MOV";
 {
     if (!ANIsEmpty(self.actualFriendID))
     {
-        NSURL* fromUrl = [ZZFileHelper fileURlWithFileName:kUploadFileName withType:kUploadFileType];
-        NSURL* toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:self.actualFriendID];
-        
-        NSError* copyError = nil;
-        
-        if([ZZFileHelper copyFileWithUrl:fromUrl toUrl:toUrl error:&copyError])
+        NSURL *fromUrl = [ZZFileHelper fileURlWithFileName:kUploadFileName withType:kUploadFileType];
+        NSURL *toUrl = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:self.actualFriendID];
+
+        NSError *copyError = nil;
+
+        if ([ZZFileHelper copyFileWithUrl:fromUrl toUrl:toUrl error:&copyError])
         {
             NSString *marker = [toUrl URLByDeletingPathExtension].lastPathComponent;
-            ZZFileTransferMarkerDomainModel* markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
+            ZZFileTransferMarkerDomainModel *markerModel = [ZZFileTransferMarkerDomainModel modelWithEncodedMarker:marker];
 
-            
+
             [[[TBMVideoProcessor alloc] init] processVideoWithUrl:toUrl];
-            
+
             return markerModel.videoID;
         }
         else

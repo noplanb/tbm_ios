@@ -8,6 +8,6 @@
 
 @interface NSError (Extensions)
 
-+ (NSError*)errorWithError:(NSError*)error reason:(NSString*)reason;
++ (NSError *)errorWithError:(NSError *)error reason:(NSString *)reason;
 
 @end

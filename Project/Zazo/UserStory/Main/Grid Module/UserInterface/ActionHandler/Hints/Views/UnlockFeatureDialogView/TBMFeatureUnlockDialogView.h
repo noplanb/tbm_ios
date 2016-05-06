@@ -13,6 +13,6 @@
 
 @interface TBMFeatureUnlockDialogView : UIView
 
-+ (void)showFeatureDialog:(NSString*)dialog withPresentedView:(UIView*)presentedView completionBlock:(void(^)())completionBlock;
++ (void)showFeatureDialog:(NSString *)dialog withPresentedView:(UIView *)presentedView completionBlock:(void (^)())completionBlock;
 
 @end

@@ -30,9 +30,13 @@ extern const NSString *TOWebViewControllerButtonBevelOpacity;
 
 /* Navigtion Buttons */
 + (instancetype)TOWebViewControllerIcon_backButtonWithAttributes:(NSDictionary *)attributes;
+
 + (instancetype)TOWebViewControllerIcon_forwardButtonWithAttributes:(NSDictionary *)attributes;
+
 + (instancetype)TOWebViewControllerIcon_refreshButtonWithAttributes:(NSDictionary *)attributes;
+
 + (instancetype)TOWebViewControllerIcon_stopButtonWithAttributes:(NSDictionary *)attributes;
+
 + (instancetype)TOWebViewControllerIcon_actionButtonWithAttributes:(NSDictionary *)attributes;
 
 @end

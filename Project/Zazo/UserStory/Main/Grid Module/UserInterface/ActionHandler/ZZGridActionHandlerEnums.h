@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
     ZZGridActionEventTypeMessageViewed,
     ZZGridActionEventTypeSentZazo,
     ZZGridActionEventTypeFriendDidInvited,
-    
+
     ZZGridActionEventTypeFrontCameraFeatureUnlocked,
     ZZGridActionEventTypeAbortRecordingFeatureUnlocked,
     ZZGridActionEventTypeDeleteFriendsFeatureUnlocked,
@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
     ZZGridActionFeatureTypeSpinWheel,
 
     //Add new above
-    ZZGridActionFeatureTypeTotal,
+            ZZGridActionFeatureTypeTotal,
 };
 

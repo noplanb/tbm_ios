@@ -8,9 +8,11 @@
 
 @interface ZZCommonNetworkTransport : NSObject
 
-+ (RACSignal*)logMessageWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)checkApplicationVersionWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)loadS3Credentials;
++ (RACSignal *)logMessageWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)checkApplicationVersionWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)loadS3Credentials;
 
 + (void)setupNetworkCredentials;
 

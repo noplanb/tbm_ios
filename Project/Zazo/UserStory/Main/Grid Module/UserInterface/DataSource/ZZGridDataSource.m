@@ -1,4 +1,3 @@
-
 //
 //  ZZGridDataSource.m
 //  Zazo
@@ -15,12 +14,12 @@
 static NSInteger const kGridCenterCellIndex = 4;
 
 @interface ZZGridDataSource ()
-<
-ZZGridCellViewModelDelegate,
-ZZGridCenterCellViewModelDelegate
->
+        <
+        ZZGridCellViewModelDelegate,
+        ZZGridCenterCellViewModelDelegate
+        >
 
-@property (nonatomic, strong) NSArray* models;
+@property (nonatomic, strong) NSArray *models;
 @property (nonatomic, assign) BOOL wasInitialSetuped;
 
 @end
@@ -34,39 +33,39 @@ ZZGridCenterCellViewModelDelegate
 
 - (NSInteger)frindsOnGridNumber
 {
-    ZZGridCenterCellViewModel* centerCell = [self centerViewModel];
-    NSMutableArray* modelsCopy = [self.models mutableCopy];
+    ZZGridCenterCellViewModel *centerCell = [self centerViewModel];
+    NSMutableArray *modelsCopy = [self.models mutableCopy];
     [modelsCopy removeObject:centerCell];
-    NSArray* friends = [modelsCopy valueForKeyPath:@"@unionOfObjects.item.relatedUser"];
-    
+    NSArray *friends = [modelsCopy valueForKeyPath:@"@unionOfObjects.item.relatedUser"];
+
     return friends.count;
 }
 
 
 #pragma mark - ViewModels Setup After first launch
 
-- (void)setupWithModels:(NSArray*)models
+- (void)setupWithModels:(NSArray *)models
 {
-    NSMutableArray* updatedSection = [NSMutableArray new];
-    
-    models = [[models.rac_sequence map:^id(ZZGridDomainModel* value) {
-        
-        ZZGridCellViewModel* viewModel = [ZZGridCellViewModel new];
+    NSMutableArray *updatedSection = [NSMutableArray new];
+
+    models = [[models.rac_sequence map:^id(ZZGridDomainModel *value) {
+
+        ZZGridCellViewModel *viewModel = [ZZGridCellViewModel new];
         value.isDownloadAnimationViewed = !self.wasInitialSetuped;
         [self _configureCellViewModel:viewModel withDomainModel:value];
         return viewModel;
     }] array];
-    
+
     [updatedSection addObjectsFromArray:models];
-    
+
     [self _updateActiveContactIconInModels:models];
-    
-    ZZGridCenterCellViewModel* center = [ZZGridCenterCellViewModel new];
+
+    ZZGridCenterCellViewModel *center = [ZZGridCenterCellViewModel new];
     center.delegate = self;
     [updatedSection insertObject:center atIndex:kGridCenterCellIndex];
-    
+
     self.models = [updatedSection copy];
-    
+
     [self reloadStorage];
     self.wasInitialSetuped = YES;
 }
@@ -74,12 +73,12 @@ ZZGridCenterCellViewModelDelegate
 
 #pragma mark - Update Current model
 
-- (void)updateCellWithModel:(ZZGridDomainModel*)model
+- (void)updateCellWithModel:(ZZGridDomainModel *)model
 {
     NSInteger index = [self viewModelIndexWithModelIndex:model.index];
     if (index != NSNotFound)
     {
-        ZZGridCellViewModel* viewModel = self.models[index];
+        ZZGridCellViewModel *viewModel = self.models[index];
         [self _updateActiveContactIconInModels:@[viewModel]];
         [self _configureCellViewModel:viewModel withDomainModel:model];
         [self _reloadModelAtIndex:index];
@@ -91,20 +90,18 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)_updateActiveContactIconInModels:(NSArray *)models
 {
-    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
-    {
+    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if (![obj isKindOfClass:[ZZGridCellViewModel class]])
         {
             return;
         }
-        
+
         obj.hasActiveContactIcon = NO;
     }];
 
     ZZGridDomainModel *firstEmpty = [ZZGridDataProvider loadFirstEmptyGridElement];
-    
-    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
-    {
+
+    [models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if (![obj isKindOfClass:[ZZGridCellViewModel class]])
         {
             return;
@@ -119,20 +116,20 @@ ZZGridCenterCellViewModelDelegate
 
 }
 
-- (void)_configureCellViewModel:(ZZGridCellViewModel*)viewModel withDomainModel:(ZZGridDomainModel*)model
+- (void)_configureCellViewModel:(ZZGridCellViewModel *)viewModel withDomainModel:(ZZGridDomainModel *)model
 {
     viewModel.item = model;
     viewModel.delegate = self;
 
     viewModel.hasDownloadedVideo = [model.relatedUser hasDownloadedVideo];
-    
+
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];
-    
+
     viewModel.isUploadedVideoViewed =
             model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed;
-    
+
     if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-        model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
+            model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
         viewModel.lastMessageDate = [ZZFriendDataHelper lastVideoSentTimeFromFriend:model.relatedUser];
     }
@@ -140,7 +137,7 @@ ZZGridCenterCellViewModelDelegate
     {
         viewModel.lastMessageDate = nil;
     }
-    
+
     NSUInteger count = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
 
     if (count > 0)
@@ -155,16 +152,17 @@ ZZGridCenterCellViewModelDelegate
 
 - (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation
 {
-    ZZGridCenterCellViewModel* model = [self centerViewModel];
+    ZZGridCenterCellViewModel *model = [self centerViewModel];
     model.isChangeButtonAvailable = shouldHandleRotation;
     [self.controllerDelegate reloadItem:model];
 }
 
-- (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer{
+- (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer
+{
     [self centerViewModel].previewLayer = previewLayer;
 }
 
-- (ZZGridCenterCellViewModel*)centerViewModel
+- (ZZGridCenterCellViewModel *)centerViewModel
 {
     return self.models[kGridCenterCellIndex];
 }
@@ -179,17 +177,17 @@ ZZGridCenterCellViewModelDelegate
     return model;
 }
 
-- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel
+- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel *)domainModel
 {
     NSInteger index = [self viewModelindexWithGridModel:domainModel];
     return index;
 }
 
-- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel
+- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel *)friendModel
 {
     __block id item;
-    
-    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
             if ([obj.item.relatedUser isEqual:friendModel])
@@ -198,20 +196,20 @@ ZZGridCenterCellViewModelDelegate
             }
         }
     }];
-    
+
     if (item)
     {
         return [self.models indexOfObject:item];
     }
-    
+
     return NSNotFound;
 }
 
-- (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model
+- (NSInteger)indexForViewModel:(ZZGridCellViewModel *)model
 {
-    
+
     NSInteger index = NSNotFound;
-    
+
     if ([model isKindOfClass:[ZZGridCellViewModel class]])
     {
         index = [self viewModelindexWithGridModel:model.item];
@@ -223,11 +221,11 @@ ZZGridCenterCellViewModelDelegate
     return index;
 }
 
-- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel*)model
+- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel *)model
 {
     __block id item = nil;
-   
-    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
             if ([obj.item.relatedUser.idTbm isEqualToString:model.relatedUser.idTbm])
@@ -237,8 +235,8 @@ ZZGridCenterCellViewModelDelegate
             }
         }
     }];
-    
-    
+
+
     if (item)
     {
         return [self.models indexOfObject:item];
@@ -249,8 +247,8 @@ ZZGridCenterCellViewModelDelegate
 - (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index
 {
     __block id item = nil;
-    
-    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [self.models enumerateObjectsUsingBlock:^(ZZGridCellViewModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[ZZGridCellViewModel class]])
         {
             if (obj.item.index == index)
@@ -260,7 +258,7 @@ ZZGridCenterCellViewModelDelegate
             }
         }
     }];
-    
+
     if (item)
     {
         return [self.models indexOfObject:item];
@@ -277,7 +275,7 @@ ZZGridCenterCellViewModelDelegate
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel*)viewModel
+                           viewModel:(ZZGridCellViewModel *)viewModel
                  withCompletionBlock:(ZZBoolBlock)completionBlock
 {
     [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
@@ -288,12 +286,12 @@ ZZGridCenterCellViewModelDelegate
     [self.delegate nudgeSelectedWithUserModel:userModel];
 }
 
-- (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel*)viewModel
+- (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel
 {
     [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
 }
 
-- (void)addUserToItem:(ZZGridCellViewModel*)model
+- (void)addUserToItem:(ZZGridCellViewModel *)model
 {
     [self.delegate addUser];
 }
@@ -327,7 +325,7 @@ ZZGridCenterCellViewModelDelegate
 
 #pragma mark - Private
 
-- (NSArray*)models
+- (NSArray *)models
 {
     if (!_models)
     {

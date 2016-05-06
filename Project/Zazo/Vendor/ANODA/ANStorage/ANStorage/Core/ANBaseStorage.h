@@ -7,18 +7,18 @@
 
 #import "ANStorageInterface.h"
 
-static NSString * const ANTableViewElementSectionHeader = @"ANTableViewElementSectionHeader";
-static NSString * const ANTableViewElementSectionFooter = @"ANTableViewElementSectionFooter";
+static NSString *const ANTableViewElementSectionHeader = @"ANTableViewElementSectionHeader";
+static NSString *const ANTableViewElementSectionFooter = @"ANTableViewElementSectionFooter";
 
 @interface ANBaseStorage : NSObject
 
 /**
  *  For Debug use
  */
-@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSString *name;
 
-@property (nonatomic, strong) NSString * supplementaryHeaderKind;
-@property (nonatomic, strong) NSString * supplementaryFooterKind;
+@property (nonatomic, strong) NSString *supplementaryHeaderKind;
+@property (nonatomic, strong) NSString *supplementaryFooterKind;
 @property (nonatomic, weak) id <ANStorageUpdatingInterface> delegate;
 
 @end

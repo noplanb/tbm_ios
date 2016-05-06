@@ -14,16 +14,19 @@
 @protocol ZZMenuControllerDelegate <NSObject>
 
 - (void)itemSelected:(ZZContactCellViewModel *)model;
+
 - (void)needToUpdateDataSource;
 
 @end
 
 @interface ZZContactsController : ANTableController
 
-@property (nonatomic, weak) id<ZZMenuControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZMenuControllerDelegate> delegate;
 
 - (void)updateDataSource:(ZZContactsDataSource *)dataSource;
+
 - (void)reset;
+
 - (void)reloadContactData;
 
 @end

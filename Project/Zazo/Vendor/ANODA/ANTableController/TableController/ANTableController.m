@@ -15,13 +15,13 @@
 static const CGFloat kTableAnimationDuration = 0.25f;
 
 @interface ANTableController ()
-<
-    ANStorageUpdatingInterface,
-    ANTableViewFactoryDelegate
->
+        <
+        ANStorageUpdatingInterface,
+        ANTableViewFactoryDelegate
+        >
 
 @property (nonatomic, assign) NSInteger currentSearchScope;
-@property (nonatomic, copy) NSString * currentSearchString;
+@property (nonatomic, copy) NSString *currentSearchString;
 
 @end
 
@@ -29,7 +29,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 
 @synthesize storage = _storage;
 
-- (instancetype)initWithTableView:(UITableView*)tableView
+- (instancetype)initWithTableView:(UITableView *)tableView
 {
     self = [super init];
     if (self)
@@ -39,7 +39,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
         self.tableView.dataSource = self;
         self.isHandlingKeyboard = YES;
         self.shouldAnimateTableViewUpdates = YES;
-        
+
         [self setupTableViewControllerDefaults];
     }
     return self;
@@ -61,18 +61,18 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 {
     _cellFactory = [ANTableViewFactory new];
     _cellFactory.delegate = self;
-    
+
     _currentSearchScope = -1;
     _sectionHeaderStyle = ANTableViewSectionStyleTitle;
     _sectionFooterStyle = ANTableViewSectionStyleTitle;
     _insertSectionAnimation = UITableViewRowAnimationNone;
     _deleteSectionAnimation = UITableViewRowAnimationAutomatic;
     _reloadSectionAnimation = UITableViewRowAnimationAutomatic;
-    
+
     _insertRowAnimation = UITableViewRowAnimationAutomatic;
     _deleteRowAnimation = UITableViewRowAnimationAutomatic;
     _reloadRowAnimation = UITableViewRowAnimationAutomatic;
-    
+
     _displayFooterOnEmptySection = YES;
     _displayHeaderOnEmptySection = YES;
 }
@@ -82,12 +82,12 @@ static const CGFloat kTableAnimationDuration = 0.25f;
     self = [super init];
     if (self)
     {
-        NSString * reason = [NSString stringWithFormat:@"You shouldn't init class %@ with method %@\n Please use initWithTableView method.",
-                             NSStringFromSelector(_cmd), NSStringFromClass([self class])];
-        NSException * exc =
-        [NSException exceptionWithName:[NSString stringWithFormat:@"%@ Exception", NSStringFromClass([self class])]
-                                reason:reason
-                              userInfo:nil];
+        NSString *reason = [NSString stringWithFormat:@"You shouldn't init class %@ with method %@\n Please use initWithTableView method.",
+                                                      NSStringFromSelector(_cmd), NSStringFromClass([self class])];
+        NSException *exc =
+                [NSException exceptionWithName:[NSString stringWithFormat:@"%@ Exception", NSStringFromClass([self class])]
+                                        reason:reason
+                                      userInfo:nil];
         [exc raise];
     }
     return self;
@@ -117,7 +117,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
     return nil;
 }
 
--(id<ANStorageInterface>)storage
+- (id <ANStorageInterface>)storage
 {
     if (!_storage)
     {
@@ -141,7 +141,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
     [self _attachStorage:searchingStorage];
 }
 
-- (id<ANStorageInterface>)currentStorage
+- (id <ANStorageInterface>)currentStorage
 {
     return [self isSearching] ? self.searchingStorage : self.storage;
 }
@@ -158,7 +158,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 {
     BOOL isSearchStringNonEmpty = (self.currentSearchString && self.currentSearchString.length);
     BOOL isSearching = (isSearchStringNonEmpty || self.currentSearchScope > -1);
-    
+
     return isSearching;
 }
 
@@ -175,15 +175,15 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 - (void)_filterTableItemsForSearchString:(NSString *)searchString inScope:(NSInteger)scopeNumber reload:(BOOL)shouldReload
 {
     BOOL isSearching = [self isSearching];
-    
+
     BOOL isNothingChanged = ([searchString isEqualToString:self.currentSearchString]) &&
-    (scopeNumber == self.currentSearchScope);
-    
+            (scopeNumber == self.currentSearchScope);
+
     if (!isNothingChanged || shouldReload)
     {
         self.currentSearchScope = scopeNumber;
         self.currentSearchString = searchString;
-        
+
         if (isSearching && ![self isSearching])
         {
             [self storageNeedsReloadAnimated];
@@ -199,7 +199,6 @@ static const CGFloat kTableAnimationDuration = 0.25f;
         }
     }
 }
-
 
 
 #pragma  mark - UISearchBarDelegate
@@ -242,51 +241,51 @@ static const CGFloat kTableAnimationDuration = 0.25f;
     }
 }
 
-- (void)_performAnimatedUpdate:(ANStorageUpdate*)update
+- (void)_performAnimatedUpdate:(ANStorageUpdate *)update
 {
     if (!update.isProcessing)
     {
         update.isProcessing = YES;
         self.isAnimating = YES;
         ANDispatchBlockToMainQueue(^{
-            
+
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
                 self.isAnimating = NO;
                 [self tableControllerDidUpdateContent];
                 update.isProcessing = NO;
             }];
-            
+
             [self tableControllerWillUpdateContent];
-            
+
             [self.tableView beginUpdates];
 
             [self.tableView insertSections:update.insertedSectionIndexes
                           withRowAnimation:self.insertSectionAnimation];
-            
+
             [self.tableView deleteSections:update.deletedSectionIndexes
                           withRowAnimation:self.deleteSectionAnimation];
-            
+
             [self.tableView reloadSections:update.updatedSectionIndexes
                           withRowAnimation:self.reloadSectionAnimation];
-            
-            [update.movedRowsIndexPaths enumerateObjectsUsingBlock:^(ANStorageMovedIndexPath* obj, NSUInteger idx, BOOL *stop) {
-                
+
+            [update.movedRowsIndexPaths enumerateObjectsUsingBlock:^(ANStorageMovedIndexPath *obj, NSUInteger idx, BOOL *stop) {
+
                 if (![update.deletedSectionIndexes containsIndex:obj.fromIndexPath.section])
                 {
                     [self.tableView moveRowAtIndexPath:obj.fromIndexPath toIndexPath:obj.toIndexPath];
                 }
             }];
-            
+
             [self.tableView insertRowsAtIndexPaths:update.insertedRowIndexPaths
                                   withRowAnimation:self.insertRowAnimation];
-            
+
             [self.tableView deleteRowsAtIndexPaths:update.deletedRowIndexPaths
                                   withRowAnimation:self.deleteRowAnimation];
-            
+
             [self.tableView reloadRowsAtIndexPaths:update.updatedRowIndexPaths
                                   withRowAnimation:self.reloadRowAnimation];
-            
+
             [self.tableView endUpdates];
             [CATransaction commit];
         });
@@ -307,7 +306,7 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 - (void)storageNeedsReloadAnimated
 {
     [self storageNeedsReload];
-    
+
     CATransition *animation = [CATransition animation];
     [animation setType:kCATransitionFromBottom];
     [animation setSubtype:kCATransitionFromBottom];
@@ -324,17 +323,25 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 
 #pragma mark - ANTableViewControllerEvents Protocol (Override)
 
-- (void)tableControllerWillUpdateContent {}
-- (void)tableControllerDidUpdateContent {}
+- (void)tableControllerWillUpdateContent
+{
+}
+
+- (void)tableControllerDidUpdateContent
+{
+}
+
 //search
 - (void)tableControllerWillBeginSearch
 {
     self.storage.delegate = nil;
 }
+
 - (void)tableControllerDidEndSearch
 {
     self.searchingStorage.delegate = self;
 }
+
 - (void)tableControllerDidCancelSearch
 {
     self.searchingStorage.delegate = nil;
@@ -360,9 +367,9 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 
 #pragma mark - UITableView Moving
 
-- (void)tableView:(UITableView *)tableView
+- (void) tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
-      toIndexPath:(NSIndexPath *)toIndexPath
+       toIndexPath:(NSIndexPath *)toIndexPath
 {
     SEL selector = @selector(moveItemFromIndexPath:toIndexPath:);
     if ([self.storage respondsToSelector:selector])
@@ -385,7 +392,7 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray* sections = [self.currentStorage sections];
+    NSArray *sections = [self.currentStorage sections];
     if (sections && sections.count > section)
     {
         id <ANSectionInterface> sectionModel = sections[section];

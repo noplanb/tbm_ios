@@ -25,37 +25,38 @@
 
 - (void)_checkSession
 {
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
-    
-    #ifdef NETTEST
-        if (user.isRegistered)
-        {
-            [self.output presentNetworkTestController];
-        }
-        else
-        {
-            [self.output userRequiresAuthentication];
-        }
-    #else
-        if (user.isRegistered)
-        {
-            [[ZZRollbarAdapter shared] updateUserFullName:[user fullName]
-                                                    phone:user.mobileNumber
-                                                   itemID:user.idTbm];
-            
-            ANDispatchBlockToMainQueue(^{
-                [self.output applicationIsUpToDateAndUserLogged:YES];
-            });
+    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
-            [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {}];
-        }
-        else
-        {
-            [self.output userRequiresAuthentication];
-        }
-        
-    #endif
-  
+#ifdef NETTEST
+    if (user.isRegistered)
+    {
+        [self.output presentNetworkTestController];
+    }
+    else
+    {
+        [self.output userRequiresAuthentication];
+    }
+#else
+    if (user.isRegistered)
+    {
+        [[ZZRollbarAdapter shared] updateUserFullName:[user fullName]
+                                                phone:user.mobileNumber
+                                               itemID:user.idTbm];
+
+        ANDispatchBlockToMainQueue(^{
+            [self.output applicationIsUpToDateAndUserLogged:YES];
+        });
+
+        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        }];
+    }
+    else
+    {
+        [self.output userRequiresAuthentication];
+    }
+
+#endif
+
 }
 
 @end

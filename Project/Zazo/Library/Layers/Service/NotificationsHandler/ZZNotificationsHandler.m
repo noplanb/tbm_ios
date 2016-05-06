@@ -19,7 +19,7 @@
 
 @property (nonatomic, assign) BOOL isPushAlreadyFailed;
 @property (nonatomic, assign) UIUserNotificationType notificationAllowedTypes; //TODO: ???
-@property (nonatomic, copy) NSString* pushVideoID;
+@property (nonatomic, copy) NSString *pushVideoID;
 
 @end
 
@@ -27,15 +27,15 @@
 
 + (void)registerToPushNotifications
 {
-    
+
     if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
     {
         OB_INFO(@"registerForPushNotification");
 
         UIUserNotificationType types = UIUserNotificationTypeBadge |
-        UIUserNotificationTypeSound |
-        UIUserNotificationTypeAlert;
-        
+                UIUserNotificationTypeSound |
+                UIUserNotificationTypeAlert;
+
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
@@ -46,34 +46,34 @@
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
 
-- (void)receivedPushNotificationsToken:(NSData*)deviceToken
+- (void)receivedPushNotificationsToken:(NSData *)deviceToken
 {
     const unsigned char *dataBuffer = (const unsigned char *)[deviceToken bytes];
-    
+
     NSUInteger dataLength = [deviceToken length];
-    NSMutableString* hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
-    
+    NSMutableString *hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
+
     for (int i = 0; i < dataLength; ++i)
     {
         [hexString appendFormat:@"%02lx", (unsigned long)dataBuffer[i]];
     }
-    
+
     ZZLogInfo(@"didRegisterForRemoteNotificationsWithDeviceToken");
     NSString *pushToken = [deviceToken description];
     pushToken = [pushToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     pushToken = [pushToken stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     ZZLogInfo(@"Push token: %@", pushToken);
-    
+
     if (![hexString isEqualToString:pushToken])
     {
         ZZLogError(@"Token was wrong");
     }
-    
+
     ANDispatchBlockToBackgroundQueue(^{
         [self _sendPushTokenToServer:hexString];
     });
-    
+
     if ([self _userHasGrantedPushAccess])
     {
         ZZLogInfo(@"BOOT: Push access granted");
@@ -88,7 +88,7 @@
 {
     UIUserNotificationType allowedTypes = [settings types];
     ZZLogInfo(@"didRegisterUserNotificationSettings: allowedTypes = %lu", (unsigned long)allowedTypes);
-    
+
     self.notificationAllowedTypes = allowedTypes;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
@@ -105,10 +105,10 @@
 {
     ZZLogInfo(@"sendPushTokenToServer");
     NSString *myMkey = [ZZStoredSettingsManager shared].userID;
-    
+
     [[ZZNotificationTransportService uploadToken:token userMKey:myMkey] subscribeNext:^(id x) {
         ZZLogInfo(@"notification/push_token: SUCCESS %@", x);
-    } error:^(NSError *error) {
+    }                                                                           error:^(NSError *error) {
         ZZLogWarning(@"notification/push_token: %@", error);
     }];
 }
@@ -118,11 +118,11 @@
     return self.notificationAllowedTypes != UIUserNotificationTypeNone;
 }
 
-- (void)handlePushNotification:(NSDictionary*)userInfo
+- (void)handlePushNotification:(NSDictionary *)userInfo
 {
     ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self.delegate requestBackground];
-    
+
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         if ([self isVideoReceivedType:userInfo])
@@ -155,22 +155,22 @@
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE];
 }
 
-- (void)handleVideoReceivedNotification:(NSDictionary*)userInfo
+- (void)handleVideoReceivedNotification:(NSDictionary *)userInfo
 {
     ZZLogInfo(@"handleVideoReceivedNotification:");
-    
-    ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
+
+    ZZNotificationDomainModel *model = [self _modelFromNotificationData:userInfo];
     [self.delegate handleVideoReceivedNotification:model];
 }
 
-- (void)handleVideoStatusUpdateNotification:(NSDictionary*)userInfo
+- (void)handleVideoStatusUpdateNotification:(NSDictionary *)userInfo
 {
     ZZLogInfo(@"handleVideoStatusUPdateNotification:");
-    ZZNotificationDomainModel* model = [self _modelFromNotificationData:userInfo];
+    ZZNotificationDomainModel *model = [self _modelFromNotificationData:userInfo];
     [self.delegate handleVideoStatusUpdateNotification:model];
 }
 
-- (ZZNotificationDomainModel*)_modelFromNotificationData:(NSDictionary*)data
+- (ZZNotificationDomainModel *)_modelFromNotificationData:(NSDictionary *)data
 {
     return [FEMObjectDeserializer deserializeObjectExternalRepresentation:data
                                                              usingMapping:[ZZNotificationDomainModel mapping]];

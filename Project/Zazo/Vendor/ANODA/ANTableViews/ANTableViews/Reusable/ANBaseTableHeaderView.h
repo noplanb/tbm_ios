@@ -9,7 +9,7 @@
 
 @interface ANBaseTableHeaderView : ANTableViewHeaderFooterView
 
-@property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, assign) CGFloat leftLabelInset;
 @property (nonatomic, assign) CGFloat bottomLabelInset;
 

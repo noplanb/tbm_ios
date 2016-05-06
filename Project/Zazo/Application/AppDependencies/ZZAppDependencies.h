@@ -9,30 +9,36 @@
 @interface ZZAppDependencies : NSObject
 
 - (void)initialApplicationSetup:(UIApplication *)application
-                  launchOptions:(NSDictionary*)options
-                         window:(UIWindow*)window;
+                  launchOptions:(NSDictionary *)options
+                         window:(UIWindow *)window;
 
 
 #pragma mark - Application States
 
 - (void)handleWillResignActive;
+
 - (void)handleApplicationDidBecomeActive;
+
 - (void)handleApplicationWillTerminate;
+
 - (void)handleApplicationDidEnterInBackground;
+
 - (void)handleApplicationWillEnterForeground;
 
 #pragma mark - Open External URL
 
-- (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application;
+- (BOOL)handleOpenURL:(NSURL *)url inApplication:(NSString *)application;
 
 
 #pragma mark - Notifications
 
-- (void)handleApplicationDidRegisterForPushWithToken:(NSData*)token;
-- (void)handlePushNotification:(NSDictionary*)userInfo;
-- (void)handleNotificationSettings:(UIUserNotificationSettings*)settings;
+- (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token;
 
-- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError*)error;
+- (void)handlePushNotification:(NSDictionary *)userInfo;
+
+- (void)handleNotificationSettings:(UIUserNotificationSettings *)settings;
+
+- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 
 #pragma mark - UI
@@ -42,6 +48,6 @@
 
 #pragma mark - Background
 
-- (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
+- (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler;
 
 @end

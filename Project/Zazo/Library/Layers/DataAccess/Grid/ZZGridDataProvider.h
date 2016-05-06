@@ -12,18 +12,21 @@
 
 @interface ZZGridDataProvider : NSObject
 
-+ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount;
++ (NSArray *)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount;
 
 #pragma mark - Fetches
 
-+ (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
++ (NSArray *)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
 //+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
 
-+ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID;
-+ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID;
++ (ZZGridDomainModel *)modelWithRelatedUserID:(NSString *)userID;
 
-+ (ZZGridDomainModel*)loadFirstEmptyGridElement;
-+ (ZZGridDomainModel*)modelWithEarlierLastActionFriend;
-+ (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel;
++ (BOOL)isRelatedUserOnGridWithID:(NSString *)userID;
+
++ (ZZGridDomainModel *)loadFirstEmptyGridElement;
+
++ (ZZGridDomainModel *)modelWithEarlierLastActionFriend;
+
++ (ZZGridDomainModel *)modelWithContact:(ZZContactDomainModel *)contactModel;
 
 @end

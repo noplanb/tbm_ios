@@ -51,24 +51,24 @@
 
 #pragma mark - Private
 
-- (void)_addSectionWithItems:(NSArray*)items
+- (void)_addSectionWithItems:(NSArray *)items
 {
     if (!ANIsEmpty(items))
     {
         [self.storage addItems:items toSection:0];
-    
+
     }
 }
 
-- (void)updateModelWithFriend:(ZZFriendDomainModel*)model
+- (void)updateModelWithFriend:(ZZFriendDomainModel *)model
 {
-    NSArray* items = [self.storage itemsInSection:0];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"item == %@",model];
-    NSArray* result = [items filteredArrayUsingPredicate:predicate];
-    
+    NSArray *items = [self.storage itemsInSection:0];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"item == %@", model];
+    NSArray *result = [items filteredArrayUsingPredicate:predicate];
+
     if (!ANIsEmpty(result))
     {
-        ZZEditFriendCellViewModel* updatedModel = [result firstObject];
+        ZZEditFriendCellViewModel *updatedModel = [result firstObject];
         updatedModel.isUpdating = NO;
         updatedModel.item = model;
         [self updateViewModel:updatedModel];

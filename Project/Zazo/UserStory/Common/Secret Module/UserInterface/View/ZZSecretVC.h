@@ -12,6 +12,6 @@
 
 @interface ZZSecretVC : ZZBaseVC <ZZSecretViewInterface>
 
-@property (nonatomic, weak) id<ZZSecretModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZSecretModuleInterface> eventHandler;
 
 @end

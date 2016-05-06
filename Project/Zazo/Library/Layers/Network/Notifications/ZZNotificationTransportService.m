@@ -19,7 +19,7 @@ static const struct
     __unsafe_unretained NSString *mKey;
     __unsafe_unretained NSString *itemID;
     __unsafe_unretained NSString *isUserHasApp;
-    
+
     __unsafe_unretained NSString *targetMKey;
     __unsafe_unretained NSString *fromMKey;
     __unsafe_unretained NSString *senderName;
@@ -27,74 +27,74 @@ static const struct
     __unsafe_unretained NSString *toUserMKey;
     __unsafe_unretained NSString *status;
     __unsafe_unretained NSString *type;
-    
+
     __unsafe_unretained NSString *videoReceived;
     __unsafe_unretained NSString *videoStatusUpdate;
-    
+
 } ZZNotificationsServerParameters =
-{
-    .buildNumber = @"device_build",
-    .apnsToken = @"push_token",
-    .platform = @"device_platform",
-    .mKey = @"mkey",
-    .targetMKey = @"target_mkey",
-    .fromMKey = @"from_mkey",
-    .videoItemID = @"video_id",
-    .senderName = @"sender_name",
-    
-    .toUserMKey = @"to_mkey",
-    
-    .status = @"status",
-    .type = @"type",
-    
-    .videoReceived = @"video_received",
-    .videoStatusUpdate = @"video_status_update",
-};
+        {
+                .buildNumber = @"device_build",
+                .apnsToken = @"push_token",
+                .platform = @"device_platform",
+                .mKey = @"mkey",
+                .targetMKey = @"target_mkey",
+                .fromMKey = @"from_mkey",
+                .videoItemID = @"video_id",
+                .senderName = @"sender_name",
+
+                .toUserMKey = @"to_mkey",
+
+                .status = @"status",
+                .type = @"type",
+
+                .videoReceived = @"video_received",
+                .videoStatusUpdate = @"video_status_update",
+        };
 
 @implementation ZZNotificationTransportService
 
 
 #pragma mark - General APNS
 
-+ (RACSignal*)uploadToken:(NSString*)token userMKey:(NSString*)mkey
++ (RACSignal *)uploadToken:(NSString *)token userMKey:(NSString *)mkey
 {
-    NSString* state = @"prod";
+    NSString *state = @"prod";
 
 #ifdef DEBUG
-     state  = @"dev";
+    state = @"dev";
 #endif
-    
-    NSDictionary* parameters = @{ZZNotificationsServerParameters.mKey           : [NSObject an_safeString:mkey],
-                                 ZZNotificationsServerParameters.buildNumber    : [NSObject an_safeString:state],
-                                 ZZNotificationsServerParameters.apnsToken      : [NSObject an_safeString:token],
-                                 ZZNotificationsServerParameters.platform       : @"ios"};
-    
+
+    NSDictionary *parameters = @{ZZNotificationsServerParameters.mKey : [NSObject an_safeString:mkey],
+            ZZNotificationsServerParameters.buildNumber : [NSObject an_safeString:state],
+            ZZNotificationsServerParameters.apnsToken : [NSObject an_safeString:token],
+            ZZNotificationsServerParameters.platform : @"ios"};
+
     return [ZZNotificationsTransport uploadTokenWithParameters:parameters];
 }
 
 
 #pragma mark - Outgoing Events
 
-+ (RACSignal*)sendVideoReceivedNotificationTo:(ZZFriendDomainModel*)model videoItemID:(NSString*)videoItemID from:(ZZUserDomainModel*)user
++ (RACSignal *)sendVideoReceivedNotificationTo:(ZZFriendDomainModel *)model videoItemID:(NSString *)videoItemID from:(ZZUserDomainModel *)user
 {
-    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey     : [NSObject an_safeString:model.mKey],
-                                 ZZNotificationsServerParameters.fromMKey       : [NSObject an_safeString:user.mkey],
-                                 ZZNotificationsServerParameters.senderName     : [NSObject an_safeString:user.firstName],
-                                 ZZNotificationsServerParameters.videoItemID    : [NSObject an_safeString:videoItemID]};
-    
+    NSDictionary *parameters = @{ZZNotificationsServerParameters.targetMKey : [NSObject an_safeString:model.mKey],
+            ZZNotificationsServerParameters.fromMKey : [NSObject an_safeString:user.mkey],
+            ZZNotificationsServerParameters.senderName : [NSObject an_safeString:user.firstName],
+            ZZNotificationsServerParameters.videoItemID : [NSObject an_safeString:videoItemID]};
+
     return [ZZNotificationsTransport sendVideoReceivedNotificationWithParameters:parameters];
 }
 
-+ (RACSignal*)sendVideoStatusUpdateNotificationTo:(ZZFriendDomainModel*)model
-                                      videoItemID:(NSString*)videoItemID
-                                           status:(NSString*)status
-                                             from:(ZZUserDomainModel*)user
++ (RACSignal *)sendVideoStatusUpdateNotificationTo:(ZZFriendDomainModel *)model
+                                       videoItemID:(NSString *)videoItemID
+                                            status:(NSString *)status
+                                              from:(ZZUserDomainModel *)user
 {
-    NSDictionary* parameters = @{ZZNotificationsServerParameters.targetMKey     : [NSObject an_safeString:model.mKey],
-                                 ZZNotificationsServerParameters.toUserMKey     : [NSObject an_safeString:user.mkey],
-                                 ZZNotificationsServerParameters.status         : [NSObject an_safeString:status],
-                                 ZZNotificationsServerParameters.videoItemID    : [NSObject an_safeString:videoItemID]};
-    
+    NSDictionary *parameters = @{ZZNotificationsServerParameters.targetMKey : [NSObject an_safeString:model.mKey],
+            ZZNotificationsServerParameters.toUserMKey : [NSObject an_safeString:user.mkey],
+            ZZNotificationsServerParameters.status : [NSObject an_safeString:status],
+            ZZNotificationsServerParameters.videoItemID : [NSObject an_safeString:videoItemID]};
+
     return [ZZNotificationsTransport sendVideoStatusUpdateNotificationWithParameters:parameters];
 }
 

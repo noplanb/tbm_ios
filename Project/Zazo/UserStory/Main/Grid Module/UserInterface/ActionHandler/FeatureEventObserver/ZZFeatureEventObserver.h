@@ -12,7 +12,7 @@
 
 @protocol ZZFeatureEventObserverDelegate <NSObject>
 
-- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index friendModel:(ZZFriendDomainModel*)model;
+- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index friendModel:(ZZFriendDomainModel *)model;
 
 @end
 
@@ -23,10 +23,10 @@
 @property (nonatomic, weak) id <ZZFeatureEventObserverDelegate> delegate;
 
 - (void)handleEvent:(ZZGridActionEventType)event
-          withModel:(ZZFriendDomainModel*)model
+          withModel:(ZZFriendDomainModel *)model
           withIndex:(NSInteger)index
-withCompletionBlock:(void(^)(BOOL isFeatureShowed))completionBlock;
+withCompletionBlock:(void (^)(BOOL isFeatureShowed))completionBlock;
 
-- (void)updateFeaturesWithRemoteFriendMkeys:(NSArray*)friendMkeys;
+- (void)updateFeaturesWithRemoteFriendMkeys:(NSArray *)friendMkeys;
 
 @end

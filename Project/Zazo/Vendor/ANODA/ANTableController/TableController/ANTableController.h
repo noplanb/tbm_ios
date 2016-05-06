@@ -12,29 +12,29 @@
 
 @class ANKeyboardHandler;
 
-typedef NS_ENUM(NSUInteger,ANTableViewSectionStyle)
+typedef NS_ENUM(NSUInteger, ANTableViewSectionStyle)
 {
     ANTableViewSectionStyleTitle = 1,
     ANTableViewSectionStyleView
 };
 
 @interface ANTableController : NSObject
-<
-UITableViewDataSource,
-UITableViewDelegate,
-UISearchBarDelegate,
-ANTableViewControllerEvents
->
+        <
+        UITableViewDataSource,
+        UITableViewDelegate,
+        UISearchBarDelegate,
+        ANTableViewControllerEvents
+        >
 
 @property (nonatomic, assign) BOOL isAnimating;
 @property (nonatomic, assign) BOOL isHandlingKeyboard; // default yes;
-@property (nonatomic, retain) ANTableViewFactory * cellFactory;
+@property (nonatomic, retain) ANTableViewFactory *cellFactory;
 @property (nonatomic, strong, readonly) id <ANStorageInterface> currentStorage;
 
-@property (nonatomic, weak) UITableView* tableView;
-@property (nonatomic, strong) UISearchBar* searchBar;
+@property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong) ANKeyboardHandler* keyboardHandler;
+@property (nonatomic, strong) ANKeyboardHandler *keyboardHandler;
 
 #pragma mark - Storages
 
@@ -60,12 +60,14 @@ ANTableViewControllerEvents
 @property (nonatomic, assign) BOOL shouldAnimateTableViewUpdates; // default is YES
 
 
-- (instancetype)initWithTableView:(UITableView*)tableView;
+- (instancetype)initWithTableView:(UITableView *)tableView;
 
 #pragma mark - Mapping
 
 - (void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass;
+
 - (void)registerHeaderClass:(Class)headerClass forModelClass:(Class)modelClass;
+
 - (void)registerFooterClass:(Class)footerClass forModelClass:(Class)modelClass;
 
 /**
@@ -87,7 +89,7 @@ ANTableViewControllerEvents
  
  @param searchString Search string used as a criteria for filtering.
  */
--(void)filterTableItemsForSearchString:(NSString *)searchString;
+- (void)filterTableItemsForSearchString:(NSString *)searchString;
 
 /**
  Filter presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNUmber is not empty, UITableViewDataSource is assigned to searchingStorage and table view is reloaded automatically.
@@ -96,14 +98,14 @@ ANTableViewControllerEvents
  
  @param scopeNumber Scope number of UISearchBar
  */
--(void)filterTableItemsForSearchString:(NSString *)searchString
-                               inScope:(NSInteger)scopeNumber;
+- (void)filterTableItemsForSearchString:(NSString *)searchString
+                                inScope:(NSInteger)scopeNumber;
 
 /**
  Returns whether search is active, based on current searchString and searchScope, retrieved from UISearchBarDelegate methods.
  */
 
--(BOOL)isSearching NS_REQUIRES_SUPER;
+- (BOOL)isSearching NS_REQUIRES_SUPER;
 
 
 @end

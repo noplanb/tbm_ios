@@ -4,4 +4,4 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const ZZMenuModuleName;
+extern NSString *const ZZMenuModuleName;

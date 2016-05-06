@@ -10,28 +10,27 @@
 #import "FEMObjectMapping.h"
 
 const struct ZZNotificationDomainModelAttributes ZZNotificationDomainModelAttributes = {
-    .type = @"type",
-    .typeValue = @"typeValue",
-    .videoID = @"videoID",
-    .fromUserMKey = @"fromUserMKey",
-    .toUserMKey = @"toUserMKey",
-    .status = @"status",
+        .type = @"type",
+        .typeValue = @"typeValue",
+        .videoID = @"videoID",
+        .fromUserMKey = @"fromUserMKey",
+        .toUserMKey = @"toUserMKey",
+        .status = @"status",
 };
 
 @implementation ZZNotificationDomainModel
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
         [mapping addAttributesFromDictionary:
-         @{ZZNotificationDomainModelAttributes.fromUserMKey : @"from_mkey",
-           ZZNotificationDomainModelAttributes.type         : @"type",
-           ZZNotificationDomainModelAttributes.videoID      : @"video_id",
-           ZZNotificationDomainModelAttributes.status       : @"status",
-           ZZNotificationDomainModelAttributes.toUserMKey   : @"to_mkey"}];
+                @{ZZNotificationDomainModelAttributes.fromUserMKey : @"from_mkey",
+                        ZZNotificationDomainModelAttributes.type : @"type",
+                        ZZNotificationDomainModelAttributes.videoID : @"video_id",
+                        ZZNotificationDomainModelAttributes.status : @"status",
+                        ZZNotificationDomainModelAttributes.toUserMKey : @"to_mkey"}];
     }];
 }
-
 
 
 #pragma mark - Setters / Getters

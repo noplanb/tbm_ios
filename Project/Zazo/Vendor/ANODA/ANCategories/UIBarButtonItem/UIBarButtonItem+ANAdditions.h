@@ -5,7 +5,8 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-typedef NS_ENUM(NSUInteger, ANBarButtonType) {
+typedef NS_ENUM(NSUInteger, ANBarButtonType)
+{
     ANBarButtonTypeClose,
     ANBarButtonTypeDone,
     ANBarButtonTypeAdd,
@@ -25,8 +26,8 @@ typedef NS_ENUM(NSUInteger, ANBarButtonType) {
 
 @interface UIBarButtonItem (ANAdditions)
 
-+ (void)an_addImage:(UIImage*)image forType:(ANBarButtonType)type;
++ (void)an_addImage:(UIImage *)image forType:(ANBarButtonType)type;
 
-+ (UIBarButtonItem*)an_itemWithType:(ANBarButtonType)type command:(RACCommand*)command;
++ (UIBarButtonItem *)an_itemWithType:(ANBarButtonType)type command:(RACCommand *)command;
 
 @end

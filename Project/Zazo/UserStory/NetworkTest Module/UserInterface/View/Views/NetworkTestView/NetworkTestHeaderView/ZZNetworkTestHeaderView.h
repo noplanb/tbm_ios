@@ -10,6 +10,6 @@
 
 @interface ZZNetworkTestHeaderView : UIView
 
-@property (nonatomic, strong, readonly) UILabel* zazoApplicationTitle;
+@property (nonatomic, strong, readonly) UILabel *zazoApplicationTitle;
 
 @end

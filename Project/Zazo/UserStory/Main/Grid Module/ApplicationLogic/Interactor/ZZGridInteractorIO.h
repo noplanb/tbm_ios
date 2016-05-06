@@ -19,22 +19,26 @@
 @protocol ZZGridInteractorInput <NSObject>
 
 - (void)loadData;
+
 - (void)addUserToGrid:(id)friendModel;
 
-- (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel*)contact;
-- (void)inviteUserInApplication:(ZZContactDomainModel*)contact;
+- (void)userSelectedPrimaryPhoneNumber:(ZZContactDomainModel *)contact;
 
-- (void)removeUserFromContacts:(ZZFriendDomainModel*)model;
-- (void)updateLastActionForFriend:(ZZFriendDomainModel*)friendModel;
+- (void)inviteUserInApplication:(ZZContactDomainModel *)contact;
 
-- (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel*)model;
+- (void)removeUserFromContacts:(ZZFriendDomainModel *)model;
 
-- (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
+- (void)updateLastActionForFriend:(ZZFriendDomainModel *)friendModel;
+
+- (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model;
+
+- (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel *)model toVisible:(BOOL)isVisible;
+
 - (void)reloadDataAfterResetUserData;
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model;
+- (void)updateGridWithModel:(ZZGridDomainModel *)model;
 
-- (void)updateGridViewModels:(NSArray*)models;
+- (void)updateGridViewModels:(NSArray *)models;
 
 - (void)updateGridIfNeeded;
 
@@ -43,40 +47,51 @@
 
 @protocol ZZGridInteractorOutput <NSObject>
 
-- (void)dataLoadedWithArray:(NSArray*)data;
-- (void)dataLoadingDidFailWithError:(NSError*)error;
+- (void)dataLoadedWithArray:(NSArray *)data;
 
-- (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model;
+- (void)dataLoadingDidFailWithError:(NSError *)error;
 
-- (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
-- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)model;
-- (void)userHasNoAppInstalled:(ZZContactDomainModel*)model;
-- (void)friendRecievedFromServer:(ZZFriendDomainModel*)model;
+- (void)gridAlreadyContainsFriend:(ZZGridDomainModel *)model;
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend;
+- (void)userHasNoValidNumbers:(ZZContactDomainModel *)model;
+
+- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel *)model;
+
+- (void)userHasNoAppInstalled:(ZZContactDomainModel *)model;
+
+- (void)friendRecievedFromServer:(ZZFriendDomainModel *)model;
+
+- (void)updateGridWithModel:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend;
 
 - (void)loadedStateUpdatedTo:(BOOL)isLoading;
-- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact;
-- (void)reloadGridModel:(ZZGridDomainModel*)model;
-- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel*)model;
-- (void)reloadGridWithData:(NSArray*)data;
 
-- (void)reloadGridAfterClearUserDataWithData:(NSArray*)data; // For secret screen option
+- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel *)contact;
 
-- (void)updatedFeatureWithFriendMkeys:(NSArray*)friendsMkeys;
+- (void)reloadGridModel:(ZZGridDomainModel *)model;
+
+- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)model;
+
+- (void)reloadGridWithData:(NSArray *)data;
+
+- (void)reloadGridAfterClearUserDataWithData:(NSArray *)data; // For secret screen option
+
+- (void)updatedFeatureWithFriendMkeys:(NSArray *)friendsMkeys;
+
 - (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;
-- (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel*)model;
 
-- (void)updateDownloadProgress:(CGFloat)progree forModel:(ZZFriendDomainModel*)friendModel;
+- (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel *)model;
 
-- (void)showAlreadyContainFriend:(ZZFriendDomainModel*)friendModel compeltion:(ANCodeBlock)completion;
+- (void)updateDownloadProgress:(CGFloat)progree forModel:(ZZFriendDomainModel *)friendModel;
+
+- (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion;
 
 @end
 
 @protocol ZZGridInteractorOutputActionHandler <NSObject>
 
 - (NSInteger)friendsNumberOnGrid;
-- (void)handleModel:(ZZGridDomainModel*)model withEvent:(ZZGridActionEventType)event;
+
+- (void)handleModel:(ZZGridDomainModel *)model withEvent:(ZZGridActionEventType)event;
 
 @end
 

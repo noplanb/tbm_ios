@@ -19,7 +19,7 @@
  *
  *  @return RACCommand* instance
  */
-+ (RACCommand*)commandWithBlock:(ANCodeBlock)block;
++ (RACCommand *)commandWithBlock:(ANCodeBlock)block;
 
 /**
  *  Creates RACCommand with specified signal
@@ -28,6 +28,6 @@
  *
  *  @return RACCommand* instance with predefined signal
  */
-+ (RACCommand*)commandWithSignal:(RACSignal*)signal;
++ (RACCommand *)commandWithSignal:(RACSignal *)signal;
 
 @end

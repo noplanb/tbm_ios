@@ -8,8 +8,10 @@
 
 @interface ANErrorBuilder (PrivateSetup)
 
-+ (NSDictionary*)_userInfoByTable:(NSString*)table errorCode:(NSInteger)errorCode;
-+ (NSString*)_errorDescriptionWithCode:(NSInteger)code;
-+ (NSString*)_errorReasonWithCode:(NSInteger)code;
++ (NSDictionary *)_userInfoByTable:(NSString *)table errorCode:(NSInteger)errorCode;
+
++ (NSString *)_errorDescriptionWithCode:(NSInteger)code;
+
++ (NSString *)_errorReasonWithCode:(NSInteger)code;
 
 @end

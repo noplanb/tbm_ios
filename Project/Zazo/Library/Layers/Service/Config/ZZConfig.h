@@ -8,6 +8,6 @@
 
 @interface ZZConfig : NSObject
 
-+ (NSURL*)videosDirectoryUrl;
++ (NSURL *)videosDirectoryUrl;
 
 @end

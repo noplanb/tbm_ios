@@ -16,38 +16,38 @@
 
 @interface ZZSecretWireframe ()
 
-@property (nonatomic, strong) ZZSecretPresenter* presenter;
-@property (nonatomic, strong) ZZSecretVC* secretController;
-@property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) ZZSecretPresenter *presenter;
+@property (nonatomic, strong) ZZSecretVC *secretController;
+@property (nonatomic, strong) UINavigationController *presentedController;
 
 @end
 
 @implementation ZZSecretWireframe
 
-- (void)presentSecretControllerFromNavigationController:(UINavigationController*)nc
+- (void)presentSecretControllerFromNavigationController:(UINavigationController *)nc
 {
-    ZZSecretVC* secretController = [ZZSecretVC new];
-    ZZSecretInteractor* interactor = [ZZSecretInteractor new];
-    ZZSecretPresenter* presenter = [ZZSecretPresenter new];
-    
+    ZZSecretVC *secretController = [ZZSecretVC new];
+    ZZSecretInteractor *interactor = [ZZSecretInteractor new];
+    ZZSecretPresenter *presenter = [ZZSecretPresenter new];
+
     interactor.output = presenter;
-    
+
     secretController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:secretController];
-    
+
     ANDispatchBlockToMainQueue(^{
         [nc pushViewController:secretController animated:NO];
     });
-    
+
     self.presenter = presenter;
     self.presentedController = nc;
     self.secretController = secretController;
 }
 
-- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc
+- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController *)nc
 {
     if (ANIsEmpty(self.secretController))
     {
@@ -70,26 +70,26 @@
 
 - (void)presentLogsController
 {
-    OBLogViewController* vc = [OBLogViewController instance];
+    OBLogViewController *vc = [OBLogViewController instance];
 
     [[[vc rac_signalForSelector:@selector(done:)] take:1] subscribeNext:^(id x) {
         [self.presentedController popViewControllerAnimated:YES];
     }];
-    
+
     [self.presentedController pushViewController:vc animated:YES];
 }
 
 - (void)presentStateController
 {
-    ZZDebugStateWireframe* wireframe = [ZZDebugStateWireframe new];
+    ZZDebugStateWireframe *wireframe = [ZZDebugStateWireframe new];
     [wireframe presentDebugStateControllerFromNavigationController:self.presentedController];
 }
 
 - (void)presentDebugController
 {
-    ANDebugVC* vc = [ANDebugVC new];
+    ANDebugVC *vc = [ANDebugVC new];
     ANDispatchBlockToMainQueue(^{
-       [self.presentedController pushViewController:vc animated:YES];
+        [self.presentedController pushViewController:vc animated:YES];
     });
 }
 

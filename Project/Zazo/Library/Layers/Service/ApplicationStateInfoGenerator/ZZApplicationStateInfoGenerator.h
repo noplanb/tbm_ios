@@ -13,19 +13,22 @@
 
 #pragma mark - Settings
 
-+ (ZZDebugSettingsStateDomainModel*)generateSettingsModel;
-+ (NSString*)generateSettingsStateMessage;
++ (ZZDebugSettingsStateDomainModel *)generateSettingsModel;
+
++ (NSString *)generateSettingsStateMessage;
 
 
 #pragma mark - Global 
 
-+ (NSString*)globalStateString;
++ (NSString *)globalStateString;
 
 
 #pragma mark - Dangling Videos
 
-+ (NSArray*)loadVideoDataWithFriendsModels:(NSArray*)friends;
-+ (NSArray*)loadIncomingDandlingItemsFromData:(NSArray*)stateModels;
-+ (NSArray*)loadOutgoingDandlingItemsFromData:(NSArray*)stateModels;
++ (NSArray *)loadVideoDataWithFriendsModels:(NSArray *)friends;
+
++ (NSArray *)loadIncomingDandlingItemsFromData:(NSArray *)stateModels;
+
++ (NSArray *)loadOutgoingDandlingItemsFromData:(NSArray *)stateModels;
 
 @end

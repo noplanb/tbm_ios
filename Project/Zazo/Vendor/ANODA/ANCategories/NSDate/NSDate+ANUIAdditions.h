@@ -16,7 +16,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* formatted string date
  */
-- (NSString*)an_numberFormatWithDelimeter:(NSString*)delimeter;
+- (NSString *)an_numberFormatWithDelimeter:(NSString *)delimeter;
 
 #pragma mark - Weekday
 
@@ -25,7 +25,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* weekday name in format "ccc"
  */
-- (NSString*)an_weekDayName;
+- (NSString *)an_weekDayName;
 
 
 /**
@@ -33,7 +33,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* weekday name in format "ccc"
  */
-- (NSString*)an_shortWeekDayName;
+- (NSString *)an_shortWeekDayName;
 
 
 /**
@@ -51,7 +51,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString index
  */
-- (NSString*)an_dayNumber;
+- (NSString *)an_dayNumber;
 
 
 #pragma mark - Month
@@ -61,7 +61,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* month name in format "MMM"
  */
-- (NSString*)an_monthName;
+- (NSString *)an_monthName;
 
 
 /**
@@ -69,7 +69,7 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* month name in format "MMM"
  */
-- (NSString*)an_shortMonthName;
+- (NSString *)an_shortMonthName;
 
 
 /**
@@ -87,32 +87,39 @@ static const double kDayInSeconds = 86400;
  *
  *  @return NSString* with format "HH:mm"
  */
-- (NSString*)an_timeString;
+- (NSString *)an_timeString;
 
 #pragma mark - Comparsion
 
 - (BOOL)an_isToday;
+
 - (BOOL)an_isTomorrow;
+
 - (BOOL)an_isDayWeekend;
+
 - (BOOL)an_isEqualsToDateIgnoringTime:(NSDate *)secondValue;
-- (NSInteger)an_daysBetweenDate:(NSDate*)fromDateTime;
+
+- (NSInteger)an_daysBetweenDate:(NSDate *)fromDateTime;
 
 
 #pragma mark - Creating new objects
 
 - (NSDate *)an_dateByAddingDaysWithDST:(NSInteger)daysToAdd;
+
 - (NSDate *)an_dateByAddingDaysWithoutDST:(NSInteger)dDays;
+
 - (NSDate *)an_dateWithoutTime;
 
-+ (NSDate*)an_currentDateWithTimeRoundedToIntervalInMinutes:(float)intervalInMinutes;
++ (NSDate *)an_currentDateWithTimeRoundedToIntervalInMinutes:(float)intervalInMinutes;
 
 #pragma mark - Common Tools
 
-+ (NSDate*)an_dateFromString:(NSString*)dateString format:(NSString*)dateFormat;
-- (NSString*)an_stringFromDateWithFormat:(NSString*)dateFormat;
++ (NSDate *)an_dateFromString:(NSString *)dateString format:(NSString *)dateFormat;
+
+- (NSString *)an_stringFromDateWithFormat:(NSString *)dateFormat;
 
 #pragma mark - UI formats
 
-- (NSString*)an_listDateStringWithIgnoringCurrentYear;
+- (NSString *)an_listDateStringWithIgnoringCurrentYear;
 
 @end

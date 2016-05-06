@@ -14,12 +14,12 @@ typedef NS_ENUM(NSInteger, ZZHintsArrowCurveKind)
 
 @interface ZZHintsArrow : UIView
 
-@property(nonatomic, assign) ZZHintsArrowCurveKind arrowCurveKind;
-@property(nonatomic, strong) NSString *text;
-@property(nonatomic, assign) CGFloat arrowAngle;
-@property(nonatomic, assign) CGPoint arrowPoint;
-@property(nonatomic, strong) UILabel *arrowLabel;
-@property(nonatomic, assign) BOOL hideArrow;
+@property (nonatomic, assign) ZZHintsArrowCurveKind arrowCurveKind;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) CGFloat arrowAngle;
+@property (nonatomic, assign) CGPoint arrowPoint;
+@property (nonatomic, strong) UILabel *arrowLabel;
+@property (nonatomic, assign) BOOL hideArrow;
 
 + (ZZHintsArrow *)arrowWithText:(NSString *)text
                       curveKind:(ZZHintsArrowCurveKind)curveKind

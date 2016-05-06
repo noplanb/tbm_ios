@@ -8,10 +8,11 @@
 @interface UINavigationItem (ANAdditions)
 
 - (void)an_addLeftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem;
+
 - (void)an_addRightBarButtonItem:(UIBarButtonItem *)rightBarButtonItem;
 
 //predefined items
-- (void)an_addCloseButtonItemWithModalVC:(UIViewController*)vc;
+- (void)an_addCloseButtonItemWithModalVC:(UIViewController *)vc;
 
 @end
 

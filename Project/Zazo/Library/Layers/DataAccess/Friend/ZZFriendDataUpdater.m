@@ -18,7 +18,7 @@
 
 #pragma mark Update methods
 
-+ (void)updateLastTimeActionFriendWithID:(NSString*)itemID
++ (void)updateLastTimeActionFriendWithID:(NSString *)itemID
 {
     [self _updateFriendWithID:itemID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.timeOfLastAction = [NSDate date];
@@ -70,7 +70,7 @@
 + (void)_updateFriendWithID:(NSString *)friendID usingBlock:(void (^)(TBMFriend *friendEntity))updateBlock
 {
     ANDispatchBlockToMainQueue(^{
-        TBMFriend* friendEntity = [self _userWithID:friendID];
+        TBMFriend *friendEntity = [self _userWithID:friendID];
         updateBlock(friendEntity);
         [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
     });
@@ -78,27 +78,27 @@
 
 #pragma mark Batch updation
 
-+ (void)updateEverSentFriendsWithMkeys:(NSArray*)mKeys
++ (void)updateEverSentFriendsWithMkeys:(NSArray *)mKeys
 {
     ANDispatchBlockToMainQueue(^{
-        [mKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull mKey, NSUInteger idx, BOOL * _Nonnull stop) {
-            TBMFriend* friendEntity = [ZZFriendDataProvider friendEntityWithMkey:mKey];
+        [mKeys enumerateObjectsUsingBlock:^(NSString *_Nonnull mKey, NSUInteger idx, BOOL *_Nonnull stop) {
+            TBMFriend *friendEntity = [ZZFriendDataProvider friendEntityWithMkey:mKey];
             friendEntity.everSent = @(YES);
             friendEntity.isFriendshipCreator = @([friendEntity.friendshipCreatorMKey isEqualToString:friendEntity.mkey]);
         }];
-        
+
         [[self _context] MR_saveToPersistentStoreAndWait];
     });
 }
 
 #pragma mark Upsert
 
-+ (ZZFriendDomainModel*)upsertFriend:(ZZFriendDomainModel*)friendModel
++ (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)friendModel
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        
-        TBMFriend* friendEntity = [self _userWithID:friendModel.idTbm];
-        
+    return ZZDispatchOnMainThreadAndReturn(^id {
+
+        TBMFriend *friendEntity = [self _userWithID:friendModel.idTbm];
+
         if (friendEntity)
         {
             if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
@@ -116,12 +116,12 @@
             [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
             [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
         }
-        
+
         if (![friendEntity.friendshipStatus isEqualToString:friendModel.friendshipStatus])
         {
             friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
         }
-        
+
         return [ZZFriendDataProvider modelFromEntity:friendEntity];
 
     });
@@ -154,13 +154,13 @@
 
 #pragma mark - Private
 
-+ (TBMFriend*)_userWithID:(NSString*)itemID
++ (TBMFriend *)_userWithID:(NSString *)itemID
 {
-    TBMFriend* item = nil;
+    TBMFriend *item = nil;
     if (!ANIsEmpty(itemID))
     {
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMFriendAttributes.idTbm,itemID];
-        NSArray* items = [TBMFriend MR_findAllWithPredicate:predicate inContext:[self _context]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", TBMFriendAttributes.idTbm, itemID];
+        NSArray *items = [TBMFriend MR_findAllWithPredicate:predicate inContext:[self _context]];
         if (items.count > 1)
         {
             ZZLogWarning(@"TBMFriend contains dupples for tbmID = %@", itemID);
@@ -170,7 +170,7 @@
     return item;
 }
 
-+ (NSManagedObjectContext*)_context
++ (NSManagedObjectContext *)_context
 {
     return [ZZContentDataAccessor mainThreadContext];
 }

@@ -10,7 +10,7 @@
 
 @implementation ZZDebugStateCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self)
@@ -21,11 +21,11 @@
     return self;
 }
 
-- (void)updateWithModel:(ZZDebugStateCellViewModel*)model
+- (void)updateWithModel:(ZZDebugStateCellViewModel *)model
 {
     if ([model isKindOfClass:[NSString class]])
     {
-        self.textLabel.text = (NSString*)model;
+        self.textLabel.text = (NSString *)model;
     }
     else
     {

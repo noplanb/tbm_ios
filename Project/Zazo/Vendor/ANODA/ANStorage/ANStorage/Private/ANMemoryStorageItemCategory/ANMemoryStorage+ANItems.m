@@ -27,27 +27,27 @@
     if (item)
     {
         [self startUpdate];
-        
-        ANSectionModel* section = [self _createSectionIfNotExist:sectionNumber];
+
+        ANSectionModel *section = [self _createSectionIfNotExist:sectionNumber];
         NSUInteger numberOfItems = [section numberOfObjects];
         [section.objects addObject:item];
         [[self loadCurrentUpdate].insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfItems
-                                                                               inSection:sectionNumber]];
+                                                                                     inSection:sectionNumber]];
         [self finishUpdate];
     }
 }
 
 - (void)_addItems:(NSArray *)items toSection:(NSUInteger)sectionNumber
 {
-    
+
     [self startUpdate];
-    ANSectionModel* section = [self _createSectionIfNotExist:sectionNumber];
+    ANSectionModel *section = [self _createSectionIfNotExist:sectionNumber];
     for (id item in items)
     {
         NSUInteger numberOfItems = [section numberOfObjects];
         [section.objects addObject:item];
         [[self loadCurrentUpdate].insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfItems
-                                                                               inSection:sectionNumber]];
+                                                                                     inSection:sectionNumber]];
         numberOfItems++;
     }
     [self finishUpdate];
@@ -57,20 +57,20 @@
 {
     [self startUpdate];
     // Update datasource
-    ANSectionModel * section = [self _createSectionIfNotExist:indexPath.section];
-    
+    ANSectionModel *section = [self _createSectionIfNotExist:indexPath.section];
+
     if ([section.objects count] < indexPath.row)
     {
         NSLog(@"ANMemoryStorage: failed to insert item for section: %ld, row: %ld, only %lu items in section",
-              (long)indexPath.section,
-              (long)indexPath.row,
-              (unsigned long)[section.objects count]);
+                (long)indexPath.section,
+                (long)indexPath.row,
+                (unsigned long)[section.objects count]);
         return;
     }
     [section.objects insertObject:item atIndex:indexPath.row];
-    
+
     [[self loadCurrentUpdate].insertedRowIndexPaths addObject:indexPath];
-    
+
     [self finishUpdate];
 }
 
@@ -79,12 +79,12 @@
 - (void)_removeItem:(id)item
 {
     [self startUpdate];
-    
-    NSIndexPath * indexPath = [self indexPathForItem:item];
-    
+
+    NSIndexPath *indexPath = [self indexPathForItem:item];
+
     if (indexPath)
     {
-        ANSectionModel* section = [self _createSectionIfNotExist:indexPath.section];
+        ANSectionModel *section = [self _createSectionIfNotExist:indexPath.section];
         [section.objects removeObjectAtIndex:indexPath.row];
     }
     else
@@ -99,13 +99,13 @@
 - (void)_removeItemsAtIndexPaths:(NSArray *)indexPaths
 {
     [self startUpdate];
-    for (NSIndexPath* indexPath in indexPaths)
+    for (NSIndexPath *indexPath in indexPaths)
     {
         id object = [self objectAtIndexPath:indexPath];
-        
+
         if (object)
         {
-            ANSectionModel* section = [self _createSectionIfNotExist:indexPath.section];
+            ANSectionModel *section = [self _createSectionIfNotExist:indexPath.section];
             [section.objects removeObjectAtIndex:indexPath.row];
             [[self loadCurrentUpdate].deletedRowIndexPaths addObject:indexPath];
         }
@@ -120,20 +120,20 @@
 - (void)_removeItems:(NSArray *)items
 {
     [self startUpdate];
-    
-    NSMutableArray* indexPaths = [NSMutableArray array]; // TODO: set mb?
-    
+
+    NSMutableArray *indexPaths = [NSMutableArray array]; // TODO: set mb?
+
     [items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
-        
-        NSIndexPath* indexPath = [self indexPathForItem:item];
-        
+
+        NSIndexPath *indexPath = [self indexPathForItem:item];
+
         if (indexPath)
         {
-            ANSectionModel* section = self.sections[indexPath.section];
+            ANSectionModel *section = self.sections[indexPath.section];
             [section.objects removeObjectAtIndex:indexPath.row];
         }
     }];
-    
+
     [[self loadCurrentUpdate].deletedRowIndexPaths addObjectsFromArray:indexPaths];
     [self finishUpdate];
 }
@@ -150,12 +150,12 @@
 - (void)_replaceItem:(id)itemToReplace withItem:(id)replacingItem
 {
     [self startUpdate];
-    
-    NSIndexPath * originalIndexPath = [self indexPathForItem:itemToReplace];
+
+    NSIndexPath *originalIndexPath = [self indexPathForItem:itemToReplace];
     if (originalIndexPath && replacingItem)
     {
-        ANSectionModel * section = [self _createSectionIfNotExist:originalIndexPath.section];
-        
+        ANSectionModel *section = [self _createSectionIfNotExist:originalIndexPath.section];
+
         [section.objects replaceObjectAtIndex:originalIndexPath.row
                                    withObject:replacingItem];
     }
@@ -165,30 +165,30 @@
         return;
     }
     [[self loadCurrentUpdate].updatedRowIndexPaths addObject:originalIndexPath];
-    
+
     [self finishUpdate];
 }
 
-- (void)_moveItemFromIndexPath:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath
+- (void)_moveItemFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     //TODO: add safely
-    ANSectionModel * fromSection = [self sections][fromIndexPath.section];
-    ANSectionModel * toSection = [self sections][toIndexPath.section];
+    ANSectionModel *fromSection = [self sections][fromIndexPath.section];
+    ANSectionModel *toSection = [self sections][toIndexPath.section];
     id tableItem = fromSection.objects[fromIndexPath.row];
-    
+
     if (fromIndexPath && toIndexPath)
     {
 //        id testItem = [fromSection.objects objectAtIndex:fromIndexPath.row];
-        
+
         [self startUpdate];
         [fromSection.objects removeObjectAtIndex:fromIndexPath.row];
         [toSection.objects insertObject:tableItem atIndex:toIndexPath.row];
         ANStorageMovedIndexPath *path = [ANStorageMovedIndexPath new];
         path.fromIndexPath = fromIndexPath;
         path.toIndexPath = toIndexPath;
-        
+
         [[self loadCurrentUpdate].movedRowsIndexPaths addObject:path];
-        
+
         [self finishUpdate];
     }
 }
@@ -198,25 +198,26 @@
 - (void)_reloadItem:(id)item
 {
     [self startUpdate];
-    
-    NSIndexPath * indexPathToReload = [self indexPathForItem:item];
-    
+
+    NSIndexPath *indexPathToReload = [self indexPathForItem:item];
+
     if (indexPathToReload)
     {
         [[self loadCurrentUpdate].updatedRowIndexPaths addObject:indexPathToReload];
     }
-    
+
     [self finishUpdate];
 }
 
 #pragma mark Get indexPath or items
+
 - (NSArray *)_indexPathArrayForItems:(NSArray *)items
 {
-    NSMutableArray * indexPaths = [[NSMutableArray alloc] initWithCapacity:[items count]];
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:[items count]];
 
     for (NSInteger i = 0; i < [items count]; i++)
     {
-        NSIndexPath * foundIndexPath = [self indexPathForItem:[items objectAtIndex:i]];
+        NSIndexPath *foundIndexPath = [self indexPathForItem:[items objectAtIndex:i]];
         if (!foundIndexPath)
         {
             NSLog(@"ANMemoryStorage: object %@ not found", [items objectAtIndex:i]);
@@ -234,7 +235,7 @@
     id object = nil;
     if (indexPath.section < [self.sections count])
     {
-        NSArray* section = [self itemsInSection:indexPath.section];
+        NSArray *section = [self itemsInSection:indexPath.section];
         if (indexPath.row < [section count])
         {
             object = [section objectAtIndex:indexPath.row];
@@ -253,13 +254,13 @@
 
 - (NSIndexPath *)_indexPathForItem:(id)item
 {
-    __block NSIndexPath* foundedIndexPath = nil;
-    
+    __block NSIndexPath *foundedIndexPath = nil;
+
     [self.sections enumerateObjectsUsingBlock:^(id obj, NSUInteger sectionIndex, BOOL *stop) {
-        
+
         if ([obj respondsToSelector:@selector(objects)])
         {
-            NSArray * rows = [obj objects];
+            NSArray *rows = [obj objects];
             NSUInteger index = [rows indexOfObject:item];
             if (index != NSNotFound)
             {
@@ -273,10 +274,10 @@
 
 - (NSArray *)_itemsInSection:(NSUInteger)sectionNumber
 {
-    NSArray* objects;
+    NSArray *objects;
     if ([self.sections count] > sectionNumber)
     {
-        ANSectionModel* section = self.sections[sectionNumber];
+        ANSectionModel *section = self.sections[sectionNumber];
         objects = [section objects];
     }
     return objects;
@@ -294,7 +295,7 @@
     {
         for (NSInteger sectionIterator = self.sections.count; sectionIterator <= sectionNumber; sectionIterator++)
         {
-            ANSectionModel* section = [ANSectionModel new];
+            ANSectionModel *section = [ANSectionModel new];
             [self.sections addObject:section];
             [[self loadCurrentUpdate].insertedSectionIndexes addIndex:sectionIterator];
         }

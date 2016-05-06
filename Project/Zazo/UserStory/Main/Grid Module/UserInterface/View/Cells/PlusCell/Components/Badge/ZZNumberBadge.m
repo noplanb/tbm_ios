@@ -12,13 +12,16 @@
 
 @end
 
-@implementation ZZNumberBadge {
+@implementation ZZNumberBadge
+{
 
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         CATextLayer *textLayer = [CATextLayer layer];
         _textLayer = textLayer;
         [self.layer addSublayer:textLayer];

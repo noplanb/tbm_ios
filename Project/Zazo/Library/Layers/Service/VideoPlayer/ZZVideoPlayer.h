@@ -12,24 +12,32 @@
 @protocol ZZVideoPlayerDelegate <NSObject>
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
+
 - (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel;
+
 - (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos;
+
 - (void)videoPlayingProgress:(CGFloat)progress; // zero if no progress
 
 @end
 
 @interface ZZVideoPlayer : NSObject
 
-@property (nonatomic, weak) id<ZZVideoPlayerDelegate> delegate;
+@property (nonatomic, weak) id <ZZVideoPlayerDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlayingVideo;
 
-- (ZZFriendDomainModel*)playedFriendModel;
-- (void)updateWithFriendModel:(ZZFriendDomainModel*)friendModel;
-- (void)playOnView:(UIView*)view withVideoModels:(NSArray*)videoModels;
+- (ZZFriendDomainModel *)playedFriendModel;
+
+- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel;
+
+- (void)playOnView:(UIView *)view withVideoModels:(NSArray *)videoModels;
+
 - (void)stop;
 
 - (void)toggle;
+
 - (BOOL)isPlaying;
-- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel;
+
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel;
 
 @end

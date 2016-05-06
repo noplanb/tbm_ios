@@ -18,8 +18,8 @@
 
 @interface ZZGridWireframe ()
 
-@property (nonatomic, strong) UINavigationController* presentedController;
-@property (nonatomic, strong) ANMessagesWireframe* messageWireframe;
+@property (nonatomic, strong) UINavigationController *presentedController;
+@property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 
 @end
 
@@ -42,7 +42,7 @@
 
 #pragma mark - Details
 
-- (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+- (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
 {
     self.messageWireframe = [ANMessagesWireframe new];
     [self.messageWireframe presentMessageControllerFromViewController:self.gridController withModel:model completion:^(MessageComposeResult result) {
@@ -51,29 +51,31 @@
             case MessageComposeResultSent:
             {
                 if (success) success();
-            } break;
+            }
+                break;
             default:
             {
                 if (fail) fail();
-            } break;
+            }
+                break;
         }
     }];
 }
 
-- (void)presentSharingDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+- (void)presentSharingDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
 {
     self.messageWireframe = [ANMessagesWireframe new];
     [self.messageWireframe presentSharingControllerFromViewController:self.gridController
                                                             withModel:model
                                                            completion:^(BOOL completed) {
-                                                               
+
                                                                ANCodeBlock block = completed ? success : fail;
-                                                               
+
                                                                if (block)
                                                                {
                                                                    block();
                                                                }
-                                                               
+
                                                            }];
 }
 
@@ -81,18 +83,18 @@
 
 - (void)_setup
 {
-    ZZGridVC* gridController = [ZZGridVC new];
-    ZZGridInteractor* interactor = [ZZGridInteractor new];
-    ZZGridPresenter* presenter = [ZZGridPresenter new];
-    
+    ZZGridVC *gridController = [ZZGridVC new];
+    ZZGridInteractor *interactor = [ZZGridInteractor new];
+    ZZGridPresenter *presenter = [ZZGridPresenter new];
+
     interactor.output = presenter;
-    
+
     gridController.eventHandler = presenter;
 
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:gridController];
-    
+
     self.presenter = presenter;
     self.gridController = gridController;
 }

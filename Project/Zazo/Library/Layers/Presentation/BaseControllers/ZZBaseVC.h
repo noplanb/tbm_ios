@@ -10,6 +10,6 @@
 
 @interface ZZBaseVC : ANBaseVC
 
-- (void)updateStateToLoading:(BOOL)isLoading message:(NSString*)message;
+- (void)updateStateToLoading:(BOOL)isLoading message:(NSString *)message;
 
 @end

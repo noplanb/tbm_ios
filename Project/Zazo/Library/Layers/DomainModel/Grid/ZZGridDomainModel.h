@@ -9,7 +9,8 @@
 #import "ZZBaseDomainModel.h"
 #import "ZZFriendDomainModel.h"
 
-extern const struct ZZGridDomainModelAttributes {
+extern const struct ZZGridDomainModelAttributes
+{
     __unsafe_unretained NSString *itemID;
     __unsafe_unretained NSString *relatedUser;
     __unsafe_unretained NSString *index;
@@ -21,6 +22,7 @@ extern const struct ZZGridDomainModelAttributes {
 @property (nonatomic, strong) ZZFriendDomainModel *relatedUser;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL isDownloadAnimationViewed;
+
 - (NSInteger)indexPathIndexForItem;
 
 @end

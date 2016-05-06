@@ -14,16 +14,16 @@
 
 @implementation ZZVideoModelsMapper
 
-+ (TBMVideo*)fillEntity:(TBMVideo*)videoEntity fromModel:(ZZVideoDomainModel*)videoModel
++ (TBMVideo *)fillEntity:(TBMVideo *)videoEntity fromModel:(ZZVideoDomainModel *)videoModel
 {
     videoEntity.videoId = videoModel.videoID;
     videoEntity.downloadRetryCount = @(videoModel.downloadRetryCount);
     videoEntity.status = @(videoModel.incomingStatusValue);
-    
+
     return videoEntity;
 }
 
-+ (ZZVideoDomainModel*)fillModel:(ZZVideoDomainModel*)videoModel fromEntity:(TBMVideo*)videoEntity
++ (ZZVideoDomainModel *)fillModel:(ZZVideoDomainModel *)videoModel fromEntity:(TBMVideo *)videoEntity
 {
     @try
     {

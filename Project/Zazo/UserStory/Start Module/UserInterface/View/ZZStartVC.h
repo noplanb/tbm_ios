@@ -12,6 +12,6 @@
 
 @interface ZZStartVC : ZZBaseVC <ZZStartViewInterface>
 
-@property (nonatomic, weak) id<ZZStartModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZStartModuleInterface> eventHandler;
 
 @end

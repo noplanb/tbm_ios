@@ -19,7 +19,7 @@ ANCompletionBlock ANMainQueueCompletionFromCompletion(ANCompletionBlock block)
     if (!block) return NULL;
     return ^(NSError *error) {
         ANDispatchBlockToMainQueue(^{
-           block(error);
+            block(error);
         });
     };
 }
@@ -42,7 +42,7 @@ ANCodeBlock ANMainQueueBlockFromCompletion(ANCodeBlock block)
 {
     if (!block) return NULL;
     return ^{
-        
+
         ANDispatchBlockToMainQueue(^{
             block();
         });
@@ -71,7 +71,7 @@ BOOL ANIsEmpty(id thing)
             ([thing respondsToSelector:@selector(count)] && [(NSArray *)thing count] == 0));
 }
 
-BOOL ANIsEmptyStringByTrimmingWhitespaces(NSString* string)
+BOOL ANIsEmptyStringByTrimmingWhitespaces(NSString *string)
 {
     if (string)
     {

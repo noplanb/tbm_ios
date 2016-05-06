@@ -8,7 +8,8 @@
 
 #import "ZZStoredSettingsManager.h" //TODO: move enum to separate file
 
-typedef NS_ENUM(NSInteger, ZZDispatchLevel) {
+typedef NS_ENUM(NSInteger, ZZDispatchLevel)
+{
     ZZDispatchLevelDebug,
     ZZDispatchLevelInfo,
     ZZDispatchLevelWarning,
@@ -17,18 +18,20 @@ typedef NS_ENUM(NSInteger, ZZDispatchLevel) {
 };
 
 
-NSString* ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel);
-ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString*);
+NSString *ZZDispatchLevelStringFromEnumValue(ZZDispatchLevel);
+
+ZZDispatchLevel ZZDispatchLevelEnumValueFromSrting(NSString *);
 
 
-typedef NS_ENUM(NSInteger, ZZDispatchEndpoint) {
+typedef NS_ENUM(NSInteger, ZZDispatchEndpoint)
+{
     ZZDispatchEndpointRollbar,
     ZZDispatchEndpointServer
 };
 
 
-
 #pragma mark - Server State
 
-NSString* ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState);
-ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString*);
+NSString *ZZDispatchServerStateStringFromEnumValue(ZZConfigServerState);
+
+ZZConfigServerState ZZDispatchServerStateEnumValueFromSrting(NSString *);

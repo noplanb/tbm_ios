@@ -11,11 +11,11 @@
 id ZZDispatchOnMainThreadAndReturn(id(^block)())
 {
     __block id result;
-    
+
     dispatch_block_t dispatch_block = ^{
         result = block();
     };
-    
+
     if ([NSThread isMainThread])
     {
         dispatch_block();
@@ -24,6 +24,6 @@ id ZZDispatchOnMainThreadAndReturn(id(^block)())
     {
         dispatch_sync(dispatch_get_main_queue(), dispatch_block);
     }
-    
+
     return result;
 }

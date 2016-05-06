@@ -11,20 +11,20 @@
 @implementation ZZBaseEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     NSLog(@"base class");
 }
 
 - (void)nextHandlerHandleEvent:(ZZGridActionEventType)event
-                         model:(ZZFriendDomainModel*)model
-           withCompletionBlock:(void(^)(ZZHintsType handledEvent, ZZFriendDomainModel* model))completionBlock
+                         model:(ZZFriendDomainModel *)model
+           withCompletionBlock:(void (^)(ZZHintsType handledEvent, ZZFriendDomainModel *model))completionBlock
 {
     [self.eventHandler handleEvent:event model:model withCompletionBlock:completionBlock];
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     NSAssert(false, @"This is base class");
 }

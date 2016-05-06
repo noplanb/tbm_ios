@@ -13,35 +13,35 @@
 
 @interface ZZNetworkTestWireframe ()
 
-@property (nonatomic, strong) ZZNetworkTestPresenter* presenter;
-@property (nonatomic, strong) ZZNetworkTestVC* networkTestController;
+@property (nonatomic, strong) ZZNetworkTestPresenter *presenter;
+@property (nonatomic, strong) ZZNetworkTestVC *networkTestController;
 
 @end
 
 @implementation ZZNetworkTestWireframe
 
-- (void)presentNetworkTestControllerFromWindow:(UIWindow*)window
+- (void)presentNetworkTestControllerFromWindow:(UIWindow *)window
 {
-    ZZNetworkTestVC* networkTestController = [ZZNetworkTestVC new];
-    ZZNetworkTestInteractor* interactor = [ZZNetworkTestInteractor new];
-    ZZNetworkTestPresenter* presenter = [ZZNetworkTestPresenter new];
-    
+    ZZNetworkTestVC *networkTestController = [ZZNetworkTestVC new];
+    ZZNetworkTestInteractor *interactor = [ZZNetworkTestInteractor new];
+    ZZNetworkTestPresenter *presenter = [ZZNetworkTestPresenter new];
+
     interactor.output = presenter;
-    
+
     networkTestController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
-    
+
     [presenter configurePresenterWithUserInterface:networkTestController];
-    
+
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:networkTestController];
     nc.navigationBarHidden = YES;
-    
+
     ANDispatchBlockToMainQueue(^{
         window.rootViewController = nc;
     });
-    
+
     self.presenter = presenter;
     self.networkTestController = networkTestController;
 }

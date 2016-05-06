@@ -14,7 +14,8 @@
 
 #pragma mark - Mapping
 
-+ (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)entity;
-+ (TBMGridElement*)entityWithItemID:(NSString*)itemID;
++ (ZZGridDomainModel *)modelFromEntity:(TBMGridElement *)entity;
+
++ (TBMGridElement *)entityWithItemID:(NSString *)itemID;
 
 @end

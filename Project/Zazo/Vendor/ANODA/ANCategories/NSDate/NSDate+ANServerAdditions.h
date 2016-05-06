@@ -7,9 +7,10 @@
 
 @interface NSDate (SMServerAdditions)
 
-+ (NSDate*)an_dateFromServerString:(NSString*)dateString;
-+ (NSString*)an_stringFromServerDate:(NSDate*)date;
++ (NSDate *)an_dateFromServerString:(NSString *)dateString;
 
-- (NSDate*)an_serverDateFromLocalDate;
++ (NSString *)an_stringFromServerDate:(NSDate *)date;
+
+- (NSDate *)an_serverDateFromLocalDate;
 
 @end

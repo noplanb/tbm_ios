@@ -10,8 +10,8 @@
 
 @interface ZZSecretSegmentCell ()
 
-@property (nonatomic, strong) UISegmentedControl* segmentControl;
-@property (nonatomic, strong) ZZSecretSegmentCellViewModel* model;
+@property (nonatomic, strong) UISegmentedControl *segmentControl;
+@property (nonatomic, strong) ZZSecretSegmentCellViewModel *model;
 
 @end
 
@@ -34,13 +34,13 @@
     if (!self.segmentControl.numberOfSegments)
     {
         [model.titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-           [self.segmentControl insertSegmentWithTitle:obj atIndex:idx animated:NO];
+            [self.segmentControl insertSegmentWithTitle:obj atIndex:idx animated:NO];
         }];
     }
     self.segmentControl.selectedSegmentIndex = model.selectedIndex;
 }
 
-- (void)_selectedValueUpdated:(UISegmentedControl*)sender
+- (void)_selectedValueUpdated:(UISegmentedControl *)sender
 {
     [self.model updateSelectedValueTo:sender.selectedSegmentIndex];
 }
@@ -48,14 +48,14 @@
 
 #pragma mark - Lazy Load
 
-- (UISegmentedControl*)segmentControl
+- (UISegmentedControl *)segmentControl
 {
     if (!_segmentControl)
     {
         _segmentControl = [UISegmentedControl new];
         [_segmentControl addTarget:self action:@selector(_selectedValueUpdated:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_segmentControl];
-        
+
         [_segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self.contentView).offset(5);
             make.bottom.right.equalTo(self.contentView).offset(-5);

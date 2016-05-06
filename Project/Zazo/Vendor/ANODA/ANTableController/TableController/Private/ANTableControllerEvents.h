@@ -12,12 +12,15 @@
 // updating content
 
 - (void)tableControllerWillUpdateContent;
+
 - (void)tableControllerDidUpdateContent;
 
 // searching
 
 - (void)tableControllerWillBeginSearch;
+
 - (void)tableControllerDidEndSearch;
+
 - (void)tableControllerDidCancelSearch;
 
 @end

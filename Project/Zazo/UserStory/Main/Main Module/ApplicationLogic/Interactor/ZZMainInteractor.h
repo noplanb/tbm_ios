@@ -7,7 +7,7 @@
 
 @interface ZZMainInteractor : NSObject <ZZMainInteractorInput>
 
-@property (nonatomic, weak) id<ZZMainInteractorOutput> output;
+@property (nonatomic, weak) id <ZZMainInteractorOutput> output;
 
 @end
 

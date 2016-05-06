@@ -8,6 +8,6 @@
 
 @interface ZZTextFieldsDelegate : NSObject
 
-- (void)addTextFieldsWithArray:(NSArray*)textFields;
+- (void)addTextFieldsWithArray:(NSArray *)textFields;
 
 @end

@@ -15,7 +15,7 @@ static inline NSInteger const kNetworkTestHeaderViewHeight()
 
 static inline CGSize const kZazoIconImageSize()
 {
-    return CGSizeMake(30,30);
+    return CGSizeMake(30, 30);
 }
 
 static inline NSInteger const kAppImageLeftOffset()
@@ -71,6 +71,6 @@ static inline NSInteger const kNetworkTestButtonHeight()
 
 static inline CGFloat const kNetworkTestButtonWidth()
 {
-    return (CGRectGetWidth([UIScreen mainScreen].bounds)/2);
+    return (CGRectGetWidth([UIScreen mainScreen].bounds) / 2);
 }
 

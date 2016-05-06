@@ -72,26 +72,26 @@ static NSString *const kArraySeparator = @",";
 
 + (NSString *)incomingPrefix:(TBMFriend *)friend
 {
-    ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *model = [ZZUserDataProvider authenticatedUser];
     return [NSString stringWithFormat:@"%@-%@", friend.mkey, model.mkey];
 }
 
 + (NSString *)outgoingPrefix:(TBMFriend *)friend
 {
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *model = [ZZUserDataProvider authenticatedUser];
     return [NSString stringWithFormat:@"%@-%@", model.mkey, friend.mkey];
 }
 
 + (NSString *)incomingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *model = [ZZUserDataProvider authenticatedUser];
     NSString *md5 = [[[friend.mkey stringByAppendingString:model.mkey] stringByAppendingString:friend.ckey] md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
 
 + (NSString *)outgoingSuffix:(TBMFriend *)friend withTypeSuffix:(NSString *)typeSuffix
 {
-     ZZUserDomainModel* model = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *model = [ZZUserDataProvider authenticatedUser];
     NSString *md5 = [[[model.mkey stringByAppendingString:friend.mkey] stringByAppendingString:friend.ckey] md5];
     return [md5 stringByAppendingString:typeSuffix];
 }
@@ -339,7 +339,7 @@ static NSString *const kArraySeparator = @",";
         return nil;
     }
 
-    NSDictionary *response = (NSDictionary *) object;
+    NSDictionary *response = (NSDictionary *)object;
     id value = response[@"value"];
 
     if (!value)

@@ -8,7 +8,8 @@
 
 @class FEMObjectMapping;
 
-extern const struct ZZFileTransferMarkerDomainModelAttributes {
+extern const struct ZZFileTransferMarkerDomainModelAttributes
+{
     __unsafe_unretained NSString *friendID;
     __unsafe_unretained NSString *videoID;
     __unsafe_unretained NSString *isUpload;
@@ -16,14 +17,14 @@ extern const struct ZZFileTransferMarkerDomainModelAttributes {
 
 @interface ZZFileTransferMarkerDomainModel : NSObject
 
-@property (nonatomic, copy) NSString* friendID;
-@property (nonatomic, copy) NSString* videoID;
+@property (nonatomic, copy) NSString *friendID;
+@property (nonatomic, copy) NSString *videoID;
 @property (nonatomic, assign) BOOL isUpload;
 
-+ (instancetype)modelWithEncodedMarker:(NSString*)marker;
++ (instancetype)modelWithEncodedMarker:(NSString *)marker;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
 
-- (NSString*)markerValue;
+- (NSString *)markerValue;
 
 @end

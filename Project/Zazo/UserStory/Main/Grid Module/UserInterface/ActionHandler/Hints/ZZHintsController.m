@@ -21,7 +21,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 @interface ZZHintsController () <ZZHintsViewDelegate>
 
-@property (nonatomic, strong) ZZHintsView* hintsView;
+@property (nonatomic, strong) ZZHintsView *hintsView;
 @property (nonatomic, assign) ZZHintsType showedHintType;
 
 
@@ -32,36 +32,36 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (void)showHintWithType:(ZZHintsType)type
               focusFrame:(CGRect)focusFrame
                withIndex:(NSInteger)index
-               withModel:(ZZFriendDomainModel*)friendModel
-         formatParameter:(NSString*)parameter
+               withModel:(ZZFriendDomainModel *)friendModel
+         formatParameter:(NSString *)parameter
 {
-    
+
     focusFrame = CGRectOffset(focusFrame, self.frameOffset.x, self.frameOffset.y);
-    
+
     self.showedHintType = type;
-    
+
     if (self.hintsView &&
-        [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
-        ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] > 0)
+            [self.hintsView hintModel].hintType == ZZHintsTypeRecrodWelcomeHint &&
+            ![ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown &&
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] > 0)
     {
         [self hideHintView];
         [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = YES;
         type = ZZHintsTypeRecordAndTapToPlay;
     }
-    else if  (self.hintsView)
+    else if (self.hintsView)
     {
         [self hideHintView];
     }
-    
-    
+
+
     ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
     if (!ANIsEmpty(parameter))
     {
         model.formatParameter = parameter;
     }
     ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
-    
+
     if (model.type == ZZHintsTypeDeleteFriendUsageHint)
     {
         focusFrame = [self _rectForEditFriendsCell];
@@ -71,14 +71,14 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     {
         [self.delegate showGridTab];
     }
-    
+
     [viewModel updateFocusFrame:focusFrame];
-    
+
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
-    
+
     [[self.delegate hintPresentedView] addSubview:self.hintsView];
     [self _removeViewAfterDelayIfNeededWithType:type];
-    
+
 }
 
 - (CGRect)_rectForEditFriendsCell
@@ -87,7 +87,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     CGFloat headerHeight = 150;
     CGFloat rowIndex = 1;
     CGFloat tableTopInset = 8;
-    
+
     return CGRectMake(0, headerHeight + rowHeight * rowIndex + self.frameOffset.y + tableTopInset, SCREEN_WIDTH, rowHeight);
 }
 
@@ -134,7 +134,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 
 #pragma mark - Lazy Load
 
-- (ZZHintsView*)hintsView
+- (ZZHintsView *)hintsView
 {
     if (!_hintsView)
     {

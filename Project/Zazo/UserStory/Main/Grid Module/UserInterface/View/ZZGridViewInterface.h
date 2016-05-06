@@ -15,22 +15,32 @@
 
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
 
-- (void)updateWithDataSource:(ZZGridDataSource*)dataSource;
+- (void)updateWithDataSource:(ZZGridDataSource *)dataSource;
 
-- (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel*)friendModel;
+- (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel;
+
 - (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel;
+
 - (void)hideDimScreen;
 
 - (void)updateRollingStateTo:(BOOL)isEnabled;
+
 - (void)updateActiveCellTitleTo:(NSString *)title;
+
 - (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel;
 
 - (void)menuWasOpened;
+
 - (void)updateLoadingStateTo:(BOOL)isLoading;
+
 - (void)updateRecordViewStateTo:(BOOL)isRecording;
+
 - (BOOL)isGridRotating;
-- (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel*)friendModel;
+
+- (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel *)friendModel;
+
 - (void)configureViewPositions;
+
 - (void)showCameraSwitchAnimation;
 
 @end

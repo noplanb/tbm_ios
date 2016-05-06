@@ -14,7 +14,7 @@
 
 @interface ZZNetworkTestPresenter () <ZZTestVideoStateControllerDelegate>
 
-@property (nonatomic, strong) ZZTestVideoStateController* videoStateController;
+@property (nonatomic, strong) ZZTestVideoStateController *videoStateController;
 
 @end
 
@@ -35,12 +35,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZNetworkTestViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
-    
+
     self.videoStateController = [[ZZTestVideoStateController alloc] initWithDelegate:self];
-    
+
     [ZZNetworkTestFriendshipController updateFriendShipIfNeededWithCompletion:^(NSString *actualFriendID) {
         [self.interactor updateWithActualFriendID:actualFriendID];
         [self startNetworkTest];
@@ -92,16 +92,17 @@
 
 #pragma mark - VideoStatuses controller delegate
 
-- (void)didCompleteSendVideo:(NSString *)videoID {
-    
-    
+- (void)didCompleteSendVideo:(NSString *)videoID
+{
+
+
     ANDispatchBlockToMainQueue(^{
-        
+
         if ([self.interactor.sentVideoID isEqualToString:videoID] || ANIsEmpty(videoID)) // should not start new cycle if this is not our video
         {
             [self.interactor startSendingVideo];
         }
-        
+
         else
         {
             ZZLogWarning(@"🛂 ZZNetworkTest: ignoring video: %@ because we waited for: %@", videoID, self.interactor.sentVideoID);

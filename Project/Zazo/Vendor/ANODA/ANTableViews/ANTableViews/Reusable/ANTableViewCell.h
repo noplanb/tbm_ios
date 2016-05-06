@@ -9,6 +9,6 @@
 
 @interface ANTableViewCell : ANBaseTableViewCell
 
-+ (void)updateDefaultSelectionColor:(UIColor*)color;
++ (void)updateDefaultSelectionColor:(UIColor *)color;
 
 @end

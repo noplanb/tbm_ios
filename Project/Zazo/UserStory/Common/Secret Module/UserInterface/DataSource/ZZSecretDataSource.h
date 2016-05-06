@@ -31,15 +31,15 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
     ZZSecrectScreenActionsTypeLogsScreen,
     ZZSecrectScreenActionsTypeStateScreen,
     ZZSecrectScreenActionsTypeDebugUIScreen,
-    
+
     ZZSecrectScreenActionsTypeResetTutorialHints,
     ZZSecrectScreenActionsTypeFeatureOptions,
     ZZSecretScreenActionsTypeEnableAllFeatures,
-    
+
     ZZSecrectScreenActionsTypeDispatchMessage,
-    
+
     ZZSecretSectionShouldDuplicateNextUpload,
-    
+
     ZZSecrectScreenActionsTypeClearUserData,
     ZZSecrectScreenActionsTypeClearCache,
     ZZSecrectScreenActionsTypeDeleteAllDanglingFiles,
@@ -55,21 +55,25 @@ typedef NS_ENUM(NSInteger, ZZSecrectScreenActionsType)
 - (void)updateShouldUseSDKToLoggingTypeValueTo:(BOOL)value;
 
 - (void)updateServerEndpointTypeValueTo:(NSInteger)value;
-- (void)updateCustomServerURLValueTo:(NSString*)value;
+
+- (void)updateCustomServerURLValueTo:(NSString *)value;
+
 - (void)updatePushNotificationState:(BOOL)state;
+
 - (void)updateIncorrectFileSizeState:(BOOL)state;
 
 @end
 
 @interface ZZSecretDataSource : NSObject
 
-@property (nonatomic, strong) ANMemoryStorage* storage;
-@property (nonatomic, weak) id<ZZSecretDataSourceDelegate> delegate;
+@property (nonatomic, strong) ANMemoryStorage *storage;
+@property (nonatomic, weak) id <ZZSecretDataSourceDelegate> delegate;
 
-- (void)setupStorageWithViewModel:(ZZDebugSettingsStateDomainModel*)model;
-- (void)updateServerCustomURLValue:(NSString*)value;
+- (void)setupStorageWithViewModel:(ZZDebugSettingsStateDomainModel *)model;
 
-- (void)itemSelectedAtIndexPath:(NSIndexPath*)indexPath;
+- (void)updateServerCustomURLValue:(NSString *)value;
+
+- (void)itemSelectedAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)updateEnabledCustomTextFieldStateTo:(BOOL)isEnabled;
 

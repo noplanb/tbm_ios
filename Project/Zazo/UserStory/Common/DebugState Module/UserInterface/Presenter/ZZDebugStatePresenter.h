@@ -14,12 +14,12 @@
 
 @interface ZZDebugStatePresenter : NSObject <ZZDebugStateInteractorOutput, ZZDebugStateModuleInterface>
 
-@property (nonatomic, strong) id<ZZDebugStateInteractorInput> interactor;
-@property (nonatomic, strong) ZZDebugStateWireframe* wireframe;
+@property (nonatomic, strong) id <ZZDebugStateInteractorInput> interactor;
+@property (nonatomic, strong) ZZDebugStateWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZDebugStateViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZDebugStateModuleDelegate> debugstateModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZDebugStateViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZDebugStateModuleDelegate> debugstateModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZDebugStateViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZDebugStateViewInterface> *)userInterface;
 
 @end

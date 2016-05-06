@@ -8,7 +8,8 @@
 
 #import "ANBaseDomainModel.h"
 
-extern const struct ZZDebugFriendStateDomainModelAttributes {
+extern const struct ZZDebugFriendStateDomainModelAttributes
+{
     __unsafe_unretained NSString *username;
     __unsafe_unretained NSString *userID;
     __unsafe_unretained NSString *incomingVideoItems;
@@ -17,10 +18,10 @@ extern const struct ZZDebugFriendStateDomainModelAttributes {
 
 @interface ZZDebugFriendStateDomainModel : NSObject
 
-@property (nonatomic, copy) NSString* username;
-@property (nonatomic, copy) NSString* userID;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *userID;
 
-@property (nonatomic, strong) NSArray* incomingVideoItems;
-@property (nonatomic, strong) NSArray* outgoingVideoItems;
+@property (nonatomic, strong) NSArray *incomingVideoItems;
+@property (nonatomic, strong) NSArray *outgoingVideoItems;
 
 @end

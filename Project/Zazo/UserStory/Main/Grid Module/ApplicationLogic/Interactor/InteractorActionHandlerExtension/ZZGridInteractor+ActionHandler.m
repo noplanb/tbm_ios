@@ -12,21 +12,21 @@
 
 @implementation ZZGridInteractor (ActionHandler)
 
-- (void)_handleModel:(ZZGridDomainModel*)model
+- (void)_handleModel:(ZZGridDomainModel *)model
 {
-        if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
+    if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
             model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
             [self.output friendsNumberOnGrid] == 1)
-        {
-            CGFloat downloadAnimationDuration = 1.6;
-            ANDispatchBlockAfter(downloadAnimationDuration, ^{
-                [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
-            });
-        }
-        else if (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed)
-        {
-            [self.output handleModel:model withEvent:ZZGridActionEventTypeMessageViewed];
-        }
+    {
+        CGFloat downloadAnimationDuration = 1.6;
+        ANDispatchBlockAfter(downloadAnimationDuration, ^{
+            [self.output handleModel:model withEvent:ZZGridActionEventTypeBecomeMessage];
+        });
+    }
+    else if (model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed)
+    {
+        [self.output handleModel:model withEvent:ZZGridActionEventTypeMessageViewed];
+    }
 }
 
 @end

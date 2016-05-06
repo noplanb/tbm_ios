@@ -4,4 +4,4 @@
 
 #import "ZZMenu.h"
 
-NSString * const ZZMenuModuleName = @"Menu";
+NSString *const ZZMenuModuleName = @"Menu";

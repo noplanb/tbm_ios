@@ -6,14 +6,17 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-static NSString* kANCrashlyticsKey;
+static NSString *kANCrashlyticsKey;
 
 @interface ANCrashlyticsAdapter : NSObject
 
 + (void)start;
-+ (void)updateUserIdentifier:(NSString*)userID;
-+ (void)updateUserDataWithID:(NSString*)userID username:(NSString*)username email:(NSString*)email;
-+ (void)updateUserDataWithDictionary:(NSDictionary*)data;
+
++ (void)updateUserIdentifier:(NSString *)userID;
+
++ (void)updateUserDataWithID:(NSString *)userID username:(NSString *)username email:(NSString *)email;
+
++ (void)updateUserDataWithDictionary:(NSDictionary *)data;
 
 + (instancetype)shared;
 

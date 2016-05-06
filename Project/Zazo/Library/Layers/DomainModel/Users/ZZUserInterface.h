@@ -10,10 +10,14 @@
 
 @protocol ZZUserInterface <NSObject>
 
-- (NSString*)firstName;
-- (NSString*)lastName;
+- (NSString *)firstName;
+
+- (NSString *)lastName;
+
 - (BOOL)hasApp;
+
 - (ZZMenuContactType)contactType;
+
 - (UIImage *)thumbnail;
 
 @end

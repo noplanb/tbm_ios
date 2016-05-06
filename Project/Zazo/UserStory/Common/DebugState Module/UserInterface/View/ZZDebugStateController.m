@@ -20,7 +20,7 @@
     {
         [self registerCellClass:[ZZDebugStateCell class] forModelClass:[ZZDebugStateCellViewModel class]];
         [self registerCellClass:[ZZDebugStateCell class] forModelClass:[NSString class]];
-        
+
         self.displayHeaderOnEmptySection = NO;
     }
     return self;
@@ -30,19 +30,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     id model = [self.storage objectAtIndexPath:indexPath];
-    NSString* details;
+    NSString *details;
     if ([model isKindOfClass:[NSString class]])
     {
         details = model;
     }
     else
     {
-        ZZDebugStateCellViewModel* viewModel = (ZZDebugStateCellViewModel*)model;
+        ZZDebugStateCellViewModel *viewModel = (ZZDebugStateCellViewModel *)model;
         details = [NSString stringWithFormat:@"%@ - %@", [viewModel title], [viewModel status]];
     }
-    
-    NSDictionary* text = @{(NSString *)kUTTypeUTF8PlainText : details};
-    UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
+
+    NSDictionary *text = @{(NSString *)kUTTypeUTF8PlainText : details};
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.items = @[text];
 }
 

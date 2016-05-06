@@ -37,7 +37,7 @@
 {
     self.username.text = [model username];
     self.abbrevationLabel.text = model.abbreviation;
-    
+
     [model updateImageView:self.photoImageView];
     [self setNeedsUpdateConstraints];
 }
@@ -54,7 +54,7 @@
         _abbrevationLabel.textColor = [UIColor whiteColor];
         _abbrevationLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_abbrevationLabel];
-        
+
         [_abbrevationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.photoImageView);
         }];
@@ -71,9 +71,9 @@
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
         _photoImageView.layer.cornerRadius = 25;
-        
+
         [self.contentView addSubview:_photoImageView];
-        
+
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(55);
             make.height.width.equalTo(@50);
@@ -91,7 +91,7 @@
         _username.font = [UIFont zz_lightFontWithSize:23];
         _username.textColor = [UIColor blackColor];
         [self.contentView addSubview:_username];
-        
+
         [_username mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.photoImageView.mas_right).offset(15);
             make.right.equalTo(self.contentView).offset(-20);

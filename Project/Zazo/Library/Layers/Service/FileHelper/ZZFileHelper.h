@@ -11,21 +11,26 @@
 
 #pragma mark - Checks
 
-+ (BOOL)isFileExistsAtURL:(NSURL*)fileURL;
-+ (unsigned long long)fileSizeWithURL:(NSURL*)fileURL;
-+ (BOOL)isFileValidWithFileURL:(NSURL*)fileURL;
++ (BOOL)isFileExistsAtURL:(NSURL *)fileURL;
+
++ (unsigned long long)fileSizeWithURL:(NSURL *)fileURL;
+
++ (BOOL)isFileValidWithFileURL:(NSURL *)fileURL;
 
 
 #pragma mark - File Operations
 
-+ (NSURL*)fileURLInDocumentsDirectoryWithName:(NSString*)fileName;
-+ (void)deleteFileWithURL:(NSURL*)fileURL;
-+ (NSURL*)fileURlWithFileName:(NSString*)fileName withType:(NSString*)type;
-+ (BOOL)copyFileWithUrl:(NSURL*)fromUrl toUrl:(NSURL*)toUrl error:(NSError**)error;
++ (NSURL *)fileURLInDocumentsDirectoryWithName:(NSString *)fileName;
+
++ (void)deleteFileWithURL:(NSURL *)fileURL;
+
++ (NSURL *)fileURlWithFileName:(NSString *)fileName withType:(NSString *)type;
+
++ (BOOL)copyFileWithUrl:(NSURL *)fromUrl toUrl:(NSURL *)toUrl error:(NSError **)error;
 
 #pragma mark - Media File
 
-+ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL*)fileUrl;
++ (BOOL)isMediaFileCorruptedWithFileUrl:(NSURL *)fileUrl;
 
 
 #pragma mark - Free Space 

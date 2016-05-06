@@ -31,11 +31,11 @@
 {
     static UIColor *green = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         green = hsb(145, 77, 80);
     });
-    
+
     return green;
 }
 
@@ -43,11 +43,11 @@
 {
     static UIColor *red = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         red = hsb(6, 74, 91);
     });
-    
+
     return red;
 }
 
@@ -55,11 +55,11 @@
 {
     static UIColor *yellow = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         yellow = hsb(48, 83, 100);
     });
-    
+
     return yellow;
 }
 
@@ -67,11 +67,11 @@
 {
     static UIColor *blue = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         blue = hsb(224, 50, 63);
     });
-    
+
     return blue;
 }
 
@@ -79,11 +79,11 @@
 {
     static UIColor *black = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         black = hsb(0, 0, 17);
     });
-    
+
     return black;
 }
 
@@ -91,11 +91,11 @@
 {
     static UIColor *white = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         white = hsb(192, 2, 95);
     });
-    
+
     return white;
 }
 
@@ -103,11 +103,11 @@
 {
     static UIColor *orange = nil;
     static dispatch_once_t dispatchToken;
-    
+
     dispatch_once(&dispatchToken, ^{
         orange = hsb(28, 85, 90);
     });
-    
+
     return orange;
 }
 

@@ -18,12 +18,12 @@
 
 @implementation ZZMenuPresenter
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZMenuViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZMenuViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     [self.userInterface showUsername:[self.interactor username]];
     self.userInterface.storage = [self _makeStorage];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editFriendsUnlockedNotification:)
                                                  name:ZZDeleteFriendsFeatureUnlockedNotificationName
@@ -38,60 +38,60 @@
 - (ANMemoryStorage *)_makeStorage
 {
     ANMemoryStorage *storage = [ANMemoryStorage storage];
-    
+
     ZZMenuCellModel *inviteFriends =
-        [ZZMenuCellModel modelWithTitle:@"Invite friends" iconWithImageNamed:@"invite-friends"];
-    
-    ZZMenuCellModel *editFriends=
-        [ZZMenuCellModel modelWithTitle:@"Edit Zazo friends" iconWithImageNamed:@"edit-friends"];
-    
+            [ZZMenuCellModel modelWithTitle:@"Invite friends" iconWithImageNamed:@"invite-friends"];
+
+    ZZMenuCellModel *editFriends =
+            [ZZMenuCellModel modelWithTitle:@"Edit Zazo friends" iconWithImageNamed:@"edit-friends"];
+
     ZZMenuCellModel *contacts =
-        [ZZMenuCellModel modelWithTitle:@"Contacts" iconWithImageNamed:@"contacts"];
-    
+            [ZZMenuCellModel modelWithTitle:@"Contacts" iconWithImageNamed:@"contacts"];
+
     ZZMenuCellModel *helpFeedback =
-        [ZZMenuCellModel modelWithTitle:@"Help & feedback" iconWithImageNamed:@"feedback"];
-    
+            [ZZMenuCellModel modelWithTitle:@"Help & feedback" iconWithImageNamed:@"feedback"];
+
     inviteFriends.type = ZZMenuItemTypeInviteFriends;
     editFriends.type = ZZMenuItemTypeEditFriends;
     contacts.type = ZZMenuItemTypeContacts;
     helpFeedback.type = ZZMenuItemTypeHelp;
-    
+
     [storage addItem:inviteFriends toSection:0];
-    
+
     if ([ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
     {
         [storage addItem:editFriends toSection:0];
     }
-    
+
     [storage addItem:contacts toSection:0];
     [storage addItem:helpFeedback toSection:0];
-    
-    
+
+
     BOOL showDebugRow = [[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"];
-    
+
 #ifdef DEBUG
 #ifndef MAKING_SCREENSHOTS
 
     showDebugRow = YES;
-    
+
 #endif
 #endif
-    
+
     if (showDebugRow)
     {
         ZZMenuCellModel *secretScreen =
-        [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
-        
+                [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
+
         secretScreen.type = ZZMenuItemTypeSecretScreen;
         [storage addItem:secretScreen toSection:0];
     }
-    
+
     return storage;
 }
 
 #pragma mark - Output
 
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model
 {
     [self.wireframe.mainWireframe presentSendFeedbackWithModel:model];
 }
@@ -111,7 +111,7 @@
 
         case ZZMenuItemTypeEditFriends:
             [self.wireframe.mainWireframe presentEditFriendsController];
-            
+
             break;
 
         case ZZMenuItemTypeHelp:

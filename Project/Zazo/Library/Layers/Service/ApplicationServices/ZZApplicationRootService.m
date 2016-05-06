@@ -26,14 +26,14 @@
 #import "ZZDownloadErrorHandler.h"
 
 @interface ZZApplicationRootService ()
-<
-    ZZVideoFileHandlerDelegate,
-    ZZApplicationDataUpdaterServiceDelegate,
-    ZZRootStateObserverDelegate,
-    ZZVideoStatusHandlerDelegate
->
+        <
+        ZZVideoFileHandlerDelegate,
+        ZZApplicationDataUpdaterServiceDelegate,
+        ZZRootStateObserverDelegate,
+        ZZVideoStatusHandlerDelegate
+        >
 
-@property (nonatomic, strong) ZZVideoFileHandler* videoFileHandler;
+@property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
 @property (nonatomic, strong) ZZApplicationDataUpdaterService *dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
 @property (nonatomic, strong) ZZDownloadErrorHandler *downloadErrorHandler;
@@ -49,7 +49,7 @@
     {
         self.videoFileHandler = [ZZVideoFileHandler new];
         self.videoFileHandler.delegate = self;
-        
+
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
 
@@ -58,17 +58,17 @@
 
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoProcessorDidFinishProcessingNotification:)
                                                      name:TBMVideoProcessorDidFinishProcessing
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidStartRecording:)
                                                      name:kZZVideoRecorderDidStartVideoCapture
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_videoDidEndRecording:)
                                                      name:kZZVideoRecorderDidEndVideoCapture
@@ -106,7 +106,7 @@
 - (void)_videoProcessorDidFinishProcessingNotification:(NSNotification *)notification
 {
     NSURL *videoUrl = [notification.userInfo objectForKey:@"videoUrl"];
-    ZZFileTransferMarkerDomainModel* marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
+    ZZFileTransferMarkerDomainModel *marker = [TBMVideoIdUtils markerModelWithOutgoingVideoURL:videoUrl];
 
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:marker.friendID];
     [[ZZVideoStatusHandler sharedInstance] handleOutgoingVideoCreatedWithVideoId:marker.videoID withFriend:friendModel.idTbm];
@@ -116,16 +116,16 @@
 - (void)checkApplicationPermissionsAndResources
 {
     ZZLogInfo(@"performDidBecomeActiveActions: registered: %d", [ZZUserDataProvider authenticatedUser].isRegistered);
-    
+
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
         [[ZZApplicationPermissionsHandler checkApplicationPermissions] subscribeNext:^(id x) {
-            
+
             [ZZNotificationsHandler registerToPushNotifications];
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler applicationBecameActive];
             [[ZZVideoRecorder shared] setup];
-            [[ZZVideoRecorder shared] startPreview];            
+            [[ZZVideoRecorder shared] startPreview];
             [self.downloadErrorHandler startService];
 
         }];
@@ -142,7 +142,7 @@
 - (void)requestBackground
 {
     ZZLogInfo(@"AppDelegate: requestBackground: called:");
-    if (self.backgroundTaskID == UIBackgroundTaskInvalid )
+    if (self.backgroundTaskID == UIBackgroundTaskInvalid)
     {
         ZZLogInfo(@"AppDelegate: requestBackground: requesting background.");
         self.backgroundTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -159,20 +159,22 @@
 
 - (void)sendNotificationForVideoReceived:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoID
 {
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
 
     [[ZZNotificationTransportService sendVideoReceivedNotificationTo:friendModel
                                                          videoItemID:videoID
-                                                                from:me] subscribeNext:^(id x) {}];
-    
+                                                                from:me] subscribeNext:^(id x) {
+    }];
+
 }
 
 - (void)sendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoID status:(NSString *)status
 {
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
     [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
                                                              videoItemID:videoID
-                                                                  status:status from:me] subscribeNext:^(id x) {}];
+                                                                  status:status from:me] subscribeNext:^(id x) {
+    }];
 }
 
 - (void)updateBadgeCounter
@@ -215,8 +217,8 @@
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)notificationModel
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.fromUserMKey];
-    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.fromUserMKey];
+
     if (friendModel)
     {
         [self.videoFileHandler queueDownloadWithFriendID:friendModel.idTbm videoId:notificationModel.videoID];
@@ -228,17 +230,17 @@
     }
 }
 
-- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)notificationModel
+- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)notificationModel
 {
-    ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
-    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
+
     if (friendModel == nil)
     {
         ZZLogInfo(@"handleVideoStatusUPdateNotification: got notification for non existant friend. calling getAndPollAllFriends");
         [self.dataUpdater updateAllData];
         return;
     }
-    
+
     ZZVideoOutgoingStatus outgoingStatus;
     if ([notificationModel.status isEqualToString:NOTIFICATION_STATUS_DOWNLOADED])
     {
@@ -253,9 +255,9 @@
         ZZLogError(@"unknown status received in notification");
         return;
     }
-    
-    ZZFriendDomainModel* updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
-    
+
+    ZZFriendDomainModel *updatedFriendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.toUserMKey];
+
     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:outgoingStatus
                                                             withFriendID:updatedFriendModel.idTbm
                                                              withVideoId:notificationModel.videoID];
@@ -264,7 +266,7 @@
 
 #pragma mark - Data Update
 
-- (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID
+- (void)freshVideoDetectedWithVideoID:(NSString *)videoID friendID:(NSString *)friendID
 {
     [self.videoFileHandler queueDownloadWithFriendID:friendID videoId:videoID];
 }

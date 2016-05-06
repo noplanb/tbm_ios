@@ -24,34 +24,34 @@
     return self;
 }
 
-- (void)setupWithAllVideos:(NSArray*)allVideos incomeDandling:(NSArray*)income outcomeDandling:(NSArray*)outcome
+- (void)setupWithAllVideos:(NSArray *)allVideos incomeDandling:(NSArray *)income outcomeDandling:(NSArray *)outcome
 {
     [self.storage updateStorageWithBlock:^{
-       
-        [allVideos enumerateObjectsUsingBlock:^(ZZDebugFriendStateDomainModel* obj, NSUInteger idx, BOOL *stop) {
-            
+
+        [allVideos enumerateObjectsUsingBlock:^(ZZDebugFriendStateDomainModel *obj, NSUInteger idx, BOOL *stop) {
+
             NSInteger section = [self.storage.sections count];
-            
-            NSString* sectionIncomeTitle = [self _sectionTitleWithStatusString:@"Incoming" model:obj];
+
+            NSString *sectionIncomeTitle = [self _sectionTitleWithStatusString:@"Incoming" model:obj];
             [self.storage setSectionHeaderModel:sectionIncomeTitle forSectionIndex:section];
             [self.storage addItems:[self _convertedToViewModels:obj.incomingVideoItems] toSection:section];
-            
-            NSString* sectionOutgoingTitle = [self _sectionTitleWithStatusString:@"Outgoing" model:obj];
+
+            NSString *sectionOutgoingTitle = [self _sectionTitleWithStatusString:@"Outgoing" model:obj];
             [self.storage setSectionHeaderModel:sectionOutgoingTitle forSectionIndex:section + 1];
             [self.storage addItems:[self _convertedToViewModels:obj.outgoingVideoItems] toSection:section + 1];
         }];
-        
+
         //incoming-dandling
         NSInteger incomingSection = [self.storage.sections count];
         [self.storage addItems:income toSection:incomingSection];
-        
+
         [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
                             forSectionIndex:incomingSection];
-        
+
         //outgoing-dandling
         NSInteger outcomingSection = [self.storage.sections count];
         [self.storage addItems:outcome toSection:outcomingSection];
-        
+
         [self.storage setSectionHeaderModel:NSLocalizedString(@"debug-state.incoming-dandling-videos.title", nil)
                             forSectionIndex:outcomingSection];
     }];
@@ -60,15 +60,15 @@
 
 #pragma mark - Private
 
-- (NSString*)_sectionTitleWithStatusString:(NSString*)status model:(ZZDebugFriendStateDomainModel*)model
+- (NSString *)_sectionTitleWithStatusString:(NSString *)status model:(ZZDebugFriendStateDomainModel *)model
 {
     return [NSString stringWithFormat:@"%@: %@ - %@",
-                                    status,
-                                    [NSObject an_safeString:model.userID],
-                                    [NSObject an_safeString:model.username]];
+                                      status,
+                                      [NSObject an_safeString:model.userID],
+                                      [NSObject an_safeString:model.username]];
 }
 
-- (NSArray*)_convertedToViewModels:(NSArray*)models
+- (NSArray *)_convertedToViewModels:(NSArray *)models
 {
     return [[models.rac_sequence map:^id(id value) {
         return [ZZDebugStateCellViewModel viewModelWithItem:value];

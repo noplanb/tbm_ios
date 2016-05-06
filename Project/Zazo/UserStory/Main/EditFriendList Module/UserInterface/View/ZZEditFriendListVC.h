@@ -12,6 +12,6 @@
 
 @interface ZZEditFriendListVC : ZZBaseVC <ZZEditFriendListViewInterface>
 
-@property (nonatomic, weak) id<ZZEditFriendListModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZEditFriendListModuleInterface> eventHandler;
 
 @end

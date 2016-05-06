@@ -8,14 +8,17 @@
 
 @interface ZZStartWireframe : NSObject
 
-- (void)presentStartControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock;
+- (void)presentStartControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
+
 - (void)dismissStartController;
 
 
 #pragma mark - Details
 
 - (void)presentMenuControllerWithGrid;
+
 - (void)presentRegistrationController;
+
 - (void)presentNetworkTestController;
 
 @end

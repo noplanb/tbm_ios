@@ -8,6 +8,7 @@
 
 #import "_<$managedObjectClassName$>.h"
 
-@interface <$managedObjectClassName$> : _<$managedObjectClassName$>
+@interface
+<$managedObjectClassName$> : _<$managedObjectClassName$>
 
 @end

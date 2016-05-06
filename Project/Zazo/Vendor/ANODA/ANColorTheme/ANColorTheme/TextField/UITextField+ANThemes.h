@@ -9,7 +9,8 @@
 
 @interface UITextField (ANThemes)
 
-+ (instancetype)an_textFieldWithTheme:(id<ANTextFieldColorThemeInterface>)theme;
-- (void)an_updateAppearanceWithTheme:(id<ANTextFieldColorThemeInterface>)theme;
++ (instancetype)an_textFieldWithTheme:(id <ANTextFieldColorThemeInterface>)theme;
+
+- (void)an_updateAppearanceWithTheme:(id <ANTextFieldColorThemeInterface>)theme;
 
 @end

@@ -18,50 +18,50 @@
 
 #pragma mark - Fetches
 
-+ (NSArray*)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex
++ (NSArray *)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
-        NSString* sortKey = shouldSortByIndex ? TBMGridElementAttributes.index : nil;
-        NSArray* result = [TBMGridElement MR_findAllSortedBy:sortKey ascending:YES inContext:[self _context]];
+        NSString *sortKey = shouldSortByIndex ? TBMGridElementAttributes.index : nil;
+        NSArray *result = [TBMGridElement MR_findAllSortedBy:sortKey ascending:YES inContext:[self _context]];
 
         return [[result.rac_sequence map:^id(id value) {
             return [self modelFromEntity:value];
         }] array];
     });
-    
+
 }
 
-+ (TBMGridElement*)entityWithItemID:(NSString*)itemID
++ (TBMGridElement *)entityWithItemID:(NSString *)itemID
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
-        NSManagedObject* object;
+        NSManagedObject *object;
         if (!ANIsEmpty(itemID))
         {
-            NSURL* objectURL = [NSURL URLWithString:[NSString stringWithString:itemID]];
-            NSManagedObjectContext* context = [self _context];
-            NSManagedObjectID* objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
-            NSError* error = nil;
+            NSURL *objectURL = [NSURL URLWithString:[NSString stringWithString:itemID]];
+            NSManagedObjectContext *context = [self _context];
+            NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
+            NSError *error = nil;
             if (!ANIsEmpty(objectID))
             {
                 object = [context existingObjectWithID:objectID error:&error];
             }
         }
-        return (TBMGridElement*)object;
+        return (TBMGridElement *)object;
     });
-    
+
 }
 
 
-+ (ZZGridDomainModel*)modelWithRelatedUserID:(NSString*)userID
++ (ZZGridDomainModel *)modelWithRelatedUserID:(NSString *)userID
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
-        TBMFriend* userEntity = [ZZFriendDataProvider friendEntityWithItemID:userID];
+        TBMFriend *userEntity = [ZZFriendDataProvider friendEntityWithItemID:userID];
 
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
-        TBMGridElement* entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
+        TBMGridElement *entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 
         if (entity)
         {
@@ -71,14 +71,14 @@
     });
 }
 
-+ (ZZGridDomainModel*)modelWithFriend:(TBMFriend *)friendEntity
++ (ZZGridDomainModel *)modelWithFriend:(TBMFriend *)friendEntity
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
         ZZGridDomainModel *gridModel = nil;
 
-        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friendEntity];
-        TBMGridElement* gridElementEntity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, friendEntity];
+        TBMGridElement *gridElementEntity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 
         if (gridElementEntity)
         {
@@ -87,25 +87,25 @@
 
         return gridModel;
     });
-    
+
 }
 
-+ (BOOL)isRelatedUserOnGridWithID:(NSString*)userID
++ (BOOL)isRelatedUserOnGridWithID:(NSString *)userID
 {
-    ZZGridDomainModel* gridModel = [self modelWithRelatedUserID:userID];
+    ZZGridDomainModel *gridModel = [self modelWithRelatedUserID:userID];
     return (gridModel != nil);
 }
 
-+ (ZZGridDomainModel*)loadFirstEmptyGridElement
++ (ZZGridDomainModel *)loadFirstEmptyGridElement
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        NSPredicate* creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
-        NSPredicate* creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
-        NSPredicate* creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
+    return ZZDispatchOnMainThreadAndReturn(^id {
+        NSPredicate *creatorWithNilId = [NSPredicate predicateWithFormat:@"%K = nil", TBMGridElementRelationships.friend];
+        NSPredicate *creatorWithNullId = [NSPredicate predicateWithFormat:@"%K = NULL", TBMGridElementRelationships.friend];
+        NSPredicate *creatorWithEmptyStringId = [NSPredicate predicateWithFormat:@"%K = ''", TBMGridElementRelationships.friend];
 
-        NSPredicate* excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
+        NSPredicate *excludeCreator = [NSCompoundPredicate orPredicateWithSubpredicates:@[creatorWithNilId, creatorWithNullId, creatorWithEmptyStringId]];
 
-        NSArray* result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
+        NSArray *result = [TBMGridElement MR_findAllSortedBy:TBMGridElementAttributes.index
                                                    ascending:YES
                                                withPredicate:excludeCreator
                                                    inContext:[self _context]];
@@ -114,33 +114,33 @@
         {
             return nil;
         }
-        
+
         return [self modelFromEntity:result.firstObject];
     });
 }
 
-+ (ZZGridDomainModel*)modelWithEarlierLastActionFriend
++ (ZZGridDomainModel *)modelWithEarlierLastActionFriend
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
-        NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.timeOfLastAction];
-        NSArray* items = [TBMGridElement MR_findAllSortedBy:keypath ascending:YES inContext:[self _context]];
-        ZZGridDomainModel* gridModel = [self modelFromEntity:[items firstObject]];
+        NSString *keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.timeOfLastAction];
+        NSArray *items = [TBMGridElement MR_findAllSortedBy:keypath ascending:YES inContext:[self _context]];
+        ZZGridDomainModel *gridModel = [self modelFromEntity:[items firstObject]];
         return gridModel;
     });
 }
 
-+ (ZZGridDomainModel*)modelWithContact:(ZZContactDomainModel*)contactModel
++ (ZZGridDomainModel *)modelWithContact:(ZZContactDomainModel *)contactModel
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
-        TBMGridElement* gridElementEntity = nil;
+        TBMGridElement *gridElementEntity = nil;
         if (!ANIsEmpty(contactModel.primaryPhone.contact))
         {
-            NSString* phone = [contactModel.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
-            NSString* keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
-            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"%K = %@", keypath, phone];
-            NSArray* items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
+            NSString *phone = [contactModel.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSString *keypath = [NSString stringWithFormat:@"%@.%@", TBMGridElementRelationships.friend, TBMFriendAttributes.mobileNumber];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@", keypath, phone];
+            NSArray *items = [TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]];
             gridElementEntity = [items firstObject];
         }
         if (gridElementEntity)
@@ -151,19 +151,19 @@
     });
 }
 
-+ (NSArray*)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
++ (NSArray *)loadOrCreateGridModelsWithCount:(NSInteger)gridModelsCount
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
 
         NSArray *filteredFriends = [ZZFriendDataProvider allVisibleFriendModels];
 
-        NSArray* gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
-        NSMutableArray* gridModels = [NSMutableArray array];
+        NSArray *gridStoredModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+        NSMutableArray *gridModels = [NSMutableArray array];
 
         for (NSInteger count = 0; count < gridModelsCount; count++)
         {
-            ZZGridDomainModel* gridModel;
+            ZZGridDomainModel *gridModel;
             if (gridStoredModels.count > count)
             {
                 gridModel = gridStoredModels[count];
@@ -172,7 +172,7 @@
             {
                 gridModel = [ZZGridDomainModel new];
                 gridModel.index = count;
-                
+
             }
 
             if (filteredFriends.count > count)
@@ -192,9 +192,9 @@
 
 #pragma mark - Mapping
 
-+ (ZZGridDomainModel*)modelFromEntity:(TBMGridElement*)gridElementEntity
++ (ZZGridDomainModel *)modelFromEntity:(TBMGridElement *)gridElementEntity
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
 
         return [ZZGridModelsMapper fillModel:[ZZGridDomainModel new] fromEntity:gridElementEntity];
     });
@@ -202,7 +202,7 @@
 
 #pragma mark - Private
 
-+ (NSManagedObjectContext*)_context
++ (NSManagedObjectContext *)_context
 {
     return [ZZContentDataAccessor mainThreadContext];
 }

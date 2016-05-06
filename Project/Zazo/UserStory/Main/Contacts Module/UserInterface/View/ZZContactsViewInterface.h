@@ -11,7 +11,9 @@
 @protocol ZZContactsViewInterface <NSObject>
 
 - (void)updateDataSource:(ZZContactsDataSource *)dataSource;
+
 - (void)reset;
+
 - (void)reloadContactView;
 
 @end

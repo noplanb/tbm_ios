@@ -15,21 +15,21 @@
 
 @implementation ZZGridModelsMapper
 
-+ (TBMGridElement*)fillEntity:(TBMGridElement*)entity fromModel:(ZZGridDomainModel*)model
++ (TBMGridElement *)fillEntity:(TBMGridElement *)entity fromModel:(ZZGridDomainModel *)model
 {
     entity.index = @(model.index);
     entity.friend = [ZZFriendDataProvider entityFromModel:model.relatedUser];
-    
+
     return entity;
 }
 
-+ (ZZGridDomainModel*)fillModel:(ZZGridDomainModel*)model fromEntity:(TBMGridElement*)entity
++ (ZZGridDomainModel *)fillModel:(ZZGridDomainModel *)model fromEntity:(TBMGridElement *)entity
 {
     if (!entity)
     {
         return nil;
     }
-    
+
     @try
     {
         model.index = [entity.index integerValue];

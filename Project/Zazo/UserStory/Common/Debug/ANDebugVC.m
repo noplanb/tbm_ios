@@ -12,8 +12,8 @@
 
 @interface ANDebugVC ()
 
-@property (nonatomic, strong) ANDebugController* controller;
-@property (nonatomic, strong) ANTableContainerView* debugView;
+@property (nonatomic, strong) ANDebugController *controller;
+@property (nonatomic, strong) ANTableContainerView *debugView;
 
 @end
 
@@ -27,9 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = NSLocalizedString(@"debug.screen.title", nil);
-    
+
     self.controller = [[ANDebugController alloc] initWithTableView:self.debugView.tableView];
     self.controller.rootController = self;
 }

@@ -14,11 +14,11 @@ static inline void ZZSetGridSize(CGSize size)
 {
     NSUInteger ZZRowCount = 3;
     NSUInteger ZZColumnCount = 3;
-    
+
     CGFloat spacing = kGridItemSpacing();
-    CGFloat height = (size.height - spacing*(ZZRowCount - 1))/ZZRowCount;
-    CGFloat width = (size.width - spacing*(ZZColumnCount - 1))/ZZColumnCount;
- 
+    CGFloat height = (size.height - spacing * (ZZRowCount - 1)) / ZZRowCount;
+    CGFloat width = (size.width - spacing * (ZZColumnCount - 1)) / ZZColumnCount;
+
     ZZGridItemSize = CGSizeMake(width, height);
 }
 
@@ -55,7 +55,7 @@ static inline CGFloat const kGridItemSpacing()
 static inline CGFloat const kGridHeight()
 {
     CGFloat height;
-    
+
     if (IS_IPHONE_4)
     {
         height = 416;
@@ -96,7 +96,7 @@ static CGFloat const kContainFriendAnimationDuration = 0.20;
 static CGFloat const kContainFreindDelayDuration = 0.16;
 
 
-static inline NSArray* const kGridElementsIndexes()
+static inline NSArray *const kGridElementsIndexes()
 {
     return @[@(7), @(6), @(4), @(5), @(0), @(3), @(1), @(2)];
 }
@@ -107,7 +107,7 @@ static inline NSInteger const kNextGridElementIndexFromFlowIndex(NSInteger count
 //    7 6 4
 //    5 c 0
 //    3 1 2
-    NSArray* array = kGridElementsIndexes();
+    NSArray *array = kGridElementsIndexes();
     if (count < array.count)
     {
         return [[array objectAtIndex:count] integerValue];
@@ -117,21 +117,21 @@ static inline NSInteger const kNextGridElementIndexFromFlowIndex(NSInteger count
 
 static inline NSInteger const kGridIndexFromFlowIndex(NSInteger count)
 {
-    NSArray* array = kGridElementsIndexes();
+    NSArray *array = kGridElementsIndexes();
     return [array indexOfObject:@(count)];
 }
 
 
 #pragma mark - Hints
 
-static inline NSArray* const kHintsGridElementsIndexes()
+static inline NSArray *const kHintsGridElementsIndexes()
 {
     return @[@(7), @(6), @(4), @(5), @(8), @(0), @(3), @(1), @(2)];
 }
 
 static inline NSInteger const kHintNextGridElementIndexFromFlowIndex(NSInteger count)
 {
-    NSArray* array = kHintsGridElementsIndexes();
+    NSArray *array = kHintsGridElementsIndexes();
     if (count < array.count)
     {
         return [[array objectAtIndex:count] integerValue];
@@ -141,21 +141,21 @@ static inline NSInteger const kHintNextGridElementIndexFromFlowIndex(NSInteger c
 
 static inline NSInteger const kHintGridIndexFromFlowIndex(NSInteger count)
 {
-    NSArray* array = kHintsGridElementsIndexes();
+    NSArray *array = kHintsGridElementsIndexes();
     return [array indexOfObject:@(count)];
 }
 
 
 #pragma mark - Reverse convertation
 
-static inline NSArray* const kReverseGridIndexes()
+static inline NSArray *const kReverseGridIndexes()
 {
     return @[@(5), @(7), @(8), @(6), @(2), @(3), @(1), @(0)];
 }
 
 static inline NSInteger const kReverseIndexConvertation(NSInteger index)
 {
-    NSArray* array = kReverseGridIndexes();
+    NSArray *array = kReverseGridIndexes();
     return [array indexOfObject:@(index)];
 }
 

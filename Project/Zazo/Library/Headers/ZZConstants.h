@@ -10,16 +10,16 @@ static NSString *kRollBarToken = @"0ac2aee23dc449309b0c0bf6a46b4d59";
 static NSString *kZazoErrorDomain = @"ZZErrorDomain";
 
 //email constants
-static NSString* kApplicationFeedbackEmailSubject = @"Feedback";
-static NSString* kApplicationFeedbackEmailAddress = @"feedback@zazoapp.com";
+static NSString *kApplicationFeedbackEmailSubject = @"Feedback";
+static NSString *kApplicationFeedbackEmailAddress = @"feedback@zazoapp.com";
 
-static NSString* const kContentDBName = @"tbm";
+static NSString *const kContentDBName = @"tbm";
 
-static NSString* const kAppstoreURLString = @"https://itunes.apple.com/us/app/zazo/id922294638";
-static NSString* const kMessageSoundEffectFileName = @"BeepSin30.wav";
+static NSString *const kAppstoreURLString = @"https://itunes.apple.com/us/app/zazo/id922294638";
+static NSString *const kMessageSoundEffectFileName = @"BeepSin30.wav";
 
 
 #pragma mark - Notifications Keys
 
-static NSString* const kResetAllUserDataNotificationKey = @"resetAllUserDataNotificationKey";
-static NSString* const kShouldDuplicateNextUploadNotificationKey = @"shouldDuplicateNextUploadNotificationKey";
+static NSString *const kResetAllUserDataNotificationKey = @"resetAllUserDataNotificationKey";
+static NSString *const kShouldDuplicateNextUploadNotificationKey = @"shouldDuplicateNextUploadNotificationKey";

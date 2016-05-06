@@ -7,7 +7,7 @@
 
 @interface ANTableView : UITableView
 
-@property (nonatomic, strong) UIView* bottomStickedFooterView;
+@property (nonatomic, strong) UIView *bottomStickedFooterView;
 
 - (void)setupAppearance;
 

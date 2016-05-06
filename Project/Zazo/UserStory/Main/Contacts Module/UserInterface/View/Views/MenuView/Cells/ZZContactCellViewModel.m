@@ -12,7 +12,7 @@
 #import "ZZFriendDomainModel.h"
 
 
-static UIImage* kImagePlaceholder = nil;
+static UIImage *kImagePlaceholder = nil;
 
 @interface ZZContactCellViewModel ()
 
@@ -26,11 +26,11 @@ static UIImage* kImagePlaceholder = nil;
 
 @implementation ZZContactCellViewModel
 
-+ (instancetype)viewModelWithItem:(id<ZZUserInterface>)item
++ (instancetype)viewModelWithItem:(id <ZZUserInterface>)item
 {
-    ZZContactCellViewModel * model = [self new];
+    ZZContactCellViewModel *model = [self new];
     model.item = item;
-    
+
     return model;
 }
 
@@ -47,33 +47,33 @@ static UIImage* kImagePlaceholder = nil;
     return self;
 }
 
-- (void)setItem:(id<ZZUserInterface>)item
+- (void)setItem:(id <ZZUserInterface>)item
 {
     _item = item;
     self.username = [ZZUserPresentationHelper fullNameWithFirstName:[_item firstName] lastName:[_item lastName]];
-    
+
     self.image = [item thumbnail];
-    
+
     if (!self.image && [_item isKindOfClass:[ZZFriendDomainModel class]])
     {
         ZZFriendDomainModel *friendModel = (id)item;
-        
+
         if (friendModel.isHasApp)
         {
             self.image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
         }
     }
-    
+
     if (!self.image)
     {
         self.abbreviation = [ZZUserPresentationHelper abbreviationWithFullname:self.username];
     }
 }
 
-- (void)updateImageView:(UIImageView*)imageView
+- (void)updateImageView:(UIImageView *)imageView
 {
     UIImage *image = self.image;
-    
+
     if (!image)
     {
         image = self.placeholderImage;
@@ -92,7 +92,7 @@ static UIImage* kImagePlaceholder = nil;
     {
         _colorPair = [ZZColorPair randomPair];
     }
-    
+
     return _colorPair;
 }
 
@@ -104,7 +104,7 @@ static UIImage* kImagePlaceholder = nil;
     {
         _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
     }
-    
+
     return _placeholderImage;
 }
 

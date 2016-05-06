@@ -14,14 +14,14 @@
 
 #pragma mark - Fetches
 
-+ (TBMVideo*)entityWithID:(NSString*)itemID;
++ (TBMVideo *)entityWithID:(NSString *)itemID;
 
 #pragma mark - Mapping
 
-+ (ZZVideoDomainModel*)modelFromEntity:(TBMVideo*)entity;
++ (ZZVideoDomainModel *)modelFromEntity:(TBMVideo *)entity;
 
 #pragma mark - Helpers
 
-+ (NSURL *)videoUrlWithVideo:(TBMVideo*)video;
++ (NSURL *)videoUrlWithVideo:(TBMVideo *)video;
 
 @end

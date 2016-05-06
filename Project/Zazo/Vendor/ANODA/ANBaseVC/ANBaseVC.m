@@ -15,7 +15,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id <UIGestureRecognizerDelegate>)self;
 }
 
 - (void)viewDidLoad
@@ -25,15 +25,15 @@
 
 - (void)addRightNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block
 {
-    RACCommand* command = [RACCommand commandWithBlock:block];
-    UIBarButtonItem* button = [UIBarButtonItem an_itemWithType:type command:command];
+    RACCommand *command = [RACCommand commandWithBlock:block];
+    UIBarButtonItem *button = [UIBarButtonItem an_itemWithType:type command:command];
     [self.navigationItem an_addRightBarButtonItem:button];
 }
 
 - (void)addLeftNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block
 {
-    RACCommand* command = [RACCommand commandWithBlock:block];
-    UIBarButtonItem* button = [UIBarButtonItem an_itemWithType:type command:command];
+    RACCommand *command = [RACCommand commandWithBlock:block];
+    UIBarButtonItem *button = [UIBarButtonItem an_itemWithType:type command:command];
     [self.navigationItem an_addLeftBarButtonItem:button];
 }
 

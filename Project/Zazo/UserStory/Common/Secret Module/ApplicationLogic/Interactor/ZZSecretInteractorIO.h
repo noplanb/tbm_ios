@@ -13,19 +13,31 @@
 - (void)loadData;
 
 - (void)forceCrash;
+
 - (void)dispatchData;
+
 - (void)resetHints;
+
 - (void)removeAllUserData;
+
 - (void)clearCache;
+
 - (void)removeAllDanglingFiles;
+
 - (void)shouldDuplicateNextUpload;
+
 - (void)updateAllFeaturesToEnabled;
+
 - (void)updateDebugStateTo:(BOOL)isEnabled;
+
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled;
 
 - (void)updateServerStateTo:(NSInteger)state;
+
 - (void)updateCustomServerEnpointValueTo:(NSString *)value;
+
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled;
+
 - (void)updateIncorrectFileSizeStateTo:(BOOL)isEnabled;
 
 @end
@@ -33,7 +45,8 @@
 
 @protocol ZZSecretInteractorOutput <NSObject>
 
-- (void)dataLoaded:(ZZDebugSettingsStateDomainModel*)model;
-- (void)serverEndpointValueUpdatedTo:(NSString*)value;
+- (void)dataLoaded:(ZZDebugSettingsStateDomainModel *)model;
+
+- (void)serverEndpointValueUpdatedTo:(NSString *)value;
 
 @end

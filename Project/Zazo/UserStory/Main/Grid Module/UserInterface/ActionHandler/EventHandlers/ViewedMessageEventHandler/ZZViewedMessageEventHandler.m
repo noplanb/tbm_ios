@@ -12,15 +12,15 @@
 @implementation ZZViewedMessageEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     if (event == ZZGridActionEventTypeMessageViewed &&
-        ![ZZGridActionStoredSettings shared].viewedHintWasShown &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0)
+            ![ZZGridActionStoredSettings shared].viewedHintWasShown &&
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0)
     {
         [ZZGridActionStoredSettings shared].viewedHintWasShown = YES;
-        
+
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeViewedHint, model);
@@ -28,8 +28,8 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else
     {
-        
-        if(!ANIsEmpty(self.eventHandler))
+
+        if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
@@ -44,7 +44,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
 
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     if (self.eventHandler)
     {

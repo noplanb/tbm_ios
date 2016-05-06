@@ -11,10 +11,11 @@
 @interface ZZContentDataAccessor : NSObject
 
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock;
+
 + (void)saveDataBase;
 
-+ (NSManagedObjectContext*)mainThreadContext;
++ (NSManagedObjectContext *)mainThreadContext;
 
-+ (void)refreshContext:(NSManagedObjectContext*)context;
++ (void)refreshContext:(NSManagedObjectContext *)context;
 
 @end

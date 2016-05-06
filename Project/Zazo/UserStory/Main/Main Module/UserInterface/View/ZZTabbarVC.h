@@ -10,7 +10,7 @@
 
 @interface ZZTabbarVC : UIViewController <ZZMainViewInterface>
 
-@property (nonatomic, strong) id<ZZMainModuleInterface> eventHandler;
-@property (nonatomic, strong) NSArray <UIViewController<ZZTabbarViewItem> *> *viewControllers;
+@property (nonatomic, strong) id <ZZMainModuleInterface> eventHandler;
+@property (nonatomic, strong) NSArray <UIViewController <ZZTabbarViewItem> *> *viewControllers;
 
 @end

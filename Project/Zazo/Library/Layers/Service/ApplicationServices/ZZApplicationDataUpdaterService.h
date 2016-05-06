@@ -8,16 +8,18 @@
 
 @protocol ZZApplicationDataUpdaterServiceDelegate <NSObject>
 
-- (void)freshVideoDetectedWithVideoID:(NSString*)videoID friendID:(NSString*)friendID;
+- (void)freshVideoDetectedWithVideoID:(NSString *)videoID friendID:(NSString *)friendID;
 
 @end
 
 @interface ZZApplicationDataUpdaterService : NSObject
 
-@property (nonatomic, weak) id<ZZApplicationDataUpdaterServiceDelegate> delegate;
+@property (nonatomic, weak) id <ZZApplicationDataUpdaterServiceDelegate> delegate;
 
 - (void)updateAllData;
+
 - (void)updateApplicationBadge;
+
 - (void)updateAllDataWithoutRequest;
 
 @end

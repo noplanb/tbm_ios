@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 
 @interface ZZEditFriendCellViewModel ()
 
-@property (nonatomic, strong) UIImage* image;
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong, readonly) UIImage *placeholderImage;
 @property (nonatomic, strong, readonly) ZZColorPair *colorPair;
 
@@ -37,11 +37,11 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 - (void)updateSwitch:(UISwitch *)aSwitch
 {
     aSwitch.enabled = !self.isUpdating;
-    
+
     if ([self.item isCreator])
     {
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
+                self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
         {
             [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateDelete];
         }
@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     else
     {
         if (self.item.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-            self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
+                self.item.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
         {
             [self _updateSwitch:aSwitch toState:ZZContactActionButtonStateDelete];
         }
@@ -69,17 +69,17 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     [aSwitch setOn:!state animated:NO];
 }
 
-- (void)setItem:(id<ZZUserInterface>)item
+- (void)setItem:(id <ZZUserInterface>)item
 {
     _item = item;
-    
+
     if (_item.isHasApp)
     {
         self.image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
     }
 }
 
-- (void)updatePhotoImageView:(UIImageView*)imageView
+- (void)updatePhotoImageView:(UIImageView *)imageView
 {
     imageView.image = self.image ?: self.placeholderImage;
     imageView.backgroundColor = self.colorPair.backgroundColor;
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     {
         return [ZZUserPresentationHelper abbreviationWithFullname:self.username];
     }
-    
+
     return nil;
 }
 
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     {
         _colorPair = [ZZColorPair randomPair];
     }
-    
+
     return _colorPair;
 }
 
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
     {
         _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
     }
-    
+
     return _placeholderImage;
 }
 

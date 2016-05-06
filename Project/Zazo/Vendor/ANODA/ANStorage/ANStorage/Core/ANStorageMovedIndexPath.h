@@ -7,7 +7,7 @@
 
 @interface ANStorageMovedIndexPath : NSObject
 
-@property (nonatomic, strong) NSIndexPath* fromIndexPath;
-@property (nonatomic, strong) NSIndexPath* toIndexPath;
+@property (nonatomic, strong) NSIndexPath *fromIndexPath;
+@property (nonatomic, strong) NSIndexPath *toIndexPath;
 
 @end

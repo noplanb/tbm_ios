@@ -9,6 +9,7 @@
 @interface ANBaseVC : UIViewController
 
 - (void)addRightNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block;
+
 - (void)addLeftNavigationButtonWithType:(ANBarButtonType)type block:(ANCodeBlock)block;
 
 @end

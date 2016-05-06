@@ -10,39 +10,39 @@
 
 @interface ZZAlertBuilder : NSObject
 
-+ (void)presentAlertWithTitle:(NSString*)title details:(NSString*)details cancelButtonTitle:(NSString*)cancelTitle;
++ (void)presentAlertWithTitle:(NSString *)title details:(NSString *)details cancelButtonTitle:(NSString *)cancelTitle;
 
-+ (void)presentAlertWithTitle:(NSString*)title
-                      details:(NSString*)details
-            cancelButtonTitle:(NSString*)cancelTitle
-            actionButtonTitle:(NSString*)actionButtonTitle
++ (void)presentAlertWithTitle:(NSString *)title
+                      details:(NSString *)details
+            cancelButtonTitle:(NSString *)cancelTitle
+            actionButtonTitle:(NSString *)actionButtonTitle
                        action:(ANCodeBlock)completion;
 
-+ (void)presentAlertWithTitle:(NSString*)title
-                      details:(NSString*)details
-            cancelButtonTitle:(NSString*)cancelTitle
++ (void)presentAlertWithTitle:(NSString *)title
+                      details:(NSString *)details
+            cancelButtonTitle:(NSString *)cancelTitle
            cancelButtonAction:(ANCodeBlock)cancelAction
-            actionButtonTitle:(NSString*)actionButtonTitle
+            actionButtonTitle:(NSString *)actionButtonTitle
                        action:(ANCodeBlock)completion;
 
-+ (ZZAlertController *)alertWithTitle:(NSString*)title
-                               details:(NSString*)details
-                     cancelButtonTitle:(NSString*)cancelTitle
-                    cancelButtonAction:(ANCodeBlock)cancelAction
-                     actionButtonTitle:(NSString*)actionButtonTitle
-                                action:(ANCodeBlock)completion;
++ (ZZAlertController *)alertWithTitle:(NSString *)title
+                              details:(NSString *)details
+                    cancelButtonTitle:(NSString *)cancelTitle
+                   cancelButtonAction:(ANCodeBlock)cancelAction
+                    actionButtonTitle:(NSString *)actionButtonTitle
+                               action:(ANCodeBlock)completion;
 
-+ (ZZAlertController *)alertWithTitle:(NSString*)title
-                               details:(NSString*)details
-                     cancelButtonTitle:(NSString*)cancelTitle
-                    cancelButtonAction:(ANCodeBlock)cancelAction
-                               actions:(NSArray <SDCAlertAction *> *)actions;
++ (ZZAlertController *)alertWithTitle:(NSString *)title
+                              details:(NSString *)details
+                    cancelButtonTitle:(NSString *)cancelTitle
+                   cancelButtonAction:(ANCodeBlock)cancelAction
+                              actions:(NSArray <SDCAlertAction *> *)actions;
 
-+ (ZZAlertController *)alertWithTitle:(NSString*)title;
++ (ZZAlertController *)alertWithTitle:(NSString *)title;
 
-+ (void)presentAlertWithTitle:(NSString*)title
-                      details:(NSString*)details
-            cancelButtonTitle:(NSString*)cancelTitle
++ (void)presentAlertWithTitle:(NSString *)title
+                      details:(NSString *)details
+            cancelButtonTitle:(NSString *)cancelTitle
            cancelButtonAction:(ANCodeBlock)cancelAction
                       actions:(NSArray <SDCAlertAction *> *)actions;
 

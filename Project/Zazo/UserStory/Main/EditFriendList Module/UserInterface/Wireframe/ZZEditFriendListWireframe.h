@@ -10,9 +10,10 @@
 
 @interface ZZEditFriendListWireframe : NSObject
 
-@property (nonatomic, strong) ZZEditFriendListPresenter* presenter;
+@property (nonatomic, strong) ZZEditFriendListPresenter *presenter;
 
-- (void)presentEditFriendListControllerFromNavigationController:(UINavigationController*)nc;
+- (void)presentEditFriendListControllerFromNavigationController:(UINavigationController *)nc;
+
 - (void)dismissEditFriendListController;
 
 @end

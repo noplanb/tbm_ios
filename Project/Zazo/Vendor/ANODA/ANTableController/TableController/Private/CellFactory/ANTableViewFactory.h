@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, ANSupplementaryViewType)
                              type:(ANSupplementaryViewType)type;
 
 - (UITableViewCell *)cellForModel:(id)model atIndexPath:(NSIndexPath *)indexPath;
+
 - (UIView *)supplementaryViewForModel:(id)model type:(ANSupplementaryViewType)type;
 
 @property (nonatomic, weak) id <ANTableViewFactoryDelegate> delegate;

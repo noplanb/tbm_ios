@@ -14,7 +14,7 @@
 
 #pragma mark - General
 
-+ (RACSignal*)uploadTokenWithParameters:(NSDictionary*)parameters
++ (RACSignal *)uploadTokenWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiSavePushToken
                                              parameters:parameters
@@ -24,14 +24,14 @@
 
 #pragma mark - Outgoing Events
 
-+ (RACSignal*)sendVideoReceivedNotificationWithParameters:(NSDictionary*)parameters
++ (RACSignal *)sendVideoReceivedNotificationWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiNotificationVideoReceived
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypePOST];
 }
 
-+ (RACSignal*)sendVideoStatusUpdateNotificationWithParameters:(NSDictionary*)parameters
++ (RACSignal *)sendVideoStatusUpdateNotificationWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiNotificationVideoStatusUpdate
                                              parameters:parameters

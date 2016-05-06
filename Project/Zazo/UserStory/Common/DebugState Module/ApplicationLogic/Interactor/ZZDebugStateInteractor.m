@@ -14,12 +14,12 @@
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
-    
-    NSArray* stateModels = [ZZApplicationStateInfoGenerator loadVideoDataWithFriendsModels:friends];
-    NSArray* incomeDandling = [ZZApplicationStateInfoGenerator loadIncomingDandlingItemsFromData:stateModels];
-    NSArray* outcomeDandling = [ZZApplicationStateInfoGenerator loadOutgoingDandlingItemsFromData:stateModels];
-    
+    NSArray *friends = [ZZFriendDataProvider allFriendsModels];
+
+    NSArray *stateModels = [ZZApplicationStateInfoGenerator loadVideoDataWithFriendsModels:friends];
+    NSArray *incomeDandling = [ZZApplicationStateInfoGenerator loadIncomingDandlingItemsFromData:stateModels];
+    NSArray *outcomeDandling = [ZZApplicationStateInfoGenerator loadOutgoingDandlingItemsFromData:stateModels];
+
     [self.output dataLoadedWithAllVideos:stateModels incomeDandling:incomeDandling outcomeDandling:outcomeDandling];
 }
 

@@ -9,18 +9,18 @@
 #import "ZZDebugVideoStateDomainModel.h"
 
 const struct ZZDebugVideoStateDomainModelAttributes ZZDebugVideoStateDomainModelAttributes = {
-    .itemID = @"itemID",
-    .status = @"status",
+        .itemID = @"itemID",
+        .status = @"status",
 };
 
 @implementation ZZDebugVideoStateDomainModel
 
-+ (instancetype)itemWithItemID:(NSString*)itemID status:(NSString*)status
++ (instancetype)itemWithItemID:(NSString *)itemID status:(NSString *)status
 {
-    ZZDebugVideoStateDomainModel* model = [ZZDebugVideoStateDomainModel new];
+    ZZDebugVideoStateDomainModel *model = [ZZDebugVideoStateDomainModel new];
     model.itemID = itemID;
     model.status = status;
-    
+
     return model;
 }
 

@@ -24,7 +24,8 @@ static CGFloat ZZHoldEffectAnimationDuration = 0.5;
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.anchorPoint = CGPointMake(0.5, 0.5);
         self.masksToBounds = YES;
         self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateA]].CGPath;
@@ -39,43 +40,44 @@ static CGFloat ZZHoldEffectAnimationDuration = 0.5;
     {
         return;
     }
-    
+
     self.isAnimating = YES;
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZZHoldEffectAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.isAnimating = NO;
     });
 
-    switch (animationType) {
+    switch (animationType)
+    {
         case ZZCellEffectTypeWaveIn:
-            
+
             // from:
             self.fillColor = [UIColor colorWithWhite:0 alpha:0].CGColor;
             self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateB]].CGPath;
             // to:
             self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateA]].CGPath;
             self.fillColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
-            
+
 
             break;
-            
+
         case ZZCellEffectTypeWaveOut:
-            
+
             // from:
             self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateA]].CGPath;
             self.fillColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
             // to:
             self.path = [UIBezierPath bezierPathWithOvalInRect:[self _stateB]].CGPath;
             self.fillColor = [UIColor colorWithWhite:0 alpha:0].CGColor;
-            
+
             break;
-            
+
         default:
             break;
     }
 }
 
-- (id<CAAction>)actionForKey:(NSString *)key
+- (id <CAAction>)actionForKey:(NSString *)key
 {
     if ([key isEqualToString:@"path"])
     {
@@ -115,18 +117,17 @@ static CGFloat ZZHoldEffectAnimationDuration = 0.5;
 {
     CGSize frameSize = self.bounds.size;
     CGSize stateSize = [self _sizeA];
-    
-    return CGRectMake(frameSize.width/2 - stateSize.width/2, frameSize.height/2 - stateSize.height/2, stateSize.width, stateSize.height);
+
+    return CGRectMake(frameSize.width / 2 - stateSize.width / 2, frameSize.height / 2 - stateSize.height / 2, stateSize.width, stateSize.height);
 }
 
 - (CGRect)_stateB
 {
     CGSize frameSize = self.bounds.size;
     CGSize stateSize = [self _sizeB];
-    
-    return CGRectMake(frameSize.width/2 - stateSize.width/2, frameSize.height/2 - stateSize.height/2, stateSize.width, stateSize.height);
-}
 
+    return CGRectMake(frameSize.width / 2 - stateSize.width / 2, frameSize.height / 2 - stateSize.height / 2, stateSize.width, stateSize.height);
+}
 
 
 @end

@@ -11,7 +11,8 @@
 
 @interface ZZVideoModelsMapper : NSObject
 
-+ (TBMVideo*)fillEntity:(TBMVideo*)entity fromModel:(ZZVideoDomainModel*)model;
-+ (ZZVideoDomainModel*)fillModel:(ZZVideoDomainModel*)model fromEntity:(TBMVideo*)entity;
++ (TBMVideo *)fillEntity:(TBMVideo *)entity fromModel:(ZZVideoDomainModel *)model;
+
++ (ZZVideoDomainModel *)fillModel:(ZZVideoDomainModel *)model fromEntity:(TBMVideo *)entity;
 
 @end

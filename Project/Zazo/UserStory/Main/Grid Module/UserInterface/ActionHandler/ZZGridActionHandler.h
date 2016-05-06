@@ -16,25 +16,32 @@
 @protocol ZZGridActionHanlderDelegate <NSObject>
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature;
+
 - (BOOL)isVideoPlayingNow;
+
 - (NSInteger)friendsCountOnGrid;
+
 - (void)showMenuTab;
+
 - (void)showGridTab;
+
 - (UIView *)presentedView;
 
 @end
 
 @interface ZZGridActionHandler : NSObject
 
-@property (nonatomic, weak) id<ZZGridActionHanlderDelegate> delegate;
-@property (nonatomic, weak) id<ZZGridActionHanlderUserInterfaceDelegate> userInterface;
+@property (nonatomic, weak) id <ZZGridActionHanlderDelegate> delegate;
+@property (nonatomic, weak) id <ZZGridActionHanlderUserInterfaceDelegate> userInterface;
 
 - (void)handleEvent:(ZZGridActionEventType)event
           withIndex:(NSInteger)index
-        friendModel:(ZZFriendDomainModel*)friendModel;
+        friendModel:(ZZFriendDomainModel *)friendModel;
 
 - (void)resetLastHintAndShowIfNeeded;
+
 - (void)hideHint;
-- (void)updateFeaturesWithFriendsMkeys:(NSArray*)friendsMkeys;
+
+- (void)updateFeaturesWithFriendsMkeys:(NSArray *)friendsMkeys;
 
 @end

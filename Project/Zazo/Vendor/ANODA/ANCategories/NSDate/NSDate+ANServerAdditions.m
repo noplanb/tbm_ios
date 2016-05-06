@@ -8,43 +8,43 @@
 #import "NSDate+ANServerAdditions.h"
 #import "NSDate+ANUIAdditions.h"
 
-static NSDateFormatter* serverDateFormatter;
+static NSDateFormatter *serverDateFormatter;
 
-static NSString* const kServerDateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-static NSString* const kServerTimeZoneString = @"UTC";
+static NSString *const kServerDateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+static NSString *const kServerTimeZoneString = @"UTC";
 
 @implementation NSDate (SMServerAdditions)
 
 #pragma mark - Server Formatter
 
-+ (NSDateFormatter*)serverDateFormatter
++ (NSDateFormatter *)serverDateFormatter
 {
     if (!serverDateFormatter)
     {
         serverDateFormatter = [NSDateFormatter new];
-        serverDateFormatter.dateFormat =  kServerDateFormat;
+        serverDateFormatter.dateFormat = kServerDateFormat;
         serverDateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:kServerTimeZoneString];
         serverDateFormatter.locale = [NSLocale currentLocale];
     }
-    
+
     return serverDateFormatter;
 }
 
 #pragma mark - Public
 
-+ (NSDate*)an_dateFromServerString:(NSString*)dateString
++ (NSDate *)an_dateFromServerString:(NSString *)dateString
 {
     return [[self serverDateFormatter] dateFromString:dateString];
 }
 
-+ (NSString*)an_stringFromServerDate:(NSDate*)date
++ (NSString *)an_stringFromServerDate:(NSDate *)date
 {
     return [[self serverDateFormatter] stringFromDate:date];
 }
 
-- (NSDate*)an_serverDateFromLocalDate
+- (NSDate *)an_serverDateFromLocalDate
 {
-    NSString* localDate = [self an_stringFromDateWithFormat:kServerDateFormat];
+    NSString *localDate = [self an_stringFromDateWithFormat:kServerDateFormat];
     return [[NSDate serverDateFormatter] dateFromString:localDate];
 }
 

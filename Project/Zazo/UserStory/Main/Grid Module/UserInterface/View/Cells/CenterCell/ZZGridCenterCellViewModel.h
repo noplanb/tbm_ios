@@ -10,6 +10,7 @@
 @protocol ZZGridCenterCellViewModelDelegate <NSObject>
 
 - (void)switchCamera;
+
 - (void)showHint;
 
 @end
@@ -18,13 +19,15 @@
 
 @property (nonatomic, assign) BOOL isChangeButtonAvailable;
 
-@property (nonatomic, weak) id<ZZGridCenterCellViewModelDelegate> delegate;
-@property (nonatomic, strong) UIView* recordView;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
+@property (nonatomic, weak) id <ZZGridCenterCellViewModelDelegate> delegate;
+@property (nonatomic, strong) UIView *recordView;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 
 
 - (BOOL)shouldShowSwitchCameraButton;
+
 - (void)switchCamera;
-- (void)setupLongRecognizerOnView:(UIView*)view;
+
+- (void)setupLongRecognizerOnView:(UIView *)view;
 
 @end

@@ -14,12 +14,12 @@
 
 @interface ZZStartPresenter : NSObject <ZZStartInteractorOutput, ZZStartModuleInterface>
 
-@property (nonatomic, strong) id<ZZStartInteractorInput> interactor;
-@property (nonatomic, strong) ZZStartWireframe* wireframe;
+@property (nonatomic, strong) id <ZZStartInteractorInput> interactor;
+@property (nonatomic, strong) ZZStartWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZStartViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZStartModuleDelegate> startModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZStartViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZStartModuleDelegate> startModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZStartViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZStartViewInterface> *)userInterface;
 
 @end

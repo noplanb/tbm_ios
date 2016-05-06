@@ -31,7 +31,7 @@
 
 - (void)loadData
 {
-    ZZDebugSettingsStateDomainModel* model = [ZZApplicationStateInfoGenerator generateSettingsModel];
+    ZZDebugSettingsStateDomainModel *model = [ZZApplicationStateInfoGenerator generateSettingsModel];
     [self.output dataLoaded:model];
 }
 
@@ -42,10 +42,10 @@
 
 - (void)forceCrash
 {
-    
+
     //TODO: the message should be dispatched automatically
-    NSString* message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@",
-                         [ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
+    NSString *message = [NSString stringWithFormat:@"CRASH BUTTON EXCEPTION: %@",
+                                                   [ZZApplicationStateInfoGenerator generateSettingsStateMessage]];
     [[ZZRollbarAdapter shared] logMessage:message level:ZZDispatchLevelError];
     //BADABOOOOOOM!
     [[NSArray new] objectAtIndex:2];
@@ -86,7 +86,7 @@
 
 #pragma mark - Updating Settings
 
-- (void)updateCustomServerEnpointValueTo:(NSString*)value
+- (void)updateCustomServerEnpointValueTo:(NSString *)value
 {
     [ZZStoredSettingsManager shared].serverURLString = value;
     [[ZZNetworkTransport shared] setBaseURL:apiBaseURL() andAPIVersion:@""];
@@ -112,7 +112,7 @@
 - (void)updatePushNotificationStateTo:(BOOL)isEnabled
 {
     [ZZStoredSettingsManager shared].isPushNotificatonEnabled = isEnabled;
-    
+
     if (isEnabled)
     {
         [ZZNotificationsHandler registerToPushNotifications];
@@ -121,7 +121,7 @@
     {
         [ZZNotificationsHandler disablePushNotifications];
     }
-    
+
 }
 
 - (void)updateIncorrectFileSizeStateTo:(BOOL)isEnabled

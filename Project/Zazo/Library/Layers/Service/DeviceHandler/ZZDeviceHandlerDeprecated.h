@@ -12,15 +12,18 @@
 
 #pragma mark - Video
 
-+ (AVCaptureDeviceInput*)loadAvailableFrontVideoInputWithError:(NSError* __autoreleasing *)error;
-+ (AVCaptureDeviceInput*)loadAvailableBackVideoInputWithError:(NSError* __autoreleasing *)error;
++ (AVCaptureDeviceInput *)loadAvailableFrontVideoInputWithError:(NSError *__autoreleasing *)error;
+
++ (AVCaptureDeviceInput *)loadAvailableBackVideoInputWithError:(NSError *__autoreleasing *)error;
+
 + (BOOL)isCameraConnected;
+
 + (BOOL)areBothCamerasAvailable;
 
 
 #pragma mark - Audio
 
-+ (AVCaptureDeviceInput*)loadAudioInputWithError:(NSError* __autoreleasing *)error;
++ (AVCaptureDeviceInput *)loadAudioInputWithError:(NSError *__autoreleasing *)error;
 
 + (BOOL)isMicrophoneConnected;
 

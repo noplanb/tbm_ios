@@ -10,7 +10,7 @@
 
 @implementation NSObject (ANRACAdditions)
 
-+ (void)an_handleSubcriber:(id<RACSubscriber>)subscriber withObject:(id)object error:(NSError*)error
++ (void)an_handleSubcriber:(id <RACSubscriber>)subscriber withObject:(id)object error:(NSError *)error
 {
     if (error)
     {

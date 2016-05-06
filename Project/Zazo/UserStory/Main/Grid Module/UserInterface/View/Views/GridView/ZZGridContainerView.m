@@ -31,24 +31,24 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     if (self)
     {
         CGSize itemSize = kGridItemSize();
-        
+
         CGFloat paddingBetweenItems = kGridItemSpacing();
         CGFloat paddingBetweenLines = kGridItemSpacing();
         NSInteger numberOfItemsInRow = 3;
         NSInteger numberOfLines = 3;
-       
-        __block MASViewAttribute* previousLineViewAttribute = nil;
-        
-        NSMutableArray* items = [NSMutableArray new];
-        
-        UIView* view = nil;
-        
+
+        __block MASViewAttribute *previousLineViewAttribute = nil;
+
+        NSMutableArray *items = [NSMutableArray new];
+
+        UIView *view = nil;
+
         for (NSInteger line = 0; line < numberOfLines; line++)
         {
-            __block MASViewAttribute* previousViewAttribute = self.mas_left;
-            
+            __block MASViewAttribute *previousViewAttribute = self.mas_left;
+
             CGFloat leftOffset = 0;
-            
+
             for (NSInteger row = 0; row < numberOfItemsInRow; row++)
             {
                 if ((line == 1) && (row == 1))
@@ -59,9 +59,9 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
                 {
                     view = [ZZGridCell new];
                 }
-                
+
                 view.accessibilityLabel = [NSString stringWithFormat:@"Cell %ld-%ld", (long)line, (long)row];
-                
+
                 [self addSubview:view];
 
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +77,7 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
                         make.top.equalTo(self.mas_top);
                     }
                 }];
-                
+
                 [items addObject:view];
                 previousViewAttribute = view.mas_right;
                 leftOffset = paddingBetweenItems;
@@ -92,25 +92,25 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
 - (void)showDimScreenForItemWithIndex:(NSUInteger)index
 {
     self.activeCell = (id)self.items[index];
-    
+
     if (![self.activeCell isKindOfClass:[ZZGridCell class]]) // ignore center cell
     {
         return;
     }
-    
+
     [self bringSubviewToFront:self.dimView];
     [self bringSubviewToFront:self.activeCell];
-    
+
     [self updateTextLabel];
-    
+
     [self restoreFrames]; // bringSubviewToFront resets cell's frames (why?!)
-    
+
     [UIView animateWithDuration:0.2
                      animations:^{
-        _dimView.alpha = 1;
-        [self.activeCell setBadgesHidden:YES];
-    }];
-    
+                         _dimView.alpha = 1;
+                         [self.activeCell setBadgesHidden:YES];
+                     }];
+
     self.dimTapRecognizer.enabled = YES;
 }
 
@@ -122,9 +122,9 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
 - (void)updateTextLabel
 {
     [self.textLabel sizeToFit];
-    
+
     CGPoint origin = self.activeCell.origin;
-    
+
     if ([self isCellOnTop:self.activeCell])
     {
         origin.y += self.activeCell.height + 12; // move label to cell's bottom
@@ -133,11 +133,11 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     {
         origin.y -= self.textLabel.height; // move label to cell's top
     }
-    
+
     origin.x += 8; // move little bit left
-    
+
     origin.y -= ZZGridContainerViewTopOffset;
-    
+
     self.textLabel.origin = origin;
 }
 
@@ -150,20 +150,20 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
 - (void)hideDimScreen
 {
     self.dimTapRecognizer.enabled = NO;
-    
+
     [UIView animateWithDuration:0.2
                      animations:^{
-        _dimView.alpha = 0;
-        [self.activeCell setBadgesHidden:NO];
+                         _dimView.alpha = 0;
+                         [self.activeCell setBadgesHidden:NO];
 
-    } completion:^(BOOL finished) {
+                     } completion:^(BOOL finished) {
 
-        [self sendSubviewToBack:self.dimView];
-        [self restoreFrames];
-        
-        self.activeCell = nil;
-        
-    }];
+                [self sendSubviewToBack:self.dimView];
+                [self restoreFrames];
+
+                self.activeCell = nil;
+
+            }];
 }
 
 - (UIView *)dimView
@@ -171,25 +171,25 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     if (!_dimView)
     {
         _dimView = [UIView new];
-        
+
         _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         _dimView.alpha = 0;
-        
+
         [self addSubview:_dimView];
-        
+
         [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing() + ZZGridContainerViewTopOffset, -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
         }];
-        
+
         UITapGestureRecognizer *recognizer =
-            [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                    action:@selector(_didTapToDimView)];
-        
+                [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(_didTapToDimView)];
+
         _dimTapRecognizer = recognizer;
-        
+
         [_dimView addGestureRecognizer:recognizer];
     }
-    
+
     return _dimView;
 }
 
@@ -206,12 +206,12 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     {
         UILabel *label = [UILabel new];
         label.textColor = [UIColor whiteColor];
-        
+
         [_dimView addSubview:label];
-    
+
         _textLabel = label;
     }
-    
+
     return _textLabel;
 }
 

@@ -27,7 +27,6 @@ static NSString *NOTIFICATION_STATUS_DOWNLOADED = @"downloaded";
 static NSString *NOTIFICATION_STATUS_VIEWED = @"viewed";
 
 
-
 typedef NS_ENUM(NSInteger, ZZNotificationType)
 {
     ZZNotificationTypeNone,
@@ -36,7 +35,8 @@ typedef NS_ENUM(NSInteger, ZZNotificationType)
 };
 
 
-NSString* ZZNotificationTypeStringFromEnumValue(ZZNotificationType);
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString*);
+NSString *ZZNotificationTypeStringFromEnumValue(ZZNotificationType);
+
+ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString *);
 
 

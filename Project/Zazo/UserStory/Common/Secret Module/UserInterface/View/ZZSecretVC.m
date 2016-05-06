@@ -12,8 +12,8 @@
 
 @interface ZZSecretVC ()
 
-@property (nonatomic, strong) ANTableContainerView* contentView;
-@property (nonatomic, strong) ZZSecretController* controller;
+@property (nonatomic, strong) ANTableContainerView *contentView;
+@property (nonatomic, strong) ZZSecretController *controller;
 
 @end
 
@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = NSLocalizedString(@"secret-controller.header.title", nil);
 }
 

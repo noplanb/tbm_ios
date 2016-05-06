@@ -10,6 +10,6 @@
 
 @protocol ZZDebugStateViewInterface <NSObject>
 
-- (void)updateDataSource:(ZZDebugStateDataSource*)dataSource;
+- (void)updateDataSource:(ZZDebugStateDataSource *)dataSource;
 
 @end

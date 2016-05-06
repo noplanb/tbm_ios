@@ -12,6 +12,6 @@
 
 @interface ZZAuthVC : ZZBaseVC <ZZAuthViewInterface>
 
-@property (nonatomic, weak) id<ZZAuthModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZAuthModuleInterface> eventHandler;
 
 @end

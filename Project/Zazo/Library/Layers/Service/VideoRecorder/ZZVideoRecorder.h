@@ -11,30 +11,35 @@
 
 @interface ZZVideoRecorder : NSObject
 
-extern NSString* const kVideoProcessorDidFinishProcessing;
-extern NSString* const kVideoProcessorDidFail;
+extern NSString *const kVideoProcessorDidFinishProcessing;
+extern NSString *const kVideoProcessorDidFail;
 
-extern NSString* const kZZVideoRecorderDidStartVideoCapture;
-extern NSString* const kZZVideoRecorderDidEndVideoCapture;
+extern NSString *const kZZVideoRecorderDidStartVideoCapture;
+extern NSString *const kZZVideoRecorderDidEndVideoCapture;
 
 extern CGFloat const kZZVideoRecorderDelayBeforeNextMessage;
 
 + (instancetype)shared;
+
 - (void)setup;
 
 - (AVCaptureVideoPreviewLayer *)previewLayer;
+
 - (void)startPreview;
+
 - (void)stopPreview;
 
-- (void)startRecordingWithVideoURL:(NSURL*)url completionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
-- (void)stopRecordingWithCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock;
+- (void)startRecordingWithVideoURL:(NSURL *)url completionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock;
+
+- (void)stopRecordingWithCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock;
 
 - (BOOL)areBothCamerasAvailable;
 
 - (void)switchCamera:(ANCodeBlock)completion;
+
 @property (nonatomic, assign, readonly) BOOL isCameraSwitched;
 
-- (void)cancelRecordingWithReason:(NSString*)reason;
+- (void)cancelRecordingWithReason:(NSString *)reason;
 
 - (void)cancelRecording;
 

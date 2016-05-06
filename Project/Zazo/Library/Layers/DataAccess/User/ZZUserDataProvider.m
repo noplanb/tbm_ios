@@ -13,22 +13,22 @@
 
 @implementation ZZUserDataProvider
 
-+ (ZZUserDomainModel*)authenticatedUser
++ (ZZUserDomainModel *)authenticatedUser
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMUser* user = [self _authenticatedEntity];
+    return ZZDispatchOnMainThreadAndReturn(^id {
+        TBMUser *user = [self _authenticatedEntity];
         return [self modelFromEntity:user];
     });
 }
 
-+ (TBMUser*)_authenticatedEntity
++ (TBMUser *)_authenticatedEntity
 {
-    NSArray* users = [TBMUser MR_findAllInContext:[self _context]];
+    NSArray *users = [TBMUser MR_findAllInContext:[self _context]];
     if (users.count > 1)
     {
         ZZLogError(@"Model dupples founded %@ %@", NSStringFromSelector(_cmd), [users debugDescription]);
     }
-    TBMUser* user = [users lastObject];
+    TBMUser *user = [users lastObject];
     return user;
 }
 
@@ -43,17 +43,17 @@
 //    return [ZZUserModelsMapper fillEntity:entity fromModel:model];
 //}
 
-+ (ZZUserDomainModel*)modelFromEntity:(TBMUser*)userEntity
++ (ZZUserDomainModel *)modelFromEntity:(TBMUser *)userEntity
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
+    return ZZDispatchOnMainThreadAndReturn(^id {
         return [ZZUserModelsMapper fillModel:[ZZUserDomainModel new] fromEntity:userEntity];
     });
 }
 
-+ (ZZUserDomainModel*)upsertUserWithModel:(ZZUserDomainModel*)userModel
++ (ZZUserDomainModel *)upsertUserWithModel:(ZZUserDomainModel *)userModel
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        TBMUser* userEntity = [self _authenticatedEntity];
+    return ZZDispatchOnMainThreadAndReturn(^id {
+        TBMUser *userEntity = [self _authenticatedEntity];
         if (!userEntity)
         {
             userEntity = [TBMUser MR_createEntityInContext:[self _context]];
@@ -68,7 +68,7 @@
 
 #pragma mark - Private
 
-+ (NSManagedObjectContext*)_context
++ (NSManagedObjectContext *)_context
 {
     return [ZZContentDataAccessor mainThreadContext];
 

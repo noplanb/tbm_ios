@@ -28,15 +28,15 @@ static CGFloat const kAdjustmentPadding = 5.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     CGSize size = self.bounds.size;
-    
+
     CGFloat height = [self.titleLabel an_textContentSizeConstrainedToWidth:size.width].height;
     CGFloat yOffset = size.height - self.bottomLabelInset - height + kAdjustmentPadding;
     self.titleLabel.frame = CGRectMake(self.leftLabelInset, yOffset, size.width - self.leftLabelInset * 2.0f, height);
 }
 
-- (void)updateWithModel:(NSString*)model
+- (void)updateWithModel:(NSString *)model
 {
     self.titleLabel.text = [NSLocalizedString(model, nil) uppercaseString];
 }

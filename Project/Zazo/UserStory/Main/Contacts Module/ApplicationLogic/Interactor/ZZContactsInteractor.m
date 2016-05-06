@@ -29,7 +29,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 @property (nonatomic, assign) NSTimeInterval startUpdateTime;
 @property (nonatomic, assign) NSTimeInterval endUpdateTime;
-@property (nonatomic, strong) NSArray* sortedFriends;
+@property (nonatomic, strong) NSArray *sortedFriends;
 
 @end
 
@@ -41,23 +41,23 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
     self.isLoaded = NO;
 }
 
-- (void)requestAddressBookPermission:(void(^)(BOOL success))completion;
+- (void)requestAddressBookPermission:(void (^)(BOOL success))completion;
 {
     PermissionScope *permissionScope =
-    [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
-    
+            [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
+
     permissionScope.headerLabel.text = @"Permissions";
     permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
     permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
     permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
     [permissionScope addPermission:[ContactsPermission new] message:@"To show your friends"];
-    
-    [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> * _Nonnull result) {
+
+    [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> *_Nonnull result) {
         if (completed && completion)
         {
             completion(YES);
         }
-    } cancelled:^(NSArray<PermissionResult *> * _Nonnull result) {
+    }           cancelled:^(NSArray<PermissionResult *> *_Nonnull result) {
         if (completion)
         {
             completion(NO);
@@ -68,7 +68,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 - (void)loadData
 {
     self.startUpdateTime = [[NSDate date] timeIntervalSince1970];
-    
+
     if (!self.wasSetuped)
     {
         [self _setupDataAfterFirstLaunchWithAddressBookRequest];
@@ -114,7 +114,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
                 [self.output friendsThatHasAppLoaded:self.sortedFriends];
             }
         }
-        
+
         [self _loadAddressBookContactsWithRequestAccess];
     });
 }
@@ -122,20 +122,20 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 - (BOOL)_isNeedToUpdate
 {
     BOOL isNeedUpdate = NO;
-    
+
     NSTimeInterval interval = fabs(self.startUpdateTime - self.endUpdateTime);
-    
+
     if (interval > kDelayBetweenFriendUpdate)
     {
         isNeedUpdate = YES;
     }
-    
+
     return isNeedUpdate;
 }
 
 - (void)_loadFriends
 {
-    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
+    NSArray *friends = [ZZFriendDataProvider allFriendsModels];
     [self _sortFriendsFromArray:friends];
 }
 
@@ -146,18 +146,18 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         self.isLoading = YES;
 
         [[ZZAddressBookDataProvider loadContacts] subscribeNext:^(NSArray *addressBookContactsArray) {
-            
+
             [self.output addressBookDataLoaded:addressBookContactsArray];
-            
+
             self.isLoading = NO;
             self.isLoaded = YES;
-            
-        } error:^(NSError *error) {
-            
+
+        }                                                 error:^(NSError *error) {
+
             [self.output needsPermissionForAddressBook];
             self.isLoading = NO;
-            
-        } completed:^{
+
+        }                                             completed:^{
             self.isLoading = NO;
         }];
     }
@@ -168,26 +168,26 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 #ifdef MAKING_SCREENSHOTS
     return;
 #endif
-    
+
     ANDispatchBlockToMainQueue(^{
-        NSMutableArray* friendsHasAppArray = [NSMutableArray new];
-        
-        NSArray* gridUsers = [ZZFriendDataProvider friendsOnGrid];
+        NSMutableArray *friendsHasAppArray = [NSMutableArray new];
+
+        NSArray *gridUsers = [ZZFriendDataProvider friendsOnGrid];
         if (!gridUsers)
         {
             gridUsers = @[];
         }
-        
-        [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friend, NSUInteger idx, BOOL *stop) {
-            
+
+        [array enumerateObjectsUsingBlock:^(ZZFriendDomainModel *friend, NSUInteger idx, BOOL *stop) {
+
             if (![gridUsers containsObject:friend])
             {
-                    [friendsHasAppArray addObject:friend];
+                [friendsHasAppArray addObject:friend];
             }
         }];
-        
+
         NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
-        
+
         self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
         [self.output friendsThatHasAppLoaded:self.sortedFriends];
         self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
@@ -197,18 +197,18 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 #pragma mark - Private
 
-- (NSArray*)_filterFriendByConnectionStatus:(NSMutableArray*)friendsArray
+- (NSArray *)_filterFriendByConnectionStatus:(NSMutableArray *)friendsArray
 {
-    NSMutableArray* filteredFriends = [NSMutableArray new];
-    
-    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    NSMutableArray *filteredFriends = [NSMutableArray new];
+
+    [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel *friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
+
 //        friendModel.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendModel.friendshipCreatorMkey];
         //TODO:
         if ([friendModel isCreator])
         {
             if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
+                    friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator)
             {
                 [filteredFriends addObject:friendModel];
             }
@@ -216,21 +216,21 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         else
         {
             if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
+                    friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget)
             {
                 [filteredFriends addObject:friendModel];
             }
         }
     }];
-    
+
     return filteredFriends;
 }
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
-    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
-    
+    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
+
     return sortedArray;
 }
 

@@ -18,7 +18,9 @@
 @protocol ZZStartInteractorOutput <NSObject>
 
 - (void)userRequiresAuthentication;
+
 - (void)applicationIsUpToDateAndUserLogged:(BOOL)isUserLoggedIn;
+
 - (void)presentNetworkTestController;
 
 @end

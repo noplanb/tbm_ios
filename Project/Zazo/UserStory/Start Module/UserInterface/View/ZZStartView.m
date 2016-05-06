@@ -16,7 +16,7 @@
     {
         _backgroundImageView = [UIImageView new];
         [self addSubview:_backgroundImageView];
-        
+
         [_backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];

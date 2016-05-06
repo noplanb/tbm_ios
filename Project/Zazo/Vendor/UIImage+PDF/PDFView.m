@@ -16,12 +16,12 @@
 @synthesize resourceData = m_resourceData;
 
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-	
-    if (self) 
-	{
+
+    if (self)
+    {
         // Initialization code.
         m_page = 1;
     }
@@ -29,105 +29,105 @@
 }
 
 
--(void)setResourceName:(NSString *)resourceName
+- (void)setResourceName:(NSString *)resourceName
 {
-	m_resourceName = resourceName;
-	
-    self.resourceURL = [ PDFView resourceURLForName: self.resourceName ];
+    m_resourceName = resourceName;
+
+    self.resourceURL = [PDFView resourceURLForName:self.resourceName];
 }
 
 
--(void)setResourceURL:(NSURL *)resourceURL
+- (void)setResourceURL:(NSURL *)resourceURL
 {
     m_resourceURL = resourceURL;
-    
-    [ self setNeedsDisplay ];
+
+    [self setNeedsDisplay];
 }
 
--(void)setResourceData:(NSData *)data
+- (void)setResourceData:(NSData *)data
 {
     m_resourceData = data;
 
-    [ self setNeedsDisplay ];
+    [self setNeedsDisplay];
 }
 
 
-+(CGRect) mediaRect:(NSString *)resourceName
++ (CGRect)mediaRect:(NSString *)resourceName
 {
-    return [ PDFView mediaRectForURL:[ PDFView resourceURLForName: resourceName ]];
+    return [PDFView mediaRectForURL:[PDFView resourceURLForName:resourceName]];
 }
 
 
-+(CGRect) mediaRectForURL:(NSURL *)resourceURL
++ (CGRect)mediaRectForURL:(NSURL *)resourceURL
 {
-    return [ self mediaRectForURL:resourceURL atPage:1 ];
+    return [self mediaRectForURL:resourceURL atPage:1];
 }
 
 
-+(CGRect) mediaRectForURL:(NSURL *)resourceURL atPage:(NSUInteger)page
++ (CGRect)mediaRectForURL:(NSURL *)resourceURL atPage:(NSUInteger)page
 {
     CGRect rect = CGRectNull;
-    
-    if( resourceURL )
-	{
-		CGPDFDocumentRef pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) resourceURL );
-		CGPDFPageRef page1 = CGPDFDocumentGetPage( pdf, page );
-		
-		rect = CGPDFPageGetBoxRect( page1, kCGPDFCropBox );
-		
-		CGPDFDocumentRelease( pdf );
-	}
-    
+
+    if (resourceURL)
+    {
+        CGPDFDocumentRef pdf = CGPDFDocumentCreateWithURL((__bridge CFURLRef)resourceURL);
+        CGPDFPageRef page1 = CGPDFDocumentGetPage(pdf, page);
+
+        rect = CGPDFPageGetBoxRect(page1, kCGPDFCropBox);
+
+        CGPDFDocumentRelease(pdf);
+    }
+
     return rect;
 }
 
-+(CGRect) mediaRectForData:(NSData *)data atPage:(NSUInteger)page
++ (CGRect)mediaRectForData:(NSData *)data atPage:(NSUInteger)page
 {
     CGRect rect = CGRectNull;
 
-    if( data )
+    if (data)
     {
         CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
         CGPDFDocumentRef pdf = CGPDFDocumentCreateWithProvider(provider);
         CGDataProviderRelease(provider);
-        CGPDFPageRef page1 = CGPDFDocumentGetPage( pdf, page );
+        CGPDFPageRef page1 = CGPDFDocumentGetPage(pdf, page);
 
-        rect = CGPDFPageGetBoxRect( page1, kCGPDFCropBox );
+        rect = CGPDFPageGetBoxRect(page1, kCGPDFCropBox);
 
-        CGPDFDocumentRelease( pdf );
+        CGPDFDocumentRelease(pdf);
     }
-    
+
     return rect;
 }
 
 
-+(NSUInteger) pageCountForURL:(NSURL *)resourceURL
++ (NSUInteger)pageCountForURL:(NSURL *)resourceURL
 {
     NSUInteger pageCount = 1;
-    
-    if( resourceURL )
-	{
-		CGPDFDocumentRef pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) resourceURL );
-		
-		pageCount = CGPDFDocumentGetNumberOfPages( pdf );
-		
-		CGPDFDocumentRelease( pdf );
-	}
-    
+
+    if (resourceURL)
+    {
+        CGPDFDocumentRef pdf = CGPDFDocumentCreateWithURL((__bridge CFURLRef)resourceURL);
+
+        pageCount = CGPDFDocumentGetNumberOfPages(pdf);
+
+        CGPDFDocumentRelease(pdf);
+    }
+
     return pageCount;
 }
 
 
-+(NSURL *)resourceURLForName:(NSString *)resourceName type:(NSString *)type
++ (NSURL *)resourceURLForName:(NSString *)resourceName type:(NSString *)type
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:resourceName ofType:type];
-    if( path == nil )
+    if (path == nil)
     {
         return nil;
     }
     else
     {
-        return (resourceName) ? [ NSURL fileURLWithPath:path] : nil;
+        return (resourceName) ? [NSURL fileURLWithPath:path] : nil;
     }
 }
 
@@ -137,19 +137,18 @@
 }
 
 
-
-+(void)renderIntoContext:(CGContextRef)ctx url:(NSURL *)resourceURL data:(NSData *)resourceData size:(CGSize)size page:(NSUInteger)page
++ (void)renderIntoContext:(CGContextRef)ctx url:(NSURL *)resourceURL data:(NSData *)resourceData size:(CGSize)size page:(NSUInteger)page
 {
-    if ( resourceURL || resourceData )
+    if (resourceURL || resourceData)
     {
         /*
 		 * Reference: http://www.cocoanetics.com/2010/06/rendering-pdf-is-easier-than-you-thought/
 		 */
         CGPDFDocumentRef pdf;
-        
-        if( resourceURL )
+
+        if (resourceURL)
         {
-            pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) resourceURL );
+            pdf = CGPDFDocumentCreateWithURL((__bridge CFURLRef)resourceURL);
         }
         else
         {
@@ -157,16 +156,16 @@
             pdf = CGPDFDocumentCreateWithProvider(provider);
             CGDataProviderRelease(provider);
         }
-        
-		CGPDFPageRef page1 = CGPDFDocumentGetPage( pdf, page );
-        
-		CGRect mediaRect = CGPDFPageGetBoxRect( page1, kCGPDFCropBox );
-		CGContextScaleCTM( ctx, size.width / mediaRect.size.width, size.height / mediaRect.size.height );
-		CGContextTranslateCTM( ctx, -mediaRect.origin.x, -mediaRect.origin.y );
-        
-		CGContextDrawPDFPage( ctx, page1 );
-		CGPDFDocumentRelease( pdf );
-        
+
+        CGPDFPageRef page1 = CGPDFDocumentGetPage(pdf, page);
+
+        CGRect mediaRect = CGPDFPageGetBoxRect(page1, kCGPDFCropBox);
+        CGContextScaleCTM(ctx, size.width / mediaRect.size.width, size.height / mediaRect.size.height);
+        CGContextTranslateCTM(ctx, -mediaRect.origin.x, -mediaRect.origin.y);
+
+        CGContextDrawPDFPage(ctx, page1);
+        CGPDFDocumentRelease(pdf);
+
     }
 }
 
@@ -175,17 +174,15 @@
 /**/
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect 
+- (void)drawRect:(CGRect)rect
 {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    [ self.backgroundColor set ];
-    CGContextFillRect( ctx, rect );
-    
-    [[ self class ] renderIntoContext:ctx url:self.resourceURL data:self.resourceData size:rect.size page:self.page ];
+
+    [self.backgroundColor set];
+    CGContextFillRect(ctx, rect);
+
+    [[self class] renderIntoContext:ctx url:self.resourceURL data:self.resourceData size:rect.size page:self.page];
 }
-
-
 
 
 @end

@@ -10,11 +10,11 @@
 #import "ANMessageDomainModel.h"
 
 @interface ANMessagesWireframe ()
-<
-MFMailComposeViewControllerDelegate,
-MFMessageComposeViewControllerDelegate,
-UINavigationControllerDelegate
->
+        <
+        MFMailComposeViewControllerDelegate,
+        MFMessageComposeViewControllerDelegate,
+        UINavigationControllerDelegate
+        >
 
 @property (nonatomic, copy) ANMessageCompletionBlock messageCompletion;
 @property (nonatomic, copy) ANEmailCompletionBlock emailCompletion;
@@ -27,8 +27,8 @@ UINavigationControllerDelegate
 
 #pragma mark - Emails
 
-- (void)presentEmailControllerFromViewController:(UIViewController*)vc
-                                       withModel:(ANMessageDomainModel*)model
+- (void)presentEmailControllerFromViewController:(UIViewController *)vc
+                                       withModel:(ANMessageDomainModel *)model
                                       completion:(ANEmailCompletionBlock)completion
 {
     self.emailCompletion = [completion copy];
@@ -44,20 +44,20 @@ UINavigationControllerDelegate
         {
             [composer setSubject:model.title];
         }
-        
+
         if (!ANIsEmpty(model.message))
         {
             [composer setMessageBody:model.message isHTML:model.isHTMLMessage];
         }
-        
+
         if (!ANIsEmpty(model.image))
         {
-            NSData* imageData = UIImagePNGRepresentation(model.image);
+            NSData *imageData = UIImagePNGRepresentation(model.image);
             [composer addAttachmentData:imageData mimeType:@"png" fileName:@"image"];
         }
-        
+
         composer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        
+
         ANDispatchBlockToMainQueue(^{
             [vc presentViewController:composer animated:YES completion:nil];
         });
@@ -72,9 +72,9 @@ UINavigationControllerDelegate
     }
 }
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller
+- (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError*)error
+                        error:(NSError *)error
 {
     if (self.emailCompletion)
     {
@@ -89,8 +89,8 @@ UINavigationControllerDelegate
 
 #pragma mark - Messages
 
-- (void)presentMessageControllerFromViewController:(UIViewController*)vc
-                                         withModel:(ANMessageDomainModel*)model
+- (void)presentMessageControllerFromViewController:(UIViewController *)vc
+                                         withModel:(ANMessageDomainModel *)model
                                         completion:(ANMessageCompletionBlock)completion
 {
     self.messageCompletion = [completion copy];
@@ -98,7 +98,7 @@ UINavigationControllerDelegate
     {
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
-        
+
         if (!ANIsEmpty(model.recipients))
         {
             [messageController setRecipients:model.recipients];
@@ -107,15 +107,15 @@ UINavigationControllerDelegate
         {
             [messageController setSubject:model.title];
         }
-        
+
         if (!ANIsEmpty(model.message))
         {
             [messageController setBody:model.message];
         }
-        
+
         messageController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
         messageController.navigationBar.tintColor = [UIColor whiteColor];
-        
+
         ANDispatchBlockToMainQueue(^{
             [vc presentViewController:messageController animated:YES completion:nil];
         });
@@ -126,7 +126,7 @@ UINavigationControllerDelegate
     }
 }
 
-- (void)messageComposeViewController:(MFMessageComposeViewController*)controller
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result
 {
     ANDispatchBlockToMainQueue(^{
@@ -140,29 +140,29 @@ UINavigationControllerDelegate
     });
 }
 
-- (void)presentSharingControllerFromViewController:(UIViewController*)vc
-                                         withModel:(ANMessageDomainModel*)model
+- (void)presentSharingControllerFromViewController:(UIViewController *)vc
+                                         withModel:(ANMessageDomainModel *)model
                                         completion:(ZZSharingCompletionBlock)completion
 {
     self.sharingCompletion = [completion copy];
-    
+
     NSMutableArray *items = [NSMutableArray new];
-    
+
     if (!ANIsEmpty(model.message))
     {
         [items addObject:model.message];
     }
-    
+
     if (!ANIsEmpty(model.image))
     {
         [items addObject:model.image];
     }
-    
+
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[]];
- 
-    controller.completionWithItemsHandler = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError)
-    {
-        if (self.sharingCompletion) {
+
+    controller.completionWithItemsHandler = ^(NSString *__nullable activityType, BOOL completed, NSArray *__nullable returnedItems, NSError *__nullable activityError) {
+        if (self.sharingCompletion)
+        {
             self.sharingCompletion(completed);
         }
     };
@@ -173,7 +173,7 @@ UINavigationControllerDelegate
 
         controller.popoverPresentationController.sourceView = vc.view;
     }
-    
+
     ANDispatchBlockToMainQueue(^{
         [vc presentViewController:controller animated:YES completion:nil];
     });

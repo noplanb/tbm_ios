@@ -11,6 +11,6 @@
 
 @interface ZZCommonModelsGenerator : NSObject
 
-+ (ANMessageDomainModel*)feedbackModelWithUser:(ZZUserDomainModel*)user;
++ (ANMessageDomainModel *)feedbackModelWithUser:(ZZUserDomainModel *)user;
 
 @end

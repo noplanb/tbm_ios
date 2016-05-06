@@ -5,15 +5,15 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-NSString* const kAuthTokenHeader = @"X-Auth-Token";
-NSString* const kMultipartFormBoundary = @"Boundary+0xAbCdEfGbOuNdArY";
+NSString *const kAuthTokenHeader = @"X-Auth-Token";
+NSString *const kMultipartFormBoundary = @"Boundary+0xAbCdEfGbOuNdArY";
 
 #import "ANNetworkRequest.h"
 
 #pragma mark - HTTP Method Type
 
-static NSString* kBaseURL = @"";
-static NSString* kApiVersion = @"";
+static NSString *kBaseURL = @"";
+static NSString *kApiVersion = @"";
 
 @implementation ANNetworkRequest
 
@@ -23,7 +23,7 @@ static NSString* kApiVersion = @"";
     kApiVersion = apiVersion;
 }
 
-+ (instancetype)requestWithPath:(NSString *)path parameters:(NSDictionary*)params httpMethod:(ANHttpMethodType)httpMethodType
++ (instancetype)requestWithPath:(NSString *)path parameters:(NSDictionary *)params httpMethod:(ANHttpMethodType)httpMethodType
 {
     if (params)
     {
@@ -32,13 +32,13 @@ static NSString* kApiVersion = @"";
     return [[self alloc] initWithPath:path parameters:params httpMethod:httpMethodType];
 }
 
-- (instancetype)initWithPath:(NSString*)path parameters:(NSDictionary*)params httpMethod:(ANHttpMethodType)httpMethodType
+- (instancetype)initWithPath:(NSString *)path parameters:(NSDictionary *)params httpMethod:(ANHttpMethodType)httpMethodType
 {
     self = [super init];
     if (self)
     {
         self.URL = [NSURL URLWithString:path relativeToURL:[NSURL URLWithString:[kBaseURL stringByAppendingString:kApiVersion]]];
-        
+
         [self addValue:@"application/json" forHTTPHeaderField:@"Accept"];
         //setting application token
         if (self.token)
@@ -58,24 +58,33 @@ static NSString* kApiVersion = @"";
         //apply parameters
         switch (httpMethodType)
         {
-            case ANHttpMethodTypeGET:     [self applyGetAndDeleteParameters:params];  break;
-            case ANHttpMethodTypeDELETE:  [self applyGetAndDeleteParameters:params];  break;
-            case ANHttpMethodTypePOST:    [self applyPOSTParameters:params];          break;
-            case ANHttpMethodTypePOSTJSON: [self applyPOSTJSONParameters:params];   break;
-            default: break;
+            case ANHttpMethodTypeGET:
+                [self applyGetAndDeleteParameters:params];
+                break;
+            case ANHttpMethodTypeDELETE:
+                [self applyGetAndDeleteParameters:params];
+                break;
+            case ANHttpMethodTypePOST:
+                [self applyPOSTParameters:params];
+                break;
+            case ANHttpMethodTypePOSTJSON:
+                [self applyPOSTJSONParameters:params];
+                break;
+            default:
+                break;
         }
     }
     return self;
 }
 
-+ (instancetype)requestMultipartWithPath:(NSString*)path photo:(UIImage*)photo
++ (instancetype)requestMultipartWithPath:(NSString *)path photo:(UIImage *)photo
 {
-    ANNetworkRequest* request = [ANNetworkRequest requestWithPath:path parameters:nil httpMethod:ANHttpMethodTypePOST];
-    
+    ANNetworkRequest *request = [ANNetworkRequest requestWithPath:path parameters:nil httpMethod:ANHttpMethodTypePOST];
+
     [request addValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", kMultipartFormBoundary] forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableData* data = [NSMutableData data];
-    
+
+    NSMutableData *data = [NSMutableData data];
+
     [data appendData:[[NSString stringWithFormat:@"--%@\r\n", kMultipartFormBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data;"] dataUsingEncoding:NSUTF8StringEncoding]];
     [data appendData:[[NSString stringWithFormat:@"name=\"%@\";", @"photo"] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -83,18 +92,18 @@ static NSString* kApiVersion = @"";
     [data appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     [data appendData:UIImageJPEGRepresentation(photo, 0.9)];
     [data appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     [data appendData:[[NSString stringWithFormat:@"--%@--\r\n", kMultipartFormBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     request.HTTPBody = data;
-    
+
     return request;
 }
 
 - (void)applyPOSTJSONParameters:(id)parameters
 {
-    NSError* error;
-    NSData* data = [NSJSONSerialization dataWithJSONObject:parameters
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:parameters
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     if (error)
@@ -107,7 +116,7 @@ static NSString* kApiVersion = @"";
     }
 }
 
-- (void)applyPOSTParameters:(NSDictionary*)params
+- (void)applyPOSTParameters:(NSDictionary *)params
 {
     if (params)
     {
@@ -117,7 +126,7 @@ static NSString* kApiVersion = @"";
         return;
 }
 
-- (NSData*)encodeDictionary:(NSDictionary*)dictionary
+- (NSData *)encodeDictionary:(NSDictionary *)dictionary
 {
     NSMutableArray *parts = [NSMutableArray array];
     for (NSString *key in dictionary)
@@ -128,22 +137,22 @@ static NSString* kApiVersion = @"";
             value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         }
         NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *part = [NSString stringWithFormat: @"%@=%@", encodedKey, value];
+        NSString *part = [NSString stringWithFormat:@"%@=%@", encodedKey, value];
         [parts addObject:part];
     }
     NSString *encodedDictionary = [parts componentsJoinedByString:@"&"];
     return [encodedDictionary dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (void)applyGetAndDeleteParameters:(NSDictionary*)params
+- (void)applyGetAndDeleteParameters:(NSDictionary *)params
 {
-    NSMutableString* paramString = [NSMutableString string];
+    NSMutableString *paramString = [NSMutableString string];
     if (!params | !params.allKeys.count)
     {
         return;
     }
-    [params.allKeys enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
-        
+    [params.allKeys enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+
         if (idx == 0)
         {
             [paramString appendFormat:@"%@=%@", obj, params[obj]];
@@ -154,7 +163,7 @@ static NSString* kApiVersion = @"";
         }
     }];
 
-    NSString* urlString = [[self.URL absoluteString] stringByAppendingFormat:@"?%@", paramString];
+    NSString *urlString = [[self.URL absoluteString] stringByAppendingFormat:@"?%@", paramString];
     [self setURL:[NSURL URLWithString:urlString]];
 }
 

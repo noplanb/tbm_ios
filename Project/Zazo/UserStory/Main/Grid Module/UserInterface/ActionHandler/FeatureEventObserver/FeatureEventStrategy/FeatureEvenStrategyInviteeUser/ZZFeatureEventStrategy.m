@@ -18,25 +18,25 @@
 - (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
-    
+
     if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
     {
         ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
-        
+
         NSInteger kUnlockFeatureCounterValue = 2;
         NSInteger kOnceUnlockCounterValue = 1;
-        
+
         NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-        
+
         BOOL shouldUnlockToInvitee = user.isInvitee && sendMessageCounter == 0 &&
-        !model.isCreator;
-        
+                !model.isCreator;
+
         if (shouldUnlockToInvitee)
         {
             isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
         }
         else if (sendMessageCounter == 0 &&
-            !model.isCreator)
+                !model.isCreator)
         {
             sendMessageCounter++;
             [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
@@ -46,10 +46,10 @@
         {
             isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
         }
-        
+
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
+
     if (completionBlock)
     {
         completionBlock(isFeatureEnabled);
@@ -62,9 +62,8 @@
 - (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
-    
+
     if (![ZZGridActionStoredSettings shared].abortRecordHintWasShown && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)
-        
     {
         NSInteger kBeforeUnlockAbortFeatureMessagesCount = 3;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockAbortFeatureMessagesCount];
@@ -83,7 +82,7 @@
 - (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
-    
+
     if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown && [ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
         NSInteger kBeforeUnlockDeleteFriendFeatureMessageCount = 4;
@@ -101,15 +100,15 @@
 
 - (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    
+
     BOOL isFeatureEnabled = NO;
-    
+
     if (![ZZGridActionStoredSettings shared].earpieceHintWasShown && [ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
     {
         NSInteger kBeforeUnlockEarpieceMessageCount = 5;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockEarpieceMessageCount];
     }
-    
+
     if (completionBlock)
     {
         completionBlock(isFeatureEnabled);
@@ -122,13 +121,13 @@
 - (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     BOOL isFeatureEnabled = NO;
-    
+
     if (![ZZGridActionStoredSettings shared].spinHintWasShown && [ZZGridActionStoredSettings shared].earpieceHintWasShown)
     {
         NSInteger kBeforeUnlockSpinMessageCount = 6;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockSpinMessageCount];
     }
-    
+
     if (completionBlock)
     {
         completionBlock(isFeatureEnabled);

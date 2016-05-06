@@ -4,4 +4,4 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const ZZMainModuleName;
+extern NSString *const ZZMainModuleName;

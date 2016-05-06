@@ -13,23 +13,28 @@
 
 @interface ZZVideoDataProvider : NSObject
 
-+ (ZZVideoDomainModel*)itemWithID:(NSString*)itemID;
-+ (ZZVideoDomainModel*)createIncomingVideoModelForFriend:(ZZFriendDomainModel*)friendModel withVideoID:(NSString*)videoId;
++ (ZZVideoDomainModel *)itemWithID:(NSString *)itemID;
+
++ (ZZVideoDomainModel *)createIncomingVideoModelForFriend:(ZZFriendDomainModel *)friendModel withVideoID:(NSString *)videoId;
 
 + (NSArray <ZZVideoDomainModel *> *)videosWithStatus:(ZZVideoIncomingStatus)status;
 
 #pragma mark - Count
 
 + (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status fromFriend:(NSString *)friendID;
+
 + (NSUInteger)countVideosWithStatus:(ZZVideoIncomingStatus)status;
+
 + (NSUInteger)countAllVideos;
 
-+ (NSArray*)sortedIncomingVideosForUserWithID:(NSString *)friendID;
++ (NSArray *)sortedIncomingVideosForUserWithID:(NSString *)friendID;
 
 #pragma mark - Helpers
 
-+ (BOOL)videoExists:(NSString*)videoID;
++ (BOOL)videoExists:(NSString *)videoID;
+
 + (void)printAll;
-+ (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel*)video;
+
++ (NSURL *)videoUrlWithVideoModel:(ZZVideoDomainModel *)video;
 
 @end

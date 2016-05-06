@@ -9,13 +9,13 @@
 #import "ZZNetworkTestStoredManger.h"
 #import "NSObject+ANUserDefaults.h"
 
-static NSString* const kNTestOutgoingVideoCounter = @"ntestOutgoingVideoCounter";
-static NSString* const kNTestCompletedVideoCounter= @"ntestcompletedVideoCounter";
-static NSString* const kNTestIncomingVideoCounter= @"ntestincomingVideoCounter";
-static NSString* const kNTestTriesCounter = @"ntestTriesCounter";
-static NSString* const kNTestFailedOutgoingCounter = @"ntestFailedOutgoingCounter";
-static NSString* const kNTestFailedIncomingCounter = @"ntestFailedIncomingCounter";
-static NSString* const kNTestPrevRetryCount = @"ntestPrevRetryCounter";
+static NSString *const kNTestOutgoingVideoCounter = @"ntestOutgoingVideoCounter";
+static NSString *const kNTestCompletedVideoCounter = @"ntestcompletedVideoCounter";
+static NSString *const kNTestIncomingVideoCounter = @"ntestincomingVideoCounter";
+static NSString *const kNTestTriesCounter = @"ntestTriesCounter";
+static NSString *const kNTestFailedOutgoingCounter = @"ntestFailedOutgoingCounter";
+static NSString *const kNTestFailedIncomingCounter = @"ntestFailedIncomingCounter";
+static NSString *const kNTestPrevRetryCount = @"ntestPrevRetryCounter";
 
 @implementation ZZNetworkTestStoredManger
 

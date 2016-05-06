@@ -42,10 +42,10 @@
 {
     _stackView = [OAStackView new];
     [self addSubview:self.stackView];
-    
+
     [self.stackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
-        
+
     }];
 
     self.stackView.distribution = OAStackViewDistributionFillEqually;
@@ -56,7 +56,7 @@
     UISlider *slider = [UISlider new];
     slider.userInteractionEnabled = NO;
     slider.alpha = 0;
-    
+
     _progressView = slider;
 
     [self addSubview:slider];
@@ -67,9 +67,9 @@
     }];
 
     _indicatorPrototypeView =
-    [[NSBundle mainBundle] loadNibNamed:@"ZZTabbarViewPositionIndicator"
-                                  owner:nil
-                                options:nil].firstObject;
+            [[NSBundle mainBundle] loadNibNamed:@"ZZTabbarViewPositionIndicator"
+                                          owner:nil
+                                        options:nil].firstObject;
 
     [slider setThumbImage:self.indicatorPrototypeView.zz_renderToImage forState:UIControlStateNormal];
 }
@@ -79,7 +79,7 @@
     return CGSizeMake(UIViewNoIntrinsicMetric, 60);
 }
 
-- (void)setItems:(NSArray <id<ZZTabbarViewItem>> *)items
+- (void)setItems:(NSArray <id <ZZTabbarViewItem>> *)items
 {
     _items = [items copy];
 
@@ -87,13 +87,13 @@
         [self.stackView removeArrangedSubview:subview];
     }];
 
-    [items enumerateObjectsUsingBlock:^(id<ZZTabbarViewItem> item, NSUInteger idx, BOOL *stop) {
+    [items enumerateObjectsUsingBlock:^(id <ZZTabbarViewItem> item, NSUInteger idx, BOOL *stop) {
         UIView *view = [self _viewFromItem:item];
         [self.stackView addArrangedSubview:view];
     }];
 }
 
-- (UIView *)_viewFromItem:(id<ZZTabbarViewItem>)item
+- (UIView *)_viewFromItem:(id <ZZTabbarViewItem>)item
 {
     UIImage *image = nil;
 
@@ -116,7 +116,7 @@
 
     button.tintColor = [UIColor grayColor];
     button.backgroundColor = [UIColor whiteColor];
-    
+
     button.contentMode = UIViewContentModeCenter;
     return button;
 }
@@ -147,14 +147,14 @@
 - (void)setProgressViewBadge:(NSUInteger)progressViewBadge
 {
     _progressViewBadge = progressViewBadge;
-    
+
     ANDispatchBlockToBackgroundQueue(^{
         UILabel *label = self.indicatorPrototypeView.subviews.firstObject;
         label.text = [NSString stringWithFormat:@"%lu", (unsigned long)progressViewBadge];
         UIImage *badge = self.indicatorPrototypeView.zz_renderToImage;
-        
+
         ANDispatchBlockToMainQueue(^{
-            
+
             [UIView animateWithDuration:0.25 animations:^{
                 [self.progressView setThumbImage:badge forState:UIControlStateNormal];
             }];

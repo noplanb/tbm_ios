@@ -10,7 +10,7 @@
 
 @implementation ANMessageDomainModel
 
-- (NSArray*)recipients
+- (NSArray *)recipients
 {
     if (!_recipients)
     {
@@ -19,7 +19,7 @@
     return _recipients;
 }
 
-- (NSString*)message
+- (NSString *)message
 {
     if (!_message)
     {
@@ -28,7 +28,7 @@
     return _message;
 }
 
-- (NSString*)title
+- (NSString *)title
 {
     if (!_title)
     {

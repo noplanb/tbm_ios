@@ -39,15 +39,15 @@
 
 - (void)loadUserData
 {
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
 //    user.firstName = @"";
 //    user.lastName = @"";
 //    user.mobileNumber = @"";
-    
+
     NSString *num = @"153";
-    
+
     user.firstName = num;
     user.lastName = num;
     user.mobileNumber = [NSString stringWithFormat:@"79990000%@", num];
@@ -56,7 +56,7 @@
 
     if (!ANIsEmpty(user.mobileNumber))
     {
-        NSError* error;
+        NSError *error;
 
         NSString *nationalNumber = nil;
         NSNumber *countryCode = [[NBPhoneNumberUtil new] extractCountryCode:user.mobileNumber nationalNumber:&nationalNumber];
@@ -75,13 +75,13 @@
     [self.output userDataLoadedSuccessfully:user];
 }
 
-- (void)registerUser:(ZZUserDomainModel*)model
+- (void)registerUser:(ZZUserDomainModel *)model
 {
-    #ifndef DEBUG_LOGIN_USER
+#ifndef DEBUG_LOGIN_USER
     model.firstName = [self _cleanText:model.firstName];
     model.lastName = [self _cleanText:model.lastName];
-    #endif
-    
+#endif
+
     model.countryCode = [NSObject an_safeString:model.countryCode];
     model.countryCode = [self _cleanNumber:model.countryCode];
 
@@ -89,7 +89,7 @@
     model.plainPhoneNumber = [self _cleanNumber:model.plainPhoneNumber];
 
     model.mobileNumber = [model.countryCode stringByAppendingString:model.plainPhoneNumber];
-    NSError* validationError = [self _validateUserModel:model];
+    NSError *validationError = [self _validateUserModel:model];
 
     if (!validationError)
     {
@@ -108,7 +108,7 @@
     [self registerUserWithModel:self.currentUser forceCall:YES];
 }
 
-- (void)validateSMSCode:(NSString*)code
+- (void)validateSMSCode:(NSString *)code
 {
     [[ZZAccountTransportService verifySMSCodeWithUserModel:self.currentUser code:code] subscribeNext:^(id x) {
 
@@ -116,7 +116,7 @@
                                                                                     usingMapping:[ZZUserDomainModel mapping]];
         user.isRegistered = YES;
 
-        NSString* mobilePhone = [x objectForKey:@"mobile_number"];
+        NSString *mobilePhone = [x objectForKey:@"mobile_number"];
 
         [ZZStoredSettingsManager shared].mobileNumber = mobilePhone;
         [ZZUserDataProvider upsertUserWithModel:user];
@@ -132,7 +132,7 @@
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsUserAuthorized
                                            notificationObject:nil];
 
-    } error:^(NSError *error) {
+    }                                                                                          error:^(NSError *error) {
         //TODO: separate errors
         [self.output smsCodeValidationCompletedWithError:error];
     }];
@@ -148,7 +148,7 @@
                                            notificationObject:nil];
         [self.output registrationFlowCompletedSuccessfully];
 
-    } error:^(NSError *error) {
+    }                                                   error:^(NSError *error) {
 
         [self.output loadFriendsDidFailWithError:error];
     }];
@@ -156,7 +156,7 @@
 
 #pragma mark - ZZAccountTransportService
 
-- (void)registerUserWithModel:(ZZUserDomainModel*)user forceCall:(BOOL)forceCall
+- (void)registerUserWithModel:(ZZUserDomainModel *)user forceCall:(BOOL)forceCall
 {
     [self _saveAuthenticatedUserMobileNumberToDefauts:user.mobileNumber]; //TODO: temp
 
@@ -171,28 +171,28 @@
         self.currentUser.mkey = mkey;
         self.currentUser.auth = auth;
         self.currentUser = [ZZUserDataProvider upsertUserWithModel:self.currentUser];
-        
+
         [ANCrashlyticsAdapter updateUserDataWithID:mkey username:self.currentUser.fullName email:user.mobileNumber];
-        
+
         if (!forceCall)
         {
             [self.output registrationCompletedSuccessfullyWithPhoneNumber:user.mobileNumber];
         }
-        
-    } error:^(NSError *error) {
+
+    }                                                                                         error:^(NSError *error) {
         if (forceCall)
         {
             [self.output callRequestDidFailWithError:error];
         }
         else
-        {   
+        {
             [self _handleErrorNumberValidationWithError:error];
         }
     }];
 }
 
 
-- (void)_handleErrorNumberValidationWithError:(NSError*)error
+- (void)_handleErrorNumberValidationWithError:(NSError *)error
 {
 
     if ([self.output isNetworkEnabled])
@@ -200,7 +200,7 @@
         if (!ANIsEmpty([ZZStoredSettingsManager shared].mobileNumber))
         {
 
-            NSError* mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
+            NSError *mobilePhoneError = [NSError errorWithDomain:kErrorDomainWrongMobileType code:kErrorWrongMobileErrorCode userInfo:nil];
             [self.output registrationDidFailWithError:mobilePhoneError];
         }
         else
@@ -216,9 +216,9 @@
 
 #pragma mark - Validation Part
 
-- (NSError*)_validateUserModel:(ZZUserDomainModel*)model
+- (NSError *)_validateUserModel:(ZZUserDomainModel *)model
 {
-    NSError* error;
+    NSError *error;
 
     if (ANIsEmpty(model.firstName))
     {
@@ -247,15 +247,15 @@
     return error;
 }
 
-- (BOOL)_isValidPhone:(NSString*)phone code:(NSString*)code
+- (BOOL)_isValidPhone:(NSString *)phone code:(NSString *)code
 {
     NBPhoneNumberUtil *numberUtils = [NBPhoneNumberUtil new];
-    NSString* region;
+    NSString *region;
     if (!ANIsEmpty(code))
     {
         region = [numberUtils getRegionCodeForCountryCode:@([code integerValue])];
     }
-    
+
     if (ANIsEmpty(region) || [region isEqualToString:@"ZZ"])
     {
         ZZLogError(@"Couldn't determine region from country code. Default is US");
@@ -263,7 +263,7 @@
     }
 
     NSError *error;
-    NBPhoneNumber* phoneNumber = [numberUtils parse:phone defaultRegion:region error:&error];
+    NBPhoneNumber *phoneNumber = [numberUtils parse:phone defaultRegion:region error:&error];
     if (!error)
     {
         return [numberUtils isValidNumber:phoneNumber];
@@ -278,7 +278,7 @@
  *  CLEANUP!!!!
  */
 
-- (NSString*)_cleanText:(NSString*)text
+- (NSString *)_cleanText:(NSString *)text
 {
     NSError *error = nil;
     NSArray *rxs = @[@"\\s+", @"\\W+", @"\\d+"];
@@ -292,7 +292,7 @@
     return text;
 }
 
-- (NSString*)_cleanNumber:(NSString*)phone
+- (NSString *)_cleanNumber:(NSString *)phone
 {
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\D+"
@@ -301,9 +301,9 @@
     return [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
 }
 
-- (void)_saveAuthenticatedUserMobileNumberToDefauts:(NSString*)number
+- (void)_saveAuthenticatedUserMobileNumberToDefauts:(NSString *)number
 {
-    NSString* numberWithPlus = [NSString stringWithFormat:@"+%@", number];
+    NSString *numberWithPlus = [NSString stringWithFormat:@"+%@", number];
     [ZZStoredSettingsManager shared].mobileNumber = numberWithPlus;
     [[NSUserDefaults standardUserDefaults] setObject:numberWithPlus forKey:@"authenticatedMobileNumber"]; //TODO: stored manager
     [[NSUserDefaults standardUserDefaults] synchronize];

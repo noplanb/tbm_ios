@@ -8,6 +8,7 @@
 @interface ZZBadge : UIView
 
 @property (nonatomic, weak, readonly) CAShapeLayer *shapeLayer;
+
 - (void)animate;
 
 @end

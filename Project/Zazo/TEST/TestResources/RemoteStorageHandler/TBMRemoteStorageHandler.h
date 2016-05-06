@@ -23,36 +23,66 @@ static NSString *REMOTE_STORAGE_SERVER_VIDEO_DOWNLOAD_PATH = @"videos/get";
 static NSString *REMOTE_STORAGE_VIDEO_ID_KEY = @"videoId";
 static NSString *REMOTE_STORAGE_STATUS_KEY = @"status";
 
-static NSString * REMOTE_STORAGE_STATUS_DOWNLOADED = @"downloaded";
-static NSString * REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
+static NSString *REMOTE_STORAGE_STATUS_DOWNLOADED = @"downloaded";
+static NSString *REMOTE_STORAGE_STATUS_VIEWED = @"viewed";
 
-static NSString * REMOTE_STORAGE_STATUS_SUFFIX = @"-VideoStatusKVKey";
-static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
+static NSString *REMOTE_STORAGE_STATUS_SUFFIX = @"-VideoStatusKVKey";
+static NSString *REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
 
 @interface TBMRemoteStorageHandler : NSObject
 
 
-+ (NSString *) fileTransferRemoteUrlBase;
-+ (NSString *) fileTransferUploadPath;
-+ (NSString *) fileTransferDownloadPath;
-+ (NSString *) fileTransferDeletePath;
++ (NSString *)fileTransferRemoteUrlBase;
 
-+ (NSString *) outgoingVideoRemoteFilename:(TBMFriend *)friend videoId:(NSString *)videoId;
-+ (NSString *) incomingVideoRemoteFilename:(TBMVideo *)video;
++ (NSString *)fileTransferUploadPath;
+
++ (NSString *)fileTransferDownloadPath;
+
++ (NSString *)fileTransferDeletePath;
+
++ (NSString *)outgoingVideoRemoteFilename:(TBMFriend *)friend
+
+videoId: (NSString * )
+videoId;
+
++ (NSString *)incomingVideoRemoteFilename:(TBMVideo *)video;
 
 // Convenience setters
-+ (void) addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
-+ (void) setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
++ (void)addRemoteOutgoingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
+
++ (void)deleteRemoteIncomingVideoId:(NSString *)videoId friend:(TBMFriend *)friend;
+
++ (void)setRemoteIncomingVideoStatus:(NSString *)status videoId:(NSString *)videoId friend:(TBMFriend *)friend;
 
 // Convenience getters
-+ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend gotVideoIds:(void (^)(NSArray *videoIds))gotVideoIds;
-+ (void) getRemoteOutgoingVideoStatus:(TBMFriend *)friend success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure;
++ (void)getRemoteIncomingVideoIdsWithFriend:(TBMFriend *)friend
+
+gotVideoIds: (void(^)
+(
+NSArray *videoIds
+))
+gotVideoIds;
+
++ (void)getRemoteOutgoingVideoStatus:(TBMFriend *)friend
+
+success: (void(^)
+(
+NSDictionary *response
+))
+success failure:
+(void(^)(
+NSError *error
+))
+failure;
+
 + (void)getAllRemoteIncomingVideoIds;
+
 + (void)getAllRemoteOutgoingVideoStatus;
 
 + (void)getRemoteEverSentFriendsWithSuccess:(void (^)(NSArray *response))success failure:(void (^)(NSError *error))failure;
+
 + (void)setRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys;
+
 // Conversion of status
 + (int)outgoingVideoStatusWithRemoteStatus:(NSString *)remoteStatus;
 
@@ -60,8 +90,11 @@ static NSString * REMOTE_STORAGE_VIDEO_ID_SUFFIX = @"-VideoIdKVKey";
 //*****************
 
 + (NSString *)incomingVideoIDRemoteKVKey:(TBMFriend *)friend;
+
 + (NSString *)outgoingVideoIDRemoteKVKey:(TBMFriend *)friend;
+
 + (NSString *)incomingVideoStatusRemoteKVKey:(TBMFriend *)friend;
+
 + (NSString *)outgoingVideoStatusRemoteKVKey:(TBMFriend *)friend;
 
 @end

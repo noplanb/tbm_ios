@@ -23,9 +23,10 @@
 
 @property (nonatomic, strong) ZZCommunicationDomainModel *primaryPhone;
 
-- (NSString*)fullName;
+- (NSString *)fullName;
+
 - (ZZMenuContactType)contactType;
 
-+ (instancetype)modelWithFirstName:(NSString*)firstName lastName:(NSString*)lastName;
++ (instancetype)modelWithFirstName:(NSString *)firstName lastName:(NSString *)lastName;
 
 @end

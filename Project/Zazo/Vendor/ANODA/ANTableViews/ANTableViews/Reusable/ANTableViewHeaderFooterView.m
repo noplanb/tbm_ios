@@ -41,17 +41,17 @@
 
 - (void)setup
 {
-    
+
 }
 
 - (void)updateWithModel:(id)model
 {
-    NSString * reason = [NSString stringWithFormat:@"view %@ should implement %@: method\n",
-                         NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
-    NSException * exc =
-    [NSException exceptionWithName:@"ANTableViewController API exception"
-                            reason:reason
-                          userInfo:nil];
+    NSString *reason = [NSString stringWithFormat:@"view %@ should implement %@: method\n",
+                                                  NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
+    NSException *exc =
+            [NSException exceptionWithName:@"ANTableViewController API exception"
+                                    reason:reason
+                                  userInfo:nil];
     [exc raise];
 }
 

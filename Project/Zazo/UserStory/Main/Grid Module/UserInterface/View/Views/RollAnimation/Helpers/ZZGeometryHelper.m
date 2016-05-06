@@ -15,10 +15,12 @@
     double startAngle = [self angleFromPoint:from onFrame:frame];
 
     startAngle += angle;
-    while (startAngle < 0.f) {
+    while (startAngle < 0.f)
+    {
         startAngle += 2 * M_PI;
     }
-    while (startAngle >= 2 * M_PI) {
+    while (startAngle >= 2 * M_PI)
+    {
         startAngle -= 2 * M_PI;
     }
 
@@ -78,7 +80,8 @@
         y = f.size.height / 2;
         x = y / tan(a);
     }
-    else if (a < corner) {
+    else if (a < corner)
+    {
         x = f.size.width / 2;
         y = x * tan(a);
     }
@@ -88,9 +91,10 @@
         y = f.size.height / 2;
     }
 
-    res = CGPointMake((CGFloat) (f.size.width / 2 + x), (CGFloat) (f.size.height / 2 - y));
+    res = CGPointMake((CGFloat)(f.size.width / 2 + x), (CGFloat)(f.size.height / 2 - y));
 
-    while (quarter != 0) {
+    while (quarter != 0)
+    {
         [self increaseQuarterOfPoint:&res inFrame:&f];
         quarter--;
     }
@@ -106,7 +110,8 @@
         if (point.y <= center.y)
         {
             return 0;
-        } else {
+        } else
+        {
             return 3;
         }
     }
@@ -151,9 +156,9 @@
 {
     NSUInteger quarter = [self quarterOfAngle:angle inFrame:frame];
     BOOL isHorizontal = (fabs(velocity.x) > fabs(velocity.y));
-    
+
     ZZSpinDirection direction = ZZSpinDirectionNone;
-    
+
     switch (quarter)
     {
         case 0:
@@ -166,8 +171,9 @@
             {
                 direction = (velocity.y > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
             }
-        } break;
-            
+        }
+            break;
+
         case 1:
         {
             if (isHorizontal)
@@ -178,8 +184,9 @@
             {
                 direction = (velocity.y > 0) ? ZZSpinDirectionCounterClockwise : ZZSpinDirectionClockwise;
             }
-        } break;
-            
+        }
+            break;
+
         case 2:
         {
             if (isHorizontal)
@@ -190,8 +197,9 @@
             {
                 direction = (velocity.y > 0) ? ZZSpinDirectionCounterClockwise : ZZSpinDirectionClockwise;
             }
-        } break;
-            
+        }
+            break;
+
         case 3:
         {
             if (isHorizontal)
@@ -202,77 +210,84 @@
             {
                 direction = (velocity.y > 0) ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
             }
-            
-        } break;
-            
-        default: break;
+
+        }
+            break;
+
+        default:
+            break;
     }
     return direction;
 }
 
-+ (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection) direction
++ (CGFloat)nextFixedPositionFrom:(CGFloat)currentPosition withDirection:(ZZSpinDirection)direction
 {
     CGFloat moveToAngle = currentPosition;
 
-    while (currentPosition > (CGFloat)(2*M_PI))
+    while (currentPosition > (CGFloat)(2 * M_PI))
     {
-        currentPosition -= (CGFloat)(2*M_PI);
+        currentPosition -= (CGFloat)(2 * M_PI);
     }
     while (currentPosition < 0)
     {
-        currentPosition += (CGFloat)(2*M_PI);
+        currentPosition += (CGFloat)(2 * M_PI);
     }
 
     if (currentPosition < M_PI_4 && currentPosition >= 0)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ? 0.f : (CGFloat) M_PI_4;
+        moveToAngle = direction == ZZSpinDirectionClockwise ? 0.f : (CGFloat)M_PI_4;
     }
     else if (currentPosition < M_PI_2 && currentPosition >= M_PI_4)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat) M_PI_4 : (CGFloat) M_PI_2;
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)M_PI_4 : (CGFloat)M_PI_2;
     }
     else if (currentPosition < 3 * M_PI_4 && currentPosition >= M_PI_2)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat) M_PI_2 : (CGFloat) (3 * M_PI_4);
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)M_PI_2 : (CGFloat)(3 * M_PI_4);
     }
     else if (currentPosition < M_PI && currentPosition >= 3 * M_PI_4)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ?(CGFloat) (3 * M_PI_4) : (CGFloat) M_PI;
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)(3 * M_PI_4) : (CGFloat)M_PI;
     }
     else if (currentPosition < 5 * M_PI_4 && currentPosition >= M_PI)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ?(CGFloat) M_PI : (CGFloat)(5*M_PI_4);
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)M_PI : (CGFloat)(5 * M_PI_4);
     }
     else if (currentPosition < 3 * M_PI_2 && currentPosition >= 5 * M_PI_4)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ?(CGFloat) (5 * M_PI_4) : (CGFloat) (3 * M_PI_2);
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)(5 * M_PI_4) : (CGFloat)(3 * M_PI_2);
     }
     else if (currentPosition < 7 * M_PI_4 && currentPosition >= 3 * M_PI_2)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ?(CGFloat) (3 * M_PI_2) : (CGFloat)(7 * M_PI_4);
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)(3 * M_PI_2) : (CGFloat)(7 * M_PI_4);
     }
     else if (currentPosition < 2 * M_PI && currentPosition >= 7 * M_PI_4)
     {
-        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat) (7 * M_PI_4) : (CGFloat)(2 * M_PI);
+        moveToAngle = direction == ZZSpinDirectionClockwise ? (CGFloat)(7 * M_PI_4) : (CGFloat)(2 * M_PI);
     }
     return moveToAngle;
 }
 
 #pragma mark - Private
 
-+ (BOOL)increaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame {
++ (BOOL)increaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame
+{
     NSUInteger quarter = [self quarterForPoint:*point inFrame:*frame];
-    if (quarter == 3) {
+    if (quarter == 3)
+    {
         return NO;
-    } else {
+    } else
+    {
         *point = CGPointMake((*point).y, (*frame).size.width - (*point).x);
         *frame = CGRectMake(0.f, 0.f, (*frame).size.height, (*frame).size.width);
     }
     return YES;
 }
 
-+ (BOOL)increaseQuarterOfAngle:(CGFloat *)angle inFrame:(CGRect *)frame {
-    if ([self quarterOfAngle:(*angle) inFrame:(*frame)] == 3) {
++ (BOOL)increaseQuarterOfAngle:(CGFloat *)angle inFrame:(CGRect *)frame
+{
+    if ([self quarterOfAngle:(*angle) inFrame:(*frame)] == 3)
+    {
         return NO;
     }
     *angle += M_PI_2;
@@ -280,19 +295,24 @@
     return YES;
 }
 
-+ (BOOL)decreaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame {
++ (BOOL)decreaseQuarterOfPoint:(CGPoint *)point inFrame:(CGRect *)frame
+{
     NSUInteger quarter = [self quarterForPoint:*point inFrame:*frame];
-    if (quarter == 0) {
+    if (quarter == 0)
+    {
         return NO;
-    } else {
+    } else
+    {
         *point = CGPointMake((*frame).size.height - (*point).y, (*point).x);
         *frame = CGRectMake(0.f, 0.f, (*frame).size.height, (*frame).size.width);
     }
     return YES;
 }
 
-+ (BOOL)decreaseQuarterOfAngle:(double *)angle inFrame:(CGRect *)frame {
-    if ([self quarterOfAngle:(*angle) inFrame:(*frame)] == 0) {
++ (BOOL)decreaseQuarterOfAngle:(double *)angle inFrame:(CGRect *)frame
+{
+    if ([self quarterOfAngle:(*angle) inFrame:(*frame)] == 0)
+    {
         return NO;
     }
     *angle -= M_PI_2;

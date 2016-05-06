@@ -13,8 +13,8 @@ static NSInteger const kDefaultSwitchHeight = 31;
 
 @interface ZZSecretSwitchCell ()
 
-@property (nonatomic, strong) ZZSecretSwitchCellViewModel* currentModel;
-@property (nonatomic, strong) UISwitch* switchControl;
+@property (nonatomic, strong) ZZSecretSwitchCellViewModel *currentModel;
+@property (nonatomic, strong) UISwitch *switchControl;
 
 @end
 
@@ -30,7 +30,7 @@ static NSInteger const kDefaultSwitchHeight = 31;
     return self;
 }
 
-- (void)updateWithModel:(ZZSecretSwitchCellViewModel*)model
+- (void)updateWithModel:(ZZSecretSwitchCellViewModel *)model
 {
     self.textLabel.text = model.title;
     self.switchControl.on = model.switchState;
@@ -55,7 +55,7 @@ static NSInteger const kDefaultSwitchHeight = 31;
         _switchControl = [UISwitch new];
         [_switchControl addTarget:self action:@selector(switchChanged) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_switchControl];
-        
+
         [_switchControl mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView.mas_centerY);
             make.width.equalTo(@(kDefaultSwitchWidth));

@@ -3,7 +3,8 @@
 //  Zazo
 //
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZMainWireframeTabMenu,
     ZZMainWireframeTabGrid,
     ZZMainWireframeTabContacts,
@@ -15,12 +16,15 @@ typedef enum : NSUInteger {
 @interface ZZMainWireframe : NSObject
 
 - (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
+
 - (void)showTab:(ZZMainWireframeTab)tab;
 
-- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel *)model;
+
 - (void)presentEditFriendsController;
+
 - (void)popToRootVC;
 
-@property (nonatomic, readonly) id<ZZMainModuleInterface> moduleInterface;
+@property (nonatomic, readonly) id <ZZMainModuleInterface> moduleInterface;
 
 @end

@@ -14,21 +14,24 @@
 @protocol ZZHintsControllerDelegate <NSObject>
 
 - (void)hintWasDismissedWithType:(ZZHintsType)type;
+
 - (UIView *)hintPresentedView;
+
 - (void)showMenuTab;
+
 - (void)showGridTab;
 
 @end
 
 @interface ZZHintsController : NSObject
 
-@property (nonatomic, weak) id<ZZHintsControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZHintsControllerDelegate> delegate;
 
 - (void)showHintWithType:(ZZHintsType)type
               focusFrame:(CGRect)focusFrame
                withIndex:(NSInteger)index
-               withModel:(ZZFriendDomainModel*)friendModel
-         formatParameter:(NSString*)parameter;
+               withModel:(ZZFriendDomainModel *)friendModel
+         formatParameter:(NSString *)parameter;
 
 - (void)hideHintView;
 

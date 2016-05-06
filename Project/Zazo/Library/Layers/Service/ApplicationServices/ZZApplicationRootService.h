@@ -16,10 +16,12 @@
 
 @interface ZZApplicationRootService : NSObject <ZZNotificationsHandlerDelegate>
 
-@property (nonatomic, weak) id<ZZApplicationRootServiceNotificationDelegate> notificationDelegate;
+@property (nonatomic, weak) id <ZZApplicationRootServiceNotificationDelegate> notificationDelegate;
 
-- (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler;
+- (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler;
+
 - (void)updateBadgeCounter;
+
 - (void)checkApplicationPermissionsAndResources;
 
 @end

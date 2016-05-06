@@ -10,7 +10,7 @@
 
 @interface ZZStartInteractor : NSObject <ZZStartInteractorInput>
 
-@property (nonatomic, weak) id<ZZStartInteractorOutput> output;
+@property (nonatomic, weak) id <ZZStartInteractorOutput> output;
 
 @end
 

@@ -18,11 +18,13 @@
 
 @interface ZZEditFriendListDataSource : NSObject
 
-@property (nonatomic, strong) ANMemoryStorage* storage;
-@property (nonatomic, weak) id<ZZEditFriendListDataSourceDelegate> delegate;
+@property (nonatomic, strong) ANMemoryStorage *storage;
+@property (nonatomic, weak) id <ZZEditFriendListDataSourceDelegate> delegate;
 
-- (void)setupStorageWithModels:(NSArray*)list;
+- (void)setupStorageWithModels:(NSArray *)list;
+
 - (void)updateViewModel:(ZZEditFriendCellViewModel *)model;
-- (void)updateModelWithFriend:(ZZFriendDomainModel*)model;
+
+- (void)updateModelWithFriend:(ZZFriendDomainModel *)model;
 
 @end

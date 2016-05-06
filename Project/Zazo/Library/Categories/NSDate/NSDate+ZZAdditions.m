@@ -5,7 +5,8 @@
 
 #import "NSDate+ZZAdditions.h"
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZDateFormatTemplateToday,
     ZZDateFormatTemplateWeek,
     ZZDateFormatTemplateYear,

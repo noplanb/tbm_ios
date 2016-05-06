@@ -12,6 +12,6 @@
 
 @interface ZZDebugStateVC : ZZBaseVC <ZZDebugStateViewInterface>
 
-@property (nonatomic, weak) id<ZZDebugStateModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZDebugStateModuleInterface> eventHandler;
 
 @end

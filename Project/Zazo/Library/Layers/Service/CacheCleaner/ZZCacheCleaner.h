@@ -9,6 +9,7 @@
 @interface ZZCacheCleaner : NSObject
 
 + (void)setNeedsCacheCleaning;
+
 + (void)cleanIfNeeded;
 
 @end

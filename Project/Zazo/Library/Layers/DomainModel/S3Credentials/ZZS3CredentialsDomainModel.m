@@ -10,22 +10,22 @@
 #import "FEMObjectMapping.h"
 
 const struct ZZS3CredentialsDomainModelAttributes ZZS3CredentialsDomainModelAttributes = {
-    .region = @"region",
-    .bucket = @"bucket",
-    .accessKey = @"accessKey",
-    .secretKey = @"secretKey",
+        .region = @"region",
+        .bucket = @"bucket",
+        .accessKey = @"accessKey",
+        .secretKey = @"secretKey",
 };
 
 @implementation ZZS3CredentialsDomainModel
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
-       
-        [mapping addAttributesFromDictionary:@{ZZS3CredentialsDomainModelAttributes.region      : @"region",
-                                               ZZS3CredentialsDomainModelAttributes.bucket      : @"bucket",
-                                               ZZS3CredentialsDomainModelAttributes.accessKey   : @"access_key",
-                                               ZZS3CredentialsDomainModelAttributes.secretKey   : @"secret_key"}];
+
+        [mapping addAttributesFromDictionary:@{ZZS3CredentialsDomainModelAttributes.region : @"region",
+                ZZS3CredentialsDomainModelAttributes.bucket : @"bucket",
+                ZZS3CredentialsDomainModelAttributes.accessKey : @"access_key",
+                ZZS3CredentialsDomainModelAttributes.secretKey : @"secret_key"}];
     }];
 }
 

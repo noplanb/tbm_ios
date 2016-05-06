@@ -17,37 +17,37 @@
 
 @interface ZZStartWireframe ()
 
-@property (nonatomic, strong) ZZStartPresenter* presenter;
-@property (nonatomic, strong) UIViewController* startController;
-@property (nonatomic, strong) UIWindow* presentedWindow;
+@property (nonatomic, strong) ZZStartPresenter *presenter;
+@property (nonatomic, strong) UIViewController *startController;
+@property (nonatomic, strong) UIWindow *presentedWindow;
 @property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZStartWireframe
 
-- (void)presentStartControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock
+- (void)presentStartControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock
 {
     self.completionBlock = completionBlock;
-    
+
     UIViewController *startController =
-    [UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil].instantiateInitialViewController;
-    
-    ZZStartInteractor* interactor = [ZZStartInteractor new];
-    ZZStartPresenter* presenter = [ZZStartPresenter new];
-    
+            [UIStoryboard storyboardWithName:@"Launch Screen" bundle:nil].instantiateInitialViewController;
+
+    ZZStartInteractor *interactor = [ZZStartInteractor new];
+    ZZStartPresenter *presenter = [ZZStartPresenter new];
+
     interactor.output = presenter;
     presenter.interactor = interactor;
     presenter.wireframe = self;
-   
+
     ANDispatchBlockToMainQueue(^{
         window.rootViewController = startController;
     });
-    
+
     self.presenter = presenter;
     self.startController = startController;
     self.presentedWindow = window;
-    
+
     [presenter configurePresenterWithUserInterface:(id)startController];
 }
 
@@ -58,11 +58,11 @@
 
 - (void)presentMenuControllerWithGrid
 {
-    ZZMainWireframe* wireframe = [ZZMainWireframe new];
+    ZZMainWireframe *wireframe = [ZZMainWireframe new];
     [wireframe presentMainControllerFromWindow:self.presentedWindow completion:^{
 
         [[ZZUpdateHelper shared] checkForUpdates];
-        
+
         if (self.completionBlock)
         {
             self.completionBlock();
@@ -72,14 +72,14 @@
 
 - (void)presentRegistrationController
 {
-    ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+    ZZAuthWireframe *wireframe = [ZZAuthWireframe new];
     [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
     [[ZZUpdateHelper shared] checkForUpdates];
 }
 
 - (void)presentNetworkTestController
 {
-     ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
+    ZZNetworkTestWireframe *testWireframe = [ZZNetworkTestWireframe new];
     [testWireframe presentNetworkTestControllerFromWindow:self.presentedWindow];
 }
 

@@ -12,7 +12,7 @@
 
 @implementation ZZKeychainDataProvider
 
-+ (void)updateWithCredentials:(ZZS3CredentialsDomainModel*)model
++ (void)updateWithCredentials:(ZZS3CredentialsDomainModel *)model
 {
     if ([model isValid])
     {
@@ -23,15 +23,15 @@
     }
 }
 
-+ (ZZS3CredentialsDomainModel*)loadCredentials
++ (ZZS3CredentialsDomainModel *)loadCredentials
 {
-    ZZS3CredentialsDomainModel* model = [ZZS3CredentialsDomainModel new];
-    
+    ZZS3CredentialsDomainModel *model = [ZZS3CredentialsDomainModel new];
+
     model.region = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.region];
     model.bucket = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.bucket];
     model.accessKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.accessKey];
     model.secretKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.secretKey];
-    
+
     return model;
 }
 

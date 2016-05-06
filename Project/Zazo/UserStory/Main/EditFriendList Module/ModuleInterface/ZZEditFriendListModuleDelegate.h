@@ -10,6 +10,6 @@
 
 @protocol ZZEditFriendListModuleDelegate <NSObject>
 
-- (void)friendStateWasUpdated:(ZZFriendDomainModel*)model toVisible:(BOOL)isVisible;
+- (void)friendStateWasUpdated:(ZZFriendDomainModel *)model toVisible:(BOOL)isVisible;
 
 @end

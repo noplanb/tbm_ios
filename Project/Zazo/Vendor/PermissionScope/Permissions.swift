@@ -20,6 +20,7 @@ import Accounts
 /**
 *  Protocol for permission configurations.
 */
+
 @objc public protocol Permission {
     /// Permission type
     var type: PermissionType { get }
@@ -28,7 +29,7 @@ import Accounts
 @objc public class NotificationsPermission: NSObject, Permission {
     public let type: PermissionType = .Notifications
     public let notificationCategories: Set<UIUserNotificationCategory>?
-    
+
     public init(notificationCategories: Set<UIUserNotificationCategory>? = nil) {
         self.notificationCategories = notificationCategories
     }
@@ -47,7 +48,7 @@ import Accounts
 }
 
 public typealias requestPermissionUnknownResult = () -> Void
-public typealias requestPermissionShowAlert     = (PermissionType) -> Void
+public typealias requestPermissionShowAlert = (PermissionType) -> Void
 
 @objc public class EventsPermission: NSObject, Permission {
     public let type: PermissionType = .Events

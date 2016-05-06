@@ -16,9 +16,9 @@
 
 @interface ZZHintsView ()
 
-@property (nonatomic, strong) ZZHintsGotItView* gotItView;
+@property (nonatomic, strong) ZZHintsGotItView *gotItView;
 @property (nonatomic, assign) ZZHintsBottomImageType currentBottomImageType;
-@property (nonatomic, strong) ZZHintsViewModel* hintViewModel;
+@property (nonatomic, strong) ZZHintsViewModel *hintViewModel;
 
 @end
 
@@ -32,48 +32,48 @@
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tutorialViewDidTap:)];
         [self addGestureRecognizer:tapRecognizer];
     }
-    
+
     return self;
 }
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index
+- (void)updateWithHintsViewModel:(ZZHintsViewModel *)viewModel andIndex:(NSInteger)index
 {
     self.hintViewModel = viewModel;
     [self showFocusOnFrame:[viewModel focusFrame]];
-    
+
     ZZHintsArrow *hintArrow = [ZZHintsArrow arrowWithText:[viewModel text]
-                                               curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
-                                              arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
-                                                   angle:[viewModel arrowAngleForIndex:index]
-                                                  hidden:[viewModel hidesArrow]
-                                                   frame:[UIScreen mainScreen].bounds
-                                          focusViewIndex:index];
-    
-    
+                                                curveKind:(NSInteger)[viewModel arrowDirectionForIndex:index]
+                                               arrowPoint:[viewModel generateArrowFocusPointForIndex:index]
+                                                    angle:[viewModel arrowAngleForIndex:index]
+                                                   hidden:[viewModel hidesArrow]
+                                                    frame:[UIScreen mainScreen].bounds
+                                           focusViewIndex:index];
+
+
     if ([viewModel bottomImageType] != ZZHintsBottomImageTypeNone)
     {
         self.currentBottomImageType = [viewModel bottomImageType];
         [self.gotItView updateWithType:[viewModel bottomImageType]];
     }
-    
+
     [self addSubview:hintArrow];
 }
 
 - (void)showFocusOnFrame:(CGRect)focusFrame
 {
     UIBezierPath *overlayPath = [UIBezierPath bezierPathWithRect:self.frame];
-    
+
     CGRect highlightFrame = focusFrame;
-    
+
     UIBezierPath *transparentPath = [UIBezierPath bezierPathWithRect:highlightFrame];
     [overlayPath appendPath:transparentPath];
     [overlayPath setUsesEvenOddFillRule:YES];
-    
+
     CAShapeLayer *fillLayer = [CAShapeLayer layer];
     fillLayer.path = overlayPath.CGPath;
     fillLayer.fillRule = kCAFillRuleEvenOdd;
     fillLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:0.65].CGColor;
-    
+
     [self.layer addSublayer:fillLayer];
 }
 
@@ -91,7 +91,7 @@
     });
 }
 
-- (ZZHintsViewModel*)hintModel
+- (ZZHintsViewModel *)hintModel
 {
     return self.hintViewModel;
 }
@@ -106,8 +106,8 @@
     {
         return self;
     }
-    
-    
+
+
     //send event to next responder
     if (CGRectContainsPoint([self.hintViewModel focusFrame], point))
     {
@@ -123,15 +123,15 @@
 
 #pragma mark - Lazy Load
 
-- (ZZHintsGotItView*)gotItView
+- (ZZHintsGotItView *)gotItView
 {
     if (!_gotItView)
     {
         _gotItView = [ZZHintsGotItView new];
-        
-        UIImage* gotItImage;
+
+        UIImage *gotItImage;
         CGFloat width;
-        
+
         if (self.currentBottomImageType == ZZHintsBottomImageTypePresent)
         {
             gotItImage = [UIImage imageNamed:@"present-icon"];
@@ -145,7 +145,7 @@
         CGFloat aspectRatio = gotItImage.size.height / gotItImage.size.width;
         CGFloat height = width * aspectRatio;
         [self addSubview:_gotItView];
-        
+
         [_gotItView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(width));
             make.height.equalTo(@(height));
@@ -153,7 +153,7 @@
             make.centerX.equalTo(self.mas_centerX);
         }];
     }
-    
+
     return _gotItView;
 }
 

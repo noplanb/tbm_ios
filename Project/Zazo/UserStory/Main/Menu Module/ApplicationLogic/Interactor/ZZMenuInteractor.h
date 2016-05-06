@@ -7,7 +7,7 @@
 
 @interface ZZMenuInteractor : NSObject <ZZMenuInteractorInput>
 
-@property (nonatomic, weak) id<ZZMenuInteractorOutput> output;
+@property (nonatomic, weak) id <ZZMenuInteractorOutput> output;
 
 @end
 

@@ -17,11 +17,11 @@ static CGFloat const kStartGridRotationOffset = 10;
 @interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
 @property (nonatomic, assign) CGPoint initialLocation;
-@property (nonatomic, strong) ZZGridView* gridView;
+@property (nonatomic, strong) ZZGridView *gridView;
 @property (nonatomic, assign) CGFloat startOffset;
 
-@property (nonatomic, strong) ZZRotator* rotator;
-@property (nonatomic, strong) ZZGridHelper* gridHelper;
+@property (nonatomic, strong) ZZRotator *rotator;
+@property (nonatomic, strong) ZZGridHelper *gridHelper;
 
 @property (nonatomic, strong) ZZRotationGestureRecognizer *rotationRecognizer;
 
@@ -34,38 +34,38 @@ static CGFloat const kStartGridRotationOffset = 10;
     [self.gridHelper setFrame:frame];
 }
 
-- (instancetype)initWithGridView:(ZZGridView*)gridView
+- (instancetype)initWithGridView:(ZZGridView *)gridView
 {
     self = [super init];
     if (self)
     {
         _enabled = YES;
-        
+
         self.gridView = gridView;
         self.gridView.delegate = self;
         self.gridHelper = [ZZGridHelper new];
-        
+
         self.rotationRecognizer = [[ZZRotationGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(handleRotationGesture:)];
         self.rotationRecognizer.delegate = self;
         [self.gridView.itemsContainerView addGestureRecognizer:self.rotationRecognizer];
-        
+
         RACSignal *featureUnlocked = RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown);
         RACSignal *featureEnabled = RACObserve(self, enabled);
-    
-        [[RACSignal combineLatest:@[featureUnlocked, featureEnabled] reduce:^id(NSNumber *unlocked, NSNumber *enabled){
+
+        [[RACSignal combineLatest:@[featureUnlocked, featureEnabled] reduce:^id(NSNumber *unlocked, NSNumber *enabled) {
             return @(unlocked.boolValue && enabled.boolValue);
         }] subscribeNext:^(id x) {
             self.rotationRecognizer.enabled = [x boolValue];
         }];
-        
+
         self.rotator = [[ZZRotator alloc] initWithAnimationCompletionBlock:^{
             self.isMoving = NO;
         }];
-        
+
         self.rotator.gridView = gridView;
         [self _setupStopRotationHandler];
-        
+
         self.rotator.delegate = self;
     }
     return self;
@@ -83,7 +83,7 @@ static CGFloat const kStartGridRotationOffset = 10;
     return fabs(velocity.y) > fabs(velocity.x);
 }
 
-- (void)handleRotationGesture:(ZZRotationGestureRecognizer*)recognizer
+- (void)handleRotationGesture:(ZZRotationGestureRecognizer *)recognizer
 {
     if ([self _isEnableRotationWithRecorgnizer:recognizer])
     {
@@ -93,25 +93,27 @@ static CGFloat const kStartGridRotationOffset = 10;
             {
                 self.startOffset = self.gridView.calculatedCellsOffset;
                 [self.rotator stopAnimationsOnGrid:self.gridView];
-                
-            } break;
-                
+
+            }
+                break;
+
             case UIGestureRecognizerStateChanged:
             {
                 CGPoint rotationOffset = [recognizer translationInView:self.gridView];
-                
+
                 if ((rotationOffset.x > kStartGridRotationOffset || rotationOffset.x < -kStartGridRotationOffset) ||
-                    (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
+                        (rotationOffset.y > kStartGridRotationOffset || rotationOffset.y < -kStartGridRotationOffset))
                 {
                     self.isMoving = YES;
                     CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
                     CGFloat startAngle = [recognizer startAngleInView:self.gridView];
                     CGFloat deltaAngle = currentAngle - startAngle;
-                    
+
                     self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
                 }
-            } break;
-                
+            }
+                break;
+
             case UIGestureRecognizerStateCancelled:
             case UIGestureRecognizerStateEnded:
             {
@@ -119,9 +121,11 @@ static CGFloat const kStartGridRotationOffset = 10;
                 {
                     [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView] onCarouselView:self.gridView];
                 }
-          
-            } break;
-            default: break;
+
+            }
+                break;
+            default:
+                break;
         }
     }
     else
@@ -141,14 +145,14 @@ static CGFloat const kStartGridRotationOffset = 10;
                      withGrid:self.gridHelper];
 }
 
-- (BOOL)_isEnableRotationWithRecorgnizer:(ZZRotationGestureRecognizer*)recognizer
+- (BOOL)_isEnableRotationWithRecorgnizer:(ZZRotationGestureRecognizer *)recognizer
 {
     BOOL isEnable = NO;
     CGPoint location = [recognizer locationInView:recognizer.view];
     CGFloat kAccessOffset = 50;
     CGFloat viewWidth = CGRectGetWidth(recognizer.view.frame);
     isEnable = (viewWidth - kAccessOffset) > location.x;
-    
+
     return isEnable;
 }
 
@@ -165,17 +169,17 @@ static CGFloat const kStartGridRotationOffset = 10;
 
 - (void)_setupStopRotationHandler
 {
-    UIWindow* stopWindow = [UIApplication sharedApplication].keyWindow;
+    UIWindow *stopWindow = [UIApplication sharedApplication].keyWindow;
     [[[stopWindow rac_signalForSelector:@selector(sendEvent:)] filter:^BOOL(RACTuple *touches) {
-        
+
         BOOL isTouchEnabled = NO;
         BOOL isTouchInArea = NO;
         for (id event in touches)
         {
-            NSSet* touches = [event allTouches];
-            UITouch* touch = [touches anyObject];
+            NSSet *touches = [event allTouches];
+            UITouch *touch = [touches anyObject];
             isTouchEnabled = (touch.phase == UITouchPhaseBegan);
-            
+
             CGPoint location = [touch locationInView:stopWindow];
             CGRect containerRect = self.gridView.itemsContainerView.frame;
             isTouchInArea = CGRectContainsPoint(containerRect, location);

@@ -33,13 +33,13 @@
 
 + (id)badConnectionAlert
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
 
-    NSString* badConnectionMessage =
+    NSString *badConnectionMessage =
             [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
-    
-    NSString* title = @"Bad Connection";
-    
+
+    NSString *title = @"Bad Connection";
+
     return [self alertControllerWithTitle:title message:badConnectionMessage];
 }
 
@@ -47,12 +47,14 @@
 
 - (void)alertControllerView:(SDCAlertControllerView *)sender didPerformAction:(SDCAlertAction *)action
 {
-    if (!action.isEnabled || (self.shouldDismissBlock && !self.shouldDismissBlock(action))) {
+    if (!action.isEnabled || (self.shouldDismissBlock && !self.shouldDismissBlock(action)))
+    {
         return;
     }
-    
+
     [self dismissWithCompletion:^{
-        if (action.handler) {
+        if (action.handler)
+        {
             action.handler(action);
         }
     }];
@@ -66,15 +68,15 @@
     {
         return;
     }
-    
+
     self.dismissWithApplication = YES;
-    
+
     [[NSNotificationCenter defaultCenter]
-         addObserver:self
-         selector:@selector(_appWillDisappearNotification)
-         name:UIApplicationDidEnterBackgroundNotification
-         object:nil];
-    
+            addObserver:self
+               selector:@selector(_appWillDisappearNotification)
+                   name:UIApplicationDidEnterBackgroundNotification
+                 object:nil];
+
 }
 
 - (void)_appWillDisappearNotification
@@ -82,7 +84,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidEnterBackgroundNotification
                                                   object:nil];
-    
+
     self.dismissWithApplication = NO;
     [self dismissWithCompletion:nil];
 }

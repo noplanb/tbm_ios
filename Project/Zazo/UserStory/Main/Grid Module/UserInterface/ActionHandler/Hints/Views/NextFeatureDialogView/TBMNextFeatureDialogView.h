@@ -7,8 +7,8 @@
 
 @class TBMNextFeatureDialogPresenter;
 
-@interface TBMNextFeatureDialogView : UIView 
+@interface TBMNextFeatureDialogView : UIView
 
-+ (void)showNextFeatureDialogWithPresentedView:(UIView*)presentedView completionBlock:(void(^)())completionBlock;
++ (void)showNextFeatureDialogWithPresentedView:(UIView *)presentedView completionBlock:(void (^)())completionBlock;
 
 @end

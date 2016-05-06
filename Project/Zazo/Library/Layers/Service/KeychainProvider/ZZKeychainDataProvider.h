@@ -10,7 +10,8 @@
 
 @interface ZZKeychainDataProvider : NSObject
 
-+ (void)updateWithCredentials:(ZZS3CredentialsDomainModel*)model;
-+ (ZZS3CredentialsDomainModel*)loadCredentials;
++ (void)updateWithCredentials:(ZZS3CredentialsDomainModel *)model;
+
++ (ZZS3CredentialsDomainModel *)loadCredentials;
 
 @end

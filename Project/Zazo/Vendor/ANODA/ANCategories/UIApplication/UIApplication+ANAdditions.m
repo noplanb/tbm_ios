@@ -11,38 +11,38 @@
 
 - (void)an_openVKPageForID:(NSString *)userID
 {
-    NSURL* scheme = [NSURL URLWithString:[NSString stringWithFormat:@"vk://vk.com/id%@", userID]];
-    NSURL* safariURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://vk.com/id%@", userID]];
+    NSURL *scheme = [NSURL URLWithString:[NSString stringWithFormat:@"vk://vk.com/id%@", userID]];
+    NSURL *safariURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://vk.com/id%@", userID]];
     [self an_openURL:scheme orAlternativeURL:safariURL];
 }
 
-- (void)an_openFbPageForID:(NSString*)userID
+- (void)an_openFbPageForID:(NSString *)userID
 {
-    NSURL* schemeURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@",userID]];
+    NSURL *schemeURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", userID]];
     NSString *safariString = [NSString stringWithFormat:@"https://www.facebook.com/profile.php?id=%@", userID];
-    NSURL* safariURL = [NSURL URLWithString:safariString];
-    
+    NSURL *safariURL = [NSURL URLWithString:safariString];
+
     [self an_openURL:schemeURL orAlternativeURL:safariURL];
 }
 
-- (void)an_openLinkedinPageForID:(NSString*)userID
+- (void)an_openLinkedinPageForID:(NSString *)userID
 {
-    NSString* urlString = [NSString stringWithFormat:@"http://www.linkedin.com/profile/view?id=%@", userID];
-    NSURL* url = [NSURL URLWithString:urlString];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.linkedin.com/profile/view?id=%@", userID];
+    NSURL *url = [NSURL URLWithString:urlString];
     [self an_openURL:url orAlternativeURL:nil];
 }
 
 - (void)an_openGooglePlusPageForID:(NSString *)userID
 {
-    NSString* schemeURLString = [NSString stringWithFormat:@"gplus://plus.google.com/%@",userID];
-    NSURL* schemeURL = [NSURL URLWithString:schemeURLString];
-    
-    NSString* safariString = [NSString stringWithFormat:@"https://plus.google.com/%@",userID];
-    NSURL* safariURL = [NSURL URLWithString:safariString];
+    NSString *schemeURLString = [NSString stringWithFormat:@"gplus://plus.google.com/%@", userID];
+    NSURL *schemeURL = [NSURL URLWithString:schemeURLString];
+
+    NSString *safariString = [NSString stringWithFormat:@"https://plus.google.com/%@", userID];
+    NSURL *safariURL = [NSURL URLWithString:safariString];
     [self an_openURL:schemeURL orAlternativeURL:safariURL];
 }
 
-- (void)an_openURL:(NSURL*)url orAlternativeURL:(NSURL*)alternativeURL
+- (void)an_openURL:(NSURL *)url orAlternativeURL:(NSURL *)alternativeURL
 {
     if (![[UIApplication sharedApplication] canOpenURL:url])
     {
@@ -51,9 +51,9 @@
     [[UIApplication sharedApplication] openURL:url];
 }
 
-- (void)an_openURLString:(NSString*)urlString
+- (void)an_openURLString:(NSString *)urlString
 {
-    NSURL* url;
+    NSURL *url;
     if (urlString)
     {
         url = [NSURL URLWithString:urlString];
@@ -63,15 +63,15 @@
 
 #pragma mark - Phone
 
-- (void)an_callToUser:(NSString*)number
+- (void)an_callToUser:(NSString *)number
 {
     UIDevice *device = [UIDevice currentDevice];
-    if ([[device model] isEqualToString:@"iPhone"] )
+    if ([[device model] isEqualToString:@"iPhone"])
     {
         NSString *stringToCall = [[number componentsSeparatedByCharactersInSet:
-                                   [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                                  componentsJoinedByString:@""];
-        
+                [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                componentsJoinedByString:@""];
+
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://+%@", stringToCall]]];
     }
     else

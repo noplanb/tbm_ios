@@ -13,12 +13,13 @@
 + (instancetype)randomPair
 {
     ZZColorPair *pair = [ZZColorPair new];
-    
+
     NSUInteger number = arc4random_uniform(3);
-    
+
     ZZColorTheme *theme = [ZZColorTheme shared];
-    
-    switch (number) {
+
+    switch (number)
+    {
         case 0:
             pair.tintColor = theme.gridCellTintColor1;
             pair.backgroundColor = theme.gridCellBackgroundColor1;
@@ -31,12 +32,12 @@
             pair.tintColor = theme.gridCellTintColor3;
             pair.backgroundColor = theme.gridCellBackgroundColor3;
             break;
-            
+
         default:
-            
+
             break;
     }
-    
+
     return pair;
 }
 

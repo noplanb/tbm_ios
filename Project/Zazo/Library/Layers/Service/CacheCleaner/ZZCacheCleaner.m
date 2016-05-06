@@ -9,7 +9,7 @@ static NSString *ZZCacheCleaningNeededKeyName = @"ZZCacheCleaningNeededKeyName";
 
 @interface ZZCacheCleaner ()
 
-@property(nonatomic, assign) BOOL isCleaningNeeded;
+@property (nonatomic, assign) BOOL isCleaningNeeded;
 
 @end
 
@@ -32,7 +32,7 @@ static NSString *ZZCacheCleaningNeededKeyName = @"ZZCacheCleaningNeededKeyName";
 }
 
 + (void)_clearCache
-{    
+{
     NSFileManager *manager = [NSFileManager defaultManager];
 
     NSString *cacheFolderPath =
@@ -53,7 +53,7 @@ static NSString *ZZCacheCleaningNeededKeyName = @"ZZCacheCleaningNeededKeyName";
 
     NSMutableArray *deletedItems = [NSMutableArray new];
 
-    [items enumerateObjectsUsingBlock:^(NSString * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+    [items enumerateObjectsUsingBlock:^(NSString *_Nonnull item, NSUInteger idx, BOOL *_Nonnull stop) {
         NSError *error;
 
         NSString *itemPath = [cacheFolderPath stringByAppendingPathComponent:item];

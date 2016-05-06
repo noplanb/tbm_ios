@@ -12,6 +12,7 @@
 @protocol ZZGridViewDelegate <NSObject>
 
 - (void)updatedFrame:(CGRect)frame;
+
 - (void)placeCells;
 
 @end
@@ -20,13 +21,13 @@
 
 @property (nonatomic, weak) id <ZZGridViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isRotationEnabled;
-@property (nonatomic, strong) ZZGridContainerView* itemsContainerView;
+@property (nonatomic, strong) ZZGridContainerView *itemsContainerView;
 
 //rotation
 @property (nonatomic, assign) CGFloat calculatedCellsOffset;
 @property (nonatomic, assign) CGFloat maxCellsOffset;
 
-- (NSArray*)items;
+- (NSArray *)items;
 
 
 @end

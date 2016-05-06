@@ -11,9 +11,9 @@
 
 #pragma mark - Storage
 
-- (void)_attachStorage:(id<ANStorageInterface>)storage
+- (void)_attachStorage:(id <ANStorageInterface>)storage
 {
-    storage.delegate = (id<ANStorageUpdatingInterface>)self;
+    storage.delegate = (id <ANStorageUpdatingInterface>)self;
     [storage setSupplementaryHeaderKind:ANTableViewElementSectionHeader];
     [storage setSupplementaryFooterKind:ANTableViewElementSectionFooter];
 }
@@ -51,7 +51,7 @@
     [self.cellFactory registerSupplementayClass:viewClass forModelClass:modelClass type:type];
 }
 
-- (UIView*)_supplementaryViewForIndex:(NSInteger)index type:(ANSupplementaryViewType)type
+- (UIView *)_supplementaryViewForIndex:(NSInteger)index type:(ANSupplementaryViewType)type
 {
     id model = [self _supplementaryModelForIndex:index type:type];
     BOOL isViewStyle = ([self _sectionStyleByType:type] == ANTableViewSectionStyleView);
@@ -59,7 +59,7 @@
     {
         return [self.cellFactory supplementaryViewForModel:model type:type];
     }
-    
+
     return nil;
 }
 
@@ -67,11 +67,11 @@
 {
     BOOL isHeader = (type == ANSupplementaryViewTypeHeader);
     BOOL value = isHeader ? self.displayHeaderOnEmptySection : self.displayFooterOnEmptySection;
-    
+
     if ((self.currentStorage.sections.count && [self.currentStorage.sections[index] numberOfObjects]) || value)
     {
         SEL selector = isHeader ? @selector(headerModelForSectionIndex:) : @selector(footerModelForSectionIndex:);
-        
+
         if ([self.currentStorage respondsToSelector:selector])
         {
             if (type == ANSupplementaryViewTypeHeader)
@@ -91,11 +91,11 @@
 {
     //apple bug HACK: for plain tables, for bottom section separator visibility
     BOOL shouldMaskSeparator = ((self.tableView.style == UITableViewStylePlain) &&
-                                (type == ANSupplementaryViewTypeFooter));
-    
+            (type == ANSupplementaryViewTypeFooter));
+
     CGFloat minHeight = shouldMaskSeparator ? 0.1 : CGFLOAT_MIN;
     // Default table view section footer titles, size defined by UILabel sizeToFit method
-    
+
     id model = [self _supplementaryModelForIndex:index type:type];
     if (model)
     {

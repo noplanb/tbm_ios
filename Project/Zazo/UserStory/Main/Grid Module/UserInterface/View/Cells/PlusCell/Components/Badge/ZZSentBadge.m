@@ -28,7 +28,7 @@
         self.state = NSUIntegerMax;
         self.state = ZZSentBadgeStateSent;
         [self.imageView sizeToFit];
-        
+
         [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
@@ -45,15 +45,15 @@
     {
         return;
     }
-    
+
     _state = state;
 
 //    self.imageView.alpha = 1;
-    
+
     [UIView transitionWithView:self.imageView duration:1 options:0 animations:^{
         self.imageView.image = [UIImage imageNamed:[self _imageFilenameForState:state]];
-        
-    } completion:^(BOOL finished) {
+
+    }               completion:^(BOOL finished) {
         if (state == ZZSentBadgeStateViewed)
         {
             [self _blinkAnimatedTimes:3];
@@ -67,7 +67,7 @@
     {
         return;
     }
-    
+
     [self _hideAnimated:^{
         [self _showAnimated:^{
             [self _blinkAnimatedTimes:times - 1];
@@ -77,15 +77,15 @@
 
 - (void)_hideAnimated:(ANCodeBlock)completion
 {
-        [UIView animateWithDuration:0.5
-                              delay:0
-                            options:0
-                         animations:^{
-             self.imageView.alpha = 0;
-    
-        } completion:^(BOOL finished) {
-            completion();
-        }];
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options:0
+                     animations:^{
+                         self.imageView.alpha = 0;
+
+                     } completion:^(BOOL finished) {
+                completion();
+            }];
 }
 
 - (void)_showAnimated:(ANCodeBlock)completion
@@ -95,12 +95,11 @@
                         options:0
                      animations:^{
                          self.imageView.alpha = 1;
-                         
-                     } completion:^(BOOL finished) {
-                         completion();
-                     }];
-}
 
+                     } completion:^(BOOL finished) {
+                completion();
+            }];
+}
 
 
 - (NSString *)_imageFilenameForState:(ZZSentBadgeState)state

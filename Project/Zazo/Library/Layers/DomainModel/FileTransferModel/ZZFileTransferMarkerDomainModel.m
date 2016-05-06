@@ -13,34 +13,34 @@
 #import "FEMSerializer.h"
 
 const struct ZZFileTransferMarkerDomainModelAttributes ZZFileTransferMarkerDomainModelAttributes = {
-    .friendID = @"friendID",
-    .videoID = @"videoID",
-    .isUpload = @"isUpload",
+        .friendID = @"friendID",
+        .videoID = @"videoID",
+        .isUpload = @"isUpload",
 };
 
 @implementation ZZFileTransferMarkerDomainModel
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
-        
-        [mapping addAttributesFromDictionary:@{ZZFileTransferMarkerDomainModelAttributes.videoID  : @"videoId",
-                                               ZZFileTransferMarkerDomainModelAttributes.friendID : @"friendId",
-                                               ZZFileTransferMarkerDomainModelAttributes.isUpload : @"isUpload"}];
+
+        [mapping addAttributesFromDictionary:@{ZZFileTransferMarkerDomainModelAttributes.videoID : @"videoId",
+                ZZFileTransferMarkerDomainModelAttributes.friendID : @"friendId",
+                ZZFileTransferMarkerDomainModelAttributes.isUpload : @"isUpload"}];
     }];
 }
 
-+ (instancetype)modelWithEncodedMarker:(NSString*)marker
++ (instancetype)modelWithEncodedMarker:(NSString *)marker
 {
-    NSDictionary* jsonValue = [ZZStringUtils dictionaryWithJson:marker];
-    ZZFileTransferMarkerDomainModel* model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:jsonValue
+    NSDictionary *jsonValue = [ZZStringUtils dictionaryWithJson:marker];
+    ZZFileTransferMarkerDomainModel *model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:jsonValue
                                                                                                usingMapping:[self mapping]];
     return model;
 }
 
-- (NSString*)markerValue
+- (NSString *)markerValue
 {
-    NSDictionary* jsonValue = [FEMSerializer serializeObject:self
+    NSDictionary *jsonValue = [FEMSerializer serializeObject:self
                                                 usingMapping:[ZZFileTransferMarkerDomainModel mapping]];
     return [ZZStringUtils jsonWithDictionary:jsonValue];
 }

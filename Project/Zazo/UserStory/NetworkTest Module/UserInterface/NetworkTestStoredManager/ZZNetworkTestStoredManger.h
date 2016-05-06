@@ -19,7 +19,9 @@
 @property (nonatomic, assign) NSInteger prevRetryCount;
 
 - (void)cleanAllCounters;
+
 - (void)cleanRetryCounter;
+
 - (void)cleanStatsCounters;
 
 @end

@@ -13,10 +13,15 @@
 
 @protocol ZZGridPresenterInterface <NSObject>
 
-- (ZZGridDataSource*)dataSource;
-- (ZZGridActionHandler*)actionHandler;
-- (void)showFriendAnimationWithFriend:(ZZFriendDomainModel*)friendModel;
+- (ZZGridDataSource *)dataSource;
+
+- (ZZGridActionHandler *)actionHandler;
+
+- (void)showFriendAnimationWithFriend:(ZZFriendDomainModel *)friendModel;
+
 - (id <ZZGridViewInterface>)userInterface;
-- (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel*)model;
-- (ZZGridAlertBuilder*)alertBuilder;
+
+- (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel *)model;
+
+- (ZZGridAlertBuilder *)alertBuilder;
 @end

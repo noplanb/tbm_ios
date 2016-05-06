@@ -15,9 +15,9 @@
 #import "ZZMainWireframe.h"
 
 @interface ZZContactsPresenter ()
-<
-    ZZRootStateObserverDelegate
->
+        <
+        ZZRootStateObserverDelegate
+        >
 
 @property (nonatomic, strong) ZZContactsDataSource *dataSource;
 
@@ -27,19 +27,19 @@
 
 @synthesize menuModuleDelegate = _menuModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZContactsViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZContactsViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     self.dataSource = [ZZContactsDataSource new];
     [self.userInterface updateDataSource:self.dataSource];
-    
+
     [self.interactor loadData];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_applicationWillEnterInBackground)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
-    
+
     [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
 }
 
@@ -61,18 +61,18 @@
 
 #pragma mark - Output
 
-- (void)addressBookDataLoaded:(NSArray*)data
+- (void)addressBookDataLoaded:(NSArray *)data
 {
     [self.dataSource setupAddressbookItems:data];
     [self.userInterface reloadContactView];
 }
 
-- (void)friendsThatHasAppLoaded:(NSArray*)friendsData
+- (void)friendsThatHasAppLoaded:(NSArray *)friendsData
 {
     [self.dataSource setupFriendsThatHaveAppItems:friendsData];
 }
 
-- (void)friendsDataLoaded:(NSArray*)friendsData
+- (void)friendsDataLoaded:(NSArray *)friendsData
 {
 //    [self.dataSource setupFriendsItems:friendsData];
 }
@@ -103,7 +103,7 @@
 - (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
 {
     if (event == ZZRootStateObserverEventFriendWasAddedToGridWithVideo ||
-        event == ZZRootStateObserverEventFriendInContactChangeStauts)
+            event == ZZRootStateObserverEventFriendInContactChangeStauts)
     {
         [self.interactor enableUpdateContactData];
     }
@@ -114,7 +114,7 @@
 - (void)viewDidAppear
 {
     [self.interactor requestAddressBookPermission:^(BOOL success) {
-        
+
         if (success)
         {
             [self.interactor enableUpdateContactData];
@@ -130,8 +130,8 @@
 }
 
 - (void)itemSelected:(id)item
-{   
-    ZZContactCellViewModel * model = (ZZContactCellViewModel *)item;
+{
+    ZZContactCellViewModel *model = (ZZContactCellViewModel *)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
     [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
     [self.interactor enableUpdateContactData];

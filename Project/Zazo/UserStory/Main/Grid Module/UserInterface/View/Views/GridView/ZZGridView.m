@@ -16,14 +16,15 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        
+    if (self)
+    {
+
         ZZSetGridSize([self _containerSizeWithViewSize:frame.size]);
-        
+
         [self itemsContainerView];
-        
+
         self.isRotationEnabled = YES;
-        self.maxCellsOffset = (CGFloat) (M_PI * 2);
+        self.maxCellsOffset = (CGFloat)(M_PI * 2);
 
     }
     return self;
@@ -51,7 +52,7 @@
 
 - (CGFloat)_bottomInset
 {
-    return 3*kGridItemSpacing();
+    return 3 * kGridItemSpacing();
 }
 
 
@@ -72,7 +73,7 @@
     {
         _calculatedCellsOffset += self.maxCellsOffset;
     }
-    
+
     [self.delegate placeCells];
 }
 
@@ -81,7 +82,7 @@
     return self.itemsContainerView.items;
 }
 
-- (ZZGridContainerView*)itemsContainerView
+- (ZZGridContainerView *)itemsContainerView
 {
     if (!_itemsContainerView)
     {

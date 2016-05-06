@@ -12,7 +12,7 @@
 
 @interface ZZEditFriendListPresenter () <ZZEditFriendListDataSourceDelegate>
 
-@property (nonatomic, strong) ZZEditFriendListDataSource* tableDataSource;
+@property (nonatomic, strong) ZZEditFriendListDataSource *tableDataSource;
 
 @end
 
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZEditFriendListViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZEditFriendListViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     [self.userInterface updateDataSource:self.tableDataSource];
@@ -38,7 +38,7 @@
 
 #pragma mark - Output
 
-- (void)dataLoaded:(NSArray*)friends
+- (void)dataLoaded:(NSArray *)friends
 {
     ANDispatchBlockToMainQueue(^{
         [self.tableDataSource setupStorageWithModels:[self _convertToViewModels:friends]];
@@ -59,9 +59,9 @@
 
 - (NSArray *)_convertToViewModels:(NSArray *)models
 {
-    return [[models.rac_sequence map:^id(ZZFriendDomainModel* friendModel) {
-        
-        ZZEditFriendCellViewModel* viewModel = [ZZEditFriendCellViewModel new];
+    return [[models.rac_sequence map:^id(ZZFriendDomainModel *friendModel) {
+
+        ZZEditFriendCellViewModel *viewModel = [ZZEditFriendCellViewModel new];
         viewModel.item = friendModel;
         return viewModel;
     }] array];

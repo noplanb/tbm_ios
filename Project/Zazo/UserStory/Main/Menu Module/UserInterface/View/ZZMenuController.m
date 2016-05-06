@@ -13,14 +13,14 @@
 - (instancetype)initWithTableView:(UITableView *)tableView
 {
     self = [super initWithTableView:tableView];
-    
+
     if (!self)
     {
         return nil;
     }
-    
+
     [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellModel class]];
-    
+
     return self;
 }
 

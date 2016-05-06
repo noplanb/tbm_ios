@@ -9,6 +9,6 @@
 
 @interface ZZNetworkTestFriendshipController : NSObject
 
-+ (void)updateFriendShipIfNeededWithCompletion:(void(^)(NSString* actualFriendID))completion;
++ (void)updateFriendShipIfNeededWithCompletion:(void (^)(NSString *actualFriendID))completion;
 
 @end

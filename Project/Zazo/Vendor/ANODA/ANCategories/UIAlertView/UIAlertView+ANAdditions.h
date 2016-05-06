@@ -21,7 +21,7 @@
  *
  *  @return UIAlertView* instanse for presentation
  */
-+ (UIAlertView *)an_localizedAlertWithTitle:(NSString*)title message:(NSString*)message;
++ (UIAlertView *)an_localizedAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 
 /**
@@ -33,9 +33,9 @@
  *
  *  @return UIAlertView* that already presented
  */
-+ (UIAlertView*)an_localizedAlertWithTitle:(NSString *)title
-                                message:(NSString *)message
-                               okSignal:(RACSignal*)okSignal;
++ (UIAlertView *)an_localizedAlertWithTitle:(NSString *)title
+                                    message:(NSString *)message
+                                   okSignal:(RACSignal *)okSignal;
 
 
 /**
@@ -47,10 +47,9 @@
  *
  *  @return UIAlertView* that already presented
  */
-+ (UIAlertView*)an_localizedAlertWithTitle:(NSString *)title
-                                message:(NSString *)message
-                                okBlock:(ANCodeBlock)okBlock;
-
++ (UIAlertView *)an_localizedAlertWithTitle:(NSString *)title
+                                    message:(NSString *)message
+                                    okBlock:(ANCodeBlock)okBlock;
 
 
 /**
@@ -62,13 +61,13 @@
  *
  *  @return RACCommand* for showing UIAlertView with predefines values
  */
-+ (RACCommand*)an_localizedCommandAlertWithTitle:(NSString *)title
-                                      message:(NSString*)message
-                                     okSignal:(RACSignal*)okSignal;
++ (RACCommand *)an_localizedCommandAlertWithTitle:(NSString *)title
+                                          message:(NSString *)message
+                                         okSignal:(RACSignal *)okSignal;
 
 
-+ (RACCommand*)an_localizedCommandAlertWithTitle:(NSString*)title
-                                      message:(NSString *)message
-                                      okBlock:(ANCodeBlock)okBlock;
++ (RACCommand *)an_localizedCommandAlertWithTitle:(NSString *)title
+                                          message:(NSString *)message
+                                          okBlock:(ANCodeBlock)okBlock;
 
 @end

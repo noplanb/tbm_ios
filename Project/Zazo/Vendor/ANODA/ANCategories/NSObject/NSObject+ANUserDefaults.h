@@ -11,16 +11,21 @@
 
 #pragma mark - Update Objects
 
-+ (void)an_updateObject:(id)object forKey:(NSString*)key;
-+ (void)an_updateBool:(BOOL)object forKey:(NSString*)key;
-+ (void)an_updateInteger:(NSInteger)object forKey:(NSString*)key;
++ (void)an_updateObject:(id)object forKey:(NSString *)key;
+
++ (void)an_updateBool:(BOOL)object forKey:(NSString *)key;
+
++ (void)an_updateInteger:(NSInteger)object forKey:(NSString *)key;
 
 
 #pragma mark - Retrive Objects
 
-+ (id)an_objectForKey:(NSString*)key;
-+ (NSString*)an_stringForKey:(NSString*)key;
-+ (BOOL)an_boolForKey:(NSString*)key;
-+ (NSInteger)an_integerForKey:(NSString*)key;
++ (id)an_objectForKey:(NSString *)key;
+
++ (NSString *)an_stringForKey:(NSString *)key;
+
++ (BOOL)an_boolForKey:(NSString *)key;
+
++ (NSInteger)an_integerForKey:(NSString *)key;
 
 @end

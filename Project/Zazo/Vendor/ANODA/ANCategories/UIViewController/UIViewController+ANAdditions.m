@@ -13,7 +13,7 @@
 
 - (void)an_showAsModalInNavigationController
 {
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:self];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:self];
     [nc an_showAsModal];
 }
 
@@ -21,16 +21,17 @@
 {
 //    The main window is best found using UIWindow * mainWindow = [UIApplication sharedApplication].windows.firstObject;
 //    Using keyWindow can return a keyboard or UIAlertView window, which lie above your application window.
-    UIWindow* topWindow = [[UIApplication sharedApplication].windows firstObject];
+    UIWindow *topWindow = [[UIApplication sharedApplication].windows firstObject];
     UIViewController *topController = topWindow.rootViewController;
-    
+
     //TODO: this while is dangerous.
-    while (topController.presentedViewController) {
+    while (topController.presentedViewController)
+    {
         topController = topController.presentedViewController;
     }
-    
+
     ANDispatchBlockToMainQueue(^{
-       [topController presentViewController:self animated:YES completion:nil];
+        [topController presentViewController:self animated:YES completion:nil];
     });
 }
 
@@ -42,21 +43,21 @@
 - (void)an_dismissAsModalWithCompletion:(ANCodeBlock)completion
 {
     ANDispatchBlockToMainQueue(^{
-       [self dismissViewControllerAnimated:YES completion:completion];
+        [self dismissViewControllerAnimated:YES completion:completion];
     });
 }
 
 - (BOOL)an_isModal
 {
-    if([self presentingViewController])
+    if ([self presentingViewController])
         return YES;
-    if([[self presentingViewController] presentedViewController] == self)
+    if ([[self presentingViewController] presentedViewController] == self)
         return YES;
-    if([[[self navigationController] presentingViewController] presentedViewController] == [self navigationController])
+    if ([[[self navigationController] presentingViewController] presentedViewController] == [self navigationController])
         return YES;
-    if([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
+    if ([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
         return YES;
-    
+
     return NO;
 }
 

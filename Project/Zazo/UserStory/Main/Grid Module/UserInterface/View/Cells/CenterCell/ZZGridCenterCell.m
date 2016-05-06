@@ -13,18 +13,18 @@
 #import "ZZRecordingView.h"
 #import "ZZCellEffectView.h"
 
-static NSString* kLayoutConstRecordingLabelBackgroundColor = @"000";
-static NSString* kLayoutConstWhiteTextColor  = @"fff";
+static NSString *kLayoutConstRecordingLabelBackgroundColor = @"000";
+static NSString *kLayoutConstWhiteTextColor = @"fff";
 static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 
 @interface ZZGridCenterCell ()
 
-@property (nonatomic, strong) ZZGridCenterCellViewModel* model;
-@property (nonatomic, strong) UIView* recordingContainer;
-@property (nonatomic, strong) UIView* videoView;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer* previewLayer;
-@property (nonatomic, strong) CALayer* recordingOverlay;
-@property (nonatomic, strong) UIView* recordingView;
+@property (nonatomic, strong) ZZGridCenterCellViewModel *model;
+@property (nonatomic, strong) UIView *recordingContainer;
+@property (nonatomic, strong) UIView *videoView;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, strong) CALayer *recordingOverlay;
+@property (nonatomic, strong) UIView *recordingView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
 @property (nonatomic, strong) UIView *snapshotView;
 
@@ -39,7 +39,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     if (self)
     {
         self.clipsToBounds = YES;
-        
+
 #ifdef MAKING_SCREENSHOTS
         UIImageView *photoLayer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"prethumb0"]];
         photoLayer.contentMode = UIViewContentModeScaleAspectFill;
@@ -58,24 +58,24 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     self.recordingOverlay.frame = self.bounds;
     self.previewLayer.frame = self.bounds;
 }
 
-- (void)updateWithModel:(ZZGridCenterCellViewModel*)model
+- (void)updateWithModel:(ZZGridCenterCellViewModel *)model
 {
     self.model = model;
     [self.model setupLongRecognizerOnView:self];
     ANDispatchBlockToMainQueue(^{
-        
+
 #ifndef MAKING_SCREENSHOTS
         self.switchCameraButton.hidden = ![model shouldShowSwitchCameraButton];
 #endif
         if (!self.videoView)
         {
             self.videoView = model.recordView;
-            UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
@@ -118,17 +118,17 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     {
         return;
     }
-    
+
     if (self.snapshotView)
     {
         [self.snapshotView removeFromSuperview];
     }
-    
+
     self.snapshotView = [self.videoView snapshotViewAfterScreenUpdates:YES];
-    
+
     [self addSubview:self.snapshotView];
     self.videoView.hidden = YES;
-    
+
     [self.effectView showEffect:ZZCellEffectTypeWaveOut];
     [self.model switchCamera];
 }
@@ -138,25 +138,25 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     [self.recordingOverlay removeFromSuperlayer];
     self.recordingOverlay = nil;
     self.recordingOverlay.hidden = NO;
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         self.recordingView.alpha = 1;
     }];
-    
+
     self.switchCameraButton.hidden = YES;
-    
+
 }
 
 - (void)_hideRecordingOverlay
 {
     self.recordingOverlay.hidden = YES;
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         self.recordingView.alpha = 0;
     }];
-    
+
     self.switchCameraButton.hidden = ![self.model shouldShowSwitchCameraButton];
-    
+
     [self.effectView showEffect:ZZCellEffectTypeWaveOut];
 }
 
@@ -185,21 +185,23 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         ZZLogError(@"attempting to set previewLayer while videoView is nil. This should never happen.");
         return;
     }
-    if (previewLayer != nil){
+    if (previewLayer != nil)
+    {
         _previewLayer = previewLayer;
-        for (CALayer *layer in [self.videoView.layer.sublayers copy]) {
+        for (CALayer *layer in [self.videoView.layer.sublayers copy])
+        {
             [layer removeFromSuperlayer];
         }
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.videoView.layer addSublayer:_previewLayer];
-        
+
         self.previewLayer.cornerRadius = 4;
     }
 }
 
 #pragma mark - Lazy Load
 
-- (UIButton*)switchCameraButton
+- (UIButton *)switchCameraButton
 {
     if (!_switchCameraButton)
     {
@@ -210,10 +212,10 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-        
-        UIImageView* photoImage = [UIImageView new];
-     
-        UIImage* cameraImage = [UIImage imageNamed:@"icon_camera_switch"];
+
+        UIImageView *photoImage = [UIImageView new];
+
+        UIImage *cameraImage = [UIImage imageNamed:@"icon_camera_switch"];
         photoImage.image = cameraImage;
         [_switchCameraButton addSubview:photoImage];
         [photoImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -241,26 +243,26 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 {
     if (!_recordingView)
     {
-        
+
         ZZRecordingView *recordingView =
-        [[NSBundle mainBundle] loadNibNamed:@"ZZRecordingView"
-                                      owner:nil
-                                    options:nil].firstObject;
-        
+                [[NSBundle mainBundle] loadNibNamed:@"ZZRecordingView"
+                                              owner:nil
+                                            options:nil].firstObject;
+
         recordingView.alpha = 0;
         [self.recordingContainer addSubview:recordingView];
-        
+
         [recordingView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.recordingContainer);
-            make.top.equalTo(self.recordingContainer);            
+            make.top.equalTo(self.recordingContainer);
         }];
-        
+
         _recordingView = recordingView;
     }
     return _recordingView;
 }
 
-- (CALayer*)recordingOverlay
+- (CALayer *)recordingOverlay
 {
     if (!_recordingOverlay)
     {
@@ -283,17 +285,17 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     {
         return _effectView;
     }
-    
+
     ZZCellEffectView *effectView = [ZZCellEffectView new];
     [self addSubview:effectView];
-    
+
     effectView.userInteractionEnabled = NO;
     [effectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
+
     [effectView layoutIfNeeded];
-    
+
     return _effectView = effectView;
 }
 

@@ -10,7 +10,7 @@
 
 @interface ZZEditFriendListInteractor : NSObject <ZZEditFriendListInteractorInput>
 
-@property (nonatomic, weak) id<ZZEditFriendListInteractorOutput> output;
+@property (nonatomic, weak) id <ZZEditFriendListInteractorOutput> output;
 
 @end
 

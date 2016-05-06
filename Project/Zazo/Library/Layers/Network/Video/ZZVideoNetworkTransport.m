@@ -11,7 +11,7 @@
 
 @implementation ZZVideoNetworkTransport
 
-+ (RACSignal*)deleteVideoWithParameters:(NSDictionary*)parameters
++ (RACSignal *)deleteVideoWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiDeleteVideo httpMethod:ANHttpMethodTypeGET];
 }

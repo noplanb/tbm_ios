@@ -12,12 +12,12 @@
 
 - (void)updateWithModel:(id)model
 {
-    NSString * reason = [NSString stringWithFormat:@"cell %@ should implement %@: method\n",
-                         NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
-    NSException * exc =
-    [NSException exceptionWithName:@"ANTableViewController API exception"
-                            reason:reason
-                          userInfo:nil];
+    NSString *reason = [NSString stringWithFormat:@"cell %@ should implement %@: method\n",
+                                                  NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
+    NSException *exc =
+            [NSException exceptionWithName:@"ANTableViewController API exception"
+                                    reason:reason
+                                  userInfo:nil];
     [exc raise];
 }
 
@@ -40,7 +40,7 @@
 - (void)setSelectionColor:(UIColor *)selectionColor
 {
     _selectionColor = selectionColor;
-    UIView* selection = [UIView new];
+    UIView *selection = [UIView new];
     selection.backgroundColor = selectionColor;
     self.selectedBackgroundView = selection;
     self.selectionStyle = UITableViewCellSelectionStyleDefault;

@@ -10,7 +10,7 @@
 
 @interface ZZGridStateViewPreview : ZZGridStateView
 
-@property (nonatomic, strong) UIImageView* thumbnailImageView;
+@property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) UILabel *dateLabel;
 
 @end

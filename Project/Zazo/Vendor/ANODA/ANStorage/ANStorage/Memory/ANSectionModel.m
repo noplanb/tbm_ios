@@ -9,7 +9,7 @@
 
 @interface ANSectionModel ()
 
-@property (nonatomic, strong) NSMutableDictionary * supplementaries;
+@property (nonatomic, strong) NSMutableDictionary *supplementaries;
 
 @end
 
@@ -55,7 +55,7 @@
 
 - (instancetype)copy
 {
-    ANSectionModel * model = [[self class] new];
+    ANSectionModel *model = [[self class] new];
     model.objects = self.objects;
     model.supplementaries = self.supplementaries;
     return model;

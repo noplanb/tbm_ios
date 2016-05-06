@@ -19,9 +19,9 @@
 
 @interface ZZMainWireframe ()
 
-@property (nonatomic, weak) ZZMainPresenter* presenter;
-@property (nonatomic, weak) ZZTabbarVC * mainController;
-@property (nonatomic, weak) UINavigationController* presentedController;
+@property (nonatomic, weak) ZZMainPresenter *presenter;
+@property (nonatomic, weak) ZZTabbarVC *mainController;
+@property (nonatomic, weak) UINavigationController *presentedController;
 
 @property (nonatomic, strong) ZZGridWireframe *gridWireframe;
 @property (nonatomic, strong) ZZContactsWireframe *contactsWireframe;
@@ -43,40 +43,40 @@
     self.menuWireframe = [ZZMenuWireframe new];
 
     self.gridWireframe.mainWireframe = self;
-    self.contactsWireframe.mainWireframe = self;    
+    self.contactsWireframe.mainWireframe = self;
     self.menuWireframe.mainWireframe = self;
 
     mainController.viewControllers = @[self.menuWireframe.menuController,
-                                       self.gridWireframe.gridController,
-                                       self.contactsWireframe.contactsController];
-    
+            self.gridWireframe.gridController,
+            self.contactsWireframe.contactsController];
+
     self.contactsWireframe.presenter.menuModuleDelegate = self.gridWireframe.presenter;
-    interactor.output = presenter;   
+    interactor.output = presenter;
     mainController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:mainController];
 
     UINavigationController *presentedController =
-    [[UINavigationController alloc] initWithRootViewController:mainController];
-    
+            [[UINavigationController alloc] initWithRootViewController:mainController];
+
     presentedController.navigationBarHidden = YES;
 
     ANDispatchBlockToMainQueue(^{
-        
+
         [UIView transitionFromView:window.rootViewController.view
                             toView:presentedController.view
                           duration:0.65f
                            options:UIViewAnimationOptionTransitionCrossDissolve
-                        completion:^(BOOL finished){
+                        completion:^(BOOL finished) {
                             window.rootViewController = presentedController;
                             completionBlock();
                         }];
     });
-    
+
     self.presentedController = presentedController;
-    
+
     self.presenter = presenter;
     self.mainController = mainController;
 }
@@ -93,7 +93,7 @@
     wireFrame.presenter.editFriendListModuleDelegate = self.gridWireframe.presenter;
 }
 
-- (void)presentSendFeedbackWithModel:(ANMessageDomainModel*)model;
+- (void)presentSendFeedbackWithModel:(ANMessageDomainModel *)model;
 {
     self.messageWireframe = [ANMessagesWireframe new];
     [self.messageWireframe presentEmailControllerFromViewController:self.presentedController
@@ -107,7 +107,7 @@
 
 @dynamic moduleInterface;
 
-- (id<ZZMainModuleInterface>)moduleInterface
+- (id <ZZMainModuleInterface>)moduleInterface
 {
     return self.presenter;
 }

@@ -10,9 +10,9 @@
 
 @interface ZZAuthContentView : UIView
 
-@property (nonatomic, strong) UIScrollView* scrollView;
-@property (nonatomic, strong) ZZAuthRegistrationView* registrationView;
-@property (nonatomic, strong) MASConstraint* registrationScrollBottomConstraint;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) ZZAuthRegistrationView *registrationView;
+@property (nonatomic, strong) MASConstraint *registrationScrollBottomConstraint;
 
 - (void)scrollToBottom;
 

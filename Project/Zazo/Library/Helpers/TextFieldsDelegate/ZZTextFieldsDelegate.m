@@ -10,7 +10,7 @@
 
 @interface ZZTextFieldsDelegate () <UITextFieldDelegate>
 
-@property (nonatomic, strong) NSMutableArray* textFields;
+@property (nonatomic, strong) NSMutableArray *textFields;
 
 @end
 
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)addTextFieldsWithArray:(NSArray*)textFields
+- (void)addTextFieldsWithArray:(NSArray *)textFields
 {
     [self.textFields removeAllObjects];
     [self.textFields addObjectsFromArray:textFields];
@@ -36,13 +36,13 @@
 {
     NSInteger textFieldCount = self.textFields.count;
     [self.textFields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-       if ([obj isKindOfClass:[UITextField class]])
-       {
-           UITextField* textField = (UITextField*)obj;
-           textField.delegate = self;
-           textField.returnKeyType =
-           idx < textFieldCount - 1 ? UIReturnKeyNext : UIReturnKeyDone;
-       }
+        if ([obj isKindOfClass:[UITextField class]])
+        {
+            UITextField *textField = (UITextField *)obj;
+            textField.delegate = self;
+            textField.returnKeyType =
+                    idx < textFieldCount - 1 ? UIReturnKeyNext : UIReturnKeyDone;
+        }
     }];
 }
 
@@ -55,13 +55,12 @@
     }
     else if (index < self.textFields.count - 1)
     {
-        UITextField* nextTextField = (UITextField*)self.textFields[index + 1];
+        UITextField *nextTextField = (UITextField *)self.textFields[index + 1];
         [nextTextField becomeFirstResponder];
     }
-    
+
     return YES;
 }
-
 
 
 @end

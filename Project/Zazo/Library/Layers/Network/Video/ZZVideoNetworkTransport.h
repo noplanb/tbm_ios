@@ -8,6 +8,6 @@
 
 @interface ZZVideoNetworkTransport : NSObject
 
-+ (RACSignal*)deleteVideoWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)deleteVideoWithParameters:(NSDictionary *)parameters;
 
 @end

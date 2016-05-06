@@ -11,11 +11,14 @@
 @protocol ZZGridModuleInterface <NSObject>
 
 - (void)presentMenu;
+
 - (void)stopPlaying;
 
 - (BOOL)isRecordingInProgress;
+
 - (void)hideHintIfNeeded;
-- (void)updatePositionForViewModels:(NSArray*)models;
+
+- (void)updatePositionForViewModels:(NSArray *)models;
 
 - (void)didTapOnDimView;
 

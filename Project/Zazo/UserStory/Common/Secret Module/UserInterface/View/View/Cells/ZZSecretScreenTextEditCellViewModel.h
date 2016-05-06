@@ -10,15 +10,15 @@
 
 @protocol ZZSecretScreenTextEditCellViewModelDelegate <NSObject>
 
-- (void)viewModel:(ZZSecretScreenTextEditCellViewModel*)viewModel updatedTextValue:(NSString*)textValue;
+- (void)viewModel:(ZZSecretScreenTextEditCellViewModel *)viewModel updatedTextValue:(NSString *)textValue;
 
 @end
 
 @interface ZZSecretScreenTextEditCellViewModel : NSObject <UITextFieldDelegate>
 
-@property (nonatomic, copy) NSString* text;
+@property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) BOOL isEnabled;
-@property (nonatomic, weak) id<ZZSecretScreenTextEditCellViewModelDelegate> delegate;
-@property (nonatomic, weak) UITextField* textField;
+@property (nonatomic, weak) id <ZZSecretScreenTextEditCellViewModelDelegate> delegate;
+@property (nonatomic, weak) UITextField *textField;
 
 @end

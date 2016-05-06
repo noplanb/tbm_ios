@@ -9,9 +9,9 @@
 #import "ZZSecretPresenter.h"
 #import "ZZSecretDataSource.h"
 
-@interface ZZSecretPresenter ()<ZZSecretDataSourceDelegate>
+@interface ZZSecretPresenter () <ZZSecretDataSourceDelegate>
 
-@property (nonatomic, strong) ZZSecretDataSource* tableDataSource;
+@property (nonatomic, strong) ZZSecretDataSource *tableDataSource;
 
 @end
 
@@ -28,11 +28,11 @@
     return self;
 }
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZSecretViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZSecretViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     [self.userInterface updateDataSource:self.tableDataSource];
-    
+
     [self.interactor loadData];
 }
 
@@ -58,53 +58,66 @@
         case ZZSecrectScreenActionsTypeResetTutorialHints:
         {
             [self.interactor resetHints];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeFeatureOptions:
         {
 //            [self.interactor featu] // TODO: check Maxim code
-        } break;
+        }
+            break;
         case ZZSecretScreenActionsTypeEnableAllFeatures:
         {
             [self.interactor updateAllFeaturesToEnabled];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeDispatchMessage:
         {
             [self.interactor dispatchData];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeClearUserData:
         {
             [self.interactor removeAllUserData];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeClearCache:
         {
             [self.interactor clearCache];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeDeleteAllDanglingFiles:
         {
             [self.interactor removeAllDanglingFiles];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeCrashApplication:
         {
             [self.interactor forceCrash];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeLogsScreen:
         {
             [self.wireframe presentLogsController];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeStateScreen:
         {
             [self.wireframe presentStateController];
-        } break;
+        }
+            break;
         case ZZSecrectScreenActionsTypeDebugUIScreen:
         {
             [self.wireframe presentDebugController];
-        } break;
+        }
+            break;
         case ZZSecretSectionShouldDuplicateNextUpload:
         {
             [self.interactor shouldDuplicateNextUpload];
-        } break;
-            
-        default: break;
+        }
+            break;
+
+        default:
+            break;
     }
 }
 
@@ -124,7 +137,7 @@
     [self.interactor updateServerStateTo:value];
 }
 
-- (void)updateCustomServerURLValueTo:(NSString*)value
+- (void)updateCustomServerURLValueTo:(NSString *)value
 {
     [self.interactor updateCustomServerEnpointValueTo:value];
 }

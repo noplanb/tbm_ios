@@ -8,7 +8,8 @@
 
 #import "ZZBadge.h"
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZSentBadgeStateSent,
     ZZSentBadgeStateViewed
 } ZZSentBadgeState;

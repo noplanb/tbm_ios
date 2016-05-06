@@ -22,7 +22,7 @@
     return [self _titleForSupplementaryIndex:sectionNumber type:ANSupplementaryViewTypeFooter];
 }
 
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionNumber
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionNumber
 {
     return [self _supplementaryViewForIndex:sectionNumber type:ANSupplementaryViewTypeHeader];
 }

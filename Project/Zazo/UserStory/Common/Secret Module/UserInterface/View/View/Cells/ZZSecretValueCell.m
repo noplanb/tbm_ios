@@ -20,11 +20,11 @@
     return self;
 }
 
-- (void)updateWithModel:(ZZSecretValueCellViewModel*)model
+- (void)updateWithModel:(ZZSecretValueCellViewModel *)model
 {
     self.textLabel.text = [model title];
     self.detailTextLabel.text = [model details];
-    
+
     BOOL hasDetails = (self.detailTextLabel.text.length);
     self.accessoryType = hasDetails ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
 }

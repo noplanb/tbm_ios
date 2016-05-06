@@ -16,7 +16,7 @@ typedef NS_ENUM (NSInteger, ANFontType)
     ANFontTypeCondensedBlack,
     ANFontTypeCondensedBold,
     //italic
-    ANFontTypeUltraLightItalic,
+            ANFontTypeUltraLightItalic,
     ANFontTypeLightItalic,
     ANFontTypeRegularItalic,
     ANFontTypeMediumItalic,
@@ -28,26 +28,38 @@ typedef NS_ENUM (NSInteger, ANFontType)
 
 #pragma mark - Configuring
 
-+ (void)an_addFontName:(NSString*)fontName forType:(ANFontType)type;
++ (void)an_addFontName:(NSString *)fontName forType:(ANFontType)type;
 
 #pragma mark - Normal
 
 + (UIFont *)an_ultraLightFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_lightFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_regularFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_meduimFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_semiboldFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_boldFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_condensedBlackFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_condensedBoldFontWithSize:(CGFloat)size;
 
 #pragma mark - Italic
 
 + (UIFont *)an_italicUltraLightFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_italicLightFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_italicRegularFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_italicMeduimFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_italicSemiboldFontWithSize:(CGFloat)size;
+
 + (UIFont *)an_italicBoldFontWithSize:(CGFloat)size;
 
 @end

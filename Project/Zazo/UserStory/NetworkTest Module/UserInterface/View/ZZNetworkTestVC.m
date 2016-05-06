@@ -13,7 +13,7 @@
 
 @interface ZZNetworkTestVC ()
 
-@property (nonatomic, strong) ZZNetworkTestView* networkTestView;
+@property (nonatomic, strong) ZZNetworkTestView *networkTestView;
 @property (nonatomic, assign) BOOL isLoadingSate;
 
 @end
@@ -27,7 +27,7 @@
     [self _setupStartStopButton];
     [self _setupResetStatsButton];
     [self _setupResetRetriesButton];
-        
+
     self.networkTestView.headerTitle = [ZZApplicationStateInfoGenerator generateSettingsModel].version;
     self.navigationItem.title = NSLocalizedString(@"network-test-view.app.title", nil);
 }
@@ -43,7 +43,7 @@
 - (void)outgoingVideoChangeWithCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.uploadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li",@"\u2191",(long)count];
+        self.networkTestView.uploadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li", @"\u2191", (long)count];
     });
 }
 
@@ -57,35 +57,35 @@
 - (void)completedVideoChangeWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.completedCountLabel.text = [NSString stringWithFormat:@"%@ %li",@"\u2297",(long)count];
+        self.networkTestView.completedCountLabel.text = [NSString stringWithFormat:@"%@ %li", @"\u2297", (long)count];
     });
 }
 
 - (void)failedOutgoingVideoWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.failedUploadLabel.text = [NSString stringWithFormat:@"%@%li",@"\u21e1",(long)count];
+        self.networkTestView.failedUploadLabel.text = [NSString stringWithFormat:@"%@%li", @"\u21e1", (long)count];
     });
 }
 
 - (void)incomingVideoChangeWithCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.downloadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li",@"\u2193",(long)count];
+        self.networkTestView.downloadVideoCountLabel.text = [NSString stringWithFormat:@"%@%li", @"\u2193", (long)count];
     });
 }
 
 - (void)failedIncomingVideoWithCounter:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-       self.networkTestView.failedDownloadLabel.text = [NSString stringWithFormat:@"%@%li",@"\u21e3",(long)count];
+        self.networkTestView.failedDownloadLabel.text = [NSString stringWithFormat:@"%@%li", @"\u21e3", (long)count];
     });
 }
 
 - (void)updateTriesCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.triesLabel.text = [NSString stringWithFormat:@"%li",(long)count];
+        self.networkTestView.triesLabel.text = [NSString stringWithFormat:@"%li", (long)count];
     });
 }
 
@@ -99,7 +99,7 @@
 - (void)updateRetryCount:(NSInteger)count
 {
     ANDispatchBlockToMainQueue(^{
-        self.networkTestView.retryLabel.text = [NSString stringWithFormat:@"%li",(long)count];
+        self.networkTestView.retryLabel.text = [NSString stringWithFormat:@"%li", (long)count];
     });
 }
 
@@ -108,7 +108,7 @@
 - (void)_setupStartStopButton
 {
     self.networkTestView.startButton.rac_command = [RACCommand commandWithBlock:^{
-        
+
         self.networkTestView.startButton.selected = !self.networkTestView.startButton.selected;
         self.networkTestView.resetStatsButton.enabled = !self.networkTestView.startButton.selected;
         if (self.networkTestView.startButton.selected)
@@ -170,7 +170,7 @@
     {
         _networkTestView = [ZZNetworkTestView new];
     }
-    
+
     return _networkTestView;
 }
 

@@ -10,9 +10,9 @@
 #import "ZZGridUIConstants.h"
 
 const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
-    .itemID = @"itemID",
-    .relatedUser = @"relatedUser",
-    .index = @"index",
+        .itemID = @"itemID",
+        .relatedUser = @"relatedUser",
+        .index = @"index",
 };
 
 @implementation ZZGridDomainModel

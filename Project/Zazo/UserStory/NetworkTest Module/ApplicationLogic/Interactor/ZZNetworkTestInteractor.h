@@ -10,7 +10,7 @@
 
 @interface ZZNetworkTestInteractor : NSObject <ZZNetworkTestInteractorInput>
 
-@property (nonatomic, weak) id<ZZNetworkTestInteractorOutput> output;
+@property (nonatomic, weak) id <ZZNetworkTestInteractorOutput> output;
 
 @end
 

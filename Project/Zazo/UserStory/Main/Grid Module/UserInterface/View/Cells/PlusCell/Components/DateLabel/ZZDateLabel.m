@@ -9,7 +9,6 @@
 #import "ZZDateLabel.h"
 
 
-
 @implementation ZZDateLabel
 
 - (void)drawTextInRect:(CGRect)rect

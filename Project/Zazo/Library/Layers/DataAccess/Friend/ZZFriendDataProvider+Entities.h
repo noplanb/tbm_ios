@@ -7,18 +7,21 @@
 //
 
 #import "ZZFriendDataProvider.h"
+
 @class TBMFriend;
 
 @interface ZZFriendDataProvider (Entities)
 
 #pragma mark - Entities
 
-+ (TBMFriend*)friendEntityWithItemID:(NSString*)itemID;
-+ (TBMFriend*)friendEntityWithMkey:(NSString*)mKey;
++ (TBMFriend *)friendEntityWithItemID:(NSString *)itemID;
+
++ (TBMFriend *)friendEntityWithMkey:(NSString *)mKey;
 
 #pragma mark - Mapping
 
-+ (ZZFriendDomainModel*)modelFromEntity:(TBMFriend*)entity;
-+ (TBMFriend*)entityFromModel:(ZZFriendDomainModel*)model;
++ (ZZFriendDomainModel *)modelFromEntity:(TBMFriend *)entity;
+
++ (TBMFriend *)entityFromModel:(ZZFriendDomainModel *)model;
 
 @end

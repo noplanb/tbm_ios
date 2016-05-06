@@ -11,7 +11,8 @@
 
 @interface ZZFriendModelsMapper : NSObject
 
-+ (TBMFriend*)fillEntity:(TBMFriend*)entity fromModel:(ZZFriendDomainModel*)model;
-+ (ZZFriendDomainModel*)fillModel:(ZZFriendDomainModel*)model fromEntity:(TBMFriend*)entity;
++ (TBMFriend *)fillEntity:(TBMFriend *)entity fromModel:(ZZFriendDomainModel *)model;
+
++ (ZZFriendDomainModel *)fillModel:(ZZFriendDomainModel *)model fromEntity:(TBMFriend *)entity;
 
 @end

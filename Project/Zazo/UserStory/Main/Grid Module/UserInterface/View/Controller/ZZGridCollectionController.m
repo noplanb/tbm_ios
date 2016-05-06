@@ -11,7 +11,7 @@
 
 @interface ZZGridCollectionController () <ZZGridDataSourceControllerDelegate>
 
-@property (nonatomic, strong) ZZGridDataSource* dataSource;
+@property (nonatomic, strong) ZZGridDataSource *dataSource;
 
 @end
 
@@ -19,12 +19,12 @@
 
 - (void)reload
 {
-    NSArray* items = [self.delegate items];
-    [items enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSArray *items = [self.delegate items];
+    [items enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         id model = [self.dataSource viewModelAtIndex:idx];
         [obj updateWithModel:model];
     }];
-    
+
 }
 
 - (void)reloadItem:(id)item
@@ -38,10 +38,10 @@
 
 - (void)reloadItemAtIndex:(NSInteger)index
 {
-    id<ANModelTransfer> item = nil;
+    id <ANModelTransfer> item = nil;
     if ([self.delegate items].count > index)
     {
-        item = (id<ANModelTransfer>)[self.delegate items][index];
+        item = (id <ANModelTransfer>)[self.delegate items][index];
     }
     id model = [self.dataSource viewModelAtIndex:index];
     if (item)
@@ -50,7 +50,7 @@
     }
 }
 
-- (void)updateDataSource:(ZZGridDataSource*)dataSource
+- (void)updateDataSource:(ZZGridDataSource *)dataSource
 {
     self.dataSource = dataSource;
     self.dataSource.controllerDelegate = self;
@@ -66,24 +66,24 @@
 
 - (void)_setupFramesIfNeeded
 {
-    
+
     if (ANIsEmpty(self.initalFrames))
     {
         self.initalFrames = [NSMutableArray new];
-        [[self.delegate items] enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[self.delegate items] enumerateObjectsUsingBlock:^(UIView *_Nonnull view, NSUInteger idx, BOOL *_Nonnull stop) {
             [self.initalFrames addObject:[NSValue valueWithCGRect:view.frame]];
         }];
     }
 }
 
-- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
+- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel *)friendModel;
 {
     __block NSInteger index = NSNotFound;
-    ZZGridCell* gridCell = [self gridCellWithFriendModel:friendModel];
-    
+    ZZGridCell *gridCell = [self gridCellWithFriendModel:friendModel];
+
     if (!ANIsEmpty(gridCell))
     {
-        [self.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.initalFrames enumerateObjectsUsingBlock:^(NSValue *_Nonnull value, NSUInteger idx, BOOL *_Nonnull stop) {
             CGRect frame = [value CGRectValue];
             if (CGRectContainsPoint(frame, gridCell.center))
             {
@@ -92,28 +92,28 @@
             }
         }];
     }
-    
+
     return index;
 }
 
-- (ZZGridCell*)gridCellWithFriendModel:(ZZFriendDomainModel*)friendModel
+- (ZZGridCell *)gridCellWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
-    __block ZZGridCell* gridCell = nil;
-    
-    [[self.delegate items] enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    __block ZZGridCell *gridCell = nil;
+
+    [[self.delegate items] enumerateObjectsUsingBlock:^(id <ANModelTransfer> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         id model = [obj model];
         if ([model isKindOfClass:[ZZGridCellViewModel class]])
         {
-            ZZGridCellViewModel* viewModel = model;
+            ZZGridCellViewModel *viewModel = model;
 
             if ([viewModel.item.relatedUser isEqual:friendModel])
             {
-                gridCell =(ZZGridCell*)obj;
+                gridCell = (ZZGridCell *)obj;
                 *stop = YES;
             }
         }
     }];
-    
+
     return gridCell;
 }
 

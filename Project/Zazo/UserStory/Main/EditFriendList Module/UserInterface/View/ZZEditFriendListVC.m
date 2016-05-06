@@ -14,8 +14,8 @@
 
 @interface ZZEditFriendListVC () <ZZEditFriendListControllerDelegate>
 
-@property (nonatomic, strong) ZZEditFriendView* contentView;
-@property (nonatomic, strong) ZZEditFriendListController* controller;
+@property (nonatomic, strong) ZZEditFriendView *contentView;
+@property (nonatomic, strong) ZZEditFriendListController *controller;
 
 @end
 
@@ -43,9 +43,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = NSLocalizedString(@"edit-friend.nav.title.text", nil);
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,7 +76,7 @@
 
 - (void)itemSelectedWithModel:(ZZEditFriendCellViewModel *)model
 {
-    
+
 }
 
 @end

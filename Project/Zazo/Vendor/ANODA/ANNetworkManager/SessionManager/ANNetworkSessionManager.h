@@ -12,11 +12,11 @@
 
 @interface ANNetworkSessionManager : NSObject
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* session;
+@property (nonatomic, strong) AFHTTPRequestOperationManager *session;
 
 + (instancetype)shared;
 
-- (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion;
+- (void)setBaseURL:(NSString *)baseURL andAPIVersion:(NSString *)apiVersion;
 
 /**
  *  Sends HTPP request without any parameters, sets properly Token
@@ -27,7 +27,7 @@
  *  @return RACSignal* signal on completion with serilialized response
  */
 
-- (RACSignal*)requestWithPath:(NSString*)path httpMethod:(ANHttpMethodType)httpMethod;
+- (RACSignal *)requestWithPath:(NSString *)path httpMethod:(ANHttpMethodType)httpMethod;
 
 
 /**
@@ -39,9 +39,9 @@
  *
  *  @return RACSignal* signal on completion with serilialized response
  */
-- (RACSignal*)requestWithPath:(NSString*)path
-                   parameters:(NSDictionary*)params
-                   httpMethod:(ANHttpMethodType)httpMethod;
+- (RACSignal *)requestWithPath:(NSString *)path
+                    parameters:(NSDictionary *)params
+                    httpMethod:(ANHttpMethodType)httpMethod;
 
 /**
  *  Uploads specified photo on server and returns link
@@ -53,6 +53,6 @@
  *  @return RACSignal* signal on completion with NSString value for this photo link
  */
 
-- (RACSignal*)uploadPhoto:(NSString*)photoFileLink path:(NSString*)path parameters:(NSDictionary*)params;
+- (RACSignal *)uploadPhoto:(NSString *)photoFileLink path:(NSString *)path parameters:(NSDictionary *)params;
 
 @end

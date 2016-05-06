@@ -10,22 +10,22 @@
 
 @implementation ZZEditFriendEnumsAdditions
 
-static NSString* contactStatusString[] = {
-    @"voided",
-    @"established",
-    @"hidden_by_creator",
-    @"hidden_by_target",
-    @"hidden_by_both"
+static NSString *contactStatusString[] = {
+        @"voided",
+        @"established",
+        @"hidden_by_creator",
+        @"hidden_by_target",
+        @"hidden_by_both"
 };
 
-NSString* ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType type)
+NSString *ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType type)
 {
     return contactStatusString[type];
 }
 
-ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString* string)
+ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString *string)
 {
-    NSArray* array = [NSArray arrayWithObjects:contactStatusString count:5];
+    NSArray *array = [NSArray arrayWithObjects:contactStatusString count:5];
     NSInteger index = [array indexOfObject:string];
     if (index == NSNotFound)
     {

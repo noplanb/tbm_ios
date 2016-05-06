@@ -11,8 +11,10 @@
 
 @interface ZZGridTransportService : NSObject
 
-+ (RACSignal*)inviteUserToApp:(ZZContactDomainModel*)contact;
-+ (RACSignal*)checkIsUserHasApp:(ZZContactDomainModel*)contact;
-+ (RACSignal*)updateContactEmails:(ZZContactDomainModel*)contact friend:(ZZFriendDomainModel*)friendModel;
++ (RACSignal *)inviteUserToApp:(ZZContactDomainModel *)contact;
+
++ (RACSignal *)checkIsUserHasApp:(ZZContactDomainModel *)contact;
+
++ (RACSignal *)updateContactEmails:(ZZContactDomainModel *)contact friend:(ZZFriendDomainModel *)friendModel;
 
 @end

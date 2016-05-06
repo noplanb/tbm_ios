@@ -13,7 +13,7 @@
 
 @interface ZZMenuWireframe ()
 
-@property (nonatomic, weak) ZZMenuPresenter* presenter;
+@property (nonatomic, weak) ZZMenuPresenter *presenter;
 
 @end
 
@@ -27,24 +27,24 @@
     {
         [self _setup];
     }
-    
+
     return _menuController;
 }
 
 - (void)_setup
 {
-    ZZMenuVC* menuController = [ZZMenuVC new];
-    ZZMenuInteractor* interactor = [ZZMenuInteractor new];
-    ZZMenuPresenter* presenter = [ZZMenuPresenter new];
-    
+    ZZMenuVC *menuController = [ZZMenuVC new];
+    ZZMenuInteractor *interactor = [ZZMenuInteractor new];
+    ZZMenuPresenter *presenter = [ZZMenuPresenter new];
+
     interactor.output = presenter;
-    
+
     menuController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:menuController];
-    
+
     self.presenter = presenter;
     _menuController = menuController;
 }

@@ -11,11 +11,11 @@
 #import "_TBMGridElement.h"
 
 const struct TBMGridElementAttributes TBMGridElementAttributes = {
-	.index = @"index",
+        .index = @"index",
 };
 
 const struct TBMGridElementRelationships TBMGridElementRelationships = {
-	.friend = @"friend",
+        .friend = @"friend",
 };
 
 @implementation TBMGridElementID
@@ -23,54 +23,64 @@ const struct TBMGridElementRelationships TBMGridElementRelationships = {
 
 @implementation _TBMGridElement
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"TBMGridElement" inManagedObjectContext:moc_];
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_
+{
+    NSParameterAssert(moc_);
+    return [NSEntityDescription insertNewObjectForEntityForName:@"TBMGridElement" inManagedObjectContext:moc_];
 }
 
-+ (NSString*)entityName {
-	return @"TBMGridElement";
++ (NSString *)entityName
+{
+    return @"TBMGridElement";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"TBMGridElement" inManagedObjectContext:moc_];
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_
+{
+    NSParameterAssert(moc_);
+    return [NSEntityDescription entityForName:@"TBMGridElement" inManagedObjectContext:moc_];
 }
 
-- (TBMGridElementID*)objectID {
-	return (TBMGridElementID*)[super objectID];
+- (TBMGridElementID *)objectID
+{
+    return (TBMGridElementID *)[super objectID];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"indexValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"index"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
+    if ([key isEqualToString:@"indexValue"])
+    {
+        NSSet *affectingKey = [NSSet setWithObject:@"index"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+        return keyPaths;
+    }
 
-	return keyPaths;
+    return keyPaths;
 }
 
 @dynamic index;
 
-- (int32_t)indexValue {
-	NSNumber *result = [self index];
-	return [result intValue];
+- (int32_t)indexValue
+{
+    NSNumber *result = [self index];
+    return [result intValue];
 }
 
-- (void)setIndexValue:(int32_t)value_ {
-	[self setIndex:@(value_)];
+- (void)setIndexValue:(int32_t)value_
+{
+    [self setIndex:@(value_)];
 }
 
-- (int32_t)primitiveIndexValue {
-	NSNumber *result = [self primitiveIndex];
-	return [result intValue];
+- (int32_t)primitiveIndexValue
+{
+    NSNumber *result = [self primitiveIndex];
+    return [result intValue];
 }
 
-- (void)setPrimitiveIndexValue:(int32_t)value_ {
-	[self setPrimitiveIndex:@(value_)];
+- (void)setPrimitiveIndexValue:(int32_t)value_
+{
+    [self setPrimitiveIndex:@(value_)];
 }
 
 @dynamic friend;

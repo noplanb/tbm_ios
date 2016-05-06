@@ -13,8 +13,8 @@
 
 + (void)showNeedAccessForAddressBookAlert
 {
-    NSString* text = NSLocalizedString(@"menu.need-addressbook-access.alert.text", @"");
-    
+    NSString *text = NSLocalizedString(@"menu.need-addressbook-access.alert.text", @"");
+
     [ZZAlertBuilder presentAlertWithTitle:@"Sorry" details:text cancelButtonTitle:@"OK"];
 }
 

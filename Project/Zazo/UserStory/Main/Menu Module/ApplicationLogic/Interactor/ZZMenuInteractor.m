@@ -19,7 +19,7 @@
 
 - (void)loadFeedbackModel
 {
-    ZZUserDomainModel* user = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
     [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
 }
 

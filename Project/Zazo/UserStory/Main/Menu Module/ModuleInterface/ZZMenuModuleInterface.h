@@ -3,7 +3,8 @@
 //  Zazo
 //
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZMenuItemTypeInviteFriends,
     ZZMenuItemTypeEditFriends,
     ZZMenuItemTypeContacts,

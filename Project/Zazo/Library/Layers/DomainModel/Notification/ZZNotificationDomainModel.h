@@ -10,7 +10,8 @@
 #import "ZZBaseDomainModel.h"
 
 
-extern const struct ZZNotificationDomainModelAttributes {
+extern const struct ZZNotificationDomainModelAttributes
+{
     __unsafe_unretained NSString *type;
     __unsafe_unretained NSString *typeValue;
     __unsafe_unretained NSString *videoID;
@@ -23,15 +24,15 @@ extern const struct ZZNotificationDomainModelAttributes {
 
 @interface ZZNotificationDomainModel : ZZBaseDomainModel
 
-@property (nonatomic, copy) NSString* type;
+@property (nonatomic, copy) NSString *type;
 @property (nonatomic, assign) ZZNotificationType typeValue;
 
-@property (nonatomic, copy) NSString* videoID;
-@property (nonatomic, copy) NSString* fromUserMKey;
+@property (nonatomic, copy) NSString *videoID;
+@property (nonatomic, copy) NSString *fromUserMKey;
 
-@property (nonatomic, copy) NSString* status;
-@property (nonatomic, copy) NSString* toUserMKey;
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *toUserMKey;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
 
 @end

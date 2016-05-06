@@ -14,7 +14,7 @@
 
 @interface ANCoreDataStorage : ANBaseStorage <NSFetchedResultsControllerDelegate, ANStorageInterface>
 
-@property (nonatomic, strong) ANStorageUpdate * currentUpdate;
+@property (nonatomic, strong) ANStorageUpdate *currentUpdate;
 @property (nonatomic, assign) BOOL useMovingRows;
 
 /**
@@ -25,12 +25,12 @@
  @return `DTCoreDataStorage` object.
  */
 
-+(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller;
++ (instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller;
 
 /**
  NSFetchedResultsController of current `DTCoreDataStorage` object.
  */
-@property (nonatomic, strong) NSFetchedResultsController * fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)finishUpdate;
 

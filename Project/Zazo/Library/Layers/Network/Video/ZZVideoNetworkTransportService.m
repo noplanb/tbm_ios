@@ -11,11 +11,11 @@
 
 @implementation ZZVideoNetworkTransportService
 
-+ (RACSignal*)deleteVideoFileWithName:(NSString*)filename
++ (RACSignal *)deleteVideoFileWithName:(NSString *)filename
 {
     NSParameterAssert(filename);
-    
-    NSDictionary* parameters = @{@"filename" : [NSObject an_safeString:filename]};
+
+    NSDictionary *parameters = @{@"filename" : [NSObject an_safeString:filename]};
     return [ZZVideoNetworkTransport deleteVideoWithParameters:parameters];
 }
 

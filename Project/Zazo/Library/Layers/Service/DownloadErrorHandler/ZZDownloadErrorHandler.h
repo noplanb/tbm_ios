@@ -23,6 +23,7 @@
 @interface ZZDownloadErrorHandler : NSObject
 
 - (void)startService;
+
 @property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
 
 @end

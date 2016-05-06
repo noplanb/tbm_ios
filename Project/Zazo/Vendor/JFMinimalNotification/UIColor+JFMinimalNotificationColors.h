@@ -30,11 +30,17 @@
 @interface UIColor (JFMinimalNotificationColors)
 
 + (instancetype)notificationGreenColor;
+
 + (instancetype)notificationRedColor;
+
 + (instancetype)notificationYellowColor;
+
 + (instancetype)notificationBlueColor;
+
 + (instancetype)notificationBlackColor;
+
 + (instancetype)notificationWhiteColor;
+
 + (instancetype)notificationOrangeColor;
 
 @end

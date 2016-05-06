@@ -10,13 +10,15 @@
 
 @interface ZZFriendDataHelper : NSObject
 
-+ (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID;
++ (BOOL)isUniqueFirstName:(NSString *)firstName friendID:(NSString *)friendID;
 
 
 #pragma mark - Friend video helpers
 
 + (NSUInteger)unviewedVideoCountWithFriendID:(NSString *)friendID;
-+ (NSArray*)everSentMkeys;
+
++ (NSArray *)everSentMkeys;
+
 + (NSDate *)lastVideoSentTimeFromFriend:(ZZFriendDomainModel *)friendModel;
 
 @end

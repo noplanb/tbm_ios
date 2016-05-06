@@ -6,7 +6,8 @@
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZCellEffectTypeWaveOut,
     ZZCellEffectTypeWaveIn
 } ZZCellEffectType;

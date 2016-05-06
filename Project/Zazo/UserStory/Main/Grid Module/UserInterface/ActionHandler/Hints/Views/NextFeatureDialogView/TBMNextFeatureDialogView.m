@@ -18,10 +18,10 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 
 @interface TBMNextFeatureDialogView ()
 
-@property(nonatomic, strong) UILabel *headerLabel;
-@property(nonatomic, strong) UILabel *subHeaderLabel;
-@property(nonatomic, strong) UIImageView *presentIconImage;
-@property(nonatomic, strong) NSDictionary *posibbleHeaders;
+@property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) UILabel *subHeaderLabel;
+@property (nonatomic, strong) UIImageView *presentIconImage;
+@property (nonatomic, strong) NSDictionary *posibbleHeaders;
 @property (nonatomic, copy) void (^completionBlock)();
 
 @end
@@ -32,9 +32,9 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 #pragma mark - Interface
 
 
-+ (void)showNextFeatureDialogWithPresentedView:(UIView*)presentedView completionBlock:(void(^)())completionBlock
++ (void)showNextFeatureDialogWithPresentedView:(UIView *)presentedView completionBlock:(void (^)())completionBlock
 {
-    TBMNextFeatureDialogView* nextFeatureView = [TBMNextFeatureDialogView new];
+    TBMNextFeatureDialogView *nextFeatureView = [TBMNextFeatureDialogView new];
     nextFeatureView.completionBlock = completionBlock;
     [presentedView addSubview:nextFeatureView];
     [presentedView bringSubviewToFront:nextFeatureView];
@@ -97,18 +97,18 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 
     [UIView animateWithDuration:kNextFeatureAnimationDuration
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut animations:^ {
-        self.frame = [self makeRectWithTop:correctDialogTop];
-    } completion:^(BOOL finished) {
-        [self hideAnimated];
-    }];
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.frame = [self makeRectWithTop:correctDialogTop];
+            }        completion:^(BOOL finished) {
+                [self hideAnimated];
+            }];
 }
 
 - (void)setupRandomHeaders
 {
     NSString *header = [self.posibbleHeaders.allKeys zz_randomObject];
-    self.headerLabel.text= header;
-    self.subHeaderLabel.text= self.posibbleHeaders[header];
+    self.headerLabel.text = header;
+    self.subHeaderLabel.text = self.posibbleHeaders[header];
 }
 
 - (void)hideAnimated
@@ -117,13 +117,11 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 
     [UIView animateWithDuration:kNextFeatureAnimationDuration
                           delay:kNextFeatureDialogAnimationDelay
-                        options:UIViewAnimationOptionCurveEaseInOut animations:^
-            {
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.frame = [self makeRectWithTop:correctDialogTop];
                 self.alpha = 0;
             }
-                     completion:^(BOOL finished)
-                     {
+                     completion:^(BOOL finished) {
                          [self hide];
                      }];
 }
@@ -233,17 +231,17 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
     return _presentIconImage;
 }
 
-- (NSDictionary*)posibbleHeaders
+- (NSDictionary *)posibbleHeaders
 {
     if (!_posibbleHeaders)
     {
         _posibbleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
-                             @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
-                             @"Unlock a another feature!" : @"Just Zazo someone new.",
-                             @"Surprise feature waiting" : @"Zazo someone new to unlock.",
-                             @"Unlock a secret feature!" : @"Just Zazo someone new.",
-                             @"Unlock a surprise!" : @"Just Zazo someone new.",
-                             @"What did you win?" : @"Find out. Zazo someone new."};
+                @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
+                @"Unlock a another feature!" : @"Just Zazo someone new.",
+                @"Surprise feature waiting" : @"Zazo someone new to unlock.",
+                @"Unlock a secret feature!" : @"Just Zazo someone new.",
+                @"Unlock a surprise!" : @"Just Zazo someone new.",
+                @"What did you win?" : @"Find out. Zazo someone new."};
     }
     return _posibbleHeaders;
 }

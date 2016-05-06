@@ -13,6 +13,7 @@
 
 @optional
 - (void)tabbarItemDidAppear;
+
 - (void)tabbarItemDidDisappear;
 
 
@@ -28,8 +29,8 @@
 
 @interface ZZTabbarView : UIView
 
-@property (nonatomic, copy) NSArray <id<ZZTabbarViewItem>> *items;
-@property (nonatomic, weak) id<ZZTabbarViewDelegate> delegate;
+@property (nonatomic, copy) NSArray <id <ZZTabbarViewItem>> *items;
+@property (nonatomic, weak) id <ZZTabbarViewDelegate> delegate;
 @property (nonatomic, assign) NSUInteger activeItemIndex;
 
 @property (nonatomic, weak) UISlider *progressView;

@@ -12,16 +12,19 @@
 
 @property (nonatomic, strong, readonly) NSString *sentVideoID;
 
-- (void)updateWithActualFriendID:(NSString*)friendID;
+- (void)updateWithActualFriendID:(NSString *)friendID;
+
 - (void)startSendingVideo;
+
 - (void)stopSendingVideo;
-- (NSString*)testedFriendID;
+
+- (NSString *)testedFriendID;
 
 @end
 
 
 @protocol ZZNetworkTestInteractorOutput <NSObject>
 
-- (void)videosatusChangedWithFriend:(ZZFriendDomainModel*)friendEntity;
+- (void)videosatusChangedWithFriend:(ZZFriendDomainModel *)friendEntity;
 
 @end

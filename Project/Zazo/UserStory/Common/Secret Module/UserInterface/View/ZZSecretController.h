@@ -12,6 +12,6 @@
 
 @interface ZZSecretController : ANTableController
 
-- (void)updateDataSource:(ZZSecretDataSource*)dataSource;
+- (void)updateDataSource:(ZZSecretDataSource *)dataSource;
 
 @end

@@ -28,6 +28,7 @@
 @interface UIView (Round)
 
 - (void)makeRound;
-- (void)makeRoundWithBorderWidth:(CGFloat)width borderColor:(UIColor*)color;
+
+- (void)makeRoundWithBorderWidth:(CGFloat)width borderColor:(UIColor *)color;
 
 @end

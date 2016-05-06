@@ -14,17 +14,17 @@
 #import "ZZGridModuleDelegate.h"
 
 @interface ZZEditFriendListPresenter : NSObject
-<
-    ZZEditFriendListInteractorOutput,
-    ZZEditFriendListModuleInterface
->
+        <
+        ZZEditFriendListInteractorOutput,
+        ZZEditFriendListModuleInterface
+        >
 
-@property (nonatomic, strong) id<ZZEditFriendListInteractorInput> interactor;
-@property (nonatomic, strong) ZZEditFriendListWireframe* wireframe;
+@property (nonatomic, strong) id <ZZEditFriendListInteractorInput> interactor;
+@property (nonatomic, strong) ZZEditFriendListWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZEditFriendListViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZEditFriendListModuleDelegate> editFriendListModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZEditFriendListViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZEditFriendListModuleDelegate> editFriendListModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZEditFriendListViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZEditFriendListViewInterface> *)userInterface;
 
 @end

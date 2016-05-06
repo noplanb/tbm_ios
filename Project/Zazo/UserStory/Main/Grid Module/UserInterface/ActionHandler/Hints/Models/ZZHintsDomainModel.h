@@ -14,8 +14,8 @@
 @property (nonatomic, assign) ZZArrowDirection arrowDirection;
 @property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) ZZHintsBottomImageType imageType;
-@property (nonatomic, copy) NSString* title;
-@property (nonatomic, copy) NSString* formatParameter;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *formatParameter;
 @property (nonatomic, assign) BOOL hidesArrow;
 @property (nonatomic, assign) NSInteger priority;
 

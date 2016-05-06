@@ -14,6 +14,6 @@
  
  @warning You must call reloadData after calling this method, or you will get NSInternalInconsistencyException runtime, thrown by either UITableView or UICollectionView.
  */
--(void)updateWithoutAnimations:(void(^)(void))block;
+- (void)updateWithoutAnimations:(void (^)(void))block;
 
 @end

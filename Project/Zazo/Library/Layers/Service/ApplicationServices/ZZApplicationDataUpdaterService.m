@@ -26,10 +26,10 @@
 {
     ZZLogInfo(@"getAndPollAllFriends");
     ANDispatchBlockToBackgroundQueue(^{
-        [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray* friends) {
+        [[ZZFriendsTransportService loadFriendList] subscribeNext:^(NSArray *friends) {
             ZZLogInfo(@"gotFriends");
             [self _pollAllFriends];
-        } error:^(NSError *error) {
+        }                                                   error:^(NSError *error) {
             [self _pollAllFriends];
         }];
     });
@@ -69,7 +69,7 @@
 }
 
 
-- (void)_queueDownloadWithFriendID:(NSString*)friendID videoIds:(NSSet*)videoIds
+- (void)_queueDownloadWithFriendID:(NSString *)friendID videoIds:(NSSet *)videoIds
 {
     for (NSString *videoId in videoIds)
     {
@@ -88,12 +88,12 @@
 
 - (void)_pollEverSentStatusForAllFriends
 {
-    ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser];
-    
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
+
     [[ZZRemoteStorageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
-        
+
         ANDispatchBlockToBackgroundQueue(^{
-            
+
             [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
                                                notificationObject:x];
@@ -107,13 +107,13 @@
     [[ZZRemoteStorageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
         for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
         {
-            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel.idTbm)
             {
 //                if (friendModel.videos.count)
 //                {
-                    ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ? : @[]);
-                    [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
+                ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ?: @[]);
+                [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
 //                }
             }
         }
@@ -126,7 +126,7 @@
     [[ZZRemoteStorageTransportService loadAllOutgoingVideoStatuses] subscribeNext:^(NSArray *models) {
         for (ZZKeyStoreOutgoingVideoStatusDomainModel *model in models)
         {
-            ZZFriendDomainModel* friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             if (friendModel)
             {
                 if ([model status] == ZZVideoOutgoingStatusUnknown)
@@ -134,7 +134,7 @@
                     ZZLogError(@"pollVideoStatusWithFriend: got unknown outgoing video status. This should never happen");
                     return;
                 }
-                
+
                 if ([model status] != ZZVideoOutgoingStatusNone)
                 {
                     [[ZZVideoStatusHandler sharedInstance] notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)[model status]

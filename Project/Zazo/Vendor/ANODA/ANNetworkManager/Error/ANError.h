@@ -7,13 +7,14 @@
 
 #pragma mark - HTTP Server Responce Error Keys
 
-extern NSString* const kErrorCodeKey;
-extern NSString* const kErrorMessageKey;
-extern NSString* const kErrorDomain;
+extern NSString *const kErrorCodeKey;
+extern NSString *const kErrorMessageKey;
+extern NSString *const kErrorDomain;
 
 @interface ANError : NSError
 
 + (instancetype)apiErrorWithDictionary:(NSDictionary *)dictionary;
+
 + (instancetype)errorWithKey:(NSString *)key;
 
 @end

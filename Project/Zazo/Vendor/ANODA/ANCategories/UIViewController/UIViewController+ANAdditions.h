@@ -10,8 +10,11 @@
 @interface UIViewController (ANAdditions)
 
 - (void)an_showAsModalInNavigationController;
+
 - (void)an_showAsModal;
+
 - (void)an_dismissAsModal;
+
 - (void)an_dismissAsModalWithCompletion:(ANCodeBlock)completion;
 
 - (BOOL)an_isModal;

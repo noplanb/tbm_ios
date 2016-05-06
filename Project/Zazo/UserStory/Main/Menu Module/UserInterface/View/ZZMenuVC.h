@@ -8,6 +8,6 @@
 
 @interface ZZMenuVC : UIViewController <ZZMenuViewInterface>
 
-@property (nonatomic, strong) id<ZZMenuModuleInterface> eventHandler;
+@property (nonatomic, strong) id <ZZMenuModuleInterface> eventHandler;
 
 @end

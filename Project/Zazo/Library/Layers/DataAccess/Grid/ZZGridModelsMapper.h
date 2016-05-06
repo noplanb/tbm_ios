@@ -11,7 +11,8 @@
 
 @interface ZZGridModelsMapper : NSObject
 
-+ (ZZGridDomainModel*)fillModel:(ZZGridDomainModel*)model fromEntity:(TBMGridElement*)entity;
-+ (TBMGridElement*)fillEntity:(TBMGridElement*)entity fromModel:(ZZGridDomainModel*)model;
++ (ZZGridDomainModel *)fillModel:(ZZGridDomainModel *)model fromEntity:(TBMGridElement *)entity;
+
++ (TBMGridElement *)fillEntity:(TBMGridElement *)entity fromModel:(ZZGridDomainModel *)model;
 
 @end

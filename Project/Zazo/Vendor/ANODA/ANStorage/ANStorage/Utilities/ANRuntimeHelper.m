@@ -11,7 +11,7 @@
 
 + (NSString *)classStringForClass:(Class)class
 {
-    NSString * classString = NSStringFromClass(class);
+    NSString *classString = NSStringFromClass(class);
     if ([classString rangeOfString:@"."].location != NSNotFound)
     {
         // Swift class, format <ModuleName>.<ClassName>
@@ -22,37 +22,37 @@
 
 + (NSString *)modelStringForClass:(Class)class
 {
-    NSString * classString = [self classStringForClass:class];
+    NSString *classString = [self classStringForClass:class];
     if ([class isSubclassOfClass:[NSString class]])
     {
         return @"NSString";
     }
-    
+
     if ([classString isEqualToString:@"__NSCFNumber"] ||
-        [classString isEqualToString:@"__NSCFBoolean"])
+            [classString isEqualToString:@"__NSCFBoolean"])
     {
         return @"NSNumber";
     }
-    
+
     if ([classString isEqualToString:@"__NSDictionaryI"] ||
-        [classString isEqualToString:@"__NSDictionaryM"] ||
-       ([classString rangeOfString:@"_NativeDictionaryStorageOwner"].location != NSNotFound) ||
-        [class isSubclassOfClass:[NSDictionary class]])
+            [classString isEqualToString:@"__NSDictionaryM"] ||
+            ([classString rangeOfString:@"_NativeDictionaryStorageOwner"].location != NSNotFound) ||
+            [class isSubclassOfClass:[NSDictionary class]])
     {
         return @"NSDictionary";
     }
-    
+
     if ([classString isEqualToString:@"__NSArrayI"] ||
-        [classString isEqualToString:@"__NSArrayM"] ||
-        ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
-        [class isSubclassOfClass:[NSArray class]])
+            [classString isEqualToString:@"__NSArrayM"] ||
+            ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
+            [class isSubclassOfClass:[NSArray class]])
     {
         return @"NSArray";
     }
-    
+
     if ([classString isEqualToString:@"__NSDate"] ||
-        [classString isEqualToString:@"__NSTaggedDate"] ||
-        [class isSubclassOfClass:[NSDate class]])
+            [classString isEqualToString:@"__NSTaggedDate"] ||
+            [class isSubclassOfClass:[NSDate class]])
     {
         return @"NSDate";
     }

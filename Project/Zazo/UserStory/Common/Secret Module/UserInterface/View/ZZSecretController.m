@@ -12,7 +12,7 @@
 
 @interface ZZSecretController ()
 
-@property (nonatomic, weak) ZZSecretDataSource* dataSource;
+@property (nonatomic, weak) ZZSecretDataSource *dataSource;
 
 @end
 
@@ -27,9 +27,9 @@
         [self registerCellClass:[ZZSecretSegmentCell class] forModelClass:[ZZSecretSegmentCellViewModel class]];
         [self registerCellClass:[ZZSecretValueCell class] forModelClass:[ZZSecretValueCellViewModel class]];
         [self registerCellClass:[ZZSecretScreenTextEditCell class] forModelClass:[ZZSecretScreenTextEditCellViewModel class]];
-        
+
         [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];
-        
+
         self.tableView.sectionHeaderHeight = 46;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.rowHeight = 44;

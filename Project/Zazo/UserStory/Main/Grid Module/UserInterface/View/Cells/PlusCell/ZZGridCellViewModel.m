@@ -31,38 +31,38 @@
 {
     _usernameLabel = usernameLabel;
     ANDispatchBlockToMainQueue(^{
-        
-       _usernameLabel.text = [self videoStatusString];
+
+        _usernameLabel.text = [self videoStatusString];
     });
 }
 
 - (NSString *)_stubUserNameForIndex:(NSUInteger)index
 {
     NSArray *stubNames = @[
-                           @"Leila",
-                           @"Nia",
-                           @"Shani",
-                           @"Gabby",
-                           @"Mary",
-                           @"Sachi",
-                           @"Alexis",
-                           @"Veronika"                           
-                           ];
-    
+            @"Leila",
+            @"Nia",
+            @"Shani",
+            @"Gabby",
+            @"Mary",
+            @"Sachi",
+            @"Alexis",
+            @"Veronika"
+    ];
+
     return stubNames[index];
 }
 
 - (NSString *)videoStatusString
 {
-    
+
 #ifdef MAKING_SCREENSHOTS
     return [self _stubUserNameForIndex:self.item.index];
 #endif
 
-    
-    ZZFriendDomainModel* friendModel = self.item.relatedUser;
 
-    NSString* videoStatusString = nil;
+    ZZFriendDomainModel *friendModel = self.item.relatedUser;
+
+    NSString *videoStatusString = nil;
 
     if ([ZZStoredSettingsManager shared].debugModeEnabled)
     {
@@ -72,7 +72,7 @@
     {
         videoStatusString = [friendModel displayName];
     }
-  
+
     return videoStatusString;
 }
 
@@ -87,7 +87,7 @@
 - (void)reloadDebugVideoStatus
 {
     ANDispatchBlockToMainQueue(^{
-       self.usernameLabel.text = [self videoStatusString];
+        self.usernameLabel.text = [self videoStatusString];
     });
 }
 
@@ -97,25 +97,25 @@
 }
 
 - (void)updateRecordingStateTo:(BOOL)isRecording
-           withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
+           withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
 {
     [self.delegate recordingStateUpdatedToState:isRecording
                                       viewModel:self
                             withCompletionBlock:completionBlock];
-    
+
     [self reloadDebugVideoStatus];
 }
 
 - (ZZGridCellViewModelState)state
 {
     ZZGridCellViewModelState modelState = ZZGridCellViewModelStateNone;
-    
+
     if (!self.item.relatedUser)
     {
         modelState = ZZGridCellViewModelStateAdd;
     }
     else if (!ANIsEmpty(self.item.relatedUser) &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {
         if (self.hasDownloadedVideo)
         {
@@ -139,36 +139,36 @@
         modelState = ZZGridCellViewModelStateFriendHasNoApp;
     }
 
-    modelState = [self _additionalModelStateWithState:modelState];    
-    
+    modelState = [self _additionalModelStateWithState:modelState];
+
     return modelState;
 }
 
 - (ZZGridCellViewModelState)_additionalModelStateWithState:(ZZGridCellViewModelState)state
 {
     ZZGridCellViewModelState stateWithAdditionalState = state;
-    
+
     if (self.hasUploadedVideo &&
-       !self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming &&
-        self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
+            !self.isUploadedVideoViewed &&
+            self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming &&
+            self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
     }
     else if (self.isUploadedVideoViewed &&
-        self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+            self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
+            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
             [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
     }
     else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
-             !self.item.isDownloadAnimationViewed)
+            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
+            !self.item.isDownloadAnimationViewed)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
     }
@@ -179,14 +179,14 @@
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowBorder);
     }
     else if (self.badgeNumber == 0 &&
-             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
     }
 
     // badge state
     if (self.badgeNumber == 1
-        && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
+            && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
     }
@@ -194,7 +194,7 @@
     {
         stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoCountMoreThatOne);
     }
-    
+
     return stateWithAdditionalState;
 }
 
@@ -205,12 +205,12 @@
     [self reloadDebugVideoStatus];
 }
 
-- (NSString*)firstName
+- (NSString *)firstName
 {
     return [NSObject an_safeString:self.item.relatedUser.firstName];
 }
 
-- (NSArray*)playerVideoURLs
+- (NSArray *)playerVideoURLs
 {
     return self.item.relatedUser.videos;
 }
@@ -219,15 +219,15 @@
 
 - (UIImage *)videoThumbnailImage
 {
-    
+
 #ifdef MAKING_SCREENSHOTS
     return [UIImage imageNamed:[NSString stringWithFormat:@"prethumb%ld", (long)self.item.index + 1]];
 #endif
-    
+
     return [self _videoThumbnail];
 }
 
-- (void)setupRecorderRecognizerOnView:(UIView*)view
+- (void)setupRecorderRecognizerOnView:(UIView *)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate
 {
     self.animationDelegate = animationDelegate;
@@ -235,9 +235,9 @@
     [view addGestureRecognizer:self.recordRecognizer];
 }
 
-- (void)_removeActionRecognizerFromView:(UIView*)view
+- (void)_removeActionRecognizerFromView:(UIView *)view
 {
-    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull recognizer, NSUInteger idx, BOOL * _Nonnull stop) {
+    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer *_Nonnull recognizer, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]])
         {
             [view removeGestureRecognizer:recognizer];
@@ -250,7 +250,7 @@
     if (!_recordRecognizer)
     {
         _recordRecognizer =
-        [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
+                [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
         _recordRecognizer.minimumPressDuration = 0.2;
     }
     return _recordRecognizer;
@@ -265,7 +265,7 @@
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
             self.initialRecordPoint = [recognizer locationInView:recognizer.view];
-            
+
             [self updateRecordingStateTo:YES withCompletionBlock:^(BOOL isRecordingSuccess) {
                 if (isRecordingSuccess)
                 {
@@ -300,7 +300,7 @@
     }];
 }
 
-- (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer*)recognizer
+- (void)_checkIsCancelRecordingWithRecognizer:(UILongPressGestureRecognizer *)recognizer
 {
     if ([ZZGridActionStoredSettings shared].abortRecordHintWasShown)
     {
@@ -309,16 +309,16 @@
         {
             addTouchBounds *= 2;
         }
-        
-        UIView* recordView = recognizer.view;
-        
+
+        UIView *recordView = recognizer.view;
+
         CGPoint location = [recognizer locationInView:recordView];
-        
+
         CGRect observeFrame = CGRectMake(self.initialRecordPoint.x - addTouchBounds,
-                                         self.initialRecordPoint.y - addTouchBounds,
-                                         (addTouchBounds * 2),
-                                         (addTouchBounds * 2));
-        if (!CGRectContainsPoint(observeFrame,location))
+                self.initialRecordPoint.y - addTouchBounds,
+                (addTouchBounds * 2),
+                (addTouchBounds * 2));
+        if (!CGRectContainsPoint(observeFrame, location))
         {
             [self.delegate cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
         }
@@ -327,26 +327,26 @@
 
 #pragma mark - Generate Thumbnail
 
-- (UIImage*)_videoThumbnail
+- (UIImage *)_videoThumbnail
 {
     NSSortDescriptor *sortDescriptor =
-        [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    
+            [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+
     NSPredicate *predicate =
-        [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
-    
+            [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
+
     NSArray *videoModels = self.item.relatedUser.videos;
-    
+
     videoModels = [videoModels filteredArrayUsingPredicate:predicate];
     videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
+
     ZZVideoDomainModel *lastModel = [videoModels lastObject];
-    
+
     if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
     {
         [ZZThumbnailGenerator generateThumbVideo:lastModel];
     }
-    
+
     return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
 }
 

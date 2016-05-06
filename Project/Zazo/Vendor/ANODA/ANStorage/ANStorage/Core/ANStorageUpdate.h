@@ -15,7 +15,8 @@
 @property (nonatomic, strong) NSMutableArray *deletedRowIndexPaths;
 @property (nonatomic, strong) NSMutableArray *insertedRowIndexPaths;
 @property (nonatomic, strong) NSMutableArray *updatedRowIndexPaths;
-@property (nonatomic, strong) NSMutableArray* movedRowsIndexPaths;
+@property (nonatomic, strong) NSMutableArray *movedRowsIndexPaths;
+
 - (BOOL)isEmpty;
 
 @end

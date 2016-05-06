@@ -20,11 +20,12 @@ typedef NS_ENUM(NSInteger, ZZGridSpinPositionType)
 
 @interface ZZGridHelper : NSObject
 
-@property(assign, nonatomic, readonly) CGSize cellSize;
-@property(assign, nonatomic) CGFloat spaceBetweenCells;
-@property(assign, nonatomic) CGRect frame;
+@property (assign, nonatomic, readonly) CGSize cellSize;
+@property (assign, nonatomic) CGFloat spaceBetweenCells;
+@property (assign, nonatomic) CGRect frame;
 
 - (CGPoint)centerCellPointWithNormalIndex:(NSUInteger)index;
+
 - (void)moveCellCenter:(CGPoint *)center byAngle:(double)angle;
 
 - (BOOL)isCameraCellInPoint:(CGPoint)point;

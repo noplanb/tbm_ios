@@ -11,12 +11,13 @@
 
 #pragma mark - General
 
-+ (RACSignal*)uploadTokenWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)uploadTokenWithParameters:(NSDictionary *)parameters;
 
 
 #pragma mark - Outgoing Events
 
-+ (RACSignal*)sendVideoReceivedNotificationWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)sendVideoStatusUpdateNotificationWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)sendVideoReceivedNotificationWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)sendVideoStatusUpdateNotificationWithParameters:(NSDictionary *)parameters;
 
 @end

@@ -12,27 +12,27 @@
 
 #pragma mark - Sections
 
-- (void)_removeSections:(NSIndexSet*)indexSet
+- (void)_removeSections:(NSIndexSet *)indexSet
 {
     if (indexSet && [self isIndexSetInSectionBounds:indexSet])
     {
         [self startUpdate];
-        
+
         [self.sections removeObjectsAtIndexes:indexSet];
         [[self loadCurrentUpdate].deletedSectionIndexes addIndexes:indexSet];
-        
+
         [self finishUpdate];
     }
 }
 
-- (ANSectionModel*)_sectionAtIndex:(NSUInteger)sectionIndex
+- (ANSectionModel *)_sectionAtIndex:(NSUInteger)sectionIndex
 {
     return [self _sectionAtIndex:sectionIndex createIfNotExist:NO];
 }
 
-- (ANSectionModel*)_sectionAtIndex:(NSUInteger)sectionIndex createIfNeeded:(BOOL)shouldCreate
+- (ANSectionModel *)_sectionAtIndex:(NSUInteger)sectionIndex createIfNeeded:(BOOL)shouldCreate
 {
-     return [self _sectionAtIndex:sectionIndex createIfNotExist:shouldCreate];
+    return [self _sectionAtIndex:sectionIndex createIfNotExist:shouldCreate];
 }
 
 #pragma mark - Views Models
@@ -42,17 +42,17 @@
     [self startUpdate];
     if (!supplementaryModels || [supplementaryModels count] == 0)
     {
-        for (ANSectionModel * section in self.sections)
+        for (ANSectionModel *section in self.sections)
         {
             [section setSupplementaryModel:nil forKind:kind];
         }
         return;
     }
     [self _createSectionIfNotExist:([supplementaryModels count] - 1)];
-    
+
     for (NSUInteger sectionNumber = 0; sectionNumber < [supplementaryModels count]; sectionNumber++)
     {
-        ANSectionModel * section = self.sections[sectionNumber];
+        ANSectionModel *section = self.sections[sectionNumber];
         [section setSupplementaryModel:supplementaryModels[sectionNumber] forKind:kind];
     }
     [self finishUpdate];
@@ -78,7 +78,7 @@
 - (void)_setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionIndex
 {
     NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method");
-    
+
     ANSectionModel *section = [self _sectionAtIndex:sectionIndex createIfNotExist:YES];
     [section setSupplementaryModel:headerModel forKind:self.supplementaryHeaderKind];
 }
@@ -86,7 +86,7 @@
 - (void)_setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionIndex
 {
     NSAssert(self.supplementaryFooterKind, @"supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method");
-    ANSectionModel * section = [self _sectionAtIndex:sectionIndex createIfNotExist:YES];
+    ANSectionModel *section = [self _sectionAtIndex:sectionIndex createIfNotExist:YES];
     [section setSupplementaryModel:footerModel forKind:self.supplementaryFooterKind];
 }
 
@@ -100,7 +100,7 @@
     {
         for (NSInteger sectionIterator = self.sections.count; sectionIterator <= sectionNumber; sectionIterator++)
         {
-            ANSectionModel * section = [ANSectionModel new];
+            ANSectionModel *section = [ANSectionModel new];
             [self.sections addObject:section];
             [[self loadCurrentUpdate].insertedSectionIndexes addIndex:sectionIterator];
         }
@@ -112,7 +112,7 @@
 
 - (id)_supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
 {
-    ANSectionModel * sectionModel = nil;
+    ANSectionModel *sectionModel = nil;
     if (sectionNumber >= self.sections.count)
     {
         return nil;
@@ -126,10 +126,10 @@
 
 #pragma mark Helpers methods
 
-- (ANSectionModel*)_sectionAtIndex:(NSUInteger)sectionNumber createIfNotExist:(BOOL)createIfNotExist
+- (ANSectionModel *)_sectionAtIndex:(NSUInteger)sectionNumber createIfNotExist:(BOOL)createIfNotExist
 {
     //TODO: HOTFIX:
-    ANSectionModel* section;
+    ANSectionModel *section;
     if (createIfNotExist)
     {
         [self startUpdate];
@@ -150,7 +150,7 @@
 {
     __block BOOL isInRange = YES;
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        if (index >=self.sections.count)
+        if (index >= self.sections.count)
         {
             isInRange = NO;
             *stop = YES;

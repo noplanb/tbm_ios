@@ -7,7 +7,8 @@
 
 @interface ANRuntimeHelper : NSObject
 
-+ (NSString*)classStringForClass:(Class)class;
-+ (NSString*)modelStringForClass:(Class)class;
++ (NSString *)classStringForClass:(Class)class;
+
++ (NSString *)modelStringForClass:(Class)class;
 
 @end

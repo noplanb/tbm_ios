@@ -25,7 +25,7 @@ static CGFloat const kAnimationViewWidth = 20.0;
                                 focusFrame:(CGRect)focusFrame
                                   itemType:(ZZHintsType)type
 {
-    ZZHintArrowConfigurationModel* configurationModel = [ZZHintArrowConfigurationModel new];
+    ZZHintArrowConfigurationModel *configurationModel = [ZZHintArrowConfigurationModel new];
     configurationModel.focusPosition = focusPosition;
     configurationModel.arrowDirection = direction;
     configurationModel.angle = angle;
@@ -37,7 +37,7 @@ static CGFloat const kAnimationViewWidth = 20.0;
 - (CGPoint)focusPoint
 {
     CGPoint focusPoint;
-    
+
     if (self.type == ZZHintsTypeSentHint || self.type == ZZHintsTypeViewedHint)
     {
         focusPoint = [self _focusPointSentAndViewed];
@@ -46,81 +46,93 @@ static CGFloat const kAnimationViewWidth = 20.0;
     {
         focusPoint = [self _focusPointForShowCell];
     }
-    
-    
+
+
     return focusPoint;
 }
 
 - (CGPoint)_focusPointSentAndViewed
 {
- 
+
     CGPoint point = CGPointZero;
-    
+
     switch (self.focusPosition)
     {
         case ZZHintArrowFocusPositionTopLeft:
         {
             point = CGPointMake((CGRectGetMaxX(self.focusFrame) - kAnimationViewWidth), CGRectGetMinY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionTopRight:
         {
             point = CGPointMake(CGRectGetMaxX(self.focusFrame), CGRectGetMinY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionBottomLeft:
         {
             point = CGPointMake((CGRectGetMaxX(self.focusFrame) - kAnimationViewWidth), (CGRectGetMinY(self.focusFrame) + kAnimationViewWidth));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionBottomRight:
         {
             point = CGPointMake(CGRectGetMaxX(self.focusFrame), (CGRectGetMinY(self.focusFrame) + kAnimationViewWidth));
-        } break;
+        }
+            break;
         default:
         {
             point = CGPointZero;
-        } break;
+        }
+            break;
     }
-    
+
     return point;
 
-    
+
 }
 
 - (CGPoint)_focusPointForShowCell
 {
     CGPoint point = CGPointZero;
-    
+
     switch (self.focusPosition)
     {
         case ZZHintArrowFocusPositionTopLeft:
         {
             point = CGPointMake(CGRectGetMinX(self.focusFrame), CGRectGetMinY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionTopRight:
         {
             point = CGPointMake(CGRectGetMaxX(self.focusFrame), CGRectGetMinY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionBottomLeft:
         {
             point = CGPointMake(CGRectGetMinX(self.focusFrame), CGRectGetMaxY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionBottomRight:
         {
             point = CGPointMake(CGRectGetMaxX(self.focusFrame), CGRectGetMaxY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionMiddleLeft:
         {
             point = CGPointMake(CGRectGetMinX(self.focusFrame), CGRectGetMidY(self.focusFrame));
-        } break;
+        }
+            break;
         case ZZHintArrowFocusPositionMiddleRight:
         {
             point = CGPointMake(CGRectGetMaxX(self.focusFrame), CGRectGetMidY(self.focusFrame));
-        } break;
+        }
+            break;
         default:
         {
             point = CGPointZero;
-        } break;
+        }
+            break;
     }
-    
+
     return point;
 }
 

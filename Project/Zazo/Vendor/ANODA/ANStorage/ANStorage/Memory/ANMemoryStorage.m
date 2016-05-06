@@ -14,8 +14,8 @@
 
 @interface ANMemoryStorage ()
 
-@property (nonatomic, strong) ANStorageUpdate* currentUpdate;
-@property (nonatomic, retain) NSMutableDictionary* searchingBlocks;
+@property (nonatomic, strong) ANStorageUpdate *currentUpdate;
+@property (nonatomic, retain) NSMutableDictionary *searchingBlocks;
 @property (nonatomic, assign) BOOL isBatchUpdateCreating;
 
 @end
@@ -24,7 +24,7 @@
 
 + (instancetype)storage
 {
-    ANMemoryStorage * storage = [self new];
+    ANMemoryStorage *storage = [self new];
     return storage;
 }
 
@@ -61,7 +61,7 @@
             return nil;
         }
     }
-    
+
     return [sectionModel.objects objectAtIndex:indexPath.row];
 }
 
@@ -83,7 +83,7 @@
     //TODO: handle exeptions
     //    NSNumber* count = [self.sections valueForKeyPath:@"objects.@count.numberOfObjects"];// TODO:
     __block NSInteger totalCount = 0;
-    [self.sections enumerateObjectsUsingBlock:^(ANSectionModel* obj, NSUInteger idx, BOOL *stop) {
+    [self.sections enumerateObjectsUsingBlock:^(ANSectionModel *obj, NSUInteger idx, BOOL *stop) {
         totalCount += obj.numberOfObjects;
     }];
     return [@(totalCount) boolValue];
@@ -101,7 +101,7 @@
 
 - (void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex
 {
-    ANSectionModel * section = [self _sectionAtIndex:sectionIndex createIfNotExist:YES];;
+    ANSectionModel *section = [self _sectionAtIndex:sectionIndex createIfNotExist:YES];;
     [section.objects removeAllObjects];
     [section.objects addObjectsFromArray:items];
     self.currentUpdate = nil; // no update if storage reloading
@@ -125,7 +125,7 @@
     {
         if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
         {
-            ANStorageUpdate* update = self.currentUpdate; //for hanling nilling
+            ANStorageUpdate *update = self.currentUpdate; //for hanling nilling
             [self.delegate storageDidPerformUpdate:update];
         }
         self.currentUpdate = nil;
@@ -164,7 +164,7 @@
     [self _reloadItem:item];
 }
 
-- (void)moveItemFromIndexPath:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath
+- (void)moveItemFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     [self _moveItemFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
 }
@@ -225,7 +225,7 @@
     return [self _indexPathForItem:item];
 }
 
-- (ANSectionModel*)sectionAtIndex:(NSUInteger)sectionIndex
+- (ANSectionModel *)sectionAtIndex:(NSUInteger)sectionIndex
 {
     return [self _sectionAtIndex:sectionIndex createIfNotExist:NO];
 }
@@ -238,7 +238,7 @@
 
 #pragma mark - Views
 
--(void)setSectionHeaderModels:(NSArray *)headerModels
+- (void)setSectionHeaderModels:(NSArray *)headerModels
 {
     [self _setSectionHeaderModels:headerModels];
 }
@@ -253,28 +253,28 @@
     return [self _supplementaryModelOfKind:kind forSectionIndex:sectionNumber];
 }
 
--(void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionNumber
+- (void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionNumber
 {
     [self _setSectionHeaderModel:headerModel forSectionIndex:sectionNumber];
 }
 
--(void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionNumber
+- (void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionNumber
 {
     [self _setSectionFooterModel:footerModel forSectionIndex:sectionNumber];
 }
 
--(id)headerModelForSectionIndex:(NSInteger)index
+- (id)headerModelForSectionIndex:(NSInteger)index
 {
     NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method");
-    
+
     return [self supplementaryModelOfKind:self.supplementaryHeaderKind
                           forSectionIndex:index];
 }
 
--(id)footerModelForSectionIndex:(NSInteger)index
+- (id)footerModelForSectionIndex:(NSInteger)index
 {
     NSAssert(self.supplementaryFooterKind, @"supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method");
-    
+
     return [self supplementaryModelOfKind:self.supplementaryFooterKind
                           forSectionIndex:index];
 }
@@ -287,19 +287,19 @@
 - (instancetype)searchingStorageForSearchString:(NSString *)searchString
                                   inSearchScope:(NSUInteger)searchScope
 {
-    ANMemoryStorage * storage = [[self class] storage];
-    
-    NSPredicate* predicate;
+    ANMemoryStorage *storage = [[self class] storage];
+
+    NSPredicate *predicate;
     if (self.storagePredicateBlock)
     {
         predicate = self.storagePredicateBlock(searchString, searchScope);
     }
-    
+
     if (predicate)
     {
-        [self.sections enumerateObjectsUsingBlock:^(ANSectionModel* obj, NSUInteger idx, BOOL *stop) {
-            
-            NSArray* filteredObjects = [obj.objects filteredArrayUsingPredicate:predicate];
+        [self.sections enumerateObjectsUsingBlock:^(ANSectionModel *obj, NSUInteger idx, BOOL *stop) {
+
+            NSArray *filteredObjects = [obj.objects filteredArrayUsingPredicate:predicate];
             [storage addItems:filteredObjects toSection:idx];
         }];
     }
@@ -320,14 +320,15 @@
     return self.isBatchUpdateCreating;
 }
 
-- (void)createCurrentUpdate {
+- (void)createCurrentUpdate
+{
     self.currentUpdate = [ANStorageUpdate new];
 }
 
 
 #pragma mark Update storage methods
 
-- (void)updateStorageWithBlock:(void(^)())block
+- (void)updateStorageWithBlock:(void (^)())block
 {
     if (block)
     {

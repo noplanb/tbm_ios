@@ -21,7 +21,7 @@
     {
         self.clipsToBounds = YES;
         self.layoutMargins = UIEdgeInsetsMake(16, 16, 16, 16);
-        
+
         [self _makeBackground];
         [self _makePattern];
         [self _makeTitle];
@@ -38,9 +38,9 @@
 - (void)_makePattern
 {
     _patternView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pattern"]];
-    
+
     [self addSubview:_patternView];
-    
+
     [_patternView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
     }];

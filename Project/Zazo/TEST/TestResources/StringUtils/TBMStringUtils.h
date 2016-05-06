@@ -12,5 +12,6 @@
 + (NSString *)randomStringofLength:(int)length;
 
 + (NSString *)jsonWithDictionary:(NSDictionary *)dict;
+
 + (NSDictionary *)dictionaryWithJson:(NSString *)jsonString;
 @end

@@ -36,9 +36,9 @@ static CGFloat const kCodeLableLeftPadding = 3;
 
 @interface ZZAuthRegistrationView ()
 
-@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
-@property (nonatomic, strong) UILabel* plusLabel;
-@property (nonatomic, strong) UILabel* countryCodeLabel;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
+@property (nonatomic, strong) UILabel *plusLabel;
+@property (nonatomic, strong) UILabel *countryCodeLabel;
 
 @end
 
@@ -50,11 +50,11 @@ static CGFloat const kCodeLableLeftPadding = 3;
     {
         [self titleImageView];
         [self plusLabel];
-        
+
         [self signInButton];
         [self countryCodeLabel];
         [self addRecognizer];
-    
+
     }
     return self;
 }
@@ -62,7 +62,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     self.countryCodeLabel.preferredMaxLayoutWidth = self.phoneCodeTextField.bounds.size.width;
     self.plusLabel.frame = CGRectMake(kCodeLableLeftPadding, 0, 10, self.phoneCodeTextField.height);
 }
@@ -72,13 +72,13 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return CGRectGetWidth([UIScreen mainScreen].bounds) / kTextFieldSideScaleValue;
 }
 
-- (UIImageView*)titleImageView
+- (UIImageView *)titleImageView
 {
     if (!_titleImageView)
     {
         _titleImageView = [UIImageView new];
         CGFloat scale = [UIScreen mainScreen].scale;
-        UIImage* logo = [UIImage imageWithPDFNamed:@"app_logo" atHeight:IS_IPAD ? 60 : 20 * scale];
+        UIImage *logo = [UIImage imageWithPDFNamed:@"app_logo" atHeight:IS_IPAD ? 60 : 20 * scale];
         _titleImageView.image = [logo an_imageByTintingWithColor:[UIColor whiteColor]];
         [_titleImageView sizeToFit];
         [self addSubview:_titleImageView];
@@ -93,16 +93,16 @@ static CGFloat const kCodeLableLeftPadding = 3;
 
 #pragma mark - Auth Text Fields
 
-- (ZZAuthTextField*)firstNameTextField
+- (ZZAuthTextField *)firstNameTextField
 {
     if (!_firstNameTextField)
     {
         _firstNameTextField = [ZZAuthTextField new];
         _firstNameTextField.userInteractionEnabled = YES;
-        [_firstNameTextField updatePlaceholderWithText:NSLocalizedString(@"auth-controller.firstname.placeholder.title",nil)];
+        [_firstNameTextField updatePlaceholderWithText:NSLocalizedString(@"auth-controller.firstname.placeholder.title", nil)];
         _firstNameTextField.accessibilityLabel = @"firstName";
         [self addSubview:_firstNameTextField];
-        
+
         [_firstNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleImageView.mas_bottom).with.offset(kFirstNameTopPadding);
             make.centerX.equalTo(self.mas_centerX);
@@ -114,7 +114,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _firstNameTextField;
 }
 
-- (ZZAuthTextField*)lastNameTextField
+- (ZZAuthTextField *)lastNameTextField
 {
     if (!_lastNameTextField)
     {
@@ -122,7 +122,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         [_lastNameTextField updatePlaceholderWithText:NSLocalizedString(@"auth-controller.lastname.placeholder.title", nil)];
         _lastNameTextField.accessibilityLabel = @"lastName";
         [self addSubview:_lastNameTextField];
-        
+
         [_lastNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.firstNameTextField.mas_bottom).with.offset(kBetweenElementPadding);
             make.centerX.equalTo(self.mas_centerX);
@@ -134,7 +134,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _lastNameTextField;
 }
 
-- (ZZAuthTextField*)phoneCodeTextField
+- (ZZAuthTextField *)phoneCodeTextField
 {
     if (!_phoneCodeTextField)
     {
@@ -142,7 +142,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _phoneCodeTextField.keyboardType = UIKeyboardTypePhonePad;
         _phoneCodeTextField.accessibilityLabel = @"phoneCode";
         [self addSubview:_phoneCodeTextField];
-        
+
         [_phoneCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.lastNameTextField.mas_left);
             make.height.equalTo(@(kTextFieldHeight));
@@ -154,7 +154,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _phoneCodeTextField;
 }
 
-- (UILabel*)plusLabel
+- (UILabel *)plusLabel
 {
     if (!_plusLabel)
     {
@@ -167,7 +167,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _plusLabel;
 }
 
-- (ZZAuthTextField*)phoneNumberTextField
+- (ZZAuthTextField *)phoneNumberTextField
 {
     if (!_phoneNumberTextField)
     {
@@ -176,7 +176,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         [_phoneNumberTextField updatePlaceholderWithText:NSLocalizedString(@"auth-controller.phone.placeholder.title", nil)];
         _phoneNumberTextField.accessibilityLabel = @"phoneNumber";
         [self addSubview:_phoneNumberTextField];
-        
+
         [_phoneNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(self.phoneCodeTextField);
             make.right.equalTo(self.lastNameTextField.mas_right);
@@ -186,7 +186,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _phoneNumberTextField;
 }
 
-- (UIButton*)signInButton
+- (UIButton *)signInButton
 {
     if (!_signInButton)
     {
@@ -208,7 +208,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
     return _signInButton;
 }
 
-- (UILabel*)countryCodeLabel
+- (UILabel *)countryCodeLabel
 {
     if (!_countryCodeLabel)
     {
@@ -216,9 +216,9 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _countryCodeLabel.textColor = [UIColor whiteColor];
         _countryCodeLabel.numberOfLines = 0;
         _countryCodeLabel.textAlignment = NSTextAlignmentCenter;
-        
-        
-        NSString* titleString = NSLocalizedString(@"auth-controller.country.code.example.title", nil);
+
+
+        NSString *titleString = NSLocalizedString(@"auth-controller.country.code.example.title", nil);
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:titleString];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle setLineSpacing:5];
@@ -227,7 +227,7 @@ static CGFloat const kCodeLableLeftPadding = 3;
         _countryCodeLabel.font = [UIFont zz_regularFontWithSize:11];
         _countryCodeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_countryCodeLabel];
-        
+
         [_countryCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.phoneCodeTextField);
             make.top.equalTo(self.phoneCodeTextField.mas_bottom).with.offset(2);

@@ -10,19 +10,27 @@
 
 @protocol ANColorThemeInterface <NSObject>
 
-- (id<ANColorThemeButtonInterface>)linkStyle;
-- (id<ANColorThemeButtonInterface>)primaryStyle;
-- (id<ANColorThemeButtonInterface>)dangerStyle;
+- (id <ANColorThemeButtonInterface>)linkStyle;
 
-- (UIColor*)navBarbackgroundColor;
-- (UIColor*)navBarFontColor;
-- (UIColor*)textGrayColor;
-- (UIColor*)textLightGrayColor;
+- (id <ANColorThemeButtonInterface>)primaryStyle;
 
-- (UIColor*)baseBackgroundColor;
-- (UIColor*)baseColor;
-- (UIColor*)baseFontColor;
-- (UIColor*)baseTableViewSeparatorColor;
+- (id <ANColorThemeButtonInterface>)dangerStyle;
+
+- (UIColor *)navBarbackgroundColor;
+
+- (UIColor *)navBarFontColor;
+
+- (UIColor *)textGrayColor;
+
+- (UIColor *)textLightGrayColor;
+
+- (UIColor *)baseBackgroundColor;
+
+- (UIColor *)baseColor;
+
+- (UIColor *)baseFontColor;
+
+- (UIColor *)baseTableViewSeparatorColor;
 
 - (void)setupAppearance;
 

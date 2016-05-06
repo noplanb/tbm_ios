@@ -12,14 +12,14 @@
 @implementation ZZInviteSomeoneElseEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     self.hintModel = model;
     if (event == ZZGridActionEventTypeSentZazo &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0 &&
-        ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0 &&
+            ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         if (completionBlock)
@@ -28,24 +28,24 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         }
     }
     else if (event == ZZGridActionEventTypeSentZazo &&
-        ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
+            ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-        ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
 //        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = YES;
-        
+
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeInviteSomeElseHint, model);
         }
     }
-    else  if (event == ZZGridActionEventTypeMessageDidSent &&
-              ![ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession &&
+    else if (event == ZZGridActionEventTypeMessageDidSent &&
+            ![ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-              [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
-              ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
+            ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
 //        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
@@ -54,8 +54,8 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
             completionBlock(ZZHintsTypeInviteSomeElseHint, model);
         }
     }
-    else  if (event == ZZGridActionEventTypeSentZazo &&
-              ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
+    else if (event == ZZGridActionEventTypeSentZazo &&
+            ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
             [self.delegate friendsNumberOnGrid] > 1)
     {
 //        self.isLastAcitionDone = YES;
@@ -70,7 +70,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     {
         self.hintModel = nil;
         self.isLastAcitionDone = NO;
-        if(!ANIsEmpty(self.eventHandler))
+        if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
@@ -84,7 +84,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     if (self.isLastAcitionDone)
     {
@@ -92,7 +92,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
         [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
         if (completionBlock)
         {
-            completionBlock(ZZGridActionEventTypeSentZazo,self.hintModel);
+            completionBlock(ZZGridActionEventTypeSentZazo, self.hintModel);
         }
     }
     else

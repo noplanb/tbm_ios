@@ -13,39 +13,39 @@
 
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     if (event == ZZGridActionEventTypeMessageDidSent &&
-        ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed &&
+            ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] > 0)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
         if (completionBlock)
         {
-            completionBlock(ZZHintsTypePlayHint,model);
+            completionBlock(ZZHintsTypePlayHint, model);
         }
-    
+
     }
     else if (event == ZZGridActionEventTypeMessageDidSent &&
-        ![ZZGridActionStoredSettings shared].sentHintWasShown &&
+            ![ZZGridActionStoredSettings shared].sentHintWasShown &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-        [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0)
+            [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
-        
+
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeSentHint, model);
         }
     }
     else if (event == ZZGridActionEventTypeMessageDidSent &&
-             ![ZZGridActionStoredSettings shared].sentHintWasShown &&
+            ![ZZGridActionStoredSettings shared].sentHintWasShown &&
             [self.delegate friendsNumberOnGrid] > 1)
     {
         [ZZGridActionStoredSettings shared].sentHintWasShown = YES;
-        
+
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
@@ -53,7 +53,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else
     {
-        if(!ANIsEmpty(self.eventHandler))
+        if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
@@ -68,7 +68,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
 
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     if (self.eventHandler)
     {

@@ -11,27 +11,27 @@
 @implementation ZZSentWelcomeEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
-              model:(ZZFriendDomainModel*)model
-withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))completionBlock
+              model:(ZZFriendDomainModel *)model
+withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
     if (event == ZZGridActionEventTypeFriendDidInvited)// &&
 //        ![ZZGridActionStoredSettings shared].welcomeHintWasShown)
     {
-        
-         ZZHintsType type = ZZHintsTypeSendWelcomeHint;
-        
+
+        ZZHintsType type = ZZHintsTypeSendWelcomeHint;
+
         type = ZZHintsTypeSendWelcomeHint;
         if (![model hasApp])
         {
             type = ZZHintsTypeSendWelcomeHintForFriendWithoutApp;
         }
-            
+
 //        }
 //        else if (launchCounter == 6)
 //        {
 //            [ZZGridActionStoredSettings shared].welcomeHintWasShown = YES;
 //        }
-    
+
         if (completionBlock)
         {
             completionBlock(type, model);
@@ -39,7 +39,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
     else
     {
-        if(!ANIsEmpty(self.eventHandler))
+        if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
         }
@@ -53,7 +53,7 @@ withCompletionBlock:(void(^)(ZZHintsType type, ZZFriendDomainModel* model))compl
     }
 }
 
-- (void)handleResetLastActionWithCompletionBlock:(void(^)(ZZGridActionEventType event, ZZFriendDomainModel* model))completionBlock
+- (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
     if (self.eventHandler)
     {

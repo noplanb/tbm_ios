@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     ZZLoadingAnimationTypeDownloading,
     ZZLoadingAnimationTypeUploading,
 } ZZLoadingAnimationType;
@@ -23,6 +24,7 @@ extern CGFloat ZZLoadingAnimationDuration;
 
 
 - (void)startDownloading;
+
 - (void)finishDownloadingToView:(UIView *)targetView
                      completion:(ANCodeBlock)completion;
 

@@ -23,32 +23,32 @@
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock
 {
     [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
-    
-   
-    ZZMigrationManager* migrationManager = [ZZMigrationManager new];
+
+
+    ZZMigrationManager *migrationManager = [ZZMigrationManager new];
     if ([migrationManager isMigrationNecessary])
     {
         [migrationManager migrate];
-        
+
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
-        
-        __block ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
-        
+
+        __block ZZUserDomainModel *authUser = [ZZUserDataProvider authenticatedUser];
+
         [ZZStoredSettingsManager shared].userID = authUser.idTbm;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZStoredSettingsManager shared].mobileNumber = authUser.mobileNumber;
-        
+
         [ZZStoredSettingsManager shared].userID = authUser.mkey;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZUserDataProvider upsertUserWithModel:authUser];
-        
+
         [ZZCommonNetworkTransport setupNetworkCredentials];
-        
+
         if (completionBlock)
         {
             completionBlock();
         }
-        
+
         if ([NSManagedObjectContext MR_rootSavingContext])
         {
             ZZLogInfo(@"Successfull Core Data migration. Trying to fill new fields"); // TODO: cleanup
@@ -60,12 +60,12 @@
     else
     {
         [MagicalRecord setupCoreDataStackWithStoreAtURL:[migrationManager destinationUrl]];
-        ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
+        ZZUserDomainModel *authUser = [ZZUserDataProvider authenticatedUser];
         if (!ANIsEmpty(authUser.idTbm)) // it is not authorization.
         {
             [ZZCommonNetworkTransport setupNetworkCredentials];
         }
-        
+
         if (completionBlock)
         {
             completionBlock();
@@ -85,17 +85,20 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 + (NSManagedObjectContext *)mainThreadContext
 {
-    if (![NSThread isMainThread]) {
+    if (![NSThread isMainThread])
+    {
         [NSException raise:kZazoErrorDomain format:@"This Core Data context should be used in main thread only"];
     }
-    
+
     return [NSManagedObjectContext MR_defaultContext];
 }
+
 #pragma GCC diagnostic pop
 
-+ (void)refreshContext:(NSManagedObjectContext*)context
++ (void)refreshContext:(NSManagedObjectContext *)context
 {
     if ([context respondsToSelector:@selector(refreshAllObjects)])
     {
@@ -103,15 +106,15 @@
     }
     else
     {
-        [context.insertedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+        [context.insertedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject *_Nonnull obj, BOOL *_Nonnull stop) {
             [context refreshObject:obj mergeChanges:YES];
         }];
-        
-        [context.updatedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+
+        [context.updatedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject *_Nonnull obj, BOOL *_Nonnull stop) {
             [context refreshObject:obj mergeChanges:YES];
         }];
-        
-        [context.deletedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject * _Nonnull obj, BOOL * _Nonnull stop) {
+
+        [context.deletedObjects enumerateObjectsUsingBlock:^(__kindof NSManagedObject *_Nonnull obj, BOOL *_Nonnull stop) {
             [context refreshObject:obj mergeChanges:YES];
         }];
     }

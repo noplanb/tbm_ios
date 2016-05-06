@@ -12,6 +12,6 @@
 
 @interface ZZGridInteractor (ActionHandler)
 
-- (void)_handleModel:(ZZGridDomainModel*)model;
+- (void)_handleModel:(ZZGridDomainModel *)model;
 
 @end

@@ -14,12 +14,12 @@
 
 @interface ZZNetworkTestPresenter : NSObject <ZZNetworkTestInteractorOutput, ZZNetworkTestModuleInterface>
 
-@property (nonatomic, strong) id<ZZNetworkTestInteractorInput> interactor;
-@property (nonatomic, strong) ZZNetworkTestWireframe* wireframe;
+@property (nonatomic, strong) id <ZZNetworkTestInteractorInput> interactor;
+@property (nonatomic, strong) ZZNetworkTestWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZNetworkTestViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZNetworkTestModuleDelegate> networkTestModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZNetworkTestViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZNetworkTestModuleDelegate> networkTestModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZNetworkTestViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZNetworkTestViewInterface> *)userInterface;
 
 @end

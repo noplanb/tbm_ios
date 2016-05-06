@@ -30,23 +30,23 @@
     {
         _border = [CALayer layer];
         _border.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1].CGColor;
-        
+
         [self.layer addSublayer:_border];
     }
-    
+
     return _border;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     CGFloat offset = 122;
     self.border.frame = CGRectMake(offset, 0, self.frame.size.width - offset, 1);
     self.titleLabel.width = 24;
 }
 
-- (void)updateWithModel:(NSString*)model
+- (void)updateWithModel:(NSString *)model
 {
     if ([model isEqualToString:@"★"])
     {
@@ -62,9 +62,9 @@
 {
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
     textAttachment.image = [UIImage imageNamed:@"z.png"];
-    
+
     NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    
+
     return string;
 }
 

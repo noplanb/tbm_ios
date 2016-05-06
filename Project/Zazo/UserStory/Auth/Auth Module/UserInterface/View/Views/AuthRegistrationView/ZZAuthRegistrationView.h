@@ -10,11 +10,11 @@
 
 @interface ZZAuthRegistrationView : UIView
 
-@property (nonatomic, strong) UIImageView* titleImageView;
-@property (nonatomic, strong) ZZAuthTextField* firstNameTextField;
-@property (nonatomic, strong) ZZAuthTextField* lastNameTextField;
-@property (nonatomic, strong) ZZAuthTextField* phoneCodeTextField;
-@property (nonatomic, strong) ZZAuthTextField* phoneNumberTextField;
-@property (nonatomic, strong) UIButton* signInButton;
+@property (nonatomic, strong) UIImageView *titleImageView;
+@property (nonatomic, strong) ZZAuthTextField *firstNameTextField;
+@property (nonatomic, strong) ZZAuthTextField *lastNameTextField;
+@property (nonatomic, strong) ZZAuthTextField *phoneCodeTextField;
+@property (nonatomic, strong) ZZAuthTextField *phoneNumberTextField;
+@property (nonatomic, strong) UIButton *signInButton;
 
 @end

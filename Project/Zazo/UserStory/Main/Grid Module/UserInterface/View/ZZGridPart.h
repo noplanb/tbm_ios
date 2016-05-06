@@ -1,4 +1,3 @@
-
 typedef NS_ENUM(NSInteger, ZZGridPart)
 {
     ZZGridPartNone = 0,

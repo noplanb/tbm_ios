@@ -11,7 +11,8 @@
 
 @interface ZZUserModelsMapper : NSObject
 
-+ (TBMUser*)fillEntity:(TBMUser*)entity fromModel:(ZZUserDomainModel*)model;
-+ (ZZUserDomainModel*)fillModel:(ZZUserDomainModel*)model fromEntity:(TBMUser*)entity;
++ (TBMUser *)fillEntity:(TBMUser *)entity fromModel:(ZZUserDomainModel *)model;
+
++ (ZZUserDomainModel *)fillModel:(ZZUserDomainModel *)model fromEntity:(TBMUser *)entity;
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation ZZUserFriendshipStatusHandler
 
-+ (ZZFriendshipStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel
++ (ZZFriendshipStatusType)switchedContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
     if ([friendModel isCreator])
     {
@@ -20,20 +20,25 @@
             case ZZFriendshipStatusTypeEstablished:
             {
                 return ZZFriendshipStatusTypeHiddenByTarget;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByCreator:
             {
                 return ZZFriendshipStatusTypeHiddenByBoth;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByTarget:
             {
                 return ZZFriendshipStatusTypeEstablished;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByBoth:
             {
                 return ZZFriendshipStatusTypeHiddenByCreator;
-            } break;
-            default: break;
+            }
+                break;
+            default:
+                break;
         }
     }
     else
@@ -43,37 +48,42 @@
             case ZZFriendshipStatusTypeEstablished:
             {
                 return ZZFriendshipStatusTypeHiddenByCreator;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByTarget:
             {
                 return ZZFriendshipStatusTypeHiddenByBoth;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByCreator:
             {
                 return ZZFriendshipStatusTypeEstablished;
-            } break;
+            }
+                break;
             case ZZFriendshipStatusTypeHiddenByBoth:
             {
                 return ZZFriendshipStatusTypeHiddenByTarget;
-            } break;
-            default: break;
+            }
+                break;
+            default:
+                break;
         }
     }
     return ZZFriendshipStatusTypeVoided;
 }
 
-+ (BOOL)shouldFriendBeVisible:(ZZFriendDomainModel*)friendModel
++ (BOOL)shouldFriendBeVisible:(ZZFriendDomainModel *)friendModel
 {
     BOOL isShouldBeVisible = NO;
     if ([friendModel isCreator])
     {
         isShouldBeVisible = (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                             friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator);
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByCreator);
     }
     else
     {
-        isShouldBeVisible =  (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
-                              friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget);
+        isShouldBeVisible = (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
+                friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByTarget);
     }
     return isShouldBeVisible;
 }

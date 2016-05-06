@@ -8,8 +8,10 @@
 
 @interface ZZSendVideoService : NSObject
 
-- (void)configureActionFriendID:(NSString*)friendID;
+- (void)configureActionFriendID:(NSString *)friendID;
+
 - (NSString *)sendVideo;
-- (NSString*)sendedFriendID;
+
+- (NSString *)sendedFriendID;
 
 @end

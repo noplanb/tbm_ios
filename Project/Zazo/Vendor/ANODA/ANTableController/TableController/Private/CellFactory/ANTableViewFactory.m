@@ -11,9 +11,9 @@
 
 @interface ANTableViewFactory ()
 
-@property (nonatomic,strong) NSMutableDictionary* cellMappingsDictionary;
-@property (nonatomic,strong) NSMutableDictionary* headerMappingsDictionary;
-@property (nonatomic,strong) NSMutableDictionary* footerMappingsDictionary;
+@property (nonatomic, strong) NSMutableDictionary *cellMappingsDictionary;
+@property (nonatomic, strong) NSMutableDictionary *headerMappingsDictionary;
+@property (nonatomic, strong) NSMutableDictionary *footerMappingsDictionary;
 
 @end
 
@@ -53,15 +53,15 @@
     NSParameterAssert([cellClass isSubclassOfClass:[UITableViewCell class]]);
     NSParameterAssert([cellClass conformsToProtocol:@protocol(ANModelTransfer)]);
     NSParameterAssert(modelClass);
-    
-    NSString * reuseIdentifier = [ANRuntimeHelper classStringForClass:cellClass];
-    
+
+    NSString *reuseIdentifier = [ANRuntimeHelper classStringForClass:cellClass];
+
     NSParameterAssert(reuseIdentifier);
-    reuseIdentifier = reuseIdentifier ? : @"";
-    
+    reuseIdentifier = reuseIdentifier ?: @"";
+
     [[self.delegate tableView] registerClass:cellClass
                       forCellReuseIdentifier:reuseIdentifier];
-    
+
     [self.cellMappingsDictionary setObject:[ANRuntimeHelper classStringForClass:cellClass]
                                     forKey:[ANRuntimeHelper modelStringForClass:modelClass]];
 }
@@ -71,23 +71,23 @@
     NSAssert(([supplementaryClass isSubclassOfClass:[UITableViewHeaderFooterView class]]), @"Class must be UITableViewHeaderFooterView object");
     [[self.delegate tableView] registerClass:supplementaryClass
           forHeaderFooterViewReuseIdentifier:NSStringFromClass(supplementaryClass)];
-    
+
     BOOL isHeader = (type == ANSupplementaryViewTypeHeader);
-    NSMutableDictionary* mappings = isHeader ? self.headerMappingsDictionary : self.footerMappingsDictionary;
-    
+    NSMutableDictionary *mappings = isHeader ? self.headerMappingsDictionary : self.footerMappingsDictionary;
+
     [mappings setObject:NSStringFromClass(supplementaryClass)
-                                      forKey:[ANRuntimeHelper modelStringForClass:modelClass]];
+                 forKey:[ANRuntimeHelper modelStringForClass:modelClass]];
 }
 
 #pragma mark - View creation
 
 - (UITableViewCell *)cellForModel:(id)model atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * reuseIdentifier = [self _cellReuseIdentifierForModel:model];
+    NSString *reuseIdentifier = [self _cellReuseIdentifierForModel:model];
     NSParameterAssert(reuseIdentifier);
-    reuseIdentifier = reuseIdentifier ? : @"";
-    
-    UITableViewCell <ANModelTransfer> * cell;
+    reuseIdentifier = reuseIdentifier ?: @"";
+
+    UITableViewCell <ANModelTransfer> *cell;
     if (reuseIdentifier)
     {
         cell = [[self.delegate tableView] dequeueReusableCellWithIdentifier:reuseIdentifier
@@ -105,9 +105,9 @@
 - (UIView *)supplementaryViewForModel:(id)model type:(ANSupplementaryViewType)type
 {
     Class supplementaryClass = [self _supplementaryClassForModel:model type:type];
-    UIView <ANModelTransfer> * view = (id)[self _headerFooterViewForViewClass:supplementaryClass];
+    UIView <ANModelTransfer> *view = (id)[self _headerFooterViewForViewClass:supplementaryClass];
     [view updateWithModel:model];
-    
+
     return view;
 }
 
@@ -115,40 +115,46 @@
 
 - (NSString *)_cellReuseIdentifierForModel:(id)model
 {
-    NSString* modelClassName = [ANRuntimeHelper modelStringForClass:[model class]];
-    NSString* cellClassString = [self.cellMappingsDictionary objectForKey:modelClassName];
-    NSAssert(cellClassString, @"%@ does not have cell mapping for model class: %@",[self class], [model class]);
-    
+    NSString *modelClassName = [ANRuntimeHelper modelStringForClass:[model class]];
+    NSString *cellClassString = [self.cellMappingsDictionary objectForKey:modelClassName];
+    NSAssert(cellClassString, @"%@ does not have cell mapping for model class: %@", [self class], [model class]);
+
     return cellClassString;
 }
 
 - (UIView *)_headerFooterViewForViewClass:(Class)viewClass
 {
-    NSString * reuseIdentifier = [ANRuntimeHelper classStringForClass:viewClass];
+    NSString *reuseIdentifier = [ANRuntimeHelper classStringForClass:viewClass];
     NSParameterAssert(reuseIdentifier);
-    reuseIdentifier = reuseIdentifier ? : @"";
-    
-    UIView * view = [[self.delegate tableView] dequeueReusableHeaderFooterViewWithIdentifier:reuseIdentifier];
-    
+    reuseIdentifier = reuseIdentifier ?: @"";
+
+    UIView *view = [[self.delegate tableView] dequeueReusableHeaderFooterViewWithIdentifier:reuseIdentifier];
+
     return view;
 }
 
-- (NSMutableDictionary*)_supplementaryMappingsForType:(ANSupplementaryViewType)type
+- (NSMutableDictionary *)_supplementaryMappingsForType:(ANSupplementaryViewType)type
 {
     switch (type)
     {
-        case ANSupplementaryViewTypeHeader: return self.headerMappingsDictionary; break;
-        case ANSupplementaryViewTypeFooter: return self.footerMappingsDictionary; break;
-        default: return nil; break;
+        case ANSupplementaryViewTypeHeader:
+            return self.headerMappingsDictionary;
+            break;
+        case ANSupplementaryViewTypeFooter:
+            return self.footerMappingsDictionary;
+            break;
+        default:
+            return nil;
+            break;
     }
 }
 
 - (Class)_supplementaryClassForModel:(id)model type:(ANSupplementaryViewType)type
 {
-    NSString* modelClassName = [ANRuntimeHelper modelStringForClass:[model class]];
-    NSString* supplClassString = [[self _supplementaryMappingsForType:type] objectForKey:modelClassName];
-    NSAssert(supplClassString, @"DTCellFactory does not have supplementary mapping for model class: %@",[model class]);
-    
+    NSString *modelClassName = [ANRuntimeHelper modelStringForClass:[model class]];
+    NSString *supplClassString = [[self _supplementaryMappingsForType:type] objectForKey:modelClassName];
+    NSAssert(supplClassString, @"DTCellFactory does not have supplementary mapping for model class: %@", [model class]);
+
     return NSClassFromString(supplClassString);
 }
 

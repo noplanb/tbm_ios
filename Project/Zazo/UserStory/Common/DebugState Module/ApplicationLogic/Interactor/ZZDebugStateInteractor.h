@@ -10,7 +10,7 @@
 
 @interface ZZDebugStateInteractor : NSObject <ZZDebugStateInteractorInput>
 
-@property (nonatomic, weak) id<ZZDebugStateInteractorOutput> output;
+@property (nonatomic, weak) id <ZZDebugStateInteractorOutput> output;
 
 @end
 

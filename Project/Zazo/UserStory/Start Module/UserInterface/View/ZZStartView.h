@@ -8,6 +8,6 @@
 
 @interface ZZStartView : UIView
 
-@property (nonatomic, strong) UIImageView* backgroundImageView;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end

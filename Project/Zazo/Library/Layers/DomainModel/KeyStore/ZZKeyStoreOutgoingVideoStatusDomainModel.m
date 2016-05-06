@@ -10,34 +10,34 @@
 #import "FEMObjectMapping.h"
 
 const struct ZZKeyStoreOutgoingVideoStatusDomainModelAttributes ZZKeyStoreOutgoingVideoStatusDomainModelAttributes = {
-    .friendMkey     = @"friendMkey",
-    .statusNumber   = @"statusNumber",
-    .videoId        = @"videoId",
+        .friendMkey     = @"friendMkey",
+        .statusNumber   = @"statusNumber",
+        .videoId        = @"videoId",
 };
 
 const struct ZZKeyStoreOutgoingVideoStatusValues ZZKeyStoreOutgoingVideoStatusValues = {
-    .outgoingVideoStatusDownloaded = @"downloaded",
-    .outgoingVideoStatusViewed     = @"viewed",
+        .outgoingVideoStatusDownloaded = @"downloaded",
+        .outgoingVideoStatusViewed     = @"viewed",
 };
 
 @implementation ZZKeyStoreOutgoingVideoStatusDomainModel
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
-        
+
         [mapping addAttributesFromDictionary:@{
-           ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.friendMkey   : @"mkey",
-           ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.videoId      : @"video_id",
+                ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.friendMkey : @"mkey",
+                ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.videoId : @"video_id",
         }];
-        
-        FEMAttribute* statusAttr =
-            [FEMAttribute mappingOfProperty:ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.statusNumber
-                                  toKeyPath:@"status"
-                                        map:^NSNumber * (NSString* value){
-                                            return [self outgoingVideoStatusWithRemoteStatus:value];
-                                        }];
-        
+
+        FEMAttribute *statusAttr =
+                [FEMAttribute mappingOfProperty:ZZKeyStoreOutgoingVideoStatusDomainModelAttributes.statusNumber
+                                      toKeyPath:@"status"
+                                            map:^NSNumber *(NSString *value) {
+                                                return [self outgoingVideoStatusWithRemoteStatus:value];
+                                            }];
+
         [mapping addAttribute:statusAttr];
     }];
 }
@@ -48,7 +48,7 @@ const struct ZZKeyStoreOutgoingVideoStatusValues ZZKeyStoreOutgoingVideoStatusVa
     {
         return [NSNumber numberWithInteger:ZZVideoOutgoingStatusDownloaded];
     }
-    
+
     if ([remoteStatus isEqualToString:ZZKeyStoreOutgoingVideoStatusValues.outgoingVideoStatusViewed])
     {
         return [NSNumber numberWithInteger:ZZVideoOutgoingStatusViewed];
@@ -60,7 +60,8 @@ const struct ZZKeyStoreOutgoingVideoStatusValues ZZKeyStoreOutgoingVideoStatusVa
     return [NSNumber numberWithInt:ZZVideoOutgoingStatusUnknown];
 }
 
-- (ZZVideoOutgoingStatus) status{
+- (ZZVideoOutgoingStatus)status
+{
     return [self.statusNumber integerValue];
 }
 

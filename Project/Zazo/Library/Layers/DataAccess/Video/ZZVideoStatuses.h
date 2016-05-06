@@ -9,7 +9,8 @@
 @class TBMVideo;
 @class ZZFriendDomainModel;
 
-typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
+typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus)
+{
     ZZVideoIncomingStatusNew,
     ZZVideoIncomingStatusDownloading,
     ZZVideoIncomingStatusDownloaded,
@@ -18,7 +19,8 @@ typedef NS_ENUM (NSInteger, ZZVideoIncomingStatus) {
     ZZVideoIncomingStatusGhost,
 };
 
-typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
+typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus)
+{
     ZZVideoOutgoingStatusNone,
     ZZVideoOutgoingStatusNew,
     ZZVideoOutgoingStatusQueued,
@@ -30,14 +32,18 @@ typedef NS_ENUM (NSInteger, ZZVideoOutgoingStatus) {
     ZZVideoOutgoingStatusUnknown,
 };
 
-typedef NS_ENUM(NSInteger, ZZVideoStatusEventType) {
+typedef NS_ENUM(NSInteger, ZZVideoStatusEventType)
+{
     ZZVideoStatusEventTypeIncoming,
     ZZVideoStatusEventTypeOutgoing
 };
 
-NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
-NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
-NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
-NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friend);
+NSString *ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
 
-static NSString* const kDeleteFileNotification = @"fileDeletedNotification";
+NSString *ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
+
+NSString *ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
+
+NSString *ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel *friend);
+
+static NSString *const kDeleteFileNotification = @"fileDeletedNotification";

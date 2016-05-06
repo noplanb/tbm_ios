@@ -7,20 +7,24 @@
 //
 
 #import "ZZAlertController.h"
+
 @protocol TBMVerificationAlertDelegate <NSObject>
 
 - (void)didEnterVerificationCode:(NSString *)code;
+
 - (void)didTapCallMe;
 
 @end
 
 
-@interface ZZVerificationAlertHandler: NSObject
+@interface ZZVerificationAlertHandler : NSObject
 
 @property (nonatomic) NSString *phoneNumber;
 
 - (instancetype)initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate;
+
 - (void)presentAlert;
+
 - (void)dismissAlertWithCompletion:(ANCodeBlock)completion;
 
 @end

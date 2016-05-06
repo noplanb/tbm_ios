@@ -9,22 +9,36 @@
 
 @required
 
-- (UIFont*)font;
-- (UIColor*)textColor;
-- (NSTextAlignment)textAlignment;
-- (NSString*)predefinedText;
-- (NSString*)placeholder;
-- (CGFloat)cornerRadius;
-- (UIColor*)backgroundColor;
-- (UIColor*)placeholderColor;
+- (UIFont *)font;
 
-- (void)setFont:(UIFont*)font;
-- (void)setTextColor:(UIColor*)textColor;
+- (UIColor *)textColor;
+
+- (NSTextAlignment)textAlignment;
+
+- (NSString *)predefinedText;
+
+- (NSString *)placeholder;
+
+- (CGFloat)cornerRadius;
+
+- (UIColor *)backgroundColor;
+
+- (UIColor *)placeholderColor;
+
+- (void)setFont:(UIFont *)font;
+
+- (void)setTextColor:(UIColor *)textColor;
+
 - (void)setTextAlignment:(NSTextAlignment)textAlignment;
-- (void)setPredefinedText:(NSString*)text;
-- (void)setPlaceholder:(NSString*)placeholder;
+
+- (void)setPredefinedText:(NSString *)text;
+
+- (void)setPlaceholder:(NSString *)placeholder;
+
 - (void)setCornerRadius:(CGFloat)cornerRadius;
-- (void)setBackgroundColor:(UIColor*)backgroundColor;
-- (void)setPlaceholderColor:(UIColor*)color;
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor;
+
+- (void)setPlaceholderColor:(UIColor *)color;
 
 @end

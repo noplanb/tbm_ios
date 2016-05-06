@@ -12,7 +12,7 @@
 
 @interface ZZStartVC ()
 
-@property (nonatomic, strong) ZZStartView* containerView;
+@property (nonatomic, strong) ZZStartView *containerView;
 
 @end
 
@@ -26,14 +26,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.containerView.backgroundImageView.image = [UIImage an_defaultImage];
 }
 

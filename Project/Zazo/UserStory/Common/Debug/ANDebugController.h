@@ -10,6 +10,6 @@
 
 @interface ANDebugController : ANTableController
 
-@property (nonatomic, weak) UIViewController* rootController;
+@property (nonatomic, weak) UIViewController *rootController;
 
 @end

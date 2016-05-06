@@ -17,7 +17,7 @@
 
 @implementation ZZStartPresenter
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZStartViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZStartViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
     [self.interactor checkVersionStateAndSession];

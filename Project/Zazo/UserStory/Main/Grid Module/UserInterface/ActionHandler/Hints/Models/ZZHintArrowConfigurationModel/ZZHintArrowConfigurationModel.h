@@ -16,7 +16,7 @@
                                 focusFrame:(CGRect)focusFrame
                                   itemType:(ZZHintsType)type;
 
-@property (nonatomic,assign) ZZHintArrowFocusPosition focusPosition;
+@property (nonatomic, assign) ZZHintArrowFocusPosition focusPosition;
 @property (nonatomic, assign) ZZArrowDirection arrowDirection;
 @property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) CGPoint focusPoint;

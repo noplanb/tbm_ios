@@ -11,11 +11,11 @@
 #import "ZZAlertController.h"
 #import "ZZVideoFileHandler.h"
 
-@interface ZZDownloadErrorHandler ()  <ZZVideoStatusHandlerDelegate>
+@interface ZZDownloadErrorHandler () <ZZVideoStatusHandlerDelegate>
 
-@property(nonatomic, assign) BOOL isDialogShown;
-@property(nonatomic, assign) BOOL isStarted;
-@property(nonatomic, assign) BOOL isPaused;
+@property (nonatomic, assign) BOOL isDialogShown;
+@property (nonatomic, assign) BOOL isStarted;
+@property (nonatomic, assign) BOOL isPaused;
 
 @end
 
@@ -24,7 +24,8 @@
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
     }
 
@@ -100,7 +101,7 @@
     ANDispatchBlockToMainQueue(^{
         [self _showRetryConfirmationDialog:^(BOOL needsRetry) {
 
-        self.isDialogShown = NO;
+            self.isDialogShown = NO;
 
             ZZLogEvent(@"Needs retry = %d", needsRetry);
 
@@ -121,12 +122,12 @@
 {
     ZZAlertController *alertController =
             [ZZAlertController alertControllerWithTitle:@"Download Error"
-                                                 message:@"Problem downloading a zazo.\nCheck your connection"];
+                                                message:@"Problem downloading a zazo.\nCheck your connection"];
     [alertController addAction:
             [SDCAlertAction actionWithTitle:@"Discard"
                                       style:SDCAlertActionStyleCancel
                                     handler:^(SDCAlertAction *action) {
-                                        
+
                                         [Answers logCustomEventWithName:@"RetryDialogDiscard" customAttributes:nil];
                                         completion(NO);
                                     }]];
@@ -135,7 +136,7 @@
             [SDCAlertAction actionWithTitle:@"Try again"
                                       style:SDCAlertActionStyleDefault
                                     handler:^(SDCAlertAction *action) {
-                                        
+
                                         [Answers logCustomEventWithName:@"RetryDialogTryAgain" customAttributes:nil];
                                         completion(YES);
                                     }]];
@@ -150,7 +151,7 @@
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
 
     if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently &&
-        friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming)
+            friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming)
     {
         [self _showRetryDialog];
     }

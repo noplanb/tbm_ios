@@ -27,7 +27,8 @@
 
 @protocol JFMinimalNotificationDelegate;
 
-typedef NS_ENUM(NSInteger, JFMinimalNotificationStyle) {
+typedef NS_ENUM(NSInteger, JFMinimalNotificationStyle)
+{
     JFMinimalNotificationStyleDefault,
     JFMinimalNotificationStyleError,
     JFMinimalNotificationStyleSuccess,
@@ -47,22 +48,22 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
 /**
  * @return The titleLabel used to display the title text in the notification.
  */
-@property (nonatomic, strong, readonly) UILabel* titleLabel;
+@property (nonatomic, strong, readonly) UILabel *titleLabel;
 
 /**
  * @return The subTitleLabel used to display the title text in the notification.
  */
-@property (nonatomic, strong, readonly) UILabel* subTitleLabel;
+@property (nonatomic, strong, readonly) UILabel *subTitleLabel;
 
 /**
  * @return The UIView displayed in the left accessory view of the notification.
  */
-@property (nonatomic, strong, readonly) UIView* leftAccessoryView;
+@property (nonatomic, strong, readonly) UIView *leftAccessoryView;
 
 /**
  * @return The UIView displayed in the right accessory view of the notification.
  */
-@property (nonatomic, strong, readonly) UIView* rightAccessoryView;
+@property (nonatomic, strong, readonly) UIView *rightAccessoryView;
 
 /**
  * @return The current JFMinimalNotificationStyle of the notification
@@ -77,7 +78,7 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
 /**
  * @return The JFMinimalNotificationDelegate
  */
-@property (nonatomic, weak) id<JFMinimalNotificationDelegate> delegate;
+@property (nonatomic, weak) id <JFMinimalNotificationDelegate> delegate;
 
 /**
  * @return The edge padding to be used for the notifications layout
@@ -95,8 +96,8 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
  * @param subTitle The desired sub-title string
  */
 + (instancetype)notificationWithStyle:(JFMinimalNotificationStyle)style
-                                title:(NSString*)title
-                             subTitle:(NSString*)subTitle;
+                                title:(NSString *)title
+                             subTitle:(NSString *)subTitle;
 
 /**
  * @return a helper class method to instantiate a notification and set the desired style, title, subtitle and dismissalDelay.
@@ -106,8 +107,8 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
  * @param dismissalDelay The amount of time the notification should be displayed before being dismissed.
  */
 + (instancetype)notificationWithStyle:(JFMinimalNotificationStyle)style
-                                title:(NSString*)title
-                             subTitle:(NSString*)subTitle
+                                title:(NSString *)title
+                             subTitle:(NSString *)subTitle
                        dismissalDelay:(NSTimeInterval)dismissalDelay;
 
 /**
@@ -119,8 +120,8 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
  * @param touchHandler The touch handler callback block that will be invoked when the notification is tapped.
  */
 + (instancetype)notificationWithStyle:(JFMinimalNotificationStyle)style
-                                title:(NSString*)title
-                             subTitle:(NSString*)subTitle
+                                title:(NSString *)title
+                             subTitle:(NSString *)subTitle
                        dismissalDelay:(NSTimeInterval)dismissalDelay
                          touchHandler:(JFMinimalNotificationTouchHandler)touchHandler;
 
@@ -153,34 +154,37 @@ typedef void (^JFMinimalNotificationTouchHandler)(void);
  * @return Sets the title label font
  * @param font The desired UIFont to be set as the title labels font
  */
-- (void)setTitleFont:(UIFont*)font;
+- (void)setTitleFont:(UIFont *)font;
 
 /**
  * @return Sets the sub-title label font
  * @param font The desired UIFont to be set as the sub-title label font
  */
-- (void)setSubTitleFont:(UIFont*)font;
+- (void)setSubTitleFont:(UIFont *)font;
 
 /**
  * @return Sets the left view
  * @param view The desired UIView to be set as the left view
  */
-- (void)setLeftAccessoryView:(UIView*)view animated:(BOOL)animated;
+- (void)setLeftAccessoryView:(UIView *)view animated:(BOOL)animated;
 
 /**
  * @return Sets the right view
  * @param view The desired UIView to be set as the right view
  */
-- (void)setRightAccessoryView:(UIView*)view animated:(BOOL)animated;
+- (void)setRightAccessoryView:(UIView *)view animated:(BOOL)animated;
 
 @end
 
 @protocol JFMinimalNotificationDelegate <NSObject>
 
 @optional
-- (void)minimalNotificationWillShowNotification:(JFMinimalNotification*)notification;
-- (void)minimalNotificationDidShowNotification:(JFMinimalNotification*)notification;
-- (void)minimalNotificationWillDisimissNotification:(JFMinimalNotification*)notification;
-- (void)minimalNotificationDidDismissNotification:(JFMinimalNotification*)notification;
+- (void)minimalNotificationWillShowNotification:(JFMinimalNotification *)notification;
+
+- (void)minimalNotificationDidShowNotification:(JFMinimalNotification *)notification;
+
+- (void)minimalNotificationWillDisimissNotification:(JFMinimalNotification *)notification;
+
+- (void)minimalNotificationDidDismissNotification:(JFMinimalNotification *)notification;
 
 @end

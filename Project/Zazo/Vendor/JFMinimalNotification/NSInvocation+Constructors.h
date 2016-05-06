@@ -27,9 +27,12 @@
 
 @interface NSInvocation (Constructors)
 
-+ (id)invocationWithTarget:(NSObject*)target selector:(SEL)selector;
++ (id)invocationWithTarget:(NSObject *)target selector:(SEL)selector;
+
 + (id)invocationWithClass:(Class)targetClass instanceSelector:(SEL)selector;
+
 + (id)invocationWithClass:(Class)targetClass classSelector:(SEL)selector;
-+ (id)invocationWithProtocol:(Protocol*)targetProtocol selector:(SEL)selector;
+
++ (id)invocationWithProtocol:(Protocol *)targetProtocol selector:(SEL)selector;
 
 @end

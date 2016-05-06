@@ -19,7 +19,7 @@ typedef NS_ENUM (NSInteger, ANServerErrorCode)
  *
  *  @param error ANError object initialized from server respose
  */
-+ (void)handleNetworkServerError:(ANError*)error;
++ (void)handleNetworkServerError:(ANError *)error;
 
 
 /**
@@ -28,12 +28,12 @@ typedef NS_ENUM (NSInteger, ANServerErrorCode)
  *  @param error NSError object from thrown error
  */
 
-+ (void)handleNetworkApplicationError:(NSError*)error;
++ (void)handleNetworkApplicationError:(NSError *)error;
 
-+ (void)handleApplicationError:(NSError*)error;
++ (void)handleApplicationError:(NSError *)error;
 
-+ (void)handleInternalError:(NSError*)error;
++ (void)handleInternalError:(NSError *)error;
 
-+ (void)handleCoreDataInternalError:(NSError*)error;
++ (void)handleCoreDataInternalError:(NSError *)error;
 
 @end

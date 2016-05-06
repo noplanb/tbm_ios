@@ -10,6 +10,6 @@
 
 @interface ZZAuthInteractor : NSObject <ZZAuthInteractorInput>
 
-@property (nonatomic, weak) id<ZZAuthInteractorOutput> output;
+@property (nonatomic, weak) id <ZZAuthInteractorOutput> output;
 
 @end

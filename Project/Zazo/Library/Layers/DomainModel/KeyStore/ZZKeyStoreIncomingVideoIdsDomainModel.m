@@ -10,19 +10,19 @@
 #import "FEMObjectMapping.h"
 
 const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes ZZKeyStoreIncomingVideoIdsDomainModelAttributes = {
-    .friendMkey = @"friendMkey",
-    .videoIds = @"videoIds",
+        .friendMkey = @"friendMkey",
+        .videoIds = @"videoIds",
 };
 
 @implementation ZZKeyStoreIncomingVideoIdsDomainModel
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
-        
-        [mapping addAttributesFromDictionary:@{ZZKeyStoreIncomingVideoIdsDomainModelAttributes.friendMkey    : @"mkey",
-              ZZKeyStoreIncomingVideoIdsDomainModelAttributes.videoIds      : @"video_ids"}
-         ];
+
+        [mapping addAttributesFromDictionary:@{ZZKeyStoreIncomingVideoIdsDomainModelAttributes.friendMkey : @"mkey",
+                ZZKeyStoreIncomingVideoIdsDomainModelAttributes.videoIds : @"video_ids"}
+        ];
     }];
 }
 

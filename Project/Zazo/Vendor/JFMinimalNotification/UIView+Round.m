@@ -35,9 +35,11 @@
     CGFloat w = CGRectGetWidth(f);
     CGFloat h = CGRectGetHeight(f);
     CGFloat corner = w;
-    if (h > w) { // Portrait Orientation
+    if (h > w)
+    { // Portrait Orientation
         f.size.height = w;
-    } else if (w > h) { // Landscape Orientation
+    } else if (w > h)
+    { // Landscape Orientation
         f.size.width = h;
         corner = h;
     }
@@ -46,7 +48,7 @@
     [self layoutIfNeeded];
 }
 
-- (void)makeRoundWithBorderWidth:(CGFloat)width borderColor:(UIColor*)color
+- (void)makeRoundWithBorderWidth:(CGFloat)width borderColor:(UIColor *)color
 {
     [self makeRound];
     self.layer.borderWidth = 2.0f;

@@ -32,11 +32,11 @@
 - (void)updateConstraints
 {
     CGFloat width = (self.iconImageView.image != nil) ? 50 : 0;
-    
+
     [self.iconImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(width));
     }];
-    
+
     [super updateConstraints];
 }
 
@@ -58,7 +58,7 @@
         _titleLabel.highlightedTextColor = [UIColor whiteColor];
         _titleLabel.textColor = [ZZColorTheme shared].baseCellTextColor;
         [self addSubview:_titleLabel];
-        
+
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.iconImageView.mas_right).offset(10);
             make.right.top.bottom.equalTo(self);

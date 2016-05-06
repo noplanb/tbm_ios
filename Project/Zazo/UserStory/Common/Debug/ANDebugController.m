@@ -43,11 +43,11 @@ typedef NS_ENUM(NSInteger, ANSections)
 - (void)_setupStorage
 {
     [self.memoryStorage addItems:@[@"Auth Module",
-                                   @"Grid Module",
-                                   @"State Module",
-                                   @"Menu Module",
-                                   @"Edit Friends Module",
-                                   @"Secret Module"]];
+            @"Grid Module",
+            @"State Module",
+            @"Menu Module",
+            @"Edit Friends Module",
+            @"Secret Module"]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,40 +57,47 @@ typedef NS_ENUM(NSInteger, ANSections)
     {
         case ZZAuthController:
         {
-            ZZAuthWireframe* wireframe = [ZZAuthWireframe new];
+            ZZAuthWireframe *wireframe = [ZZAuthWireframe new];
             [wireframe presentAuthControllerFromNavigationController:self.rootController.navigationController];
-        } break;
-            
+        }
+            break;
+
         case ZZGridController:
         {
-            ZZMainWireframe*wireframe = [ZZMainWireframe new];
+            ZZMainWireframe *wireframe = [ZZMainWireframe new];
             [wireframe presentMainControllerFromWindow:self.rootController.view.window completion:nil];
-        } break;
-            
+        }
+            break;
+
         case ZZStateController:
         {
-            ZZDebugStateWireframe* wireframe = [ZZDebugStateWireframe new];
+            ZZDebugStateWireframe *wireframe = [ZZDebugStateWireframe new];
             [wireframe presentDebugStateControllerFromNavigationController:self.rootController.navigationController];
-        } break;
-            
+        }
+            break;
+
         case ZZContactsController:
         {
-            
-        } break;
-            
+
+        }
+            break;
+
         case ZZEditFriendsController:
         {
-            ZZEditFriendListWireframe* wireframe = [ZZEditFriendListWireframe new];
+            ZZEditFriendListWireframe *wireframe = [ZZEditFriendListWireframe new];
             [wireframe presentEditFriendListControllerFromNavigationController:self.rootController.navigationController];
-        } break;
-            
+        }
+            break;
+
         case ZZSecretController:
         {
-            ZZSecretWireframe* wireframe = [ZZSecretWireframe new];
+            ZZSecretWireframe *wireframe = [ZZSecretWireframe new];
             [wireframe presentSecretControllerFromNavigationController:self.rootController.navigationController];
-        } break;
-            
-        default: break;
+        }
+            break;
+
+        default:
+            break;
     }
 }
 

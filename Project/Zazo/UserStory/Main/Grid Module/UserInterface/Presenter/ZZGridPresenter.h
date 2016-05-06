@@ -15,24 +15,25 @@
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZGridPresenterInterface.h"
 #import "ZZEditFriendEnumsAdditions.h"
+
 @class ZZGridWireframe;
 
 @interface ZZGridPresenter : NSObject
-<
-    ZZGridInteractorOutput,
-    ZZGridModuleInterface,
-    ZZContactsModuleDelegate,
-    ZZEditFriendListModuleDelegate,
-    ZZGridPresenterInterface,
-    ZZGridInteractorOutputActionHandler
->
+        <
+        ZZGridInteractorOutput,
+        ZZGridModuleInterface,
+        ZZContactsModuleDelegate,
+        ZZEditFriendListModuleDelegate,
+        ZZGridPresenterInterface,
+        ZZGridInteractorOutputActionHandler
+        >
 
-@property (nonatomic, strong) id<ZZGridInteractorInput> interactor;
-@property (nonatomic, strong) ZZGridWireframe* wireframe;
+@property (nonatomic, strong) id <ZZGridInteractorInput> interactor;
+@property (nonatomic, strong) ZZGridWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZGridViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZGridModuleDelegate> gridModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZGridViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZGridModuleDelegate> gridModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZGridViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface> *)userInterface;
 
 @end

@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.controller = [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
     self.controller.delegate = self;
 }

@@ -9,9 +9,10 @@
 
 @interface ANSectionModel : NSObject <ANSectionInterface>
 
-@property (nonatomic, strong) NSMutableArray* objects;
+@property (nonatomic, strong) NSMutableArray *objects;
 
-- (id)supplementaryModelOfKind:(NSString*)kind;
+- (id)supplementaryModelOfKind:(NSString *)kind;
+
 - (void)setSupplementaryModel:(id)model forKind:(NSString *)kind;
 
 @end

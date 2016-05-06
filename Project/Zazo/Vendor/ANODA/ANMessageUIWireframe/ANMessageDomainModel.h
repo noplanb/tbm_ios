@@ -8,10 +8,10 @@
 
 @interface ANMessageDomainModel : NSObject
 
-@property (nonatomic, copy) NSString* message;
+@property (nonatomic, copy) NSString *message;
 @property (nonatomic, assign) BOOL isHTMLMessage;
-@property (nonatomic, copy) NSString* title;
-@property (nonatomic, copy) NSArray* recipients;
-@property (nonatomic, strong) UIImage* image;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSArray *recipients;
+@property (nonatomic, strong) UIImage *image;
 
 @end

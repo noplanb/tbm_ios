@@ -16,7 +16,7 @@ extern const struct ZZRemoteStorageParameters
     __unsafe_unretained NSString *value;
     __unsafe_unretained NSString *videoID;
     __unsafe_unretained NSString *status;
-    
+
 } ZZRemoteStorageParameters;
 
 
@@ -24,15 +24,15 @@ extern const struct ZZRemoteStorageParameters
 
 static BOOL const kRemoteStorageShouldUseS3 = YES;
 
-static NSString* const kRemoteStorageS3Endpoint = @"s3://";
-static NSString* const kRemoteStorageApiVideoUploadPath = @"videos/create";
-static NSString* const kRemoteStorageApiVideoDownloadPath = @"videos/get";
+static NSString *const kRemoteStorageS3Endpoint = @"s3://";
+static NSString *const kRemoteStorageApiVideoUploadPath = @"videos/create";
+static NSString *const kRemoteStorageApiVideoDownloadPath = @"videos/get";
 
 static NSString *const kRemoteStorageArraySeparator = @",";
 
 //DO NOT CHANGE WITHOUT PERMISSION! I will found you and kill.
-static NSString * kRemoteStorageVideoStatusSuffix = @"-VideoStatusKVKey";
-static NSString * kRemoteStorageVideoIDSuffix = @"-VideoIdKVKey";
+static NSString *kRemoteStorageVideoStatusSuffix = @"-VideoStatusKVKey";
+static NSString *kRemoteStorageVideoIDSuffix = @"-VideoIdKVKey";
 
 
 #pragma mark - Remote Video Statuses
@@ -44,19 +44,19 @@ typedef NS_ENUM(NSInteger, ZZRemoteStorageVideoStatus)
     ZZRemoteStorageVideoStatusViewed
 };
 
-NSString* ZZRemoteStorageVideoStatusStringFromEnumValue(ZZRemoteStorageVideoStatus);
-ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSString*);
+NSString *ZZRemoteStorageVideoStatusStringFromEnumValue(ZZRemoteStorageVideoStatus);
 
+ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSString *);
 
 
 #pragma mark - Endpoints
 
-static inline NSString* const remoteStorageS3Bucket()
+static inline NSString *const remoteStorageS3Bucket()
 {
     return [ZZKeychainDataProvider loadCredentials].bucket;
 }
 
-static inline NSString* const remoteStorageBaseURL()
+static inline NSString *const remoteStorageBaseURL()
 {
     return kRemoteStorageShouldUseS3 ? kRemoteStorageS3Endpoint : apiBaseURL();
 }
@@ -64,17 +64,17 @@ static inline NSString* const remoteStorageBaseURL()
 
 #pragma mark - CRUD Remote Path
 
-static inline NSString* const remoteStorageFileTransferUploadPath()
+static inline NSString *const remoteStorageFileTransferUploadPath()
 {
     return kRemoteStorageShouldUseS3 ? remoteStorageS3Bucket() : kRemoteStorageApiVideoUploadPath;
 }
 
-static inline NSString* const remoteStorageFileTransferDownloadPath()
+static inline NSString *const remoteStorageFileTransferDownloadPath()
 {
     return kRemoteStorageShouldUseS3 ? remoteStorageS3Bucket() : kRemoteStorageApiVideoDownloadPath;
 }
 
-static inline NSString* const remoteStorageFileTransferDeletePath()
+static inline NSString *const remoteStorageFileTransferDeletePath()
 {
     return remoteStorageS3Bucket();
 }

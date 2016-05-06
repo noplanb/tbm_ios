@@ -40,7 +40,7 @@ NSString *const kZZHintsFontName = @"DKCrayonCrumble";
 
 CGFloat degreesToRadians(CGFloat x)
 {
-    return (CGFloat) (M_PI * (x) / 180.0);
+    return (CGFloat)(M_PI * (x) / 180.0);
 }
 
 - (void)setHideArrow:(BOOL)hideArrow
@@ -85,7 +85,7 @@ CGFloat degreesToRadians(CGFloat x)
     CGFloat y;
 
     CGRect arrow = [self.rotationWrapper convertRect:self.arrowImageView.frame toView:self];
-    
+
     CGFloat offset;
     if ([self countLinesForArrowLabel] == 1)
     {
@@ -99,7 +99,7 @@ CGFloat degreesToRadians(CGFloat x)
     {
         offset = 60;
     }
-    
+
     y = 0;
     // hint label position top or bottom
     switch (self.focusViewIndex)
@@ -109,11 +109,12 @@ CGFloat degreesToRadians(CGFloat x)
         case 1:
         case 2:
         {
-            y =  CGRectGetMaxY(arrow) + offset;
-            
-        }break;
-            
-        // middle line indexes
+            y = CGRectGetMaxY(arrow) + offset;
+
+        }
+            break;
+
+            // middle line indexes
         case 3:
         case 4:
         case 5:
@@ -126,10 +127,11 @@ CGFloat degreesToRadians(CGFloat x)
             {
                 y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
             }
-            
-        }break;
-            
-        // bottom line indexes
+
+        }
+            break;
+
+            // bottom line indexes
         case 6:
         case 7:
         case 8:
@@ -142,20 +144,21 @@ CGFloat degreesToRadians(CGFloat x)
             {
                 y = CGRectGetMinY(arrow) - CGRectGetHeight(self.arrowLabel.bounds) - offset * 2;
             }
-            
-        }break;
+
+        }
+            break;
     }
-    
+
     self.arrowLabel.preferredMaxLayoutWidth = width;
     CGRect frame = CGRectMake(x, y, width, height);
-    
+
     CGFloat aLabelSizeWidth = CGRectGetWidth(frame);
     NSDictionary *attributes = @{NSFontAttributeName : self.arrowLabel.font};
     CGRect labelRect = [self.arrowLabel.text boundingRectWithSize:CGSizeMake(aLabelSizeWidth, MAXFLOAT)
                                                           options:NSStringDrawingUsesLineFragmentOrigin
                                                        attributes:attributes
                                                           context:nil];
-    x = CGRectGetMidX(self.bounds) - (CGRectGetWidth(labelRect)/2);
+    x = CGRectGetMidX(self.bounds) - (CGRectGetWidth(labelRect) / 2);
     self.arrowLabel.frame = CGRectMake(x, frame.origin.y, labelRect.size.width, labelRect.size.height);
 }
 
@@ -195,13 +198,13 @@ CGFloat degreesToRadians(CGFloat x)
 - (NSInteger)countLinesForArrowLabel
 {
     NSInteger lineCount = 0;
-    
+
     CGSize textSize = CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT);
     NSInteger rHeight = roundf([self.arrowLabel sizeThatFits:textSize].height);
     NSInteger charSize = roundf(30);
-    
-    lineCount = rHeight/charSize;
-    
+
+    lineCount = rHeight / charSize;
+
     return lineCount;
 }
 

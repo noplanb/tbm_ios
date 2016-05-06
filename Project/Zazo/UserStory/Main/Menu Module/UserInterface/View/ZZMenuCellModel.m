@@ -11,7 +11,8 @@
 - (instancetype)initWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _title = title;
         _icon = [UIImage imageNamed:imageName];
     }

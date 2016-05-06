@@ -10,35 +10,36 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoDomainModel.h"
 
-NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel);
-NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel);
+NSString *ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel *friendModel);
+
+NSString *ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel *friendModel);
 
 #pragma mark - Incoming Status
 
 static NSString *incomeTypeString[] = {
-    @"INCOMING_VIDEO_STATUS_NEW",
-    @"INCOMING_VIDEO_STATUS_DOWNLOADING",
-    @"INCOMING_VIDEO_STATUS_DOWNLOADED",
-    @"INCOMING_VIDEO_STATUS_VIEWED",
-    @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY",
-    @"INCOMING_VIDEO_STATUS_GHOST"
+        @"INCOMING_VIDEO_STATUS_NEW",
+        @"INCOMING_VIDEO_STATUS_DOWNLOADING",
+        @"INCOMING_VIDEO_STATUS_DOWNLOADED",
+        @"INCOMING_VIDEO_STATUS_VIEWED",
+        @"INCOMING_VIDEO_STATUS_FAILED_PERMANENTLY",
+        @"INCOMING_VIDEO_STATUS_GHOST"
 };
 
 static NSString *incomeTypeShortString[] = {
-    @"New",
-    @"Downloading",
-    @"Downloaded",
-    @"Viewed",
-    @"Failed permanently",
-    @"Ghost"
+        @"New",
+        @"Downloading",
+        @"Downloaded",
+        @"Viewed",
+        @"Failed permanently",
+        @"Ghost"
 };
 
-NSString* ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus type)
+NSString *ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus type)
 {
     return incomeTypeShortString[type];
 }
 
-NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus type)
+NSString *ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus type)
 {
     return incomeTypeString[type];
 }
@@ -46,29 +47,29 @@ NSString* ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus type)
 #pragma mark - Outgoing status
 
 static NSString *outgoingTypeString[] = {
-    @"OUTGOING_VIDEO_STATUS_NONE",
-    @"OUTGOING_VIDEO_STATUS_NEW",
-    @"OUTGOING_VIDEO_STATUS_QUEUED",
-    @"OUTGOING_VIDEO_STATUS_UPLOADING",
-    @"OUTGOING_VIDEO_STATUS_UPLOADED",
-    @"OUTGOING_VIDEO_STATUS_DOWNLOADED",
-    @"OUTGOING_VIDEO_STATUS_VIEWED",
-    @"OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY"
+        @"OUTGOING_VIDEO_STATUS_NONE",
+        @"OUTGOING_VIDEO_STATUS_NEW",
+        @"OUTGOING_VIDEO_STATUS_QUEUED",
+        @"OUTGOING_VIDEO_STATUS_UPLOADING",
+        @"OUTGOING_VIDEO_STATUS_UPLOADED",
+        @"OUTGOING_VIDEO_STATUS_DOWNLOADED",
+        @"OUTGOING_VIDEO_STATUS_VIEWED",
+        @"OUTGOING_VIDEO_STATUS_FAILED_PERMANENTLY"
 };
 
-NSString* ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus type)
+NSString *ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus type)
 {
     return outgoingTypeString[type];
 }
 
-ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString* string)
+ZZVideoOutgoingStatus ZZVideoOutgoingStatusEnumValueFromString(NSString *string)
 {
     int count = sizeof(outgoingTypeString) / sizeof(outgoingTypeString[0]);
-    NSArray* array = [NSArray arrayWithObjects:outgoingTypeString count:count];
+    NSArray *array = [NSArray arrayWithObjects:outgoingTypeString count:count];
     return [array indexOfObject:string];
 }
 
-NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friendModel)
+NSString *ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel *friendModel)
 {
     if (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
     {
@@ -80,14 +81,14 @@ NSString* ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel* friendModel)
     }
 }
 
-ZZVideoDomainModel* ZZNewestIncomingVideoFromFriend(ZZFriendDomainModel* friendModel)
+ZZVideoDomainModel *ZZNewestIncomingVideoFromFriend(ZZFriendDomainModel *friendModel)
 {
     NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:ZZVideoDomainModelAttributes.videoID ascending:YES];
-    NSArray* videos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
+    NSArray *videos = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
     return [videos lastObject];
 }
 
-NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel)
+NSString *ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel *friendModel)
 {
     ZZVideoDomainModel *videoModel = ZZNewestIncomingVideoFromFriend(friendModel);
 
@@ -95,7 +96,7 @@ NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel)
     {
         return [friendModel displayName];
     }
-    
+
     if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloading)
     {
         if (videoModel.downloadRetryCount == 0)
@@ -117,7 +118,7 @@ NSString* ZZVideoIncomingStatusStringWithFriend(ZZFriendDomainModel*friendModel)
     }
 }
 
-NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
+NSString *ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel *friendModel)
 {
     NSString *statusString;
     switch (friendModel.lastOutgoingVideoStatus)
@@ -150,8 +151,8 @@ NSString* ZZVideoOutgoingStatusWithFriend(ZZFriendDomainModel* friendModel)
         default:
             statusString = nil;
     }
-    
+
     NSString *fn = (statusString == nil || friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed) ? [friendModel displayName] : [friendModel shortFirstName];
-    
+
     return [NSString stringWithFormat:@"%@ %@", fn, statusString];
 }

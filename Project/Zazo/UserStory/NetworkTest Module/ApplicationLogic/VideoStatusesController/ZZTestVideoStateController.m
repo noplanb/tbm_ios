@@ -1,4 +1,4 @@
-  //
+//
 //  ZZTestVideoStateController.m
 //  Zazo
 //
@@ -30,7 +30,7 @@
 @property (nonatomic, assign) NSInteger prevRetryCount;
 
 @property (nonatomic, assign) BOOL isNotificationEnabled;
-@property (nonatomic, strong) ZZNetworkTestStoredManger* storedManager;
+@property (nonatomic, strong) ZZNetworkTestStoredManger *storedManager;
 
 
 @end
@@ -56,20 +56,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel*)friendModel
+- (void)videoStatusChangedWithFriend:(ZZFriendDomainModel *)friendModel
 {
 
-        if (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing )
-        {
-            [self _handleOutgoingVideoWithFriend:friendModel];
-        }
-        else
-        {
-            [self _handleDownloadVideoWithFriend:friendModel];
-        }
+    if (friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
+    {
+        [self _handleOutgoingVideoWithFriend:friendModel];
+    }
+    else
+    {
+        [self _handleDownloadVideoWithFriend:friendModel];
+    }
 
-        [self _updateRetryCountWithFriend:friendModel];
-    
+    [self _updateRetryCountWithFriend:friendModel];
+
 }
 
 - (void)resetStats
@@ -98,7 +98,7 @@
     self.storedManager.failedIncomingVideoCounter = self.failedIncomingVideoCounter;
     self.storedManager.failedOutgoingVideoCounter = self.failedOutgoingVideoCounter;
     self.storedManager.prevRetryCount = self.prevRetryCount;
-    
+
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -116,17 +116,17 @@
 {
     self.prevRetryCount = 0;
     [self.delegate updateRetryCount:self.prevRetryCount];
-    NSString* testedFriendID = [self.delegate testedFriendID];
-    
+    NSString *testedFriendID = [self.delegate testedFriendID];
+
     [ZZFriendDataUpdater updateFriendWithID:testedFriendID setUploadRetryCount:0];
 }
 
 #pragma mark - Private
 
-- (void)_handleOutgoingVideoWithFriend:(ZZFriendDomainModel*)friendModel
+- (void)_handleOutgoingVideoWithFriend:(ZZFriendDomainModel *)friendModel
 {
-    ZZLogInfo(@"🛂 upload video %@ status = %@", friendModel.outgoingVideoItemID,  ZZVideoStatusStringWithFriendModel(friendModel));
-    
+    ZZLogInfo(@"🛂 upload video %@ status = %@", friendModel.outgoingVideoItemID, ZZVideoStatusStringWithFriendModel(friendModel));
+
     if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusNew)
     {
         [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.uploading", nil)];
@@ -144,11 +144,11 @@
         [self _videoStatusFinished];
     }
     else if (friendModel.lastOutgoingVideoStatus == ZZVideoOutgoingStatusFailedPermanently &&
-             friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
+            friendModel.lastVideoStatusEventType == ZZVideoStatusEventTypeOutgoing)
     {
         self.failedOutgoingVideoCounter++;
         [self.delegate failedOutgoingVideoWithCounter:self.failedOutgoingVideoCounter];
-        
+
         if (self.isNotificationEnabled)
         {
             [self.delegate didCompleteSendVideo:nil];
@@ -156,11 +156,11 @@
     }
 }
 
-- (void)_handleDownloadVideoWithFriend:(ZZFriendDomainModel*)friendModel
+- (void)_handleDownloadVideoWithFriend:(ZZFriendDomainModel *)friendModel
 {
     ZZVideoDomainModel *videoModel = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendModel.idTbm].lastObject;
     ZZLogInfo(@"🛂 download video %@ status %@", videoModel.videoID, ZZVideoStatusStringWithFriendModel(friendModel));
-    
+
     if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
     {
         [self _videoStatusProgress];
@@ -172,15 +172,15 @@
         [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
         [self _updateDownloadedVideosToViewedStatusForFriend:friendModel];
         [self _videoStatusFinished];
-        
+
 //        [[OBLogger instance] error:@"Video DOWNLOADED!!!"];
-        
+
     }
     else if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {
         self.failedIncomingVideoCounter++;
         [self.delegate failedIncomingVideoWithCounter:self.failedIncomingVideoCounter];
-        
+
         if (self.isNotificationEnabled)
         {
             [self.delegate didCompleteSendVideo:videoModel.videoID];
@@ -209,20 +209,20 @@
 {
     ZZLogInfo(@"🛂 video deleted %@", notification.userInfo[@"videoID"]);
 
-        ANDispatchBlockToMainQueue(^{
-            [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.deleging", nil)];
-            self.completedVideoCounter++;
-            [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
-            
-            if (self.isNotificationEnabled)
-            {
-                [self.delegate didCompleteSendVideo:notification.userInfo[@"videoID"]];
-            }
-        });
+    ANDispatchBlockToMainQueue(^{
+        [self.delegate currentStatusChangedWithStatusString:NSLocalizedString(@"network-test-view.current.status.deleging", nil)];
+        self.completedVideoCounter++;
+        [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
+
+        if (self.isNotificationEnabled)
+        {
+            [self.delegate didCompleteSendVideo:notification.userInfo[@"videoID"]];
+        }
+    });
 
 }
 
-- (void)_updateRetryCountWithFriend:(ZZFriendDomainModel*)friendModel
+- (void)_updateRetryCountWithFriend:(ZZFriendDomainModel *)friendModel
 {
     if (friendModel.uploadRetryCount != self.prevRetryCount)
     {
@@ -240,7 +240,7 @@
     self.failedIncomingVideoCounter = self.storedManager.failedIncomingVideoCounter;
     self.failedOutgoingVideoCounter = self.storedManager.failedOutgoingVideoCounter;
     self.prevRetryCount = self.storedManager.prevRetryCount;
-    
+
     [self.delegate outgoingVideoChangeWithCounter:self.outgoingVideoCounter];
     [self.delegate completedVideoChangeWithCounter:self.completedVideoCounter];
     [self.delegate incomingVideoChangeWithCounter:self.incomingVideoCounter];
@@ -250,27 +250,27 @@
     [self.delegate updateRetryCount:self.prevRetryCount];
 }
 
-- (void)_updateDownloadedVideosToViewedStatusForFriend:(ZZFriendDomainModel*)friendModel
+- (void)_updateDownloadedVideosToViewedStatusForFriend:(ZZFriendDomainModel *)friendModel
 {
-        NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-        NSArray* sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
-    
-    
-        [sortedVidoes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSSortDescriptor *d = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    NSArray *sortedVidoes = [friendModel.videos sortedArrayUsingDescriptors:@[d]];
 
-            ZZVideoDomainModel *downloadedVideo = obj;
-            
-            if (downloadedVideo.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
-            {
-                downloadedVideo.incomingStatusValue = ZZVideoIncomingStatusViewed;
-                
-                //TODO: Maybe it should be in one method:
-                [ZZVideoDataUpdater updateVideoWithID:downloadedVideo.videoID setIncomingStatus:ZZVideoIncomingStatusViewed];
-                [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus:ZZVideoIncomingStatusViewed];
-                
-            }
-        }];
-    
+
+    [sortedVidoes enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
+        ZZVideoDomainModel *downloadedVideo = obj;
+
+        if (downloadedVideo.incomingStatusValue == ZZVideoIncomingStatusDownloaded)
+        {
+            downloadedVideo.incomingStatusValue = ZZVideoIncomingStatusViewed;
+
+            //TODO: Maybe it should be in one method:
+            [ZZVideoDataUpdater updateVideoWithID:downloadedVideo.videoID setIncomingStatus:ZZVideoIncomingStatusViewed];
+            [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setLastIncomingVideoStatus:ZZVideoIncomingStatusViewed];
+
+        }
+    }];
+
 }
 
 @end

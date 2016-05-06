@@ -10,16 +10,17 @@
 
 @class FEMObjectMapping;
 
-extern const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes {
+extern const struct ZZKeyStoreIncomingVideoIdsDomainModelAttributes
+{
     __unsafe_unretained NSString *friendMkey;
     __unsafe_unretained NSString *videoIds;
 } ZZKeyStoreIncomingVideoIdsDomainModelAttributes;
 
 @interface ZZKeyStoreIncomingVideoIdsDomainModel : ANBaseDomainModel
 
-@property (nonatomic, copy) NSString* friendMkey;
-@property (nonatomic, copy) NSSet* videoIds;
+@property (nonatomic, copy) NSString *friendMkey;
+@property (nonatomic, copy) NSSet *videoIds;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
 
 @end

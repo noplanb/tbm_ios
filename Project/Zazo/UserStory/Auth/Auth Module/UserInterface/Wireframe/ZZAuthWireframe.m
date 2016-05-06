@@ -17,20 +17,20 @@
 
 @interface ZZAuthWireframe ()
 
-@property (nonatomic, strong) ZZAuthPresenter* presenter;
-@property (nonatomic, strong) ZZAuthVC* authController;
-@property (nonatomic, strong) UINavigationController* presentedController;
+@property (nonatomic, strong) ZZAuthPresenter *presenter;
+@property (nonatomic, strong) ZZAuthVC *authController;
+@property (nonatomic, strong) UINavigationController *presentedController;
 @property (nonatomic, copy) ANCodeBlock completionBlock;
 
 @end
 
 @implementation ZZAuthWireframe
 
-- (void)presentAuthControllerFromWindow:(UIWindow*)window completion:(ANCodeBlock)completionBlock
+- (void)presentAuthControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock
 {
     self.completionBlock = completionBlock;
     ANDispatchBlockToMainQueue(^{
-        UINavigationController* navigationController = [UINavigationController new];
+        UINavigationController *navigationController = [UINavigationController new];
         navigationController.navigationBarHidden = YES;
         window.rootViewController = navigationController;
         [self presentAuthControllerFromNavigationController:navigationController];
@@ -39,22 +39,22 @@
 
 - (void)presentAuthControllerFromNavigationController:(UINavigationController *)nc
 {
-    ZZAuthVC* authController = [ZZAuthVC new];
-    ZZAuthInteractor* interactor = [ZZAuthInteractor new];
-    ZZAuthPresenter* presenter = [ZZAuthPresenter new];
-    
+    ZZAuthVC *authController = [ZZAuthVC new];
+    ZZAuthInteractor *interactor = [ZZAuthInteractor new];
+    ZZAuthPresenter *presenter = [ZZAuthPresenter new];
+
     interactor.output = presenter;
-    
+
     authController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:authController];
-    
+
     ANDispatchBlockToMainQueue(^{
         [nc pushViewController:authController animated:NO];
     });
-    
+
     self.presenter = presenter;
     self.presentedController = nc;
     self.authController = authController;
@@ -67,14 +67,14 @@
 
 - (void)presentGridController
 {
-    ZZMainWireframe* wireframe = [ZZMainWireframe new];
+    ZZMainWireframe *wireframe = [ZZMainWireframe new];
     [wireframe presentMainControllerFromWindow:self.authController.view.window
                                     completion:self.completionBlock];
 }
 
 - (void)presentNetworkTestController
 {
-    ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
+    ZZNetworkTestWireframe *testWireframe = [ZZNetworkTestWireframe new];
     [testWireframe presentNetworkTestControllerFromWindow:self.authController.view.window];
 }
 

@@ -15,9 +15,9 @@
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, ZZGridContainerViewDelegate>
 
-@property (nonatomic, strong) ZZGridView* gridView;
-@property (nonatomic, strong) ZZGridCollectionController* controller;
-@property (nonatomic, strong) ZZGridRotationTouchObserver* touchObserver;
+@property (nonatomic, strong) ZZGridView *gridView;
+@property (nonatomic, strong) ZZGridCollectionController *controller;
+@property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
 
 @end
 
@@ -34,16 +34,16 @@
 
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
         self.gridView.itemsContainerView.delegate = self;
-        
+
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
-        
+
         self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
         self.touchObserver.delegate = self;
-        
+
         self.gridView.itemsContainerView.touchObserver = self.touchObserver;
 
-        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber* value) {
+        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber *value) {
             return [value boolValue];
         }] subscribeNext:^(id x) {
             [self.eventHandler hideHintIfNeeded];
@@ -52,7 +52,7 @@
     return self;
 }
 
-- (NSArray*)items
+- (NSArray *)items
 {
     [self.view layoutIfNeeded];
     return self.gridView.items;
@@ -98,7 +98,7 @@
 
 - (void)menuWasOpened
 {
-    
+
 }
 
 - (void)showCameraSwitchAnimation
@@ -109,7 +109,7 @@
 
 - (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
-     ZZGridCell* animationCell = [self.controller gridCellWithFriendModel:friendModel];
+    ZZGridCell *animationCell = [self.controller gridCellWithFriendModel:friendModel];
     [animationCell showContainFriendAnimation];
 }
 
@@ -117,14 +117,14 @@
 {
     ZZGridCell *cell = [self cellForFriendModel:friendModel];
     NSUInteger index = [self.gridView.itemsContainerView.items indexOfObject:cell];
-                        
+
     if (index == NSNotFound)
     {
         return;
     }
-    
+
     [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
-    
+
     self.touchObserver.enabled = NO;
 }
 
@@ -142,34 +142,34 @@
 - (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel
 {
     ZZGridCell *cell = [self cellForFriendModel:friendModel];
-    
+
     [cell setDownloadProgress:progress];
 }
 
 - (ZZGridCell *)cellForFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSArray *items = self.gridView.itemsContainerView.items;
-    
+
     __block ZZGridCell *result = nil;
-    
-    [items enumerateObjectsUsingBlock:^(ZZGridCell *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [items enumerateObjectsUsingBlock:^(ZZGridCell *obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if (![obj isKindOfClass:[ZZGridCell class]])
         {
-            return ;
+            return;
         }
-        
+
         ZZGridCellViewModel *model = obj.model;
-        
+
         if (![model isKindOfClass:[ZZGridCellViewModel class]])
         {
             return;
         }
-        
+
         if (![model.item.relatedUser isEqual:friendModel])
         {
             return;
         }
-        
+
         result = obj;
         *stop = YES;
     }];
@@ -189,19 +189,19 @@
 
 - (void)configureViewPositions
 {
-    __block  NSMutableArray* filledGridModels = [NSMutableArray new];
-    
-    [[self items] enumerateObjectsUsingBlock:^(ZZGridCell*  _Nonnull gridCell, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.controller.initalFrames enumerateObjectsUsingBlock:^(NSValue*  _Nonnull rectValue, NSUInteger index, BOOL * _Nonnull stop) {
+    __block NSMutableArray *filledGridModels = [NSMutableArray new];
+
+    [[self items] enumerateObjectsUsingBlock:^(ZZGridCell *_Nonnull gridCell, NSUInteger idx, BOOL *_Nonnull stop) {
+        [self.controller.initalFrames enumerateObjectsUsingBlock:^(NSValue *_Nonnull rectValue, NSUInteger index, BOOL *_Nonnull stop) {
             CGRect rect = [rectValue CGRectValue];
             if (CGRectIntersectsRect(rect, gridCell.frame))
             {
-                if([gridCell respondsToSelector:@selector(model)])
+                if ([gridCell respondsToSelector:@selector(model)])
                 {
                     id model = [gridCell model];
                     if ([model isKindOfClass:[ZZGridCellViewModel class]])
                     {
-                        ZZGridCellViewModel* cellModel = (ZZGridCellViewModel*)model;
+                        ZZGridCellViewModel *cellModel = (ZZGridCellViewModel *)model;
                         cellModel.item.index = kReverseIndexConvertation(index);
                         [filledGridModels addObject:cellModel.item];
                     }
@@ -209,7 +209,7 @@
             }
         }];
     }];
-    
+
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }
 
@@ -236,21 +236,21 @@
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {
-    UIView* cell = [self _cellAdapterWithDependsOnIndex:index];
+    UIView *cell = [self _cellAdapterWithDependsOnIndex:index];
     CGRect position = [cell convertRect:cell.bounds toView:self.view];
     return position;
 }
 
-- (UIView*)_cellAdapterWithDependsOnIndex:(NSInteger)index
+- (UIView *)_cellAdapterWithDependsOnIndex:(NSInteger)index
 {
-    __block UIView* cell = nil;;
- 
+    __block UIView *cell = nil;;
+
     if (index != NSNotFound)
     {
-        NSValue* indexRectValue = self.controller.initalFrames[index];
+        NSValue *indexRectValue = self.controller.initalFrames[index];
         CGRect indexRect = [indexRectValue CGRectValue];
-        
-        [self.items enumerateObjectsUsingBlock:^(UIView*  _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+
+        [self.items enumerateObjectsUsingBlock:^(UIView *_Nonnull view, NSUInteger idx, BOOL *_Nonnull stop) {
             if (CGRectIntersectsRect(indexRect, view.frame))
             {
                 cell = view;
@@ -258,7 +258,7 @@
             }
         }];
     }
-    
+
     return cell;
 }
 
@@ -276,7 +276,7 @@
 - (void)updateRecordViewStateTo:(BOOL)isRecording
 {
     NSInteger centerCellIndex = 4;
-    ZZGridCenterCell* centerCell = self.gridView.items[centerCellIndex];
+    ZZGridCenterCell *centerCell = self.gridView.items[centerCellIndex];
     [centerCell updataeRecordStateTo:isRecording];
 }
 

@@ -13,18 +13,21 @@
 
 @protocol ZZGridCollectionControllerDelegate <NSObject>
 
-- (NSArray*)items;
+- (NSArray *)items;
 
 @end
 
 @interface ZZGridCollectionController : NSObject
 
-@property (nonatomic, weak) id<ZZGridCollectionControllerDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray* initalFrames;
+@property (nonatomic, weak) id <ZZGridCollectionControllerDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *initalFrames;
 
-- (void)updateDataSource:(ZZGridDataSource*)dataSource;
-- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel*)friendModel;
+- (void)updateDataSource:(ZZGridDataSource *)dataSource;
+
+- (NSInteger)indexOfFriendModelOnGrid:(ZZFriendDomainModel *)friendModel;
+
 - (void)updateInitialViewFramesIfNeeded;
-- (ZZGridCell*)gridCellWithFriendModel:(ZZFriendDomainModel*)friendModel;
+
+- (ZZGridCell *)gridCellWithFriendModel:(ZZFriendDomainModel *)friendModel;
 
 @end

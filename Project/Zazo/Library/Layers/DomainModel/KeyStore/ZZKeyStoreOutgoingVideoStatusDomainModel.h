@@ -12,14 +12,16 @@
 
 @class FEMObjectMapping;
 
-extern const struct ZZKeyStoreOutgoingVideoStatusDomainModelAttributes {
+extern const struct ZZKeyStoreOutgoingVideoStatusDomainModelAttributes
+{
     __unsafe_unretained NSString *friendMkey;
     __unsafe_unretained NSString *statusNumber;
     __unsafe_unretained NSString *videoId;
 } ZZKeyStoreOutgoingVideoStatusDomainModelAttributes;
 
 
-extern const struct ZZKeyStoreOutgoingVideoStatusValues{
+extern const struct ZZKeyStoreOutgoingVideoStatusValues
+{
     __unsafe_unretained NSString *outgoingVideoStatusDownloaded;
     __unsafe_unretained NSString *outgoingVideoStatusViewed;
 } ZZKeyStoreOutgoingVideoStatusValues;
@@ -30,7 +32,8 @@ extern const struct ZZKeyStoreOutgoingVideoStatusValues{
 @property (nonatomic, assign) NSNumber *statusNumber;
 @property (nonatomic, copy) NSString *videoId;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
+
 - (ZZVideoOutgoingStatus)status;
 
 @end

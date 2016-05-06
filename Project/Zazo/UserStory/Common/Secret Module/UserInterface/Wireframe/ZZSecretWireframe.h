@@ -8,10 +8,13 @@
 
 @interface ZZSecretWireframe : NSObject
 
-- (void)presentSecretControllerFromNavigationController:(UINavigationController*)nc;
+- (void)presentSecretControllerFromNavigationController:(UINavigationController *)nc;
 
 - (void)presentLogsController;
+
 - (void)presentStateController;
+
 - (void)presentDebugController;
-- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController*)nc;
+
+- (void)presentOrDismissSecretControllerFromNavigationController:(UINavigationController *)nc;
 @end

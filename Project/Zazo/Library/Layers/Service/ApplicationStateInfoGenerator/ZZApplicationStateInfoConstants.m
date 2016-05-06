@@ -11,26 +11,26 @@
 #pragma mark - Outgoing
 
 static NSString *outgoingTypesString[] = {
-    @"NONE",
-    @"NEW",
-    @"QUEUED",
-    @"UPLOADING",
-    @"UPLOADED",
-    @"DOWNLOADED",
-    @"VIEWED",
-    @"FAILED"
+        @"NONE",
+        @"NEW",
+        @"QUEUED",
+        @"UPLOADING",
+        @"UPLOADED",
+        @"DOWNLOADED",
+        @"VIEWED",
+        @"FAILED"
 };
 
-NSString* ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus type)
+NSString *ZZOutgoingVideoInfoStringFromEnumValue(ZZVideoOutgoingStatus type)
 {
     int count = sizeof(outgoingTypesString) / sizeof(outgoingTypesString[0]);
     return (type < count) ? outgoingTypesString[type] : nil;
 }
 
-ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString* string)
+ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString *string)
 {
     int count = sizeof(outgoingTypesString) / sizeof(outgoingTypesString[0]);
-    NSArray* array = [NSArray arrayWithObjects:outgoingTypesString count:count];
+    NSArray *array = [NSArray arrayWithObjects:outgoingTypesString count:count];
     NSInteger index = [array indexOfObject:[NSObject an_safeString:string]];
     return (index == NSNotFound) ? 0 : index;
 }
@@ -39,21 +39,21 @@ ZZVideoOutgoingStatus ZZOutgoingVideoInfoEnumValueFromString(NSString* string)
 #pragma mark - Incoming
 
 static NSString *incomingTypesString[] = {
-    @"NEW",
-    @"DOWNLOADING",
-    @"DOWNLOADED",
-    @"VIEWED",
-    @"PERMANENTLY"
+        @"NEW",
+        @"DOWNLOADING",
+        @"DOWNLOADED",
+        @"VIEWED",
+        @"PERMANENTLY"
 };
 
-NSString* ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus type)
+NSString *ZZIncomingVideoInfoStringFromEnumValue(ZZVideoIncomingStatus type)
 {
     return incomingTypesString[type];
 }
 
-ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
+ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString *string)
 {
-    NSArray* array = [NSArray arrayWithObjects:incomingTypesString count:5];
+    NSArray *array = [NSArray arrayWithObjects:incomingTypesString count:5];
     return [array indexOfObject:[NSObject an_safeString:string]];
 }
 
@@ -61,12 +61,12 @@ ZZVideoIncomingStatus ZZIncomingVideoInfoEnumValueFromSrting(NSString* string)
 #pragma mark - Server
 
 static NSString *serverTypesString[] = {
-    @"Production",
-    @"Development",
-    @"Custom",
+        @"Production",
+        @"Development",
+        @"Custom",
 };
 
-NSString* ZZServerFormattedStringFromEnumValue(ZZConfigServerState type)
+NSString *ZZServerFormattedStringFromEnumValue(ZZConfigServerState type)
 {
     return serverTypesString[type];
 }

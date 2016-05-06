@@ -10,10 +10,10 @@
 #import "ZZFriendDomainModel.h"
 
 const struct ZZVideoDomainModelAttributes ZZVideoDomainModelAttributes = {
-    .videoID = @"videoID",
-    .status = @"incomingStatusValue",
-    .downloadRetryCount = @"downloadRetryCount",
-    .relatedUserID = @"relatedUserID",
+        .videoID = @"videoID",
+        .status = @"incomingStatusValue",
+        .downloadRetryCount = @"downloadRetryCount",
+        .relatedUserID = @"relatedUserID",
 };
 
 @implementation ZZVideoDomainModel

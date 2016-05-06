@@ -9,14 +9,16 @@
 
 @interface ZZMigrationManager : NSObject
 
-@property (nonatomic, strong) NSManagedObjectContext* mangedObjectContext;
-@property (nonatomic, strong) NSManagedObjectModel* managedObjectModel;
-@property (nonatomic, strong) NSPersistentStoreCoordinator* coordinator;
+@property (nonatomic, strong) NSManagedObjectContext *mangedObjectContext;
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *coordinator;
 
 - (BOOL)isMigrationNecessary;
+
 - (BOOL)migrate;
 
-- (NSURL*)destinationUrl;
-- (NSURL*)sourceUrl;
+- (NSURL *)destinationUrl;
+
+- (NSURL *)sourceUrl;
 
 @end

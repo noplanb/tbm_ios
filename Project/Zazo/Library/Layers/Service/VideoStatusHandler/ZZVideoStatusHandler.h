@@ -28,31 +28,35 @@
 + (instancetype)sharedInstance;
 
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
+
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
-                         withFriendID:(NSString*)friendID
-                          withVideoId:(NSString*)videoId;
+                         withFriendID:(NSString *)friendID
+                          withVideoId:(NSString *)videoId;
 
 
 - (void)setAndNotifyUploadRetryCount:(NSInteger)retryCount
-                        withFriendID:(NSString*)friendID
-                             videoID:(NSString*)videoID;
+                        withFriendID:(NSString *)friendID
+                             videoID:(NSString *)videoID;
 
 
 - (void)setAndNotifyIncomingVideoStatus:(ZZVideoIncomingStatus)videoStatus
-                               friendId:(NSString*)friendId
-                                videoId:(NSString*)videoId;
+                               friendId:(NSString *)friendId
+                                videoId:(NSString *)videoId;
 
 
 - (void)setAndNotifyDownloadRetryCount:(NSInteger)retryCount
-                          withFriendID:(NSString*)friendID
-                               videoID:(NSString*)videoID;
+                          withFriendID:(NSString *)friendID
+                               videoID:(NSString *)videoID;
 
 
-- (void)notifyFriendChangedWithId:(NSString*)friendID;
+- (void)notifyFriendChangedWithId:(NSString *)friendID;
+
 - (void)notifyVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress;
-- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString*)friendID videoID:(NSString*)videoID;
-- (void)handleOutgoingVideoCreatedWithVideoId:(NSString*)videoId withFriend:(NSString*)friendID;
+
+- (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID;
+
+- (void)handleOutgoingVideoCreatedWithVideoId:(NSString *)videoId withFriend:(NSString *)friendID;
 
 @end

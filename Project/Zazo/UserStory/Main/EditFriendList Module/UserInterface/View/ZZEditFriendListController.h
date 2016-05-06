@@ -19,8 +19,8 @@
 
 @interface ZZEditFriendListController : ANTableController
 
-@property (nonatomic, weak) id<ZZEditFriendListControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZEditFriendListControllerDelegate> delegate;
 
-- (void)updateDataSource:(ZZEditFriendListDataSource*)dataSource;
+- (void)updateDataSource:(ZZEditFriendListDataSource *)dataSource;
 
 @end

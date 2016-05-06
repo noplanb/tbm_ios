@@ -8,6 +8,6 @@
 
 @interface UIImage (ANDefault)
 
-+ (UIImage*)an_defaultImage;
++ (UIImage *)an_defaultImage;
 
 @end

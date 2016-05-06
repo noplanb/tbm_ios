@@ -11,34 +11,34 @@
 
 @implementation ZZRemoteStorageTransport
 
-+ (RACSignal*)updateKeyValueWithParameters:(NSDictionary*)parameters
++ (RACSignal *)updateKeyValueWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiKeyUpdate
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypePOST];
 }
 
-+ (RACSignal*)deleteKeyValueWithParameters:(NSDictionary*)parameters
++ (RACSignal *)deleteKeyValueWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiKeyDelete
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)loadKeyValueWithParameters:(NSDictionary*)parameters
++ (RACSignal *)loadKeyValueWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiKeyLoad
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)loadAllIncomingVideoIds
++ (RACSignal *)loadAllIncomingVideoIds
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllIncomingVideoIds
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)loadAllOutgoingVideoStatuses
++ (RACSignal *)loadAllOutgoingVideoStatuses
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiGetAllOutgoingVideoStatus
                                              httpMethod:ANHttpMethodTypeGET];

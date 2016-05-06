@@ -12,20 +12,28 @@
 
 #pragma mark - Model fetching
 
-+ (NSArray*)allFriendsModels;
-+ (NSArray*)allVisibleFriendModels;
-+ (NSArray*)allEverSentFriends;
-+ (NSArray*)friendsOnGrid;
++ (NSArray *)allFriendsModels;
 
-+ (ZZFriendDomainModel*)friendWithItemID:(NSString*)itemID;
-+ (ZZFriendDomainModel*)friendWithMKeyValue:(NSString*)mKeyValue;
-+ (ZZFriendDomainModel*)friendWithMobileNumber:(NSString*)mobileNumber;
++ (NSArray *)allVisibleFriendModels;
+
++ (NSArray *)allEverSentFriends;
+
++ (NSArray *)friendsOnGrid;
+
++ (ZZFriendDomainModel *)friendWithItemID:(NSString *)itemID;
+
++ (ZZFriendDomainModel *)friendWithMKeyValue:(NSString *)mKeyValue;
+
++ (ZZFriendDomainModel *)friendWithMobileNumber:(NSString *)mobileNumber;
 
 #pragma mark - Other
 
 + (NSInteger)friendsCount;
+
 + (NSSet <NSString *> *)allUsernamesExceptFriendWithID:(NSString *)friendID;
-+ (BOOL)isFriendExistsWithItemID:(NSString*)itemID;
-+ (ZZFriendDomainModel*)lastActionFriendWithoutGrid;
+
++ (BOOL)isFriendExistsWithItemID:(NSString *)itemID;
+
++ (ZZFriendDomainModel *)lastActionFriendWithoutGrid;
 
 @end

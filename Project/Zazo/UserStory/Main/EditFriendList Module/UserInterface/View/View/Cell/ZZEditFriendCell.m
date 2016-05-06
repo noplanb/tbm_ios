@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UILabel *phoneNumberLabel;
 @property (nonatomic, strong) UIView *separator;
 
-@property (nonatomic, strong) ZZEditFriendCellViewModel* currentModel;
+@property (nonatomic, strong) ZZEditFriendCellViewModel *currentModel;
 
 @end
 
@@ -36,14 +36,14 @@
 
 - (void)updateWithModel:(ZZEditFriendCellViewModel *)model
 {
-        self.phoneNumberLabel.text = [model phoneNumber];
+    self.phoneNumberLabel.text = [model phoneNumber];
     self.nameLabel.text = [model username];
     self.deleteSwitch.enabled = ![model isUpdating];
     self.abbrevationLabel.text = [model abbreviation];
-    
+
     [model updatePhotoImageView:self.photoImageView];
     [model updateSwitch:self.deleteSwitch];
-    
+
     self.currentModel = model;
 }
 
@@ -63,9 +63,9 @@
         _photoImageView.clipsToBounds = YES;
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
         _photoImageView.layer.cornerRadius = 25;
-        
+
         [self.contentView addSubview:_photoImageView];
-        
+
         [_photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).offset(18);
             make.height.width.equalTo(@50);
@@ -85,7 +85,7 @@
         _nameLabel.textColor = [UIColor an_colorWithHexString:@"202020"];
         _nameLabel.adjustsFontSizeToFitWidth = YES;
         [self addSubview:_nameLabel];
-        
+
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.photoImageView.mas_right).offset(12);
             make.right.equalTo(self.deleteSwitch.mas_left).offset(-5);
@@ -104,7 +104,7 @@
         _phoneNumberLabel.highlightedTextColor = [UIColor whiteColor];
         _phoneNumberLabel.textColor = [UIColor colorWithRed:0.45 green:0.45 blue:0.42 alpha:1];
         [self addSubview:_phoneNumberLabel];
-        
+
         [_phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.nameLabel);
             make.top.equalTo(self.nameLabel.mas_bottom);
@@ -119,16 +119,16 @@
     if (!_deleteSwitch)
     {
         _deleteSwitch = [UISwitch new];
-        
+
         [_deleteSwitch addTarget:self action:@selector(_deleteButtonSelected) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_deleteSwitch];
-        
+
         [_deleteSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.right.equalTo(self.contentView).with.offset(-12);
         }];
     }
-    
+
     return _deleteSwitch;
 }
 
@@ -139,9 +139,9 @@
         _separator = [UIView new];
         _separator.backgroundColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_separator];
-        
+
         CGFloat separatorHeight = 1 / [UIScreen mainScreen].scale;
-        
+
         [_separator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.nameLabel);
             make.right.equalTo(self);
@@ -161,13 +161,13 @@
         _abbrevationLabel.textColor = [UIColor whiteColor];
         _abbrevationLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_abbrevationLabel];
-        
+
         [_abbrevationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.photoImageView);
         }];
     }
     return _abbrevationLabel;
-    
+
 }
 
 @end

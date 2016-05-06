@@ -10,12 +10,14 @@
 
 @interface ZZContactCellViewModel : NSObject
 
-@property (nonatomic, strong) id<ZZUserInterface> item;
+@property (nonatomic, strong) id <ZZUserInterface> item;
 
-+ (instancetype)viewModelWithItem:(id<ZZUserInterface>)item;
++ (instancetype)viewModelWithItem:(id <ZZUserInterface>)item;
 
 @property (nonatomic, strong, readonly) NSString *abbreviation;
+
 - (NSString *)username;
+
 - (void)updateImageView:(UIImageView *)imageView;
 
 @end

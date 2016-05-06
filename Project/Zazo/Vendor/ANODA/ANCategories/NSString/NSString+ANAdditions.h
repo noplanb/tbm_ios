@@ -9,7 +9,9 @@
 @interface NSString (ANAdditions)
 
 - (BOOL)an_isEmail;
-- (NSString*)an_stripAllNonNumericCharacters;
-- (NSString*)an_stripSpecialCharacters;
+
+- (NSString *)an_stripAllNonNumericCharacters;
+
+- (NSString *)an_stripSpecialCharacters;
 
 @end

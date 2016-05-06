@@ -8,6 +8,7 @@
 @class UIView;
 @class ZZGridHelper;
 @class ZZGridView;
+
 @import pop;
 
 @protocol ZZRotatorDelegate <NSObject>
@@ -16,12 +17,12 @@
 
 @interface ZZRotator : NSObject
 
-@property(assign, nonatomic, readonly) CGFloat decelerationValue;
-@property(assign, nonatomic, readonly) CGFloat velocityOfBounce;
+@property (assign, nonatomic, readonly) CGFloat decelerationValue;
+@property (assign, nonatomic, readonly) CGFloat velocityOfBounce;
 @property (nonatomic, strong) POPDecayAnimation *decayAnimation;
-@property (nonatomic, strong) ZZGridView* gridView;
+@property (nonatomic, strong) ZZGridView *gridView;
 
-@property (nonatomic, weak) id<ZZRotatorDelegate> delegate;
+@property (nonatomic, weak) id <ZZRotatorDelegate> delegate;
 
 - (instancetype)initWithAnimationCompletionBlock:(ANCodeBlock)completionBlock;
 
@@ -70,7 +71,7 @@
 * @param anim Animation that needs to be checked
 * @param grid Grid that is animated
 */
-- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZGridView*)grid;
+- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZGridView *)grid;
 
 /**
 * Stop all animations on grid

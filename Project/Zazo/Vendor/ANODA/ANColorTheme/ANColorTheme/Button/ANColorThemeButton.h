@@ -9,15 +9,15 @@
 
 @interface ANColorThemeButton : NSObject <ANColorThemeButtonInterface>
 
-@property (nonatomic, strong) UIColor* normalStateBackground;
-@property (nonatomic, strong) UIColor* selectedStateBackground;
-@property (nonatomic, strong) UIColor* disabledStateBackground;
+@property (nonatomic, strong) UIColor *normalStateBackground;
+@property (nonatomic, strong) UIColor *selectedStateBackground;
+@property (nonatomic, strong) UIColor *disabledStateBackground;
 
-@property (nonatomic, strong) UIColor* normalStateFontColor;
-@property (nonatomic, strong) UIColor* selectedStateFontColor;
-@property (nonatomic, strong) UIColor* disabledStateFontColor;
+@property (nonatomic, strong) UIColor *normalStateFontColor;
+@property (nonatomic, strong) UIColor *selectedStateFontColor;
+@property (nonatomic, strong) UIColor *disabledStateFontColor;
 
-@property (nonatomic, strong) UIColor* borderColor;
+@property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, assign) CGFloat borderWidth;
 @property (nonatomic, assign) CGFloat cornerRadius;
 
@@ -25,6 +25,6 @@
 @property (nonatomic, assign) UIEdgeInsets titleEdges;
 @property (nonatomic, assign) CGFloat height;
 
-@property (nonatomic, strong) UIFont* font;
+@property (nonatomic, strong) UIFont *font;
 
 @end

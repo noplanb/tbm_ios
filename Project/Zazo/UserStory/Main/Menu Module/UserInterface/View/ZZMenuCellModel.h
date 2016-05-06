@@ -13,6 +13,7 @@
 @property (nonatomic, assign) ZZMenuItemType type;
 
 + (instancetype)modelWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;
+
 - (instancetype)initWithTitle:(NSString *)title iconWithImageNamed:(NSString *)imageName;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ZZHintsConstants.h"
+
 @class ZZHintsViewModel;
 
 @protocol ZZHintsViewDelegate <NSObject>
@@ -20,7 +21,8 @@
 
 @property (nonatomic, weak) id <ZZHintsViewDelegate> delegate;
 
-- (void)updateWithHintsViewModel:(ZZHintsViewModel*)viewModel andIndex:(NSInteger)index;
-- (ZZHintsViewModel*)hintModel;
+- (void)updateWithHintsViewModel:(ZZHintsViewModel *)viewModel andIndex:(NSInteger)index;
+
+- (ZZHintsViewModel *)hintModel;
 
 @end

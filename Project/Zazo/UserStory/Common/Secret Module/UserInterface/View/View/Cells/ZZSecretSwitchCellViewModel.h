@@ -12,14 +12,14 @@
 
 @protocol ZZSecretSwitchCellViewModelDelegate <NSObject>
 
-- (void)viewModel:(ZZSecretSwitchCellViewModel*)viewModel updatedSwitchValueTo:(BOOL)isEnabled;
+- (void)viewModel:(ZZSecretSwitchCellViewModel *)viewModel updatedSwitchValueTo:(BOOL)isEnabled;
 
 @end
 
 @interface ZZSecretSwitchCellViewModel : NSObject
 
-@property (nonatomic, weak) id<ZZSecretSwitchCellViewModelDelegate> delegate;
-@property (nonatomic, strong) NSString* title;
+@property (nonatomic, weak) id <ZZSecretSwitchCellViewModelDelegate> delegate;
+@property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) BOOL switchState;
 
 - (void)switchValueChanged;

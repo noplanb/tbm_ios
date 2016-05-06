@@ -34,25 +34,25 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(_loggerReceivedError:)
                                                      name:OBLoggerErrorNotification object:nil];
-        
+
         RollbarConfiguration *config = [[RollbarConfiguration alloc] initWithLoadedConfiguration];
         config.crashLevel = @"critical";
         [Rollbar initWithAccessToken:kRollBarToken configuration:config];
-        
-        [RACObserve([ZZStoredSettingsManager shared], serverEndpointState) subscribeNext:^(NSNumber* x) {
-            
+
+        [RACObserve([ZZStoredSettingsManager shared], serverEndpointState) subscribeNext:^(NSNumber *x) {
+
             ZZConfigServerState serverState = [x integerValue];
             config.environment = ZZDispatchServerStateStringFromEnumValue(serverState);
         }];
-        
-        [RACObserve([ZZStoredSettingsManager shared], shouldUseServerLogging) subscribeNext:^(NSNumber* x) {
-            
-            #ifdef NETTEST
+
+        [RACObserve([ZZStoredSettingsManager shared], shouldUseServerLogging) subscribeNext:^(NSNumber *x) {
+
+#ifdef NETTEST
             self.endpointType = ZZDispatchEndpointRollbar;
-            #else
-                BOOL shouldUseServerLogging = [x boolValue];
-                self.endpointType = shouldUseServerLogging ? ZZDispatchEndpointServer : ZZDispatchEndpointRollbar;
-            #endif
+#else
+            BOOL shouldUseServerLogging = [x boolValue];
+            self.endpointType = shouldUseServerLogging ? ZZDispatchEndpointServer : ZZDispatchEndpointRollbar;
+#endif
         }];
 
         [OBLogger instance].writeToConsole = YES;
@@ -62,33 +62,33 @@
     return self;
 }
 
-- (void)updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString *)itemID
+- (void)updateUserFullName:(NSString *)fullName phone:(NSString *)phone itemID:(NSString *)itemID
 {
     phone = [NSObject an_safeString:phone];
     itemID = [NSObject an_safeString:itemID];
     fullName = [NSObject an_safeString:fullName];
-    
+
     [self _updateUserFullName:fullName
                         phone:phone
                        itemID:itemID];
-    }
+}
 
-- (void)_updateUserFullName:(NSString*)fullName phone:(NSString*)phone itemID:(NSString *)itemID
+- (void)_updateUserFullName:(NSString *)fullName phone:(NSString *)phone itemID:(NSString *)itemID
 {
     RollbarConfiguration *config = [Rollbar currentConfiguration];
-    
+
     [config setPersonId:itemID
                username:fullName
                   email:phone];
-    
+
 }
 
-- (void)logMessage:(NSString*)message
+- (void)logMessage:(NSString *)message
 {
     [self logMessage:message level:ZZDispatchLevelDebug];
 }
 
-- (void)logMessage:(NSString*)message level:(ZZDispatchLevel)level
+- (void)logMessage:(NSString *)message level:(ZZDispatchLevel)level
 {
     if (level == ZZDispatchLevelError)
     {
@@ -98,7 +98,8 @@
 
     if (self.endpointType == ZZDispatchEndpointServer)
     {
-        [[ZZCommonNetworkTransportService logMessage:message] subscribeNext:^(id x) {}];
+        [[ZZCommonNetworkTransportService logMessage:message] subscribeNext:^(id x) {
+        }];
     }
     else
     {
@@ -110,7 +111,7 @@
 
 #pragma mark - Private
 
-- (void)_loggerReceivedError:(NSNotification*)notification
+- (void)_loggerReceivedError:(NSNotification *)notification
 {
     ANDispatchBlockToBackgroundQueue(^{
 //        ZZUserDomainModel* me = [ZZUserDataProvider authenticatedUser]; //TODO: discuss with Sani
@@ -121,7 +122,7 @@
     });
 }
 
-- (NSString*)_logString
+- (NSString *)_logString
 {
     [[OBLogger instance] dropOldLines:2000];
     return [[[OBLogger instance] logLines] componentsJoinedByString:@"\n"];

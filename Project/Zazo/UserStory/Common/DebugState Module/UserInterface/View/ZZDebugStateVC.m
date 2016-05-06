@@ -13,8 +13,8 @@
 
 @interface ZZDebugStateVC ()
 
-@property (nonatomic, strong) ZZDebugStateController* controller;
-@property (nonatomic, strong) ANTableContainerView* containerView;
+@property (nonatomic, strong) ZZDebugStateController *controller;
+@property (nonatomic, strong) ANTableContainerView *containerView;
 
 @end
 
@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = NSLocalizedString(@"debug-state.screen.title", nil);
 }
 

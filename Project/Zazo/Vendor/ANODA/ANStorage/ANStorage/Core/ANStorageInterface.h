@@ -14,16 +14,19 @@
 
 @property (nonatomic, weak) id <ANStorageUpdatingInterface> delegate;
 
-- (NSArray*)sections;
+- (NSArray *)sections;
+
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 
 @optional
 
 - (id)headerModelForSectionIndex:(NSInteger)index;
+
 - (id)footerModelForSectionIndex:(NSInteger)index;
 
 - (void)setSupplementaryHeaderKind:(NSString *)headerKind;
+
 - (void)setSupplementaryFooterKind:(NSString *)footerKind;
 
 - (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber;

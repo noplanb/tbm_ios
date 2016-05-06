@@ -8,9 +8,10 @@
 
 @interface ZZSecretValueCellViewModel : NSObject
 
-+ (instancetype)viewModelWithTitle:(NSString*)title details:(NSString*)details;
++ (instancetype)viewModelWithTitle:(NSString *)title details:(NSString *)details;
 
-- (NSString*)title;
-- (NSString*)details;
+- (NSString *)title;
+
+- (NSString *)details;
 
 @end

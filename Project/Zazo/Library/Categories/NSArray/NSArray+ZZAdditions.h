@@ -6,6 +6,7 @@
 @interface NSArray (ZZAdditions)
 
 - (id)zz_randomObject;
+
 - (NSDictionary *)zz_groupByKeyPath:(NSString *)keyPath;
 
 @end

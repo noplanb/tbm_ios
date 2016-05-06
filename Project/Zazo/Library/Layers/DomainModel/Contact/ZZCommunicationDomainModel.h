@@ -10,8 +10,8 @@
 
 @interface ZZCommunicationDomainModel : ANBaseDomainModel
 
-@property (nonatomic, strong) NSString* contact;
-@property (nonatomic, strong) NSString* label;
+@property (nonatomic, strong) NSString *contact;
+@property (nonatomic, strong) NSString *label;
 
 
 @end

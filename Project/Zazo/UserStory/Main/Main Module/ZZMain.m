@@ -4,4 +4,4 @@
 
 #import "ZZMain.h"
 
-NSString * const ZZMainModuleName = @"Main";
+NSString *const ZZMainModuleName = @"Main";

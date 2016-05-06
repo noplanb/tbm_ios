@@ -25,7 +25,8 @@
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _progressBarVisibilityIsBeingChanged = NO;
         _activePageIndex = NSUIntegerMax;
     }
@@ -42,12 +43,12 @@
 {
     self.view = [UIView new];
     self.view.backgroundColor = [ZZColorTheme shared].gridBackgroundColor;
-    
+
     CALayer *statusBarBackground = [CALayer layer];
     statusBarBackground.backgroundColor = [ZZColorTheme shared].tintColor.CGColor;
     statusBarBackground.frame = [UIApplication sharedApplication].statusBarFrame;
     [self.view.layer addSublayer:statusBarBackground];
-    
+
     [self scrollView];
 }
 
@@ -63,18 +64,18 @@
     if (_activePageIndex == activePageIndex)
     {
         UIViewController *activeViewController = self.viewControllers[activePageIndex];
-        
+
         if ([activeViewController isKindOfClass:[UINavigationController class]])
         {
             [((UINavigationController *)activeViewController) popToRootViewControllerAnimated:YES];
         }
-        
+
         return;
     }
-    
-    UIViewController<ZZTabbarViewItem> *currentItem =
-        _activePageIndex == NSUIntegerMax ? nil : self.viewControllers[_activePageIndex];
-    
+
+    UIViewController <ZZTabbarViewItem> *currentItem =
+            _activePageIndex == NSUIntegerMax ? nil : self.viewControllers[_activePageIndex];
+
     if ([currentItem respondsToSelector:@selector(tabbarItemDidDisappear)])
     {
         [currentItem tabbarItemDidDisappear];
@@ -84,9 +85,9 @@
     self.tabbarView.activeItemIndex = activePageIndex;
 
     [self _scrollToActivePageIfNeededAnimated:YES];
-    
-    UIViewController<ZZTabbarViewItem> *item = self.viewControllers[activePageIndex];
-    
+
+    UIViewController <ZZTabbarViewItem> *item = self.viewControllers[activePageIndex];
+
     if ([item respondsToSelector:@selector(tabbarItemDidAppear)])
     {
         [item tabbarItemDidAppear];
@@ -99,7 +100,7 @@
 {
     BOOL progressBarMustBeVisible = progressBarPosition > 0.01 && progressBarPosition < 0.99;
     BOOL progressBarIsVisible = self.tabbarView.progressView.alpha > 0.99;
-    
+
     if (progressBarMustBeVisible)
     {
         self.tabbarView.progressView.value = progressBarPosition;
@@ -109,21 +110,21 @@
     {
         return;
     }
-    
+
     if (progressBarMustBeVisible != progressBarIsVisible)
     {
-        
+
         self.progressBarVisibilityIsBeingChanged = YES;
-        
+
         NSLog(@"progressBarPosition %1.5f, progressBarMustBeVisible = %d", progressBarPosition, progressBarMustBeVisible);
 
         [UIView animateWithDuration:0.25 animations:^{
             self.tabbarView.progressView.alpha = progressBarMustBeVisible ? 1 : 0;
-        } completion:^(BOOL finished) {
+        }                completion:^(BOOL finished) {
             self.progressBarVisibilityIsBeingChanged = NO;
         }];
     }
-    
+
 }
 
 - (CGFloat)progressBarPosition
@@ -169,7 +170,8 @@
 
 - (UIScrollView *)scrollView
 {
-    if (!_scrollView) {
+    if (!_scrollView)
+    {
         _scrollView = [UIScrollView new];
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -177,7 +179,7 @@
         _scrollView.delegate = self;
         _scrollView.scrollsToTop = NO;
         _scrollView.bounces = NO;
-        
+
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -190,7 +192,8 @@
 
 - (ZZTabbarView *)tabbarView
 {
-    if (!_tabbarView) {
+    if (!_tabbarView)
+    {
         _tabbarView = [[ZZTabbarView alloc] init];
         _tabbarView.delegate = self;
 
@@ -210,7 +213,7 @@
         NSArray <UIView *> *views = [self.viewControllers.rac_sequence map:^id(id value) {
             return [value view];
         }].array;
-        
+
         _stackView = [[OAStackView alloc] initWithArrangedSubviews:views];
 
         [self.scrollView addSubview:_stackView];
@@ -226,7 +229,7 @@
     return _stackView;
 }
 
-- (void)setViewControllers:(NSArray <UIViewController<ZZTabbarViewItem> *> *)viewControllers
+- (void)setViewControllers:(NSArray <UIViewController <ZZTabbarViewItem> *> *)viewControllers
 {
     [_viewControllers enumerateObjectsUsingBlock:^(UIViewController *controller, NSUInteger idx, BOOL *stop) {
         [controller willMoveToParentViewController:nil];
@@ -267,37 +270,37 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint offsetForCurrentPage = [self _offsetForPage:self.activePageIndex];
-    
+
     CGFloat movement = offsetForCurrentPage.x - scrollView.contentOffset.x;
-    
+
     BOOL directionRight = movement < 0;
-    
+
     if (directionRight && [self _isLastPage:self.activePageIndex])
     {
         return;
     }
-    
+
     if (!directionRight && [self _isFirstPage:self.activePageIndex])
     {
         return;
     }
-    
+
     NSInteger direction = directionRight ? 1 : -1;
     NSUInteger nextIndex = self.activePageIndex + direction;
     id controllerThatWillAppear = self.viewControllers[nextIndex];
-    
+
     UIViewController *currentVC = self.viewControllers[self.activePageIndex];
-    
+
     if (controllerThatWillAppear == currentVC)
     {
         return; // it's current page
     }
-    
+
     if (controllerThatWillAppear == self.controllerThatWillAppear)
     {
         return; // viewWillAppear already called
     }
-    
+
     self.controllerThatWillAppear = controllerThatWillAppear;
     [self.controllerThatWillAppear viewWillAppear:YES];
 }
@@ -315,7 +318,7 @@
     }
 
     self.activePageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-    
+
     self.controllerThatWillAppear = nil;
 
 }

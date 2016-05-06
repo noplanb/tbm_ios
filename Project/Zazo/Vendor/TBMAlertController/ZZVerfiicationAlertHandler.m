@@ -35,7 +35,7 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark instantiation
 
-- (instancetype) initWithPhoneNumber:(NSString *)phoneNumber delegate:(id<TBMVerificationAlertDelegate>)delegate
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber delegate:(id <TBMVerificationAlertDelegate>)delegate
 {
     self = [super init];
     if (self != nil)
@@ -45,8 +45,8 @@ static NSString *MESSAGE = @"We sent a code";
         self.alertController = [self makeAlertController];
         self.confirmationAction = [self makeCodeConfirmationAction];
         self.codeTextField = [self makeCodeTextField];
-        self.callMeButton  = [self makeCallButton];
-        self.callingLabel  = [self makeCallingLabel];
+        self.callMeButton = [self makeCallButton];
+        self.callingLabel = [self makeCallingLabel];
         [self addContentAndActionsToAlertController];
     }
     return self;
@@ -70,16 +70,16 @@ static NSString *MESSAGE = @"We sent a code";
 - (ZZAlertController *)makeAlertController
 {
     return [ZZAlertController alertControllerWithTitle:@"Enter Code"
-                                                message:@""];
+                                               message:@""];
 }
 
 - (void)addContentAndActionsToAlertController
 {
     [self.alertController.contentView addSubview:[self contentView]];
     [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
-                                               style:SDCAlertActionStyleCancel
-                                             handler:nil]];
-    
+                                                              style:SDCAlertActionStyleCancel
+                                                            handler:nil]];
+
     [self.alertController addAction:self.confirmationAction];
 }
 
@@ -87,7 +87,7 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (UIView *)contentView
 {
-    UIView *view = [[UIView alloc] initWithFrame: [self contentFrame]];
+    UIView *view = [[UIView alloc] initWithFrame:[self contentFrame]];
     view.backgroundColor = [UIColor clearColor];
     [view addSubview:[self enterCodeLabel]];
     [view addSubview:self.codeTextField];
@@ -98,7 +98,7 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (CGRect)contentFrame
 {
-    return CGRectMake(0, 0, [self contentOuterWidth] , [self contentHeight]);
+    return CGRectMake(0, 0, [self contentOuterWidth], [self contentHeight]);
 }
 
 - (float)contentInnerWidth
@@ -106,16 +106,17 @@ static NSString *MESSAGE = @"We sent a code";
     return [self contentOuterWidth] - (2 * LayoutConstContentMargin);
 }
 
-- (float)contentOuterWidth{
+- (float)contentOuterWidth
+{
     return self.alertController.visualStyle.width;
 }
 
 - (float)contentHeight
 {
-    float height =  LayoutConstEnterCodeLabelHeight +
-                        LayoutConstTextFieldHeight +
-                        LayoutConstCallButtonHeight +
-                        3 * LayoutConstVerticalSpacing;
+    float height = LayoutConstEnterCodeLabelHeight +
+            LayoutConstTextFieldHeight +
+            LayoutConstCallButtonHeight +
+            3 * LayoutConstVerticalSpacing;
     return [self isIphoneFour] ? height - 30.0f : height;
 }
 
@@ -131,7 +132,7 @@ static NSString *MESSAGE = @"We sent a code";
 - (UILabel *)enterCodeLabel
 {
     NSString *text = [NSString stringWithFormat:@"We sent a code via text\nto %@.",
-                      [ZZPhoneHelper phone:self.phoneNumber withFormat:ZZPhoneFormatTypeInternational]];
+                                                [ZZPhoneHelper phone:self.phoneNumber withFormat:ZZPhoneFormatTypeInternational]];
     return [self labelWithText:text frame:[self enterCodeLabelFrame]];
 }
 
@@ -241,9 +242,9 @@ static NSString *MESSAGE = @"We sent a code";
     self.confirmationAction.enabled = (tf.text.length > 0);
 }
 
--(void)didEnterCode
+- (void)didEnterCode
 {
-    if (self.delegate != nil  && [self.delegate respondsToSelector:@selector(didEnterVerificationCode:)])
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didEnterVerificationCode:)])
         [self.delegate didEnterVerificationCode:[self.codeTextField text]];
 }
 

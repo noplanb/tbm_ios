@@ -9,7 +9,8 @@
 #import "ZZAlertBuilder.h"
 
 
-@implementation ZZUpdateHelper {
+@implementation ZZUpdateHelper
+{
 
 }
 
@@ -21,7 +22,7 @@
     dispatch_once(&onceToken, ^{
         shared = [ZZUpdateHelper new];
     });
-    
+
     return shared;
 }
 
@@ -29,7 +30,7 @@
 {
     [[ZZCommonNetworkTransportService checkApplicationVersion] subscribeNext:^(id x) {
 
-        NSString* result = [x objectForKey:@"result"];
+        NSString *result = [x objectForKey:@"result"];
 
         if (!ANIsEmpty(result))
         {
@@ -45,7 +46,7 @@
                 ZZLogError(@"versionCheckCallback: unknown version check result: %@", [NSObject an_safeString:result]);
             }
         }
-    } error:^(NSError *error) {
+    }                                                                  error:^(NSError *error) {
 
         ZZLogWarning(@"checkVersionCompatibility: %@", error);
 
@@ -76,10 +77,10 @@
 
 - (void)_needUpdateAndCanSkip:(BOOL)canBeSkipped
 {
-    NSString* message = canBeSkipped ? [self _makeMessageWithQualifier:@"out of date"] : [self _makeMessageWithQualifier:@"obsolete"];
-    NSString* cancelButtonTitle = canBeSkipped ? @"Later" : nil;
-    NSString* actionButtonTitle = @"Update";
-    NSString* title = @"Update Available";
+    NSString *message = canBeSkipped ? [self _makeMessageWithQualifier:@"out of date"] : [self _makeMessageWithQualifier:@"obsolete"];
+    NSString *cancelButtonTitle = canBeSkipped ? @"Later" : nil;
+    NSString *actionButtonTitle = @"Update";
+    NSString *title = @"Update Available";
 
     ANCodeBlock updateBlock = ^{
 
@@ -97,7 +98,7 @@
                         cancelButtonTitle:cancelButtonTitle
                        cancelButtonAction:canBeSkipped ? ^{
 
-                       }: nil
+                       } : nil
                         actionButtonTitle:actionButtonTitle
                                    action:updateBlock];
 
@@ -105,9 +106,9 @@
 
 #pragma mark Support
 
-- (NSString*)_makeMessageWithQualifier:(NSString *)q
+- (NSString *)_makeMessageWithQualifier:(NSString *)q
 {
-    NSString* appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    NSString *appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     return [NSString stringWithFormat:@"Your %@ app is %@. Please update", appName, q];
 }
 

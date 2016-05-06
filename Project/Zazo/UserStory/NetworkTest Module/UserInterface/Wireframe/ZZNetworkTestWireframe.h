@@ -8,6 +8,6 @@
 
 @interface ZZNetworkTestWireframe : NSObject
 
-- (void)presentNetworkTestControllerFromWindow:(UIWindow*)window;
+- (void)presentNetworkTestControllerFromWindow:(UIWindow *)window;
 
 @end

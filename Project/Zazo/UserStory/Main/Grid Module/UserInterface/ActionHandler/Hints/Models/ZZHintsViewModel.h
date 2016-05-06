@@ -19,23 +19,28 @@ typedef NS_ENUM(NSInteger, ZZHintPresentationState)
 
 @interface ZZHintsViewModel : NSObject
 
-+ (instancetype)viewModelWithItem:(ZZHintsDomainModel*)item;
++ (instancetype)viewModelWithItem:(ZZHintsDomainModel *)item;
 
 - (void)updateFocusFrame:(CGRect)focusFrame;
 
-- (NSString*)text;
+- (NSString *)text;
+
 - (CGRect)focusFrame;
 
 - (CGPoint)generateArrowFocusPointForIndex:(NSInteger)index;
 
 - (CGFloat)arrowAngle;
+
 - (CGFloat)arrowAngleForIndex:(NSInteger)index;
 
 - (ZZArrowDirection)arrowDirection;
+
 - (ZZArrowDirection)arrowDirectionForIndex:(NSInteger)index;
 
 - (BOOL)hidesArrow;
+
 - (ZZHintsBottomImageType)bottomImageType;
+
 - (ZZHintsType)hintType;
 
 @end

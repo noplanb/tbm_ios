@@ -13,7 +13,7 @@
 
 #pragma mark - Update Objects
 
-+ (void)an_updateObject:(id)object forKey:(NSString*)key
++ (void)an_updateObject:(id)object forKey:(NSString *)key
 {
     if (!ANIsEmpty(key))
     {
@@ -29,7 +29,7 @@
     }
 }
 
-+ (void)an_updateBool:(BOOL)object forKey:(NSString*)key
++ (void)an_updateBool:(BOOL)object forKey:(NSString *)key
 {
     if (!ANIsEmpty(key))
     {
@@ -38,7 +38,7 @@
     }
 }
 
-+ (void)an_updateInteger:(NSInteger)object forKey:(NSString*)key
++ (void)an_updateInteger:(NSInteger)object forKey:(NSString *)key
 {
     if (!ANIsEmpty(key))
     {
@@ -50,7 +50,7 @@
 
 #pragma mark - Retrive Objects
 
-+ (id)an_objectForKey:(NSString*)key
++ (id)an_objectForKey:(NSString *)key
 {
     id object;
     if (!ANIsEmpty(key))
@@ -60,23 +60,23 @@
     return object;
 }
 
-+ (NSString*)an_stringForKey:(NSString*)key
++ (NSString *)an_stringForKey:(NSString *)key
 {
-    NSString* string = [self an_objectForKey:key];
-    return [NSString stringWithFormat:@"%@", string ? : @""];
+    NSString *string = [self an_objectForKey:key];
+    return [NSString stringWithFormat:@"%@", string ?: @""];
 }
 
-+ (BOOL)an_boolForKey:(NSString*)key
++ (BOOL)an_boolForKey:(NSString *)key
 {
     BOOL value;
     if (!ANIsEmpty(key))
     {
-       value = [[self an_dataSource] boolForKey:key];
+        value = [[self an_dataSource] boolForKey:key];
     }
     return value;
 }
 
-+ (NSInteger)an_integerForKey:(NSString*)key
++ (NSInteger)an_integerForKey:(NSString *)key
 {
     NSInteger value;
     if (!ANIsEmpty(key))

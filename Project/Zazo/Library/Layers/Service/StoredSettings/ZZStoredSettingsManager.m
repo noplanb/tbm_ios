@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
-static NSString* const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
-static NSString* const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
-static NSString* const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
+static NSString *const kZZServerEndpointStateKey = @"kTBMConfigServerStateKey";
+static NSString *const kZZServerURLStringKey = @"kTBMConfigCustomServerURLKey";
+static NSString *const kZZDebugModeEnabledKey = @"kTBMConfigDeviceDebugModeKey";
 
-static NSString* const kZZShouldUseServerLoggingEnabledKey = @"kZZShouldUseServerLoggingEnabledKey";
+static NSString *const kZZShouldUseServerLoggingEnabledKey = @"kZZShouldUseServerLoggingEnabledKey";
 
-static NSString* const kZZUserAuthToken = @"kZZUserAuthToken";
-static NSString* const kZZUserItemID = @"kZZUserItemID";
-static NSString* const kZZUserMobileNumber = @"kZZUserMobileNumber";
+static NSString *const kZZUserAuthToken = @"kZZUserAuthToken";
+static NSString *const kZZUserItemID = @"kZZUserItemID";
+static NSString *const kZZUserMobileNumber = @"kZZUserMobileNumber";
 
-static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificationEnabled";
+static NSString *const kZZServerIsPushNotificationEnabled = @"kIsPushNotificationEnabled";
 
 #import "ZZStoredSettingsManager.h"
 #import "NSObject+ANUserDefaults.h"
@@ -107,12 +107,12 @@ static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificatio
 - (BOOL)isPushNotificatonEnabled
 {
     BOOL enabled = [NSObject an_boolForKey:kZZServerIsPushNotificationEnabled];
-    
+
     if (!enabled && self.serverEndpointState == ZZConfigServerStateProduction) // Ignore `isPushNotificatonEnabled` option on production server
     {
         enabled = YES;
     }
-    
+
     return enabled;
 }
 
@@ -128,12 +128,12 @@ static NSString* const kZZServerIsPushNotificationEnabled = @"kIsPushNotificatio
     return [NSObject an_objectForKey:kZZUserItemID];
 }
 
-- (void)setAuthToken:(NSString*)authToken
+- (void)setAuthToken:(NSString *)authToken
 {
     [NSObject an_updateObject:authToken forKey:kZZUserAuthToken];
 }
 
-- (NSString*)authToken
+- (NSString *)authToken
 {
     return [NSObject an_objectForKey:kZZUserAuthToken];
 }

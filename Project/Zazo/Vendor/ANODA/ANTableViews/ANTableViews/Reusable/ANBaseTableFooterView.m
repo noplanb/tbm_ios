@@ -23,7 +23,7 @@
     return self;
 }
 
-- (void)updateWithModel:(NSString*)model
+- (void)updateWithModel:(NSString *)model
 {
     self.textLabel.text = NSLocalizedString(model, nil);
 }

@@ -11,18 +11,18 @@
 
 @interface ZZDebugStatePresenter ()
 
-@property (nonatomic, strong) ZZDebugStateDataSource* dataSource;
+@property (nonatomic, strong) ZZDebugStateDataSource *dataSource;
 
 @end
 
 @implementation ZZDebugStatePresenter
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZDebugStateViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZDebugStateViewInterface> *)userInterface
 {
     self.dataSource = [ZZDebugStateDataSource new];
     self.userInterface = userInterface;
     [self.userInterface updateDataSource:self.dataSource];
-    
+
     [self.interactor loadData];
 }
 
@@ -36,7 +36,6 @@
 
 
 #pragma mark - Module Interface
-
 
 
 @end

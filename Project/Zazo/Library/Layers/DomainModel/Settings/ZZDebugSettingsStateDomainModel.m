@@ -9,14 +9,14 @@
 #import "ZZDebugSettingsStateDomainModel.h"
 
 const struct ZZDebugSettingsStateDomainModelAttributes ZZDebugSettingsStateDomainModelAttributes = {
-    .serverURLString = @"serverURLString",
-    .serverIndex = @"serverIndex",
-    .isDebugEnabled = @"isDebugEnabled",
-    .version = @"version",
-    .firstName = @"firstName",
-    .lastName = @"lastName",
-    .phoneNumber = @"phoneNumber",
-    .sendBrokenVideo = @"sendBrokenVideo",
+        .serverURLString = @"serverURLString",
+        .serverIndex = @"serverIndex",
+        .isDebugEnabled = @"isDebugEnabled",
+        .version = @"version",
+        .firstName = @"firstName",
+        .lastName = @"lastName",
+        .phoneNumber = @"phoneNumber",
+        .sendBrokenVideo = @"sendBrokenVideo",
 };
 
 @implementation ZZDebugSettingsStateDomainModel

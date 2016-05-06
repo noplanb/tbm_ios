@@ -45,9 +45,9 @@ static CGFloat const kFontSize = 21;
 {
     if (!ANIsEmpty(placeholder))
     {
-        NSDictionary* attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
-                                     NSFontAttributeName : [UIFont zz_lightFontWithSize:kFontSize]};
-       
+        NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                NSFontAttributeName : [UIFont zz_lightFontWithSize:kFontSize]};
+
         self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
     }
     [self layoutIfNeeded];

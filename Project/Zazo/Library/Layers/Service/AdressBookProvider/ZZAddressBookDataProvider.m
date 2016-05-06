@@ -15,7 +15,7 @@
 #import "ZZContactDomainModel.h"
 #import "ZZUserPresentationHelper.h"
 
-static APAddressBook* _addressBook = nil;
+static APAddressBook *_addressBook = nil;
 
 @implementation ZZAddressBookDataProvider
 
@@ -24,9 +24,9 @@ static APAddressBook* _addressBook = nil;
     _addressBook = nil;
 }
 
-+ (RACSignal*)loadContacts
++ (RACSignal *)loadContacts
 {
-    RACSignal* loadSignal = [RACSignal empty];
+    RACSignal *loadSignal = [RACSignal empty];
     if ([self isAccessGranted])
     {
         loadSignal = [self _loadData];
@@ -41,7 +41,7 @@ static APAddressBook* _addressBook = nil;
 
 #pragma mark - Private
 
-+ (APAddressBook*)_addressbook
++ (APAddressBook *)_addressbook
 {
     if (!_addressBook)
     {
@@ -53,31 +53,31 @@ static APAddressBook* _addressBook = nil;
     return _addressBook;
 }
 
-+ (RACSignal*)_loadData
++ (RACSignal *)_loadData
 {
-    APAddressBook* addressBook = [self _addressbook];
+    APAddressBook *addressBook = [self _addressbook];
     addressBook.fieldsMask = APContactFieldAll;
 
     addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name.firstName" ascending:YES],
-                                    [NSSortDescriptor sortDescriptorWithKey:@"name.lastName" ascending:YES]];
-    
-    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        
-        
+            [NSSortDescriptor sortDescriptorWithKey:@"name.lastName" ascending:YES]];
+
+    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+
+
         [addressBook loadContactsOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) completion:^(NSArray *contacts, NSError *error) {
-            
+
             ANDispatchBlockToBackgroundQueue(^{
-            
-                NSMutableDictionary* result = [NSMutableDictionary new];
-                [contacts enumerateObjectsUsingBlock:^(APContact*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                   
+
+                NSMutableDictionary *result = [NSMutableDictionary new];
+                [contacts enumerateObjectsUsingBlock:^(APContact *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+
                     NSString *firstName = obj.name.firstName;
-                    
+
                     if (ANIsEmpty(firstName) && ANIsEmpty(obj.name.lastName) && !ANIsEmpty(obj.name.compositeName))
                     {
                         firstName = obj.name.compositeName; // Use company name if nothing else
                     }
-                    
+
                     ZZContactDomainModel *item = [ZZContactDomainModel modelWithFirstName:firstName lastName:obj.name.lastName];
                     ZZContactDomainModel *existingItem = result[[item.fullName lowercaseString]];
                     if (existingItem)
@@ -87,23 +87,24 @@ static APAddressBook* _addressBook = nil;
                     item = [self _fillUserModel:item fromContact:obj];
                     result[[item.fullName lowercaseString]] = item;
                 }];
-                
+
                 [result removeObjectForKey:@""];
-                
+
                 [NSObject an_handleSubcriber:subscriber withObject:result error:error];
             });
         }];
-        return [RACDisposable disposableWithBlock:^{}];
-        
-    }] map:^id(NSDictionary* result) {
-        
-        NSArray* value = [result allValues];
-        
+        return [RACDisposable disposableWithBlock:^{
+        }];
+
+    }] map:^id(NSDictionary *result) {
+
+        NSArray *value = [result allValues];
+
         return [value sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES]]];
     }];
 }
 
-+ (ZZContactDomainModel*)_fillUserModel:(ZZContactDomainModel*)model fromContact:(APContact*)contact
++ (ZZContactDomainModel *)_fillUserModel:(ZZContactDomainModel *)model fromContact:(APContact *)contact
 {
     if (!ANIsEmpty(contact.name.firstName))
     {
@@ -111,21 +112,21 @@ static APAddressBook* _addressBook = nil;
         {
             model = [ZZContactDomainModel modelWithFirstName:contact.name.firstName lastName:contact.name.lastName];
         }
-        
+
         model.thumbnail = contact.thumbnail;
-        
-        NSArray* phones = [[contact.phones.rac_sequence map:^id(APPhone* value) {
-            ZZCommunicationDomainModel* communication = [ZZCommunicationDomainModel new];
+
+        NSArray *phones = [[contact.phones.rac_sequence map:^id(APPhone *value) {
+            ZZCommunicationDomainModel *communication = [ZZCommunicationDomainModel new];
             communication.contact = value.number;
             communication.label = value.localizedLabel;
             return communication;
         }] array];
-        
-        NSSet* modelPhones = model.phones ? [NSSet setWithArray:model.phones] : [NSSet set];
-        NSSet* allPhones = [modelPhones setByAddingObjectsFromArray:phones ? : @[]];
+
+        NSSet *modelPhones = model.phones ? [NSSet setWithArray:model.phones] : [NSSet set];
+        NSSet *allPhones = [modelPhones setByAddingObjectsFromArray:phones ?: @[]];
         model.phones = [allPhones allObjects];
-        
-        model.emails = [[contact.emails.rac_sequence map:^id(APEmail* value) {
+
+        model.emails = [[contact.emails.rac_sequence map:^id(APEmail *value) {
             return value.address;
         }] array];
     }

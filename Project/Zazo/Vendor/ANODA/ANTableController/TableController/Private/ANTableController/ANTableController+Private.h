@@ -13,13 +13,17 @@
 
 //tableView delegate helpers
 - (NSString *)_titleForSupplementaryIndex:(NSInteger)index type:(ANSupplementaryViewType)type;
+
 - (void)_registerSupplementaryClass:(Class)viewClass forModelClass:(Class)modelClass type:(ANSupplementaryViewType)type;
-- (UIView*)_supplementaryViewForIndex:(NSInteger)index type:(ANSupplementaryViewType)type;
+
+- (UIView *)_supplementaryViewForIndex:(NSInteger)index type:(ANSupplementaryViewType)type;
+
 - (id)_supplementaryModelForIndex:(NSInteger)index type:(ANSupplementaryViewType)type;
+
 - (CGFloat)_heightForSupplementaryIndex:(NSInteger)index type:(ANSupplementaryViewType)type;
 
 //storage
 
-- (void)_attachStorage:(id<ANStorageInterface>)storage;
+- (void)_attachStorage:(id <ANStorageInterface>)storage;
 
 @end

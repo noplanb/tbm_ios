@@ -6,7 +6,8 @@
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents) {
+typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents)
+{
     ZZRootStateObserverEventsNone,
     ZZRootStateObserverEventsUserAuthorized,
     ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded,
@@ -25,8 +26,10 @@ typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents) {
 @interface ZZRootStateObserver : NSObject
 
 + (id)sharedInstance;
-- (void)addRootStateObserver:(id<ZZRootStateObserverDelegate>)observer;
-- (void)removeRootStateObserver:(id<ZZRootStateObserverDelegate>)observer;
+
+- (void)addRootStateObserver:(id <ZZRootStateObserverDelegate>)observer;
+
+- (void)removeRootStateObserver:(id <ZZRootStateObserverDelegate>)observer;
 
 - (void)notifyWithEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject;
 

@@ -14,13 +14,14 @@
 
 @interface ZZGridWireframe : NSObject
 
-@property (nonatomic, strong) ZZGridPresenter* presenter;
-@property (nonatomic, strong) ZZMainWireframe* mainWireframe;
-@property (nonatomic, strong) UIViewController* gridController;
+@property (nonatomic, strong) ZZGridPresenter *presenter;
+@property (nonatomic, strong) ZZMainWireframe *mainWireframe;
+@property (nonatomic, strong) UIViewController *gridController;
 
 #pragma mark - Details
 
-- (void)presentSMSDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
-- (void)presentSharingDialogWithModel:(ANMessageDomainModel*)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
+- (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
+
+- (void)presentSharingDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
 
 @end

@@ -31,11 +31,11 @@
         [self numberBadge];
         [self sentBadge];
     }
-    
+
     return self;
 }
 
-- (void)updateWithModel:(ZZGridCellViewModel*)model
+- (void)updateWithModel:(ZZGridCellViewModel *)model
 {
     [super updateWithModel:model];
 }
@@ -50,17 +50,17 @@
         _recordView.userInteractionEnabled = YES;
         [self addSubview:_recordView];
         _recordView.tintColor = self.backgroundView.tintColor;
-        
+
         UITapGestureRecognizer *recognizer =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(animate)];
+                [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(animate)];
 
         [_recordView addGestureRecognizer:recognizer];
-        
+
         [_recordView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.centerY.equalTo(self).offset(-16);
-            make.width.equalTo(self.mas_width).multipliedBy(3.0f/4.0f).priorityHigh();
+            make.width.equalTo(self.mas_width).multipliedBy(3.0f / 4.0f).priorityHigh();
             make.width.lessThanOrEqualTo(@85);
             make.height.equalTo(_recordView.mas_width);
         }];
@@ -76,7 +76,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
 }
 
 @end

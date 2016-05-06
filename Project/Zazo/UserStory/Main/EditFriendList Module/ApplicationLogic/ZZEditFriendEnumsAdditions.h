@@ -15,8 +15,9 @@ typedef NS_ENUM(NSInteger, ZZFriendshipStatusType)
     ZZFriendshipStatusTypeHiddenByBoth = 4
 };
 
-NSString* ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType);
-ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString*);
+NSString *ZZFriendshipStatusTypeStringFromValue(ZZFriendshipStatusType);
+
+ZZFriendshipStatusType ZZFriendshipStatusTypeValueFromSrting(NSString *);
 
 
 @interface ZZEditFriendEnumsAdditions : NSObject

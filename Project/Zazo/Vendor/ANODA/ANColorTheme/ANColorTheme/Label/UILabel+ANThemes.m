@@ -9,14 +9,14 @@
 
 @implementation UILabel (ANThemes)
 
-+ (instancetype)an_labelWithTheme:(id<ANColorThemeLabelInterface>)theme
++ (instancetype)an_labelWithTheme:(id <ANColorThemeLabelInterface>)theme
 {
-    UILabel* label = [UILabel new];
+    UILabel *label = [UILabel new];
     [label an_updateAppearanceWithTheme:theme];
     return label;
 }
 
-- (void)an_updateAppearanceWithTheme:(id<ANColorThemeLabelInterface>)theme
+- (void)an_updateAppearanceWithTheme:(id <ANColorThemeLabelInterface>)theme
 {
     if (theme)
     {
@@ -29,11 +29,11 @@
         {
             self.textColor = [theme textColor];
         }
-        
+
         self.textAlignment = [theme textAlignment];
         self.shadowColor = [theme shadowColor];
         self.shadowOffset = [theme shadowOffset];
-        NSString* text = [theme predefinedText];
+        NSString *text = [theme predefinedText];
         if (text)
         {
             self.text = text;

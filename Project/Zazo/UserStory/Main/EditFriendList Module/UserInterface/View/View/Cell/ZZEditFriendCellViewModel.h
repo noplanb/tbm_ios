@@ -19,15 +19,17 @@
 
 @interface ZZEditFriendCellViewModel : NSObject
 
-@property (nonatomic, weak) id<ZZEditFriendCellViewModelDelegate> delegate;
-@property (nonatomic, strong) ZZFriendDomainModel* item;
+@property (nonatomic, weak) id <ZZEditFriendCellViewModelDelegate> delegate;
+@property (nonatomic, strong) ZZFriendDomainModel *item;
 
 @property (nonatomic, assign) BOOL isUpdating;
 
 - (void)updatePhotoImageView:(UIImageView *)imageView;
+
 - (void)updateSwitch:(UISwitch *)aSwitch;
 
 - (NSString *)username;
+
 - (NSString *)abbreviation;
 
 - (NSString *)phoneNumber;

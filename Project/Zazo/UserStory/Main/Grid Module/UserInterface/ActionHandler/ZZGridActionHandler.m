@@ -28,11 +28,11 @@
 #import "ZZStoredSettingsManager.h"
 
 @interface ZZGridActionHandler ()
-<
- ZZHintsControllerDelegate,
- ZZFeatureEventObserverDelegate,
- ZZEventHandlerDelegate
->
+        <
+        ZZHintsControllerDelegate,
+        ZZFeatureEventObserverDelegate,
+        ZZEventHandlerDelegate
+        >
 
 @property (nonatomic, strong) ZZHintsController *hintsController;
 @property (nonatomic, strong) ZZInviteEventHandler *startEventHandler;
@@ -66,9 +66,9 @@
 - (void)_initializeEventHandlers
 {
     NSInteger startEventIndex = 0;
-    __block NSMutableArray* eventHandlers = [NSMutableArray array];
-    
-    [[self _eventHandlers] enumerateObjectsUsingBlock:^(NSString*  _Nonnull className, NSUInteger idx, BOOL * _Nonnull stop) {
+    __block NSMutableArray *eventHandlers = [NSMutableArray array];
+
+    [[self _eventHandlers] enumerateObjectsUsingBlock:^(NSString *_Nonnull className, NSUInteger idx, BOOL *_Nonnull stop) {
         if (idx == startEventIndex)
         {
             self.startEventHandler = [NSClassFromString(className) new];
@@ -76,46 +76,46 @@
         }
         else
         {
-            ZZBaseEventHandler* eventHandler = [NSClassFromString(className) new];
+            ZZBaseEventHandler *eventHandler = [NSClassFromString(className) new];
             [eventHandlers addObject:eventHandler];
         }
     }];
-    
+
     [self _configureDelegatesAndNextHandlerForHandlers:eventHandlers];
 }
 
-- (void)_configureDelegatesAndNextHandlerForHandlers:(NSArray*)handlers
+- (void)_configureDelegatesAndNextHandlerForHandlers:(NSArray *)handlers
 {
     NSInteger nextEventHandlerIndex = 1;
-    
+
     for (NSInteger i = 0; i < handlers.count; i++)
     {
-        ZZBaseEventHandler* eventHandler = handlers[i];
+        ZZBaseEventHandler *eventHandler = handlers[i];
         eventHandler.delegate = self;
-        if ((i + nextEventHandlerIndex ) < handlers.count )
+        if ((i + nextEventHandlerIndex) < handlers.count)
         {
-            eventHandler.eventHandler = handlers[i+nextEventHandlerIndex];
+            eventHandler.eventHandler = handlers[i + nextEventHandlerIndex];
         }
     }
 }
 
 
-- (NSArray*)_eventHandlers
+- (NSArray *)_eventHandlers
 {
     return @[
-             NSStringFromClass([ZZInviteEventHandler class]),
-             NSStringFromClass([ZZPlayEventHandler class]),
-             NSStringFromClass([ZZRecordEventHandler class]),
-             NSStringFromClass([ZZSentMessgeEventHandler class]),
-             NSStringFromClass([ZZViewedMessageEventHandler class]),
-             NSStringFromClass([ZZInviteSomeoneElseEventHandler class]),
-             NSStringFromClass([ZZSentWelcomeEventHandler class]),
-             NSStringFromClass([ZZFronCameraFeatureEventHandler class]),
-             NSStringFromClass([ZZAbortRecordingFeatureEventHandler class]),
-             NSStringFromClass([ZZDeleteFriendsFeatureEventHandler class]),
-             NSStringFromClass([ZZEarpieceFeatureEventHandler class]),
-             NSStringFromClass([ZZSpinFeatureEventHandler class])
-             ];
+            NSStringFromClass([ZZInviteEventHandler class]),
+            NSStringFromClass([ZZPlayEventHandler class]),
+            NSStringFromClass([ZZRecordEventHandler class]),
+            NSStringFromClass([ZZSentMessgeEventHandler class]),
+            NSStringFromClass([ZZViewedMessageEventHandler class]),
+            NSStringFromClass([ZZInviteSomeoneElseEventHandler class]),
+            NSStringFromClass([ZZSentWelcomeEventHandler class]),
+            NSStringFromClass([ZZFronCameraFeatureEventHandler class]),
+            NSStringFromClass([ZZAbortRecordingFeatureEventHandler class]),
+            NSStringFromClass([ZZDeleteFriendsFeatureEventHandler class]),
+            NSStringFromClass([ZZEarpieceFeatureEventHandler class]),
+            NSStringFromClass([ZZSpinFeatureEventHandler class])
+    ];
 }
 
 
@@ -123,11 +123,11 @@
 
 - (void)handleEvent:(ZZGridActionEventType)event
           withIndex:(NSInteger)index
-        friendModel:(ZZFriendDomainModel*)friendModel
+        friendModel:(ZZFriendDomainModel *)friendModel
 {
-      self.lastActionIndex = index;
+    self.lastActionIndex = index;
     __block NSInteger actionIndex = index;
-    
+
     if ([self _isAbleToShowHints])
     {
         [self.startEventHandler handleEvent:event model:friendModel withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
@@ -137,12 +137,12 @@
                 {
                     actionIndex = 2;
                 }
-                
-                
+
+
                 [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
             }
-            
-            
+
+
             [self.featureEventObserver handleEvent:event withModel:model withIndex:actionIndex withCompletionBlock:^(BOOL isFeatureShowed) {
                 if (!isFeatureShowed && type == ZZHintsTypeNoHint)
                 {
@@ -158,19 +158,19 @@
     [self.featureEventObserver updateFeaturesWithRemoteFriendMkeys:friendsMkeys];
 }
 
-- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZFriendDomainModel*)model index:(NSInteger)index
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZFriendDomainModel *)model index:(NSInteger)index
 {
-    NSString* formatParametr = model.fullName;
-  
+    NSString *formatParametr = model.fullName;
+
     [self.hintsController showHintWithType:hintType
                                 focusFrame:[self.userInterface focusFrameForIndex:index]
                                  withIndex:index
                                  withModel:model
                            formatParameter:formatParametr];
-    
+
     UIView *view = [self.delegate presentedView];
-    
-    [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([obj isKindOfClass:[TBMFeatureUnlockDialogView class]])
         {
             [view bringSubviewToFront:obj];
@@ -188,21 +188,21 @@
     {
         [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2 friendModel:nil];
     }
-    
+
     else if (type == ZZHintsTypeInviteSomeElseHint)
     {
         [self _showNextFeatureHintIfNeeded];
     }
-    
+
     else if ((type == ZZHintsTypeFrontCameraUsageHint ||
-        type == ZZHintsTypeAbortRecordingUsageHint ||
-        type == ZZHintsTypeDeleteFriendUsageHint ||
-         type == ZZHintsTypeEarpieceUsageHint ||
-         type == ZZHintsTypeSpinUsageHint) &&
-        ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            type == ZZHintsTypeAbortRecordingUsageHint ||
+            type == ZZHintsTypeDeleteFriendUsageHint ||
+            type == ZZHintsTypeEarpieceUsageHint ||
+            type == ZZHintsTypeSpinUsageHint) &&
+            ![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
-            
+
         }];
     }
 }
@@ -212,14 +212,14 @@
     if (![ZZGridActionStoredSettings shared].spinHintWasShown)
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
-            
+
         }];
     }
 }
 
 - (UIView *)hintPresentedView
 {
-   return [self.delegate presentedView];
+    return [self.delegate presentedView];
 }
 
 - (void)showMenuTab
@@ -250,8 +250,9 @@
                 [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
             }];
-            
-        } break;
+
+        }
+            break;
         case ZZGridActionFeatureTypeAbortRec:
         {
             NSInteger middleRightIndex = 5;
@@ -259,36 +260,41 @@
                 [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeAbortRec];
             }];
-            
-        } break;
+
+        }
+            break;
         case ZZGridActionFeatureTypeDeleteFriend:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeDeleteFriend];
             }];
-            
-        } break;
+
+        }
+            break;
         case ZZGridActionFeatureTypeEarpiece:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeEarpiece];
             }];
-            
-        } break;
+
+        }
+            break;
         case ZZGridActionFeatureTypeSpinWheel:
         {
             [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
                 [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6 friendModel:model];
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSpinWheel];
             }];
-            
-        } break;
-            
+
+        }
+            break;
+
         default:
         {
-        } break;
+        }
+            break;
     }
 }
 
@@ -311,13 +317,13 @@
 - (BOOL)_isAbleToShowHints
 {
     BOOL isAble = NO;
-    
+
     if (![[ZZVideoRecorder shared] isRecording] &&
-        ![self.delegate isVideoPlayingNow])
+            ![self.delegate isVideoPlayingNow])
     {
         isAble = YES;
     }
-    
+
     return isAble;
 }
 
@@ -338,7 +344,7 @@
 
 #pragma mark - Lazy Load
 
-- (ZZHintsController*)hintsController
+- (ZZHintsController *)hintsController
 {
     if (!_hintsController)
     {

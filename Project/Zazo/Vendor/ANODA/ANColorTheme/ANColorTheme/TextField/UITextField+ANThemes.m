@@ -9,14 +9,14 @@
 
 @implementation UITextField (ANThemes)
 
-+ (instancetype)an_textFieldWithTheme:(id<ANTextFieldColorThemeInterface>)theme
++ (instancetype)an_textFieldWithTheme:(id <ANTextFieldColorThemeInterface>)theme
 {
-    UITextField* object = [UITextField new];
+    UITextField *object = [UITextField new];
     [object an_updateAppearanceWithTheme:theme];
     return object;
 }
 
-- (void)an_updateAppearanceWithTheme:(id<ANTextFieldColorThemeInterface>)theme
+- (void)an_updateAppearanceWithTheme:(id <ANTextFieldColorThemeInterface>)theme
 {
     if (theme)
     {
@@ -33,15 +33,15 @@
         {
             self.placeholder = [theme placeholder];
         }
-        
+
         if ([theme backgroundColor])
         {
             self.backgroundColor = [theme backgroundColor];
         }
-        
+
         self.textAlignment = [theme textAlignment];
         self.layer.cornerRadius = [theme cornerRadius];
-        NSString* text = [theme predefinedText];
+        NSString *text = [theme predefinedText];
         if (text)
         {
             self.text = text;
@@ -49,7 +49,7 @@
         if ([theme placeholderColor])
         {
             NSDictionary *attrs = @{NSFontAttributeName : self.font,
-                                    NSForegroundColorAttributeName : [theme placeholderColor]};
+                    NSForegroundColorAttributeName : [theme placeholderColor]};
             self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder
                                                                          attributes:attrs];
         }

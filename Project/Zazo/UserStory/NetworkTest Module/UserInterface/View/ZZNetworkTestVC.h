@@ -12,6 +12,6 @@
 
 @interface ZZNetworkTestVC : ZZBaseVC <ZZNetworkTestViewInterface>
 
-@property (nonatomic, weak) id<ZZNetworkTestModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZNetworkTestModuleInterface> eventHandler;
 
 @end

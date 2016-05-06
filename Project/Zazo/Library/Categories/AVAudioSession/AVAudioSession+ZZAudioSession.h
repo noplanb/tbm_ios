@@ -12,8 +12,11 @@
 @interface AVAudioSession (ZZAudioSession)
 
 - (void)setupApplicationAudioSession;
-- (NSError*)activate;
+
+- (NSError *)activate;
+
 - (void)startPlaying;
+
 - (void)startRecording;
 
 @end

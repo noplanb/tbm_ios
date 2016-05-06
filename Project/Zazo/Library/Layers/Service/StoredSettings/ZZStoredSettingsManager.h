@@ -8,7 +8,8 @@
 
 @interface ZZStoredSettingsManager : NSObject
 
-typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
+typedef NS_ENUM(NSUInteger, ZZConfigServerState)
+{
     ZZConfigServerStateProduction = 0,
     ZZConfigServerStateDeveloper = 1,
     ZZConfigServerStateCustom = 2,
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 @property (nonatomic, assign) BOOL shouldUseServerLogging;
 @property (nonatomic, assign) BOOL shouldSendIncorrectFilesize; // For duplicate upload debug
 
-@property (nonatomic, strong) NSString* serverURLString;
+@property (nonatomic, strong) NSString *serverURLString;
 @property (nonatomic, assign) ZZConfigServerState serverEndpointState;
 @property (nonatomic, assign) BOOL isPushNotificatonEnabled;
 
@@ -33,12 +34,11 @@ typedef NS_ENUM(NSUInteger, ZZConfigServerState) {
 
 #pragma mark - User
 
-@property (nonatomic, copy) NSString* userID;
-@property (nonatomic, copy) NSString* authToken;
-@property (nonatomic, copy) NSString* mobileNumber;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *authToken;
+@property (nonatomic, copy) NSString *mobileNumber;
 
 @property (nonatomic, assign) BOOL wasPermissionAccess;
-
 
 
 + (instancetype)shared;

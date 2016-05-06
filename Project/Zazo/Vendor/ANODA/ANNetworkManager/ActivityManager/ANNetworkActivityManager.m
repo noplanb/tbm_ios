@@ -17,6 +17,7 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
 @property (readonly, nonatomic, getter = isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;
 
 - (void)updateNetworkActivityIndicatorVisibility;
+
 - (void)updateNetworkActivityIndicatorVisibilityDelayed;
 
 @end
@@ -29,18 +30,19 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [ANNetworkActivityManager new];
-	});
+    });
     return _sharedClient;
 }
 
-+ (NSSet *)keyPathsForValuesAffectingIsNetworkActivityIndicatorVisible {
++ (NSSet *)keyPathsForValuesAffectingIsNetworkActivityIndicatorVisible
+{
     return [NSSet setWithObject:@"activityCount"];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
     [_activityIndicatorVisibilityTimer invalidate];
 }
 
@@ -53,12 +55,12 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
         {
             [self.activityIndicatorVisibilityTimer invalidate];
             self.activityIndicatorVisibilityTimer =
-            [NSTimer timerWithTimeInterval:kANetworkActivityIndicatorInvisibilityDelay
-                                    target:self
-                                  selector:@selector(updateNetworkActivityIndicatorVisibility)
-                                  userInfo:nil
-                                   repeats:NO];
-            
+                    [NSTimer timerWithTimeInterval:kANetworkActivityIndicatorInvisibilityDelay
+                                            target:self
+                                          selector:@selector(updateNetworkActivityIndicatorVisibility)
+                                          userInfo:nil
+                                           repeats:NO];
+
             [[NSRunLoop mainRunLoop] addTimer:self.activityIndicatorVisibilityTimer forMode:NSRunLoopCommonModes];
         }
         else
@@ -84,13 +86,14 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
 
 - (void)setActivityCount:(NSInteger)activityCount
 {
-	@synchronized(self) {
-        
-		_activityCount = activityCount;
-	}
-    
+    @synchronized (self)
+    {
+
+        _activityCount = activityCount;
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+
         [self updateNetworkActivityIndicatorVisibilityDelayed];
     });
 }
@@ -98,14 +101,15 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
 - (void)incrementActivityCount
 {
     [self willChangeValueForKey:@"activityCount"];
-	@synchronized(self) {
-        
-		_activityCount++;
-	}
+    @synchronized (self)
+    {
+
+        _activityCount++;
+    }
     [self didChangeValueForKey:@"activityCount"];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+
         [self updateNetworkActivityIndicatorVisibilityDelayed];
     });
 }
@@ -113,20 +117,21 @@ static NSTimeInterval const kANetworkActivityIndicatorInvisibilityDelay = 0.17;
 - (void)decrementActivityCount
 {
     [self willChangeValueForKey:@"activityCount"];
-	@synchronized(self) {
-        
+    @synchronized (self)
+    {
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu"
-        
-		_activityCount = MAX(_activityCount - 1, 0);
-        
+
+        _activityCount = MAX(_activityCount - 1, 0);
+
 #pragma clang diagnostic pop
-        
-	}
+
+    }
     [self didChangeValueForKey:@"activityCount"];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+
         [self updateNetworkActivityIndicatorVisibilityDelayed];
     });
 }

@@ -12,15 +12,15 @@
 
 #pragma mark - Override
 
-- (BOOL)isEqualToCommunicationDomainModel:(ZZCommunicationDomainModel*)model
+- (BOOL)isEqualToCommunicationDomainModel:(ZZCommunicationDomainModel *)model
 {
     if (!model)
     {
         return NO;
     }
-    
+
     BOOL haveEqualItems = (ANIsEmpty(self.contact) && ANIsEmpty(model.contact)) ||
-    [self.contact isEqualToString:model.contact];
+            [self.contact isEqualToString:model.contact];
     return haveEqualItems;
 }
 

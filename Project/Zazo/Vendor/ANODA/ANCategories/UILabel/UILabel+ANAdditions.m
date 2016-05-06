@@ -16,7 +16,7 @@
 
 - (CGSize)an_textContentSizeConstrainedToWidth:(CGFloat)width
 {
-    NSDictionary *attributes = @{NSFontAttributeName: self.font};
+    NSDictionary *attributes = @{NSFontAttributeName : self.font};
     CGRect textRect = [self.text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
@@ -28,7 +28,7 @@
 {
     CGSize labelSize = [self an_textContentSizeConstrainedToWidth:width];
     return CGSizeMake(labelSize.width + insets.left + insets.right,
-                      labelSize.height + insets.top + insets.bottom);
+            labelSize.height + insets.top + insets.bottom);
 }
 
 @end

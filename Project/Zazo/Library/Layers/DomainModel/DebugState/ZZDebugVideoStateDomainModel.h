@@ -8,16 +8,17 @@
 
 #import "ANBaseDomainModel.h"
 
-extern const struct ZZDebugVideoStateDomainModelAttributes {
+extern const struct ZZDebugVideoStateDomainModelAttributes
+{
     __unsafe_unretained NSString *itemID;
     __unsafe_unretained NSString *status;
 } ZZDebugVideoStateDomainModelAttributes;
 
 @interface ZZDebugVideoStateDomainModel : ANBaseDomainModel
 
-@property (nonatomic, copy) NSString* itemID;
-@property (nonatomic, copy) NSString* status;
+@property (nonatomic, copy) NSString *itemID;
+@property (nonatomic, copy) NSString *status;
 
-+ (instancetype)itemWithItemID:(NSString*)itemID status:(NSString*)status;
++ (instancetype)itemWithItemID:(NSString *)itemID status:(NSString *)status;
 
 @end

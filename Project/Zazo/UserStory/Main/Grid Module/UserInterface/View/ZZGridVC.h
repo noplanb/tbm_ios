@@ -13,6 +13,6 @@
 
 @interface ZZGridVC : ZZBaseVC <ZZGridViewInterface, ZZTabbarViewItem>
 
-@property (nonatomic, weak) id<ZZGridModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZGridModuleInterface> eventHandler;
 
 @end

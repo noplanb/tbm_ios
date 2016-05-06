@@ -43,7 +43,7 @@
     if (!_tableView)
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.contentInset = UIEdgeInsetsMake(8,0,0,0);
+        _tableView.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
         _tableView.scrollsToTop = NO;
         _tableView.bounces = NO;
     }

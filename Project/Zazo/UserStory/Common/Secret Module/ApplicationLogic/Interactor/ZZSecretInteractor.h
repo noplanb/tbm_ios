@@ -10,7 +10,7 @@
 
 @interface ZZSecretInteractor : NSObject <ZZSecretInteractorInput>
 
-@property (nonatomic, weak) id<ZZSecretInteractorOutput> output;
+@property (nonatomic, weak) id <ZZSecretInteractorOutput> output;
 
 @end
 

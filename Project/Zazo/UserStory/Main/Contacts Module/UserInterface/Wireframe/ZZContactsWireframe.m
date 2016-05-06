@@ -15,8 +15,8 @@
 
 @interface ZZContactsWireframe ()
 
-@property (nonatomic, strong, readwrite) UIViewController*contactsController;
-@property (nonatomic, strong, readwrite) ZZContactsPresenter * presenter;
+@property (nonatomic, strong, readwrite) UIViewController *contactsController;
+@property (nonatomic, strong, readwrite) ZZContactsPresenter *presenter;
 
 @end
 
@@ -42,17 +42,17 @@
 
 - (void)_setup
 {
-    ZZContactsVC * menuController = [ZZContactsVC new];
-    ZZContactsInteractor * interactor = [ZZContactsInteractor new];
-    ZZContactsPresenter * presenter = [ZZContactsPresenter new];
-    
+    ZZContactsVC *menuController = [ZZContactsVC new];
+    ZZContactsInteractor *interactor = [ZZContactsInteractor new];
+    ZZContactsPresenter *presenter = [ZZContactsPresenter new];
+
     interactor.output = presenter;
 
     menuController.eventHandler = presenter;
-    
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
-    
+
     [presenter configurePresenterWithUserInterface:menuController];
 
     self.presenter = presenter;

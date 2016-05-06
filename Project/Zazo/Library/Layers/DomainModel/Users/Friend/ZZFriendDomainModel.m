@@ -16,24 +16,24 @@
 #import "ZZFriendDataHelper.h"
 
 const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
-    .idTbm = @"idTbm",
-    .firstName = @"firstName",
-    .lastName = @"lastName",
-    .mobileNumber = @"mobileNumber",
-    .mKey = @"mKey",
-    .cKey = @"cKey",
-    .uploadRetryCount = @"uploadRetryCount",
-    .lastActionTimestamp = @"lastActionTimestamp",
-    .lastVideoStatusEventType = @"lastVideoStatusEventType",
-    .lastIncomingVideoStatus = @"lastIncomingVideoStatus",
-    .outgoingVideoItemID = @"outgoingVideoItemID",
-    .outgoingVideoStatus = @"outgoingVideoStatus",
-    .hasApp = @"hasApp",
-    .friendshipStatus = @"friendshipStatus",
-    .isFriendshipCreator = @"isFriendshipCreator",
-    .friendshipCreatorMkey = @"friendshipCreatorMkey",
-    .cid = @"cid",
- };
+        .idTbm = @"idTbm",
+        .firstName = @"firstName",
+        .lastName = @"lastName",
+        .mobileNumber = @"mobileNumber",
+        .mKey = @"mKey",
+        .cKey = @"cKey",
+        .uploadRetryCount = @"uploadRetryCount",
+        .lastActionTimestamp = @"lastActionTimestamp",
+        .lastVideoStatusEventType = @"lastVideoStatusEventType",
+        .lastIncomingVideoStatus = @"lastIncomingVideoStatus",
+        .outgoingVideoItemID = @"outgoingVideoItemID",
+        .outgoingVideoStatus = @"outgoingVideoStatus",
+        .hasApp = @"hasApp",
+        .friendshipStatus = @"friendshipStatus",
+        .isFriendshipCreator = @"isFriendshipCreator",
+        .friendshipCreatorMkey = @"friendshipCreatorMkey",
+        .cid = @"cid",
+};
 
 @implementation ZZFriendDomainModel
 
@@ -52,25 +52,25 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return nil;
 }
 
-+ (FEMObjectMapping*)mapping
++ (FEMObjectMapping *)mapping
 {
     return [FEMObjectMapping mappingForClass:[self class] configuration:^(FEMObjectMapping *mapping) {
-        
+
         [mapping addAttributesFromDictionary:
-         @{ZZFriendDomainModelAttributes.firstName              : @"first_name",
-           ZZFriendDomainModelAttributes.lastName               : @"last_name",
-           ZZFriendDomainModelAttributes.mobileNumber           : @"mobile_number",
-           ZZFriendDomainModelAttributes.idTbm                  : @"id",
-           ZZFriendDomainModelAttributes.mKey                   : @"mkey",
-           ZZFriendDomainModelAttributes.cKey                   : @"ckey",
-           ZZFriendDomainModelAttributes.friendshipStatus       : @"connection_status",
-           ZZFriendDomainModelAttributes.friendshipCreatorMkey  : @"connection_creator_mkey",
-           ZZFriendDomainModelAttributes.cid                    : @"cid"
-           }];
-        
-        FEMAttribute* attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
+                @{ZZFriendDomainModelAttributes.firstName : @"first_name",
+                        ZZFriendDomainModelAttributes.lastName : @"last_name",
+                        ZZFriendDomainModelAttributes.mobileNumber : @"mobile_number",
+                        ZZFriendDomainModelAttributes.idTbm : @"id",
+                        ZZFriendDomainModelAttributes.mKey : @"mkey",
+                        ZZFriendDomainModelAttributes.cKey : @"ckey",
+                        ZZFriendDomainModelAttributes.friendshipStatus : @"connection_status",
+                        ZZFriendDomainModelAttributes.friendshipCreatorMkey : @"connection_creator_mkey",
+                        ZZFriendDomainModelAttributes.cid : @"cid"
+                }];
+
+        FEMAttribute *attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
                                                         toKeyPath:@"has_app"
-                                                              map:^id(NSString* value) {
+                                                              map:^id(NSString *value) {
                                                                   return @([value isEqualToString:@"true"]);
                                                               }];
         [mapping addAttribute:attribute];
@@ -103,16 +103,16 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     {
         return NO;
     }
-    
+
     for (ZZVideoDomainModel *videoModel in self.videos)
     {
         if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
-            videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
+                videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
         {
             return YES;
         }
     }
-    
+
     return NO;
 }
 
@@ -138,15 +138,15 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     BOOL isFirstNameEqual = NO;
     BOOL isLastNameEqual = NO;
     BOOL isPhoneEqual = NO;
-    
+
     if ([object isKindOfClass:[self class]])
     {
-         isFirstNameEqual = YES;
-         isLastNameEqual = YES;
-         isPhoneEqual = YES;
-        
-        ZZFriendDomainModel* friendModel = object;
-        
+        isFirstNameEqual = YES;
+        isLastNameEqual = YES;
+        isPhoneEqual = YES;
+
+        ZZFriendDomainModel *friendModel = object;
+
         if ([friendModel.firstName isKindOfClass:[NSString class]])
         {
             isFirstNameEqual = [friendModel.firstName isEqualToString:self.firstName];
@@ -155,7 +155,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
         {
             isFirstNameEqual = (friendModel.firstName == self.firstName);
         }
-            
+
         if ([friendModel.lastName isKindOfClass:[NSString class]])
         {
             isLastNameEqual = [friendModel.lastName isEqualToString:self.lastName];
@@ -164,7 +164,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
         {
             isLastNameEqual = (friendModel.lastName == self.lastName);
         }
-        
+
         if ([friendModel.mobileNumber isKindOfClass:[NSString class]])
         {
             isPhoneEqual = [friendModel.mobileNumber isEqualToString:self.mobileNumber];
@@ -174,7 +174,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
             isPhoneEqual = (friendModel.mobileNumber == self.mobileNumber);
         }
     }
-    
+
     return (isFirstNameEqual && isLastNameEqual && isPhoneEqual);
 }
 
@@ -185,11 +185,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
 #pragma mark - Friend Name
 
-- (NSString* )displayName
+- (NSString *)displayName
 {
     NSInteger maxLength = 100;
     NSString *name;
-    
+
     if ([ZZFriendDataHelper isUniqueFirstName:self.firstName friendID:self.idTbm])
     {
         name = self.firstName;
@@ -198,11 +198,11 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     {
         name = [NSString stringWithFormat:@"%@. %@", [self firstInitial], self.lastName];
     }
-    
+
     // Limit to 12 characgters
     if (name.length > maxLength)
         name = [name substringWithRange:NSMakeRange(0, maxLength - 1)];
-    
+
     return name;
 }
 

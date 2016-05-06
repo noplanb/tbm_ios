@@ -7,7 +7,7 @@
 
 @interface ZZMenuWireframe : NSObject
 
-@property (nonatomic, strong, readonly) UIViewController* menuController;
+@property (nonatomic, strong, readonly) UIViewController *menuController;
 @property (nonatomic, weak) ZZMainWireframe *mainWireframe;
 
 - (void)showSecretScreen;

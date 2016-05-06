@@ -10,9 +10,10 @@
 
 @interface ZZDebugStateCellViewModel : NSObject
 
-+ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel*)item;
++ (instancetype)viewModelWithItem:(ZZDebugVideoStateDomainModel *)item;
 
-- (NSString*)title;
-- (NSString*)status;
+- (NSString *)title;
+
+- (NSString *)status;
 
 @end

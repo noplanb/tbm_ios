@@ -15,6 +15,8 @@
 
 @end
 
-NSString* boolToStr(BOOL value);
-NSString* intToStr(NSInteger value);
-NSString* ullToShortStr(unsigned long long ull);
+NSString *boolToStr(BOOL value);
+
+NSString *intToStr(NSInteger value);
+
+NSString *ullToShortStr(unsigned long long ull);

@@ -21,10 +21,10 @@
 
 @interface ZZAppDependencies ()
 
-@property (nonatomic, strong) ZZRootWireframe* rootWireframe;
-@property (nonatomic, strong) CTCallCenter* callCenter;
-@property (nonatomic, strong) ZZNotificationsHandler* notificationsHandler;
-@property (nonatomic, strong) ZZApplicationRootService* rootService;
+@property (nonatomic, strong) ZZRootWireframe *rootWireframe;
+@property (nonatomic, strong) CTCallCenter *callCenter;
+@property (nonatomic, strong) ZZNotificationsHandler *notificationsHandler;
+@property (nonatomic, strong) ZZApplicationRootService *rootService;
 
 @property (nonatomic, assign) BOOL initialisationCompleted;
 
@@ -33,29 +33,29 @@
 @implementation ZZAppDependencies
 
 - (void)initialApplicationSetup:(UIApplication *)application
-                  launchOptions:(NSDictionary*)options
-                         window:(UIWindow*)window
+                  launchOptions:(NSDictionary *)options
+                         window:(UIWindow *)window
 {
     [ANCrashlyticsAdapter start];
     [ZZContentDataAccessor startWithCompletionBlock:^{
         [ZZRollbarAdapter shared];
-        
+
         [self _logAppLaunch];
-        
+
         [ZZCacheCleaner cleanIfNeeded];
-        
+
         ANDispatchBlockToBackgroundQueue(^{
             [ZZColorTheme shared];
         });
-        
+
         [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
-        
+
         self.notificationsHandler = [ZZNotificationsHandler new];
         self.rootService = [ZZApplicationRootService new];
-        
+
         self.notificationsHandler.delegate = self.rootService;
         self.rootService.notificationDelegate = (id)self.notificationsHandler;
-        
+
         NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotification)
         {
@@ -68,11 +68,11 @@
 - (void)_logAppLaunch
 {
     NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    
+
     NSString *appName = bundleInfo[@"CFBundleDisplayName"];
     NSString *appVersion = bundleInfo[@"CFBundleShortVersionString"];
     NSString *bundleVersion = bundleInfo[@"CFBundleVersion"];
-    
+
     ZZLogInfo(@"App launch: %@ %@ (%@)", appName, appVersion, bundleVersion);
 }
 
@@ -86,18 +86,18 @@
 - (void)handleApplicationDidBecomeActive
 {
     ZZLogEvent(@"APP ENTERED FOREGROUND");
-    
+
     if (self.initialisationCompleted)
     {
         [self.rootService checkApplicationPermissionsAndResources];
     }
-    
+
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
 }
 
 - (void)handleApplicationWillEnterForeground
 {
-  
+
 }
 
 - (void)handleApplicationWillTerminate
@@ -108,7 +108,7 @@
 
 - (void)handleApplicationDidEnterInBackground
 {
-    ZZLogInfo(@"applicationDidEnterBackground: backgroundTimeRemaining = %f",[[UIApplication sharedApplication] backgroundTimeRemaining]);
+    ZZLogInfo(@"applicationDidEnterBackground: backgroundTimeRemaining = %f", [[UIApplication sharedApplication] backgroundTimeRemaining]);
     [ZZContentDataAccessor saveDataBase];
     ZZLogEvent(@"APP ENTERED BACKGROUND");
 }
@@ -120,7 +120,7 @@
 {
     [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
         self.initialisationCompleted = YES;
-        
+
         if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground)
         {
             [self.rootService checkApplicationPermissionsAndResources];
@@ -131,7 +131,7 @@
 
 #pragma mark - External URL
 
-- (BOOL)handleOpenURL:(NSURL*)url inApplication:(NSString*)application
+- (BOOL)handleOpenURL:(NSURL *)url inApplication:(NSString *)application
 {
     return NO;
 }
@@ -139,7 +139,7 @@
 
 #pragma mark - Background Session
 
-- (void)handleBackgroundSessionWithIdentifier:(NSString*)identifier completionHandler:(ANCodeBlock)completionHandler
+- (void)handleBackgroundSessionWithIdentifier:(NSString *)identifier completionHandler:(ANCodeBlock)completionHandler
 {
     [self.rootService handleBackgroundSessionWithIdentifier:identifier completionHandler:completionHandler];
 }
@@ -147,7 +147,7 @@
 
 #pragma mark - Push
 
-- (void)handleApplicationDidRegisterForPushWithToken:(NSData*)token
+- (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token
 {
     [self.notificationsHandler receivedPushNotificationsToken:token];
 }
@@ -157,12 +157,12 @@
     [self.notificationsHandler handlePushNotification:userInfo];
 }
 
-- (void)handleNotificationSettings:(UIUserNotificationSettings*)settings
+- (void)handleNotificationSettings:(UIUserNotificationSettings *)settings
 {
     [self.notificationsHandler applicationRegisteredWithSettings:settings];
 }
 
-- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+- (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     [self.notificationsHandler applicationDidFailToRegisterWithError:error];
 }
@@ -170,7 +170,7 @@
 
 #pragma mark - Private
 
-- (ZZRootWireframe*)rootWireframe
+- (ZZRootWireframe *)rootWireframe
 {
     if (!_rootWireframe)
     {

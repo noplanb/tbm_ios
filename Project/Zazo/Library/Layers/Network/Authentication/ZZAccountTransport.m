@@ -12,19 +12,19 @@
 
 @implementation ZZAccountTransport
 
-+ (RACSignal*)registerUserWithParameters:(NSDictionary*)parameters
++ (RACSignal *)registerUserWithParameters:(NSDictionary *)parameters
 {
     NSParameterAssert(parameters);
     return [[ZZNetworkTransport shared] requestWithPath:kApiAuthRegistration parameters:parameters httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)verifyCodeWithParameters:(NSDictionary*)parameters
++ (RACSignal *)verifyCodeWithParameters:(NSDictionary *)parameters
 {
     NSParameterAssert(parameters);
-    
+
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"mkey"];
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"auth"];
-    
+
     NSURLCredential *cred = [[NSURLCredential alloc] initWithUser:username
                                                          password:password
                                                       persistence:NSURLCredentialPersistenceForSession];

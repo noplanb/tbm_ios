@@ -7,26 +7,26 @@
 
 #import "ANError.h"
 
-NSString* const kErrorCodeKey = @"code";
-NSString* const kErrorMessageKey = @"message";
-NSString* const kErrorDomain = @"";
+NSString *const kErrorCodeKey = @"code";
+NSString *const kErrorMessageKey = @"message";
+NSString *const kErrorDomain = @"";
 
 @implementation ANError
 
 + (instancetype)apiErrorWithDictionary:(NSDictionary *)dictionary
 {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:dictionary[kErrorMessageKey],
-                              kErrorMessageKey, nil];
+                                                                        kErrorMessageKey, nil];
 
     return [ANError errorWithDomain:kErrorDomain
-                                  code:[dictionary[kErrorCodeKey] integerValue]
-                              userInfo:userInfo];
+                               code:[dictionary[kErrorCodeKey] integerValue]
+                           userInfo:userInfo];
 }
 
 + (instancetype)errorWithKey:(NSString *)key
 {
-    NSDictionary* userInfo = @{kErrorMessageKey : key};
-    
+    NSDictionary *userInfo = @{kErrorMessageKey : key};
+
     return [ANError errorWithDomain:kErrorDomain code:0 userInfo:userInfo];
 }
 

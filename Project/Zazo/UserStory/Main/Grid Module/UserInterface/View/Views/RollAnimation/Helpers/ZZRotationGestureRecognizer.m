@@ -50,7 +50,7 @@
     CGFloat y = (fabs(point.y) - view.frame.size.height / 2);
     CGFloat radius = sqrtf(x * x + y * y);
 
-    CGFloat angleVelocity = (CGFloat) sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / radius;
+    CGFloat angleVelocity = (CGFloat)sqrtf(velocity.x * velocity.x + velocity.y * velocity.y) / radius;
 
     ZZSpinDirection direction = [self directionOfSpinInView:view];
     if (direction == ZZSpinDirectionClockwise)

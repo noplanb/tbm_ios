@@ -31,6 +31,7 @@
 * get angle velocity from linear velocity on pan
 */
 - (CGFloat)angleVelocityInView:(UIView *)view;
+
 - (void)stateChanged;
 
 @end

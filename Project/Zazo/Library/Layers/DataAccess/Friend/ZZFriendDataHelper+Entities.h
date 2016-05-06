@@ -8,6 +8,6 @@
 
 @interface ZZFriendDataHelper (Entities)
 
-+ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend*)friendEntity;
++ (NSInteger)unviewedVideoCountWithFriend:(TBMFriend *)friendEntity;
 
 @end

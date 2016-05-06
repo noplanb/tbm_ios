@@ -34,7 +34,7 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     [self layoutTableFooterView];
 }
 
@@ -43,7 +43,7 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
 {
     if (self.bottomStickedFooterView == nil)
         return;
-    
+
     __block CGFloat footerContentMinY, footerContentMaxY;
     [self.tableFooterView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         CGRect frame = [obj frame];
@@ -52,21 +52,22 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
             footerContentMinY = CGRectGetMinY(frame);
             footerContentMaxY = CGRectGetMaxY(frame);
         }
-        else {
+        else
+        {
             footerContentMinY = MIN(CGRectGetMinY(frame), footerContentMinY);
             footerContentMaxY = MAX(CGRectGetMaxY(frame), footerContentMaxY);
         }
     }];
-    
+
     // frame
     CGFloat height = MAX(MAX(self.contentSize.height,
-                             self.frame.size.height) - self.tableFooterView.frame.origin.y,
-                         footerContentMaxY - footerContentMinY + 10.0);
-    
+            self.frame.size.height) - self.tableFooterView.frame.origin.y,
+            footerContentMaxY - footerContentMinY + 10.0);
+
     self.tableFooterView.frame = CGRectMake(0,
-                                            self.tableFooterView.frame.origin.y,
-                                            self.frame.size.width,
-                                            height);
+            self.tableFooterView.frame.origin.y,
+            self.frame.size.width,
+            height);
 }
 
 - (void)setBottomStickedFooterView:(UIView *)bottomStickedFooterView
@@ -79,7 +80,7 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
 {
     self.rowHeight = kDefaultTableViewCellHeight;
     self.sectionHeaderHeight = kDefaultTableViewHeaderHeight;
-    
+
     self.backgroundColor = [UIColor clearColor];
     self.backgroundView = nil;
     self.separatorColor = [UIColor an_colorWithHexString:@"D7D6DA"];
@@ -94,7 +95,7 @@ static CGFloat const kDefaultTableViewHeaderHeight = 40;
     {
         return YES;
     }
-    
+
     return [super touchesShouldCancelInContentView:view];
 }
 

@@ -7,7 +7,8 @@
 
 @protocol ZZMenuInteractorInput <NSObject>
 
-- (NSString * )username;
+- (NSString *)username;
+
 - (void)loadFeedbackModel;
 
 @end
@@ -15,7 +16,7 @@
 
 @protocol ZZMenuInteractorOutput <NSObject>
 
-- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel*)model;
+- (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model;
 
 
 @end

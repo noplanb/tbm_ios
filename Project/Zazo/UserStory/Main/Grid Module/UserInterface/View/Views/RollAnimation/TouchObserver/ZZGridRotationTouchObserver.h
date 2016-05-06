@@ -25,8 +25,10 @@
 @property (nonatomic, weak) id <ZZGridRotationTouchObserverDelegate> delegate;
 @property (nonatomic, assign) BOOL isMoving;
 
-- (instancetype)initWithGridView:(ZZGridView*)gridView;
+- (instancetype)initWithGridView:(ZZGridView *)gridView;
+
 - (BOOL)isGridRotate;
+
 - (void)placeCells;
 
 @end

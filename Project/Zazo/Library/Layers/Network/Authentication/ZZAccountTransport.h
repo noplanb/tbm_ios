@@ -8,7 +8,8 @@
 
 @interface ZZAccountTransport : NSObject
 
-+ (RACSignal*)registerUserWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)verifyCodeWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)registerUserWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)verifyCodeWithParameters:(NSDictionary *)parameters;
 
 @end

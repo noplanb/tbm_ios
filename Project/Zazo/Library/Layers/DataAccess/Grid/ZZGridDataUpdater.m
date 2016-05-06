@@ -16,28 +16,28 @@
 
 @implementation ZZGridDataUpdater
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel *)gridModel
++ (ZZGridDomainModel *)upsertModel:(ZZGridDomainModel *)gridModel
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        
-        TBMGridElement* gridEntity = nil;
-        gridEntity =  [ZZGridDataProvider entityWithItemID:gridModel.itemID];
+    return ZZDispatchOnMainThreadAndReturn(^id {
+
+        TBMGridElement *gridEntity = nil;
+        gridEntity = [ZZGridDataProvider entityWithItemID:gridModel.itemID];
         if (!gridEntity)
         {
             gridEntity = [TBMGridElement MR_createEntityInContext:[self _context]];
         }
         [ZZGridModelsMapper fillEntity:gridEntity fromModel:gridModel];
         [gridEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        
+
         return [ZZGridDataProvider modelFromEntity:gridEntity];
     });
 }
 
-+ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel*)friendModel
++ (ZZGridDomainModel *)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel *)friendModel
 {
-    return ZZDispatchOnMainThreadAndReturn(^id{
-        
-        TBMGridElement* gridElementEntity = [ZZGridDataProvider entityWithItemID:itemID];
+    return ZZDispatchOnMainThreadAndReturn(^id {
+
+        TBMGridElement *gridElementEntity = [ZZGridDataProvider entityWithItemID:itemID];
         gridElementEntity.friend = [ZZFriendDataProvider friendEntityWithItemID:friendModel.idTbm];
         [gridElementEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
         return [ZZGridDataProvider modelFromEntity:gridElementEntity];
@@ -46,10 +46,10 @@
 
 #pragma mark - Update Grid models
 
-+ (void)upsertGridModels:(NSArray*)models
++ (void)upsertGridModels:(NSArray *)models
 {
-    ANDispatchBlockToMainQueue(^{        
-        [models enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
+    ANDispatchBlockToMainQueue(^{
+        [models enumerateObjectsUsingBlock:^(ZZGridDomainModel *_Nonnull gridModel, NSUInteger idx, BOOL *_Nonnull stop) {
             [self upsertModel:gridModel];
         }];
     });
@@ -58,7 +58,7 @@
 
 #pragma mark - Private
 
-+ (NSManagedObjectContext*)_context
++ (NSManagedObjectContext *)_context
 {
     return [ZZContentDataAccessor mainThreadContext];
 }

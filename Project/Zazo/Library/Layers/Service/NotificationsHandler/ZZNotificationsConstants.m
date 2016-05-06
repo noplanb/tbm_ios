@@ -9,19 +9,19 @@
 #import "ZZNotificationsConstants.h"
 
 static NSString *notificationsTypeString[] = {
-    @"none",
-    @"video_received",
-    @"video_status_update"
+        @"none",
+        @"video_received",
+        @"video_status_update"
 };
 
-NSString* ZZNotificationTypeStringFromEnumValue(ZZNotificationType type)
+NSString *ZZNotificationTypeStringFromEnumValue(ZZNotificationType type)
 {
     return notificationsTypeString[type];
 }
 
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString* string)
+ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString *string)
 {
-    NSArray* array = [NSArray arrayWithObjects:notificationsTypeString count:3];
+    NSArray *array = [NSArray arrayWithObjects:notificationsTypeString count:3];
     NSInteger index = [array indexOfObject:string];
     if (index == NSNotFound)
     {

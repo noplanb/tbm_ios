@@ -11,16 +11,16 @@
 
 @implementation RACCommand (ANAdditions)
 
-+ (RACCommand*)commandWithBlock:(ANCodeBlock)block
++ (RACCommand *)commandWithBlock:(ANCodeBlock)block
 {
     return [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-       
+
         if (block) block();
         return [RACSignal empty];
     }];
 }
 
-+ (RACCommand*)commandWithSignal:(RACSignal*)signal
++ (RACCommand *)commandWithSignal:(RACSignal *)signal
 {
     return [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return signal;

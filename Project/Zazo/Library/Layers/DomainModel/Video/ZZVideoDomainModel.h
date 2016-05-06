@@ -11,7 +11,8 @@
 
 @class ZZFriendDomainModel;
 
-extern const struct ZZVideoDomainModelAttributes {
+extern const struct ZZVideoDomainModelAttributes
+{
     __unsafe_unretained NSString *videoID;
     __unsafe_unretained NSString *status;
     __unsafe_unretained NSString *downloadRetryCount;
@@ -20,11 +21,11 @@ extern const struct ZZVideoDomainModelAttributes {
 
 @interface ZZVideoDomainModel : ZZBaseDomainModel
 
-@property (nonatomic, copy) NSString* videoID;
-@property (nonatomic, assign) ZZVideoIncomingStatus incomingStatusValue; 
+@property (nonatomic, copy) NSString *videoID;
+@property (nonatomic, assign) ZZVideoIncomingStatus incomingStatusValue;
 @property (nonatomic, assign) NSInteger downloadRetryCount;
 
-@property (nonatomic, strong) NSString* relatedUserID;
-@property (nonatomic, strong) NSURL* videoURL;
+@property (nonatomic, strong) NSString *relatedUserID;
+@property (nonatomic, strong) NSURL *videoURL;
 
 @end

@@ -16,10 +16,11 @@ typedef NS_ENUM(NSInteger, ZZApplicationVersionState)
     ZZApplicationVersionStateTotalCount
 };
 
-NSString* ZZApplicationVersionStateStringFromEnumValue(ZZApplicationVersionState);
-ZZApplicationVersionState ZZApplicationVersionStateEnumValueFromString(NSString*);
+NSString *ZZApplicationVersionStateStringFromEnumValue(ZZApplicationVersionState);
+
+ZZApplicationVersionState ZZApplicationVersionStateEnumValueFromString(NSString *);
 
 
+NSString *ANStateStringFromEnumValue(ZZApplicationVersionState, __unsafe_unretained NSString *[]);
 
-NSString* ANStateStringFromEnumValue(ZZApplicationVersionState, __unsafe_unretained NSString* []);
-NSInteger ANStateEnumValueFromString(NSString*, __unsafe_unretained NSString* []);
+NSInteger ANStateEnumValueFromString(NSString *, __unsafe_unretained NSString *[]);

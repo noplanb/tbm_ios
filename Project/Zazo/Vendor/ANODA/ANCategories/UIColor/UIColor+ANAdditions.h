@@ -6,9 +6,10 @@
 //
 @interface UIColor (ANAdditions)
 
-+ (UIColor*)an_colorWithHexString:(NSString *)stringToConvert;
-+ (UIColor*)an_randomColor;
++ (UIColor *)an_colorWithHexString:(NSString *)stringToConvert;
 
-- (NSString*)an_hexString;
++ (UIColor *)an_randomColor;
+
+- (NSString *)an_hexString;
 
 @end

@@ -14,12 +14,12 @@
 
 @interface ZZAuthPresenter : NSObject <ZZAuthInteractorOutput, ZZAuthModuleInterface>
 
-@property (nonatomic, strong) id<ZZAuthInteractorInput> interactor;
-@property (nonatomic, strong) ZZAuthWireframe* wireframe;
+@property (nonatomic, strong) id <ZZAuthInteractorInput> interactor;
+@property (nonatomic, strong) ZZAuthWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZAuthViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZAuthModuleDelegate> authModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZAuthViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZAuthModuleDelegate> authModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZAuthViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZAuthViewInterface> *)userInterface;
 
 @end

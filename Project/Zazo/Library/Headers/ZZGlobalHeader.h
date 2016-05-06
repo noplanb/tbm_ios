@@ -8,7 +8,7 @@
 #ifdef RELEASE
 #error Don't forget update this number
 #endif
-static NSString* const kGlobalApplicationVersion = @"46";
+static NSString *const kGlobalApplicationVersion = @"46";
 
 
 //#define DEBUG_CONTROLLER
@@ -46,14 +46,14 @@ static NSString* const kGlobalApplicationVersion = @"46";
 
 @import Crashlytics;
 
-#define ZZLogInfo(s, ... ) OB_INFO(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define ZZLogInfo(s, ...) OB_INFO(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
-#define ZZLogWarning(s, ... ) OB_WARN(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define ZZLogWarning(s, ...) OB_WARN(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
-#define ZZLogError(s, ... ) OB_ERROR(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define ZZLogError(s, ...) OB_ERROR(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
-#define ZZLogDebug(s, ... ) OB_DEBUG(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define ZZLogDebug(s, ...) OB_DEBUG(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
-#define ZZLogEvent(s, ... ) OB_EVENT(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define ZZLogEvent(s, ...) OB_EVENT(@"<%@:(%d)> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 
 typedef void(^ZZBoolBlock)(BOOL isSuccess);

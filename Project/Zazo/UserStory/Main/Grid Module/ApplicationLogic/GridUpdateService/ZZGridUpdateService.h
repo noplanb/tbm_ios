@@ -9,7 +9,7 @@
 
 @protocol ZZGridUpdateServiceDelegate <NSObject>
 
-- (void)updateGridDataWithModels:(NSArray*)models;
+- (void)updateGridDataWithModels:(NSArray *)models;
 
 @end
 

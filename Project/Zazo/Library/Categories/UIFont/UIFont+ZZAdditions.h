@@ -8,9 +8,13 @@
 @interface UIFont (ZZAdditions)
 
 + (UIFont *)zz_lightFontWithSize:(CGFloat)size;
+
 + (UIFont *)zz_regularFontWithSize:(CGFloat)size;
+
 + (UIFont *)zz_mediumFontWithSize:(CGFloat)size;
+
 + (UIFont *)zz_boldFontWithSize:(CGFloat)size;
+
 + (UIFont *)zz_condensedBoldFontWithSize:(CGFloat)size;
 
 @end

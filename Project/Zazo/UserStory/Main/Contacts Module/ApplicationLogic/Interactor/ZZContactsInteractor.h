@@ -10,7 +10,7 @@
 
 @interface ZZContactsInteractor : NSObject <ZZContactsInteractorInput>
 
-@property (nonatomic, weak) id<ZZContactsInteractorOutput> output;
+@property (nonatomic, weak) id <ZZContactsInteractorOutput> output;
 
 @end
 

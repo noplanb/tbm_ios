@@ -12,21 +12,26 @@
 
 - (void)requestBackground;
 
-- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel*)model;
-- (void)handleVideoReceivedNotification:(ZZNotificationDomainModel*)model;
+- (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)model;
+
+- (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model;
 
 @end
 
 @interface ZZNotificationsHandler : NSObject
 
-@property (nonatomic, weak) id<ZZNotificationsHandlerDelegate> delegate;
+@property (nonatomic, weak) id <ZZNotificationsHandlerDelegate> delegate;
 
 + (void)registerToPushNotifications;
-- (void)receivedPushNotificationsToken:(NSData*)token;
+
+- (void)receivedPushNotificationsToken:(NSData *)token;
+
 + (void)disablePushNotifications;
 
-- (void)handlePushNotification:(NSDictionary*)notification;
-- (void)applicationRegisteredWithSettings:(UIUserNotificationSettings*)settings;
-- (void)applicationDidFailToRegisterWithError:(NSError*)error;
+- (void)handlePushNotification:(NSDictionary *)notification;
+
+- (void)applicationRegisteredWithSettings:(UIUserNotificationSettings *)settings;
+
+- (void)applicationDidFailToRegisterWithError:(NSError *)error;
 
 @end

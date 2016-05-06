@@ -37,5 +37,7 @@
 #pragma mark Callbacks
 
 typedef void (^ANCodeBlock)(void);
+
 typedef void (^ANCompletionBlock)(NSError *error);
+
 typedef BOOL (^ANValidationBlock)();

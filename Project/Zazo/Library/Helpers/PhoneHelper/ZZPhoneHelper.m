@@ -12,24 +12,24 @@
 #import "NBPhoneNumberUtil.h"
 #import "NBPhoneNumber.h"
 
-static NSString* const kDefaultRegion = @"US";
+static NSString *const kDefaultRegion = @"US";
 
 @implementation ZZPhoneHelper
 
-+ (NSArray*)validatePhonesFromContactModel:(ZZContactDomainModel *)model
++ (NSArray *)validatePhonesFromContactModel:(ZZContactDomainModel *)model
 {
-    model.phones = [[model.phones.rac_sequence map:^id(ZZCommunicationDomainModel* communicationModel) {
-        
+    model.phones = [[model.phones.rac_sequence map:^id(ZZCommunicationDomainModel *communicationModel) {
+
         communicationModel.contact = [self clearPhone:communicationModel.contact];
         return ANIsEmpty(communicationModel.contact) ? nil : communicationModel;
-        
+
     }] array];
     return model.phones;
 }
 
-+ (NSString*)clearPhone:(NSString*)phone
++ (NSString *)clearPhone:(NSString *)phone
 {
-    NSString* result = nil;
+    NSString *result = nil;
     if ([self _isValidPhone:phone])
     {
         NSString *formattedPhone = [self phone:phone withFormat:ZZPhoneFormatTypeInternational];
@@ -38,28 +38,28 @@ static NSString* const kDefaultRegion = @"US";
     return result;
 }
 
-+ (NSString*)formatMobileNumberToE164AndServerFormat:(NSString*)number
++ (NSString *)formatMobileNumberToE164AndServerFormat:(NSString *)number
 {
     NSString *formatNumberToE164 = [self phone:number withFormat:ZZPhoneFormatTypeE164];
-    NSRange range = NSMakeRange(0,1);
+    NSRange range = NSMakeRange(0, 1);
     NSString *newNumber = [formatNumberToE164 stringByReplacingCharactersInRange:range withString:@"%2B"];
-    
+
     return newNumber;
 }
 
 
-+ (NSString*)phone:(NSString *)phone withFormat:(ZZPhoneFormatType)format
++ (NSString *)phone:(NSString *)phone withFormat:(ZZPhoneFormatType)format
 {
     if (phone == nil)
     {
         return nil;
     }
-    
+
     NBPhoneNumberUtil *pu = [[NBPhoneNumberUtil alloc] init];
     NSError *err = nil;
     NSString *r;
-    
-    NSString* region = [self _phoneRegionFromNumber:phone]; //TODO: authenticated user have no mobile number
+
+    NSString *region = [self _phoneRegionFromNumber:phone]; //TODO: authenticated user have no mobile number
     if (ANIsEmpty(region))
     {
         region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
@@ -68,9 +68,9 @@ static NSString* const kDefaultRegion = @"US";
     {
         region = kDefaultRegion;
     }
-    
+
     NBPhoneNumber *pn = [pu parse:phone defaultRegion:region error:&err];
-    
+
     if (err != nil)
     {
         ZZLogError(@"%@", [NSObject an_safeString:[err localizedDescription]]);
@@ -91,11 +91,11 @@ static NSString* const kDefaultRegion = @"US";
 
 #pragma mark - Private
 
-+ (BOOL)_isValidPhone:(NSString*)phone
++ (BOOL)_isValidPhone:(NSString *)phone
 {
-    NBPhoneNumberUtil* phoneUtil = [[NBPhoneNumberUtil alloc] init];
-    
-    NSString* region = [self _phoneRegionFromNumber:phone];
+    NBPhoneNumberUtil *phoneUtil = [[NBPhoneNumberUtil alloc] init];
+
+    NSString *region = [self _phoneRegionFromNumber:phone];
     if (ANIsEmpty(region))
     {
         region = [self _phoneRegionFromNumber:[self _savedMobileNumber]];
@@ -104,11 +104,11 @@ static NSString* const kDefaultRegion = @"US";
     {
         region = kDefaultRegion;
     }
-    
+
     ZZLogDebug(@"User region: %@", region);
-    
+
     NSError *error;
-    NBPhoneNumber* phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
+    NBPhoneNumber *phoneNumber = [phoneUtil parse:phone defaultRegion:region error:&error];
     if (error == nil)
     {
         if ([phoneUtil isValidNumber:phoneNumber])
@@ -129,13 +129,13 @@ static NSString* const kDefaultRegion = @"US";
     }
 }
 
-+ (NSString*)_phoneRegionFromNumber:(NSString*)phone
++ (NSString *)_phoneRegionFromNumber:(NSString *)phone
 {
     NBPhoneNumberUtil *phoneNumberUtil = [NBPhoneNumberUtil sharedInstance];
-    
+
     NSError *err = nil;
     NBPhoneNumber *phoneNumber = [phoneNumberUtil parse:phone defaultRegion:kDefaultRegion error:&err];
-    
+
     if (err != nil)
     {
         return kDefaultRegion;
@@ -143,7 +143,7 @@ static NSString* const kDefaultRegion = @"US";
     return [phoneNumberUtil getRegionCodeForNumber:phoneNumber];
 }
 
-+ (NSString*)_savedMobileNumber
++ (NSString *)_savedMobileNumber
 {
     return [ZZStoredSettingsManager shared].mobileNumber;
 }

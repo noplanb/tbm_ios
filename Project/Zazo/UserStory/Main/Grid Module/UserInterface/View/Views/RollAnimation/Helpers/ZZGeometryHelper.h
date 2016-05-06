@@ -4,7 +4,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, ZZSpinDirection) {
+typedef NS_ENUM(NSInteger, ZZSpinDirection)
+{
     ZZSpinDirectionNone = 0,
     ZZSpinDirectionClockwise,
     ZZSpinDirectionCounterClockwise

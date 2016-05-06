@@ -13,36 +13,40 @@
 
 #pragma mark - Videos
 
-+ (RACSignal*)addRemoteOutgoingVideoWithItemID:(NSString*)itemID
-                                    friendMkey:(NSString*)friendMkey
-                                    friendCKey:(NSString*)friendCKey;
++ (RACSignal *)addRemoteOutgoingVideoWithItemID:(NSString *)itemID
+                                     friendMkey:(NSString *)friendMkey
+                                     friendCKey:(NSString *)friendCKey;
 
-+ (RACSignal*)deleteRemoteIncomingVideoWithItemID:(NSString*)itemID
-                                       friendMkey:(NSString*)friendMkey
-                                       friendCKey:(NSString*)friendCKey;
++ (RACSignal *)deleteRemoteIncomingVideoWithItemID:(NSString *)itemID
+                                        friendMkey:(NSString *)friendMkey
+                                        friendCKey:(NSString *)friendCKey;
 
-+ (RACSignal*)updateRemoteStatusForVideoWithItemID:(NSString*)itemID
-                                          toStatus:(ZZRemoteStorageVideoStatus)status
-                                        friendMkey:(NSString*)friendMkey
-                                        friendCKey:(NSString*)friendCKey;
++ (RACSignal *)updateRemoteStatusForVideoWithItemID:(NSString *)itemID
+                                           toStatus:(ZZRemoteStorageVideoStatus)status
+                                         friendMkey:(NSString *)friendMkey
+                                         friendCKey:(NSString *)friendCKey;
 
 
 #pragma mark - Load
 
-+ (RACSignal*)loadAllIncomingVideoIds;
-+ (RACSignal*)loadAllOutgoingVideoStatuses;
-+ (RACSignal*)loadRemoteEverSentFriendsIDsForUserMkey:(NSString*)mKey;
++ (RACSignal *)loadAllIncomingVideoIds;
+
++ (RACSignal *)loadAllOutgoingVideoStatuses;
+
++ (RACSignal *)loadRemoteEverSentFriendsIDsForUserMkey:(NSString *)mKey;
 
 
 #pragma mark - Update
 
-+ (RACSignal*)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString*)mKey;
++ (RACSignal *)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString *)mKey;
 
 
 #pragma mark - Basic
 
-+ (RACSignal*)updateKey1:(NSString*)key1 key2:(NSString*)key2 value:(NSString*)value;
-+ (RACSignal*)deleteValueWithKey1:(NSString*)key1 key2:(NSString*)key2;
-+ (RACSignal*)loadValueWithKey1:(NSString*)key1;
++ (RACSignal *)updateKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSString *)value;
+
++ (RACSignal *)deleteValueWithKey1:(NSString *)key1 key2:(NSString *)key2;
+
++ (RACSignal *)loadValueWithKey1:(NSString *)key1;
 
 @end

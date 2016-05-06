@@ -29,42 +29,42 @@
 
 - (void)loadData
 {
-    NSArray* friends = [ZZFriendDataProvider allFriendsModels];
-    
-    
-    NSArray* gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    
-    [gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel*  _Nonnull gridModel, NSUInteger idx, BOOL * _Nonnull stop) {
-       [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-           if ([friendModel.mKey isEqualToString:gridModel.relatedUser.mKey])
-           {
-               NSLog(@"fiend with name:%@ updated to status establishment",friendModel.fullName);
-               friendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
-           }
-       }];
+    NSArray *friends = [ZZFriendDataProvider allFriendsModels];
+
+
+    NSArray *gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
+
+    [gridModels enumerateObjectsUsingBlock:^(ZZGridDomainModel *_Nonnull gridModel, NSUInteger idx, BOOL *_Nonnull stop) {
+        [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel *_Nonnull friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
+            if ([friendModel.mKey isEqualToString:gridModel.relatedUser.mKey])
+            {
+                NSLog(@"fiend with name:%@ updated to status establishment", friendModel.fullName);
+                friendModel.friendshipStatusValue = ZZFriendshipStatusTypeEstablished;
+            }
+        }];
     }];
-    
+
 //    [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel* friendObject, NSUInteger idx, BOOL * _Nonnull stop) {
 //        
 //        friendObject.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendObject.friendshipCreatorMkey];
 //    }];
-    
+
     [self.output dataLoaded:[self sortArrayByFirstName:friends]];
 }
 
-- (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel*)friendModel
+- (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
     friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
-                                                      toVisible:shouldBeVisible] subscribeNext:^(NSDictionary* response) {
+                                                      toVisible:shouldBeVisible] subscribeNext:^(NSDictionary *response) {
         ANDispatchBlockToMainQueue(^{
             [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setConnectionStatus:friendModel.friendshipStatusValue];
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendInContactChangeStauts notificationObject:nil];
             [self.output contactSuccessfullyUpdated:friendModel toVisibleState:shouldBeVisible];
         });
-    } error:^(NSError *error) {
-        
+    }                                                                                    error:^(NSError *error) {
+
         friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
         [self.output updatedWithError:error friend:friendModel];
     }];
@@ -74,8 +74,8 @@
 {
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:ZZUserDomainModelAttributes.firstName
                                                            ascending:YES];
-    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
-    
+    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
+
     return sortedArray;
 }
 

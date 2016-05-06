@@ -8,6 +8,6 @@
 
 @interface ZZEditFriendView : UIView
 
-@property (nonatomic, strong) UITableView* editFriendsTableView;
+@property (nonatomic, strong) UITableView *editFriendsTableView;
 
 @end

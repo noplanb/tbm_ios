@@ -11,9 +11,11 @@
 
 @interface ZZGridDataUpdater : NSObject
 
-+ (ZZGridDomainModel*)upsertModel:(ZZGridDomainModel*)model;
-+ (ZZGridDomainModel*)updateRelatedUserOnItemID:(NSString*)itemID toValue:(ZZFriendDomainModel*)model;
-+ (void)upsertGridModels:(NSArray*)models;
++ (ZZGridDomainModel *)upsertModel:(ZZGridDomainModel *)model;
+
++ (ZZGridDomainModel *)updateRelatedUserOnItemID:(NSString *)itemID toValue:(ZZFriendDomainModel *)model;
+
++ (void)upsertGridModels:(NSArray *)models;
 
 //+ (void)deleteModel:(ZZGridDomainModel*)model;
 

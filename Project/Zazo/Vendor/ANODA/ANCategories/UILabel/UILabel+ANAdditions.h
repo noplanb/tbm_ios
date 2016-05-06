@@ -8,7 +8,9 @@
 @interface UILabel (ANAdditions)
 
 - (CGSize)an_textContentSize;
+
 - (CGSize)an_textContentSizeConstrainedToWidth:(CGFloat)width;
+
 - (CGSize)an_textContentSizeConstrainedToWidth:(CGFloat)width edgeInsets:(UIEdgeInsets)insets;
 
 @end

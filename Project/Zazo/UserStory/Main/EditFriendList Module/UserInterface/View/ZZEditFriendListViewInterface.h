@@ -10,6 +10,6 @@
 
 @protocol ZZEditFriendListViewInterface <NSObject>
 
-- (void)updateDataSource:(ZZEditFriendListDataSource*)dataSource;
+- (void)updateDataSource:(ZZEditFriendListDataSource *)dataSource;
 
 @end

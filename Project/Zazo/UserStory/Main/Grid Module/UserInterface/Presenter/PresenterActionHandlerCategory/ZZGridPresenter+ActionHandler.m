@@ -14,7 +14,7 @@
 @implementation ZZGridPresenter (ActionHandler)
 
 
-- (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel*)model
+- (void)_handleEvent:(ZZGridActionEventType)event withDomainModel:(ZZGridDomainModel *)model
 {
     ANDispatchBlockToMainQueue(^{
         NSInteger index = [[self dataSource] indexForUpdatedDomainModel:model];
@@ -39,7 +39,7 @@
     });
 }
 
-- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel*)model
+- (void)_handleRecordHintWithCellViewModel:(ZZFriendDomainModel *)model
 {
     ANDispatchBlockToMainQueue(^{
         NSInteger index = [[self dataSource] indexForFriendDomainModel:model];
@@ -50,25 +50,25 @@
     });
 }
 
-- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel*)cellViewModel
+- (void)_handleSentMessageEventWithCellViewModel:(ZZGridCellViewModel *)cellViewModel
 {
     ANDispatchBlockToMainQueue(^{
 
-            CGFloat delayAfterUploadAnimationStopped = 0.5f;
-            ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
-                NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
-                if (index != NSNotFound)
-                {
-                    [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index friendModel:cellViewModel.item.relatedUser];
-                }
-            });
+        CGFloat delayAfterUploadAnimationStopped = 0.5f;
+        ANDispatchBlockAfter(delayAfterUploadAnimationStopped, ^{
+            NSInteger index = [[self dataSource] indexForViewModel:cellViewModel];
+            if (index != NSNotFound)
+            {
+                [[self actionHandler] handleEvent:ZZGridActionEventTypeMessageDidSent withIndex:index friendModel:cellViewModel.item.relatedUser];
+            }
+        });
     });
 }
 
-- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel*)model
+- (void)_handleSentWelcomeHintWithFriendDomainModel:(ZZFriendDomainModel *)model
 {
     ANDispatchBlockToMainQueue(^{
-        
+
         NSInteger index = [self indexOnGridViewForFriendModel:model];
         if (index != NSNotFound)
         {

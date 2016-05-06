@@ -14,5 +14,6 @@ typedef NS_ENUM(NSInteger, ANHttpMethodType)
     ANHttpMethodTypePOSTJSON
 };
 
-NSString* ANHttpMethodTypeStringFromEnumValue(ANHttpMethodType);
-ANHttpMethodType ANHttpMethodTypeEnumValueFromSrting(NSString*);
+NSString *ANHttpMethodTypeStringFromEnumValue(ANHttpMethodType);
+
+ANHttpMethodType ANHttpMethodTypeEnumValueFromSrting(NSString *);

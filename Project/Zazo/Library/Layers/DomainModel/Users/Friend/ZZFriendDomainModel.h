@@ -14,7 +14,8 @@
 
 @class FEMObjectMapping, ZZVideoDomainModel;
 
-extern const struct ZZFriendDomainModelAttributes {
+extern const struct ZZFriendDomainModelAttributes
+{
     __unsafe_unretained NSString *idTbm;
     __unsafe_unretained NSString *firstName;
     __unsafe_unretained NSString *lastName;
@@ -36,49 +37,53 @@ extern const struct ZZFriendDomainModelAttributes {
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
 
-@property (nonatomic,assign) NSInteger cid;
-@property (nonatomic, copy) NSString* idTbm;
-@property (nonatomic, copy) NSString* firstName;
-@property (nonatomic, copy) NSString* lastName;
+@property (nonatomic, assign) NSInteger cid;
+@property (nonatomic, copy) NSString *idTbm;
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
 
-@property (nonatomic, copy) NSString* mobileNumber;
-@property (nonatomic, copy) NSString* mKey;
-@property (nonatomic, copy) NSString* cKey;
+@property (nonatomic, copy) NSString *mobileNumber;
+@property (nonatomic, copy) NSString *mKey;
+@property (nonatomic, copy) NSString *cKey;
 
 @property (nonatomic, assign) NSInteger uploadRetryCount;
-@property (nonatomic, strong) NSDate* lastActionTimestamp;
+@property (nonatomic, strong) NSDate *lastActionTimestamp;
 
 @property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
 @property (nonatomic, assign) BOOL everSent;
 
-@property (nonatomic, copy) NSString* outgoingVideoItemID;
+@property (nonatomic, copy) NSString *outgoingVideoItemID;
 
 @property (nonatomic, assign) BOOL hasOutgoingVideo;
 
 @property (nonatomic, assign, getter=isHasApp) BOOL hasApp;
 
-@property (nonatomic, copy) NSString* friendshipStatus;
-@property (nonatomic, copy) NSString* friendshipCreatorMkey;
+@property (nonatomic, copy) NSString *friendshipStatus;
+@property (nonatomic, copy) NSString *friendshipCreatorMkey;
 
 @property (nonatomic, assign) ZZFriendshipStatusType friendshipStatusValue;
 @property (nonatomic, assign) ZZMenuContactType contactType;
-    
+
 @property (nonatomic, assign) ZZVideoOutgoingStatus lastOutgoingVideoStatus;
 
-@property (nonatomic, strong) NSArray <ZZVideoDomainModel *> * videos;
+@property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videos;
 @property (nonatomic, assign) BOOL isVideoStopped;
 
-+ (FEMObjectMapping*)mapping;
++ (FEMObjectMapping *)mapping;
 
 - (NSString *)fullName;
+
 - (NSString *)displayName;
+
 - (NSString *)shortFirstName;
 
 - (ZZMenuContactType)contactType;
 
 - (BOOL)isCreator;
+
 - (BOOL)hasIncomingVideo;
+
 - (BOOL)hasDownloadedVideo;
 
 @end

@@ -15,14 +15,16 @@
 
 @interface ZZContactsPresenter : NSObject <ZZContactsInteractorOutput, ZZContactsModuleInterface>
 
-@property (nonatomic, strong) id<ZZContactsInteractorInput> interactor;
-@property (nonatomic, strong) ZZContactsWireframe * wireframe;
+@property (nonatomic, strong) id <ZZContactsInteractorInput> interactor;
+@property (nonatomic, strong) ZZContactsWireframe *wireframe;
 
-@property (nonatomic, weak) UIViewController<ZZContactsViewInterface>* userInterface;
-@property (nonatomic, weak) id<ZZContactsModuleDelegate> menuModuleDelegate;
+@property (nonatomic, weak) UIViewController <ZZContactsViewInterface> *userInterface;
+@property (nonatomic, weak) id <ZZContactsModuleDelegate> menuModuleDelegate;
 
-- (void)configurePresenterWithUserInterface:(UIViewController<ZZContactsViewInterface>*)userInterface;
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZContactsViewInterface> *)userInterface;
+
 - (void)reloadContactMenuData;
+
 - (void)reloadContacts;
 
 @end

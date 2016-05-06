@@ -17,7 +17,7 @@
 
 @implementation ZZFriendDataHelper
 
-+ (BOOL)isUniqueFirstName:(NSString*)firstName friendID:(NSString*)friendID
++ (BOOL)isUniqueFirstName:(NSString *)firstName friendID:(NSString *)friendID
 {
     NSSet <NSString *> *names = [ZZFriendDataProvider allUsernamesExceptFriendWithID:friendID];
     return ![names containsObject:firstName];
@@ -31,15 +31,15 @@
     {
         return 0;
     }
-    
-    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id{
+
+    NSNumber *count = ZZDispatchOnMainThreadAndReturn(^id {
         return @([TBMVideo MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"friend.idTbm == %@ && status == %d", friendID, ZZVideoIncomingStatusDownloaded]]);
     });
-    
+
     return count.unsignedIntegerValue;
 }
 
-+ (NSArray*)everSentMkeys
++ (NSArray *)everSentMkeys
 {
     NSMutableArray *result = [NSMutableArray array];
     for (ZZFriendDomainModel *friendEntity in [ZZFriendDataProvider allEverSentFriends])
@@ -52,7 +52,7 @@
 + (NSDate *)lastVideoSentTimeFromFriend:(ZZFriendDomainModel *)friendModel
 {
     NSString *videoID = friendModel.videos.lastObject.videoID;
-    NSTimeInterval timestamp = videoID.doubleValue/1000;
+    NSTimeInterval timestamp = videoID.doubleValue / 1000;
     return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }
 

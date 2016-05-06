@@ -8,14 +8,17 @@
 
 @interface ZZRemoteStorageTransport : NSObject
 
-+ (RACSignal*)updateKeyValueWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)deleteKeyValueWithParameters:(NSDictionary*)parameters;
-+ (RACSignal*)loadKeyValueWithParameters:(NSDictionary*)parameters;
++ (RACSignal *)updateKeyValueWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)deleteKeyValueWithParameters:(NSDictionary *)parameters;
+
++ (RACSignal *)loadKeyValueWithParameters:(NSDictionary *)parameters;
 
 
 #pragma mark - Video State
 
-+ (RACSignal*)loadAllIncomingVideoIds;
-+ (RACSignal*)loadAllOutgoingVideoStatuses;
++ (RACSignal *)loadAllIncomingVideoIds;
+
++ (RACSignal *)loadAllOutgoingVideoStatuses;
 
 @end

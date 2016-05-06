@@ -12,8 +12,8 @@
 
 @interface ZZDebugStateDataSource : NSObject
 
-@property (nonatomic, strong) ANMemoryStorage* storage;
+@property (nonatomic, strong) ANMemoryStorage *storage;
 
-- (void)setupWithAllVideos:(NSArray*)allVideos incomeDandling:(NSArray*)income outcomeDandling:(NSArray*)outcome;
+- (void)setupWithAllVideos:(NSArray *)allVideos incomeDandling:(NSArray *)income outcomeDandling:(NSArray *)outcome;
 
 @end

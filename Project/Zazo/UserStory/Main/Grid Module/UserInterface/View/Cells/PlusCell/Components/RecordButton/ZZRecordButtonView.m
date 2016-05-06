@@ -25,7 +25,8 @@ static CGFloat padding = 6.0f;
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         [self makeView];
     }
@@ -35,7 +36,7 @@ static CGFloat padding = 6.0f;
 - (void)makeView
 {
     // border
-    
+
     UIView *borderView = [UIView new];
     borderView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
     [self addSubview:borderView];
@@ -43,9 +44,9 @@ static CGFloat padding = 6.0f;
         make.edges.equalTo(self);
     }];
     self.borderView = borderView;
-    
+
     // circle
-    
+
     UIView *circleView = [UIView new];
     circleView.backgroundColor = [UIColor whiteColor];
     [self addSubview:circleView];
@@ -53,18 +54,18 @@ static CGFloat padding = 6.0f;
         make.edges.equalTo(self).with.insets([self _insets]);
     }];
     self.circleView = circleView;
-    
+
     // container for animations
-    
+
     UIView *container = [UIView new];
     [self addSubview:container];
-    
+
     [container mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
+
     // label
-    
+
     UILabel *label = [UILabel new];
     label.font = [UIFont zz_condensedBoldFontWithSize:13];
     label.text = @"HOLD TO\nRECORD";
@@ -72,16 +73,16 @@ static CGFloat padding = 6.0f;
     label.numberOfLines = 2;
     label.textColor = [UIColor blackColor];
     label.hidden = YES;
-    
+
     [container addSubview:label];
     self.textLabel = label;
-    
+
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets([self _insets]);
     }];
-    
+
     // camera icon
-    
+
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera"]];
     [container addSubview:imageView];
     self.imageView = imageView;
@@ -94,11 +95,11 @@ static CGFloat padding = 6.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     CGFloat d = self.frame.size.width;
-    
-    self.borderView.layer.cornerRadius = d /2;
-    self.circleView.layer.cornerRadius = (d - 2*padding) /2;
+
+    self.borderView.layer.cornerRadius = d / 2;
+    self.circleView.layer.cornerRadius = (d - 2 * padding) / 2;
 }
 
 - (void)animate
@@ -107,9 +108,9 @@ static CGFloat padding = 6.0f;
     {
         return;
     }
-    
+
     _isAnimating = YES;
-    
+
     ANCodeBlock flipBack = ^{
         [UIView transitionFromView:self.textLabel toView:self.imageView
                           duration:1.0
@@ -119,23 +120,22 @@ static CGFloat padding = 6.0f;
                         }];
 
     };
-    
+
     ANCodeBlock flipTo = ^{
         [UIView transitionFromView:self.imageView toView:self.textLabel
                           duration:1.0
                            options:UIViewAnimationOptionTransitionFlipFromRight | UIViewAnimationOptionShowHideTransitionViews
                         completion:^(BOOL finished) {
-                            
+
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), flipBack);
-                            
+
                         }];
     };
-    
-    
+
+
     flipTo();
 
 }
-
 
 
 - (UIEdgeInsets)_insets

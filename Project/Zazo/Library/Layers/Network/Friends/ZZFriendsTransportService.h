@@ -8,18 +8,19 @@
 
 @interface ZZFriendsTransportService : NSObject
 
-+ (RACSignal*)loadFriendList;
-+ (RACSignal*)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible;
++ (RACSignal *)loadFriendList;
+
++ (RACSignal *)changeModelContactStatusForUser:(NSString *)userKey toVisible:(BOOL)visible;
 
 
 #pragma mark - Invitations
 
-+ (RACSignal*)checkIsUserHasProfileWithPhoneNumber:(NSString*)phoneNumber;
++ (RACSignal *)checkIsUserHasProfileWithPhoneNumber:(NSString *)phoneNumber;
 
-+ (RACSignal*)inviteUserWithPhoneNumber:(NSString*)phoneNumber
-                              firstName:(NSString*)firstName
-                            andLastName:(NSString*)lastName;
++ (RACSignal *)inviteUserWithPhoneNumber:(NSString *)phoneNumber
+                               firstName:(NSString *)firstName
+                             andLastName:(NSString *)lastName;
 
-+ (RACSignal*)updateUser:(NSString*)mKey withEmails:(NSArray*)emails;
++ (RACSignal *)updateUser:(NSString *)mKey withEmails:(NSArray *)emails;
 
 @end

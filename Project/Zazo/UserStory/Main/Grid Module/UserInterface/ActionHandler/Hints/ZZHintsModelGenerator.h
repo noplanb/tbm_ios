@@ -8,11 +8,12 @@
 
 
 #import "ZZHintsConstants.h"
+
 @class ZZHintsDomainModel;
 
 @interface ZZHintsModelGenerator : NSObject
 
-+ (ZZHintsDomainModel*)generateHintModelForType:(ZZHintsType)hintType;
++ (ZZHintsDomainModel *)generateHintModelForType:(ZZHintsType)hintType;
 
 @end
 

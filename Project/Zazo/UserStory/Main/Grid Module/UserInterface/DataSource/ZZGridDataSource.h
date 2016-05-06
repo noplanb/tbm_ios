@@ -17,25 +17,33 @@
 
 @interface ZZGridDataSource : NSObject
 
-@property (nonatomic, weak) id<ZZGridDataSourceDelegate> delegate;
-@property (nonatomic, weak) id<ZZGridDataSourceControllerDelegate> controllerDelegate;
+@property (nonatomic, weak) id <ZZGridDataSourceDelegate> delegate;
+@property (nonatomic, weak) id <ZZGridDataSourceControllerDelegate> controllerDelegate;
 
-- (void)setupWithModels:(NSArray*)models;
+- (void)setupWithModels:(NSArray *)models;
+
 - (void)updateValueOnCenterCellWithHandleCameraRotation:(BOOL)shouldHandleRotation;
+
 - (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer;
 
 - (void)reloadStorage;
-- (ZZGridCenterCellViewModel*)centerViewModel;
+
+- (ZZGridCenterCellViewModel *)centerViewModel;
 
 - (id)viewModelAtIndex:(NSInteger)index;
-- (NSInteger)indexForViewModel:(ZZGridCellViewModel*)model;
-- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel*)model;
+
+- (NSInteger)indexForViewModel:(ZZGridCellViewModel *)model;
+
+- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel *)model;
+
 - (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index;
 
-- (void)updateCellWithModel:(ZZGridDomainModel*)model;
+- (void)updateCellWithModel:(ZZGridDomainModel *)model;
 
 - (NSInteger)frindsOnGridNumber;
-- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel*)domainModel;
-- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel*)friendModel;
+
+- (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel *)domainModel;
+
+- (NSInteger)indexForFriendDomainModel:(ZZFriendDomainModel *)friendModel;
 
 @end

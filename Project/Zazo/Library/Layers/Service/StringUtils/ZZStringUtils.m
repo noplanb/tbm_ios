@@ -21,9 +21,9 @@
     }
     else
     {
-        jsonString =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
-    
+
     return jsonString;
 }
 
@@ -35,13 +35,13 @@
     try = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     if (error)
     {
-        result = @{@"error": [error localizedDescription]};
+        result = @{@"error" : [error localizedDescription]};
     }
     else
     {
         result = try;
     }
-    
+
     return result;
 }
 

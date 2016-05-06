@@ -8,7 +8,8 @@
 
 @interface ZZDebugStateWireframe : NSObject
 
-- (void)presentDebugStateControllerFromNavigationController:(UINavigationController*)nc;
+- (void)presentDebugStateControllerFromNavigationController:(UINavigationController *)nc;
+
 - (void)dismissDebugStateController;
 
 @end

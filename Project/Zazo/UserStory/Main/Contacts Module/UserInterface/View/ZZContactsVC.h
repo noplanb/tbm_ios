@@ -13,6 +13,6 @@
 
 @interface ZZContactsVC : ZZBaseVC <ZZContactsViewInterface, ZZTabbarViewItem>
 
-@property (nonatomic, weak) id<ZZContactsModuleInterface> eventHandler;
+@property (nonatomic, weak) id <ZZContactsModuleInterface> eventHandler;
 
 @end

@@ -17,19 +17,19 @@
 
 - (void)updateFriendsIfNeeded
 {
-    NSMutableSet* gridElementToUpdate = [NSMutableSet set];
-    
-    [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    NSMutableSet *gridElementToUpdate = [NSMutableSet set];
+
+    [[ZZFriendDataProvider friendsOnGrid] enumerateObjectsUsingBlock:^(ZZFriendDomainModel *_Nonnull friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
+
         if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusViewed ||
-            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
-            friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
+                friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently ||
+                friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusNew)
         {
             [gridElementToUpdate addObject:friendModel];
         }
-        
+
     }];
-    
+
     if ([gridElementToUpdate allObjects].count > 0)
     {
         [self _updateGridIfNeededWithElement:[gridElementToUpdate allObjects]];
@@ -44,30 +44,30 @@
 
 - (void)_updateGridIfNeededWithElement:(NSArray *)friendsForReplacement
 {
-    NSMutableArray* friendsToAdding = [[self _friendsAbleToUpdate] mutableCopy];
-    __block NSMutableArray* updatedGridModels = [NSMutableArray array];
-    
-    
+    NSMutableArray *friendsToAdding = [[self _friendsAbleToUpdate] mutableCopy];
+    __block NSMutableArray *updatedGridModels = [NSMutableArray array];
+
+
     // 1. Use empty cells if exist
-    
+
     ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
-    
+
     while (gridModel && !ANIsEmpty(friendsToAdding))
     {
         ZZFriendDomainModel *friendModel = friendsToAdding.firstObject;
         [friendsToAdding removeObject:friendModel];
-        
+
         [self _putFriend:friendModel toGridModel:gridModel];
         [updatedGridModels addObject:gridModel];
-        
+
         gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
     }
-    
+
     // 2. Use cells of passed friends
-    
+
     if (friendsForReplacement.count > 0 && friendsToAdding.count > 0)
     {
-        [friendsForReplacement enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [friendsForReplacement enumerateObjectsUsingBlock:^(ZZFriendDomainModel *_Nonnull friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
             if (idx < friendsToAdding.count)
             {
                 ZZFriendDomainModel *updatedFriendModel = friendsToAdding[idx];
@@ -77,7 +77,7 @@
             }
         }];
     }
-    
+
     if (updatedGridModels.count > 0)
     {
         [self.delegate updateGridDataWithModels:updatedGridModels];
@@ -87,7 +87,7 @@
 - (void)_putFriend:(ZZFriendDomainModel *)friendModel toGridModel:(ZZGridDomainModel *)gridModel
 {
     gridModel.relatedUser = friendModel;
-    
+
     [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID
                                          toValue:friendModel];
 
@@ -103,28 +103,28 @@
 
 - (NSArray *)_friendsAbleToUpdate
 {
-    NSMutableSet* allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels]?:@[]];
-    NSMutableSet* gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid]?:@[]];
- 
+    NSMutableSet *allFriendsSet = [NSMutableSet setWithArray:[ZZFriendDataProvider allFriendsModels] ?: @[]];
+    NSMutableSet *gridFriendSet = [NSMutableSet setWithArray:[ZZFriendDataProvider friendsOnGrid] ?: @[]];
+
     [allFriendsSet minusSet:gridFriendSet];
 
-    NSMutableArray* friendsToUpdate = [NSMutableArray new];
-    
-    [[allFriendsSet allObjects] enumerateObjectsUsingBlock:^(ZZFriendDomainModel*  _Nonnull friendModel, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray *friendsToUpdate = [NSMutableArray new];
+
+    [[allFriendsSet allObjects] enumerateObjectsUsingBlock:^(ZZFriendDomainModel *_Nonnull friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
         if (friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
             [friendsToUpdate addObject:friendModel];
         }
     }];
-    
+
     return [self _sortByFirstName:friendsToUpdate];
 }
 
 - (NSArray *)_sortByFirstName:(NSArray *)array
 {
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]; // TODO: constant
-    NSArray* sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
-    
+    NSArray *sortedArray = [array sortedArrayUsingDescriptors:@[sort]];
+
     return sortedArray;
 }
 

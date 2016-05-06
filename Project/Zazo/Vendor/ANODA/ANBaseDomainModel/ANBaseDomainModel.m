@@ -27,19 +27,19 @@ static void *ANBaseModelCachedPropertyKeysKey = &ANBaseModelCachedPropertyKeysKe
 {
     Class cls = self;
     BOOL stop = NO;
-    
+
     while (!stop && ![cls isEqual:[ANBaseDomainModel class]])
     {
         unsigned count = 0;
         objc_property_t *properties = class_copyPropertyList(cls, &count);
-        
+
         cls = cls.superclass;
         if (properties == NULL) continue;
-        
-        @onExit {
+
+        @onExit{
             free(properties);
         };
-        
+
         for (unsigned i = 0; i < count; i++)
         {
             block(properties[i], &stop);
@@ -52,26 +52,26 @@ static void *ANBaseModelCachedPropertyKeysKey = &ANBaseModelCachedPropertyKeysKe
 {
     NSSet *cachedKeys = objc_getAssociatedObject(self, ANBaseModelCachedPropertyKeysKey);
     if (cachedKeys != nil) return cachedKeys;
-    
+
     NSMutableSet *keys = [NSMutableSet set];
-    
+
     [self enumeratePropertiesUsingBlock:^(objc_property_t property, BOOL *stop) {
-        
+
         rac_propertyAttributes *attributes = rac_copyPropertyAttributes(property);
-        @onExit {
-            free(attributes);
-        };
-        
+        @onExit{
+        free(attributes);
+    };
+
         if (attributes->readonly && attributes->ivar == NULL) return;
-        
+
         NSString *key = @(property_getName(property));
         [keys addObject:key];
     }];
-    
+
     // It doesn't really matter if we replace another thread's work, since we do
     // it atomically and the result should be the same.
     objc_setAssociatedObject(self, ANBaseModelCachedPropertyKeysKey, keys, OBJC_ASSOCIATION_COPY);
-    
+
     return keys;
 }
 

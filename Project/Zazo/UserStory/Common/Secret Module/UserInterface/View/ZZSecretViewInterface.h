@@ -10,6 +10,6 @@
 
 @protocol ZZSecretViewInterface <NSObject>
 
-- (void)updateDataSource:(ZZSecretDataSource*)dataSource;
+- (void)updateDataSource:(ZZSecretDataSource *)dataSource;
 
 @end

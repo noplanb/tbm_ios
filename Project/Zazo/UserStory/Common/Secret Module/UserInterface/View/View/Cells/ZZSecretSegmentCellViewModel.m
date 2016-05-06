@@ -10,7 +10,7 @@
 
 @interface ZZSecretSegmentCellViewModel ()
 
-@property (nonatomic, strong) NSArray* titles;
+@property (nonatomic, strong) NSArray *titles;
 
 @end
 
@@ -18,9 +18,9 @@
 
 + (instancetype)viewModelWithTitles:(NSArray *)titles
 {
-    ZZSecretSegmentCellViewModel* model = [self new];
+    ZZSecretSegmentCellViewModel *model = [self new];
     model.titles = titles;
-    
+
     return model;
 }
 

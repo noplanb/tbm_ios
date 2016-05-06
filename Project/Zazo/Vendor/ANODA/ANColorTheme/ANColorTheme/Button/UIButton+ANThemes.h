@@ -10,7 +10,8 @@
 
 @interface UIButton (ANColorTheme)
 
-+ (instancetype)an_buttonWithTheme:(id<ANColorThemeButtonInterface>)theme;
-- (void)an_updateAppearanceWithTheme:(id<ANColorThemeButtonInterface>)theme;
++ (instancetype)an_buttonWithTheme:(id <ANColorThemeButtonInterface>)theme;
+
+- (void)an_updateAppearanceWithTheme:(id <ANColorThemeButtonInterface>)theme;
 
 @end

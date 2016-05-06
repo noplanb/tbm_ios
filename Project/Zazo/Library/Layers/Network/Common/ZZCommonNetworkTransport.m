@@ -11,21 +11,21 @@
 
 @implementation ZZCommonNetworkTransport
 
-+ (RACSignal*)logMessageWithParameters:(NSDictionary*)parameters
++ (RACSignal *)logMessageWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiLogMessage
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypePOST];
 }
 
-+ (RACSignal*)checkApplicationVersionWithParameters:(NSDictionary*)parameters
++ (RACSignal *)checkApplicationVersionWithParameters:(NSDictionary *)parameters
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiCheckApplicationVersion
                                              parameters:parameters
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal*)loadS3Credentials
++ (RACSignal *)loadS3Credentials
 {
     return [[ZZNetworkTransport shared] requestWithPath:kApiS3Credentials httpMethod:ANHttpMethodTypeGET];
 }

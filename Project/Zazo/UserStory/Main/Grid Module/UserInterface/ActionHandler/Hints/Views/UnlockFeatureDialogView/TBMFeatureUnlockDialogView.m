@@ -35,13 +35,13 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 #pragma mark - Interface
 
-+ (void)showFeatureDialog:(NSString*)dialog withPresentedView:(UIView*)presentedView completionBlock:(void(^)())completionBlock;
++ (void)showFeatureDialog:(NSString *)dialog withPresentedView:(UIView *)presentedView completionBlock:(void (^)())completionBlock;
 {
-    TBMFeatureUnlockDialogView* dialogView = [TBMFeatureUnlockDialogView new];
+    TBMFeatureUnlockDialogView *dialogView = [TBMFeatureUnlockDialogView new];
     dialogView.frame = presentedView.bounds;
     dialogView.featureDescription = dialog;
     dialogView.completionBlock = completionBlock;
-    
+
     [presentedView addSubview:dialogView];
     [presentedView bringSubviewToFront:dialogView];
     [dialogView showAnimated];
@@ -86,16 +86,16 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 {
     CGFloat horizMargin = 25.f;
     CGFloat heightDivider = 2;
-    
+
     if (IS_IPAD)
     {
         horizMargin = 90;
         heightDivider = 3;
     }
-    
+
     CGFloat height = CGRectGetHeight(self.bounds) / heightDivider;
-    height = height < 300.f ? 300.f: height;
-    
+    height = height < 300.f ? 300.f : height;
+
     CGFloat vertMargin = (CGRectGetHeight(self.bounds) - height) / 2;
     self.dialogView.frame = CGRectMake(
             CGRectGetMinX(self.bounds) + horizMargin,
@@ -367,13 +367,11 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
     CGFloat dialogTop = CGRectGetMinY(self.bounds) - height;
 
     self.dialogView.frame = [self makeDialogViewRectWithTop:dialogTop];
-    [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-    {
+    [UIView animateWithDuration:.25f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.featureUnlockSound play];
         self.dialogView.frame = [self makeDialogViewRectWithTop:correctDialogTop];
         self.alpha = 1;
-    }                completion:^(BOOL finished)
-    {
+    }                completion:^(BOOL finished) {
 
     }];
 
@@ -394,13 +392,13 @@ NSString *const kTBMFeatureUnlockDialogButtonFontName = @"HelveticaNeue-Bold";
 
 - (void)hide
 {
-    [UIView animateWithDuration:.25f animations:^ {
+    [UIView animateWithDuration:.25f animations:^{
         self.alpha = 0;
     }];
-    
+
     [UIView animateWithDuration:0.25f animations:^{
         self.alpha = 0;
-    } completion:^(BOOL finished) {
+    }                completion:^(BOOL finished) {
         if (self.completionBlock)
         {
             self.completionBlock();

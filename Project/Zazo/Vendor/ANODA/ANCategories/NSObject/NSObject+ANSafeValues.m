@@ -10,9 +10,9 @@
 
 @implementation NSObject (ANSafeValues)
 
-+ (NSString*)an_safeString:(NSString*)value
++ (NSString *)an_safeString:(NSString *)value
 {
-    value = value ? : @"";
+    value = value ?: @"";
     if ([value isKindOfClass:[NSNull class]])
     {
         return @"";
@@ -24,9 +24,9 @@
     return [NSString stringWithFormat:@"%@", value];
 }
 
-+ (NSDictionary*)an_safeDictionary:(NSDictionary*)dict
++ (NSDictionary *)an_safeDictionary:(NSDictionary *)dict
 {
-    dict = dict ? : @{};
+    dict = dict ?: @{};
     return dict;
 }
 

@@ -12,8 +12,8 @@
 
 @interface ZZContactsVC () <ZZMenuControllerDelegate, ZZMenuControllerDelegate>
 
-@property (nonatomic, strong) ZZContactsView * menuView;
-@property (nonatomic, strong) ZZContactsController * controller;
+@property (nonatomic, strong) ZZContactsView *menuView;
+@property (nonatomic, strong) ZZContactsController *controller;
 
 @end
 

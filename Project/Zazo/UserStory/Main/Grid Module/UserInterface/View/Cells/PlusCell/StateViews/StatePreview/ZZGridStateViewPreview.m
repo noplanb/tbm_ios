@@ -35,11 +35,11 @@
         [self sentBadge];
         [self numberBadge];
     }
-    
+
     return self;
 }
 
-- (void)updateWithModel:(ZZGridCellViewModel*)model
+- (void)updateWithModel:(ZZGridCellViewModel *)model
 {
     ANDispatchBlockToMainQueue(^{
         [super updateWithModel:model];
@@ -57,7 +57,7 @@
     self.dateLabel.text = [date zz_formattedDate];
 }
 
-- (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel*)model
+- (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel *)model
 {
     if (model.badgeNumber == 0 && (model.state & ZZGridCellViewModelStateVideoFailedPermanently))
     {
@@ -65,14 +65,14 @@
     }
 }
 
-- (void)_setupThumbnailWithModel:(ZZGridCellViewModel*)model
+- (void)_setupThumbnailWithModel:(ZZGridCellViewModel *)model
 {
-    UIImage* thumbImage = [model videoThumbnailImage];
-    
+    UIImage *thumbImage = [model videoThumbnailImage];
+
     if (thumbImage)
     {
         self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
-        
+
         [UIView transitionWithView:self.thumbnailImageView
                           duration:0.5f
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -81,7 +81,7 @@
                         } completion:NULL];
 
     }
-    
+
 }
 
 - (void)_startVideo:(UITapGestureRecognizer *)recognizer
@@ -97,7 +97,7 @@
 
 #pragma mark - Lazy Load
 
-- (UIImageView*)thumbnailImageView
+- (UIImageView *)thumbnailImageView
 {
     if (!_thumbnailImageView)
     {
@@ -105,13 +105,13 @@
         _thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         _thumbnailImageView.userInteractionEnabled = YES;
         _thumbnailImageView.clipsToBounds = YES;
-        UITapGestureRecognizer* tap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(_startVideo:)];
+        UITapGestureRecognizer *tap =
+                [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(_startVideo:)];
         [_thumbnailImageView addGestureRecognizer:tap];
-        
+
         [self insertSubview:_thumbnailImageView belowSubview:self.backGradientView];
-        
+
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.bottom.equalTo(self);
         }];
@@ -124,21 +124,21 @@
     if (!_dateLabel)
     {
         UILabel *label = [ZZDateLabel new];
-        
+
         label.font = [UIFont zz_mediumFontWithSize:kLayoutConstDateLabelFontSize];
         label.text = @"";
         label.textColor = [ZZColorTheme shared].gridCellTextColor;
-        
+
         [self addSubview:label];
-        
+
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self);
             make.height.equalTo(@(label.font.pointSize * 1.5));
         }];
-        
+
         _dateLabel = label;
     }
-    
+
     return _dateLabel;
 }
 

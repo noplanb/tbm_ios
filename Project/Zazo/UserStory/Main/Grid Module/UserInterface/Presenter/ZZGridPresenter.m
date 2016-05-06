@@ -31,62 +31,62 @@
 #import "ZZMainModuleInterface.h"
 
 @interface ZZGridPresenter ()
-<
-    ZZGridDataSourceDelegate,
-    ZZVideoPlayerDelegate,
-    ZZGridActionHanlderDelegate,
-    TBMTableModalDelegate
->
+        <
+        ZZGridDataSourceDelegate,
+        ZZVideoPlayerDelegate,
+        ZZGridActionHanlderDelegate,
+        TBMTableModalDelegate
+        >
 
-@property (nonatomic, strong) ZZGridDataSource* dataSource;
-@property (nonatomic, strong) ZZSoundEffectPlayer* soundPlayer;
-@property (nonatomic, strong) ZZVideoPlayer* videoPlayer;
-@property (nonatomic, strong) ZZGridActionHandler* actionHandler;
-@property (nonatomic, strong) RollbarReachability* reachability;
-@property (nonatomic, strong) ZZGridAlertBuilder* alertBuilder;
+@property (nonatomic, strong) ZZGridDataSource *dataSource;
+@property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
+@property (nonatomic, strong) ZZVideoPlayer *videoPlayer;
+@property (nonatomic, strong) ZZGridActionHandler *actionHandler;
+@property (nonatomic, strong) RollbarReachability *reachability;
+@property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
 
 @end
 
 @implementation ZZGridPresenter
 
-- (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface>*)userInterface
+- (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface> *)userInterface
 {
     self.userInterface = userInterface;
-    
+
     self.actionHandler = [ZZGridActionHandler new];
     self.actionHandler.delegate = self;
     self.actionHandler.userInterface = self.userInterface;
-    
+
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
-    
+
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
-    
+
     [self _startTouchObserve];
 }
 
 - (void)_setupNotifications
-{    
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleAppBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_handleResignActive)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_reloadDataAfterResetAllUserDataNotification)
                                                  name:kResetAllUserDataNotificationKey
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_updateViewPositions)
                                                  name:UIApplicationWillResignActiveNotification //UIApplicationWillTerminateNotification
@@ -111,7 +111,7 @@
     [self.dataSource setupWithModels:data];
 }
 
-- (void)reloadGridWithData:(NSArray*)data
+- (void)reloadGridWithData:(NSArray *)data
 {
     if (![[ZZVideoRecorder shared] isRecording] && !self.videoPlayer.isPlayingVideo)
     {
@@ -123,12 +123,12 @@
 {
     [self.actionHandler resetLastHintAndShowIfNeeded];
     [self.interactor updateGridIfNeeded];
-    
+
     if ([ZZVideoRecorder shared].isCameraSwitched)
     {
         [[ZZVideoRecorder shared] switchCamera:nil];
     }
-        
+
 }
 
 - (void)_handleResignActive
@@ -143,7 +143,7 @@
 
 #pragma mark - Update User
 
-- (void)reloadGridModel:(ZZGridDomainModel*)model
+- (void)reloadGridModel:(ZZGridDomainModel *)model
 {
     [self.dataSource updateCellWithModel:model];
 }
@@ -153,9 +153,9 @@
     if ([self _isAbleToUpdateWithModel:model])
     {
         [self.dataSource updateCellWithModel:model];
-        
+
         if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-            model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded )
+                model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
             CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
             ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
@@ -168,7 +168,7 @@
     }
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel*)model isNewFriend:(BOOL)isNewFriend
+- (void)updateGridWithModel:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
 {
     if ([self _isAbleToUpdateWithModel:model])
     {
@@ -177,7 +177,7 @@
         [self showFriendAnimationWithFriend:model.relatedUser];
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
-        
+
         // Update first grid cell to let it show active icon
         ZZGridDomainModel *firstEmpty = [ZZGridDataProvider loadFirstEmptyGridElement];
         if (firstEmpty)
@@ -192,20 +192,20 @@
     [self.userInterface showFriendAnimationWithFriendModel:friendModel];
 }
 
-- (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel*)model
+- (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel *)model
 {
     BOOL isAbleUpdte = YES;
-    
+
     if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
     {
         if (model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
             [self.videoPlayer updateWithFriendModel:model.relatedUser];
         }
-        
+
         isAbleUpdte = NO;
     }
-    
+
     return isAbleUpdte;
 }
 
@@ -218,31 +218,31 @@
 
 - (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel *)model
 {
-     [self _handleSentWelcomeHintWithFriendDomainModel:model];
+    [self _handleSentWelcomeHintWithFriendDomainModel:model];
 }
 
 - (void)updateDownloadProgress:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel
 {
-    
+
     [self.userInterface updateDownloadingProgressTo:progress forModel:friendModel];
 }
 
 #pragma mark - EVENT InviteHint
 
-- (void)dataLoadedWithArray:(NSArray*)data
+- (void)dataLoadedWithArray:(NSArray *)data
 {
     ANDispatchBlockToMainQueue(^{
         [self.dataSource setupWithModels:data];
         [self _handleInviteEvent];
-        
+
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
         BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
-        
+
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
-        isTwoCamerasAvailable && isSwitchCameraAvailable];
-        
+                isTwoCamerasAvailable && isSwitchCameraAvailable];
+
         [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
-        
+
         [self _showRecordWelcomeIfNeededWithData:data];
     });
 }
@@ -253,26 +253,26 @@
     [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:(isTwoCamerasAvailable && isEnabled)];
 }
 
-- (void)_showRecordWelcomeIfNeededWithData:(NSArray*)data
+- (void)_showRecordWelcomeIfNeededWithData:(NSArray *)data
 {
-    if([ZZFriendDataProvider friendsOnGrid].count == 1)
+    if ([ZZFriendDataProvider friendsOnGrid].count == 1)
     {
         CGFloat kDelayAfterViewLoaded = 1.5f;
         ANDispatchBlockAfter(kDelayAfterViewLoaded, ^{
             NSInteger indexWhenOneFriendOnGrid = 5;
-            ZZFriendDomainModel* model = [[ZZFriendDataProvider friendsOnGrid] firstObject];
+            ZZFriendDomainModel *model = [[ZZFriendDataProvider friendsOnGrid] firstObject];
             [self.actionHandler handleEvent:ZZGridActionEventTypeGridLoaded withIndex:indexWhenOneFriendOnGrid friendModel:model];
         });
     }
 }
 
-- (void)dataLoadingDidFailWithError:(NSError*)error
+- (void)dataLoadingDidFailWithError:(NSError *)error
 {
     //TODO: error
 }
 
 
-- (void)gridAlreadyContainsFriend:(ZZGridDomainModel*)model
+- (void)gridAlreadyContainsFriend:(ZZGridDomainModel *)model
 {
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
         model.isDownloadAnimationViewed = YES;
@@ -284,19 +284,19 @@
 - (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion
 {
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:friendModel.firstName completion:^{
-       if (completion)
-       {
-           completion();
-       }
+        if (completion)
+        {
+            completion();
+        }
     }];
 }
 
-- (void)userHasNoValidNumbers:(ZZContactDomainModel*)model;
+- (void)userHasNoValidNumbers:(ZZContactDomainModel *)model;
 {
     [self showNoValidPhonesDialogFromModel:model];
 }
 
-- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel*)contact
+- (void)userNeedsToPickPrimaryPhone:(ZZContactDomainModel *)contact
 {
     [self showChooseNumberDialogForUser:contact];
 }
@@ -306,12 +306,12 @@
     [self _showSendInvitationDialogForUser:contact];
 }
 
-- (void)friendRecievedFromServer:(ZZFriendDomainModel*)friendModel
+- (void)friendRecievedFromServer:(ZZFriendDomainModel *)friendModel
 {
     if (friendModel.hasApp)
     {
         [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
-        
+
     }
     else
     {
@@ -384,9 +384,9 @@
     {
         return;
     }
-    
-    NSString* msg;
-    
+
+    NSString *msg;
+
     if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloaded] > 0)
     {
         msg = NSLocalizedString(@"hint.center.cell.tap.friend.to.play", nil);
@@ -403,45 +403,46 @@
     return [self _isNetworkEnabled];
 }
 
-- (void)_showToastWithMessage:(NSString*)message
+- (void)_showToastWithMessage:(NSString *)message
 {
-    [[iToast makeText:message]show];
+    [[iToast makeText:message] show];
 }
 
 - (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel *)model
 {
-    
+
     BOOL isEnabled = YES;
 
-        if ([self _isNetworkEnabled])
-        {
-            if ((model.badgeNumber == 0) &&
+    if ([self _isNetworkEnabled])
+    {
+        if ((model.badgeNumber == 0) &&
                 model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-            {
-                isEnabled = NO;
-                [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
-            }
+        {
+            isEnabled = NO;
+            [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
+        }
+    }
+    else
+    {
+        if (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading && model.badgeNumber == 0)
+        {
+            isEnabled = NO;
+
+            NSString *badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
+            NSString *message = NSLocalizedString(@"internet-connection-error-message", nil);
+            NSString *actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
+            [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
+                                           message:message
+                                 cancelButtonTitle:nil
+                                actionButtonTitlte:actionButtonTitle action:^{
+                    }];
+
         }
         else
         {
-            if (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading && model.badgeNumber == 0)
-            {
-                isEnabled = NO;
-                
-                NSString* badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
-                NSString* message = NSLocalizedString(@"internet-connection-error-message", nil);
-                NSString* actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
-                [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
-                                               message:message
-                                     cancelButtonTitle:nil
-                                    actionButtonTitlte:actionButtonTitle action:^{}];
-            
-            }
-            else
-            {
-                isEnabled = YES;
-            }
+            isEnabled = YES;
         }
+    }
 
     return isEnabled;
 }
@@ -456,7 +457,7 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
-    NSTimeInterval timestamp = videoModel.videoID.doubleValue/1000;
+    NSTimeInterval timestamp = videoModel.videoID.doubleValue / 1000;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
     [self.userInterface updateActiveCellTitleTo:[date zz_formattedDate]];
 }
@@ -495,15 +496,15 @@
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel*)viewModel
-                 withCompletionBlock:(void(^)(BOOL isRecordingSuccess))completionBlock
+                           viewModel:(ZZGridCellViewModel *)viewModel
+                 withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
 {
     ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
 
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
-        
+
         if (isEnabled)
         {
             [self.actionHandler hideHint];
@@ -511,15 +512,15 @@
             {
                 [self.videoPlayer stop];
             }
-            
+
             ANDispatchBlockToMainQueue(^{
                 [self.videoPlayer stop];
-                NSURL* url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+                NSURL *url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
                 [self.userInterface updateRecordViewStateTo:isEnabled];
-                
+
                 [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
                     [self.userInterface updateRecordViewStateTo:NO];
-                    
+
                     completionBlock(isRecordingSuccess);
                 }];
             });
@@ -530,7 +531,7 @@
                 // Don't rely on completion by videoRecorder to reset the view in case
                 // for some reason it does not complete.
                 [self.userInterface updateRecordViewStateTo:isEnabled];
-                
+
                 [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                     if (isRecordingSuccess)
                     {
@@ -541,7 +542,7 @@
 
             });
         }
-        
+
         [self.userInterface updateRollingStateTo:!isEnabled];
     }
 }
@@ -552,13 +553,13 @@
     [self.userInterface updateRecordViewStateTo:NO];
 }
 
-- (void)toggleVideoWithViewModel:(ZZGridCellViewModel*)model toState:(BOOL)state
+- (void)toggleVideoWithViewModel:(ZZGridCellViewModel *)model toState:(BOOL)state
 {
     [self.interactor updateLastActionForFriend:model.item.relatedUser];
-    
+
     if (state)
     {
-        [self.userInterface showDimScreenForFriendModel:model.item.relatedUser];        
+        [self.userInterface showDimScreenForFriendModel:model.item.relatedUser];
         [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
     }
     else
@@ -590,24 +591,24 @@
 
 #pragma mark - Invites
 
-- (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel*)model
+- (void)showNoValidPhonesDialogFromModel:(ZZContactDomainModel *)model
 {
     [self _showNoValidPhonesDialogFromModel:model];
 }
 
-- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel*)contact
+- (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel *)contact
 {
     [self _addingUserToGridDidFailWithError:error forUser:contact];
 }
 
-- (void)showChooseNumberDialogForUser:(ZZContactDomainModel*)user
+- (void)showChooseNumberDialogForUser:(ZZContactDomainModel *)user
 {
     [self _showChooseNumberDialogForUser:user];
 }
 
 #pragma mark - TBMTableModalDelegate
 
-- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel*)contact
+- (void)updatePrimaryPhoneNumberForContact:(ZZContactDomainModel *)contact
 {
     [self.interactor userSelectedPrimaryPhoneNumber:contact];
 }
@@ -629,7 +630,7 @@
 }
 
 
-- (ZZSoundEffectPlayer*)soundPlayer
+- (ZZSoundEffectPlayer *)soundPlayer
 {
     if (!_soundPlayer)
     {
@@ -645,9 +646,9 @@
     if (feature == ZZGridActionFeatureTypeSwitchCamera)
     {
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-        
+
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
-        (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
+                (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
     }
 }
 
@@ -689,7 +690,7 @@
     {
         _alertBuilder = [ZZGridAlertBuilder new];
     }
-    
+
     return _alertBuilder;
 }
 
@@ -697,27 +698,27 @@
 
 - (void)_startTouchObserve
 {
-    UIWindow* window = [UIApplication sharedApplication].keyWindow;
-    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+
     [[window rac_signalForSelector:@selector(sendEvent:)]
-     subscribeNext:^(RACTuple *touches) {
-         for (id event in touches)
-         {
-             NSSet *touches = [event allTouches];
-             [self _handleTouches:touches];
-         };
-     }];
+            subscribeNext:^(RACTuple *touches) {
+                for (id event in touches)
+                {
+                    NSSet *touches = [event allTouches];
+                    [self _handleTouches:touches];
+                };
+            }];
 }
 
-- (void)_handleTouches:(NSSet*)touches
+- (void)_handleTouches:(NSSet *)touches
 {
     ANDispatchBlockToMainQueue(^{
-        UITouch* touch = [[touches allObjects] firstObject];
-        
+        UITouch *touch = [[touches allObjects] firstObject];
+
         BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
-        
+
         if ((touch.phase == UITouchPhaseBegan && recording) ||
-            (touch.phase == UITouchPhaseStationary && recording))
+                (touch.phase == UITouchPhaseStationary && recording))
         {
             [self _cancelRecordingWithDoubleTap];
         }

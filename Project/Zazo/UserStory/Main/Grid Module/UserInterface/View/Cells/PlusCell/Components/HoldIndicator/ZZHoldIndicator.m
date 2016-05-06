@@ -11,15 +11,18 @@
 
 @end
 
-@implementation ZZHoldIndicator {
+@implementation ZZHoldIndicator
+{
 
 }
 
 @dynamic shapeLayer;
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self makeCircle];
         self.layer.delegate = self;
     }
@@ -55,7 +58,7 @@
 
 - (id <CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event
 {
-    if([event isEqualToString:@"opacity"])
+    if ([event isEqualToString:@"opacity"])
     {
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = @(self.layer.opacity);

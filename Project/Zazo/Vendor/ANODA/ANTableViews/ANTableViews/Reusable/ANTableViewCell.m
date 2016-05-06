@@ -7,7 +7,7 @@
 
 #import "ANTableViewCell.h"
 
-static UIColor* kANCellSelectionColor = nil;
+static UIColor *kANCellSelectionColor = nil;
 
 @implementation ANTableViewCell
 
