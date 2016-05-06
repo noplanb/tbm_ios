@@ -8,21 +8,21 @@
 
 #import "ZZRootWireframe.h"
 #import "ZZSecretWireframe.h"
-#import "ZZSecretScreenObserveTypes.h"
 #import "ZZStartWireframe.h"
-#import "ZZSecretScreenController.h"
+
+NSString * const ZZNeedsToShowSecretScreenNotificationName = @"ZZNeedsToShowSecretScreenNotificationName";
 
 @interface ZZRootWireframe ()
 
 @property (nonatomic, strong) ZZSecretWireframe* secretWireframe;
-@property (nonatomic, strong) ZZSecretScreenController* secretController;
 @property (nonatomic, copy) ANCodeBlock completionBlock;
+@property (nonatomic, weak) UIWindow *window;
 
 @end
 
 @implementation ZZRootWireframe
 
-- (void)showStartViewControllerInWindow:(UIWindow*)window completionBlock:(ANCodeBlock)completionBlock
+- (void)showStartViewControllerInWindow:(UIWindow *)window completionBlock:(ANCodeBlock)completionBlock
 {
     window.backgroundColor = [UIColor whiteColor];
     self.completionBlock = completionBlock;
@@ -30,22 +30,25 @@
 #ifdef DEBUG_CONTROLLER
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
-    
 #else
     ZZStartWireframe* wireframe = [ZZStartWireframe new];
     [wireframe presentStartControllerFromWindow:window completion:completionBlock];
 #endif
+    
+    self.window = window;
 
     self.secretWireframe = [ZZSecretWireframe new];
     
-    self.secretController =
-    [ZZSecretScreenController startObserveWithType:ZZEnvelopObserveType
-                                         touchType:ZZSecretScreenTouchTypeWithoutDelay
-                                            window:window completionBlock:^{
-                                                
-                                                [self _presentSecretScreenFromNavigationController:(UINavigationController*)window.rootViewController];
-                                                
-                                            }];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_needsToShowSecretScreenNotification)
+                                                 name:ZZNeedsToShowSecretScreenNotificationName
+                                               object:nil];
+    
+}
+
+- (void)_needsToShowSecretScreenNotification
+{
+    [self _presentSecretScreenFromNavigationController:(UINavigationController *)self.window.rootViewController];
 }
 
 - (void)showRootController:(UIViewController*)vc inWindow:(UIWindow *)window

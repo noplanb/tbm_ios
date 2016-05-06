@@ -13,6 +13,7 @@
 #import "ZZGridWireframe.h"
 #import "ZZNetworkTestWireframe.h"
 #import "ZZMainWireframe.h"
+#import "ZZRootWireframe.h"
 
 @interface ZZAuthWireframe ()
 
@@ -75,6 +76,11 @@
 {
     ZZNetworkTestWireframe* testWireframe = [ZZNetworkTestWireframe new];
     [testWireframe presentNetworkTestControllerFromWindow:self.authController.view.window];
+}
+
+- (void)showSecretScreen
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZZNeedsToShowSecretScreenNotificationName object:nil];
 }
 
 @end

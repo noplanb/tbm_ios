@@ -13,5 +13,6 @@
 - (void)dismissAuthController;
 - (void)presentGridController;
 - (void)presentNetworkTestController;
+- (void)showSecretScreen;
 
 @end

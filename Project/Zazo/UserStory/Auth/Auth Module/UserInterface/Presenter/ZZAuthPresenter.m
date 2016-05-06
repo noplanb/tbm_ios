@@ -36,6 +36,11 @@
 {
     self.userInterface = userInterface;
     [self.interactor loadUserData];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"])
+    {
+        [self.userInterface enableLogoTapRecognizer];
+    }
 }
 
 #pragma mark - Module Interface
@@ -65,6 +70,17 @@
     [self.interactor validateSMSCode:code];
 }
 
+- (void)handleLogoTap
+{
+    static NSUInteger tapCount;
+    
+    tapCount++;
+    
+    if (tapCount > 3)
+    {
+        [self.wireframe showSecretScreen];
+    }
+}
 
 #pragma mark - Output
 

@@ -16,4 +16,6 @@
 - (void)updateFirstName:(NSString*)firstName lastName:(NSString*)lastName;
 - (void)updateCountryCode:(NSString*)countryCode phoneNumber:(NSString*)phoneNumber;
 
+- (void)enableLogoTapRecognizer;
+
 @end

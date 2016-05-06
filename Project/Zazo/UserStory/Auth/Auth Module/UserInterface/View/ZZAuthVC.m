@@ -49,8 +49,26 @@
                                              countryCode:view.phoneCodeTextField.text
                                                    phone:view.phoneNumberTextField.text];
         }];
+        
+        
+        
     }
     return self;
+}
+
+- (void)enableLogoTapRecognizer
+{
+    self.contentView.registrationView.titleImageView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tapRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_logoTap)];
+    
+    [self.contentView.registrationView.titleImageView addGestureRecognizer:tapRecognizer];
+}
+
+- (void)_logoTap
+{
+    [self.eventHandler handleLogoTap];
 }
 
 - (void)loadView

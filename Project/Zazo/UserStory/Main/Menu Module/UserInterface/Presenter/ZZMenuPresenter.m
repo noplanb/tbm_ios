@@ -66,17 +66,25 @@
     [storage addItem:contacts toSection:0];
     [storage addItem:helpFeedback toSection:0];
     
+    
+    BOOL showDebugRow = [[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"];
+    
 #ifdef DEBUG
 #ifndef MAKING_SCREENSHOTS
-    
-    ZZMenuCellModel *secretScreen =
-    [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
-    
-    secretScreen.type = ZZMenuItemTypeSecretScreen;
-    [storage addItem:secretScreen toSection:0];
+
+    showDebugRow = YES;
     
 #endif
 #endif
+    
+    if (showDebugRow)
+    {
+        ZZMenuCellModel *secretScreen =
+        [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
+        
+        secretScreen.type = ZZMenuItemTypeSecretScreen;
+        [storage addItem:secretScreen toSection:0];
+    }
     
     return storage;
 }

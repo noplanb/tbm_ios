@@ -15,5 +15,7 @@
 
 - (void)verifySMSCode:(NSString*)code;
 - (void)requestCall;
+- (void)handleLogoTap;
+
 
 @end
