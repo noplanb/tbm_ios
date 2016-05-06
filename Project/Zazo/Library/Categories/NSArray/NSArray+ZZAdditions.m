@@ -12,7 +12,7 @@
     NSUInteger myCount = [self count];
     if (myCount)
     {
-        return [self objectAtIndex:arc4random_uniform((u_int32_t)myCount)];
+        return self[arc4random_uniform((u_int32_t)myCount)];
     }
     else
     {
@@ -38,7 +38,7 @@
 
         if (!result[value])
         {
-            [result setObject:[NSMutableArray new] forKey:value];
+            result[value] = [NSMutableArray new];
         }
 
         NSMutableArray *keyItems = result[value];
