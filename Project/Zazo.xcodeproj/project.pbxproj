@@ -155,11 +155,6 @@
 		07636EE01BA49A0100925671 /* ZZStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D1F1BA49A0100925671 /* ZZStartView.m */; };
 		07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D231BA49A0100925671 /* ZZStartWireframe.m */; };
 		07636F091BA49A0100925671 /* ZZVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8F1BA49A0100925671 /* ZZVerfiicationAlertHandler.m */; };
-		07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636D921BA49A0100925671 /* TOWebViewControllerLocalizable.strings */; };
-		07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D951BA49A0100925671 /* TOActivityChrome.m */; };
-		07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D971BA49A0100925671 /* TOActivitySafari.m */; };
-		07636F0D1BA49A0100925671 /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D991BA49A0100925671 /* TOWebViewController.m */; };
-		07636F0E1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */; };
 		07636F0F1BA49A0100925671 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9E1BA49A0100925671 /* NSData+MD5.m */; };
 		07636F101BA49A0100925671 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA01BA49A0100925671 /* NSString+MD5.m */; };
 		07636F111BA49A0100925671 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
@@ -391,7 +386,6 @@
 		182254921C16CA06003885A3 /* ZZSecretInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C511BA49A0100925671 /* ZZSecretInteractor.m */; };
 		182254931C16CA06003885A3 /* ZZAccountTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B431BA49A0100925671 /* ZZAccountTransport.m */; };
 		182254941C16CA06003885A3 /* ZZGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CE81BA49A0100925671 /* ZZGridVC.m */; };
-		182254951C16CA06003885A3 /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D971BA49A0100925671 /* TOActivitySafari.m */; };
 		182254961C16CA06003885A3 /* ZZAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C1D1BA49A0100925671 /* ZZAuthVC.m */; };
 		182254971C16CA06003885A3 /* ZZEditFriendListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C951BA49A0100925671 /* ZZEditFriendListController.m */; };
 		182254981C16CA06003885A3 /* ZZGridCenterCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CB51BA49A0100925671 /* ZZGridCenterCellViewModel.m */; };
@@ -404,7 +398,6 @@
 		182254A01C16CA06003885A3 /* ZZTextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B0D1BA49A0100925671 /* ZZTextFieldsDelegate.m */; };
 		182254A11C16CA06003885A3 /* ZZCommunicationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */; };
 		182254A21C16CA06003885A3 /* ZZContactsPermissionAlertBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1872F4381BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m */; };
-		182254A31C16CA06003885A3 /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */; };
 		182254A41C16CA06003885A3 /* ZZNotificationTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B591BA49A0100925671 /* ZZNotificationTransportService.m */; };
 		182254A51C16CA06003885A3 /* ZZContactsInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CF11BA49A0100925671 /* ZZContactsInteractor.m */; };
 		182254A71C16CA06003885A3 /* ZZGridStateViewRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC61BA49A0100925671 /* ZZGridStateViewRecord.m */; };
@@ -456,7 +449,6 @@
 		182254E21C16CA06003885A3 /* ZZFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA70F1BB1C346009878B9 /* ZZFileHelper.m */; };
 		182254E41C16CA06003885A3 /* ZZGridUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 183774A41BFF440D00CE390D /* ZZGridUpdateService.m */; };
 		182254E51C16CA06003885A3 /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83231BBE580C00445108 /* ZZHintsArrow.m */; };
-		182254E61C16CA06003885A3 /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D951BA49A0100925671 /* TOActivityChrome.m */; };
 		182254E71C16CA06003885A3 /* ZZFriendsTransportService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B4F1BA49A0100925671 /* ZZFriendsTransportService.m */; };
 		182254E81C16CA06003885A3 /* ZZNotificationsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E1D1BD5A6D000A59389 /* ZZNotificationsConstants.m */; };
 		182254EA1C16CA06003885A3 /* ZZUserDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B3B1BA49A0100925671 /* ZZUserDomainModel.m */; };
@@ -468,7 +460,6 @@
 		182254F11C16CA06003885A3 /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */; };
 		182254F21C16CA06003885A3 /* ZZContactDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B2E1BA49A0100925671 /* ZZContactDomainModel.m */; };
 		182254F31C16CA06003885A3 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; };
-		182254F41C16CA06003885A3 /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D991BA49A0100925671 /* TOWebViewController.m */; };
 		182254F51C16CA06003885A3 /* ZZGridDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAB1BA49A0100925671 /* ZZGridDataSource.m */; };
 		182254F61C16CA06003885A3 /* ZZSecretScreenTextEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C611BA49A0100925671 /* ZZSecretScreenTextEditCell.m */; };
 		182254F81C16CA06003885A3 /* ZZRollbarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E90161BD44695001A4718 /* ZZRollbarConstants.m */; };
@@ -575,7 +566,6 @@
 		182255811C16CA06003885A3 /* icon_menu_dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF61BA49A0100925671 /* icon_menu_dots.png */; };
 		182255831C16CA06003885A3 /* NotificationTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAB1BA49A0100925671 /* NotificationTone.wav */; };
 		182255891C16CA06003885A3 /* icon_menu_dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF71BA49A0100925671 /* icon_menu_dots@2x.png */; };
-		1822558C1C16CA06003885A3 /* TOWebViewControllerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636D921BA49A0100925671 /* TOWebViewControllerLocalizable.strings */; };
 		182255901C16CA06003885A3 /* icon_camera_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D8D971BB5D45E0080E100 /* icon_camera_switch@2x.png */; };
 		182255961C16CA06003885A3 /* BeepSin30.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA61BA49A0100925671 /* BeepSin30.wav */; };
 		182255971C16CA06003885A3 /* head.png in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA91BA49A0100925671 /* head.png */; };
@@ -1055,15 +1045,6 @@
 		07636D8A1BA49A0100925671 /* ZZAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAlertController.m; sourceTree = "<group>"; };
 		07636D8F1BA49A0100925671 /* ZZVerfiicationAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVerfiicationAlertHandler.m; sourceTree = "<group>"; };
 		07636D901BA49A0100925671 /* ZZVerificationAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVerificationAlertHandler.h; sourceTree = "<group>"; };
-		07636D931BA49A0100925671 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
-		07636D941BA49A0100925671 /* TOActivityChrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivityChrome.h; sourceTree = "<group>"; };
-		07636D951BA49A0100925671 /* TOActivityChrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivityChrome.m; sourceTree = "<group>"; };
-		07636D961BA49A0100925671 /* TOActivitySafari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivitySafari.h; sourceTree = "<group>"; };
-		07636D971BA49A0100925671 /* TOActivitySafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivitySafari.m; sourceTree = "<group>"; };
-		07636D981BA49A0100925671 /* TOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOWebViewController.h; sourceTree = "<group>"; };
-		07636D991BA49A0100925671 /* TOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOWebViewController.m; sourceTree = "<group>"; };
-		07636D9A1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TOWebViewControllerIcons.h"; sourceTree = "<group>"; };
-		07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TOWebViewControllerIcons.m"; sourceTree = "<group>"; };
 		07636D9D1BA49A0100925671 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
 		07636D9E1BA49A0100925671 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
 		07636D9F1BA49A0100925671 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -3319,7 +3300,6 @@
 				7997E4EC1BAABE85001697D5 /* JFMinimalNotification */,
 				07636D251BA49A0100925671 /* ANODA */,
 				07636D881BA49A0100925671 /* TBMAlertController */,
-				07636D911BA49A0100925671 /* TOWebViewController */,
 				07636D9C1BA49A0100925671 /* UIImage+PDF */,
 			);
 			path = Vendor;
@@ -3357,22 +3337,6 @@
 				07636D901BA49A0100925671 /* ZZVerificationAlertHandler.h */,
 			);
 			path = TBMAlertController;
-			sourceTree = "<group>";
-		};
-		07636D911BA49A0100925671 /* TOWebViewController */ = {
-			isa = PBXGroup;
-			children = (
-				07636D921BA49A0100925671 /* TOWebViewControllerLocalizable.strings */,
-				07636D941BA49A0100925671 /* TOActivityChrome.h */,
-				07636D951BA49A0100925671 /* TOActivityChrome.m */,
-				07636D961BA49A0100925671 /* TOActivitySafari.h */,
-				07636D971BA49A0100925671 /* TOActivitySafari.m */,
-				07636D981BA49A0100925671 /* TOWebViewController.h */,
-				07636D991BA49A0100925671 /* TOWebViewController.m */,
-				07636D9A1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.h */,
-				07636D9B1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m */,
-			);
-			path = TOWebViewController;
 			sourceTree = "<group>";
 		};
 		07636D9C1BA49A0100925671 /* UIImage+PDF */ = {
@@ -5369,7 +5333,6 @@
 				182255811C16CA06003885A3 /* icon_menu_dots.png in Resources */,
 				182255831C16CA06003885A3 /* NotificationTone.wav in Resources */,
 				182255891C16CA06003885A3 /* icon_menu_dots@2x.png in Resources */,
-				1822558C1C16CA06003885A3 /* TOWebViewControllerLocalizable.strings in Resources */,
 				182255901C16CA06003885A3 /* icon_camera_switch@2x.png in Resources */,
 				182255961C16CA06003885A3 /* BeepSin30.wav in Resources */,
 				182255971C16CA06003885A3 /* head.png in Resources */,
@@ -5406,7 +5369,6 @@
 				15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */,
 				1589605A1CB7B61D0040D8E3 /* mogen.sh in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
-				07636F0A1BA49A0100925671 /* TOWebViewControllerLocalizable.strings in Resources */,
 				15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,
 				159502AC1CDCA51900C11AAA /* Settings.bundle in Resources */,
@@ -5671,7 +5633,6 @@
 				182254921C16CA06003885A3 /* ZZSecretInteractor.m in Sources */,
 				182254931C16CA06003885A3 /* ZZAccountTransport.m in Sources */,
 				182254941C16CA06003885A3 /* ZZGridVC.m in Sources */,
-				182254951C16CA06003885A3 /* TOActivitySafari.m in Sources */,
 				182254961C16CA06003885A3 /* ZZAuthVC.m in Sources */,
 				182254971C16CA06003885A3 /* ZZEditFriendListController.m in Sources */,
 				182254981C16CA06003885A3 /* ZZGridCenterCellViewModel.m in Sources */,
@@ -5685,7 +5646,6 @@
 				182254A11C16CA06003885A3 /* ZZCommunicationDomainModel.m in Sources */,
 				182255F51C16E08A003885A3 /* ZZNetworkTestWireframe.m in Sources */,
 				182254A21C16CA06003885A3 /* ZZContactsPermissionAlertBuilder.m in Sources */,
-				182254A31C16CA06003885A3 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				182254A41C16CA06003885A3 /* ZZNotificationTransportService.m in Sources */,
 				182254A51C16CA06003885A3 /* ZZContactsInteractor.m in Sources */,
 				182254A71C16CA06003885A3 /* ZZGridStateViewRecord.m in Sources */,
@@ -5743,7 +5703,6 @@
 				182254E21C16CA06003885A3 /* ZZFileHelper.m in Sources */,
 				182254E41C16CA06003885A3 /* ZZGridUpdateService.m in Sources */,
 				182254E51C16CA06003885A3 /* ZZHintsArrow.m in Sources */,
-				182254E61C16CA06003885A3 /* TOActivityChrome.m in Sources */,
 				182254E71C16CA06003885A3 /* ZZFriendsTransportService.m in Sources */,
 				182254E81C16CA06003885A3 /* ZZNotificationsConstants.m in Sources */,
 				182254EA1C16CA06003885A3 /* ZZUserDomainModel.m in Sources */,
@@ -5755,7 +5714,6 @@
 				182254F11C16CA06003885A3 /* ZZFeatureEventStrategyBase.m in Sources */,
 				182254F21C16CA06003885A3 /* ZZContactDomainModel.m in Sources */,
 				182254F31C16CA06003885A3 /* NSInvocation+Constructors.m in Sources */,
-				182254F41C16CA06003885A3 /* TOWebViewController.m in Sources */,
 				182256131C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */,
 				182254F51C16CA06003885A3 /* ZZGridDataSource.m in Sources */,
 				182254F61C16CA06003885A3 /* ZZSecretScreenTextEditCell.m in Sources */,
@@ -5933,7 +5891,6 @@
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
-				07636F0C1BA49A0100925671 /* TOActivitySafari.m in Sources */,
 				151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */,
 				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
@@ -5958,7 +5915,6 @@
 				15B823081CB7BBD4006473E1 /* _TBMUser.m in Sources */,
 				1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */,
 				158960461CB7B61D0040D8E3 /* UINavigationItem+ANAdditions.m in Sources */,
-				07636F0E1BA49A0100925671 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				07636E3B1BA49A0100925671 /* ZZNotificationTransportService.m in Sources */,
 				07636ED41BA49A0100925671 /* ZZContactsInteractor.m in Sources */,
 				07636EC51BA49A0100925671 /* ZZGridStateViewRecord.m in Sources */,
@@ -6038,7 +5994,6 @@
 				07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */,
 				183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */,
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
-				07636F0B1BA49A0100925671 /* TOActivityChrome.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
 				07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */,
 				07636E301BA49A0100925671 /* ZZUserDomainModel.m in Sources */,
@@ -6056,7 +6011,6 @@
 				1589607C1CB7B61E0040D8E3 /* ANTableController.m in Sources */,
 				158960361CB7B61D0040D8E3 /* NSArray+ANAdditions.m in Sources */,
 				7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */,
-				07636F0D1BA49A0100925671 /* TOWebViewController.m in Sources */,
 				182256121C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */,
 				1589603E1CB7B61D0040D8E3 /* RACCommand+ANAdditions.m in Sources */,
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
@@ -6242,14 +6196,6 @@
 				0732F5051B8B93D3004FD3AF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		07636D921BA49A0100925671 /* TOWebViewControllerLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				07636D931BA49A0100925671 /* en */,
-			);
-			name = TOWebViewControllerLocalizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
