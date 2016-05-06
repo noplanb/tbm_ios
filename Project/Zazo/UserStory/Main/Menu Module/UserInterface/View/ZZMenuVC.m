@@ -28,6 +28,10 @@
 
     self.controller = [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
     self.controller.delegate = self;
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_logoTap)];
+    [self.menuView.headerView.titleLabel addGestureRecognizer:tapRecognizer];
+    self.menuView.headerView.titleLabel.userInteractionEnabled = YES;
 }
 
 @synthesize storage = _storage;
@@ -46,6 +50,11 @@
 - (ZZMenuView *)menuView
 {
     return (id)self.view;
+}
+
+- (void)_logoTap
+{
+    [self.eventHandler titleTap];
 }
 
 #pragma mark Input

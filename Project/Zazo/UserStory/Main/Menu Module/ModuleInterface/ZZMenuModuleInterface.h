@@ -15,5 +15,6 @@ typedef enum : NSUInteger
 @protocol ZZMenuModuleInterface <NSObject>
 
 - (void)eventDidTapItemWithType:(ZZMenuItemType)type;
+- (void)titleTap;
 
 @end

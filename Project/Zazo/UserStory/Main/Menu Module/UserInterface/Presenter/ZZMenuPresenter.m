@@ -65,10 +65,10 @@
 
     [storage addItem:contacts toSection:0];
     [storage addItem:helpFeedback toSection:0];
-
-
-    BOOL showDebugRow = [[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"];
-
+    
+    
+    BOOL showDebugRow = NO;
+    
 #ifdef DEBUG
 #ifndef MAKING_SCREENSHOTS
 
@@ -85,8 +85,20 @@
         secretScreen.type = ZZMenuItemTypeSecretScreen;
         [storage addItem:secretScreen toSection:0];
     }
-
+    
     return storage;
+}
+
+- (void)titleTap
+{
+    static NSUInteger tapCount;
+    
+    tapCount++;
+    
+    if (tapCount > 4)
+    {
+        [self.wireframe showSecretScreen];
+    }
 }
 
 #pragma mark - Output
