@@ -11,14 +11,14 @@
 #import "_TBMUser.h"
 
 const struct TBMUserAttributes TBMUserAttributes = {
-        .auth = @"auth",
-        .firstName = @"firstName",
-        .idTbm = @"idTbm",
-        .isInvitee = @"isInvitee",
-        .isRegistered = @"isRegistered",
-        .lastName = @"lastName",
-        .mkey = @"mkey",
-        .mobileNumber = @"mobileNumber",
+    .auth = @"auth",
+    .firstName = @"firstName",
+    .idTbm = @"idTbm",
+    .isInvitee = @"isInvitee",
+    .isRegistered = @"isRegistered",
+    .lastName = @"lastName",
+    .mkey = @"mkey",
+    .mobileNumber = @"mobileNumber",
 };
 
 @implementation TBMUserID

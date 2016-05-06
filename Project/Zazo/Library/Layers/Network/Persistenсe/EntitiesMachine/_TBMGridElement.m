@@ -11,11 +11,11 @@
 #import "_TBMGridElement.h"
 
 const struct TBMGridElementAttributes TBMGridElementAttributes = {
-        .index = @"index",
+    .index = @"index",
 };
 
 const struct TBMGridElementRelationships TBMGridElementRelationships = {
-        .friend = @"friend",
+    .friend = @"friend",
 };
 
 @implementation TBMGridElementID

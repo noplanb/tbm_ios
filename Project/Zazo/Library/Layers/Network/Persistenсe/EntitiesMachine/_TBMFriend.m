@@ -11,29 +11,29 @@
 #import "_TBMFriend.h"
 
 const struct TBMFriendAttributes TBMFriendAttributes = {
-        .cid = @"cid",
-        .ckey = @"ckey",
-        .everSent = @"everSent",
-        .firstName = @"firstName",
-        .friendshipCreatorMKey = @"friendshipCreatorMKey",
-        .friendshipStatus = @"friendshipStatus",
-        .hasApp = @"hasApp",
-        .idTbm = @"idTbm",
-        .isFriendshipCreator = @"isFriendshipCreator",
-        .lastIncomingVideoStatus = @"lastIncomingVideoStatus",
-        .lastName = @"lastName",
-        .lastVideoStatusEventType = @"lastVideoStatusEventType",
-        .mkey = @"mkey",
-        .mobileNumber = @"mobileNumber",
-        .outgoingVideoId = @"outgoingVideoId",
-        .outgoingVideoStatus = @"outgoingVideoStatus",
-        .timeOfLastAction = @"timeOfLastAction",
-        .uploadRetryCount = @"uploadRetryCount",
+    .cid = @"cid",
+    .ckey = @"ckey",
+    .everSent = @"everSent",
+    .firstName = @"firstName",
+    .friendshipCreatorMKey = @"friendshipCreatorMKey",
+    .friendshipStatus = @"friendshipStatus",
+    .hasApp = @"hasApp",
+    .idTbm = @"idTbm",
+    .isFriendshipCreator = @"isFriendshipCreator",
+    .lastIncomingVideoStatus = @"lastIncomingVideoStatus",
+    .lastName = @"lastName",
+    .lastVideoStatusEventType = @"lastVideoStatusEventType",
+    .mkey = @"mkey",
+    .mobileNumber = @"mobileNumber",
+    .outgoingVideoId = @"outgoingVideoId",
+    .outgoingVideoStatus = @"outgoingVideoStatus",
+    .timeOfLastAction = @"timeOfLastAction",
+    .uploadRetryCount = @"uploadRetryCount",
 };
 
 const struct TBMFriendRelationships TBMFriendRelationships = {
-        .gridElement = @"gridElement",
-        .videos = @"videos",
+    .gridElement = @"gridElement",
+    .videos = @"videos",
 };
 
 @implementation TBMFriendID

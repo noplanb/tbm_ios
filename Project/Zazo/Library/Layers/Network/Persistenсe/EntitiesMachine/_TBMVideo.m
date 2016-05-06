@@ -11,13 +11,13 @@
 #import "_TBMVideo.h"
 
 const struct TBMVideoAttributes TBMVideoAttributes = {
-        .downloadRetryCount = @"downloadRetryCount",
-        .status = @"status",
-        .videoId = @"videoId",
+    .downloadRetryCount = @"downloadRetryCount",
+    .status = @"status",
+    .videoId = @"videoId",
 };
 
 const struct TBMVideoRelationships TBMVideoRelationships = {
-        .friend = @"friend",
+    .friend = @"friend",
 };
 
 @implementation TBMVideoID
