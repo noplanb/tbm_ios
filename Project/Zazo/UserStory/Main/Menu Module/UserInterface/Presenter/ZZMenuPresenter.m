@@ -67,7 +67,7 @@
     [storage addItem:helpFeedback toSection:0];
     
     
-    BOOL showDebugRow = [[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"];
+    BOOL showDebugRow = NO;
     
 #ifdef DEBUG
 #ifndef MAKING_SCREENSHOTS
@@ -87,6 +87,18 @@
     }
     
     return storage;
+}
+
+- (void)titleTap
+{
+    static NSUInteger tapCount;
+    
+    tapCount++;
+    
+    if (tapCount > 4)
+    {
+        [self.wireframe showSecretScreen];
+    }
 }
 
 #pragma mark - Output

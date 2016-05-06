@@ -8,7 +8,6 @@
 @interface ZZMenuHeaderView ()
 
 @property (nonatomic, strong, readonly) UIImageView *patternView;
-@property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 

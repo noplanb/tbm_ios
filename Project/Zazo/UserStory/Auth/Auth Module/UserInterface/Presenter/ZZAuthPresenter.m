@@ -37,10 +37,7 @@
     self.userInterface = userInterface;
     [self.interactor loadUserData];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"debug_enabled"])
-    {
-        [self.userInterface enableLogoTapRecognizer];
-    }
+    [self.userInterface enableLogoTapRecognizer];
 }
 
 #pragma mark - Module Interface
@@ -76,7 +73,7 @@
     
     tapCount++;
     
-    if (tapCount > 3)
+    if (tapCount > 4)
     {
         [self.wireframe showSecretScreen];
     }
