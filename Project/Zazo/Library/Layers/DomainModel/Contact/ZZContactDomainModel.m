@@ -23,7 +23,13 @@
     model.firstName = firstName;
     model.lastName = lastName;
     model.fullName = [ZZUserPresentationHelper fullNameWithFirstName:model.firstName lastName:model.lastName];
-    model.category = [model.firstName substringWithRange:NSMakeRange(0, 1)]; 
+    
+    if (ANIsEmpty(firstName))
+    {
+        firstName = @"…";
+    }
+    
+    model.category = [firstName substringWithRange:NSMakeRange(0, 1)];
     
     return model;
 }
