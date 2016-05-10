@@ -462,7 +462,7 @@
     [self.userInterface updateActiveCellTitleTo:[date zz_formattedDate]];
 }
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel
+- (void)videoPlayerDidFinishPlayingWithModel:(ZZFriendDomainModel *)playedFriendModel
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
     [self _handleRecordHintWithCellViewModel:playedFriendModel];

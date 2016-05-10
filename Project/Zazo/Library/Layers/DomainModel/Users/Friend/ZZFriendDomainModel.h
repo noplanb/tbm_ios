@@ -68,7 +68,6 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, assign) ZZVideoOutgoingStatus lastOutgoingVideoStatus;
 
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videos;
-@property (nonatomic, assign) BOOL isVideoStopped;
 
 + (FEMObjectMapping *)mapping;
 

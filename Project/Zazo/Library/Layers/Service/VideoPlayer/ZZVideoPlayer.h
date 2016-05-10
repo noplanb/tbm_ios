@@ -13,7 +13,7 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
 
-- (void)videoPlayerURLWasFinishedPlaying:(NSURL *)videoURL withPlayedUserModel:(ZZFriendDomainModel *)playedFriendModel;
+- (void)videoPlayerDidFinishPlayingWithModel:(ZZFriendDomainModel *)playedFriendModel;
 
 - (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos;
 
