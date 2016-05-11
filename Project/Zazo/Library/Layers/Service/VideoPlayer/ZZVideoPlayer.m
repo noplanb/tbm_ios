@@ -56,12 +56,12 @@
     if (self)
     {
         self.videoDurations = @[];
-        [self addNotifications];
+        [self _addNotifications];
     }
     return self;
 }
 
-- (void)addNotifications
+- (void)_addNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_didFinishPlayingItemNotification:)
@@ -76,9 +76,26 @@
     
 }
 
-- (void)dealloc
+- (void)_makePlayer
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.playerController.player = [AVQueuePlayer new];
+    self.playerController.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
+    
+    RACSignal *currentItem = RACObserve(self.playerController.player, currentItem).distinctUntilChanged;
+    
+    RACSignal *status = [currentItem flattenMap:^RACStream *(AVPlayerItem *item) {
+        return RACObserve(item, status);
+    }];
+    
+    [status.distinctUntilChanged subscribeNext:^(NSNumber *x) {
+        
+        if (self.isPlayingVideo && x.integerValue == AVPlayerStatusFailed)
+        {
+            [self _failedToPlayCurrentVideo];
+        }
+        
+    }];
+    
 }
 
 #pragma mark - Public
@@ -142,7 +159,7 @@
     
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
     
-    [self makePlaybackTimer];
+    [self _makePlaybackTimer];
     
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
@@ -157,6 +174,51 @@
     
     [self.player play];
 }
+
+- (void)stop
+{
+    [self _stopWithPlayChecking:YES];
+}
+
+- (void)toggle
+{
+    if (self.isPlayingVideo)
+    {
+        [self stop];
+    }
+    else
+    {
+        [self playOnView:nil withVideoModels:self.videoModels];
+    }
+}
+
+- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    
+    NSArray *actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    ZZVideoDomainModel *lastVideoModel = [actualVideos lastObject];
+    
+    if (![self.videoModels containsObject:lastVideoModel])
+    {
+        [self _appendModel:lastVideoModel];
+    }
+}
+
+- (ZZFriendDomainModel *)playedFriendModel
+{
+    return self.currentFriendModel;
+}
+
+- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel
+{
+    return (self.isPlayingVideo &&
+            [friendModel.idTbm isEqualToString:self.currentFriendModel.idTbm]);
+}
+
+#pragma mark - Private
+
 
 - (void)_stopVideoPlayerStateIfNeeded
 {
@@ -182,17 +244,11 @@
 {
     self.videoModels = [self.videoModels arrayByAddingObject:videoModel];
     
-    [self.player insertItem:[self _itemWithURL:videoModel.videoURL] afterItem:nil];
+    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:videoModel.videoURL];
+    [self.player insertItem:item afterItem:nil];
     
     self.totalVideoDuration += [self _durationByURL:videoModel.videoURL];
-
-}
-
-- (AVPlayerItem *)_itemWithURL:(NSURL *)URL
-{
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:URL];
-
-    return item;
+    
 }
 
 - (NSTimeInterval)_durationByURL:(NSURL *)url
@@ -200,11 +256,6 @@
     AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:url options:nil];
     CMTime duration = sourceAsset.duration;
     return CMTimeGetSeconds(duration);
-}
-
-- (void)stop
-{
-    [self _stopWithPlayChecking:YES];
 }
 
 - (void)_stopWithPlayChecking:(BOOL)isCheckPlaying
@@ -229,62 +280,6 @@
     
     self.currentFriendModel = nil;
 }
-
-- (void)toggle
-{
-    if (self.isPlayingVideo)
-    {
-        [self stop];
-    }
-    else
-    {
-        [self playOnView:nil withVideoModels:self.videoModels];
-    }
-}
-
-
-#pragma mark - Private
-
-- (void)_failedToPlayCurrentVideo
-{
-    NSError *error = self.player.currentItem.error;
-    ZZLogError(@"VideoPlayer#playbackDidFail: %@", error);
-    
-    ANDispatchBlockToMainQueue(^{
-        [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
-        
-//        self.isPlayingVideo = NO;
-        CGFloat delayAfterToastRemoved = 0.4;
-        
-        ANDispatchBlockAfter(delayAfterToastRemoved, ^{
-            [self _playNextOrStop];
-        });
-        
-    });
-
-}
-
-- (void)_didFinishPlayingItemNotification:(NSNotification *)notification
-{
-    AVPlayerItem *item = notification.object;
-    
-    if (notification.object != self.player.currentItem)
-    {
-        return;
-    }
-    
-    self.playedVideoDuration += CMTimeGetSeconds(item.duration);
-    
-    ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification");
-
-    if (self.isPlayingVideo)
-    {
-        [self _playNextOrStop];
-    }
-}
-
-#pragma mark - Configure Next played index
-
 
 - (void)_playNextOrStop
 {
@@ -326,7 +321,7 @@
 
 }
 
-//TODO: temporary
+// temporary
 - (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
                                     video:(ZZVideoDomainModel*)videoModel
                                videoIndex:(NSInteger)index
@@ -343,47 +338,14 @@
     }
 }
 
-
-- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
+- (NSTimeInterval)_totalPlayedVideoTime
 {
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    NSTimeInterval currentTime = CMTimeGetSeconds(self.playerController.player.currentTime);
     
-    NSArray *actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    ZZVideoDomainModel *lastVideoModel = [actualVideos lastObject];
-    
-    if (![self.videoModels containsObject:lastVideoModel])
-    {
-        [self _appendModel:lastVideoModel];
-    }
+    return self.playedVideoDuration + currentTime;
 }
 
-- (void)_applicationWillResignNotication
-{
-    [self stop];
-}
-
-#pragma mark - Helpers
-
-- (ZZFriendDomainModel *)playedFriendModel
-{
-    return self.currentFriendModel;
-}
-
-- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel*)friendModel
-{
-    return (self.isPlayingVideo &&
-            [friendModel.idTbm isEqualToString:self.currentFriendModel.idTbm]);
-}
-
-@dynamic player;
-
-- (AVQueuePlayer *)player
-{
-    return (id)self.playerController.player;
-}
-
-#pragma mark - Lazy Load
+#pragma mark - Properties
 
 - (AVPlayerViewController *)playerController
 {
@@ -398,28 +360,6 @@
         
     }
     return _playerController;
-}
-
-- (void)_makePlayer
-{
-    self.playerController.player = [AVQueuePlayer new];
-    self.playerController.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
-    
-    RACSignal *currentItem = RACObserve(self.playerController.player, currentItem).distinctUntilChanged;
-    
-    RACSignal *status = [currentItem flattenMap:^RACStream *(AVPlayerItem *item) {
-        return RACObserve(item, status);
-    }];
-    
-    [status.distinctUntilChanged subscribeNext:^(NSNumber *x) {
-        
-        if (self.isPlayingVideo && x.integerValue == AVPlayerStatusFailed)
-        {
-            [self _failedToPlayCurrentVideo];
-        }
-        
-    }];
-
 }
 
 - (UIButton *)tapButton
@@ -439,10 +379,17 @@
     return _tapButton;
 }
 
+@dynamic player;
+
+- (AVQueuePlayer *)player
+{
+    return (id)self.playerController.player;
+}
+
 @dynamic currentVideoModel;
 
 - (ZZVideoDomainModel *)currentVideoModel
-{    
+{
     AVURLAsset *URLAsset = (id)self.player.items.firstObject.asset;
     
     for (ZZVideoDomainModel *videoModel in self.videoModels)
@@ -456,49 +403,86 @@
     return nil;
 }
 
+#pragma mark Events
+
+- (void)_failedToPlayCurrentVideo
+{
+    NSError *error = self.player.currentItem.error;
+    ZZLogError(@"VideoPlayer#playbackDidFail: %@", error);
+    
+    ANDispatchBlockToMainQueue(^{
+        [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
+        
+        CGFloat delayAfterToastRemoved = 0.4;
+        
+        ANDispatchBlockAfter(delayAfterToastRemoved, ^{
+            [self _playNextOrStop];
+        });
+        
+    });
+    
+}
+
+- (void)_applicationWillResignNotication
+{
+    [self stop];
+}
+
+- (void)_didFinishPlayingItemNotification:(NSNotification *)notification
+{
+    AVPlayerItem *item = notification.object;
+    
+    if (notification.object != self.player.currentItem)
+    {
+        return;
+    }
+    
+    self.playedVideoDuration += CMTimeGetSeconds(item.duration);
+    
+    ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification");
+    
+    if (self.isPlayingVideo)
+    {
+        [self _playNextOrStop];
+    }
+}
+
 #pragma mark Timer
 
-- (void)makePlaybackTimer
+- (void)_makePlaybackTimer
 {
-    [self removePlaybackTimer];
+    [self _removePlaybackTimer];
     
     self.playbackTimer =
     [NSTimer scheduledTimerWithTimeInterval:0.01f
                                      target:self
-                                   selector:@selector(timerTick)
+                                   selector:@selector(_timerTick)
                                    userInfo:nil
                                     repeats:YES];
     
     self.playbackTimer.tolerance = 0.5f;
 }
 
-- (void)removePlaybackTimer
+- (void)_removePlaybackTimer
 {
     [self.playbackTimer invalidate];
 }
 
-- (void)timerTick
+- (void)_timerTick
 {
     if (![self isPlaying])
     {
-        [self removePlaybackTimer];
+        [self _removePlaybackTimer];
         [self.delegate videoPlayingProgress:0];
         return;
     }
 
-    CGFloat relativePlaybackPosition = [self totalPlayedVideoTime] / self.totalVideoDuration;
+    CGFloat relativePlaybackPosition = [self _totalPlayedVideoTime] / self.totalVideoDuration;
     
     if ([self.delegate respondsToSelector:@selector(videoPlayingProgress:)])
     {
         [self.delegate videoPlayingProgress:relativePlaybackPosition];
     }
-}
-
-- (NSTimeInterval)totalPlayedVideoTime
-{
-    NSTimeInterval currentTime = CMTimeGetSeconds(self.playerController.player.currentTime);
-    
-    return self.playedVideoDuration + currentTime;
 }
 
 @end
