@@ -63,6 +63,8 @@
 
     self.videoPlayer = [ZZVideoPlayer new];
     self.videoPlayer.delegate = self;
+    self.videoPlayer.superview = userInterface.view;
+    
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];

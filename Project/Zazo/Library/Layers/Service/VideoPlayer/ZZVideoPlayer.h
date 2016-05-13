@@ -26,6 +26,8 @@
 @property (nonatomic, weak) id <ZZVideoPlayerDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlayingVideo;
 
+@property (nonatomic, weak) UIView *superview;
+
 - (ZZFriendDomainModel *)playedFriendModel;
 
 - (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel;

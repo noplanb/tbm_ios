@@ -8,6 +8,7 @@
 
 @import MediaPlayer;
 @import AVKit;
+@import UIKit;
 
 #import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
@@ -22,6 +23,8 @@
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDataUpdater.h"
 #import "AVAudioSession+ZZAudioSession.h"
+
+#import "Zazo-Swift.h"
 
 @interface ZZVideoPlayer ()
 
@@ -45,6 +48,7 @@
 
 // Support
 @property (nonatomic, weak) NSTimer *playbackTimer;
+@property (nonatomic, strong) VideoPlayerFullscreenHelper *fullscreenHelper;
 
 @end
 
@@ -152,9 +156,17 @@
     
     if (view != self.playerController.view.superview && view)
     {
-        [view addSubview:self.playerController.view];
-        [view bringSubviewToFront:self.playerController.view];
-        self.playerController.view.frame = view.bounds;
+        [self.superview addSubview:self.playerController.view];
+        [self.superview bringSubviewToFront:self.playerController.view];
+        
+        CGPoint position = [view convertPoint:view.origin toView:self.superview];
+        
+        CGFloat ZZCellBorderWidth = 4; 
+        
+        self.playerController.view.frame = CGRectMake(position.x - ZZCellBorderWidth,
+                                                      position.y - ZZCellBorderWidth,
+                                                      view.bounds.size.width,
+                                                      view.bounds.size.height);
     }
     
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
@@ -357,6 +369,8 @@
         _playerController.showsPlaybackControls = NO;
 
         [_playerController.view addSubview:self.tapButton];
+        
+        _fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
         
     }
     return _playerController;

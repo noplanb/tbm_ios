@@ -15,7 +15,6 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDataProvider.h"
 #import "ZZStoredSettingsManager.h"
-#import "Zazo-Swift.h"
 
 static const NSInteger kDelayBetweenFriendUpdate = 30;
 

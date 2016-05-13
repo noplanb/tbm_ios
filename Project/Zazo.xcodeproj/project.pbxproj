@@ -289,6 +289,7 @@
 		158960861CB7B61E0040D8E3 /* ANTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602D1CB7B61D0040D8E3 /* ANTableView.m */; };
 		1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589C1561CD3C74800AB7E8C /* DownloadingView.swift */; };
 		15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */; };
+		15AB0DA71CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
 		15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */; };
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
@@ -1313,6 +1314,8 @@
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZTabbarViewPositionIndicator.xib; sourceTree = "<group>"; };
+		15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerFullscreenHelper.swift; sourceTree = "<group>"; };
+		15AB0DA91CE36C5A005E15AA /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		15AC014A1C98694000B12D92 /* ZZRecordingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordingView.h; sourceTree = "<group>"; };
 		15AC014B1C98694000B12D92 /* ZZRecordingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordingView.m; sourceTree = "<group>"; };
 		15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZRecordingView.xib; sourceTree = "<group>"; };
@@ -1782,6 +1785,7 @@
 				07636AF31BA49A0100925671 /* main.m */,
 				07636AF41BA49A0100925671 /* Zazo-Info.plist */,
 				07636AF51BA49A0100925671 /* Zazo-prefix.h */,
+				15AB0DA91CE36C5A005E15AA /* BridgingHeader.h */,
 			);
 			path = BundleFiles;
 			sourceTree = "<group>";
@@ -2276,6 +2280,7 @@
 			children = (
 				07636BBE1BA49A0100925671 /* ZZVideoPlayer.h */,
 				07636BBF1BA49A0100925671 /* ZZVideoPlayer.m */,
+				15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -5908,6 +5913,7 @@
 				187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */,
 				158960821CB7B61E0040D8E3 /* ANBaseTableHeaderView.m in Sources */,
 				182255F41C16E08A003885A3 /* ZZNetworkTestWireframe.m in Sources */,
+				15AB0DA71CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift in Sources */,
 				15B823081CB7BBD4006473E1 /* _TBMUser.m in Sources */,
 				1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */,
 				158960461CB7B61D0040D8E3 /* UINavigationItem+ANAdditions.m in Sources */,
@@ -6265,6 +6271,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "c25e2fa8-2796-41fa-935b-c143f4e3eb74";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6512,6 +6519,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "3feecf03-cd64-4582-96b9-a7ae1260f323";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -6548,6 +6556,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zazo.Zazo;
 				PRODUCT_NAME = Zazo;
 				PROVISIONING_PROFILE = "a16407cd-5cb6-4afe-87f7-a686c588bb02";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -15,8 +15,6 @@
 #import "AVAudioSession+ZZAudioSession.h"
 #import "NSObject+ANRACAdditions.h"
 
-#import "Zazo-Swift.h"
-
 static PermissionScope *permissionScope;
 
 typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
