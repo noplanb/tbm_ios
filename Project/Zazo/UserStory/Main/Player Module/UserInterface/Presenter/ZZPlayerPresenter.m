@@ -1,16 +1,15 @@
 //
-//  ZZVideoPlayer.m
+//  ZZPlayerPresenter.m
 //  Zazo
 //
-//  Created by ANODA on 18/08/15.
-//  Copyright (c) 2015 ANODA. All rights reserved.
-//
+
+#import "ZZPlayerPresenter.h"
+#import "ZZPlayer.h"
 
 @import MediaPlayer;
 @import AVKit;
 @import UIKit;
 
-#import "ZZVideoPlayer.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataProvider.h"
 #import "iToast.h"
@@ -23,10 +22,9 @@
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDataUpdater.h"
 #import "AVAudioSession+ZZAudioSession.h"
+#import "ZZPlayerWireframe.h"
 
-#import "Zazo-Swift.h"
-
-@interface ZZVideoPlayer ()
+@interface ZZPlayerPresenter ()
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
@@ -52,7 +50,14 @@
 
 @end
 
-@implementation ZZVideoPlayer
+@implementation ZZPlayerPresenter
+
+@synthesize isPlayingVideo = _isPlayingVideo;
+
+- (void)configurePresenterWithUserInterface:(UIViewController<ZZPlayerViewInterface>*)userInterface
+{
+    self.userInterface = userInterface;
+}
 
 - (instancetype)init
 {
@@ -112,25 +117,25 @@
 //- (ZZVideoDomainModel *)_actualVideoDomainModelWithSortedModels:(NSArray *)models
 //{
 //    ZZVideoDomainModel* actualVideoModel = [models firstObject];
-//    
+//
 //    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:actualVideoModel.relatedUserID];
-//    
+//
 //    ZZVideoDomainModel *videoModel = [ZZVideoDataProvider itemWithID:actualVideoModel.videoID];
-//    
+//
 //    NSInteger twoNotViewedVideosCount = 2;
 //    NSUInteger nextVideoIndex = 1;
-//    
+//
 //    if ((friendModel.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading) &&
 //        ([ZZFriendDataHelper unviewedVideoCountWithFriendID:friendModel.idTbm] == twoNotViewedVideosCount) &&
 //        videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
 //    {
 //        actualVideoModel = models[nextVideoIndex];
 //    }
-//    
+//
 //    return actualVideoModel;
 //}
 
-- (void)playOnView:(UIView *)view withVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+- (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
     [self _stopVideoPlayerStateIfNeeded];
     
@@ -154,20 +159,27 @@
     
     [self _updateWithModels:videoModels];
     
-    if (view != self.playerController.view.superview && view)
-    {
-        [self.superview addSubview:self.playerController.view];
-        [self.superview bringSubviewToFront:self.playerController.view];
+    CGRect cellFrame = [self.grid frameOfViewForFriendModelWithID:self.currentFriendModel.idTbm];
+    
+//    if (view != self.playerController.view.superview && view)
+//    {
+//        [self.superview addSubview:self.playerController.view];
+//        [self.superview bringSubviewToFront:self.playerController.view];
         
-        CGPoint position = [view convertPoint:view.origin toView:self.superview];
+//        CGPoint position = [view convertPoint:view.origin toView:self.superview];
         
-        CGFloat ZZCellBorderWidth = 4; 
-        
-        self.playerController.view.frame = CGRectMake(position.x - ZZCellBorderWidth,
-                                                      position.y - ZZCellBorderWidth,
-                                                      view.bounds.size.width,
-                                                      view.bounds.size.height);
-    }
+//        CGFloat ZZCellBorderWidth = 4;
+    
+//        self.playerController.view.frame = CGRectMake(position.x - ZZCellBorderWidth,
+//                                                      position.y - ZZCellBorderWidth,
+//                                                      view.bounds.size.width,
+//                                                      view.bounds.size.height);
+//    }
+    
+    cellFrame = [self.userInterface.view convertRect:cellFrame
+                                            fromView:self.userInterface.view.window];
+    
+    self.playerController.view.frame = cellFrame;
     
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
     
@@ -200,7 +212,7 @@
     }
     else
     {
-        [self playOnView:nil withVideoModels:self.videoModels];
+        [self playVideoModels:self.videoModels];
     }
 }
 
@@ -286,7 +298,7 @@
 {
     self.isPlayingVideo = NO;
     
-    [self.playerController.view removeFromSuperview];
+//    [self.playerController.view removeFromSuperview];
     [self.playerController.player pause];
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.currentFriendModel];
     
@@ -322,7 +334,7 @@
 {
     [self.delegate didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:self.currentVideoModel]
                                      totalVideos:self.videoModels.count];
-
+    
     [[ZZVideoStatusHandler sharedInstance]
      setAndNotityViewedIncomingVideoWithFriendID:self.currentFriendModel.idTbm videoID:self.currentVideoModel.videoID];
     
@@ -330,13 +342,13 @@
                                                                   toStatus:ZZRemoteStorageVideoStatusViewed
                                                                 friendMkey:self.currentFriendModel.mKey
                                                                 friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
-
+    
 }
 
 // temporary
 - (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
-                                    video:(ZZVideoDomainModel*)videoModel
-                               videoIndex:(NSInteger)index
+                                     video:(ZZVideoDomainModel*)videoModel
+                                videoIndex:(NSInteger)index
 {
     NSInteger arrayBoundsIndex = 1;
     
@@ -367,10 +379,12 @@
         _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
         _playerController.view.backgroundColor = [UIColor clearColor];
         _playerController.showsPlaybackControls = NO;
-
+        
         [_playerController.view addSubview:self.tapButton];
         
         _fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
+        
+        [self.userInterface.view addSubview:_playerController.view];
         
     }
     return _playerController;
@@ -415,6 +429,13 @@
     }
     
     return nil;
+}
+
+- (void)setIsPlayingVideo:(BOOL)isPlayingVideo
+{
+    _isPlayingVideo = isPlayingVideo;
+    
+    self.wireframe.playerVisible = isPlayingVideo;
 }
 
 #pragma mark Events
@@ -490,7 +511,7 @@
         [self.delegate videoPlayingProgress:0];
         return;
     }
-
+    
     CGFloat relativePlaybackPosition = [self _totalPlayedVideoTime] / self.totalVideoDuration;
     
     if ([self.delegate respondsToSelector:@selector(videoPlayingProgress:)])
@@ -498,5 +519,6 @@
         [self.delegate videoPlayingProgress:relativePlaybackPosition];
     }
 }
+
 
 @end

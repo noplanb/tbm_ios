@@ -31,7 +31,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.controllerDelegate reload];
 }
 
-- (NSInteger)frindsOnGridNumber
+- (NSInteger)friendsOnGridNumber
 {
     ZZGridCenterCellViewModel *centerCell = [self centerViewModel];
     NSMutableArray *modelsCopy = [self.models mutableCopy];
@@ -179,7 +179,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel *)domainModel
 {
-    NSInteger index = [self viewModelindexWithGridModel:domainModel];
+    NSInteger index = [self viewModelIndexWithGridModel:domainModel];
     return index;
 }
 
@@ -212,7 +212,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 
     if ([model isKindOfClass:[ZZGridCellViewModel class]])
     {
-        index = [self viewModelindexWithGridModel:model.item];
+        index = [self viewModelIndexWithGridModel:model.item];
     }
     else if ([model isKindOfClass:[ZZGridCenterCellViewModel class]])
     {
@@ -221,7 +221,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     return index;
 }
 
-- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel *)model
+- (NSInteger)viewModelIndexWithGridModel:(ZZGridDomainModel *)model
 {
     __block id item = nil;
 

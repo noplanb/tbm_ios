@@ -15,6 +15,8 @@
 #import "ZZEditFriendListModuleDelegate.h"
 #import "ZZGridPresenterInterface.h"
 #import "ZZEditFriendEnumsAdditions.h"
+#import "ZZPlayerModuleInterface.h"
+#import "ZZPlayerModuleDelegate.h"
 
 @class ZZGridWireframe;
 
@@ -25,11 +27,14 @@
         ZZContactsModuleDelegate,
         ZZEditFriendListModuleDelegate,
         ZZGridPresenterInterface,
-        ZZGridInteractorOutputActionHandler
+        ZZGridInteractorOutputActionHandler,
+        ZZPlayerModuleDelegate
         >
 
 @property (nonatomic, strong) id <ZZGridInteractorInput> interactor;
 @property (nonatomic, strong) ZZGridWireframe *wireframe;
+
+@property (nonatomic, strong) id<ZZPlayerModuleInterface> videoPlayer;
 
 @property (nonatomic, weak) UIViewController <ZZGridViewInterface> *userInterface;
 @property (nonatomic, weak) id <ZZGridModuleDelegate> gridModuleDelegate;

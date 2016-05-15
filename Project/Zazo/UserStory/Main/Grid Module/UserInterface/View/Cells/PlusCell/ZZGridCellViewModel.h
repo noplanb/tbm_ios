@@ -68,7 +68,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
 @property (nonatomic, weak) id <ZZGridCellViewModelAnimationDelegate> animationDelegate;
 @property (nonatomic, assign) NSInteger badgeNumber;
-@property (nonatomic, strong) UIView *playerContainerView;
+@property (nonatomic, weak) UIView *playerContainerView;
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;

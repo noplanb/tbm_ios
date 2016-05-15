@@ -34,13 +34,13 @@
 
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel *)model;
 
-- (NSInteger)viewModelindexWithGridModel:(ZZGridDomainModel *)model;
+- (NSInteger)viewModelIndexWithGridModel:(ZZGridDomainModel *)model;
 
 - (NSInteger)viewModelIndexWithModelIndex:(NSInteger)index;
 
 - (void)updateCellWithModel:(ZZGridDomainModel *)model;
 
-- (NSInteger)frindsOnGridNumber;
+- (NSInteger)friendsOnGridNumber;
 
 - (NSInteger)indexForUpdatedDomainModel:(ZZGridDomainModel *)domainModel;
 

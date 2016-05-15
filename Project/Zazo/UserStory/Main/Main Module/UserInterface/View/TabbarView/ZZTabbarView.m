@@ -24,7 +24,6 @@
     self = [super init];
     if (self)
     {
-
         [self _makeStackView];
         [self _makeSlider];
 

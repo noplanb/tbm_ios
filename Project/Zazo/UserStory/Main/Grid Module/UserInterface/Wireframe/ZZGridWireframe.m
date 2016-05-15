@@ -14,12 +14,13 @@
 #import "ANMessagesWireframe.h"
 #import "ZZEditFriendListPresenter.h"
 #import "ZZMainWireframe.h"
-
+#import "ZZPlayerWireframe.h"
 
 @interface ZZGridWireframe ()
 
 @property (nonatomic, strong) UINavigationController *presentedController;
 @property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
+@property (nonatomic, strong) ZZPlayerWireframe *playerWireframe;
 
 @end
 
@@ -97,6 +98,17 @@
 
     self.presenter = presenter;
     self.gridController = gridController;
+    
+    [self _setupPlayer];
+}
+
+- (void)_setupPlayer
+{
+    _playerWireframe = [[ZZPlayerWireframe alloc] initWithVC:self.gridController];
+    
+    _playerWireframe.delegate = self.presenter;
+    
+    self.presenter.videoPlayer = _playerWireframe.player;
 }
 
 @end

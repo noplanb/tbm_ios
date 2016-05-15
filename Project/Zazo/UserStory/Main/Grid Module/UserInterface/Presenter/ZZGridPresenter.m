@@ -9,7 +9,6 @@
 #import "ZZGridPresenter.h"
 #import "ZZGridDataSource.h"
 #import "ZZVideoRecorder.h"
-#import "ZZVideoPlayer.h"
 #import "iToast.h"
 #import "ZZContactDomainModel.h"
 #import "ZZGridAlertBuilder.h"
@@ -33,14 +32,12 @@
 @interface ZZGridPresenter ()
         <
         ZZGridDataSourceDelegate,
-        ZZVideoPlayerDelegate,
         ZZGridActionHanlderDelegate,
         TBMTableModalDelegate
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
-@property (nonatomic, strong) ZZVideoPlayer *videoPlayer;
 @property (nonatomic, strong) ZZGridActionHandler *actionHandler;
 @property (nonatomic, strong) RollbarReachability *reachability;
 @property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
@@ -61,10 +58,6 @@
     self.dataSource.delegate = self;
     [self.userInterface updateWithDataSource:self.dataSource];
 
-    self.videoPlayer = [ZZVideoPlayer new];
-    self.videoPlayer.delegate = self;
-    self.videoPlayer.superview = userInterface.view;
-    
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
@@ -363,6 +356,24 @@
     [self.videoPlayer stop];
 }
 
+- (CGRect)frameOfViewForFriendModelWithID:(NSString *)friendID
+{
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    
+    NSUInteger index = [self.dataSource indexForFriendDomainModel:friendModel];
+    
+    if (index == NSNotFound)
+    {
+        return CGRectZero;
+    }
+    
+    ZZGridCellViewModel *cellModel = [self.dataSource viewModelAtIndex:index];
+    
+    UIView *view = cellModel.playerContainerView;
+    
+    return [view convertRect:view.frame toView:view.window];
+}
+
 #pragma mark - DataSource Delegate
 
 - (void)showRecorderHint
@@ -455,7 +466,7 @@
     return [self.reachability isReachable];
 }
 
-#pragma mark - Video Player Delegate
+#pragma mark - ZZPlayerModuleDelegate
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
@@ -481,7 +492,7 @@
     self.wireframe.mainWireframe.moduleInterface.progressBarBadge = startedVideoIndex + 1;
 }
 
-#pragma mark - Data source delegate
+#pragma mark - ZZGridDataSourceDelegate
 
 - (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel
 {
@@ -562,7 +573,7 @@
     if (state)
     {
         [self.userInterface showDimScreenForFriendModel:model.item.relatedUser];
-        [self.videoPlayer playOnView:model.playerContainerView withVideoModels:model.playerVideoURLs];
+        [self.videoPlayer playVideoModels:model.playerVideoURLs];
     }
     else
     {
@@ -656,7 +667,7 @@
 
 - (NSInteger)friendsCountOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 - (void)showMenuTab
@@ -678,7 +689,7 @@
 
 - (NSInteger)friendsNumberOnGrid
 {
-    return [self.dataSource frindsOnGridNumber];
+    return [self.dataSource friendsOnGridNumber];
 }
 
 - (BOOL)isVideoPlayingNow
