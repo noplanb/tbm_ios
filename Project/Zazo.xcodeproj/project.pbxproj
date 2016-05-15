@@ -209,6 +209,7 @@
 		152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158221C84932A00260AFD /* ZZHoldEffectLayer.m */; };
 		1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158251C84932A00260AFD /* ZZUserNameLabel.m */; };
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
+		152594C71CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
 		153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536822D1C99539D006EDC12 /* ZZMainInteractor.m */; };
 		153682411C99539D006EDC12 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 153682331C99539D006EDC12 /* Main.strings */; };
@@ -1147,6 +1148,7 @@
 		1521582B1C84989700260AFD /* ZZCellEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCellEffectView.h; sourceTree = "<group>"; };
 		1521582C1C84989700260AFD /* ZZCellEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCellEffectView.m; sourceTree = "<group>"; };
 		1521582E1C8498E500260AFD /* ZZHoldEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZHoldEffects.h; sourceTree = "<group>"; };
+		152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegmentIndicator.swift; sourceTree = "<group>"; };
 		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
 		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
 		1536822C1C99539D006EDC12 /* ZZMainInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractor.h; sourceTree = "<group>"; };
@@ -3776,6 +3778,7 @@
 				153682391C99539D006EDC12 /* ZZTabbarVC.m */,
 				1536823A1C99539D006EDC12 /* ZZMainViewInterface.h */,
 				677DBFF253E25ECACACB38C1 /* TabbarView */,
+				152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6017,6 +6020,7 @@
 				1589603E1CB7B61D0040D8E3 /* RACCommand+ANAdditions.m in Sources */,
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
 				07636EA51BA49A0100925671 /* ZZSecretScreenTextEditCell.m in Sources */,
+				152594C71CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift in Sources */,
 				079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */,
 				158960711CB7B61E0040D8E3 /* ANMemoryStorage.m in Sources */,
 				158960831CB7B61E0040D8E3 /* ANBaseTableViewCell.m in Sources */,
