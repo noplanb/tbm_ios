@@ -12,6 +12,7 @@
 #import "ZZGridDataSource.h"
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZGridUIConstants.h"
+#import "ZZTabbarView.h"
 
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -30,10 +31,9 @@
     if (self = [super init])
     {
         CGRect frame = [UIScreen mainScreen].bounds;
-        frame.size.height -= 72; // tabbar
+        frame.size.height -= ZZTabbarViewHeight + 12;
 
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
-//        self.gridView.itemsContainerView.delegate = self;
 
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
@@ -113,26 +113,26 @@
     [animationCell showContainFriendAnimation];
 }
 
-- (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel
-{
-    ZZGridCell *cell = [self cellForFriendModel:friendModel];
-    NSUInteger index = [self.gridView.itemsContainerView.items indexOfObject:cell];
+//- (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel
+//{
+//    ZZGridCell *cell = [self cellForFriendModel:friendModel];
+//    NSUInteger index = [self.gridView.itemsContainerView.items indexOfObject:cell];
+//
+//    if (index == NSNotFound)
+//    {
+//        return;
+//    }
+//
+////    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
+//
+//    self.touchObserver.enabled = NO;
+//}
 
-    if (index == NSNotFound)
-    {
-        return;
-    }
-
-//    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
-
-    self.touchObserver.enabled = NO;
-}
-
-- (void)hideDimScreen
-{
-//    [self.gridView.itemsContainerView hideDimScreen];
-    self.touchObserver.enabled = YES;
-}
+//- (void)hideDimScreen
+//{
+////    [self.gridView.itemsContainerView hideDimScreen];
+//    self.touchObserver.enabled = YES;
+//}
 
 - (void)updateActiveCellTitleTo:(NSString *)title
 {

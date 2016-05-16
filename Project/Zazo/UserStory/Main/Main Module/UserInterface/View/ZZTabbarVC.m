@@ -95,51 +95,6 @@
     }
 }
 
-@dynamic progressBarPosition;
-
-- (void)setProgressBarPosition:(CGFloat)progressBarPosition
-{
-    BOOL progressBarMustBeVisible = progressBarPosition > 0.01 && progressBarPosition < 0.99;
-    BOOL progressBarIsVisible = self.tabbarView.progressView.alpha > 0.99;
-
-    if (progressBarMustBeVisible)
-    {
-        self.tabbarView.progressView.value = progressBarPosition;
-    }
-
-    if (self.progressBarVisibilityIsBeingChanged)
-    {
-        return;
-    }
-
-    if (progressBarMustBeVisible != progressBarIsVisible)
-    {
-
-        self.progressBarVisibilityIsBeingChanged = YES;
-
-        NSLog(@"progressBarPosition %1.5f, progressBarMustBeVisible = %d", progressBarPosition, progressBarMustBeVisible);
-
-        [UIView animateWithDuration:0.25 animations:^{
-            self.tabbarView.progressView.alpha = progressBarMustBeVisible ? 1 : 0;
-        }                completion:^(BOOL finished) {
-            self.progressBarVisibilityIsBeingChanged = NO;
-        }];
-    }
-
-}
-
-- (CGFloat)progressBarPosition
-{
-    return self.tabbarView.progressView.value;
-}
-
-@dynamic progressBarBadge;
-
-- (void)setProgressBarBadge:(NSUInteger)progressBarBadge
-{
-    self.tabbarView.progressViewBadge = progressBarBadge;
-}
-
 - (void)_scrollToActivePageIfNeededAnimated:(BOOL)animated
 {
     CGPoint offset = [self _offsetForPage:self.activePageIndex];

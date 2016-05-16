@@ -89,30 +89,30 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     return self;
 }
 
-- (void)showDimScreenForItemWithIndex:(NSUInteger)index
-{
-    self.activeCell = (id)self.items[index];
-
-    if (![self.activeCell isKindOfClass:[ZZGridCell class]]) // ignore center cell
-    {
-        return;
-    }
-
-    [self bringSubviewToFront:self.dimView];
-    [self bringSubviewToFront:self.activeCell];
-
-    [self updateTextLabel];
-
-    [self restoreFrames]; // bringSubviewToFront resets cell's frames (why?!)
-
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         _dimView.alpha = 1;
-                         [self.activeCell setBadgesHidden:YES];
-                     }];
-
-    self.dimTapRecognizer.enabled = YES;
-}
+//- (void)showDimScreenForItemWithIndex:(NSUInteger)index
+//{
+//    self.activeCell = (id)self.items[index];
+//
+//    if (![self.activeCell isKindOfClass:[ZZGridCell class]]) // ignore center cell
+//    {
+//        return;
+//    }
+//
+//    [self bringSubviewToFront:self.dimView];
+//    [self bringSubviewToFront:self.activeCell];
+//
+//    [self updateTextLabel];
+//
+//    [self restoreFrames]; // bringSubviewToFront resets cell's frames (why?!)
+//
+//    [UIView animateWithDuration:0.2
+//                     animations:^{
+//                         _dimView.alpha = 1;
+//                         [self.activeCell setBadgesHidden:YES];
+//                     }];
+//
+//    self.dimTapRecognizer.enabled = YES;
+//}
 
 - (BOOL)isCellOnTop:(ZZGridCell *)cell
 {
@@ -166,37 +166,6 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
 //            }];
 //}
 //
-//- (UIView *)dimView
-//{
-//    if (!_dimView)
-//    {
-//        _dimView = [UIView new];
-//
-//        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-//        _dimView.alpha = 0;
-//
-//        [self addSubview:_dimView];
-//
-//        [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self).insets(UIEdgeInsetsMake(-kGridItemSpacing() + ZZGridContainerViewTopOffset, -kGridItemSpacing(), -kGridItemSpacing(), -kGridItemSpacing()));
-//        }];
-//
-//        UITapGestureRecognizer *recognizer =
-//                [[UITapGestureRecognizer alloc] initWithTarget:self
-//                                                        action:@selector(_didTapToDimView)];
-//
-//        _dimTapRecognizer = recognizer;
-//
-//        [_dimView addGestureRecognizer:recognizer];
-//    }
-//
-//    return _dimView;
-//}
-//
-//- (void)_didTapToDimView
-//{
-//    [self.delegate gridContainerViewDidTapOnDimView:self];
-//}
 
 @synthesize textLabel = _textLabel;
 

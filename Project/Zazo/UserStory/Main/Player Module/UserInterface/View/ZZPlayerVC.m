@@ -9,24 +9,29 @@
 #import "ZZPlayerVC.h"
 #import "ZZPlayer.h"
 #import "ZZPlayerBackgroundView.h"
+#import "ZZTabbarView.h"
 
 @interface ZZPlayerVC ()
 
 @property (nonatomic, strong) ZZPlayerBackgroundView *contentView;
 @property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong, readonly) UIView *baseView;
+@property (nonatomic, strong) UIView *dimView;
 
 @end
 
 @implementation ZZPlayerVC
 
 @synthesize playerController = _playerController;
+@synthesize initialPlayerFrame = _initialPlayerFrame;
 
 - (void)loadView
 {
     self.contentView = [ZZPlayerBackgroundView new];
     self.view = self.contentView;
     self.view.userInteractionEnabled = YES;
+    
+    [self dimView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,16 +61,20 @@
         _baseView.layer.borderWidth = 4;
     }
     
-    self.baseView.frame = CGRectMake(self.playerController.view.frame.origin.x - 4,
-                                     self.playerController.view.frame.origin.y - 4,
-                                     self.playerController.view.frame.size.width + 8,
-                                     self.playerController.view.frame.size.height + 8);
+    self.baseView.frame = CGRectMake(self.initialPlayerFrame.origin.x - 4,
+                                     self.initialPlayerFrame.origin.y - 4,
+                                     self.initialPlayerFrame.size.width + 8,
+                                     self.initialPlayerFrame.size.height + 8);
 
+}
+
+- (void)viewDidLayoutSubviews
+{
+    self.playerController.view.frame = self.initialPlayerFrame;
 }
 
 - (void)viewDidLoad
 {
-    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.view.userInteractionEnabled = YES;
     
     self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -105,5 +114,37 @@
     }
     return _tapButton;
 }
+
+- (UIView *)dimView
+{
+    if (!_dimView)
+    {
+        _dimView = [UIView new];
+
+        _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+
+        [self.view addSubview:_dimView];
+
+        [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, ZZTabbarViewHeight, 0));
+        }];
+
+        UITapGestureRecognizer *recognizer =
+                [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(_didTapToDimView)];
+
+//        _dimTapRecognizer = recognizer;
+
+        [_dimView addGestureRecognizer:recognizer];
+    }
+
+    return _dimView;
+}
+
+- (void)_didTapToDimView
+{
+
+}
+
 
 @end

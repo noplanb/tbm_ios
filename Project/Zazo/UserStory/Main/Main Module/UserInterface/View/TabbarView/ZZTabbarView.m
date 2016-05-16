@@ -10,14 +10,10 @@
 @interface ZZTabbarView ()
 
 @property (nonatomic, strong, readonly) OAStackView *stackView;
-@property (nonatomic, strong, readonly) UIView *indicatorPrototypeView;
 
 @end
 
-
 @implementation ZZTabbarView
-
-@synthesize indicatorPrototypeView = _indicatorPrototypeView;
 
 - (instancetype)init
 {
@@ -25,7 +21,6 @@
     if (self)
     {
         [self _makeStackView];
-        [self _makeSlider];
 
         CALayer *layer = self.layer;
         layer.shadowOffset = CGSizeMake(0.0f, -1.0f);
@@ -50,32 +45,9 @@
     self.stackView.distribution = OAStackViewDistributionFillEqually;
 }
 
-- (void)_makeSlider
-{
-    UISlider *slider = [UISlider new];
-    slider.userInteractionEnabled = NO;
-    slider.alpha = 0;
-
-    _progressView = slider;
-
-    [self addSubview:slider];
-
-    [slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.centerY.equalTo(self.mas_top);
-    }];
-
-    _indicatorPrototypeView =
-            [[NSBundle mainBundle] loadNibNamed:@"ZZTabbarViewPositionIndicator"
-                                          owner:nil
-                                        options:nil].firstObject;
-
-    [slider setThumbImage:self.indicatorPrototypeView.zz_renderToImage forState:UIControlStateNormal];
-}
-
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 60);
+    return CGSizeMake(UIViewNoIntrinsicMetric, ZZTabbarViewHeight);
 }
 
 - (void)setItems:(NSArray <id <ZZTabbarViewItem>> *)items
@@ -141,24 +113,6 @@
 
     UIButton *actualActiveButton = self.stackView.arrangedSubviews[_activeItemIndex];
     actualActiveButton.tintColor = self.window.tintColor;
-}
-
-- (void)setProgressViewBadge:(NSUInteger)progressViewBadge
-{
-    _progressViewBadge = progressViewBadge;
-
-    ANDispatchBlockToBackgroundQueue(^{
-        UILabel *label = self.indicatorPrototypeView.subviews.firstObject;
-        label.text = [NSString stringWithFormat:@"%lu", (unsigned long)progressViewBadge];
-        UIImage *badge = self.indicatorPrototypeView.zz_renderToImage;
-
-        ANDispatchBlockToMainQueue(^{
-
-            [UIView animateWithDuration:0.25 animations:^{
-                [self.progressView setThumbImage:badge forState:UIControlStateNormal];
-            }];
-        });
-    });
 }
 
 @end

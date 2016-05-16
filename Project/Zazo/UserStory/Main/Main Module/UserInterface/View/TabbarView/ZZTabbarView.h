@@ -5,6 +5,8 @@
 
 #import <Foundation/Foundation.h>
 
+CGFloat const ZZTabbarViewHeight = 60;
+
 @class ZZTabbarView;
 
 @protocol ZZTabbarViewItem
@@ -31,8 +33,5 @@
 @property (nonatomic, weak) id <ZZTabbarViewDelegate> delegate;
 @property (nonatomic, assign) NSUInteger activeItemIndex;
 
-@property (nonatomic, weak) UISlider *progressView;
-
-@property (nonatomic, assign) NSUInteger progressViewBadge;
 
 @end

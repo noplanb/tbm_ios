@@ -479,17 +479,6 @@
 {
     [self.interactor updateFriendAfterVideoStopped:playedFriendModel];
     [self _handleRecordHintWithCellViewModel:playedFriendModel];
-    [self.userInterface hideDimScreen];
-}
-
-- (void)videoPlayingProgress:(CGFloat)progress
-{
-    self.wireframe.mainWireframe.moduleInterface.progressBarPosition = progress;
-}
-
-- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos
-{
-    self.wireframe.mainWireframe.moduleInterface.progressBarBadge = startedVideoIndex + 1;
 }
 
 #pragma mark - ZZGridDataSourceDelegate
@@ -572,7 +561,6 @@
 
     if (state)
     {
-        [self.userInterface showDimScreenForFriendModel:model.item.relatedUser];
         [self.videoPlayer playVideoModels:model.playerVideoURLs];
     }
     else

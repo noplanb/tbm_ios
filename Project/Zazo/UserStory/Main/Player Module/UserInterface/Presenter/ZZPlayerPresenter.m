@@ -198,7 +198,7 @@
     
     cellFrame = CGRectOffset(cellFrame, -ZZCellBorderWidth, -ZZCellBorderWidth);
     
-    self.playerController.view.frame = cellFrame;
+    self.userInterface.initialPlayerFrame = cellFrame;
 
 }
 
@@ -301,7 +301,6 @@
 {
     self.isPlayingVideo = NO;
     
-//    [self.playerController.view removeFromSuperview];
     [self.playerController.player pause];
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.currentFriendModel];
     
@@ -335,8 +334,8 @@
 
 - (void)_markCurrentVideoAsSeen
 {
-    [self.delegate didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:self.currentVideoModel]
-                                     totalVideos:self.videoModels.count];
+    [self didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:self.currentVideoModel]
+                            totalVideos:self.videoModels.count];
     
     [[ZZVideoStatusHandler sharedInstance]
      setAndNotityViewedIncomingVideoWithFriendID:self.currentFriendModel.idTbm videoID:self.currentVideoModel.videoID];
@@ -346,6 +345,17 @@
                                                                 friendMkey:self.currentFriendModel.mKey
                                                                 friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
     
+}
+
+
+- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos
+{
+    // TODO
+}
+
+- (void)videoPlayingProgress:(CGFloat)progress // zero if no progress
+{
+    // TODO
 }
 
 // temporary
@@ -488,16 +498,13 @@
     if (![self isPlaying])
     {
         [self _removePlaybackTimer];
-        [self.delegate videoPlayingProgress:0];
+        [self videoPlayingProgress:0];
         return;
     }
     
     CGFloat relativePlaybackPosition = [self _totalPlayedVideoTime] / self.totalVideoDuration;
     
-    if ([self.delegate respondsToSelector:@selector(videoPlayingProgress:)])
-    {
-        [self.delegate videoPlayingProgress:relativePlaybackPosition];
-    }
+    [self videoPlayingProgress:relativePlaybackPosition];
 }
 
 

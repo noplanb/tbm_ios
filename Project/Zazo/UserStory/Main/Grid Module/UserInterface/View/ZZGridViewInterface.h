@@ -19,10 +19,6 @@
 
 - (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel;
 
-- (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel;
-
-- (void)hideDimScreen;
-
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 
 - (void)updateActiveCellTitleTo:(NSString *)title;

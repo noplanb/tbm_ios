@@ -13,7 +13,7 @@ import UIKit
 
 @objc public class VideoPlayerFullscreenHelper: NSObject
 {
-    public var centerOffset = CGPoint.init(x: 0, y: -40)
+    public var centerOffset = CGPoint.init(x: 0, y: -20)
     
     var maximalDistance: CGFloat = 0
     
