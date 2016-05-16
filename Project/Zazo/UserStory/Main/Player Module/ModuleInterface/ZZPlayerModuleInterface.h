@@ -11,16 +11,18 @@
 
 - (ZZFriendDomainModel *)playedFriendModel;
 
-- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel;
+- (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel; // adds last video to playback queue
 
 - (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels;
 
 - (void)stop;
 
-- (void)toggle;
-
 - (BOOL)isPlaying;
 
 - (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel;
+
+// UI events:
+
+- (void)playerWasTapped;
 
 @end

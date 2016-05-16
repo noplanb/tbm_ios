@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak, readonly) id<ZZPlayerModuleInterface> player;
 @property (nonatomic, weak) id<ZZPlayerModuleDelegate> delegate;
+@property (nonatomic, weak) id<ZZGridModuleInterface> grid;
 @property (nonatomic, assign) BOOL playerVisible;
 
 @end

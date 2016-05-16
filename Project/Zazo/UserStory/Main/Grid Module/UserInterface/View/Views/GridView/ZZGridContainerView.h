@@ -8,15 +8,15 @@
 
 @class ZZGridRotationTouchObserver, ZZGridContainerView;
 
-@protocol ZZGridContainerViewDelegate <NSObject>
-
-- (void)gridContainerViewDidTapOnDimView:(ZZGridContainerView *)containerView;
-
-@end
+//@protocol ZZGridContainerViewDelegate <NSObject>
+//
+//- (void)gridContainerViewDidTapOnDimView:(ZZGridContainerView *)containerView;
+//
+//@end
 
 @interface ZZGridContainerView : UIView
 
-@property (nonatomic, weak) id <ZZGridContainerViewDelegate> delegate;
+//@property (nonatomic, weak) id <ZZGridContainerViewDelegate> delegate;
 
 @property (nonatomic, strong) NSArray <UIView *> *items;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
@@ -25,8 +25,7 @@
 
 - (instancetype)initWithSegmentsCount:(NSInteger)segmentsCount;
 
-- (void)showDimScreenForItemWithIndex:(NSUInteger)index;
-
-- (void)hideDimScreen;
+//- (void)showDimScreenForItemWithIndex:(NSUInteger)index;
+//- (void)hideDimScreen;
 
 @end

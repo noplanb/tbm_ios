@@ -107,6 +107,7 @@
     _playerWireframe = [[ZZPlayerWireframe alloc] initWithVC:self.gridController];
     
     _playerWireframe.delegate = self.presenter;
+    _playerWireframe.grid = self.presenter;
     
     self.presenter.videoPlayer = _playerWireframe.player;
 }

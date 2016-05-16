@@ -13,9 +13,7 @@
 
 @optional
 - (void)tabbarItemDidAppear;
-
 - (void)tabbarItemDidDisappear;
-
 
 @end
 

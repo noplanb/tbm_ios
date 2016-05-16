@@ -36,6 +36,7 @@
 - (void)viewDidLoad
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.definesPresentationContext = YES;
     [super viewDidLoad];
 }
 

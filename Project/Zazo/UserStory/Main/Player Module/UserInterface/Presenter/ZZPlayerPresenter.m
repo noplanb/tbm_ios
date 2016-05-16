@@ -30,8 +30,6 @@
 @property (nonatomic, strong) AVPlayerViewController *playerController;
 @property (nonatomic, strong, readonly) AVQueuePlayer *player;
 
-@property (nonatomic, strong) UIButton* tapButton;
-
 // All videos:
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videoModels;
 
@@ -57,6 +55,10 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZPlayerViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
+    
+    [self.userInterface view]; // loading view
+    
+    self.userInterface.playerController = self.playerController;
 }
 
 - (instancetype)init
@@ -141,53 +143,25 @@
     
     [self _makePlayer];
     
-    videoModels = [videoModels.rac_sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
-        return (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
-                videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed) &&
-        [ZZFileHelper isFileExistsAtURL:videoModel.videoURL];
-    }].array;
-    
     if (ANIsEmpty(videoModels))
     {
+        OB_ERROR(@"Nothing to play");
         return;
     }
     
     self.currentFriendModel = [ZZFriendDataProvider friendWithItemID:videoModels.firstObject.relatedUserID];
+
+    [self _prepareToPlayWithModels:[self _filterVideoModels:videoModels]];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    [self _updateWithModels:videoModels];
-    
-    CGRect cellFrame = [self.grid frameOfViewForFriendModelWithID:self.currentFriendModel.idTbm];
-    
-//    if (view != self.playerController.view.superview && view)
-//    {
-//        [self.superview addSubview:self.playerController.view];
-//        [self.superview bringSubviewToFront:self.playerController.view];
-        
-//        CGPoint position = [view convertPoint:view.origin toView:self.superview];
-        
-//        CGFloat ZZCellBorderWidth = 4;
-    
-//        self.playerController.view.frame = CGRectMake(position.x - ZZCellBorderWidth,
-//                                                      position.y - ZZCellBorderWidth,
-//                                                      view.bounds.size.width,
-//                                                      view.bounds.size.height);
-//    }
-    
-    cellFrame = [self.userInterface.view convertRect:cellFrame
-                                            fromView:self.userInterface.view.window];
-    
-    self.playerController.view.frame = cellFrame;
-    
-    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
+    [self _updatePlayersFrame];
     
     [self _makePlaybackTimer];
     
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
     self.isPlayingVideo = YES;
+    
+    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
     
     // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
     [[AVAudioSession sharedInstance] startPlaying];
@@ -199,12 +173,41 @@
     [self.player play];
 }
 
+- (NSArray <ZZVideoDomainModel *> *)_filterVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+{
+    videoModels = [videoModels.rac_sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
+        return (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
+                videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed) &&
+        [ZZFileHelper isFileExistsAtURL:videoModel.videoURL];
+    }].array;
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    return videoModels;
+}
+
+- (void)_updatePlayersFrame
+{
+    CGRect cellFrame = [self.grid frameOfViewForFriendModelWithID:self.currentFriendModel.idTbm];
+    
+    cellFrame = [self.userInterface.view convertRect:cellFrame
+                                            fromView:self.userInterface.view.window];
+    
+    CGFloat ZZCellBorderWidth = 4;
+    
+    cellFrame = CGRectOffset(cellFrame, -ZZCellBorderWidth, -ZZCellBorderWidth);
+    
+    self.playerController.view.frame = cellFrame;
+
+}
+
 - (void)stop
 {
     [self _stopWithPlayChecking:YES];
 }
 
-- (void)toggle
+- (void)playerWasTapped
 {
     if (self.isPlayingVideo)
     {
@@ -216,7 +219,7 @@
     }
 }
 
-- (void)updateWithFriendModel:(ZZFriendDomainModel *)friendModel
+- (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
     
@@ -252,7 +255,7 @@
     }
 }
 
-- (void)_updateWithModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+- (void)_prepareToPlayWithModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
     self.totalVideoDuration = 0;
     [self.player removeAllItems];
@@ -376,36 +379,13 @@
     if (!_playerController)
     {
         _playerController = [AVPlayerViewController new];
-        _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        _playerController.view.backgroundColor = [UIColor clearColor];
-        _playerController.showsPlaybackControls = NO;
-        
-        [_playerController.view addSubview:self.tapButton];
         
         _fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
-        
-        [self.userInterface.view addSubview:_playerController.view];
         
     }
     return _playerController;
 }
 
-- (UIButton *)tapButton
-{
-    if (!_tapButton)
-    {
-        _tapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_tapButton addTarget:self
-                       action:@selector(toggle)
-             forControlEvents:UIControlEventTouchUpInside];
-        [self.playerController.view addSubview:_tapButton];
-        
-        [_tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.playerController.view);
-        }];
-    }
-    return _tapButton;
-}
 
 @dynamic player;
 

@@ -195,7 +195,7 @@
     {
         if (model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
         {
-            [self.videoPlayer updateWithFriendModel:model.relatedUser];
+            [self.videoPlayer appendLastVideoFromFriendModel:model.relatedUser];
         }
 
         isAbleUpdte = NO;

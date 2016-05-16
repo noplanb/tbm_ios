@@ -13,7 +13,7 @@
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZGridUIConstants.h"
 
-@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, ZZGridContainerViewDelegate>
+@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ZZGridView *gridView;
 @property (nonatomic, strong) ZZGridCollectionController *controller;
@@ -33,7 +33,7 @@
         frame.size.height -= 72; // tabbar
 
         self.gridView = [[ZZGridView alloc] initWithFrame:frame];
-        self.gridView.itemsContainerView.delegate = self;
+//        self.gridView.itemsContainerView.delegate = self;
 
         self.controller = [ZZGridCollectionController new];
         self.controller.delegate = self;
@@ -76,7 +76,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.eventHandler stopPlaying];
+//    [self.eventHandler stopPlaying];
 }
 
 - (void)tabbarItemDidDisappear
@@ -123,14 +123,14 @@
         return;
     }
 
-    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
+//    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
 
     self.touchObserver.enabled = NO;
 }
 
 - (void)hideDimScreen
 {
-    [self.gridView.itemsContainerView hideDimScreen];
+//    [self.gridView.itemsContainerView hideDimScreen];
     self.touchObserver.enabled = YES;
 }
 

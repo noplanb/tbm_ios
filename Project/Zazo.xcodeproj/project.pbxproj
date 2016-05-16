@@ -294,6 +294,7 @@
 		158960851CB7B61E0040D8E3 /* ANTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602A1CB7B61D0040D8E3 /* ANTableViewHeaderFooterView.m */; };
 		158960861CB7B61E0040D8E3 /* ANTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602D1CB7B61D0040D8E3 /* ANTableView.m */; };
 		1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589C1561CD3C74800AB7E8C /* DownloadingView.swift */; };
+		158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */; };
 		15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */; };
 		15AB0DA71CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
@@ -1328,6 +1329,8 @@
 		1589602C1CB7B61D0040D8E3 /* ANTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTableView.h; sourceTree = "<group>"; };
 		1589602D1CB7B61D0040D8E3 /* ANTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTableView.m; sourceTree = "<group>"; };
 		1589C1561CD3C74800AB7E8C /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
+		158C66661CE9EAA800756E48 /* ZZPlayerBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerBackgroundView.h; sourceTree = "<group>"; };
+		158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerBackgroundView.m; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -3793,6 +3796,8 @@
 				152594D71CE8C9F200DDA507 /* ZZPlayerVC.h */,
 				152594D81CE8C9F200DDA507 /* ZZPlayerVC.m */,
 				152594D91CE8C9F200DDA507 /* ZZPlayerViewInterface.h */,
+				158C66661CE9EAA800756E48 /* ZZPlayerBackgroundView.h */,
+				158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6057,6 +6062,7 @@
 				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
+				158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */,
 				15B823031CB7BBD4006473E1 /* TBMGridElement.m in Sources */,
 				158960351CB7B61D0040D8E3 /* ANBaseVC.m in Sources */,
 				221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */,
@@ -6351,6 +6357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -6603,6 +6610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
@@ -6636,6 +6644,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

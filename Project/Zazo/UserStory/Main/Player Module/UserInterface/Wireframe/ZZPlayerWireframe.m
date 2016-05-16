@@ -8,6 +8,7 @@
 #import "ZZPlayerVC.h"
 #import "ZZPlayerPresenter.h"
 #import "ZZPlayer.h"
+#import "ZZPlayerModuleDelegate.h"
 
 @interface ZZPlayerWireframe ()
 
@@ -25,15 +26,16 @@
     if (self) {
         _parentVC = VC;
         [self _setup];
+        
     }
     return self;
 }
 
 - (void)_setup
 {
-    ZZPlayerVC* playerController = [ZZPlayerVC new];
-    ZZPlayerInteractor* interactor = [ZZPlayerInteractor new];
-    ZZPlayerPresenter* presenter = [ZZPlayerPresenter new];
+    ZZPlayerVC *playerController = [ZZPlayerVC new];
+    ZZPlayerInteractor *interactor = [ZZPlayerInteractor new];
+    ZZPlayerPresenter *presenter = [ZZPlayerPresenter new];
     
     interactor.output = presenter;
     
@@ -42,7 +44,6 @@
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:playerController];
-    
     
     self.presenter = presenter;
     self.playerVC = playerController;
@@ -57,6 +58,13 @@
     self.presenter.delegate = delegate;
 }
 
+- (void)setGrid:(id<ZZGridModuleInterface>)grid
+{
+    _grid = grid;
+    
+    self.presenter.grid = grid;
+}
+
 - (void)setPlayerVisible:(BOOL)playerVisible
 {
     if (playerVisible == _playerVisible)
@@ -66,9 +74,16 @@
     
     _playerVisible = playerVisible;
     
-    [self.parentVC presentViewController:self.playerVC
-                                animated:NO
-                              completion:nil];
+    if (playerVisible)
+    {
+        [self.parentVC presentViewController:self.playerVC
+                                    animated:YES
+                                  completion:nil];
+    }
+    else
+    {
+        [self.playerVC dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end
