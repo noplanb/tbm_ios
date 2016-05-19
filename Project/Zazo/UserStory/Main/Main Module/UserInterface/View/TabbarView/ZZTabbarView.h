@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-CGFloat const ZZTabbarViewHeight = 60;
+extern CGFloat const ZZTabbarViewHeight;
 
 @class ZZTabbarView;
 

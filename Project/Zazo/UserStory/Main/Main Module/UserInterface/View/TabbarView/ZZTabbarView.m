@@ -7,6 +7,8 @@
 #import "UIView+ZZAdditions.h"
 @import OAStackView;
 
+CGFloat const ZZTabbarViewHeight = 60;
+
 @interface ZZTabbarView ()
 
 @property (nonatomic, strong, readonly) OAStackView *stackView;
