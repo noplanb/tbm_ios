@@ -9,10 +9,11 @@
 #import "ZZVerificationAlertHandler.h"
 #import "ZZPhoneHelper.h"
 #import "SDCAlertControllerVisualStyle.h"
+#import "SDCAlertController.h"
 
 @interface ZZVerificationAlertHandler ()
 
-@property (nonatomic) ZZAlertController *alertController;
+@property (nonatomic) SDCAlertController *alertController;
 @property (nonatomic) UITextField *codeTextField;
 @property (nonatomic) SDCAlertAction *confirmationAction;
 @property (nonatomic) UIButton *callMeButton;
@@ -67,20 +68,21 @@ static NSString *MESSAGE = @"We sent a code";
 
 #pragma mark alert construction
 
-- (ZZAlertController *)makeAlertController
+- (SDCAlertController *)makeAlertController
 {
-    return [ZZAlertController alertControllerWithTitle:@"Enter Code"
-                                               message:@""];
+    return [SDCAlertController alertControllerWithTitle:TITLE
+                                                message:nil
+                                         preferredStyle:SDCAlertControllerStyleAlert];
 }
 
 - (void)addContentAndActionsToAlertController
 {
-//    [self.alertController.contentView addSubview:[self contentView]];
-//    [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
-//                                                              style:SDCAlertActionStyleCancel
-//                                                            handler:nil]];
+    [self.alertController.contentView addSubview:[self contentView]];
+    [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
+                                                              style:SDCAlertActionStyleCancel
+                                                            handler:nil]];
 
-//    [self.alertController addAction:self.confirmationAction];
+    [self.alertController addAction:self.confirmationAction];
 }
 
 #pragma mark content view
@@ -109,7 +111,7 @@ static NSString *MESSAGE = @"We sent a code";
 - (float)contentOuterWidth
 {
     
-    return 0; //self.alertController.visualStyle.width;
+    return self.alertController.visualStyle.width;
 }
 
 - (float)contentHeight
@@ -210,15 +212,6 @@ static NSString *MESSAGE = @"We sent a code";
 - (BOOL)isIphoneFour
 {
     return [[UIScreen mainScreen] bounds].size.height < 568.0f;
-}
-
-- (BOOL)forcePlain
-{
-    // GARF: This is a hack to get around a bug we were not able to figure out relating to
-    // iPhone 4S with running 8.0 not showing keyboard for code text field.
-    // On 3.5" screens (e.g. iPhone 4S), need to force alert into "plain" mode, otherwise
-    // the code input text field does not work, the keyboard will never appear
-    return YES || [self isIphoneFour];
 }
 
 - (NSString *)formattedPhoneNumber
