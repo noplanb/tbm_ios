@@ -168,7 +168,7 @@ import UIKit
         
         UIView.animateWithDuration(0.3,
                                    delay: 0,
-                                   usingSpringWithDamping: 0.75,
+                                   usingSpringWithDamping: 1,
                                    initialSpringVelocity: velocity,
                                    options: [.LayoutSubviews],
                                    animations: {
