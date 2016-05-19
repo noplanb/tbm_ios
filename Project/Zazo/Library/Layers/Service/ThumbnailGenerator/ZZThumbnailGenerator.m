@@ -153,8 +153,8 @@
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime duration = asset.duration;
-    CMTime secondsFromEnd = CMTimeMake(2, 1);
-    CMTime thumbTime = CMTimeSubtract(duration, secondsFromEnd);
+    CMTime timeFromEnd = CMTimeMake(2, 10);
+    CMTime thumbTime = CMTimeSubtract(duration, timeFromEnd);
     CMTime actual;
     NSError *err = nil;
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
