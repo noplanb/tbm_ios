@@ -459,7 +459,11 @@
 {
     _isPlayingVideo = isPlayingVideo;
     
-    self.wireframe.playerVisible = isPlayingVideo;
+    [self.userInterface hidePlayerAnimated:^{
+        
+        self.wireframe.playerVisible = isPlayingVideo;
+    }];
+    
 }
 
 #pragma mark Events

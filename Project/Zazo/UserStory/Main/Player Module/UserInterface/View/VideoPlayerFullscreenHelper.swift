@@ -115,7 +115,9 @@ import UIKit
 
             case .Cancelled:
                 
-                completeAnimatedToPosition(0, velocity: 1)
+                completeAnimatedToPosition(0,
+                                           velocity: 1,
+                                           completion: nil)
                 
             case .Ended:
                 
@@ -123,11 +125,15 @@ import UIKit
                 
                 if previousRelativeDistance < relativeDistance
                 {
-                    completeAnimatedToPosition(1, velocity: speed)
+                    completeAnimatedToPosition(1,
+                                               velocity: speed,
+                                               completion: nil)
                 }
                 else
                 {
-                    completeAnimatedToPosition(0, velocity: speed)
+                    completeAnimatedToPosition(0,
+                                               velocity: speed,
+                                               completion: nil)
                 }
                 
                 break
@@ -160,10 +166,12 @@ import UIKit
         view.layer.cornerRadius = 16 * progress;
     }
     
-    func completeAnimatedToPosition(distance: CGFloat, velocity: CGFloat)
+    func completeAnimatedToPosition(distance: CGFloat,
+                                    velocity: CGFloat,
+                                    completion: ((Bool) -> Void)?)
     {
      
-        let progress = self.progressFromDistance(distance)
+        progress = self.progressFromDistance(distance)
         
         
         UIView.animateWithDuration(0.3,
@@ -173,10 +181,10 @@ import UIKit
                                    options: [.LayoutSubviews],
                                    animations: {
                                     
-                                        self.updateAppearanceForProgress(progress)
+                                        self.updateAppearanceForProgress(self.progress)
                                         self.isFullscreen = self.view.bounds.size == self.fullscreenFrame.size
             },
-                                   completion: nil)
+                                   completion: completion)
         
     }
     

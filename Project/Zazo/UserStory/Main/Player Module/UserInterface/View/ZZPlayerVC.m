@@ -243,6 +243,27 @@
 
 }
 
+- (void)hidePlayerAnimated:(ANCodeBlock)completion
+{
+    if (!completion)
+    {
+        completion = ^{};
+    }
+    
+    if (self.fullscreenHelper.isFullscreen)
+    {
+        [self.fullscreenHelper completeAnimatedToPosition:0 velocity:1 completion:^(BOOL finished) {
+            completion();
+        }];
+    }
+    else
+    {
+        completion();
+    }
+}
+
+#pragma mark UI events
+
 - (void)_didTapToDimView
 {
     [self.eventHandler didTapBackground];
