@@ -75,12 +75,12 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (void)addContentAndActionsToAlertController
 {
-    [self.alertController.contentView addSubview:[self contentView]];
-    [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
-                                                              style:SDCAlertActionStyleCancel
-                                                            handler:nil]];
+//    [self.alertController.contentView addSubview:[self contentView]];
+//    [self.alertController addAction:[SDCAlertAction actionWithTitle:@"Cancel"
+//                                                              style:SDCAlertActionStyleCancel
+//                                                            handler:nil]];
 
-    [self.alertController addAction:self.confirmationAction];
+//    [self.alertController addAction:self.confirmationAction];
 }
 
 #pragma mark content view
@@ -108,7 +108,8 @@ static NSString *MESSAGE = @"We sent a code";
 
 - (float)contentOuterWidth
 {
-    return self.alertController.visualStyle.width;
+    
+    return 0; //self.alertController.visualStyle.width;
 }
 
 - (float)contentHeight

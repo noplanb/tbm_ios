@@ -10,7 +10,11 @@
 
 @interface ZZAlertBuilder : NSObject
 
-+ (void)presentAlertWithTitle:(NSString *)title details:(NSString *)details cancelButtonTitle:(NSString *)cancelTitle;
++ (ZZAlertController *)badConnectionAlert;
+
++ (void)presentAlertWithTitle:(NSString *)title
+                      details:(NSString *)details
+            cancelButtonTitle:(NSString *)cancelTitle;
 
 + (void)presentAlertWithTitle:(NSString *)title
                       details:(NSString *)details
@@ -36,7 +40,7 @@
                               details:(NSString *)details
                     cancelButtonTitle:(NSString *)cancelTitle
                    cancelButtonAction:(ANCodeBlock)cancelAction
-                              actions:(NSArray <SDCAlertAction *> *)actions;
+                              actions:(NSArray <UIAlertAction *> *)actions;
 
 + (ZZAlertController *)alertWithTitle:(NSString *)title;
 
@@ -44,6 +48,6 @@
                       details:(NSString *)details
             cancelButtonTitle:(NSString *)cancelTitle
            cancelButtonAction:(ANCodeBlock)cancelAction
-                      actions:(NSArray <SDCAlertAction *> *)actions;
+                      actions:(NSArray <UIAlertAction *> *)actions;
 
 @end

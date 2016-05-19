@@ -12,6 +12,7 @@
 #import "ZZAlertController.h"
 #import "ZZAuthInteractorConstants.h"
 #import "RollbarReachability.h"
+#import "ZZAlertBuilder.h"
 
 @interface ZZAuthPresenter ()
 
@@ -186,10 +187,14 @@
 
 - (void)loadFriendsDidFailWithError:(NSError *)error
 {
-    ZZAlertController *alert = [ZZAlertController badConnectionAlert];
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+    ZZAlertController *alert = [ZZAlertBuilder badConnectionAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Try Again"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *action) {
         [self.interactor loadFriends];
     }]];
+    
     ANDispatchBlockToMainQueue(^{
         [alert presentWithCompletion:nil];
     });

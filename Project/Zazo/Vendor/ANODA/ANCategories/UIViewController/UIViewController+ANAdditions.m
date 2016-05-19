@@ -61,4 +61,23 @@
     return NO;
 }
 
++ (UIViewController *)zz_currentViewController {
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    return [self zz_topViewControllerForViewController:rootViewController];
+}
+
++ (UIViewController *)zz_topViewControllerForViewController:(UIViewController *)rootViewController {
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *)rootViewController;
+        return [self zz_topViewControllerForViewController:navigationController.visibleViewController];
+    }
+    
+    if (rootViewController.presentedViewController) {
+        return [self zz_topViewControllerForViewController:rootViewController.presentedViewController];
+    }
+    
+    return rootViewController;
+}
+
+
 @end

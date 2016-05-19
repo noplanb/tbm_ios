@@ -19,4 +19,6 @@
 
 - (BOOL)an_isModal;
 
++ (UIViewController *)zz_currentViewController;
+
 @end

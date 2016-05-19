@@ -124,18 +124,18 @@
             [ZZAlertController alertControllerWithTitle:@"Download Error"
                                                 message:@"Problem downloading a zazo.\nCheck your connection"];
     [alertController addAction:
-            [SDCAlertAction actionWithTitle:@"Discard"
-                                      style:SDCAlertActionStyleCancel
-                                    handler:^(SDCAlertAction *action) {
+            [UIAlertAction actionWithTitle:@"Discard"
+                                      style:UIAlertActionStyleCancel
+                                    handler:^(UIAlertAction *action) {
 
                                         [Answers logCustomEventWithName:@"RetryDialogDiscard" customAttributes:nil];
                                         completion(NO);
                                     }]];
 
     [alertController addAction:
-            [SDCAlertAction actionWithTitle:@"Try again"
-                                      style:SDCAlertActionStyleDefault
-                                    handler:^(SDCAlertAction *action) {
+            [UIAlertAction actionWithTitle:@"Try again"
+                                      style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction *action) {
 
                                         [Answers logCustomEventWithName:@"RetryDialogTryAgain" customAttributes:nil];
                                         completion(YES);

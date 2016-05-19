@@ -21,7 +21,7 @@ static NSString* const kGlobalApplicationVersion = @"47";
 //#define MAKING_SCREENSHOTS
 #endif
 
-//swift
+//swiftas
 
 #import "Zazo-Swift.h"
 

@@ -38,7 +38,31 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, [self _appName]];
 
-    [ZZAlertBuilder presentAlertWithTitle:@"Invite" details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
+//    [ZZAlertBuilder presentAlertWithTitle:@"Invite" details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
+    
+    UIAlertAction *smsAction =
+    [UIAlertAction actionWithTitle:@"Invite via SMS"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               //                                                  selectedType = ZZInviteTypeSMS;
+                               //                                                  completion();
+                           }];
+
+    UIAlertAction *sharingAction =
+    [UIAlertAction actionWithTitle:@"Invite via another app"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               //                                        selectedType = ZZInviteTypeSharing;
+                               //                                        completion();
+                           }];
+
+    
+    [ZZAlertBuilder presentAlertWithTitle:@"Invite"
+                                  details:msg
+                        cancelButtonTitle:@"Cancel"
+                       cancelButtonAction:nil
+                                  actions:@[smsAction, sharingAction]];
+    
 }
 
 + (void)showConnectedDialogForUser:(NSString *)userName completion:(ANCodeBlock)completion
@@ -84,55 +108,40 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 
 + (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void (^)(ZZInviteType selectedType, NSString *text))aCompetion
 {
-    __block ZZInviteType selectedType = ZZInviteTypeUnknown;
-
-    ZZAlertController *alert =
-            [ZZAlertBuilder alertWithTitle:@"Send link"];
-
-    UITextView *textView = [UITextView new];
-
-    ANCodeBlock completion = ^{
-        NSString *userText = textView.text;
-
-        aCompetion(selectedType, userText);
-    };
-
-    SDCAlertAction *smsAction =
-            [SDCAlertAction actionWithAttributedTitle:[self _boldStringWithText:@"Send as SMS"]
-                                                style:SDCAlertActionStyleDefault
-                                              handler:^(SDCAlertAction *action) {
-                                                  selectedType = ZZInviteTypeSMS;
-                                                  completion();
-                                              }];
-
-    SDCAlertAction *sharingAction =
-            [SDCAlertAction actionWithTitle:@"Send via another app"
-                                      style:SDCAlertActionStyleDefault
-                                    handler:^(SDCAlertAction *action) {
-                                        selectedType = ZZInviteTypeSharing;
-                                        completion();
-                                    }];
-
-    [alert addAction:smsAction];
-    [alert addAction:sharingAction];
-
-    [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel"
-                                               style:SDCAlertActionStyleCancel
-                                             handler:nil]];
-
-    CGFloat textViewHeight = IS_IPHONE_4 ? 50 : 70;
-
-    textView.text = text;
-    textView.frame = CGRectMake(0, 0, alert.visualStyle.width, textViewHeight);
-    textView.font = alert.visualStyle.messageLabelFont;
-
-    [alert.contentView addSubview:textView];
-
-    ANDispatchBlockToMainQueue(^{
-        [alert presentWithCompletion:^{
-            [textView becomeFirstResponder];
-        }];
-    });
+//    __block ZZInviteType selectedType = ZZInviteTypeUnknown;
+//
+//    ZZAlertController *alert =
+//            [ZZAlertBuilder alertWithTitle:@"Send link"];
+//
+//    UITextView *textView = [UITextView new];
+//
+//    ANCodeBlock completion = ^{
+//        NSString *userText = textView.text;
+//
+//        aCompetion(selectedType, userText);
+//    };
+//
+//
+//    [alert addAction:smsAction];
+//    [alert addAction:sharingAction];
+//
+//    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
+//                                               style:UIAlertActionStyleCancel
+//                                             handler:nil]];
+//
+//    CGFloat textViewHeight = IS_IPHONE_4 ? 50 : 70;
+//
+//    textView.text = text;
+//    textView.frame = CGRectMake(0, 0, alert.visualStyle.width, textViewHeight);
+//    textView.font = alert.visualStyle.messageLabelFont;
+//
+//    [alert.contentView addSubview:textView];
+//
+//    ANDispatchBlockToMainQueue(^{
+//        [alert presentWithCompletion:^{
+//            [textView becomeFirstResponder];
+//        }];
+//    });
 }
 
 + (NSAttributedString *)_boldStringWithText:(NSString *)text

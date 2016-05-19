@@ -9,8 +9,9 @@
 #import "ZZTableModal.h"
 #import "ZZCommunicationDomainModel.h"
 #import "ZZContactDomainModel.h"
-#import "ZZAlertController.h"
 #import "ZZAlertTableStyle.h"
+
+@import SDCAlertView;
 
 @interface ZZTableModal()
 
@@ -19,7 +20,7 @@
 @property (nonatomic, weak)  id <TBMTableModalDelegate> delegate;
 @property(nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZZContactDomainModel* currentContact;
-@property (nonatomic, strong) ZZAlertController *alertController;
+@property (nonatomic, strong) SDCAlertController *alertController;
 
 @end
 
@@ -56,7 +57,9 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 
 - (void) show
 {
-    self.alertController = [ZZAlertController alertControllerWithTitle:self.title message:nil];
+    self.alertController = [SDCAlertController alertControllerWithTitle:self.title
+                                                                message:nil
+                                                         preferredStyle:SDCAlertControllerStyleAlert];
 
     ZZAlertTableStyle *style = [ZZAlertTableStyle new];
     style.size = self.tableView.frame.size;
@@ -73,23 +76,28 @@ static NSString *TBMTableReuseId = @"tableModalReuseId";
 
 #pragma mark -  Dimension calculations
 
-- (float) modalWidth{
+- (float)modalWidth
+{
     return 0.85 * [self screenWidth];
 }
 
-- (float)screenWidth{
+- (float)screenWidth
+{
     return [[UIScreen mainScreen] bounds].size.width;
 }
 
-- (float)screenHeight{
+- (float)screenHeight
+{
     return [[UIScreen mainScreen] bounds].size.height;
 }
 
-- (float)maxModalHeight{
+- (float)maxModalHeight
+{
     return 0.75 * [self screenHeight];
 }
 
-- (float)maxTableHeight{
+- (float)maxTableHeight
+{
     return [self maxModalHeight];
 }
 

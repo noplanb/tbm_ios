@@ -18,9 +18,13 @@
     ANDispatchBlockToMainQueue(^{
         ZZAlertController *alert = [ZZAlertController alertControllerWithTitle:NSLocalizedString(title, nil)
                                                                        message:NSLocalizedString(message, nil)];
-        [alert addAction:[SDCAlertAction actionWithTitle:okButton style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        
+        [alert addAction:[UIAlertAction actionWithTitle:okButton
+                                                  style:UIAlertActionStyleCancel
+                                                handler:^(UIAlertAction *action) {
             [alert dismissWithCompletion:nil];
         }]];
+        
         [alert presentWithCompletion:nil];
     });
 }

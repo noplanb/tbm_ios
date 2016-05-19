@@ -7,12 +7,7 @@
 //
 
 #import "ZZAlertController.h"
-
-@interface SDCAlertController (Private)
-
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message style:(SDCAlertControllerStyle)style;
-
-@end
+#import "UIViewController+ANAdditions.h"
 
 @interface ZZAlertController ()
 
@@ -22,43 +17,37 @@
 
 @implementation ZZAlertController
 
-@dynamic alert;
-
 #pragma mark - Initialization
 
 + (instancetype)alertControllerWithTitle:(NSString *)title message:(NSString *)message
 {
-    return [[self alloc] initWithTitle:title message:message style:SDCAlertControllerStyleAlert];
+    return [ZZAlertController alertControllerWithTitle:title
+                                               message:message
+                                        preferredStyle:UIAlertControllerStyleAlert];
 }
 
-+ (id)badConnectionAlert
+- (void)presentWithCompletion:(void(^)(void))completion
 {
-    NSString *appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
-
-    NSString *badConnectionMessage =
-            [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
-
-    NSString *title = @"Bad Connection";
-
-    return [self alertControllerWithTitle:title message:badConnectionMessage];
+    UIViewController *currentViewController = [UIViewController zz_currentViewController];
+    
+    [self presentFromViewController:currentViewController
+                  completionHandler:completion];
+    
 }
 
-#pragma mark - Alert Actions
-
-- (void)alertControllerView:(SDCAlertControllerView *)sender didPerformAction:(SDCAlertAction *)action
+- (void)presentFromViewController:(UIViewController *)viewController
+                completionHandler:(void (^)(void))completionHandler
 {
-    if (!action.isEnabled || (self.shouldDismissBlock && !self.shouldDismissBlock(action)))
-    {
-        return;
-    }
-
-    [self dismissWithCompletion:^{
-        if (action.handler)
-        {
-            action.handler(action);
-        }
-    }];
+    [viewController presentViewController:self
+                                 animated:YES
+                               completion:completionHandler];
 }
+
+- (void)dismissWithCompletion:(void (^)(void))completion
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:completion];
+}
+
 
 #pragma mark dismissWithApplication
 
@@ -86,6 +75,7 @@
                                                   object:nil];
 
     self.dismissWithApplication = NO;
+    
     [self dismissWithCompletion:nil];
 }
 

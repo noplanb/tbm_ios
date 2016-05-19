@@ -10,15 +10,14 @@
 #import "SDCAlertController.h"
 #import "SDCAlertControllerView.h"
 
-@interface ZZAlertController : SDCAlertController <SDCAlertControllerViewDelegate>
-
-@property (nonatomic, strong) SDCAlertControllerView *alert;
-
-+ (id)badConnectionAlert;
+@interface ZZAlertController : UIAlertController
 
 + (instancetype)alertControllerWithTitle:(NSString *)title message:(NSString *)message;
 
 // Dismisses alert automatically when application minimized:
 - (void)dismissWithApplicationAutomatically;
+
+- (void)dismissWithCompletion:(void (^)(void))completion;
+- (void)presentWithCompletion:(void(^)(void))completion;
 
 @end

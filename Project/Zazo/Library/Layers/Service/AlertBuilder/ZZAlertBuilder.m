@@ -10,6 +10,18 @@
 
 @implementation ZZAlertBuilder
 
++ (ZZAlertController *)badConnectionAlert
+{
+    NSString *appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    
+    NSString *badConnectionMessage =
+    [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+    
+    NSString *title = @"Bad Connection";
+    
+    return [ZZAlertController alertControllerWithTitle:title message:badConnectionMessage];
+}
+
 + (void)presentAlertWithTitle:(NSString *)title
                       details:(NSString *)details
             cancelButtonTitle:(NSString *)cancelTitle
@@ -64,9 +76,9 @@
 
     if (!ANIsEmpty(cancelTitle))
     {
-        [alert addAction:[SDCAlertAction actionWithTitle:cancelTitle
-                                                   style:SDCAlertActionStyleCancel
-                                                 handler:^(SDCAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:cancelTitle
+                                                   style:UIAlertActionStyleCancel
+                                                 handler:^(UIAlertAction *action) {
                                                      if (cancelAction)
                                                      {
                                                          cancelAction();
@@ -77,9 +89,9 @@
     if (!ANIsEmpty(actionButtonTitle))
     {
 
-        [alert addAction:[SDCAlertAction actionWithTitle:actionButtonTitle
-                                                   style:SDCAlertActionStyleDefault
-                                                 handler:^(SDCAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:actionButtonTitle
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction *action) {
                                                      if (completion)
                                                      {
                                                          completion();
@@ -100,7 +112,7 @@
                               details:(NSString *)details
                     cancelButtonTitle:(NSString *)cancelTitle
                    cancelButtonAction:(ANCodeBlock)cancelAction
-                              actions:(NSArray <SDCAlertAction *> *)actions
+                              actions:(NSArray <UIAlertAction *> *)actions
 {
     ZZAlertController *alert =
             [self alertWithTitle:title
@@ -110,7 +122,7 @@
                actionButtonTitle:nil
                           action:nil];
 
-    [actions enumerateObjectsUsingBlock:^(SDCAlertAction *_Nonnull action, NSUInteger idx, BOOL *_Nonnull stop) {
+    [actions enumerateObjectsUsingBlock:^(UIAlertAction *_Nonnull action, NSUInteger idx, BOOL *_Nonnull stop) {
         [alert addAction:action];
     }];
 
@@ -129,7 +141,7 @@
                       details:(NSString *)details
             cancelButtonTitle:(NSString *)cancelTitle
            cancelButtonAction:(ANCodeBlock)cancelAction
-                      actions:(NSArray <SDCAlertAction *> *)actions
+                      actions:(NSArray <UIAlertAction *> *)actions
 {
     ZZAlertController *alert =
             [self alertWithTitle:title

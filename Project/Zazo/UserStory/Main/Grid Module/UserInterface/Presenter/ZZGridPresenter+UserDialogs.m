@@ -21,6 +21,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZCommunicationDomainModel.h"
 #import "ZZUserDataProvider.h"
+#import "ZZAlertBuilder.h"
 
 @implementation ZZGridPresenter (UserDialogs)
 
@@ -191,20 +192,20 @@
     {
         alert = [ZZAlertController alertControllerWithTitle:@"Error" message:[error.userInfo objectForKey:@"msg"]];
 
-        [alert addAction:[SDCAlertAction actionWithTitle:@"OK" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [alert dismissWithCompletion:nil];
         }]];
     }
     else
     {
-        alert = [ZZAlertController badConnectionAlert];
+        alert = [ZZAlertBuilder badConnectionAlert];
 
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Cancel" style:SDCAlertActionStyleRecommended handler:^(SDCAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [alert dismissWithCompletion:nil];
         }]];
 
 
-        [alert addAction:[SDCAlertAction actionWithTitle:@"Try Again" style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self.interactor addUserToGrid:contact];
         }]];
     }
