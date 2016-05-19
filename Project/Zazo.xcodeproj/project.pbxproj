@@ -208,7 +208,6 @@
 		152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158221C84932A00260AFD /* ZZHoldEffectLayer.m */; };
 		1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158251C84932A00260AFD /* ZZUserNameLabel.m */; };
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
-		152594C71CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */; };
 		152594DF1CE8C9F200DDA507 /* ZZPlayerInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594CC1CE8C9F200DDA507 /* ZZPlayerInteractor.m */; };
 		152594E01CE8C9F200DDA507 /* Player.strings in Resources */ = {isa = PBXBuildFile; fileRef = 152594D21CE8C9F200DDA507 /* Player.strings */; };
 		152594E11CE8C9F200DDA507 /* ZZPlayerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594D51CE8C9F200DDA507 /* ZZPlayerPresenter.m */; };
@@ -295,8 +294,11 @@
 		158960861CB7B61E0040D8E3 /* ANTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589602D1CB7B61D0040D8E3 /* ANTableView.m */; };
 		1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589C1561CD3C74800AB7E8C /* DownloadingView.swift */; };
 		158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */; };
-		15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */; };
-		15AB0DA71CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */; };
+		158D8ED51CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */; };
+		158D8ED71CEB2D4600C95132 /* PlaybackSegmentIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */; };
+		158D8EDE1CEB43AF00C95132 /* ZZBadgeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */; };
+		158D8EE11CEB43C000C95132 /* ZZBadgeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */; };
+		15A1F9411CEC8DFC00BAC37D /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1F9401CEC8DFC00BAC37D /* PlaybackSegment.swift */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
 		15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */; };
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
@@ -1151,7 +1153,6 @@
 		1521582B1C84989700260AFD /* ZZCellEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCellEffectView.h; sourceTree = "<group>"; };
 		1521582C1C84989700260AFD /* ZZCellEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCellEffectView.m; sourceTree = "<group>"; };
 		1521582E1C8498E500260AFD /* ZZHoldEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZHoldEffects.h; sourceTree = "<group>"; };
-		152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegmentIndicator.swift; sourceTree = "<group>"; };
 		152594CB1CE8C9F200DDA507 /* ZZPlayerInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerInteractor.h; sourceTree = "<group>"; };
 		152594CC1CE8C9F200DDA507 /* ZZPlayerInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerInteractor.m; sourceTree = "<group>"; };
 		152594CD1CE8C9F200DDA507 /* ZZPlayerInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerInteractorIO.h; sourceTree = "<group>"; };
@@ -1331,12 +1332,16 @@
 		1589C1561CD3C74800AB7E8C /* DownloadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingView.swift; sourceTree = "<group>"; };
 		158C66661CE9EAA800756E48 /* ZZPlayerBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerBackgroundView.h; sourceTree = "<group>"; };
 		158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerBackgroundView.m; sourceTree = "<group>"; };
+		158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerFullscreenHelper.swift; sourceTree = "<group>"; };
+		158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegmentIndicator.swift; sourceTree = "<group>"; };
+		158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZBadgeIndicator.xib; sourceTree = "<group>"; };
+		158D8EDF1CEB43C000C95132 /* ZZBadgeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBadgeIndicator.h; sourceTree = "<group>"; };
+		158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadgeIndicator.m; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
-		15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZTabbarViewPositionIndicator.xib; sourceTree = "<group>"; };
-		15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerFullscreenHelper.swift; sourceTree = "<group>"; };
+		15A1F9401CEC8DFC00BAC37D /* PlaybackSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegment.swift; sourceTree = "<group>"; };
 		15AB0DA91CE36C5A005E15AA /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		15AC014A1C98694000B12D92 /* ZZRecordingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordingView.h; sourceTree = "<group>"; };
 		15AC014B1C98694000B12D92 /* ZZRecordingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordingView.m; sourceTree = "<group>"; };
@@ -2200,7 +2205,6 @@
 				07636BB11BA49A0100925671 /* KeychainProvider */,
 				07636BB71BA49A0100925671 /* StoredSettings */,
 				07636BBA1BA49A0100925671 /* StringUtils */,
-				07636BBD1BA49A0100925671 /* VideoPlayer */,
 				07636BC01BA49A0100925671 /* VideoProcessor */,
 				07636BC31BA49A0100925671 /* VideoRecorder */,
 				07C94DD11BA7246D009338B1 /* UserFriendshipStatusHandler */,
@@ -2295,14 +2299,6 @@
 				07636BBC1BA49A0100925671 /* ZZStringUtils.m */,
 			);
 			path = StringUtils;
-			sourceTree = "<group>";
-		};
-		07636BBD1BA49A0100925671 /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				15AB0DA61CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift */,
-			);
-			path = VideoPlayer;
 			sourceTree = "<group>";
 		};
 		07636BC01BA49A0100925671 /* VideoProcessor */ = {
@@ -3793,11 +3789,15 @@
 		152594D61CE8C9F200DDA507 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				158D8EDC1CEB43AF00C95132 /* ZZBadgeIndicator */,
+				158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */,
+				158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */,
 				152594D71CE8C9F200DDA507 /* ZZPlayerVC.h */,
 				152594D81CE8C9F200DDA507 /* ZZPlayerVC.m */,
 				152594D91CE8C9F200DDA507 /* ZZPlayerViewInterface.h */,
 				158C66661CE9EAA800756E48 /* ZZPlayerBackgroundView.h */,
 				158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */,
+				15A1F9401CEC8DFC00BAC37D /* PlaybackSegment.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3877,7 +3877,6 @@
 				153682391C99539D006EDC12 /* ZZTabbarVC.m */,
 				1536823A1C99539D006EDC12 /* ZZMainViewInterface.h */,
 				677DBFF253E25ECACACB38C1 /* TabbarView */,
-				152594C61CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4493,6 +4492,16 @@
 				1589602D1CB7B61D0040D8E3 /* ANTableView.m */,
 			);
 			path = TableView;
+			sourceTree = "<group>";
+		};
+		158D8EDC1CEB43AF00C95132 /* ZZBadgeIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */,
+				158D8EDF1CEB43C000C95132 /* ZZBadgeIndicator.h */,
+				158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */,
+			);
+			path = ZZBadgeIndicator;
 			sourceTree = "<group>";
 		};
 		15A177821C1AB6FD0031480F /* ZZDispatchHelper */ = {
@@ -5202,7 +5211,6 @@
 			children = (
 				677DBEF5494B9162399CA3E8 /* ZZTabbarView.h */,
 				677DB1628D3A1A9B706A49CE /* ZZTabbarView.m */,
-				15A918A31CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib */,
 			);
 			path = TabbarView;
 			sourceTree = "<group>";
@@ -5474,7 +5482,6 @@
 				15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */,
 				1589605A1CB7B61D0040D8E3 /* mogen.sh in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
-				15A918A41CB40B6C007D9B9B /* ZZTabbarViewPositionIndicator.xib in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,
 				1589605B1CB7B61D0040D8E3 /* mogend.sh in Resources */,
 				158960571CB7B61D0040D8E3 /* human.m.motemplate in Resources */,
@@ -5483,6 +5490,7 @@
 				15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */,
 				07636E8C1BA49A0100925671 /* ANServerErrorLocalizable.strings in Resources */,
 				07636E751BA49A0100925671 /* app_logo.pdf in Resources */,
+				158D8EDE1CEB43AF00C95132 /* ZZBadgeIndicator.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5936,6 +5944,7 @@
 				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
 				158960341CB7B61D0040D8E3 /* ANBaseListTableCell.m in Sources */,
+				15A1F9411CEC8DFC00BAC37D /* PlaybackSegment.swift in Sources */,
 				07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */,
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
@@ -5963,6 +5972,7 @@
 				151A6C331CA5688800F2B53D /* ZZMenuWireframe.m in Sources */,
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				151A6C341CA5688800F2B53D /* ZZMenu.m in Sources */,
+				158D8ED71CEB2D4600C95132 /* PlaybackSegmentIndicator.swift in Sources */,
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
 				152594E31CE8C9F200DDA507 /* ZZPlayerWireframe.m in Sources */,
 				15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */,
@@ -6018,7 +6028,6 @@
 				187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */,
 				158960821CB7B61E0040D8E3 /* ANBaseTableHeaderView.m in Sources */,
 				182255F41C16E08A003885A3 /* ZZNetworkTestWireframe.m in Sources */,
-				15AB0DA71CE33A49005E15AA /* VideoPlayerFullscreenHelper.swift in Sources */,
 				15B823081CB7BBD4006473E1 /* _TBMUser.m in Sources */,
 				1872F4391BB3FAC600E99356 /* ZZContactsPermissionAlertBuilder.m in Sources */,
 				158960461CB7B61D0040D8E3 /* UINavigationItem+ANAdditions.m in Sources */,
@@ -6028,6 +6037,7 @@
 				071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */,
 				07636EBD1BA49A0100925671 /* ZZGridPresenter.m in Sources */,
 				07829D641BB2A9A80000D5D9 /* ZZCommonModelsGenerator.m in Sources */,
+				158D8EE11CEB43C000C95132 /* ZZBadgeIndicator.m in Sources */,
 				158960721CB7B61E0040D8E3 /* ANSectionModel.m in Sources */,
 				158960761CB7B61E0040D8E3 /* ANRuntimeHelper.m in Sources */,
 				158960681CB7B61D0040D8E3 /* ANError.m in Sources */,
@@ -6123,7 +6133,6 @@
 				1589603E1CB7B61D0040D8E3 /* RACCommand+ANAdditions.m in Sources */,
 				07636EBC1BA49A0100925671 /* ZZGridDataSource.m in Sources */,
 				07636EA51BA49A0100925671 /* ZZSecretScreenTextEditCell.m in Sources */,
-				152594C71CE8C6E500DDA507 /* PlaybackSegmentIndicator.swift in Sources */,
 				079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */,
 				158960711CB7B61E0040D8E3 /* ANMemoryStorage.m in Sources */,
 				158960831CB7B61E0040D8E3 /* ANBaseTableViewCell.m in Sources */,
@@ -6262,6 +6271,7 @@
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
 				15B823071CB7BBD4006473E1 /* _TBMGridElement.m in Sources */,
 				677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */,
+				158D8ED51CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift in Sources */,
 				677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */,
 				677DB5F5A7401439DEC6B2D8 /* ANHelperFunctions.m in Sources */,
 				677DB304F8FA993A67051917 /* ANKeyboardHandler.m in Sources */,

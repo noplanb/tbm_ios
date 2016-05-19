@@ -21,8 +21,6 @@
 
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 
-- (void)updateActiveCellTitleTo:(NSString *)title;
-
 - (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel;
 
 - (void)menuWasOpened;

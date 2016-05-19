@@ -10,7 +10,6 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-
 @objc public class VideoPlayerFullscreenHelper: NSObject
 {
     public var centerOffset = CGPoint.init(x: 0, y: -20)
@@ -33,20 +32,47 @@ import UIKit
         }
     }
     
+    var progress = CGFloat(0)
     var previousRelativeDistance = CGFloat(0)
     var relativeDistance = CGFloat(0)
     
-    let view: UIView
-    
-    var initialFrame = CGRectZero
-    var fullscreenFrame = CGRectZero
+    let recognizer = UIPanGestureRecognizer()
     
     var isFullscreen = false
+    
+    var isDragging: Bool
     {
+        return recognizer.state != .Possible
+    }
+    
+    let view: UIView
+    
+    var initialFrame: CGRect {
         didSet {
-            print("fullscreeen = \(isFullscreen)" )
+            
+            let screenSize = UIScreen.mainScreen().bounds.size
+            
+            view.frame = initialFrame
+            
+            let width = screenSize.width - 40
+            let relation = width / initialFrame.size.width;
+            
+            let fullscreenSize = CGSizeMake(width, initialFrame.size.height * relation)
+            
+            let fullscreenOrigin = CGPointMake(screenSize.width / 2 - fullscreenSize.width / 2 + centerOffset.x,
+                                               screenSize.height / 2 - fullscreenSize.height / 2 + centerOffset.y)
+            
+            fullscreenFrame = CGRect.init(origin: fullscreenOrigin,
+                                          size: fullscreenSize)
+            
+            maximalDistance = distanceBetween(initialCenter, p2: fullscreenCenter)
+
+            progress = 0
+            isFullscreen = false
         }
     }
+    
+    var fullscreenFrame = CGRectZero
     
     public init?(view: UIView!)
     {
@@ -58,96 +84,80 @@ import UIKit
         
         view.layer.masksToBounds = true
         
-        super.init()
-        
-        let recognizer = UIPanGestureRecognizer.init(target: self,
-                                                     action: #selector(VideoPlayerFullscreenHelper.handleGesture(_:)))
-        
-        view.addGestureRecognizer(recognizer)
-    }
-    
-    public func prepare()
-    {
-        isFullscreen = view.bounds.size == fullscreenFrame.size
-        
-        guard (!isFullscreen) else
-        {
-            return
-        }
-        
-        let screenSize = UIScreen.mainScreen().bounds.size
-
         initialFrame = view.frame
         
-        let width = screenSize.width - 40
-        let relation = width / initialFrame.size.width;
+        super.init()
         
-        let fullscreenSize = CGSizeMake(width, initialFrame.size.height * relation)
+        recognizer.addTarget(self,
+                             action: #selector(VideoPlayerFullscreenHelper.handleGesture(_:)))
         
-        let fullscreenOrigin = CGPointMake(screenSize.width / 2 - fullscreenSize.width / 2 + centerOffset.x,
-                                           screenSize.height / 2 - fullscreenSize.height / 2 + centerOffset.y)
-
-        fullscreenFrame = CGRect.init(origin: fullscreenOrigin,
-                                      size: fullscreenSize)
+        view.addGestureRecognizer(recognizer)
         
-        maximalDistance = distanceBetween(initialCenter, p2: fullscreenCenter)
-
+        
     }
     
     @objc func handleGesture(recognizer: UIPanGestureRecognizer)
     {
         let point = recognizer.translationInView(view)
         
-        switch recognizer.state {
-            
-        case .Began:
-            prepare()
-            
-        case .Changed:
-            
-            if previousRelativeDistance != relativeDistance
-            {
-                previousRelativeDistance = relativeDistance
+        switch recognizer.state
+        {
+            case .Changed:
                 
-//                print("previousRelativeDistance = \(previousRelativeDistance) relDistance =  \(relativeDistance)")
-            }
+                if previousRelativeDistance != relativeDistance
+                {
+                    previousRelativeDistance = relativeDistance
+                }
 
-            relativeDistance = relativeDistance(point)
-            let progress = progressFromDistance(relativeDistance)
-            self.view.frame = frameForProgress(progress)
-            
-            updateAppearanceForProgress(progress)
-        
-        case .Cancelled:
-            completeAnimatedToPosition(0, velocity: 1)
-            
-        case .Ended:
-            
-            let speed = abs(previousRelativeDistance - relativeDistance)
-            
-            if previousRelativeDistance < relativeDistance
-            {
-                completeAnimatedToPosition(1, velocity: speed)
-            }
-            else
-            {
-                completeAnimatedToPosition(0, velocity: speed)
-            }
-            
-            break
-            
-        default: break
-        
+                relativeDistance = relativeDistance(point)
+                progress = progressFromDistance(relativeDistance)
+                updateAppearanceForProgress(progress)
+
+            case .Cancelled:
+                
+                completeAnimatedToPosition(0, velocity: 1)
+                
+            case .Ended:
+                
+                let speed = abs(previousRelativeDistance - relativeDistance)
+                
+                if previousRelativeDistance < relativeDistance
+                {
+                    completeAnimatedToPosition(1, velocity: speed)
+                }
+                else
+                {
+                    completeAnimatedToPosition(0, velocity: speed)
+                }
+                
+                break
+                
+            default: break
         }
-
+    }
+    
+    @objc public func updateFrameAndAppearance()
+    {
+        guard !isDragging else
+        {
+            return;
+        }
+        
+        if isFullscreen
+        {
+            updateAppearanceForProgress(1)
+        }
+        else
+        {
+            updateAppearanceForProgress(0)
+        }
     }
     
     func updateAppearanceForProgress(progress: CGFloat)
     {
 //        print("progress = \(progress)")
-        
-        self.view.layer.cornerRadius = 16 * progress;
-        
+        view.frame = frameForProgress(progress)
+        view.layer.cornerRadius = 16 * progress;
     }
     
     func completeAnimatedToPosition(distance: CGFloat, velocity: CGFloat)
@@ -164,7 +174,7 @@ import UIKit
                                    animations: {
                                     
                                         self.updateAppearanceForProgress(progress)
-                                        self.view.frame = self.frameForProgress(progress)
+                                        self.isFullscreen = self.view.bounds.size == self.fullscreenFrame.size
             },
                                    completion: nil)
         

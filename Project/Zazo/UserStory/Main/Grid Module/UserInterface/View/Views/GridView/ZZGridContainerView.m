@@ -12,8 +12,6 @@
 #import "ZZGridCenterCell.h"
 #import "ZZGridRotationTouchObserver.h"
 
-static CGFloat ZZGridContainerViewTopOffset = -50;
-
 @interface ZZGridContainerView ()
 
 @property (nonatomic, strong) UIView *dimView;
@@ -89,112 +87,11 @@ static CGFloat ZZGridContainerViewTopOffset = -50;
     return self;
 }
 
-//- (void)showDimScreenForItemWithIndex:(NSUInteger)index
-//{
-//    self.activeCell = (id)self.items[index];
-//
-//    if (![self.activeCell isKindOfClass:[ZZGridCell class]]) // ignore center cell
-//    {
-//        return;
-//    }
-//
-//    [self bringSubviewToFront:self.dimView];
-//    [self bringSubviewToFront:self.activeCell];
-//
-//    [self updateTextLabel];
-//
-//    [self restoreFrames]; // bringSubviewToFront resets cell's frames (why?!)
-//
-//    [UIView animateWithDuration:0.2
-//                     animations:^{
-//                         _dimView.alpha = 1;
-//                         [self.activeCell setBadgesHidden:YES];
-//                     }];
-//
-//    self.dimTapRecognizer.enabled = YES;
-//}
-
-- (BOOL)isCellOnTop:(ZZGridCell *)cell
-{
-    return cell.frame.origin.y < 1; // it may be ~0.00123
-}
-
-- (void)updateTextLabel
-{
-    [self.textLabel sizeToFit];
-
-    CGPoint origin = self.activeCell.origin;
-
-    if ([self isCellOnTop:self.activeCell])
-    {
-        origin.y += self.activeCell.height + 12; // move label to cell's bottom
-    }
-    else
-    {
-        origin.y -= self.textLabel.height; // move label to cell's top
-    }
-
-    origin.x += 8; // move little bit left
-
-    origin.y -= ZZGridContainerViewTopOffset;
-
-    self.textLabel.origin = origin;
-}
 
 - (void)restoreFrames
 {
     [self layoutSubviews]; // placeCells doesn't work without this (why?!)
     [self.touchObserver placeCells];
-}
-//
-//- (void)hideDimScreen
-//{
-//    self.dimTapRecognizer.enabled = NO;
-//
-//    [UIView animateWithDuration:0.2
-//                     animations:^{
-//                         _dimView.alpha = 0;
-//                         [self.activeCell setBadgesHidden:NO];
-//
-//                     } completion:^(BOOL finished) {
-//
-//                [self sendSubviewToBack:self.dimView];
-//                [self restoreFrames];
-//
-//                self.activeCell = nil;
-//
-//            }];
-//}
-//
-
-@synthesize textLabel = _textLabel;
-
-- (UILabel *)textLabel
-{
-    if (!_textLabel)
-    {
-        UILabel *label = [UILabel new];
-        label.textColor = [UIColor whiteColor];
-
-        [_dimView addSubview:label];
-
-        _textLabel = label;
-    }
-
-    return _textLabel;
-}
-
-@dynamic titleText;
-
-- (void)setTitleText:(NSString *)titleText
-{
-    self.textLabel.text = titleText.uppercaseString;
-    [self updateTextLabel];
-}
-
-- (NSString *)titleText
-{
-    return self.textLabel.text;
 }
 
 @end

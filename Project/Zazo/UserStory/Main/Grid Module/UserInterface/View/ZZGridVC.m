@@ -113,32 +113,6 @@
     [animationCell showContainFriendAnimation];
 }
 
-//- (void)showDimScreenForFriendModel:(ZZFriendDomainModel *)friendModel
-//{
-//    ZZGridCell *cell = [self cellForFriendModel:friendModel];
-//    NSUInteger index = [self.gridView.itemsContainerView.items indexOfObject:cell];
-//
-//    if (index == NSNotFound)
-//    {
-//        return;
-//    }
-//
-////    [self.gridView.itemsContainerView showDimScreenForItemWithIndex:index];
-//
-//    self.touchObserver.enabled = NO;
-//}
-
-//- (void)hideDimScreen
-//{
-////    [self.gridView.itemsContainerView hideDimScreen];
-//    self.touchObserver.enabled = YES;
-//}
-
-- (void)updateActiveCellTitleTo:(NSString *)title
-{
-    self.gridView.itemsContainerView.titleText = title;
-}
-
 - (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel
 {
     ZZGridCell *cell = [self cellForFriendModel:friendModel];

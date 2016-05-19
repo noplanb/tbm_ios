@@ -34,7 +34,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
     self = [super init];
     if (self)
     {
-        self.tintColor = [UIColor an_colorWithHexString:@"#0d47a1"];
+        self.tintColor = [UIColor an_colorWithHexString:@"#0E51B8"];
 
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#5AAEFF"];
         self.gridBackgroundColor = [UIColor an_colorWithHexString:@"#eeeeee"];

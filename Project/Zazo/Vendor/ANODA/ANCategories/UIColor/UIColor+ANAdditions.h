@@ -12,4 +12,7 @@
 
 - (NSString *)an_hexString;
 
+- (UIImage *)zz_image;
+
+
 @end

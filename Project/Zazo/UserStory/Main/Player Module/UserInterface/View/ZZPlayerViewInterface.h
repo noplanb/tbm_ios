@@ -10,4 +10,9 @@
 @property (nonatomic, weak) AVPlayerViewController *playerController;
 @property (nonatomic, assign) CGRect initialPlayerFrame;
 
+- (void)updatePlayerText:(NSString *)text;
+- (void)updateVideoCount:(NSInteger)count;
+- (void)updateCurrentVideoIndex:(NSInteger)index;
+- (void)updatePlaybackProgress:(CGFloat)progress;
+
 @end

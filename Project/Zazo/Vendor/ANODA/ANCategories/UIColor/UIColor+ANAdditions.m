@@ -49,4 +49,19 @@
     return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
+- (UIImage *)zz_image
+{
+        CGRect rect = CGRectMake(0.0f, 0.0f, 3, 3);
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSetFillColorWithColor(context, [self CGColor]);
+        CGContextFillRect(context, rect);
+        
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
+}
+
 @end

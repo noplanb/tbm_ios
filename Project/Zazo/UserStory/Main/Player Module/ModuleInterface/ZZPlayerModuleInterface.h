@@ -23,6 +23,8 @@
 
 // UI events:
 
-- (void)playerWasTapped;
+- (void)didTapVideo;
+- (void)didTapSegmentAtIndex:(NSInteger)index;
+- (void)didTapBackground;
 
 @end

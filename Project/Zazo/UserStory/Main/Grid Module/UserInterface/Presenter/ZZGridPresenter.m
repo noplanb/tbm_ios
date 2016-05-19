@@ -26,7 +26,6 @@
 #import "ZZRootStateObserver.h"
 #import "ZZGridDataProvider.h"
 #import "ZZMainWireframe.h"
-#import "NSDate+ZZAdditions.h"
 #import "ZZMainModuleInterface.h"
 
 @interface ZZGridPresenter ()
@@ -470,9 +469,7 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
-    NSTimeInterval timestamp = videoModel.videoID.doubleValue / 1000;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    [self.userInterface updateActiveCellTitleTo:[date zz_formattedDate]];
+
 }
 
 - (void)videoPlayerDidFinishPlayingWithModel:(ZZFriendDomainModel *)playedFriendModel

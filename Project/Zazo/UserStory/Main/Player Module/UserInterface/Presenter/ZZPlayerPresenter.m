@@ -22,6 +22,7 @@
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDataUpdater.h"
 #import "AVAudioSession+ZZAudioSession.h"
+#import "NSDate+ZZAdditions.h"
 #import "ZZPlayerWireframe.h"
 
 @interface ZZPlayerPresenter ()
@@ -37,14 +38,8 @@
 @property (nonatomic, strong) ZZFriendDomainModel *currentFriendModel;
 @property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
 
-// Video duration:
-@property (nonatomic, assign) NSTimeInterval totalVideoDuration;
-@property (nonatomic, assign) NSTimeInterval playedVideoDuration;
-@property (nonatomic, strong) NSArray <NSNumber *> *videoDurations;
-
 // Support
 @property (nonatomic, weak) NSTimer *playbackTimer;
-@property (nonatomic, strong) VideoPlayerFullscreenHelper *fullscreenHelper;
 
 @end
 
@@ -66,7 +61,6 @@
     self = [super init];
     if (self)
     {
-        self.videoDurations = @[];
         [self _addNotifications];
     }
     return self;
@@ -107,6 +101,56 @@
         
     }];
     
+    @weakify(self);
+    
+    [self.playerController.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 100)
+                                                               queue:dispatch_get_main_queue()
+                                                          usingBlock:^(CMTime time) {
+                                                              
+          @strongify(self);
+                                                              
+          NSTimeInterval currentTime = CMTimeGetSeconds(time);
+          NSTimeInterval durationTime = CMTimeGetSeconds(self.playerController.player.currentItem.duration);
+                    
+          CGFloat relativePlaybackPosition = currentTime / durationTime;
+          
+          [self videoPlayingProgress:relativePlaybackPosition];
+    }];
+    
+}
+
+#pragma mark UI events
+
+- (void)didTapVideo
+{
+    if (self.isPlayingVideo)
+    {
+        [self stop];
+    }
+    else
+    {
+        [self playVideoModels:self.videoModels];
+    }
+}
+
+- (void)didTapSegmentAtIndex:(NSInteger)index
+{
+    [self _prepareWithVideoModels:self.videoModels];
+    
+    for (int i = 0; i < index; i++)
+    {
+        [self.player advanceToNextItem];
+    }
+    
+    [self _markCurrentVideoAsSeen];
+    
+    [self.player play];
+//    [self _makePlaybackTimer];
+}
+
+- (void)didTapBackground
+{
+    [self stop];
 }
 
 #pragma mark - Public
@@ -139,6 +183,14 @@
 
 - (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
+    [self _prepareWithVideoModels:videoModels];
+    [self _updatePlayersFrame];
+
+    [self.player play];
+}
+
+- (void)_prepareWithVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+{
     [self _stopVideoPlayerStateIfNeeded];
     
     [self _makePlayer];
@@ -150,12 +202,8 @@
     }
     
     self.currentFriendModel = [ZZFriendDataProvider friendWithItemID:videoModels.firstObject.relatedUserID];
-
-    [self _prepareToPlayWithModels:[self _filterVideoModels:videoModels]];
     
-    [self _updatePlayersFrame];
-    
-    [self _makePlaybackTimer];
+    [self _loadVideoModels:[self _filterVideoModels:videoModels]];
     
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
@@ -168,9 +216,6 @@
     
     [self _markCurrentVideoAsSeen];
     
-    self.playedVideoDuration = 0;
-    
-    [self.player play];
 }
 
 - (NSArray <ZZVideoDomainModel *> *)_filterVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
@@ -207,18 +252,6 @@
     [self _stopWithPlayChecking:YES];
 }
 
-- (void)playerWasTapped
-{
-    if (self.isPlayingVideo)
-    {
-        [self stop];
-    }
-    else
-    {
-        [self playVideoModels:self.videoModels];
-    }
-}
-
 - (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
@@ -246,6 +279,12 @@
 
 #pragma mark - Private
 
+- (void)_showDateForVideoModel:(ZZVideoDomainModel *)videoModel
+{
+    NSTimeInterval timestamp = videoModel.videoID.doubleValue / 1000;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    [self.userInterface updatePlayerText:[date zz_formattedDate]];
+}
 
 - (void)_stopVideoPlayerStateIfNeeded
 {
@@ -255,9 +294,8 @@
     }
 }
 
-- (void)_prepareToPlayWithModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+- (void)_loadVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
-    self.totalVideoDuration = 0;
     [self.player removeAllItems];
     self.videoModels = @[];
     
@@ -274,7 +312,6 @@
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:videoModel.videoURL];
     [self.player insertItem:item afterItem:nil];
     
-    self.totalVideoDuration += [self _durationByURL:videoModel.videoURL];
     
 }
 
@@ -289,18 +326,20 @@
 {
     if (isCheckPlaying && self.isPlayingVideo)
     {
+        self.isPlayingVideo = NO;
+        
         [self _stopPlaying];
     }
     else if (!isCheckPlaying)
     {
+        self.isPlayingVideo = NO;
+
         [self _stopPlaying];
     }
 }
 
 - (void)_stopPlaying
 {
-    self.isPlayingVideo = NO;
-    
     [self.playerController.player pause];
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.currentFriendModel];
     
@@ -334,6 +373,8 @@
 
 - (void)_markCurrentVideoAsSeen
 {
+    [self _showDateForVideoModel:self.currentVideoModel];
+    
     [self didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:self.currentVideoModel]
                             totalVideos:self.videoModels.count];
     
@@ -348,14 +389,15 @@
 }
 
 
-- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)videos
+- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)totalVideos
 {
-    // TODO
+    [self.userInterface updateVideoCount:totalVideos];
+    [self.userInterface updateCurrentVideoIndex:startedVideoIndex];
 }
 
 - (void)videoPlayingProgress:(CGFloat)progress // zero if no progress
 {
-    // TODO
+    [self.userInterface updatePlaybackProgress:progress];
 }
 
 // temporary
@@ -375,12 +417,6 @@
     }
 }
 
-- (NSTimeInterval)_totalPlayedVideoTime
-{
-    NSTimeInterval currentTime = CMTimeGetSeconds(self.playerController.player.currentTime);
-    
-    return self.playedVideoDuration + currentTime;
-}
 
 #pragma mark - Properties
 
@@ -389,9 +425,7 @@
     if (!_playerController)
     {
         _playerController = [AVPlayerViewController new];
-        
-        _fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
-        
+
     }
     return _playerController;
 }
@@ -457,12 +491,10 @@
 {
     AVPlayerItem *item = notification.object;
     
-    if (notification.object != self.player.currentItem)
+    if (item != self.player.currentItem)
     {
         return;
-    }
-    
-    self.playedVideoDuration += CMTimeGetSeconds(item.duration);
+    }    
     
     ZZLogDebug(@"VideoPlayer#playbackDidFinishNotification");
     
@@ -472,40 +504,6 @@
     }
 }
 
-#pragma mark Timer
-
-- (void)_makePlaybackTimer
-{
-    [self _removePlaybackTimer];
-    
-    self.playbackTimer =
-    [NSTimer scheduledTimerWithTimeInterval:0.01f
-                                     target:self
-                                   selector:@selector(_timerTick)
-                                   userInfo:nil
-                                    repeats:YES];
-    
-    self.playbackTimer.tolerance = 0.5f;
-}
-
-- (void)_removePlaybackTimer
-{
-    [self.playbackTimer invalidate];
-}
-
-- (void)_timerTick
-{
-    if (![self isPlaying])
-    {
-        [self _removePlaybackTimer];
-        [self videoPlayingProgress:0];
-        return;
-    }
-    
-    CGFloat relativePlaybackPosition = [self _totalPlayedVideoTime] / self.totalVideoDuration;
-    
-    [self videoPlayingProgress:relativePlaybackPosition];
-}
 
 
 @end
