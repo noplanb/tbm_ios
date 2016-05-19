@@ -16,5 +16,6 @@
 - (void)updataeRecordStateTo:(BOOL)isRecording;
 
 - (void)showCameraSwitchAnimation;
+- (void)prepareForCameraSwitchAnimation;
 
 @end

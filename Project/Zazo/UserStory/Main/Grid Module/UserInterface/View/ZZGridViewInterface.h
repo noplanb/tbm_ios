@@ -35,6 +35,7 @@
 
 - (void)configureViewPositions;
 
+- (void)prepareForCameraSwitchAnimation;
 - (void)showCameraSwitchAnimation;
 
 @end

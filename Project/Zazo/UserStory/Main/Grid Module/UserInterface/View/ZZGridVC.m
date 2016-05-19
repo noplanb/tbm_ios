@@ -101,6 +101,13 @@
 
 }
 
+- (void)prepareForCameraSwitchAnimation
+{
+    NSInteger centerCellIndex = 4;
+    [self.gridView.items[centerCellIndex] prepareForCameraSwitchAnimation];
+
+}
+
 - (void)showCameraSwitchAnimation
 {
     NSInteger centerCellIndex = 4;

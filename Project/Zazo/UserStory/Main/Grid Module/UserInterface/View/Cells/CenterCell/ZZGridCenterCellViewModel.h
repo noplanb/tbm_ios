@@ -10,7 +10,6 @@
 @protocol ZZGridCenterCellViewModelDelegate <NSObject>
 
 - (void)switchCamera;
-
 - (void)showHint;
 
 @end
@@ -26,7 +25,8 @@
 
 - (BOOL)shouldShowSwitchCameraButton;
 
-- (void)switchCamera;
+//- (void)switchCamera;
+- (void)didTapCell;
 
 - (void)setupLongRecognizerOnView:(UIView *)view;
 

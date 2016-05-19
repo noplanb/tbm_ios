@@ -17,11 +17,15 @@
 
 @implementation ZZGridCenterCellViewModel
 
-- (void)switchCamera
+- (void)didTapCell
 {
     if ([ZZGridActionStoredSettings shared].frontCameraHintWasShown)
     {
         [self.delegate switchCamera];
+    }
+    else
+    {
+        [self.delegate showHint];
     }
 }
 

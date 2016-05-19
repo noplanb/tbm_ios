@@ -75,7 +75,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
         if (!self.videoView)
         {
             self.videoView = model.recordView;
-            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_switchCamera)];
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_didTapCell)];
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
@@ -87,7 +87,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 }
 
 
-- (void)updataeRecordStateTo:(BOOL)isRecording
+- (void)updateRecordStateTo:(BOOL)isRecording
 {
     if (isRecording)
     {
@@ -112,13 +112,13 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
 
 #pragma mark - Private
 
-- (void)_switchCamera
+- (void)_didTapCell
 {
-    if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
-    {
-        return;
-    }
+    [self.model didTapCell];
+}
 
+- (void)prepareForCameraSwitchAnimation
+{
     if (self.snapshotView)
     {
         [self.snapshotView removeFromSuperview];
@@ -130,7 +130,6 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     self.videoView.hidden = YES;
 
     [self.effectView showEffect:ZZCellEffectTypeWaveOut];
-    [self.model switchCamera];
 }
 
 - (void)_showRecordingOverlay
