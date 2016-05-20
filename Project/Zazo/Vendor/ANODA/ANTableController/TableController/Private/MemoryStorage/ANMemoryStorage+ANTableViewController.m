@@ -27,7 +27,7 @@
     NSArray *objects = [self.sections valueForKey:@"objects"];
     [objects makeObjectsPerformSelector:@selector(removeAllObjects)];
 
-    id <ANTableViewDataStorageUpdating> delegate = (id <ANTableViewDataStorageUpdating>)self.delegate;
+    id <ANTableViewDataStorageUpdating> delegate = (id <ANTableViewDataStorageUpdating>)self.updatingInterface;
 
     [delegate performAnimatedUpdate:^(UITableView *tableView) {
         [tableView reloadData];
@@ -56,7 +56,7 @@
         return;
     }
 
-    [(id <ANTableViewDataStorageUpdating>)self.delegate performAnimatedUpdate:^(UITableView *tableView) {
+    [(id <ANTableViewDataStorageUpdating>)self.updatingInterface performAnimatedUpdate:^(UITableView *tableView) {
         [tableView insertSections:self.currentUpdate.insertedSectionIndexes
                  withRowAnimation:UITableViewRowAnimationAutomatic];
         [sourceSection.objects removeObjectAtIndex:sourceIndexPath.row];
@@ -78,7 +78,7 @@
     [self.sections removeObject:validSectionFrom];
     [self.sections insertObject:validSectionFrom atIndex:indexTo];
 
-    id <ANTableViewDataStorageUpdating> delegate = (id <ANTableViewDataStorageUpdating>)self.delegate;
+    id <ANTableViewDataStorageUpdating> delegate = (id <ANTableViewDataStorageUpdating>)self.updatingInterface;
 
     [delegate performAnimatedUpdate:^(UITableView *tableView) {
         [tableView moveSection:indexFrom toSection:indexTo];

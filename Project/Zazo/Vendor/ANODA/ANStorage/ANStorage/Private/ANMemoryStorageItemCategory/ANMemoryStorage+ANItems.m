@@ -142,7 +142,7 @@
 {
     [self.sections removeAllObjects];
     [self clearStorageUpdate];
-    [self.delegate storageNeedsReload];
+    [self.updatingInterface storageNeedsReload];
 }
 
 #pragma mark Changing and Reorder Items

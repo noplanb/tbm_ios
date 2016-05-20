@@ -13,7 +13,7 @@
 
 - (void)_attachStorage:(id <ANStorageInterface>)storage
 {
-    storage.delegate = (id <ANStorageUpdatingInterface>)self;
+    storage.updatingInterface = (id <ANStorageUpdatingInterface>)self;
     [storage setSupplementaryHeaderKind:ANTableViewElementSectionHeader];
     [storage setSupplementaryFooterKind:ANTableViewElementSectionFooter];
 }

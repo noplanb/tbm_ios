@@ -105,7 +105,7 @@
     [section.objects removeAllObjects];
     [section.objects addObjectsFromArray:items];
     self.currentUpdate = nil; // no update if storage reloading
-    [self.delegate storageNeedsReload];
+    [self.updatingInterface storageNeedsReload];
 }
 
 
@@ -123,10 +123,10 @@
 {
     if (!self.isBatchUpdateCreating)
     {
-        if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
+        if ([self.updatingInterface respondsToSelector:@selector(storageDidPerformUpdate:)])
         {
             ANStorageUpdate *update = self.currentUpdate; //for hanling nilling
-            [self.delegate storageDidPerformUpdate:update];
+            [self.updatingInterface storageDidPerformUpdate:update];
         }
         self.currentUpdate = nil;
     }

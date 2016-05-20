@@ -19,6 +19,6 @@ static NSString *const ANTableViewElementSectionFooter = @"ANTableViewElementSec
 
 @property (nonatomic, strong) NSString *supplementaryHeaderKind;
 @property (nonatomic, strong) NSString *supplementaryFooterKind;
-@property (nonatomic, weak) id <ANStorageUpdatingInterface> delegate;
+@property (nonatomic, weak) id <ANStorageUpdatingInterface> updatingInterface;
 
 @end

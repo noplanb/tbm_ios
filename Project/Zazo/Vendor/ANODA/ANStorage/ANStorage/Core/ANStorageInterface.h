@@ -12,7 +12,7 @@
 
 @required
 
-@property (nonatomic, weak) id <ANStorageUpdatingInterface> delegate;
+@property (nonatomic, weak) id <ANStorageUpdatingInterface> updatingInterface;
 
 - (NSArray *)sections;
 

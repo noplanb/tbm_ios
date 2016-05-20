@@ -75,9 +75,9 @@
 
 - (void)finishUpdate
 {
-    if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
+    if ([self.updatingInterface respondsToSelector:@selector(storageDidPerformUpdate:)])
     {
-        [self.delegate storageDidPerformUpdate:self.currentUpdate];
+        [self.updatingInterface storageDidPerformUpdate:self.currentUpdate];
     }
     self.currentUpdate = nil;
 }

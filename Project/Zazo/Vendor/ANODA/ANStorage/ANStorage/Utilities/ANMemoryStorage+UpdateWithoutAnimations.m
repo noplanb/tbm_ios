@@ -11,14 +11,14 @@
 
 - (void)updateWithoutAnimations:(void (^)(void))block
 {
-    id delegate = self.delegate;
-    self.delegate = nil;
+    id delegate = self.updatingInterface;
+    self.updatingInterface = nil;
 
     if (block)
     {
         block();
     }
-    self.delegate = delegate;
+    self.updatingInterface = delegate;
 }
 
 @end

@@ -51,9 +51,9 @@ static const CGFloat kTableAnimationDuration = 0.25f;
     self.tableView.dataSource = nil;
     self.searchBar.delegate = nil;
     self.cellFactory.delegate = nil;
-    if ([self.storage respondsToSelector:@selector(setDelegate:)])
+    if ([self.storage respondsToSelector:@selector(setUpdatingInterface:)])
     {
-        [self.storage setDelegate:nil];
+        [self.storage setUpdatingInterface:nil];
     }
 }
 
@@ -334,18 +334,18 @@ static const CGFloat kTableAnimationDuration = 0.25f;
 //search
 - (void)tableControllerWillBeginSearch
 {
-    self.storage.delegate = nil;
+    self.storage.updatingInterface = nil;
 }
 
 - (void)tableControllerDidEndSearch
 {
-    self.searchingStorage.delegate = self;
+    self.searchingStorage.updatingInterface = self;
 }
 
 - (void)tableControllerDidCancelSearch
 {
-    self.searchingStorage.delegate = nil;
-    self.storage.delegate = self;
+    self.searchingStorage.updatingInterface = nil;
+    self.storage.updatingInterface = self;
 }
 
 #pragma mark - UITableView Class Registrations

@@ -68,7 +68,7 @@
         [section.objects removeAllObjects];
         section = [self.storage sectionAtIndex:sectionIndex createIfNeeded:YES];
         [section.objects addObjectsFromArray:items];
-        [self.storage.delegate storageNeedsReload];
+        [self.storage.updatingInterface storageNeedsReload];
     });
 }
 
