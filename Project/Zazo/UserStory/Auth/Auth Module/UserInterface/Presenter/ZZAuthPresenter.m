@@ -140,7 +140,7 @@
 
     //TODO: separate errors with server invalid code error + bad connection and other
 
-    if ([self isNetworkEnabled] && ![self _isServerConnectionError:error])
+    if (error.code == 1) // is server error
     {
         [ZZErrorHandler showErrorAlertWithLocalizedTitle:@"auth-controller.bad-code.alert.title"
                                                  message:@"auth-controller.bad-code.alert.text"];
