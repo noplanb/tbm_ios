@@ -294,13 +294,22 @@
     {
         predicate = self.storagePredicateBlock(searchString, searchScope);
     }
+    
+    storage.supplementaryHeaderKind = self.supplementaryHeaderKind;
 
     if (predicate)
     {
         [self.sections enumerateObjectsUsingBlock:^(ANSectionModel *obj, NSUInteger idx, BOOL *stop) {
 
             NSArray *filteredObjects = [obj.objects filteredArrayUsingPredicate:predicate];
-            [storage addItems:filteredObjects toSection:idx];
+            
+            if (filteredObjects.count > 0)
+            {
+                [storage setSectionHeaderModel:[obj supplementaryModelOfKind:storage.supplementaryHeaderKind]
+                               forSectionIndex:idx];
+                
+                [storage addItems:filteredObjects toSection:idx];
+            }
         }];
     }
     else
