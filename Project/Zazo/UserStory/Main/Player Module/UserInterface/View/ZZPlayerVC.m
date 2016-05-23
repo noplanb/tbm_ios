@@ -30,7 +30,7 @@
 
 - (void)loadView
 {
-    self.contentView = [ZZPlayerBackgroundView new];
+    self.contentView = [[ZZPlayerBackgroundView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = self.contentView;
     self.view.userInteractionEnabled = YES;
     
@@ -104,7 +104,6 @@
             make.height.equalTo(@22);
         }];
         
-        _segmentIndicator.segmentCount = 3;
         _segmentIndicator.delegate = self;
     }
 }
