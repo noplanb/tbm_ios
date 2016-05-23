@@ -13,10 +13,8 @@
 #import "ZZGridDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZPhoneHelper.h"
-#import "ZZUserDataProvider.h"
 #import "ZZFriendsTransportService.h"
 #import "ZZUserFriendshipStatusHandler.h"
-#import "ZZCommonModelsGenerator.h"
 #import "ZZGridTransportService.h"
 #import "ZZGridDataUpdater.h"
 #import "ZZFriendDataUpdater.h"
@@ -25,7 +23,6 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
-#import "NSString+ANAdditions.h"
 #import "ZZVideoDataProvider.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
@@ -130,7 +127,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
     if ([self _isContactExistAsFriendAndAbleAddToGrid:phoneNumber])
     {
-        [self _addFriendFromDrawerToGirdWithContact:phoneNumber];
+        [self _addFriendFromDrawerToGridWithContact:phoneNumber];
     }
     else if (!ANIsEmpty(gridModel))
     {
@@ -169,24 +166,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     [self updateLastActionForFriend:model];
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model
-{
-    [self.output reloadGridModel:model];
-}
-
-- (NSArray *)gridModelsWithoutDownloadAnimation
-{
-    NSArray *gridModels = [[[self _gridModels].rac_sequence map:^id(ZZGridDomainModel *value) {
-        value.isDownloadAnimationViewed = YES;
-        return value;
-    }] array];
-
-    return gridModels;
-}
-
-
-#pragma mark - Feedback
-
 #pragma mark - Edit Friends
 
 - (void)friendWasUpdatedFromEditContacts:(ZZFriendDomainModel *)friendModel toVisible:(BOOL)isVisible
@@ -214,8 +193,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (NSArray *)_gridModels
 {
-    NSArray *gridModels = [ZZGridDataProvider loadAllGridsSortByIndex:NO];
-    gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
+    NSArray *gridModels = [ZZGridDataProvider loadOrCreateGridModelsWithCount:kGridFriendsCellCount];
 
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"indexPathIndexForItem" ascending:YES];
     NSArray *sortedArray = [gridModels sortedArrayUsingDescriptors:@[sort]];
@@ -247,7 +225,16 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm];
 
-    if (!isUserAlreadyOnGrid)
+    if (isUserAlreadyOnGrid)
+    {
+        ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+        
+        if (isFromNotification)
+        {
+            [self.output updateGridWithModel:gridModel isNewFriend:NO];
+        }
+    }
+    else
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
         if (ANIsEmpty(gridModel))
@@ -256,18 +243,11 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
 
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
-        //TODO:
+        
         [self updateLastActionForFriend:gridModel.relatedUser];
-        [self.output updateGridWithModel:gridModel isNewFriend:!isUserAlreadyOnGrid];
+        [self.output updateGridWithModel:gridModel isNewFriend:YES];
     }
-    else
-    {
-        ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
-        if (isFromNotification)
-        {
-            [self.output updateGridWithModel:gridModel isNewFriend:!isUserAlreadyOnGrid];
-        }
-    }
+    
 }
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel *)contactModel
@@ -283,7 +263,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else if ([self _isContactExistAsFriendAndAbleAddToGrid:contactModel])
         {
-            [self _addFriendFromDrawerToGirdWithContact:contactModel];
+            [self _addFriendFromDrawerToGridWithContact:contactModel];
 
         }
         else
@@ -299,20 +279,16 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (BOOL)_isContactOnGrid:(ZZContactDomainModel *)contactModel
 {
-    BOOL isOnGrid = NO;
     ZZGridDomainModel *gridElement = [ZZGridDataProvider modelWithContact:contactModel];
-    isOnGrid = !(gridElement == nil);
 
-    return isOnGrid;
+    return gridElement != nil;
 }
 
 - (BOOL)_isFriendExistWithContact:(ZZContactDomainModel *)contactModel
 {
-    BOOL friendExist = NO;
     ZZFriendDomainModel *friend = [self _friendFromContact:contactModel];
-    friendExist = !(friend == nil);
 
-    return friendExist;
+    return friend != nil;
 }
 
 - (ZZFriendDomainModel *)_friendFromContact:(ZZContactDomainModel *)contactModel
@@ -334,7 +310,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     return ([self _isFriendExistWithContact:contactModel] && ![self _isContactOnGrid:contactModel]);
 }
 
-- (void)_addFriendFromDrawerToGirdWithContact:(ZZContactDomainModel *)contactModel
+- (void)_addFriendFromDrawerToGridWithContact:(ZZContactDomainModel *)contactModel
 {
     ZZFriendDomainModel *friend = [self _friendFromContact:contactModel];
     [self.output showAlreadyContainFriend:friend compeltion:^{
@@ -404,8 +380,7 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
         }
     }
-    else if (gridModel &&
-            !ANIsEmpty(gridModel.relatedUser) &&
+    else if (!ANIsEmpty(gridModel.relatedUser) &&
             !gridModel.isDownloadAnimationViewed)
     {
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
@@ -427,7 +402,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_checkIsContactHasApp:(ZZContactDomainModel *)contactModel
 {
-    [self.output loadedStateUpdatedTo:YES];
+    [self.output loadingStateUpdatedTo:YES];
     [[ZZGridTransportService checkIsUserHasApp:contactModel] subscribeNext:^(id x) {
         if ([x boolValue])
         {
@@ -435,11 +410,11 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
-            [self.output loadedStateUpdatedTo:NO];
+            [self.output loadingStateUpdatedTo:NO];
             [self.output userHasNoAppInstalled:contactModel];
         }
     }                                                                error:^(NSError *error) {
-        [self.output loadedStateUpdatedTo:NO];
+        [self.output loadingStateUpdatedTo:NO];
         [self.output addingUserToGridDidFailWithError:error forUser:contactModel];
     }];
 }
@@ -465,12 +440,12 @@ static NSInteger const kGridFriendsCellCount = 8;
             [ZZFriendDataUpdater upsertFriend:friendModel];
 
             [self.output friendRecievedFromServer:friendModel];
-            [self.output loadedStateUpdatedTo:NO];
+            [self.output loadingStateUpdatedTo:NO];
         }
 
 
     }                                                              error:^(NSError *error) {
-        [self.output loadedStateUpdatedTo:NO];
+        [self.output loadingStateUpdatedTo:NO];
         [self.output addingUserToGridDidFailWithError:error forUser:contactModel];
     }];
 }
@@ -489,10 +464,10 @@ static NSInteger const kGridFriendsCellCount = 8;
 
         [self friendWasUpdatedFromEditContacts:friendModel toVisible:YES];
         [self.output updateFriendThatPrevouslyWasOnGridWithModel:friendModel];
-        [self.output loadedStateUpdatedTo:NO];
+        [self.output loadingStateUpdatedTo:NO];
     }                                                                                    error:^(NSError *error) {
         //TODO: revert status?
-        [self.output loadedStateUpdatedTo:NO];
+        [self.output loadingStateUpdatedTo:NO];
     }];
 }
 

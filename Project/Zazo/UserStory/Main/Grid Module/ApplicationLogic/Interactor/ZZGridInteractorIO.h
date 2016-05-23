@@ -36,8 +36,6 @@
 
 - (void)reloadDataAfterResetUserData;
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model;
-
 - (void)updateGridViewModels:(NSArray *)models;
 
 - (void)updateGridIfNeeded;
@@ -63,7 +61,7 @@
 
 - (void)updateGridWithModel:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend;
 
-- (void)loadedStateUpdatedTo:(BOOL)isLoading;
+- (void)loadingStateUpdatedTo:(BOOL)isLoading;
 
 - (void)addingUserToGridDidFailWithError:(NSError *)error forUser:(ZZContactDomainModel *)contact;
 

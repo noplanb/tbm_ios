@@ -313,7 +313,7 @@
     }
 }
 
-- (void)loadedStateUpdatedTo:(BOOL)isLoading
+- (void)loadingStateUpdatedTo:(BOOL)isLoading
 {
     [self.userInterface updateLoadingStateTo:isLoading];
 }
