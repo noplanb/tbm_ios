@@ -114,7 +114,6 @@
         }
 
         messageController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        messageController.navigationBar.tintColor = [UIColor whiteColor];
 
         ANDispatchBlockToMainQueue(^{
             [vc presentViewController:messageController animated:YES completion:nil];

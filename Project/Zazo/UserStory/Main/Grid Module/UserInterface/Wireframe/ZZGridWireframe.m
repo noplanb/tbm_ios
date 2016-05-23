@@ -43,10 +43,16 @@
 
 #pragma mark - Details
 
-- (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+- (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model
+                          success:(ANCodeBlock)success
+                             fail:(ANCodeBlock)fail
 {
     self.messageWireframe = [ANMessagesWireframe new];
-    [self.messageWireframe presentMessageControllerFromViewController:self.gridController withModel:model completion:^(MessageComposeResult result) {
+    
+    [self.messageWireframe presentMessageControllerFromViewController:self.gridController
+                                                            withModel:model
+                                                           completion:^(MessageComposeResult result) {
+                                                               
         switch (result)
         {
             case MessageComposeResultSent:
@@ -63,7 +69,9 @@
     }];
 }
 
-- (void)presentSharingDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail
+- (void)presentSharingDialogWithModel:(ANMessageDomainModel *)model
+                              success:(ANCodeBlock)success
+                                 fail:(ANCodeBlock)fail
 {
     self.messageWireframe = [ANMessagesWireframe new];
     [self.messageWireframe presentSharingControllerFromViewController:self.gridController
