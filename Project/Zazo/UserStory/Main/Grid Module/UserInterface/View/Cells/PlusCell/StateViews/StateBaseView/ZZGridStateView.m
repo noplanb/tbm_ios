@@ -54,6 +54,8 @@
 
         self.sentBadge.state = model.state & ZZGridCellViewModelStateVideoWasViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
 
+        self.sentBadge.hidden = !(model.state & ZZGridCellViewModelStateVideoWasViewed || model.state & ZZGridCellViewModelStateVideoWasUploaded);
+        
         [self _setupDownloadAnimationsWithModel:model];
     });
 }
