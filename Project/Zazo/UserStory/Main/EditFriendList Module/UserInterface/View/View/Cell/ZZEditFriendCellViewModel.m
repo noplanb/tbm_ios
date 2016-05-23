@@ -119,7 +119,7 @@ typedef NS_ENUM(NSInteger, ZZContactActionButtonState)
 {
     if (!_placeholderImage)
     {
-        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
+        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImageForName:self.username];
     }
 
     return _placeholderImage;

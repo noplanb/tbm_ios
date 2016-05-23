@@ -114,9 +114,15 @@
     return ([self legacyThumbImageForFriend:friend] != nil);
 }
 
-+ (UIImage *)thumbnailPlaceholderImage
++ (UIImage *)thumbnailPlaceholderImageForName:(NSString *)name
 {
-    NSUInteger number = arc4random_uniform(4) + 1;
+    NSUInteger number = (name.length % 4) + 1;
+    
+    if (ANIsEmpty(name))
+    {
+        number = arc4random_uniform(4) + 1;
+    }
+    
     return [[UIImage imageNamed:[NSString stringWithFormat:@"contact-pattern-%lu", (unsigned long)number]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 

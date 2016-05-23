@@ -29,8 +29,7 @@
 
 + (BOOL)hasLegacyThumbForUser:(ZZFriendDomainModel *)friendModel;
 
-+ (UIImage *)thumbnailPlaceholderImage;
-
++ (UIImage *)thumbnailPlaceholderImageForName:(NSString *)name;
 
 #pragma mark - Video
 

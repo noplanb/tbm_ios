@@ -12,13 +12,18 @@
 
 + (instancetype)randomPair
 {
-    ZZColorPair *pair = [ZZColorPair new];
-
     NSUInteger number = arc4random_uniform(3);
 
-    ZZColorTheme *theme = [ZZColorTheme shared];
+    return [self colorWithThemeNumber:number];
+}
 
-    switch (number)
++ (instancetype)colorWithThemeNumber:(NSUInteger)themeNumber
+{
+    
+    ZZColorPair *pair = [ZZColorPair new];
+    ZZColorTheme *theme = [ZZColorTheme shared];
+    
+    switch (themeNumber)
     {
         case 0:
             pair.tintColor = theme.gridCellTintColor1;
@@ -32,13 +37,22 @@
             pair.tintColor = theme.gridCellTintColor3;
             pair.backgroundColor = theme.gridCellBackgroundColor3;
             break;
-
+            
         default:
-
             break;
     }
-
+    
     return pair;
+}
+
++ (instancetype)colorForUsername:(NSString *)username;
+{
+    if (ANIsEmpty(username))
+    {
+        return [self colorWithThemeNumber:arc4random_uniform(3)];
+    }
+    
+    return [self colorWithThemeNumber:username.length % 3];
 }
 
 @end

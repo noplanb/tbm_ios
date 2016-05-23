@@ -90,7 +90,7 @@ static UIImage *kImagePlaceholder = nil;
 {
     if (!_colorPair)
     {
-        _colorPair = [ZZColorPair randomPair];
+        _colorPair = [ZZColorPair colorForUsername:self.username];
     }
 
     return _colorPair;
@@ -102,7 +102,7 @@ static UIImage *kImagePlaceholder = nil;
 {
     if (!_placeholderImage)
     {
-        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImage];
+        _placeholderImage = [ZZThumbnailGenerator thumbnailPlaceholderImageForName:self.username];
     }
 
     return _placeholderImage;

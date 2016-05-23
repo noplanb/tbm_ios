@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UIColor *backgroundColor;
 
 + (instancetype)randomPair;
++ (instancetype)colorForUsername:(NSString *)username;
 
 @end
