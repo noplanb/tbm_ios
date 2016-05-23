@@ -13,7 +13,7 @@
 //+ (void)showOneTouchRecordViewHint;
 + (void)showCannotSendSmsErrorToUser:(NSString *)username completion:(ANCodeBlock)completion;
 
-+ (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(ANCodeBlock)completion;
++ (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(void (^)(ZZInviteType inviteType))completion;
 
 + (void)showConnectedDialogForUser:(NSString *)userName completion:(ANCodeBlock)completion;
 

@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     [ZZAlertBuilder presentAlertWithTitle:@"Didn't Send Link" details:msg cancelButtonTitle:nil actionButtonTitle:@"OK" action:completion];
 }
 
-+ (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(ANCodeBlock)completion
++ (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(void (^)(ZZInviteType inviteType))completion
 {
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, [self _appName]];
 
@@ -44,16 +44,15 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     [UIAlertAction actionWithTitle:@"Invite via SMS"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
-                               //                                                  selectedType = ZZInviteTypeSMS;
-                               //                                                  completion();
+
+                               completion(ZZInviteTypeSMS);
                            }];
 
     UIAlertAction *sharingAction =
     [UIAlertAction actionWithTitle:@"Invite via another app"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
-                               //                                        selectedType = ZZInviteTypeSharing;
-                               //                                        completion();
+                              completion(ZZInviteTypeSharing);
                            }];
 
     

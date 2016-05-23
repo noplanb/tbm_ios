@@ -17,6 +17,7 @@
 #import "ZZEditFriendEnumsAdditions.h"
 #import "ZZPlayerModuleInterface.h"
 #import "ZZPlayerModuleDelegate.h"
+#import "ZZInviteType.h"
 
 @class ZZGridWireframe;
 
@@ -40,5 +41,7 @@
 @property (nonatomic, weak) id <ZZGridModuleDelegate> gridModuleDelegate;
 
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZGridViewInterface> *)userInterface;
+
+@property (nonatomic, assign) ZZInviteType userSelectedInviteType;
 
 @end

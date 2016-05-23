@@ -29,7 +29,8 @@
 {
     if ([self _isNeedToShowDialogForUser:user])
     {
-        [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^{
+        [ZZGridAlertBuilder showSendInvitationDialogForUser:user.firstName completion:^(ZZInviteType inviteType) {
+            self.userSelectedInviteType = inviteType;
             [self.interactor inviteUserInApplication:user];
         }];
     }
@@ -42,8 +43,12 @@
 - (BOOL)_isNeedToShowDialogForUser:(ZZContactDomainModel *)user
 {
     __block BOOL isNeedShow = YES;
+    
     NSArray *friends = [ZZFriendDataProvider allFriendsModels];
-    NSString *userPhoneNumber = [user.primaryPhone.contact stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSString *userPhoneNumber = [user.primaryPhone.contact stringByReplacingOccurrencesOfString:@" "
+                                                                                     withString:@""];
+    
     [friends enumerateObjectsUsingBlock:^(ZZFriendDomainModel *_Nonnull friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([userPhoneNumber isEqualToString:friendModel.mobileNumber])
         {
@@ -74,38 +79,16 @@
     }];
 }
 
-- (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel isNudge:(BOOL)isNudge
+- (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel
+                            isNudge:(BOOL)isNudge
+                   invatationMethod:(ZZInviteType)method
 {
     NSString *text = [self _defaultInvitationMessageForModel:friendModel];
 
-    [ZZGridAlertBuilder showInvitationMethodDialogWithText:text completion:^(ZZInviteType selectedType, NSString *text) {
-
-        if (ANIsEmpty(text))
-        {
-            text = [self _defaultInvitationMessageForModel:friendModel];
-        }
-
-        switch (selectedType)
-        {
-            case ZZInviteTypeSharing:
-                [self _showInvitationDialogType:ZZInviteTypeSharing
-                                 forFriendModel:friendModel
-                                  isNudgeAction:isNudge
-                                 invitationText:text];
-                break;
-
-            case ZZInviteTypeSMS:
-                [self _showInvitationDialogType:ZZInviteTypeSMS
-                                 forFriendModel:friendModel
-                                  isNudgeAction:isNudge
-                                 invitationText:text];
-                break;
-
-
-            default:
-                break;
-        }
-    }];
+    [self _showInvitationDialogType:method
+                     forFriendModel:friendModel
+                      isNudgeAction:isNudge
+                     invitationText:text];
 }
 
 - (NSString *)_defaultInvitationMessageForModel:(ZZFriendDomainModel *)friendModel
@@ -127,7 +110,10 @@
                    invitationText:(NSString *)text
 {
     ANMessageDomainModel *model = [ANMessageDomainModel new];
-    NSString *formattedNumber = [ZZPhoneHelper phone:friendModel.mobileNumber withFormat:ZZPhoneFormatTypeE164];
+    
+    NSString *formattedNumber = [ZZPhoneHelper phone:friendModel.mobileNumber
+                                          withFormat:ZZPhoneFormatTypeE164];
+    
     model.recipients = @[[NSObject an_safeString:formattedNumber]];
 
     model.message = text;
@@ -151,11 +137,17 @@
     switch (type)
     {
         case ZZInviteTypeSMS:
-            [self.wireframe presentSMSDialogWithModel:model success:successBlock fail:failureBlock];
+            
+            [self.wireframe presentSMSDialogWithModel:model
+                                              success:successBlock
+                                                 fail:failureBlock];
             break;
 
         case ZZInviteTypeSharing:
-            [self.wireframe presentSharingDialogWithModel:model success:successBlock fail:failureBlock];
+            
+            [self.wireframe presentSharingDialogWithModel:model
+                                                  success:successBlock
+                                                     fail:failureBlock];
             break;
 
         default:
@@ -174,9 +166,9 @@
 
 - (void)_nudgeUser:(ZZFriendDomainModel *)userModel
 {
-    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-        [self _showInvitationFormForModel:userModel isNudge:YES];
-    }];
+//    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
+//        [self _showInvitationFormForModel:userModel isNudge:YES];
+//    }];
 }
 
 - (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel *)model

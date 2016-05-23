@@ -25,6 +25,8 @@
 
 - (void)_showChooseNumberDialogForUser:(ZZContactDomainModel *)user;
 
-- (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel isNudge:(BOOL)isNudge;
+- (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel
+                            isNudge:(BOOL)isNudge
+                   invatationMethod:(ZZInviteType)method;
 
 @end

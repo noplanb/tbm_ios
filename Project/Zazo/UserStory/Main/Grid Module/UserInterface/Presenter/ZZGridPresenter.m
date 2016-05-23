@@ -305,11 +305,12 @@
     if (friendModel.hasApp)
     {
         [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
-
     }
     else
     {
-        [self _showInvitationFormForModel:friendModel isNudge:NO];
+        [self _showInvitationFormForModel:friendModel
+                                  isNudge:NO
+                         invatationMethod:self.userSelectedInviteType];
     }
 }
 
