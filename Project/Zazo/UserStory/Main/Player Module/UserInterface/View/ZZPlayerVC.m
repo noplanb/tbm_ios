@@ -11,7 +11,7 @@
 #import "ZZPlayerBackgroundView.h"
 #import "ZZTabbarView.h"
 
-@interface ZZPlayerVC () <PlaybackSegmentIndicatorDelegate>
+@interface ZZPlayerVC ()
 
 @property (nonatomic, strong) ZZPlayerBackgroundView *contentView;
 @property (nonatomic, strong) UIButton* tapButton;
@@ -104,7 +104,7 @@
             make.height.equalTo(@22);
         }];
         
-        _segmentIndicator.delegate = self;
+        _segmentIndicator.delegate = self.eventHandler;
     }
 }
 
@@ -208,6 +208,7 @@
 - (void)updatePlayerText:(NSString *)text
 {
     self.textLabel.text = text;
+    [self.textLabel sizeToFit];
 }
 
 - (void)updateVideoCount:(NSInteger)count
@@ -266,13 +267,6 @@
 - (void)_didTapToDimView
 {
     [self.eventHandler didTapBackground];
-}
-
-#pragma mark PlaybackSegmentIndicatorDelegate
-
-- (void)didTapOnSegmentWithIndex:(NSInteger)segmentIndex
-{
-    [self.eventHandler didTapSegmentAtIndex:segmentIndex];
 }
 
 @end

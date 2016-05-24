@@ -25,21 +25,21 @@
 #import "NSDate+ZZAdditions.h"
 #import "ZZPlayerWireframe.h"
 
-@interface ZZPlayerPresenter ()
+@interface ZZPlayerPresenter () <PlaybackSegmentIndicatorDelegate>
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
 @property (nonatomic, strong, readonly) AVQueuePlayer *player;
 
 // All videos:
-@property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videoModels;
+@property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *allVideoModels; // video models passed to player
+@property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *loadedVideoModels; // video models to play
 
 // Current video:
 @property (nonatomic, strong) ZZFriendDomainModel *currentFriendModel;
 @property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
 
-// Support
-@property (nonatomic, weak) NSTimer *playbackTimer;
+@property (nonatomic, assign) BOOL dragging;
 
 @end
 
@@ -109,6 +109,11 @@
                                                               
           @strongify(self);
                                                               
+          if (self.dragging)
+          {
+              return;
+          }
+                                                              
           NSTimeInterval currentTime = CMTimeGetSeconds(time);
           NSTimeInterval durationTime = CMTimeGetSeconds(self.playerController.player.currentItem.duration);
                     
@@ -129,28 +134,68 @@
     }
     else
     {
-        [self playVideoModels:self.videoModels];
+        [self _loadVideoModels:self.allVideoModels];
+        [self _startPlayingIfPossible];
     }
 }
 
-- (void)didTapSegmentAtIndex:(NSInteger)index
+- (void)didTapOnSegmentWithIndex:(NSInteger)indexToPlay
 {
-    [self _prepareWithVideoModels:self.videoModels];
-    
-    for (int i = 0; i < index; i++)
+    NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+ 
+    if (indexToPlay > currentSegmentIndex)
     {
-        [self.player advanceToNextItem];
+        NSUInteger itemsToAdvance = indexToPlay - currentSegmentIndex;
+        
+        for (int i = 0; i < itemsToAdvance; i++)
+        {
+            [self.player advanceToNextItem];
+        }
+
+        [self.player pause];
+    }
+    else
+    {
+        NSRange rangeToPlay = NSMakeRange(indexToPlay, self.allVideoModels.count - indexToPlay);
+        [self _loadVideoModels:[self.allVideoModels subarrayWithRange:rangeToPlay]];
     }
     
-    [self _markCurrentVideoAsSeen];
+    [self _startPlayingIfPossible];
     
-    [self.player play];
-//    [self _makePlaybackTimer];
 }
 
 - (void)didTapBackground
 {
     [self stop];
+}
+
+- (void)didStartDragging
+{
+    self.dragging = YES;
+    [self.player pause];
+}
+
+- (void)didFinishDragging
+{
+    self.dragging = NO;
+    [self _startPlayingIfPossible];
+}
+
+- (void)didSeekToPosition:(CGFloat)position
+{    
+    AVPlayerItem *item = self.player.items.firstObject;
+    
+    if (item.status != AVPlayerStatusReadyToPlay)
+    {
+        return;
+    }
+
+    CMTime seekTime = CMTimeMake(item.duration.value * position, item.duration.timescale);
+
+    [self.player seekToTime:seekTime
+            toleranceBefore:kCMTimeZero
+             toleranceAfter:kCMTimeZero];
+    
 }
 
 #pragma mark - Public
@@ -183,39 +228,64 @@
 
 - (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
-    [self _prepareWithVideoModels:videoModels];
+    self.dragging = NO;
+    
+    self.allVideoModels = [self _filterVideoModels:videoModels];
+    
+    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
+    
+    [[AVAudioSession sharedInstance] startPlaying]; // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
+    
+    self.currentFriendModel = [ZZFriendDataProvider friendWithItemID:self.allVideoModels.firstObject.relatedUserID];
+    
     [self _updatePlayersFrame];
+    
+    [self _prepareToPlay];
 
-    [self.player play];
+    [self _loadVideoModels:self.allVideoModels];
+    
+    [self _startPlayingIfPossible];
+    
+    [self.userInterface updateVideoCount:self.allVideoModels.count];
 }
 
-- (void)_prepareWithVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
+- (void)_prepareToPlay
 {
     [self _stopVideoPlayerStateIfNeeded];
     
     [self _makePlayer];
     
-    if (ANIsEmpty(videoModels))
+    self.isPlayingVideo = YES;
+    
+}
+
+- (void)_startPlayingIfPossible
+{
+    if (!self.currentVideoModel)
     {
-        OB_ERROR(@"Nothing to play");
         return;
     }
     
-    self.currentFriendModel = [ZZFriendDataProvider friendWithItemID:videoModels.firstObject.relatedUserID];
+    [self.userInterface updateCurrentVideoIndex:[self.allVideoModels indexOfObject:self.currentVideoModel]];
+
+    if (self.dragging)
+    {
+        return;
+    }
     
-    [self _loadVideoModels:[self _filterVideoModels:videoModels]];
+    [self.player play];
     
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
-    self.isPlayingVideo = YES;
+    [self _showDateForVideoModel:self.currentVideoModel];
     
-    [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
+    [[ZZVideoStatusHandler sharedInstance]
+     setAndNotityViewedIncomingVideoWithFriendID:self.currentFriendModel.idTbm videoID:self.currentVideoModel.videoID];
     
-    // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
-    [[AVAudioSession sharedInstance] startPlaying];
-    
-    [self _markCurrentVideoAsSeen];
-    
+    [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:self.currentVideoModel.videoID
+                                                                  toStatus:ZZRemoteStorageVideoStatusViewed
+                                                                friendMkey:self.currentFriendModel.mKey
+                                                                friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
 }
 
 - (NSArray <ZZVideoDomainModel *> *)_filterVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
@@ -260,9 +330,9 @@
     
     ZZVideoDomainModel *lastVideoModel = [actualVideos lastObject];
     
-    if (![self.videoModels containsObject:lastVideoModel])
+    if (![self.loadedVideoModels containsObject:lastVideoModel])
     {
-        [self _appendModel:lastVideoModel];
+        [self _loadModel:lastVideoModel];
     }
 }
 
@@ -297,22 +367,20 @@
 - (void)_loadVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
     [self.player removeAllItems];
-    self.videoModels = @[];
+    self.loadedVideoModels = @[];
     
     for (ZZVideoDomainModel *model in videoModels)
     {
-        [self _appendModel:model];
+        [self _loadModel:model];
     }
 }
 
-- (void)_appendModel:(ZZVideoDomainModel *)videoModel
+- (void)_loadModel:(ZZVideoDomainModel *)videoModel
 {
-    self.videoModels = [self.videoModels arrayByAddingObject:videoModel];
+    self.loadedVideoModels = [self.loadedVideoModels arrayByAddingObject:videoModel];
     
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:videoModel.videoURL];
     [self.player insertItem:item afterItem:nil];
-    
-    
 }
 
 - (NSTimeInterval)_durationByURL:(NSURL *)url
@@ -360,39 +428,13 @@
 
 - (BOOL)_isAblePlayNext
 {
-    return self.currentVideoModel != self.videoModels.lastObject;
+    return self.currentVideoModel != self.loadedVideoModels.lastObject;
 }
 
 - (void)_playNext
 {
     [self.player advanceToNextItem];
-    [self.player play];
-    
-    [self _markCurrentVideoAsSeen];
-}
-
-- (void)_markCurrentVideoAsSeen
-{
-    [self _showDateForVideoModel:self.currentVideoModel];
-    
-    [self didStartPlayingVideoWithIndex:[self.videoModels indexOfObject:self.currentVideoModel]
-                            totalVideos:self.videoModels.count];
-    
-    [[ZZVideoStatusHandler sharedInstance]
-     setAndNotityViewedIncomingVideoWithFriendID:self.currentFriendModel.idTbm videoID:self.currentVideoModel.videoID];
-    
-    [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:self.currentVideoModel.videoID
-                                                                  toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                friendMkey:self.currentFriendModel.mKey
-                                                                friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
-    
-}
-
-
-- (void)didStartPlayingVideoWithIndex:(NSUInteger)startedVideoIndex totalVideos:(NSUInteger)totalVideos
-{
-    [self.userInterface updateVideoCount:totalVideos];
-    [self.userInterface updateCurrentVideoIndex:startedVideoIndex];
+    [self _startPlayingIfPossible];
 }
 
 - (void)videoPlayingProgress:(CGFloat)progress // zero if no progress
@@ -407,7 +449,7 @@
 {
     NSInteger arrayBoundsIndex = 1;
     
-    if (index == (self.videoModels.count - arrayBoundsIndex) &&
+    if (index == (self.loadedVideoModels.count - arrayBoundsIndex) &&
         friendModel.lastIncomingVideoStatus != videoModel.incomingStatusValue)
     {
         friendModel.lastIncomingVideoStatus = videoModel.incomingStatusValue;
@@ -444,7 +486,7 @@
 {
     AVURLAsset *URLAsset = (id)self.player.items.firstObject.asset;
     
-    for (ZZVideoDomainModel *videoModel in self.videoModels)
+    for (ZZVideoDomainModel *videoModel in self.loadedVideoModels)
     {
         if ([videoModel.videoURL.path isEqualToString:URLAsset.URL.path])
         {

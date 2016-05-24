@@ -19,4 +19,13 @@ class PlaybackSegment: UISlider {
                       width: bounds.width,
                       height: height)
     }
+    
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        if pointInside(point, withEvent: event)
+        {
+            return self
+        }
+        
+        return nil
+    }
 }

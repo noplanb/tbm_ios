@@ -13,6 +13,9 @@ import SnapKit
 @objc public protocol PlaybackSegmentIndicatorDelegate: class
 {
     func didTapOnSegmentWithIndex(segmentIndex: Int)
+    func didStartDragging()
+    func didFinishDragging()
+    func didSeekToPosition(position: CGFloat)
 }
 
 public class PlaybackSegmentIndicator: UIView
@@ -22,6 +25,7 @@ public class PlaybackSegmentIndicator: UIView
     @objc public var segmentCount: Int = 1 {
         didSet {
             updateSegmentCountTo(segmentCount)
+            currentSegment = 0
         }
     }
     
@@ -33,20 +37,6 @@ public class PlaybackSegmentIndicator: UIView
                 {
                     slider.setThumbImage(UIImage(), forState: .Normal)
                     slider.value = 0
-                    
-//                    slider.maximumTrackTintColor = self.tintColor.colorWithAlphaComponent(0.5)
-                    
-//                    if currentSegment > 0
-//                    {
-//                        if let index = stackView.arrangedSubviews.indexOf(slider)
-//                        {
-//                            if index < currentSegment
-//                            {
-//                                slider.maximumTrackTintColor = self.tintColor
-//                                
-//                            }
-//                        }
-//                    }
                 }
                 
                 let image = ZZBadgeIndicator.renderWithNumber(currentSegment + Int(1))
@@ -68,6 +58,16 @@ public class PlaybackSegmentIndicator: UIView
         
         stackView.frame = self.bounds
         self.tintColor = ZZColorTheme.shared().tintColor
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self,
+                                                   action: #selector(dragWithRecognizer))
+        
+        addGestureRecognizer(panRecognizer)
+
+        let recognizer = UITapGestureRecognizer(target: self,
+                                                action: #selector(tapWithRecognizer))
+        addGestureRecognizer(recognizer)
+
     }
     
     convenience init() {
@@ -127,19 +127,71 @@ public class PlaybackSegmentIndicator: UIView
     
     func makeSegment() -> UIView
     {
-        let result = PlaybackSegment()
+        let segment = PlaybackSegment()
         
-        result.backgroundColor = UIColor.clearColor()
-                
-        let recognizer = UITapGestureRecognizer(target: self,
-                                                action: #selector(didTapOnSegmentWithRecogizer))
+        segment.backgroundColor = UIColor.clearColor()
+        segment.exclusiveTouch = true
+        segment.minimumTrackTintColor = self.tintColor
+        segment.maximumTrackTintColor = self.tintColor
+        segment.userInteractionEnabled = false
         
-        result.minimumTrackTintColor = self.tintColor
-        result.maximumTrackTintColor = self.tintColor
+        return segment
+    }
+    
+    
+    var previousSlider: UISlider?    
+    
+    @objc func dragWithRecognizer(recognizer: UIPanGestureRecognizer)
+    {
+        switch recognizer.state
+        {
+            case .Began:
+                didStartDragging()
+            case .Cancelled, .Ended:
+                didFinishDragging()
+            default:
+                break
+        }
         
-        result.addGestureRecognizer(recognizer)
+        handleTouchAtPoint(recognizer.locationInView(self))
+    }
+    
+    @objc func tapWithRecognizer(recognizer: UITapGestureRecognizer)
+    {
+        handleTouchAtPoint(recognizer.locationInView(self))
+    }
+    
+    func handleTouchAtPoint(aPoint: CGPoint)
+    {
+        var point = aPoint
         
-        return result
+        point.y = self.bounds.height / 2
+        
+        let view = self.hitTest(point, withEvent: nil)
+        
+        guard let slider = view as? UISlider else
+        {
+            return
+        }
+        
+        if slider != previousSlider
+        {
+            if previousSlider != nil
+            {
+                delegate?.didTapOnSegmentWithIndex(stackView.arrangedSubviews.indexOf(slider)!)
+            }
+            
+            previousSlider = slider;
+        }
+        
+        let pointOnSegment = slider.convertPoint(point, fromView: self)
+        
+        let relativePosition = pointOnSegment.x / slider.bounds.width
+        
+        slider.value = Float(relativePosition)
+        
+        delegate?.didSeekToPosition(relativePosition)
+
     }
     
     func segmentAtIndex(index: Int) -> UISlider?
@@ -157,19 +209,15 @@ public class PlaybackSegmentIndicator: UIView
         return nil
     }
     
-    @objc func didTapOnSegmentWithRecogizer(recognizer: UITapGestureRecognizer)
+    @objc func didStartDragging()
     {
-        guard recognizer.view != nil else
-        {
-            return
-        }
-        
-        let foundIndex = self.stackView.arrangedSubviews.indexOf(recognizer.view!)
-        
-        if let index = foundIndex
-        {
-            delegate?.didTapOnSegmentWithIndex(index)
-        }
+        delegate?.didStartDragging()
     }
+    
+    @objc func didFinishDragging()
+    {
+        delegate?.didFinishDragging()
+    }
+
 }
 

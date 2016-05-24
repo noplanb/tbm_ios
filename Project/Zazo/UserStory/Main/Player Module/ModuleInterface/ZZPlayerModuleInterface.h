@@ -24,7 +24,6 @@
 // UI events:
 
 - (void)didTapVideo;
-- (void)didTapSegmentAtIndex:(NSInteger)index;
 - (void)didTapBackground;
 
 @end
