@@ -12,14 +12,15 @@ import SnapKit
 
 @objc public protocol PlaybackSegmentIndicatorDelegate: class
 {
-    func didTapOnSegmentWithIndex(segmentIndex: Int)
     func didStartDragging()
     func didFinishDragging()
-    func didSeekToPosition(position: CGFloat)
+    func didSeekToPosition(position: CGFloat, ofSegmentWithIndex: Int)
 }
 
 public class PlaybackSegmentIndicator: UIView
 {
+    let emptySegmentPositionImage = UIImage()
+    
     @objc public weak var delegate: PlaybackSegmentIndicatorDelegate?
     
     @objc public var segmentCount: Int = 1 {
@@ -30,26 +31,51 @@ public class PlaybackSegmentIndicator: UIView
     }
     
     @objc public var currentSegment: Int = 0 {
+                
         didSet {
-            for view in stackView.arrangedSubviews
+            
+            guard oldValue != currentSegment else
             {
-                if let slider = view as? UISlider
-                {
-                    slider.setThumbImage(UIImage(), forState: .Normal)
-                    slider.value = 0
-                }
-                
-                let image = ZZBadgeIndicator.renderWithNumber(currentSegment + Int(1))
-                
-                segmentAtIndex(currentSegment)?.setThumbImage(image, forState: .Normal)
-                
+                return
             }
+            
+            print("🎉 \(currentSegment)")
+            
+            if let segment = segmentAtIndex(oldValue)
+            {
+                segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
+            }
+       
         }
     }
     
+    var segmentProgressChangesToIgnore = 0 // hack to ignore incorrect values from AVPlayer
+    
     @objc public var segmentProgress: Float = 0 {
         didSet {
-            segmentAtIndex(currentSegment)?.value = segmentProgress
+            
+            guard let segment = segmentAtIndex(currentSegment) else
+            {
+                return
+            }
+            
+            segment.value = segmentProgress
+            
+            if (segmentProgressChangesToIgnore > 0)
+            {
+                segmentProgressChangesToIgnore -= 1
+            }
+            else
+            {
+                print("⏲ \(segmentProgress)");
+
+                if segment.thumbImageForState(.Normal) == emptySegmentPositionImage
+                {
+                    let image = ZZBadgeIndicator.renderWithNumber(currentSegment + Int(1))
+                    segment.setThumbImage(image, forState: .Normal)
+                }
+            }
+
         }
     }
     
@@ -134,12 +160,13 @@ public class PlaybackSegmentIndicator: UIView
         segment.minimumTrackTintColor = self.tintColor
         segment.maximumTrackTintColor = self.tintColor
         segment.userInteractionEnabled = false
-        
+        segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
+
         return segment
     }
     
     
-    var previousSlider: UISlider?    
+    var previousSegment: UISlider?    
     
     @objc func dragWithRecognizer(recognizer: UIPanGestureRecognizer)
     {
@@ -158,7 +185,11 @@ public class PlaybackSegmentIndicator: UIView
     
     @objc func tapWithRecognizer(recognizer: UITapGestureRecognizer)
     {
+        segmentProgressChangesToIgnore = 4
+        
+        didStartDragging()
         handleTouchAtPoint(recognizer.locationInView(self))
+        didFinishDragging()
     }
     
     func handleTouchAtPoint(aPoint: CGPoint)
@@ -169,34 +200,42 @@ public class PlaybackSegmentIndicator: UIView
         
         let view = self.hitTest(point, withEvent: nil)
         
-        guard let slider = view as? UISlider else
+        guard let segment = view as? PlaybackSegment else
         {
             return
         }
         
-        if slider != previousSlider
+        let pointOnSegment = segment.convertPoint(point, fromView: self)
+        
+        let relativePosition = pointOnSegment.x / segment.bounds.width
+        
+        if segment != previousSegment
         {
-            if previousSlider != nil
+            
+            guard let newSegmentIndex = stackView.arrangedSubviews.indexOf(segment) else
             {
-                delegate?.didTapOnSegmentWithIndex(stackView.arrangedSubviews.indexOf(slider)!)
+                return;
             }
             
-            previousSlider = slider;
+            currentSegment = newSegmentIndex
+        
+            previousSegment = segment;
         }
         
-        let pointOnSegment = slider.convertPoint(point, fromView: self)
+        segmentProgress = Float(relativePosition)
         
-        let relativePosition = pointOnSegment.x / slider.bounds.width
+        delegate?.didSeekToPosition(relativePosition, ofSegmentWithIndex: currentSegment)
         
-        slider.value = Float(relativePosition)
-        
-        delegate?.didSeekToPosition(relativePosition)
-
     }
     
     func segmentAtIndex(index: Int) -> UISlider?
     {
         if stackView.arrangedSubviews.count < index
+        {
+            return nil
+        }
+        
+        guard stackView.arrangedSubviews.count > index else
         {
             return nil
         }

@@ -25,7 +25,9 @@
 #import "NSDate+ZZAdditions.h"
 #import "ZZPlayerWireframe.h"
 
-@interface ZZPlayerPresenter () <PlaybackSegmentIndicatorDelegate>
+static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
+
+@interface ZZPlayerPresenter ()
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
@@ -38,8 +40,10 @@
 // Current video:
 @property (nonatomic, strong) ZZFriendDomainModel *currentFriendModel;
 @property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
+@property (nonatomic, strong, readonly) AVPlayerItem *currentItem;
 
 @property (nonatomic, assign) BOOL dragging;
+@property (nonatomic, assign) BOOL waitingForLoad;
 
 @end
 
@@ -94,31 +98,32 @@
     
     [status.distinctUntilChanged subscribeNext:^(NSNumber *x) {
         
+        
         if (self.isPlayingVideo && x.integerValue == AVPlayerStatusFailed)
         {
             [self _failedToPlayCurrentVideo];
         }
-        
     }];
     
     @weakify(self);
     
-    [self.playerController.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 100)
+    [self.playerController.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 50)
                                                                queue:dispatch_get_main_queue()
                                                           usingBlock:^(CMTime time) {
                                                               
           @strongify(self);
                                                               
-          if (self.dragging)
+          AVPlayerItem *item = self.currentItem;
+                                                              
+          if (self.dragging || item.duration.value == 0 || item.status != AVPlayerStatusReadyToPlay)
           {
               return;
           }
                                                               
-          NSTimeInterval currentTime = CMTimeGetSeconds(time);
-          NSTimeInterval durationTime = CMTimeGetSeconds(self.playerController.player.currentItem.duration);
-                    
+          CGFloat currentTime = (CGFloat)item.currentTime.value / item.currentTime.timescale;
+          CGFloat durationTime = (CGFloat)item.duration.value / item.duration.timescale;
           CGFloat relativePlaybackPosition = currentTime / durationTime;
-          
+                                                              
           [self videoPlayingProgress:relativePlaybackPosition];
     }];
     
@@ -139,10 +144,29 @@
     }
 }
 
-- (void)didTapOnSegmentWithIndex:(NSInteger)indexToPlay
+- (void)_changeCurrentVideoToVideoWithIndex:(NSInteger)indexToPlay
+                                 completion:(ANCodeBlock)completion
 {
+    if (indexToPlay == ZZPlayerCurrentVideoIndex)
+    {
+        if (completion)
+        {
+            completion();
+        }
+        return;
+    }
+    
     NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
  
+    if (currentSegmentIndex == indexToPlay)
+    {
+        if (completion)
+        {
+            completion();
+        }
+        return;
+    }
+    
     if (indexToPlay > currentSegmentIndex)
     {
         NSUInteger itemsToAdvance = indexToPlay - currentSegmentIndex;
@@ -160,8 +184,23 @@
         [self _loadVideoModels:[self.allVideoModels subarrayWithRange:rangeToPlay]];
     }
     
-    [self _startPlayingIfPossible];
+    if (!completion)
+    {
+        return;
+    }
     
+    self.waitingForLoad = YES;
+    
+    [[[RACObserve(self.currentItem, status) filter:^BOOL(id value) {
+        
+        return [value integerValue] == AVPlayerStatusReadyToPlay;
+        
+    }] take:1] subscribeNext:^(id x) {
+        
+        self.waitingForLoad = NO;
+        completion();
+        
+    }];
 }
 
 - (void)didTapBackground
@@ -181,21 +220,21 @@
     [self _startPlayingIfPossible];
 }
 
-- (void)didSeekToPosition:(CGFloat)position
-{    
-    AVPlayerItem *item = self.player.items.firstObject;
-    
-    if (item.status != AVPlayerStatusReadyToPlay)
-    {
-        return;
-    }
-
-    CMTime seekTime = CMTimeMake(item.duration.value * position, item.duration.timescale);
-
-    [self.player seekToTime:seekTime
-            toleranceBefore:kCMTimeZero
-             toleranceAfter:kCMTimeZero];
-    
+- (void)didSeekToPosition:(CGFloat)position ofSegmentWithIndex:(NSInteger)index
+{
+    [self _changeCurrentVideoToVideoWithIndex:index completion:^{
+        
+        if (self.currentItem.status != AVPlayerItemStatusReadyToPlay)
+        {
+            return ;
+        }
+        
+        [self.currentItem cancelPendingSeeks];
+        
+        CMTime seekTime = CMTimeMake(self.currentItem.duration.value * position, self.currentItem.duration.timescale);
+        
+        [self.currentItem seekToTime:seekTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
+    }];
 }
 
 #pragma mark - Public
@@ -266,15 +305,13 @@
         return;
     }
     
-    [self.userInterface updateCurrentVideoIndex:[self.allVideoModels indexOfObject:self.currentVideoModel]];
-
     if (self.dragging)
     {
         return;
     }
     
     [self.player play];
-    
+        
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
     [self _showDateForVideoModel:self.currentVideoModel];
@@ -286,6 +323,9 @@
                                                                   toStatus:ZZRemoteStorageVideoStatusViewed
                                                                 friendMkey:self.currentFriendModel.mKey
                                                                 friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
+    
+    
+    
 }
 
 - (NSArray <ZZVideoDomainModel *> *)_filterVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
@@ -434,6 +474,7 @@
 - (void)_playNext
 {
     [self.player advanceToNextItem];
+    [self.userInterface updateCurrentVideoIndex:[self.allVideoModels indexOfObject:self.currentVideoModel]];
     [self _startPlayingIfPossible];
 }
 
@@ -484,7 +525,7 @@
 
 - (ZZVideoDomainModel *)currentVideoModel
 {
-    AVURLAsset *URLAsset = (id)self.player.items.firstObject.asset;
+    AVURLAsset *URLAsset = (id)self.currentItem.asset;
     
     for (ZZVideoDomainModel *videoModel in self.loadedVideoModels)
     {
@@ -508,11 +549,18 @@
     
 }
 
+@dynamic currentItem;
+
+- (AVPlayerItem *)currentItem
+{
+    return self.player.items.firstObject;
+}
+
 #pragma mark Events
 
 - (void)_failedToPlayCurrentVideo
 {
-    NSError *error = self.player.currentItem.error;
+    NSError *error = self.currentItem.error;
     ZZLogError(@"VideoPlayer#playbackDidFail: %@", error);
     
     ANDispatchBlockToMainQueue(^{
@@ -537,7 +585,7 @@
 {
     AVPlayerItem *item = notification.object;
     
-    if (item != self.player.currentItem)
+    if (item != self.currentItem)
     {
         return;
     }    
