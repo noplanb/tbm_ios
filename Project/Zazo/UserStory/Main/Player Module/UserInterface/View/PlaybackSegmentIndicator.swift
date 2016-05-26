@@ -39,8 +39,6 @@ public class PlaybackSegmentIndicator: UIView
                 return
             }
             
-            print("🎉 \(currentSegment)")
-            
             if let segment = segmentAtIndex(oldValue)
             {
                 segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
@@ -67,7 +65,6 @@ public class PlaybackSegmentIndicator: UIView
             }
             else
             {
-                print("⏲ \(segmentProgress)");
 
                 if segment.thumbImageForState(.Normal) == emptySegmentPositionImage
                 {
