@@ -585,7 +585,16 @@
 
 - (void)userSelectedOnMenu:(id)user
 {
-    [self.interactor addUserToGrid:user];
+    ZZFriendDomainModel *friendModel = user;
+    
+    if ([ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm])
+    {
+        [self.userInterface showFriendAnimationWithFriendModel:friendModel];
+    }
+    else
+    {
+        [self.interactor addUserToGrid:user];
+    }
 }
 
 

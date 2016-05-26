@@ -80,17 +80,17 @@ static NSInteger const kGridFriendsCellCount = 8;
 }
 
 
-- (void)addUserToGrid:(id)friendModel
+- (void)addUserToGrid:(id)model
 {
-    if (!ANIsEmpty(friendModel))
+    if (!ANIsEmpty(model))
     {
-        if ([friendModel isKindOfClass:[ZZFriendDomainModel class]])
+        if ([model isKindOfClass:[ZZFriendDomainModel class]])
         {
-            [self _addUserAsFriendToGrid:(ZZFriendDomainModel *)friendModel fromNotification:NO];
+            [self _addUserAsFriendToGrid:(ZZFriendDomainModel *)model fromNotification:NO];
         }
-        else if ([friendModel isKindOfClass:[ZZContactDomainModel class]])
+        else if ([model isKindOfClass:[ZZContactDomainModel class]])
         {
-            [self _addUserAsContactToGrid:(ZZContactDomainModel *)friendModel];
+            [self _addUserAsContactToGrid:(ZZContactDomainModel *)model];
         }
     }
 }

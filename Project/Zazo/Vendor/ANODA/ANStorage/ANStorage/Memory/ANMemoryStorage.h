@@ -10,9 +10,23 @@
 #import "ANHelperFunctions.h"
 #import "ANStorageMovedIndexPath.h"
 
+@class ANMemoryStorage;
+
+@protocol ANStorageDelegate <NSObject>
+
+- (ANMemoryStorage *)storage:(ANMemoryStorage *)storage
+      storageForSearchString:(NSString *)searchString
+               inSearchScope:(NSUInteger)searchScope;
+
+@end
+
+
 typedef NSPredicate *(^ANMemoryStoragePredicate)(NSString *searchString, NSInteger scope);
 
+
 @interface ANMemoryStorage : ANBaseStorage <ANStorageInterface>
+
+@property (nonatomic, weak) id<ANStorageDelegate> delegate;
 
 @property (nonatomic, strong) NSMutableArray *sections;
 

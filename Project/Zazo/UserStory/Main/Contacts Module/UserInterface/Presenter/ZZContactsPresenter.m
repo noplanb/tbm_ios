@@ -13,11 +13,10 @@
 #import "ZZContactsPermissionAlertBuilder.h"
 #import "ZZRootStateObserver.h"
 #import "ZZMainWireframe.h"
+#import "ANMemoryStorage.h"
+#import "ZZContactsDataSource.h"
 
-@interface ZZContactsPresenter ()
-        <
-        ZZRootStateObserverDelegate
-        >
+@interface ZZContactsPresenter () <ZZRootStateObserverDelegate>
 
 @property (nonatomic, strong) ZZContactsDataSource *dataSource;
 
@@ -67,9 +66,14 @@
     [self.userInterface reloadContactView];
 }
 
-- (void)friendsThatHasAppLoaded:(NSArray *)friendsData
+- (void)filteredFriendsThatHasAppLoaded:(NSArray *)friendsData
 {
     [self.dataSource setupFriendsThatHaveAppItems:friendsData];
+}
+
+- (void)allFriendsThatHasAppLoaded:(NSArray *)friendsData
+{
+    [self.dataSource setupAllFriendItems:friendsData];
 }
 
 - (void)friendsDataLoaded:(NSArray *)friendsData

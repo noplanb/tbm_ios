@@ -110,7 +110,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             }
             else
             {
-                [self.output friendsThatHasAppLoaded:self.sortedFriends];
+                [self.output filteredFriendsThatHasAppLoaded:self.sortedFriends];
             }
         }
 
@@ -135,6 +135,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 - (void)_loadFriends
 {
     NSArray *friends = [ZZFriendDataProvider allFriendsModels];
+    [self.output allFriendsThatHasAppLoaded:[self _sortByFirstName:friends]];
     [self _sortFriendsFromArray:friends];
 }
 
@@ -185,10 +186,10 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             }
         }];
 
-        NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:friendsHasAppArray];
+        NSArray *filteredFriendsHasAppArray = [self _filterFriendByConnectionStatus:[friendsHasAppArray copy]];
 
         self.sortedFriends = [self _sortByFirstName:filteredFriendsHasAppArray];
-        [self.output friendsThatHasAppLoaded:self.sortedFriends];
+        [self.output filteredFriendsThatHasAppLoaded:self.sortedFriends];
         self.endUpdateTime = [[NSDate date] timeIntervalSince1970];
     });
 }
@@ -196,14 +197,12 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 #pragma mark - Private
 
-- (NSArray *)_filterFriendByConnectionStatus:(NSMutableArray *)friendsArray
+- (NSArray *)_filterFriendByConnectionStatus:(NSArray *)friendsArray
 {
     NSMutableArray *filteredFriends = [NSMutableArray new];
 
     [friendsArray enumerateObjectsUsingBlock:^(ZZFriendDomainModel *friendModel, NSUInteger idx, BOOL *_Nonnull stop) {
 
-//        friendModel.isFriendshipCreator = ![[ZZUserDataProvider authenticatedUser].mkey isEqualToString:friendModel.friendshipCreatorMkey];
-        //TODO:
         if ([friendModel isCreator])
         {
             if (friendModel.friendshipStatusValue == ZZFriendshipStatusTypeEstablished ||
@@ -222,6 +221,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
         }
     }];
 
+    
     return filteredFriends;
 }
 

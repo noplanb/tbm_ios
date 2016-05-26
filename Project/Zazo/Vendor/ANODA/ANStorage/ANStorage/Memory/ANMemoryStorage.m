@@ -287,6 +287,13 @@
 - (instancetype)searchingStorageForSearchString:(NSString *)searchString
                                   inSearchScope:(NSUInteger)searchScope
 {
+    if ([self.delegate respondsToSelector:@selector(storage:storageForSearchString:inSearchScope:)])
+    {
+        return [self.delegate storage:self
+               storageForSearchString:searchString
+                        inSearchScope:searchScope];
+    }
+    
     ANMemoryStorage *storage = [[self class] storage];
 
     NSPredicate *predicate;

@@ -12,12 +12,11 @@
 
 @required
 
-@property (nonatomic, weak) id <ANStorageUpdatingInterface> updatingInterface;
+@property (nonatomic, weak) id<ANStorageUpdatingInterface> updatingInterface;
 
 - (NSArray *)sections;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-
 
 @optional
 

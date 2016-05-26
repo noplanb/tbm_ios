@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZFriendDomainModel;
+
 @protocol ZZContactsInteractorInput <NSObject>
 
 - (void)loadData;
@@ -25,7 +27,9 @@
 
 - (void)addressBookDataLoadingDidFailWithError:(NSError *)error;
 
-- (void)friendsThatHasAppLoaded:(NSArray *)friendsData;
+- (void)filteredFriendsThatHasAppLoaded:(NSArray *)friendsData; // not on grid, not disabled...
+
+- (void)allFriendsThatHasAppLoaded:(NSArray *)friendsData;
 
 - (void)friendsDataLoaded:(NSArray *)friendsData;
 
