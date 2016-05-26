@@ -734,16 +734,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Created by Diallo Mamadou Bobo on 2/10/11.
-Copyright 2011 __MyCompanyName__. All rights reserved.
-</string>
-			<key>Title</key>
-			<string>iToast</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

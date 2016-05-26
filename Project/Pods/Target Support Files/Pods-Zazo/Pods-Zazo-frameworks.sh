@@ -104,7 +104,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Zazo/SnapKit.framework"
   install_framework "Pods-Zazo/TPKeyboardAvoiding.framework"
   install_framework "Pods-Zazo/UIAlertView_Blocks.framework"
-  install_framework "Pods-Zazo/iToast.framework"
   install_framework "Pods-Zazo/libPhoneNumber_iOS.framework"
   install_framework "Pods-Zazo/pop.framework"
 fi
@@ -129,7 +128,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Zazo/SnapKit.framework"
   install_framework "Pods-Zazo/TPKeyboardAvoiding.framework"
   install_framework "Pods-Zazo/UIAlertView_Blocks.framework"
-  install_framework "Pods-Zazo/iToast.framework"
   install_framework "Pods-Zazo/libPhoneNumber_iOS.framework"
   install_framework "Pods-Zazo/pop.framework"
 fi
@@ -154,7 +152,6 @@ if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "Pods-Zazo/SnapKit.framework"
   install_framework "Pods-Zazo/TPKeyboardAvoiding.framework"
   install_framework "Pods-Zazo/UIAlertView_Blocks.framework"
-  install_framework "Pods-Zazo/iToast.framework"
   install_framework "Pods-Zazo/libPhoneNumber_iOS.framework"
   install_framework "Pods-Zazo/pop.framework"
 fi

@@ -44,7 +44,11 @@ static iToastSettings *sharedSettings = nil;
 	UIImage *image = [theSettings.images valueForKey:[NSString stringWithFormat:@"%i", type]];
 	
 	UIFont *font = [UIFont systemFontOfSize:16];
-	CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(280, 60)];
+    
+    CGSize textSize = [text boundingRectWithSize:CGSizeMake(280, 60)
+                                         options:0
+                                      attributes:@{NSFontAttributeName: font}
+                                         context:nil].size;
 	
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 5, textSize.height + 5)];
 	label.backgroundColor = [UIColor clearColor];
@@ -52,8 +56,6 @@ static iToastSettings *sharedSettings = nil;
 	label.font = font;
 	label.text = text;
 	label.numberOfLines = 0;
-	label.shadowColor = [UIColor darkGrayColor];
-	label.shadowOffset = CGSizeMake(1, 1);
 	
 	UIButton *v = [UIButton buttonWithType:UIButtonTypeCustom];
 	if (image) {
@@ -64,19 +66,17 @@ static iToastSettings *sharedSettings = nil;
 		label.center = CGPointMake(v.frame.size.width / 2, v.frame.size.height / 2);
 	}
 	[v addSubview:label];
-	[label release];
 	
 	if (image) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 		imageView.frame = CGRectMake(5, (v.frame.size.height - image.size.height)/2, image.size.width, image.size.height);
 		[v addSubview:imageView];
-		[imageView release];
 	}
 	
 	v.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
 	v.layer.cornerRadius = 5;
 	
-	UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
 	
 	CGPoint point = CGPointMake(window.frame.size.width/2, window.frame.size.height/2);
 	
@@ -168,7 +168,7 @@ static iToastSettings *sharedSettings = nil;
 	
 	[window addSubview:v];
 	
-	view = [v retain];
+	view = v;
 	
 	[v addTarget:self action:@selector(hideToast:) forControlEvents:UIControlEventTouchDown];
 }
@@ -190,7 +190,7 @@ static iToastSettings *sharedSettings = nil;
 
 
 + (iToast *) makeText:(NSString *) _text{
-	iToast *toast = [[[iToast alloc] initWithText:_text] autorelease];
+	iToast *toast = [[iToast alloc] initWithText:_text];
 	
 	return toast;
 }

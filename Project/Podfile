@@ -38,7 +38,6 @@ target 'Zazo' do
 
     #Video
     pod 'PBJVision', git: 'https://github.com/noplanb/PBJVision', tag: 'v0.4.6'
-    pod 'iToast', '~> 0.0.1'
 
     #Misc
     pod 'DeviceUtil', '~> 1.2.0'

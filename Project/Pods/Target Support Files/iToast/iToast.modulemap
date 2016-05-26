@@ -1,6 +1,0 @@
-framework module iToast {
-  umbrella header "iToast-umbrella.h"
-
-  export *
-  module * { export * }
-}
