@@ -27,6 +27,7 @@ public class PlaybackSegmentIndicator: UIView
         didSet {
             updateSegmentCountTo(segmentCount)
             currentSegment = 0
+            previousSegment = nil
         }
     }
     
