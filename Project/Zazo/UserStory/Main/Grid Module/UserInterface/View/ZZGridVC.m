@@ -96,11 +96,6 @@
 
 #pragma mark VC Interface
 
-- (void)menuWasOpened
-{
-
-}
-
 - (void)prepareForCameraSwitchAnimation
 {
     NSInteger centerCellIndex = 4;
@@ -166,6 +161,14 @@
 - (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel *)frindModel
 {
     return [self.controller indexOfFriendModelOnGrid:frindModel];
+}
+
+- (void)setBadgesHidden:(BOOL)flag forFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        [[self.controller gridCellWithFriendModel:friendModel] setBadgesHidden:flag];
+    }];
 }
 
 - (void)configureViewPositions

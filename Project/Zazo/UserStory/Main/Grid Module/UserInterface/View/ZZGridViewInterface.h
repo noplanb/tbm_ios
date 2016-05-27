@@ -23,8 +23,6 @@
 
 - (void)updateDownloadingProgressTo:(CGFloat)progress forModel:(ZZFriendDomainModel *)friendModel;
 
-- (void)menuWasOpened;
-
 - (void)updateLoadingStateTo:(BOOL)isLoading;
 
 - (void)updateRecordViewStateTo:(BOOL)isRecording;
@@ -37,5 +35,7 @@
 
 - (void)prepareForCameraSwitchAnimation;
 - (void)showCameraSwitchAnimation;
+
+- (void)setBadgesHidden:(BOOL)flag forFriendModel:(ZZFriendDomainModel *)friendModel;
 
 @end
