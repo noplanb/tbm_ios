@@ -48,7 +48,7 @@
             [ZZColorTheme shared];
         });
 
-        [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+        [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
 
         self.notificationsHandler = [ZZNotificationsHandler new];
         self.rootService = [ZZApplicationRootService new];

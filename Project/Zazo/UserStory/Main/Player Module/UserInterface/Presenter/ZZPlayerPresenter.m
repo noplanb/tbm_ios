@@ -43,7 +43,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @property (nonatomic, strong, readonly) AVPlayerItem *currentItem;
 
 @property (nonatomic, assign) BOOL dragging;
-@property (nonatomic, assign) BOOL waitingForLoad;
 
 @end
 
@@ -97,7 +96,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }];
     
     [status.distinctUntilChanged subscribeNext:^(NSNumber *x) {
-        
         
         if (self.isPlayingVideo && x.integerValue == AVPlayerStatusFailed)
         {
@@ -182,6 +180,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     {
         NSRange rangeToPlay = NSMakeRange(indexToPlay, self.allVideoModels.count - indexToPlay);
         [self _loadVideoModels:[self.allVideoModels subarrayWithRange:rangeToPlay]];
+        [self.userInterface updateCurrentVideoIndex:rangeToPlay.location];
     }
     
     if (!completion)
@@ -189,15 +188,12 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
     
-    self.waitingForLoad = YES;
-    
     [[[RACObserve(self.currentItem, status) filter:^BOOL(id value) {
         
         return [value integerValue] == AVPlayerStatusReadyToPlay;
         
     }] take:1] subscribeNext:^(id x) {
         
-        self.waitingForLoad = NO;
         completion();
         
     }];
@@ -235,6 +231,37 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         
         [self.currentItem seekToTime:seekTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
     }];
+}
+
+- (void)didSwipeRight
+{
+    NSTimeInterval playedSeconds = CMTimeGetSeconds(self.currentItem.currentTime);
+    
+    if (playedSeconds > 5)
+    {
+        [self.currentItem seekToTime:kCMTimeZero];
+
+    }
+    else
+    {
+        BOOL isFirstVideo = self.currentVideoModel == self.allVideoModels.firstObject;
+    
+        if (!isFirstVideo)
+        {
+            NSUInteger currentVideoIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+
+            [self _changeCurrentVideoToVideoWithIndex:currentVideoIndex - 1 completion:^{
+                [self _startPlayingIfPossible];
+            }];
+        }
+
+    }
+    
+}
+
+- (void)didSwipeLeft
+{
+    [self _playNextOrStop];
 }
 
 #pragma mark - Public
@@ -311,7 +338,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }
     
     [self.player play];
-        
+    NSUInteger currentVideoIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+    
+    NSLog(@"Started playing with currentVideoIndex = %lu", (unsigned long)currentVideoIndex);
+
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
     
     [self _showDateForVideoModel:self.currentVideoModel];
