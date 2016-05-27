@@ -152,6 +152,7 @@
 - (void)viewDidLayoutSubviews
 {
     [self.fullscreenHelper updateFrameAndAppearance];
+    [self updateTextLabel];
 }
 
 - (void)viewDidLoad
