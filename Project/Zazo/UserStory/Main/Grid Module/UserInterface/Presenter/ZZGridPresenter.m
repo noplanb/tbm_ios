@@ -587,6 +587,12 @@
 
 - (void)userSelectedOnMenu:(id)user
 {
+    if (![user isKindOfClass:[ZZFriendDomainModel class]])
+    {
+        [self.interactor addUserToGrid:user];
+        return;
+    }
+    
     ZZFriendDomainModel *friendModel = user;
     
     if ([ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm])
