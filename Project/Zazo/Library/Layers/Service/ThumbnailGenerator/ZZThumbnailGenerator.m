@@ -159,7 +159,7 @@
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime duration = asset.duration;
-    CMTime timeFromEnd = CMTimeMake(1, 10);
+    CMTime timeFromEnd = CMTimeMake(1, 10); // 1/10 of a second
     CMTime thumbTime = CMTimeSubtract(duration, timeFromEnd);
     CMTime actual;
     NSError *err = nil;

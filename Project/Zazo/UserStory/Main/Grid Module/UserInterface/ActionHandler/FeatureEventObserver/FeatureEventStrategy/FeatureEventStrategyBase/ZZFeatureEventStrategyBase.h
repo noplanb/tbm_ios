@@ -36,8 +36,6 @@
 
 - (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
 
-- (void)updateFeatureUnlockIdsWithModel:(ZZFriendDomainModel *)model;
-
 - (void)updateFeaturesWithRemoteFriendsMkeys:(NSArray *)friendMkeys;
 
 @end

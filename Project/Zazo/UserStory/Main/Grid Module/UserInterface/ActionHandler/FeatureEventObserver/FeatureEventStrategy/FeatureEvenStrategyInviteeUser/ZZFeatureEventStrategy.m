@@ -25,8 +25,9 @@
 
         NSInteger kUnlockFeatureCounterValue = 2;
         NSInteger kOnceUnlockCounterValue = 1;
-
-        NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
+        
+        EverSentHelper *helper = [EverSentHelper sharedInstance];
+        NSInteger sendMessageCounter = helper.everSentCount;
 
         BOOL shouldUnlockToInvitee = user.isInvitee && sendMessageCounter == 0 &&
                 !model.isCreator;
@@ -38,16 +39,13 @@
         else if (sendMessageCounter == 0 &&
                 !model.isCreator)
         {
-            sendMessageCounter++;
-            [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-            [self updateFeatureUnlockIdsWithModel:model];
+            [helper addToEverSent:model.mKey];
         }
         else if (sendMessageCounter == kOnceUnlockCounterValue)
         {
             isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
         }
 
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 
     if (completionBlock)

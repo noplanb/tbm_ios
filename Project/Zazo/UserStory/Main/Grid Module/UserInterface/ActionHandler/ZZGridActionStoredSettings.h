@@ -11,8 +11,8 @@
 //TODO: make extern constants or incapsulate it here later
 
 static NSString *const kFriendIdDefaultKey = @"userIdDefaultKey";
-static NSString *const kSendMessageCounterKey = @"sendMessageCounterKey";
-static NSString *const kUsersIdsArrayKey = @"usersIdsArrayKey";
+//static NSString *const kSendMessageCounterKey = @"sendMessageCounterKey";
+//static NSString *const kUsersIdsArrayKey = @"usersIdsArrayKey";
 
 @interface ZZGridActionStoredSettings : NSObject
 

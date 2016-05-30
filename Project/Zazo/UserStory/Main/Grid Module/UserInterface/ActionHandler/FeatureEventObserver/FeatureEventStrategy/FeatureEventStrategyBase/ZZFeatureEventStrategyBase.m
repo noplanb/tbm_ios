@@ -47,70 +47,24 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     NSLog(@"base class");
 }
 
-- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)model beforeUnlockFeatureSentCount:(NSInteger)sentCount
+- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)viewModel beforeUnlockFeatureSentCount:(NSInteger)sentCount
 {
-    BOOL isFeatureEnabled = NO;
-
-    NSInteger sendMessageCounter = [[NSUserDefaults standardUserDefaults] integerForKey:kSendMessageCounterKey];
-
-    if (![self _isFeatureUnlockWithModel:model] &&
-            sendMessageCounter < sentCount &&
-            !model.isCreator)
+    if (viewModel.isCreator)
     {
-        sendMessageCounter++;
-        [[NSUserDefaults standardUserDefaults] setInteger:sendMessageCounter forKey:kSendMessageCounterKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        isFeatureEnabled = YES;
+        return NO; // don't count this event if creator are not we
+    }
+    
+    EverSentHelper *helper = [EverSentHelper sharedInstance];
+
+    if (![helper isEverSentToFriend:viewModel.mKey] &&
+         helper.everSentCount < sentCount)
+    {
         self.isFeatureShowed = YES;
     }
 
-    return isFeatureEnabled;
-}
-
-- (BOOL)_isFeatureUnlockWithModel:(ZZFriendDomainModel *)vieModel
-{
-    BOOL isUnlock = NO;
-    NSArray *userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
-    if (!userIdsArray)
-    {
-        userIdsArray = @[vieModel.mKey];
-        [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        isUnlock = NO;
-    }
-    else
-    {
-        isUnlock = [userIdsArray containsObject:vieModel.mKey];
-        if (!isUnlock && !ANIsEmpty(vieModel.mKey))
-        {
-            NSMutableArray *userIdsArrayCopy = [userIdsArray mutableCopy];
-            [userIdsArrayCopy addObject:vieModel.mKey];
-            [[NSUserDefaults standardUserDefaults] setObject:userIdsArrayCopy forKey:kUsersIdsArrayKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }
-    return isUnlock;
-}
-
-- (void)updateFeatureUnlockIdsWithModel:(ZZFriendDomainModel *)model
-{
-    NSArray *userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
-    if (!model.isCreator)
-    {
-        if (!userIdsArray && !ANIsEmpty(model))
-        {
-            userIdsArray = @[model.mKey];
-            [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        else if (![userIdsArray containsObject:model.mKey] && userIdsArray)
-        {
-            NSMutableArray *userIdsArrayCopy = [userIdsArray mutableCopy];
-            [userIdsArrayCopy addObject:model.mKey];
-            [[NSUserDefaults standardUserDefaults] setObject:userIdsArrayCopy forKey:kUsersIdsArrayKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }
+    [helper addToEverSent:viewModel.mKey];
+    
+    return self.isFeatureShowed;
 }
 
 
@@ -118,49 +72,20 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 
 - (void)updateFeaturesWithRemoteFriendsMkeys:(NSArray *)friendMkeys
 {
+    EverSentHelper *helper = [EverSentHelper sharedInstance];
+    
     NSMutableArray *everSentMkeys = [friendMkeys mutableCopy];
-    [self _cleanArray:&everSentMkeys];
-
-    NSArray *userIdsArray = [[NSUserDefaults standardUserDefaults] objectForKey:kUsersIdsArrayKey];
-    if (!userIdsArray)
-    {
-        if (everSentMkeys && everSentMkeys.count > 0)
+    
+    [everSentMkeys removeObject:@""];
+    
+    [everSentMkeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSString class]])
         {
-            userIdsArray = [NSArray arrayWithArray:everSentMkeys];
-
-            [[NSUserDefaults standardUserDefaults] setInteger:everSentMkeys.count forKey:kSendMessageCounterKey];
-            [[NSUserDefaults standardUserDefaults] setObject:userIdsArray forKey:kUsersIdsArrayKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-
-            [self _updateFeaturesWithMkeys:everSentMkeys];
+            [helper addToEverSent:obj];
         }
-    }
-    else
-    {
-        NSMutableArray *userIdsArrayCopy = [userIdsArray mutableCopy];
-        [everSentMkeys enumerateObjectsUsingBlock:^(NSString *_Nonnull mkey, NSUInteger idx, BOOL *_Nonnull stop) {
-            if (![userIdsArrayCopy containsObject:mkey])
-            {
-                [userIdsArrayCopy addObject:mkey];
-            }
-        }];
+    }];
 
-        if (userIdsArrayCopy.count > userIdsArray.count)
-        {
-            [self _updateFeaturesWithMkeys:everSentMkeys];
-        }
-
-        [[NSUserDefaults standardUserDefaults] setInteger:everSentMkeys.count forKey:kSendMessageCounterKey];
-        [[NSUserDefaults standardUserDefaults] setObject:userIdsArrayCopy forKey:kUsersIdsArrayKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-
-- (void)_cleanArray:(NSMutableArray **)inspectedArray
-{
-    [*inspectedArray removeObject:@""];
-    [*inspectedArray removeObject:[NSNull null]];
+    [self _updateFeaturesWithMkeys:everSentMkeys];
 }
 
 - (void)_updateFeaturesWithMkeys:(NSArray *)mkeys

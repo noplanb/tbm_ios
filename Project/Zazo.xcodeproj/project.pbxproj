@@ -208,6 +208,7 @@
 		152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158221C84932A00260AFD /* ZZHoldEffectLayer.m */; };
 		1521582A1C84932A00260AFD /* ZZUserNameLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158251C84932A00260AFD /* ZZUserNameLabel.m */; };
 		1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521582C1C84989700260AFD /* ZZCellEffectView.m */; };
+		15241ACB1CFC7F0F00758E1F /* EverSentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15241ACA1CFC7F0F00758E1F /* EverSentHelper.swift */; };
 		152594DF1CE8C9F200DDA507 /* ZZPlayerInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594CC1CE8C9F200DDA507 /* ZZPlayerInteractor.m */; };
 		152594E01CE8C9F200DDA507 /* Player.strings in Resources */ = {isa = PBXBuildFile; fileRef = 152594D21CE8C9F200DDA507 /* Player.strings */; };
 		152594E11CE8C9F200DDA507 /* ZZPlayerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594D51CE8C9F200DDA507 /* ZZPlayerPresenter.m */; };
@@ -1155,6 +1156,7 @@
 		1521582B1C84989700260AFD /* ZZCellEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCellEffectView.h; sourceTree = "<group>"; };
 		1521582C1C84989700260AFD /* ZZCellEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCellEffectView.m; sourceTree = "<group>"; };
 		1521582E1C8498E500260AFD /* ZZHoldEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZHoldEffects.h; sourceTree = "<group>"; };
+		15241ACA1CFC7F0F00758E1F /* EverSentHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EverSentHelper.swift; sourceTree = "<group>"; };
 		152594CB1CE8C9F200DDA507 /* ZZPlayerInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerInteractor.h; sourceTree = "<group>"; };
 		152594CC1CE8C9F200DDA507 /* ZZPlayerInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerInteractor.m; sourceTree = "<group>"; };
 		152594CD1CE8C9F200DDA507 /* ZZPlayerInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerInteractorIO.h; sourceTree = "<group>"; };
@@ -3412,6 +3414,7 @@
 				079280A31BA8544800E22553 /* ZZGridActionHandler.m */,
 				1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */,
 				79123D701BB032B7007E1CBF /* Hints */,
+				15241ACA1CFC7F0F00758E1F /* EverSentHelper.swift */,
 			);
 			name = ActionHandler;
 			sourceTree = "<group>";
@@ -5962,6 +5965,7 @@
 				158960341CB7B61D0040D8E3 /* ANBaseListTableCell.m in Sources */,
 				15A1F9411CEC8DFC00BAC37D /* PlaybackSegment.swift in Sources */,
 				07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */,
+				15241ACB1CFC7F0F00758E1F /* EverSentHelper.swift in Sources */,
 				07C94DD01BA7246A009338B1 /* ZZUserFriendshipStatusHandler.m in Sources */,
 				07636EE01BA49A0100925671 /* ZZStartView.m in Sources */,
 				FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */,
