@@ -74,7 +74,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_configureFeatureObserver
 {
-    [RACObserve([ZZGridActionStoredSettings shared], frontCameraHintWasShown) subscribeNext:^(NSNumber *x) {
+    [RACObserve([ZZGridActionStoredSettings shared], switchCameraFeatureEnabled) subscribeNext:^(NSNumber *x) {
         [self.output updateSwithCameraFeatureIsEnabled:[x boolValue]];
     }];
 }

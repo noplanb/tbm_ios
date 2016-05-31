@@ -11,24 +11,27 @@
 
 static NSString *const kZZHintsDidStartPlayKey = @"kZZHintsDidStartPlayKey";
 static NSString *const kZZHintsDidStartRecordKey = @"kZZHintsDidStartRecordKey";
-static NSString *const kAbortRecordUsageHintDidShowKey = @"kAbortRecordUsageHintDidShowKey";
-static NSString *const kDeleteFriendUsageUsageHintDidShowKey = @"kDeleteFriendUsageUsageHintDidShowKey";
-static NSString *const kEarpieceUsageUsageHintDidShowKey = @"kEarpieceUsageUsageHintDidShowKey";
-static NSString *const kFrontCameraUsageUsageHintDidShowKey = @"kFrontCameraUsageUsageHintDidShowKey";
 static NSString *const kInviteHintDidShowKey = @"kInviteHintDidShowKey";
 static NSString *const kInviteSomeoneElseKey = @"kInviteSomeoneElseKey";
 static NSString *const kPlayHintDidShowKey = @"kPlayHintDidShowKey";
 static NSString *const kRecordHintDidShowKey = @"kRecordHintDidShowKey";
 static NSString *const kRecordWelcomeHintDidShowKey = @"kRecordWelcomeHintDidShowKey";
 static NSString *const kSentHintDidShowKey = @"kSentHintDidShowKey";
-static NSString *const kSpinUsageUsageUsageHintDidShowKey = @"kSpinUsageUsageUsageHintDidShowKey";
 static NSString *const kViewedHintDidShowKey = @"kViewedHintDidShowKey";
 static NSString *const kWelcomeHintDidShowKey = @"kWelcomeHintDidShowKey";
 static NSString *const kHoldToRecordAndTapToPlayKey = @"khHldToRecordAndTapToPlayKey";
 static NSString *const kInviteSomeoneElseShowedDuringSession = @"inviteSomeoneElseShowedDuringSession";
 static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 
-//static NSString *const kLastUnlockedFeatureKey = @"kLastUnlockedFeatureKey";
+// Features:
+
+static NSString *const kAbortRecordFeatureEnabledKey = @"kAbortRecordUsageHintDidShowKey";
+static NSString *const kDeleteFriendFeatureEnabledKey = @"kDeleteFriendUsageUsageHintDidShowKey";
+static NSString *const kEarpieceFeatureEnabledKey = @"kEarpieceUsageUsageHintDidShowKey";
+static NSString *const kSpinFeatureEnabledKey = @"kSpinUsageUsageUsageHintDidShowKey";
+static NSString *const kFrontCameraFeatureEnabledKey = @"kFrontCameraUsageUsageHintDidShowKey";
+static NSString *const kFullscreenFeatureEnabledKey = @"kFullscreenFeatureEnabledKey";
+static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsFeatureEnabledKey";
 
 @implementation ZZGridActionStoredSettings
 
@@ -49,6 +52,8 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 @dynamic holdToRecordAndTapToPlayWasShown;
 @dynamic isInviteSomeoneElseShowedDuringSession;
 @dynamic incomingVideoWasPlayed;
+@dynamic fullscreenFeatureEnabled;
+@dynamic playbackControlsFeatureEnabled;
 
 + (instancetype)shared
 {
@@ -140,48 +145,6 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     return [[NSObject an_objectForKey:kZZHintsDidStartRecordKey] boolValue];
 }
 
-- (BOOL)abortRecordingFeatureEnabled
-{
-    return [[NSObject an_objectForKey:kAbortRecordUsageHintDidShowKey] boolValue];
-}
-
-- (void)setAbortRecordingFeatureEnabled:(BOOL)abortRecordingFeatureEnabled
-{
-    [NSObject an_updateBool:abortRecordingFeatureEnabled forKey:kAbortRecordUsageHintDidShowKey];
-}
-
-- (BOOL)deleteFriendFeatureEnabled
-{
-    return [[NSObject an_objectForKey:kDeleteFriendUsageUsageHintDidShowKey] boolValue];
-}
-
-- (void)setDeleteFriendFeatureEnabled:(BOOL)deleteFriendFeatureEnabled
-{
-    [NSObject an_updateBool:deleteFriendFeatureEnabled forKey:kDeleteFriendUsageUsageHintDidShowKey];
-
-}
-
-- (BOOL)earpieceFeatureEnabled
-{
-    return [[NSObject an_objectForKey:kEarpieceUsageUsageHintDidShowKey] boolValue];
-}
-
-- (void)setEarpieceFeatureEnabled:(BOOL)earpieceFeatureEnabled
-{
-    [NSObject an_updateBool:earpieceFeatureEnabled forKey:kEarpieceUsageUsageHintDidShowKey];
-
-}
-
-- (BOOL)switchCameraFeatureEnabled
-{
-    return [[NSObject an_objectForKey:kFrontCameraUsageUsageHintDidShowKey] boolValue];
-}
-
-- (void)setSwitchCameraFeatureEnabled:(BOOL)switchCameraFeatureEnabled
-{
-    [NSObject an_updateBool:switchCameraFeatureEnabled forKey:kFrontCameraUsageUsageHintDidShowKey];
-}
-
 - (BOOL)inviteHintWasShown
 {
     return [[NSObject an_objectForKey:kInviteHintDidShowKey] boolValue];
@@ -242,16 +205,6 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [NSObject an_updateBool:sentHintWasShown forKey:kSentHintDidShowKey];
 }
 
-- (BOOL)carouselFeatureEnabled
-{
-    return [[NSObject an_objectForKey:kSpinUsageUsageUsageHintDidShowKey] boolValue];
-}
-
-- (void)setCarouselFeatureEnabled:(BOOL)spinUsageUsageUsageHintDidShow
-{
-    [NSObject an_updateBool:spinUsageUsageUsageHintDidShow forKey:kSpinUsageUsageUsageHintDidShowKey];
-}
-
 - (BOOL)viewedHintWasShown
 {
     return [[NSObject an_objectForKey:kViewedHintDidShowKey] boolValue];
@@ -282,17 +235,79 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [NSObject an_updateBool:holdToRecordAndTapToPlayWasShown forKey:kHoldToRecordAndTapToPlayKey];
 }
 
-//- (NSUInteger)lastUnlockedFeature
-//{
-//    NSInteger value = [[NSObject an_objectForKey:kLastUnlockedFeatureKey] integerValue];
-//    NSUInteger result = value > 0 ? value : 0;
-//    return result;
-//}
-//
-//- (void)setLastUnlockedFeature:(NSUInteger)lastUnlockedFeature
-//{
-//    [NSObject an_updateInteger:lastUnlockedFeature forKey:kLastUnlockedFeatureKey];
-//}
 
+#pragma mark Features
+
+- (BOOL)abortRecordingFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kAbortRecordFeatureEnabledKey] boolValue];
+}
+
+- (void)setAbortRecordingFeatureEnabled:(BOOL)abortRecordingFeatureEnabled
+{
+    [NSObject an_updateBool:abortRecordingFeatureEnabled forKey:kAbortRecordFeatureEnabledKey];
+}
+
+- (BOOL)deleteFriendFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kDeleteFriendFeatureEnabledKey] boolValue];
+}
+
+- (void)setDeleteFriendFeatureEnabled:(BOOL)deleteFriendFeatureEnabled
+{
+    [NSObject an_updateBool:deleteFriendFeatureEnabled forKey:kDeleteFriendFeatureEnabledKey];
+    
+}
+
+- (BOOL)earpieceFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kEarpieceFeatureEnabledKey] boolValue];
+}
+
+- (void)setEarpieceFeatureEnabled:(BOOL)earpieceFeatureEnabled
+{
+    [NSObject an_updateBool:earpieceFeatureEnabled forKey:kEarpieceFeatureEnabledKey];
+    
+}
+
+- (BOOL)switchCameraFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kFrontCameraFeatureEnabledKey] boolValue];
+}
+
+- (void)setSwitchCameraFeatureEnabled:(BOOL)switchCameraFeatureEnabled
+{
+    [NSObject an_updateBool:switchCameraFeatureEnabled forKey:kFrontCameraFeatureEnabledKey];
+}
+
+- (BOOL)carouselFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kSpinFeatureEnabledKey] boolValue];
+}
+
+- (void)setCarouselFeatureEnabled:(BOOL)spinUsageUsageUsageHintDidShow
+{
+    [NSObject an_updateBool:spinUsageUsageUsageHintDidShow forKey:kSpinFeatureEnabledKey];
+}
+
+- (BOOL)playbackControlsFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kPlaybackControlsFeatureEnabledKey] boolValue];
+}
+
+- (void)setPlaybackControlsFeatureEnabled:(BOOL)playbackControlsFeatureEnabled
+{
+    [NSObject an_updateBool:playbackControlsFeatureEnabled forKey:kPlaybackControlsFeatureEnabledKey];
+}
+
+- (BOOL)fullscreenFeatureEnabled
+{
+    return [[NSObject an_objectForKey:kFullscreenFeatureEnabledKey] boolValue];
+}
+
+- (void)setFullscreenFeatureEnabled:(BOOL)fullscreenFeatureEnabled
+{
+    [NSObject an_updateBool:fullscreenFeatureEnabled forKey:kFullscreenFeatureEnabledKey];
+}
 
 @end

@@ -50,7 +50,7 @@ static CGFloat const kStartGridRotationOffset = 10;
         self.rotationRecognizer.delegate = self;
         [self.gridView.itemsContainerView addGestureRecognizer:self.rotationRecognizer];
 
-        RACSignal *featureUnlocked = RACObserve([ZZGridActionStoredSettings shared], spinHintWasShown);
+        RACSignal *featureUnlocked = RACObserve([ZZGridActionStoredSettings shared], switchCameraFeatureEnabled);
         RACSignal *featureEnabled = RACObserve(self, enabled);
 
         [[RACSignal combineLatest:@[featureUnlocked, featureEnabled] reduce:^id(NSNumber *unlocked, NSNumber *enabled) {
