@@ -35,17 +35,26 @@
 
 + (RACSignal *)loadRemoteEverSentFriendsIDsForUserMkey:(NSString *)mKey;
 
++ (RACSignal *)loadSettingsForUserMKey:(NSString *)mKey;
+
 
 #pragma mark - Update
 
-+ (RACSignal *)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString *)mKey;
++ (RACSignal *)updateRemoteSettings:(NSDictionary *)settings
+                        forUserMkey:(NSString *)mKey;
+
++ (RACSignal *)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys
+                                        forUserMkey:(NSString *)mKey;
 
 
 #pragma mark - Basic
 
-+ (RACSignal *)updateKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSString *)value;
++ (RACSignal *)updateKey1:(NSString *)key1
+                     key2:(NSString *)key2
+                    value:(NSString *)value;
 
-+ (RACSignal *)deleteValueWithKey1:(NSString *)key1 key2:(NSString *)key2;
++ (RACSignal *)deleteValueWithKey1:(NSString *)key1
+                              key2:(NSString *)key2;
 
 + (RACSignal *)loadValueWithKey1:(NSString *)key1;
 

@@ -28,8 +28,10 @@
     if (!ANIsEmpty(itemID) && !ANIsEmpty(friendMkey) && !ANIsEmpty(friendCKey))
     {
         NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID};
-        NSString *key1 = [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friendMkey
-                                                                                   friendCKey:friendCKey];
+        
+        NSString *key1 =
+        [ZZRemoteStorageValueGenerator outgoingVideoIDRemoteKVWithFriendMKey:friendMkey
+                                                                  friendCKey:friendCKey];
 
         return [self updateKey1:key1
                            key2:itemID
@@ -42,9 +44,12 @@
                                         friendMkey:(NSString *)friendMkey
                                         friendCKey:(NSString *)friendCKey
 {
-    NSString *key1 = [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKeyWithFriendMKey:friendMkey
-                                                                                  friendCKey:friendCKey];
-    return [self deleteValueWithKey1:key1 key2:itemID];
+    NSString *key1 =
+    [ZZRemoteStorageValueGenerator incomingVideoIDRemoteKVKeyWithFriendMKey:friendMkey
+                                                                 friendCKey:friendCKey];
+    
+    return [self deleteValueWithKey1:key1
+                                key2:itemID];
 }
 
 + (RACSignal *)updateRemoteStatusForVideoWithItemID:(NSString *)itemID
@@ -55,11 +60,14 @@
     if (!ANIsEmpty(itemID) && !ANIsEmpty(friendCKey) && !ANIsEmpty(friendMkey))
     {
         NSString *statusString = ZZRemoteStorageVideoStatusStringFromEnumValue(status);
+        
         NSDictionary *value = @{ZZRemoteStorageParameters.videoID : itemID,
-                ZZRemoteStorageParameters.status : statusString};
+                                ZZRemoteStorageParameters.status : statusString};
 
-        NSString *key = [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKeyWithFriendMKey:friendMkey
-                                                                                         friendCKey:friendCKey];
+        NSString *key =
+        [ZZRemoteStorageValueGenerator incomingVideoStatusRemoteKVKeyWithFriendMKey:friendMkey
+                                                                         friendCKey:friendCKey];
+        
         return [self updateKey1:key
                            key2:NULL
                           value:[ZZStringUtils jsonWithDictionary:value]];
@@ -70,9 +78,32 @@
 
 #pragma mark - Load
 
++ (RACSignal *)loadSettingsForUserMKey:(NSString *)mKey
+{
+    NSString *key = [NSString stringWithFormat:@"%@-UserSettings", mKey];
+
+    return [[self loadValueWithKey1:key] map:^id(NSDictionary *object) {
+        
+        if ([object isKindOfClass:[NSDictionary class]])
+        {
+            id value = object[ZZRemoteStorageParameters.value];
+            
+            NSData *objectData = [value dataUsingEncoding:NSUTF8StringEncoding];
+            
+            id json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                      options:NSJSONReadingMutableContainers
+                                                        error:nil];
+            return json;
+            
+        }
+        return nil;
+    }];
+}
+
 + (RACSignal *)loadRemoteEverSentFriendsIDsForUserMkey:(NSString *)mKey
 {
     NSString *key = [NSString stringWithFormat:@"%@-WelcomedFriends", mKey];
+    
     return [[self loadValueWithKey1:key] map:^id(NSDictionary *object) {
 
         if ([object isKindOfClass:[NSDictionary class]])
@@ -102,16 +133,22 @@
     return [[ZZRemoteStorageTransport loadAllIncomingVideoIds] map:^id(NSArray *videoIdData) {
 
         videoIdData = [[videoIdData.rac_sequence map:^id(id obj) {
+            
             if ([obj isKindOfClass:[NSDictionary class]])
             {
                 FEMObjectMapping *mapping = [ZZKeyStoreIncomingVideoIdsDomainModel mapping];
+                
                 ZZKeyStoreIncomingVideoIdsDomainModel *model =
                         [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
                                                                           usingMapping:mapping];
+                
                 return model;
             }
+            
             return nil;
+            
         }] array];
+        
         return videoIdData;
     }];
 }
@@ -122,16 +159,22 @@
     return [[ZZRemoteStorageTransport loadAllOutgoingVideoStatuses] map:^id(NSArray *videoStatusData) {
 
         videoStatusData = [[videoStatusData.rac_sequence map:^id(id obj) {
+            
             if ([obj isKindOfClass:[NSDictionary class]])
             {
                 FEMObjectMapping *mapping = [ZZKeyStoreOutgoingVideoStatusDomainModel mapping];
+                
                 ZZKeyStoreOutgoingVideoStatusDomainModel *model =
                         [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
                                                                           usingMapping:mapping];
+                
                 return model;
             }
+            
             return nil;
+            
         }] array];
+        
         return videoStatusData;
     }];
 }
@@ -139,7 +182,37 @@
 
 #pragma mark - Update
 
-+ (RACSignal *)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys forUserMkey:(NSString *)mKey
++ (RACSignal *)updateRemoteSettings:(NSDictionary *)settings
+                        forUserMkey:(NSString *)mKey
+{
+    NSError *error = nil;
+    
+    NSData *settingsData =
+    [NSJSONSerialization dataWithJSONObject:settings
+                                    options:0
+                                      error:&error];
+    
+    NSString *encodedSettings =
+    [[NSString alloc] initWithData:settingsData
+                          encoding:NSUTF8StringEncoding];
+    
+    NSString *key = [NSString stringWithFormat:@"%@-UserSettings", mKey];
+    
+    return [[[self updateKey1:key
+                         key2:nil
+                        value:encodedSettings] doNext:^(id x) {
+        
+        ZZLogInfo(@"updateRemoteSettings - success: %@", settings);
+        
+    }] doError:^(NSError *error) {
+        
+        ZZLogError(@"updateRemoteSettings: %@ error: %@", settings, error);
+    }];
+
+}
+
++ (RACSignal *)updateRemoteEverSentKVForFriendMkeys:(NSArray *)mkeys
+                                        forUserMkey:(NSString *)mKey
 {
     NSError *error = nil;
 
@@ -147,10 +220,15 @@
                                                        options:0
                                                          error:&error];
 
-    NSString *mkeyArrayString = [[NSString alloc] initWithData:keysData encoding:NSUTF8StringEncoding];
+    NSString *mkeyArrayString =
+    [[NSString alloc] initWithData:keysData
+                          encoding:NSUTF8StringEncoding];
+    
     NSString *key = [NSString stringWithFormat:@"%@-WelcomedFriends", mKey];
 
-    return [[[self updateKey1:key key2:nil value:mkeyArrayString] doNext:^(id x) {
+    return [[[self updateKey1:key
+                         key2:nil
+                        value:mkeyArrayString] doNext:^(id x) {
 
         ZZLogInfo(@"setRemoteEverSentKVForFriendMkey - success for friends %@", mkeys);
 
@@ -163,34 +241,42 @@
 
 #pragma mark - Basic CRUD
 
-+ (RACSignal *)updateKey1:(NSString *)key1 key2:(NSString *)key2 value:(NSString *)value
++ (RACSignal *)updateKey1:(NSString *)key1
+                     key2:(NSString *)key2
+                    value:(NSString *)value
 {
     if (!ANIsEmpty(key1))
     {
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[ZZRemoteStorageParameters.key1] = key1;
         parameters[ZZRemoteStorageParameters.value] = [NSObject an_safeString:value];
+        
         if (key2)
         {
             parameters[ZZRemoteStorageParameters.key2] = key2;
         }
+        
         return [ZZRemoteStorageTransport updateKeyValueWithParameters:parameters];
     }
     return [RACSignal error:nil];
 }
 
-+ (RACSignal *)deleteValueWithKey1:(NSString *)key1 key2:(NSString *)key2
++ (RACSignal *)deleteValueWithKey1:(NSString *)key1
+                              key2:(NSString *)key2
 {
     if (!ANIsEmpty(key1))
     {
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[ZZRemoteStorageParameters.key1] = key1;
+        
         if (key2)
         {
             parameters[ZZRemoteStorageParameters.key2] = key2;
         }
+        
         return [ZZRemoteStorageTransport deleteKeyValueWithParameters:parameters];
     }
+    
     return [RACSignal error:nil];
 }
 
@@ -199,6 +285,7 @@
     if (!ANIsEmpty(key1))
     {
         return [[ZZRemoteStorageTransport loadKeyValueWithParameters:@{ZZRemoteStorageParameters.key1 : key1}] map:^id(NSArray *value) {
+            
             return [value firstObject];
         }];
     }

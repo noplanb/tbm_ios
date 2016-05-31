@@ -491,7 +491,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)handleEvent:(ZZRootStateObserverEvents)event notificationObject:(id)notificationObject
 {
-    if (event == ZZRootStateObserverEventDonwloadedMkeys)
+    if (event == ZZRootStateObserverEventDownloadedMkeys)
     {
         if (!ANIsEmpty(notificationObject))
         {

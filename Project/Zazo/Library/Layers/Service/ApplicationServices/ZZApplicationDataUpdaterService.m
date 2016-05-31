@@ -95,26 +95,41 @@
         ANDispatchBlockToBackgroundQueue(^{
 
             [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
-            [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDonwloadedMkeys
+            
+            [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDownloadedMkeys
                                                notificationObject:x];
+            
+            [self _fetchRemoteSettings];
         });
     }];
 }
 
+- (void)_fetchRemoteSettings
+{
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
+
+    [[ZZRemoteStorageTransportService loadSettingsForUserMKey:me.mkey] subscribeNext:^(id x) {
+        
+        if ([x isKindOfClass:[NSDictionary class]])
+        {
+            [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDownloadedSettings
+                                               notificationObject:x];
+        }
+    }];
+}
 
 - (void)_pollAllIncomingVideos
 {
     [[ZZRemoteStorageTransportService loadAllIncomingVideoIds] subscribeNext:^(NSArray *models) {
+        
         for (ZZKeyStoreIncomingVideoIdsDomainModel *model in models)
         {
             ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
+            
             if (friendModel.idTbm)
             {
-//                if (friendModel.videos.count)
-//                {
                 ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ?: @[]);
                 [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];
-//                }
             }
         }
     }];
