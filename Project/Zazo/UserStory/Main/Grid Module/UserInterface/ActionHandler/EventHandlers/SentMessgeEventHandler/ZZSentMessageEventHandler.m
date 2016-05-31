@@ -1,15 +1,15 @@
 //
-//  ZZSentMessgeEventHandler.m
+//  ZZSentMessageEventHandler.m
 //  Zazo
 //
 //  Created by ANODA on 10/7/15.
 //  Copyright © 2015 No Plan B. All rights reserved.
 //
 
-#import "ZZSentMessgeEventHandler.h"
+#import "ZZSentMessageEventHandler.h"
 #import "ZZFriendDataHelper.h"
 
-@implementation ZZSentMessgeEventHandler
+@implementation ZZSentMessageEventHandler
 
 
 - (void)handleEvent:(ZZGridActionEventType)event

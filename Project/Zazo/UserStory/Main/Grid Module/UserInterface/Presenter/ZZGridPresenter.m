@@ -205,11 +205,6 @@
 
 #pragma mark - Output
 
-- (void)updatedFeatureWithFriendMkeys:(NSArray *)friendsMkeys
-{
-    [self.actionHandler updateFeaturesWithFriendsMkeys:friendsMkeys];
-}
-
 - (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel *)model
 {
     [self _handleSentWelcomeHintWithFriendDomainModel:model];

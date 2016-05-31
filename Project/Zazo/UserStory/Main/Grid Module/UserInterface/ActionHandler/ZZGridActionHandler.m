@@ -12,7 +12,7 @@
 #import "ZZBaseEventHandler.h"
 #import "ZZInviteEventHandler.h"
 #import "ZZPlayEventHandler.h"
-#import "ZZSentMessgeEventHandler.h"
+#import "ZZSentMessageEventHandler.h"
 #import "ZZViewedMessageEventHandler.h"
 #import "ZZRecordEventHandler.h"
 #import "ZZInviteSomeoneElseEventHandler.h"
@@ -106,7 +106,7 @@
             NSStringFromClass([ZZInviteEventHandler class]),
             NSStringFromClass([ZZPlayEventHandler class]),
             NSStringFromClass([ZZRecordEventHandler class]),
-            NSStringFromClass([ZZSentMessgeEventHandler class]),
+            NSStringFromClass([ZZSentMessageEventHandler class]),
             NSStringFromClass([ZZViewedMessageEventHandler class]),
             NSStringFromClass([ZZInviteSomeoneElseEventHandler class]),
             NSStringFromClass([ZZSentWelcomeEventHandler class]),
@@ -151,11 +151,6 @@
             }];
         }];
     }
-}
-
-- (void)updateFeaturesWithFriendsMkeys:(NSArray *)friendsMkeys
-{
-    [self.featureEventObserver updateFeaturesWithRemoteFriendMkeys:friendsMkeys];
 }
 
 - (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZFriendDomainModel *)model index:(NSInteger)index

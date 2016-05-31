@@ -27,16 +27,18 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
     ZZGridActionEventTypeSpinUsageFeatureUnlocked
 };
 
-typedef NS_ENUM(NSInteger, ZZGridActionFeatureType)
+typedef NS_ENUM(NSInteger, ZZGridActionFeatureType) // Do not forget update [ZZRemoteUnlockedFeaturesUpdater featureNames] after editing
 {
-    ZZGridActionEventTypeNone,
+    ZZGridActionEventTypeNone = -1,
     ZZGridActionFeatureTypeSwitchCamera,
     ZZGridActionFeatureTypeAbortRec,
     ZZGridActionFeatureTypeDeleteFriend,
+    ZZGridActionFeatureTypeFullscreen,
+    ZZGridActionFeatureTypePlaybackControls,
     ZZGridActionFeatureTypeEarpiece,
     ZZGridActionFeatureTypeSpinWheel,
-
+    
     //Add new above
-            ZZGridActionFeatureTypeTotal,
+    ZZGridActionFeatureTypeTotal,
 };
 

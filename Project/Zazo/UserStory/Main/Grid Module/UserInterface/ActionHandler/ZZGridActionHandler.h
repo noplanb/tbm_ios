@@ -42,6 +42,4 @@
 
 - (void)hideHint;
 
-- (void)updateFeaturesWithFriendsMkeys:(NSArray *)friendsMkeys;
-
 @end

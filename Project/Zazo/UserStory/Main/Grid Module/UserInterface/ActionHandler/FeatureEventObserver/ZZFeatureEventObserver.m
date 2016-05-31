@@ -37,11 +37,6 @@
     self.strategy = [ZZFeatureEventStrategy new];
 }
 
-- (void)updateFeaturesWithRemoteFriendMkeys:(NSArray *)friendMkeys
-{
-    [self.strategy updateFeaturesWithRemoteFriendsMkeys:friendMkeys];
-}
-
 - (void)handleEvent:(ZZGridActionEventType)event
           withModel:(ZZFriendDomainModel *)model
           withIndex:(NSInteger)index

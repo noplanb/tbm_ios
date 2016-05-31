@@ -24,6 +24,8 @@
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZRemoteUnlockedFeaturesUpdater.h"
+
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -78,7 +80,6 @@ static NSInteger const kGridFriendsCellCount = 8;
         [self.output updateSwithCameraFeatureIsEnabled:[x boolValue]];
     }];
 }
-
 
 - (void)addUserToGrid:(id)model
 {
@@ -495,9 +496,54 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         if (!ANIsEmpty(notificationObject))
         {
-            [self.output updatedFeatureWithFriendMkeys:notificationObject];
+            [self _updatedFeatureWithFriendMkeys:notificationObject];
         }
     }
+    else if (event == ZZRootStateObserverEventDownloadedSettings)
+    {
+        if (!ANIsEmpty(notificationObject))
+        {
+            [self _updateSettingWithDictionary:notificationObject];
+        }
+    }
+}
+
+- (void)_updateSettingWithDictionary:(NSDictionary *)settings
+{
+    if (![settings isKindOfClass:[NSDictionary class]])
+    {
+        return;
+    }
+    
+    NSArray *openedFeatures = settings[@"openedFeatures"];
+    
+    if (ANIsEmpty(openedFeatures))
+    {
+        return;
+    }
+    
+    openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lenght > 0"]];
+    
+    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithNames:openedFeatures];
+}
+
+- (void)_updatedFeatureWithFriendMkeys:(NSArray *)keys
+{
+    EverSentHelper *helper = [EverSentHelper sharedInstance];
+    
+    NSMutableArray *keysM = [keys mutableCopy];
+    
+    [keysM removeObject:@""];
+    
+    [keysM enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSString class]])
+        {
+            [helper addToEverSent:obj];
+        }
+    }];
+    
+    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithMKeys:keys];
+
 }
 
 @end

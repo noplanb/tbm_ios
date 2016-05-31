@@ -73,8 +73,6 @@
 
 - (void)reloadGridAfterClearUserDataWithData:(NSArray *)data; // For secret screen option
 
-- (void)updatedFeatureWithFriendMkeys:(NSArray *)friendsMkeys;
-
 - (void)updateSwithCameraFeatureIsEnabled:(BOOL)isEnabled;
 
 - (void)updateFriendThatPrevouslyWasOnGridWithModel:(ZZFriendDomainModel *)model;

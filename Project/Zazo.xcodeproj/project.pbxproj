@@ -322,6 +322,7 @@
 		15BA1DA91CA2D60800EAD614 /* ZZColorPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */; };
 		15BDEA841CFDAA820002F78A /* ZZFeatureEventStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA811CFDAA820002F78A /* ZZFeatureEventStrategy.m */; };
 		15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */; };
+		15BDEA891CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA881CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.m */; };
 		15D1BA551CF7049E001B6849 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA531CF7049E001B6849 /* iToast.m */; };
 		15D1BA561CF7049E001B6849 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA541CF7049E001B6849 /* README.md */; };
 		15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */; };
@@ -334,7 +335,7 @@
 		181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
 		181D1CA71BC51B7100044F83 /* ZZPlayEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */; };
 		181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */; };
-		181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; };
+		181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */; };
 		181D1CB01BC5222600044F83 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
 		181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB21BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m */; };
 		181D1CB61BC5236E00044F83 /* ZZSentWelcomeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CB51BC5236E00044F83 /* ZZSentWelcomeEventHandler.m */; };
@@ -484,7 +485,7 @@
 		182255011C16CA06003885A3 /* ZZViewedMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */; };
 		182255021C16CA06003885A3 /* ZZThumbnailGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BAA7131BB1C55E009878B9 /* ZZThumbnailGenerator.m */; };
 		182255031C16CA06003885A3 /* ANDebugVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C271BA49A0100925671 /* ANDebugVC.m */; };
-		182255041C16CA06003885A3 /* ZZSentMessgeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */; };
+		182255041C16CA06003885A3 /* ZZSentMessageEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */; };
 		182255051C16CA06003885A3 /* ZZFriendDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B151BA49A0100925671 /* ZZFriendDataProvider.m */; };
 		182255071C16CA06003885A3 /* ANDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C251BA49A0100925671 /* ANDebugController.m */; };
 		182255081C16CA06003885A3 /* ZZSecretValueCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C6F1BA49A0100925671 /* ZZSecretValueCellViewModel.m */; };
@@ -1380,6 +1381,8 @@
 		15BDEA811CFDAA820002F78A /* ZZFeatureEventStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategy.m; sourceTree = "<group>"; };
 		15BDEA821CFDAA820002F78A /* ZZFeatureEventStrategyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventStrategyBase.h; sourceTree = "<group>"; };
 		15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyBase.m; sourceTree = "<group>"; };
+		15BDEA871CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRemoteUnlockedFeaturesUpdater.h; sourceTree = "<group>"; };
+		15BDEA881CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteUnlockedFeaturesUpdater.m; sourceTree = "<group>"; };
 		15D1BA521CF7049E001B6849 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		15D1BA531CF7049E001B6849 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		15D1BA541CF7049E001B6849 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1409,8 +1412,8 @@
 		181D1CA61BC51B7100044F83 /* ZZPlayEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayEventHandler.m; sourceTree = "<group>"; };
 		181D1CA81BC5209000044F83 /* ZZRecordEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordEventHandler.h; sourceTree = "<group>"; };
 		181D1CA91BC5209000044F83 /* ZZRecordEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordEventHandler.m; sourceTree = "<group>"; };
-		181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentMessgeEventHandler.h; sourceTree = "<group>"; };
-		181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentMessgeEventHandler.m; sourceTree = "<group>"; };
+		181D1CAB1BC5219300044F83 /* ZZSentMessageEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentMessageEventHandler.h; sourceTree = "<group>"; };
+		181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentMessageEventHandler.m; sourceTree = "<group>"; };
 		181D1CAE1BC5222600044F83 /* ZZViewedMessageEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZViewedMessageEventHandler.h; sourceTree = "<group>"; };
 		181D1CAF1BC5222600044F83 /* ZZViewedMessageEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZViewedMessageEventHandler.m; sourceTree = "<group>"; };
 		181D1CB11BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZInviteSomeoneElseEventHandler.h; sourceTree = "<group>"; };
@@ -2190,6 +2193,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				15BDEA861CFDD5FC0002F78A /* RemoteUnlockedFeaturesUpdater */,
 				07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */,
 				07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */,
 				18EE040E1BFF8A1400D57966 /* CoreDataMigrationManager */,
@@ -4585,6 +4589,16 @@
 			path = ActionHandler/FeatureEventStrategy;
 			sourceTree = "<group>";
 		};
+		15BDEA861CFDD5FC0002F78A /* RemoteUnlockedFeaturesUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				15BDEA871CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.h */,
+				15BDEA881CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.m */,
+			);
+			name = RemoteUnlockedFeaturesUpdater;
+			path = UnlockedFeaturesUnlocker;
+			sourceTree = "<group>";
+		};
 		15D1BA511CF7049E001B6849 /* iToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -4764,8 +4778,8 @@
 		181D1C981BC51A2800044F83 /* SentMessgeEventHandler */ = {
 			isa = PBXGroup;
 			children = (
-				181D1CAB1BC5219300044F83 /* ZZSentMessgeEventHandler.h */,
-				181D1CAC1BC5219300044F83 /* ZZSentMessgeEventHandler.m */,
+				181D1CAB1BC5219300044F83 /* ZZSentMessageEventHandler.h */,
+				181D1CAC1BC5219300044F83 /* ZZSentMessageEventHandler.m */,
 			);
 			path = SentMessgeEventHandler;
 			sourceTree = "<group>";
@@ -5840,7 +5854,7 @@
 				182255FB1C16E6E5003885A3 /* ZZNetworkTestView.m in Sources */,
 				182255021C16CA06003885A3 /* ZZThumbnailGenerator.m in Sources */,
 				182255031C16CA06003885A3 /* ANDebugVC.m in Sources */,
-				182255041C16CA06003885A3 /* ZZSentMessgeEventHandler.m in Sources */,
+				182255041C16CA06003885A3 /* ZZSentMessageEventHandler.m in Sources */,
 				182255051C16CA06003885A3 /* ZZFriendDataProvider.m in Sources */,
 				182255071C16CA06003885A3 /* ANDebugController.m in Sources */,
 				182255081C16CA06003885A3 /* ZZSecretValueCellViewModel.m in Sources */,
@@ -6066,6 +6080,7 @@
 				158960551CB7B61D0040D8E3 /* ANErrorBuilder.m in Sources */,
 				1589604B1CB7B61D0040D8E3 /* ANLabelColorTheme.m in Sources */,
 				07636F091BA49A0100925671 /* ZZVerfiicationAlertHandler.m in Sources */,
+				15BDEA891CFDD6240002F78A /* ZZRemoteUnlockedFeaturesUpdater.m in Sources */,
 				79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */,
 				158960851CB7B61E0040D8E3 /* ANTableViewHeaderFooterView.m in Sources */,
 				07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */,
@@ -6151,7 +6166,7 @@
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
 				1589603A1CB7B61D0040D8E3 /* NSObject+ANSafeValues.m in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
-				181D1CAD1BC5219300044F83 /* ZZSentMessgeEventHandler.m in Sources */,
+				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
 				158960731CB7B61E0040D8E3 /* ANMemoryStorage+ANItems.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,

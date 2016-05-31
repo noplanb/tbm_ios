@@ -1,5 +1,5 @@
 //
-//  ZZSentMessgeEventHandler.h
+//  ZZSentMessageEventHandler.h
 //  Zazo
 //
 //  Created by ANODA on 10/7/15.
@@ -8,6 +8,6 @@
 
 #import "ZZBaseEventHandler.h"
 
-@interface ZZSentMessgeEventHandler : ZZBaseEventHandler
+@interface ZZSentMessageEventHandler : ZZBaseEventHandler
 
 @end
