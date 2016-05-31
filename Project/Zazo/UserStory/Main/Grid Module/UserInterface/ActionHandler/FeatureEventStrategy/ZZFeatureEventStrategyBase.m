@@ -135,18 +135,6 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     };
 }
 
-
-// if needed to show last unlock feature after remote update, now turn off.
-- (void)_showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:(NSArray *)mkeys
-                                      withLastUnlockFeatureKey:(NSString *)lastFeaturekey
-                                                   friendModel:(ZZFriendDomainModel *)model
-{
-    [[ZZGridActionStoredSettings shared] setValue:@(NO) forKey:lastFeaturekey];
-    ANDispatchBlockToMainQueue(^{
-        [self.delegate showLastUnlockFeatureWithFeatureType:[self _unlockFeatureTypesWithKey:mkeys.count] friendModel:model];
-    });
-}
-
 - (ZZGridActionFeatureType)_unlockFeatureTypesWithKey:(ZZFeatureUnlockKeys)unlockKey
 {
     ZZGridActionFeatureType type = ZZGridActionEventTypeNone;

@@ -10,7 +10,7 @@
 #import "ZZFeatureEventStrategyBase.h"
 #import "ZZFeatureEventStrategy.h"
 
-@interface ZZFeatureEventObserver () <ZZFeatureEventStrategyDelegate>
+@interface ZZFeatureEventObserver ()
 
 @property (nonatomic, strong) ZZFeatureEventStrategyBase *strategy;
 
@@ -34,17 +34,7 @@
 
 - (void)_setupStrategy
 {
-//    ZZUserDomainModel* authUser = [ZZUserDataProvider authenticatedUser];
-//    
-//    if (authUser.isInvitee)
-//    {
     self.strategy = [ZZFeatureEventStrategy new];
-    self.strategy.delegate = self;
-//    }
-//    else
-//    {
-//        self.strategy = [ZZFeatureEventStrategyRegisteredUser new];
-//    }
 }
 
 - (void)updateFeaturesWithRemoteFriendMkeys:(NSArray *)friendMkeys
@@ -70,45 +60,6 @@ withCompletionBlock:(void (^)(BOOL isFeatureShowed))completionBlock;
         {
             completionBlock(self.strategy.isFeatureShowed);
         }
-    }
-}
-
-
-#pragma mark - Event Strategy Delegate
-
-- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type friendModel:(ZZFriendDomainModel *)model
-{
-    switch (type)
-    {
-        case ZZGridActionFeatureTypeSwitchCamera:
-        {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSwitchCamera withIndex:0 friendModel:model];
-        }
-            break;
-        case ZZGridActionFeatureTypeAbortRec:
-        {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeAbortRec withIndex:0 friendModel:model];
-        }
-            break;
-        case ZZGridActionFeatureTypeDeleteFriend:
-        {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeDeleteFriend withIndex:0 friendModel:model];
-        }
-            break;
-        case ZZGridActionFeatureTypeEarpiece:
-        {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:0 friendModel:model];
-        }
-            break;
-        case ZZGridActionFeatureTypeSpinWheel:
-        {
-            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeSpinWheel withIndex:0 friendModel:model];
-        }
-            break;
-        default:
-        {
-        }
-            break;
     }
 }
 

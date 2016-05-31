@@ -9,20 +9,9 @@
 #import "ZZGridCellViewModel.h"
 #import "ZZGridActionStoredSettings.h"
 
-#pragma mark - Use both camera keys
-
-@protocol ZZFeatureEventStrategyDelegate <NSObject>
-
-- (void)showLastUnlockFeatureWithFeatureType:(ZZGridActionFeatureType)type friendModel:(ZZFriendDomainModel *)model;
-
-@end
-
-
 @interface ZZFeatureEventStrategyBase : NSObject
 
 @property (nonatomic, assign) BOOL isFeatureShowed;
-@property (nonatomic, weak) id <ZZFeatureEventStrategyDelegate> delegate;
-
 
 - (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock;
 
