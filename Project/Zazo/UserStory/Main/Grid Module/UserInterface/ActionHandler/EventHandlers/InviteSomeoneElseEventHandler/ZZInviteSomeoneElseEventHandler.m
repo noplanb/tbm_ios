@@ -30,7 +30,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else if (event == ZZGridActionEventTypeSentZazo &&
             ![ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown &&
             [self.delegate friendsNumberOnGrid] == 1 &&
-            ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            ![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
 //        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;
@@ -45,7 +45,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             ![ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession &&
             [self.delegate friendsNumberOnGrid] == 1 &&
             [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
-            ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            ![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
 //        self.isLastAcitionDone = YES;
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = YES;

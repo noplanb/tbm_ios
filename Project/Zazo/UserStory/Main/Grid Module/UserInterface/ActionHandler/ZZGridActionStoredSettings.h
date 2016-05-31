@@ -27,20 +27,21 @@ static NSString *const kFriendIdDefaultKey = @"userIdDefaultKey";
 @property (nonatomic, assign) BOOL viewedHintWasShown;
 @property (nonatomic, assign) BOOL inviteSomeoneHintWasShown;
 @property (nonatomic, assign) BOOL welcomeHintWasShown;
-
-@property (nonatomic, assign) BOOL frontCameraHintWasShown;
-@property (nonatomic, assign) BOOL abortRecordHintWasShown;
-@property (nonatomic, assign) BOOL deleteFriendHintWasShown;
-@property (nonatomic, assign) BOOL earpieceHintWasShown;
-@property (nonatomic, assign) BOOL spinHintWasShown;
 @property (nonatomic, assign) BOOL recordWelcomeHintWasShown;
 @property (nonatomic, assign) BOOL isInviteSomeoneElseShowedDuringSession;
-
 @property (nonatomic, assign) BOOL holdToRecordAndTapToPlayWasShown;
 @property (nonatomic, assign) BOOL incomingVideoWasPlayed;
 
 @property (nonatomic, assign) BOOL hintsDidStartPlay;
 @property (nonatomic, assign) BOOL hintsDidStartRecord;
+
+#pragma mark Features
+
+@property (nonatomic, assign) BOOL switchCameraFeatureEnabled;
+@property (nonatomic, assign) BOOL abortRecordingFeatureEnabled;
+@property (nonatomic, assign) BOOL deleteFriendFeatureEnabled;
+@property (nonatomic, assign) BOOL earpieceFeatureEnabled;
+@property (nonatomic, assign) BOOL carouselFeatureEnabled;
 
 + (instancetype)shared;
 

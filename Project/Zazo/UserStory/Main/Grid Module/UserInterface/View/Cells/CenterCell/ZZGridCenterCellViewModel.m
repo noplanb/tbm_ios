@@ -19,7 +19,7 @@
 
 - (void)didTapCell
 {
-    if ([ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    if ([ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
         [self.delegate switchCamera];
     }

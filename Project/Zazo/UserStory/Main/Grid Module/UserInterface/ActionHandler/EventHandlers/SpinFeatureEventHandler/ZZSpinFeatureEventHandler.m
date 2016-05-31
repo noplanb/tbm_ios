@@ -14,9 +14,9 @@
               model:(ZZFriendDomainModel *)model
 withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
-    if (event == ZZGridActionEventTypeSpinUsageFeatureUnlocked && ![ZZGridActionStoredSettings shared].spinHintWasShown)
+    if (event == ZZGridActionEventTypeSpinUsageFeatureUnlocked && ![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
-        [ZZGridActionStoredSettings shared].spinHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].carouselFeatureEnabled = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeSpinUsageHint, model);

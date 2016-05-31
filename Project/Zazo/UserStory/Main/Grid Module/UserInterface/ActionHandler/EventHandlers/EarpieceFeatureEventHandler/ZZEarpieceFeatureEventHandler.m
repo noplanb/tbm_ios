@@ -14,9 +14,9 @@
               model:(ZZFriendDomainModel *)model
 withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
-    if (event == ZZGridActionEventTypeEarpieceFeatureUnlocked && ![ZZGridActionStoredSettings shared].earpieceHintWasShown)
+    if (event == ZZGridActionEventTypeEarpieceFeatureUnlocked && ![ZZGridActionStoredSettings shared].earpieceFeatureEnabled)
     {
-        [ZZGridActionStoredSettings shared].earpieceHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].earpieceFeatureEnabled = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeEarpieceUsageHint, model);

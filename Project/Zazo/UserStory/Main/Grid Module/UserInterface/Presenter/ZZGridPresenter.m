@@ -230,7 +230,7 @@
         [self _handleInviteEvent];
 
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
-        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].frontCameraHintWasShown;
+        BOOL isSwitchCameraAvailable = [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled;
 
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
                 isTwoCamerasAvailable && isSwitchCameraAvailable];
@@ -665,7 +665,7 @@
         BOOL isTwoCamerasAvailable = [[ZZVideoRecorder shared] areBothCamerasAvailable];
 
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
-                (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)];
+                (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)];
     }
 }
 

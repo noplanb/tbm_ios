@@ -34,16 +34,16 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
 
 @dynamic hintsDidStartRecord;
 @dynamic hintsDidStartPlay;
-@dynamic deleteFriendHintWasShown;
-@dynamic earpieceHintWasShown;
-@dynamic frontCameraHintWasShown;
+@dynamic deleteFriendFeatureEnabled;
+@dynamic earpieceFeatureEnabled;
+@dynamic switchCameraFeatureEnabled;
 @dynamic inviteHintWasShown;
 @dynamic inviteSomeoneHintWasShown;
 @dynamic playHintWasShown;
 @dynamic recordHintWasShown;
 @dynamic recordWelcomeHintWasShown;
 @dynamic sentHintWasShown;
-@dynamic spinHintWasShown;
+@dynamic carouselFeatureEnabled;
 @dynamic viewedHintWasShown;
 @dynamic welcomeHintWasShown;
 @dynamic holdToRecordAndTapToPlayWasShown;
@@ -69,12 +69,6 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [ZZGridActionStoredSettings shared].viewedHintWasShown = NO;
     [ZZGridActionStoredSettings shared].inviteSomeoneHintWasShown = NO;
     [ZZGridActionStoredSettings shared].welcomeHintWasShown = NO;
-
-    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = NO;
-    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = NO;
-    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = NO;
-    [ZZGridActionStoredSettings shared].earpieceHintWasShown = NO;
-    [ZZGridActionStoredSettings shared].spinHintWasShown = NO;
     [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
     [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
     [ZZGridActionStoredSettings shared].holdToRecordAndTapToPlayWasShown = NO;
@@ -82,17 +76,23 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [ZZGridActionStoredSettings shared].hintsDidStartRecord = NO;
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = NO;
 
+    [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].earpieceFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].carouselFeatureEnabled = NO;
+
     [[EverSentHelper sharedInstance] clear];
 }
 
 - (void)enableAllFeatures
 {
     BOOL isEnabled = YES;
-    [ZZGridActionStoredSettings shared].frontCameraHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].abortRecordHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].earpieceHintWasShown = isEnabled;
-    [ZZGridActionStoredSettings shared].spinHintWasShown = isEnabled;
+    [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].earpieceFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].carouselFeatureEnabled = isEnabled;
 }
 
 
@@ -140,46 +140,46 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     return [[NSObject an_objectForKey:kZZHintsDidStartRecordKey] boolValue];
 }
 
-- (BOOL)abortRecordHintWasShown
+- (BOOL)abortRecordingFeatureEnabled
 {
     return [[NSObject an_objectForKey:kAbortRecordUsageHintDidShowKey] boolValue];
 }
 
-- (void)setAbortRecordHintWasShown:(BOOL)abortRecordHintWasShown
+- (void)setAbortRecordingFeatureEnabled:(BOOL)abortRecordingFeatureEnabled
 {
-    [NSObject an_updateBool:abortRecordHintWasShown forKey:kAbortRecordUsageHintDidShowKey];
+    [NSObject an_updateBool:abortRecordingFeatureEnabled forKey:kAbortRecordUsageHintDidShowKey];
 }
 
-- (BOOL)deleteFriendHintWasShown
+- (BOOL)deleteFriendFeatureEnabled
 {
     return [[NSObject an_objectForKey:kDeleteFriendUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setDeleteFriendHintWasShown:(BOOL)deleteFriendHintWasShown
+- (void)setDeleteFriendFeatureEnabled:(BOOL)deleteFriendFeatureEnabled
 {
-    [NSObject an_updateBool:deleteFriendHintWasShown forKey:kDeleteFriendUsageUsageHintDidShowKey];
+    [NSObject an_updateBool:deleteFriendFeatureEnabled forKey:kDeleteFriendUsageUsageHintDidShowKey];
 
 }
 
-- (BOOL)earpieceHintWasShown
+- (BOOL)earpieceFeatureEnabled
 {
     return [[NSObject an_objectForKey:kEarpieceUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setEarpieceHintWasShown:(BOOL)earpieceHintWasShown
+- (void)setEarpieceFeatureEnabled:(BOOL)earpieceFeatureEnabled
 {
-    [NSObject an_updateBool:earpieceHintWasShown forKey:kEarpieceUsageUsageHintDidShowKey];
+    [NSObject an_updateBool:earpieceFeatureEnabled forKey:kEarpieceUsageUsageHintDidShowKey];
 
 }
 
-- (BOOL)frontCameraHintWasShown
+- (BOOL)switchCameraFeatureEnabled
 {
     return [[NSObject an_objectForKey:kFrontCameraUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setFrontCameraHintWasShown:(BOOL)frontCameraHintWasShown
+- (void)setSwitchCameraFeatureEnabled:(BOOL)switchCameraFeatureEnabled
 {
-    [NSObject an_updateBool:frontCameraHintWasShown forKey:kFrontCameraUsageUsageHintDidShowKey];
+    [NSObject an_updateBool:switchCameraFeatureEnabled forKey:kFrontCameraUsageUsageHintDidShowKey];
 }
 
 - (BOOL)inviteHintWasShown
@@ -242,12 +242,12 @@ static NSString *const kIncomingVideoWasPlayedKey = @"incomingVideoWasPlayed";
     [NSObject an_updateBool:sentHintWasShown forKey:kSentHintDidShowKey];
 }
 
-- (BOOL)spinHintWasShown
+- (BOOL)carouselFeatureEnabled
 {
     return [[NSObject an_objectForKey:kSpinUsageUsageUsageHintDidShowKey] boolValue];
 }
 
-- (void)setSpinHintWasShown:(BOOL)spinUsageUsageUsageHintDidShow
+- (void)setCarouselFeatureEnabled:(BOOL)spinUsageUsageUsageHintDidShow
 {
     [NSObject an_updateBool:spinUsageUsageUsageHintDidShow forKey:kSpinUsageUsageUsageHintDidShowKey];
 }

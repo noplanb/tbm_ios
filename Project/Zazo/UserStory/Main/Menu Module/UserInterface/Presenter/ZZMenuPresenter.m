@@ -58,7 +58,7 @@
 
     [storage addItem:inviteFriends toSection:0];
 
-    if ([ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+    if ([ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
         [storage addItem:editFriends toSection:0];
     }

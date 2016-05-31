@@ -15,9 +15,9 @@
               model:(ZZFriendDomainModel *)model
 withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
-    if (event == ZZGridActionEventTypeAbortRecordingFeatureUnlocked && ![ZZGridActionStoredSettings shared].abortRecordHintWasShown)
+    if (event == ZZGridActionEventTypeAbortRecordingFeatureUnlocked && ![ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled)
     {
-        [ZZGridActionStoredSettings shared].abortRecordHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeAbortRecordingUsageHint, model);

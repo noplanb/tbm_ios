@@ -19,7 +19,7 @@
 {
     BOOL isFeatureEnabled = NO;
 
-    if (![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    if (![ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
         ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
@@ -61,7 +61,7 @@
 {
     BOOL isFeatureEnabled = NO;
 
-    if (![ZZGridActionStoredSettings shared].abortRecordHintWasShown && [ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    if (![ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled && [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
         NSInteger kBeforeUnlockAbortFeatureMessagesCount = 3;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockAbortFeatureMessagesCount];
@@ -81,7 +81,7 @@
 {
     BOOL isFeatureEnabled = NO;
 
-    if (![ZZGridActionStoredSettings shared].deleteFriendHintWasShown && [ZZGridActionStoredSettings shared].abortRecordHintWasShown)
+    if (![ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled && [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled)
     {
         NSInteger kBeforeUnlockDeleteFriendFeatureMessageCount = 4;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockDeleteFriendFeatureMessageCount];
@@ -101,7 +101,7 @@
 
     BOOL isFeatureEnabled = NO;
 
-    if (![ZZGridActionStoredSettings shared].earpieceHintWasShown && [ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+    if (![ZZGridActionStoredSettings shared].earpieceFeatureEnabled && [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
         NSInteger kBeforeUnlockEarpieceMessageCount = 5;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockEarpieceMessageCount];
@@ -120,7 +120,7 @@
 {
     BOOL isFeatureEnabled = NO;
 
-    if (![ZZGridActionStoredSettings shared].spinHintWasShown && [ZZGridActionStoredSettings shared].earpieceHintWasShown)
+    if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled && [ZZGridActionStoredSettings shared].earpieceFeatureEnabled)
     {
         NSInteger kBeforeUnlockSpinMessageCount = 6;
         isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockSpinMessageCount];

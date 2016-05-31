@@ -104,6 +104,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
             [unlockFeaturesKeys enumerateObjectsUsingBlock:^(NSString *_Nonnull propertyKey, NSUInteger idx, BOOL *_Nonnull stop) {
                 [[ZZGridActionStoredSettings shared] setValue:@(YES) forKey:propertyKey];
             }];
+            
 //            [self _showLastUnlockFeatureDialogAfterRemoteUpdateWithMkeys:mkeys withLastUnlockFeatureKey:[unlockFeaturesKeys lastObject]];
         }
     }
@@ -113,25 +114,25 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 {
     return @{
 
-            @(ZZFeatureUnlockBothCameraKey) : @[@"frontCameraHintWasShown"],
+            @(ZZFeatureUnlockBothCameraKey) : @[@"switchCameraFeatureEnabled"],
 
-            @(ZZFeatureUnlockAbortRecordingKey) : @[@"frontCameraHintWasShown",
-                    @"abortRecordHintWasShown"],
+            @(ZZFeatureUnlockAbortRecordingKey) : @[@"switchCameraFeatureEnabled",
+                    @"abortRecordingFeatureEnabled"],
 
-            @(ZZFeatureUnlockDeleteFriendskey) : @[@"frontCameraHintWasShown",
-                    @"abortRecordHintWasShown",
-                    @"deleteFriendHintWasShown"],
+            @(ZZFeatureUnlockDeleteFriendskey) : @[@"switchCameraFeatureEnabled",
+                    @"abortRecordingFeatureEnabled",
+                    @"deleteFriendFeatureEnabled"],
 
-            @(ZZFeatureUnlockEarpiecekey) : @[@"frontCameraHintWasShown",
-                    @"abortRecordHintWasShown",
-                    @"deleteFriendHintWasShown",
-                    @"earpieceHintWasShown"],
+            @(ZZFeatureUnlockEarpiecekey) : @[@"switchCameraFeatureEnabled",
+                    @"abortRecordingFeatureEnabled",
+                    @"deleteFriendFeatureEnabled",
+                    @"earpieceFeatureEnabled"],
 
-            @(ZZFeatureUnlockSpinWheelKey) : @[@"frontCameraHintWasShown",
-                    @"abortRecordHintWasShown",
-                    @"deleteFriendHintWasShown",
-                    @"earpieceHintWasShown",
-                    @"spinHintWasShown"]
+            @(ZZFeatureUnlockSpinWheelKey) : @[@"switchCameraFeatureEnabled",
+                    @"abortRecordingFeatureEnabled",
+                    @"deleteFriendFeatureEnabled",
+                    @"earpieceFeatureEnabled",
+                    @"carouselFeatureEnabled"]
     };
 }
 

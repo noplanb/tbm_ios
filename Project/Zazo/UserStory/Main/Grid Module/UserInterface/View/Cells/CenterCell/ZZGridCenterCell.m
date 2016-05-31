@@ -206,7 +206,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     {
         _switchCameraButton = [UIButton new];
         _switchCameraButton.userInteractionEnabled = NO;
-        _switchCameraButton.hidden = ![ZZGridActionStoredSettings shared].frontCameraHintWasShown;
+        _switchCameraButton.hidden = ![ZZGridActionStoredSettings shared].switchCameraFeatureEnabled;
         [self addSubview:_switchCameraButton];
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);

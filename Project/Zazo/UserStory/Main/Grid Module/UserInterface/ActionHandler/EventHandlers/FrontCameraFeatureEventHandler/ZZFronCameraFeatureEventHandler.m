@@ -14,9 +14,9 @@
               model:(ZZFriendDomainModel *)model
 withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
-    if (event == ZZGridActionEventTypeFrontCameraFeatureUnlocked && ![ZZGridActionStoredSettings shared].frontCameraHintWasShown)
+    if (event == ZZGridActionEventTypeFrontCameraFeatureUnlocked && ![ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
-        [ZZGridActionStoredSettings shared].frontCameraHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeFrontCameraUsageHint, model);

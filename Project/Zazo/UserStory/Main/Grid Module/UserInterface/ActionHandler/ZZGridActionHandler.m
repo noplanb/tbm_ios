@@ -199,7 +199,7 @@
             type == ZZHintsTypeDeleteFriendUsageHint ||
             type == ZZHintsTypeEarpieceUsageHint ||
             type == ZZHintsTypeSpinUsageHint) &&
-            ![ZZGridActionStoredSettings shared].spinHintWasShown)
+            ![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
 
@@ -209,7 +209,7 @@
 
 - (void)_showNextFeatureHintIfNeeded
 {
-    if (![ZZGridActionStoredSettings shared].spinHintWasShown)
+    if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
 
@@ -333,7 +333,7 @@
     {
         [ZZStoredSettingsManager shared].wasPermissionAccess = NO;
     }
-    else if (![ZZGridActionStoredSettings shared].spinHintWasShown)
+    else if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
         [ZZGridActionStoredSettings shared].isInviteSomeoneElseShowedDuringSession = NO;
         [self.startEventHandler handleResetLastActionWithCompletionBlock:^(ZZGridActionEventType event, ZZFriendDomainModel *model) {

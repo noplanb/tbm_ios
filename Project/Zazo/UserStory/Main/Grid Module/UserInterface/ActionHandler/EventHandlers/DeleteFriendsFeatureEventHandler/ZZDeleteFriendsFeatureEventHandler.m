@@ -16,9 +16,9 @@ NSString *const ZZDeleteFriendsFeatureUnlockedNotificationName = @"ZZDeleteFrien
               model:(ZZFriendDomainModel *)model
 withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))completionBlock
 {
-    if (event == ZZGridActionEventTypeDeleteFriendsFeatureUnlocked && ![ZZGridActionStoredSettings shared].deleteFriendHintWasShown)
+    if (event == ZZGridActionEventTypeDeleteFriendsFeatureUnlocked && ![ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
-        [ZZGridActionStoredSettings shared].deleteFriendHintWasShown = YES;
+        [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = YES;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:ZZDeleteFriendsFeatureUnlockedNotificationName object:nil];
 
