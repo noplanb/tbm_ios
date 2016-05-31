@@ -320,6 +320,8 @@
 		15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */; };
 		15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */; };
 		15BA1DA91CA2D60800EAD614 /* ZZColorPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */; };
+		15BDEA841CFDAA820002F78A /* ZZFeatureEventStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA811CFDAA820002F78A /* ZZFeatureEventStrategy.m */; };
+		15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */; };
 		15D1BA551CF7049E001B6849 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA531CF7049E001B6849 /* iToast.m */; };
 		15D1BA561CF7049E001B6849 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA541CF7049E001B6849 /* README.md */; };
 		15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */; };
@@ -426,7 +428,6 @@
 		182254B51C16CA06003885A3 /* ZZConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B901BA49A0100925671 /* ZZConfig.m */; };
 		182254B71C16CA06003885A3 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636DA21BA49A0100925671 /* PDFView.m */; };
 		182254B81C16CA06003885A3 /* ZZAuthPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C101BA49A0100925671 /* ZZAuthPresenter.m */; };
-		182254BA1C16CA06003885A3 /* ZZFeatureEventStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m */; };
 		182254BB1C16CA06003885A3 /* ZZNotificationsTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B571BA49A0100925671 /* ZZNotificationsTransport.m */; };
 		182254BC1C16CA06003885A3 /* ZZRemoteStorageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E161BD5953D00A59389 /* ZZRemoteStorageConstants.m */; };
 		182254BE1C16CA06003885A3 /* ZZVerfiicationAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8F1BA49A0100925671 /* ZZVerfiicationAlertHandler.m */; };
@@ -468,7 +469,6 @@
 		182254EE1C16CA06003885A3 /* ZZGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CC81BA49A0100925671 /* ZZGridCell.m */; };
 		182254EF1C16CA06003885A3 /* ZZInviteEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D1CA31BC51B2000044F83 /* ZZInviteEventHandler.m */; };
 		182254F01C16CA06003885A3 /* ZZNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E201BD5AB6200A59389 /* ZZNotificationDomainModel.m */; };
-		182254F11C16CA06003885A3 /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */; };
 		182254F21C16CA06003885A3 /* ZZContactDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B2E1BA49A0100925671 /* ZZContactDomainModel.m */; };
 		182254F31C16CA06003885A3 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; };
 		182254F51C16CA06003885A3 /* ZZGridDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636CAB1BA49A0100925671 /* ZZGridDataSource.m */; };
@@ -614,8 +614,6 @@
 		18CA1BA91BC7F01B008A7A93 /* TBMNextFeatureDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CA1BA81BC7F01B008A7A93 /* TBMNextFeatureDialogView.m */; };
 		18E042AF1BBC2A3300318C6F /* ZZGridDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E042AE1BBC2A3300318C6F /* ZZGridDataUpdater.m */; };
 		18E1F2F31BC6AA990070ECF1 /* ZZFeatureEventObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F21BC6AA990070ECF1 /* ZZFeatureEventObserver.m */; };
-		18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */; };
-		18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m */; };
 		18E1F3041BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */; };
 		18EE04111BFF8A1400D57966 /* ZZMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE04101BFF8A1400D57966 /* ZZMigrationManager.m */; };
 		18F195A41C1961620084FB34 /* IMG_0764.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 18F195A21C1961620084FB34 /* IMG_0764.MOV */; };
@@ -1378,6 +1376,10 @@
 		15BA1DA21CA2D4CB00EAD614 /* contact-pattern-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-4.png"; sourceTree = "<group>"; };
 		15BA1DA71CA2D60800EAD614 /* ZZColorPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZColorPair.h; sourceTree = "<group>"; };
 		15BA1DA81CA2D60800EAD614 /* ZZColorPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZColorPair.m; sourceTree = "<group>"; };
+		15BDEA801CFDAA820002F78A /* ZZFeatureEventStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventStrategy.h; sourceTree = "<group>"; };
+		15BDEA811CFDAA820002F78A /* ZZFeatureEventStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategy.m; sourceTree = "<group>"; };
+		15BDEA821CFDAA820002F78A /* ZZFeatureEventStrategyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventStrategyBase.h; sourceTree = "<group>"; };
+		15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyBase.m; sourceTree = "<group>"; };
 		15D1BA521CF7049E001B6849 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		15D1BA531CF7049E001B6849 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		15D1BA541CF7049E001B6849 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1480,10 +1482,6 @@
 		18E042AE1BBC2A3300318C6F /* ZZGridDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZGridDataUpdater.m; sourceTree = "<group>"; };
 		18E1F2F11BC6AA990070ECF1 /* ZZFeatureEventObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventObserver.h; sourceTree = "<group>"; };
 		18E1F2F21BC6AA990070ECF1 /* ZZFeatureEventObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventObserver.m; sourceTree = "<group>"; };
-		18E1F2F81BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventStrategyBase.h; sourceTree = "<group>"; };
-		18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyBase.m; sourceTree = "<group>"; };
-		18E1F2FB1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFeatureEventStrategy.h; sourceTree = "<group>"; };
-		18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategy.m; sourceTree = "<group>"; };
 		18E1F3021BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFeatureUnlockDialogView.h; sourceTree = "<group>"; };
 		18E1F3031BC6C7180070ECF1 /* TBMFeatureUnlockDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFeatureUnlockDialogView.m; sourceTree = "<group>"; };
 		18EE040F1BFF8A1400D57966 /* ZZMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMigrationManager.h; sourceTree = "<group>"; };
@@ -3404,6 +3402,7 @@
 		079280A51BA8544B00E22553 /* ActionHandler */ = {
 			isa = PBXGroup;
 			children = (
+				15BDEA7F1CFDAA820002F78A /* FeatureEventStrategy */,
 				18E1F2F01BC6AA7F0070ECF1 /* FeatureEventObserver */,
 				181D1C8E1BC51A2800044F83 /* EventHandlers */,
 				7997E4E91BAABE2F001697D5 /* ZZGridActionStoredSettings.h */,
@@ -4574,6 +4573,18 @@
 			path = EntitiesMachine;
 			sourceTree = "<group>";
 		};
+		15BDEA7F1CFDAA820002F78A /* FeatureEventStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				15BDEA801CFDAA820002F78A /* ZZFeatureEventStrategy.h */,
+				15BDEA811CFDAA820002F78A /* ZZFeatureEventStrategy.m */,
+				15BDEA821CFDAA820002F78A /* ZZFeatureEventStrategyBase.h */,
+				15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */,
+			);
+			name = FeatureEventStrategy;
+			path = ActionHandler/FeatureEventStrategy;
+			sourceTree = "<group>";
+		};
 		15D1BA511CF7049E001B6849 /* iToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -5011,39 +5022,11 @@
 		18E1F2F01BC6AA7F0070ECF1 /* FeatureEventObserver */ = {
 			isa = PBXGroup;
 			children = (
-				18E1F2F41BC6AC4E0070ECF1 /* FeatureEventStrategy */,
 				18E1F2F11BC6AA990070ECF1 /* ZZFeatureEventObserver.h */,
 				18E1F2F21BC6AA990070ECF1 /* ZZFeatureEventObserver.m */,
 			);
 			name = FeatureEventObserver;
 			path = ActionHandler/FeatureEventObserver;
-			sourceTree = "<group>";
-		};
-		18E1F2F41BC6AC4E0070ECF1 /* FeatureEventStrategy */ = {
-			isa = PBXGroup;
-			children = (
-				18E1F2F61BC6AC4E0070ECF1 /* FeatureEventStrategyBase */,
-				18E1F2F51BC6AC4E0070ECF1 /* FeatureEvenStrategyInviteeUser */,
-			);
-			path = FeatureEventStrategy;
-			sourceTree = "<group>";
-		};
-		18E1F2F51BC6AC4E0070ECF1 /* FeatureEvenStrategyInviteeUser */ = {
-			isa = PBXGroup;
-			children = (
-				18E1F2FB1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.h */,
-				18E1F2FC1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m */,
-			);
-			path = FeatureEvenStrategyInviteeUser;
-			sourceTree = "<group>";
-		};
-		18E1F2F61BC6AC4E0070ECF1 /* FeatureEventStrategyBase */ = {
-			isa = PBXGroup;
-			children = (
-				18E1F2F81BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.h */,
-				18E1F2F91BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m */,
-			);
-			path = FeatureEventStrategyBase;
 			sourceTree = "<group>";
 		};
 		18E1F3011BC6C7180070ECF1 /* UnlockFeatureDialogView */ = {
@@ -5797,7 +5780,6 @@
 				182254B51C16CA06003885A3 /* ZZConfig.m in Sources */,
 				182254B71C16CA06003885A3 /* PDFView.m in Sources */,
 				182254B81C16CA06003885A3 /* ZZAuthPresenter.m in Sources */,
-				182254BA1C16CA06003885A3 /* ZZFeatureEventStrategy.m in Sources */,
 				182254BB1C16CA06003885A3 /* ZZNotificationsTransport.m in Sources */,
 				182254BC1C16CA06003885A3 /* ZZRemoteStorageConstants.m in Sources */,
 				182254BE1C16CA06003885A3 /* ZZVerfiicationAlertHandler.m in Sources */,
@@ -5841,7 +5823,6 @@
 				182254EE1C16CA06003885A3 /* ZZGridCell.m in Sources */,
 				182254EF1C16CA06003885A3 /* ZZInviteEventHandler.m in Sources */,
 				182254F01C16CA06003885A3 /* ZZNotificationDomainModel.m in Sources */,
-				182254F11C16CA06003885A3 /* ZZFeatureEventStrategyBase.m in Sources */,
 				182254F21C16CA06003885A3 /* ZZContactDomainModel.m in Sources */,
 				182254F31C16CA06003885A3 /* NSInvocation+Constructors.m in Sources */,
 				182256131C182450003885A3 /* ZZNetworkTestHeaderView.m in Sources */,
@@ -6080,7 +6061,6 @@
 				07636F111BA49A0100925671 /* PDFView.m in Sources */,
 				1589607E1CB7B61E0040D8E3 /* ANTableController+UITableViewDelegatesPrivate.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
-				18E1F2FD1BC6AEEA0070ECF1 /* ZZFeatureEventStrategy.m in Sources */,
 				07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */,
 				07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */,
 				158960551CB7B61D0040D8E3 /* ANErrorBuilder.m in Sources */,
@@ -6142,7 +6122,6 @@
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				151BB3441CC124EC007CE007 /* Extensions.swift in Sources */,
 				07E09E211BD5AB6200A59389 /* ZZNotificationDomainModel.m in Sources */,
-				18E1F2FA1BC6AC780070ECF1 /* ZZFeatureEventStrategyBase.m in Sources */,
 				15B823041CB7BBD4006473E1 /* TBMUser.m in Sources */,
 				158960791CB7B61E0040D8E3 /* ANTableContainerView.m in Sources */,
 				153682441C99539D006EDC12 /* ZZMainWireframe.m in Sources */,
@@ -6264,8 +6243,10 @@
 				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
 				07636EB11BA49A0100925671 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */,
+				15BDEA841CFDAA820002F78A /* ZZFeatureEventStrategy.m in Sources */,
 				07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */,
 				070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */,
+				15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */,
 				152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */,
 				158960671CB7B61D0040D8E3 /* ANNetworkActivityManager.m in Sources */,
 				079E90261BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m in Sources */,
