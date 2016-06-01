@@ -194,16 +194,6 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 
 #pragma mark - UIAlertView part
 
-- (void)showCantSendSmsErrorOldStyleToUser:(NSString *)userName completion:(ANCodeBlock)completion
-{
-    self.completionBlock = completion;
-    NSString *format = @"It looks like you can't or didn't send a link by text. Perhaps you can just call or email %@ and tell them about %@.";
-    NSString *msg = [NSString stringWithFormat:format, [NSObject an_safeString:userName], [ZZGridAlertBuilder _appName]];
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"Didn't Send Link" message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    self.alertView.tag = ZZAlertViewTypeCantSendSms;
-    [self.alertView show];
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (alertView.tag)

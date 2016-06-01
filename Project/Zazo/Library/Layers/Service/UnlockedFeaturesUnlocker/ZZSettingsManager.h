@@ -11,10 +11,10 @@
 extern NSString * const ZZSwitchCameraFeatureName;
 extern NSString * const ZZAbortRecordingFeatureName;
 extern NSString * const ZZDeleteFriendFeatureName;
-extern NSString * const ZZEarpieceFeatureName;
-extern NSString * const ZZSpinWheelFeatureName;
 extern NSString * const ZZFullscreenFeatureName;
 extern NSString * const ZZPlaybackControlsFeatureName;
+extern NSString * const ZZEarpieceFeatureName;
+extern NSString * const ZZSpinWheelFeatureName;
 
 /**
  *  Currently settings have only list of unlocked features

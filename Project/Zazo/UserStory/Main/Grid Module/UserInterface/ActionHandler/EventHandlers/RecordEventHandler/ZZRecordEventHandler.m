@@ -21,7 +21,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.idTbm] == 0 &&
             ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
         self.hintModel = model;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
 
@@ -38,7 +38,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             [self.delegate friendsNumberOnGrid] == 1)
     {
         self.hintModel = model;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
 
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
         if (completionBlock)
@@ -49,7 +49,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else if (event == ZZGridActionEventTypeMessageDidPlayed &&
             [self.delegate friendsNumberOnGrid] > 1)
     {
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
         self.hintModel = model;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = YES;
 
@@ -64,7 +64,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             [self.delegate friendsNumberOnGrid] == 1 &&
             ![ZZGridActionStoredSettings shared].sentHintWasShown)
     {
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
 
         self.hintModel = model;
 
@@ -79,7 +79,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             ![ZZGridActionStoredSettings shared].recordHintWasShown &&
             [self.delegate friendsNumberOnGrid] > 1)
     {
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
 
         self.hintModel = model;
 
@@ -92,7 +92,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else
     {
         self.hintModel = nil;
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -110,9 +110,9 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
 
 - (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
-    if (self.isLastAcitionDone)
+    if (self.isLastActionDone)
     {
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         [ZZGridActionStoredSettings shared].recordWelcomeHintWasShown = NO;
 
         if (completionBlock)

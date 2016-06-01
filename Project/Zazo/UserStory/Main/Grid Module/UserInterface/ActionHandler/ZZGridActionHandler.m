@@ -26,6 +26,8 @@
 #import "TBMFeatureUnlockDialogView.h"
 #import "TBMNextFeatureDialogView.h"
 #import "ZZStoredSettingsManager.h"
+#import "ZZFullscreenFeatureEventHandler.h"
+#import "ZZPlaybackControlsFeatureEventHandler.h"
 
 @interface ZZGridActionHandler ()
         <
@@ -99,7 +101,6 @@
     }
 }
 
-
 - (NSArray *)_eventHandlers
 {
     return @[
@@ -113,6 +114,8 @@
             NSStringFromClass([ZZFronCameraFeatureEventHandler class]),
             NSStringFromClass([ZZAbortRecordingFeatureEventHandler class]),
             NSStringFromClass([ZZDeleteFriendsFeatureEventHandler class]),
+            NSStringFromClass([ZZFullscreenFeatureEventHandler class]),
+            NSStringFromClass([ZZPlaybackControlsFeatureEventHandler class]),
             NSStringFromClass([ZZEarpieceFeatureEventHandler class]),
             NSStringFromClass([ZZSpinFeatureEventHandler class])
     ];
@@ -132,17 +135,17 @@
     {
         [self.startEventHandler handleEvent:event
                                       model:friendModel
-                        withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
+                        withCompletionBlock:^(ZZHintsType hintType, ZZFriendDomainModel *model) {
                             
-            if (type != ZZHintsTypeNoHint)
+            if (hintType != ZZHintsTypeNoHint)
             {
-                if (type == ZZHintsTypeInviteSomeElseHint)
+                if (hintType == ZZHintsTypeInviteSomeElseHint)
                 {
                     actionIndex = 2;
                 }
 
 
-                [self _configureHintControllerWithHintType:type
+                [self _configureHintControllerWithHintType:hintType
                                                  withModel:model
                                                      index:actionIndex];
             }
@@ -152,7 +155,7 @@
                                          withIndex:actionIndex
                                withCompletionBlock:^(BOOL isFeatureShowed) {
                                    
-                if (!isFeatureShowed && type == ZZHintsTypeNoHint)
+                if (!isFeatureShowed && hintType == ZZHintsTypeNoHint)
                 {
                     [self _showNextFeatureHintIfNeeded];
                 }
@@ -256,46 +259,122 @@
         case ZZGridActionFeatureTypeSwitchCamera:
         {
             NSInteger centerViewIndex = 4;
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked withIndex:centerViewIndex friendModel:model];
+            
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.use-both-cameras", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeFrontCameraFeatureUnlocked
+                        withIndex:centerViewIndex
+                      friendModel:model];
+                                              
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSwitchCamera];
+                                              
             }];
 
         }
             break;
+            
         case ZZGridActionFeatureTypeAbortRec:
         {
             NSInteger middleRightIndex = 5;
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked withIndex:middleRightIndex friendModel:model];
+            
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.abort-recording", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeAbortRecordingFeatureUnlocked
+                        withIndex:middleRightIndex
+                      friendModel:model];
+                                              
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeAbortRec];
             }];
 
         }
+        
             break;
+            
         case ZZGridActionFeatureTypeDeleteFriend:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked withIndex:0 friendModel:model];
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.delete-friend", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeDeleteFriendsFeatureUnlocked
+                        withIndex:0
+                      friendModel:model];
+                                              
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeDeleteFriend];
+                                              
             }];
 
         }
+            
             break;
+            
+        case ZZGridActionFeatureTypeFullscreen:
+        {
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.fullscreen", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeFullscreenFeatureUnlocked
+                        withIndex:5
+                      friendModel:model];
+                                              
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypeFullscreen];
+            }];
+            
+        }
+            
+            break;
+            
+        case ZZGridActionFeatureTypePlaybackControls:
+        {
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.playback-controls", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypePlaybackControlsFeatureUnlocked
+                        withIndex:5
+                      friendModel:model];
+                                              
+                [self.delegate unlockedFeature:ZZGridActionFeatureTypePlaybackControls];
+                                              
+            }];            
+        }
+            
+            break;
+            
         case ZZGridActionFeatureTypeEarpiece:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked withIndex:5 friendModel:model];
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.listen-from-earpiece", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeEarpieceFeatureUnlocked
+                        withIndex:5
+                      friendModel:model];
+                                              
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeEarpiece];
             }];
-
+            
         }
+            
             break;
+            
         case ZZGridActionFeatureTypeSpinWheel:
         {
-            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil) withPresentedView:[self.delegate presentedView] completionBlock:^{
-                [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked withIndex:6 friendModel:model];
+            [TBMFeatureUnlockDialogView showFeatureDialog:NSLocalizedString(@"feature-alerts.spin-your-friends", nil)
+                                        withPresentedView:[self.delegate presentedView]
+                                          completionBlock:^{
+                                              
+                [self handleEvent:ZZGridActionEventTypeSpinUsageFeatureUnlocked
+                        withIndex:6
+                      friendModel:model];
+                                              
                 [self.delegate unlockedFeature:ZZGridActionFeatureTypeSpinWheel];
+                                              
             }];
 
         }
@@ -303,6 +382,7 @@
 
         default:
         {
+            
         }
             break;
     }

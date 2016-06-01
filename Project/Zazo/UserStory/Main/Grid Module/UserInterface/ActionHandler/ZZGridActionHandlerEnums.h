@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, ZZGridActionEventType)
     ZZGridActionEventTypeFrontCameraFeatureUnlocked,
     ZZGridActionEventTypeAbortRecordingFeatureUnlocked,
     ZZGridActionEventTypeDeleteFriendsFeatureUnlocked,
+    ZZGridActionEventTypeFullscreenFeatureUnlocked,
+    ZZGridActionEventTypePlaybackControlsFeatureUnlocked,
     ZZGridActionEventTypeEarpieceFeatureUnlocked,
     ZZGridActionEventTypeSpinUsageFeatureUnlocked
 };

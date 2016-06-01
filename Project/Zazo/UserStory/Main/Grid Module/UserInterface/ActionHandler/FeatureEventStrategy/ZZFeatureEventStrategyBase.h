@@ -11,7 +11,7 @@
 
 @interface ZZFeatureEventStrategyBase : NSObject
 
-@property (nonatomic, assign) BOOL isFeatureShowed;
+@property (nonatomic, assign) BOOL featureUnlocked;
 
 - (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock;
 
@@ -22,6 +22,10 @@
 - (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock;
 
 - (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock;
+
+- (void)handleFullscreenFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock;
+
+- (void)handlePlaybackControlsFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock;
 
 - (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)model beforeUnlockFeatureSentCount:(NSInteger)sentCount;
 

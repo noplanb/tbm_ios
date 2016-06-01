@@ -17,40 +17,42 @@
 
 - (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    BOOL isFeatureEnabled = NO;
-
+    BOOL featureUnlocked = NO;
+    
     if (![ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
+        if (model.isCreator)
+        {
+            return;
+        }
+        
         ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
-
-        NSInteger kUnlockFeatureCounterValue = 2;
-        NSInteger kOnceUnlockCounterValue = 1;
+        
+        NSInteger minimalMessageCount = 2;
         
         EverSentHelper *helper = [EverSentHelper sharedInstance];
-        NSInteger sendMessageCounter = helper.everSentCount;
-
-        BOOL shouldUnlockToInvitee = user.isInvitee && sendMessageCounter == 0 &&
-                !model.isCreator;
-
-        if (shouldUnlockToInvitee)
+        NSInteger messageCount = helper.everSentCount;
+        
+        BOOL earlyFeatureUnlock = user.isInvitee && messageCount == 0;
+        
+        if (earlyFeatureUnlock)
         {
-            isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
+            featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
         }
-        else if (sendMessageCounter == 0 &&
-                !model.isCreator)
+        else if (messageCount == 0)
         {
             [helper addToEverSent:model.mKey];
         }
-        else if (sendMessageCounter == kOnceUnlockCounterValue)
+        else
         {
-            isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kUnlockFeatureCounterValue];
+            featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
         }
 
     }
-
+    
     if (completionBlock)
     {
-        completionBlock(isFeatureEnabled);
+        completionBlock(featureUnlocked);
     }
 }
 
@@ -59,19 +61,18 @@
 
 - (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    BOOL isFeatureEnabled = NO;
-
+    BOOL featureUnlocked = NO;
+    
     if (![ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled && [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
-        NSInteger kBeforeUnlockAbortFeatureMessagesCount = 3;
-        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockAbortFeatureMessagesCount];
+        NSInteger minimalMessageCount = 3;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
-
+    
     if (completionBlock)
     {
-        completionBlock(isFeatureEnabled);
+        completionBlock(featureUnlocked);
     }
-
 }
 
 
@@ -79,37 +80,75 @@
 
 - (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    BOOL isFeatureEnabled = NO;
-
+    BOOL featureUnlocked = NO;
+    
     if (![ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled && [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled)
     {
-        NSInteger kBeforeUnlockDeleteFriendFeatureMessageCount = 4;
-        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockDeleteFriendFeatureMessageCount];
+        NSInteger minimalMessageCount = 4;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
-
+    
     if (completionBlock)
     {
-        completionBlock(isFeatureEnabled);
+        completionBlock(featureUnlocked);
     }
+}
+
+
+#pragma mark - Fullscreen
+
+- (void)handleFullscreenFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    BOOL featureUnlocked = NO;
+    
+    if (![ZZGridActionStoredSettings shared].fullscreenFeatureEnabled && [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
+    {
+        NSInteger minimalMessageCount = 5;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
+    }
+    
+    if (completionBlock)
+    {
+        completionBlock(featureUnlocked);
+    }
+    
+}
+
+#pragma mark - Playback controls
+
+- (void)handlePlaybackControlsFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    BOOL featureUnlocked = NO;
+    
+    if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled && [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled)
+    {
+        NSInteger minimalMessageCount = 6;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
+    }
+    
+    if (completionBlock)
+    {
+        completionBlock(featureUnlocked);
+    }
+    
 }
 
 
 #pragma mark - Earpiece
 
 - (void)handleEarpieceFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
-{
-
-    BOOL isFeatureEnabled = NO;
-
+{    
+    BOOL featureUnlocked = NO;
+    
     if (![ZZGridActionStoredSettings shared].earpieceFeatureEnabled && [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
-        NSInteger kBeforeUnlockEarpieceMessageCount = 5;
-        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockEarpieceMessageCount];
+        NSInteger minimalMessageCount = 7;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
-
+    
     if (completionBlock)
     {
-        completionBlock(isFeatureEnabled);
+        completionBlock(featureUnlocked);
     }
 }
 
@@ -118,17 +157,17 @@
 
 - (void)handleSpinWheelFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
-    BOOL isFeatureEnabled = NO;
-
+    BOOL featureUnlocked = NO;
+    
     if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled && [ZZGridActionStoredSettings shared].earpieceFeatureEnabled)
     {
-        NSInteger kBeforeUnlockSpinMessageCount = 6;
-        isFeatureEnabled = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:kBeforeUnlockSpinMessageCount];
+        NSInteger minimalMessageCount = 8;
+        featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
-
+    
     if (completionBlock)
     {
-        completionBlock(isFeatureEnabled);
+        completionBlock(featureUnlocked);
     }
 }
 

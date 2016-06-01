@@ -23,7 +23,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             ![ZZGridActionStoredSettings shared].incomingVideoWasPlayed)
     {
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypePlayHint, model);
@@ -35,7 +35,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     {
 
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypePlayHint, model);
@@ -48,7 +48,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     {
 
         [ZZGridActionStoredSettings shared].playHintWasShown = YES;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
         if (completionBlock)
         {
             completionBlock(ZZHintsTypeNoHint, model);
@@ -57,7 +57,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else
     {
         self.hintModel = nil;
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         if (!ANIsEmpty(self.eventHandler))
         {
 
@@ -76,9 +76,9 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
 
 - (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
-    if (self.isLastAcitionDone)
+    if (self.isLastActionDone)
     {
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         [ZZGridActionStoredSettings shared].playHintWasShown = NO;
         if (completionBlock)
         {

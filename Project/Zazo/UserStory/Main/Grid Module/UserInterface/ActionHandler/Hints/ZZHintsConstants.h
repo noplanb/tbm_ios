@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, ZZHintsType)
     ZZHintsTypeFrontCameraUsageHint,
     ZZHintsTypeAbortRecordingUsageHint,
     ZZHintsTypeDeleteFriendUsageHint,
+    ZZHintsTypeFullscreenUsageHint,
+    ZZHintsTypePlaybackControlsUsageHint,
     ZZHintsTypeEarpieceUsageHint,
     ZZHintsTypeSpinUsageHint,
     ZZHintsTypeGiftIsWaiting,

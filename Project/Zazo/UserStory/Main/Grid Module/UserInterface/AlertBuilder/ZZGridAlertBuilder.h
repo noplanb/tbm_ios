@@ -10,7 +10,6 @@
 
 @interface ZZGridAlertBuilder : NSObject
 
-//+ (void)showOneTouchRecordViewHint;
 + (void)showCannotSendSmsErrorToUser:(NSString *)username completion:(ANCodeBlock)completion;
 
 + (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(void (^)(ZZInviteType inviteType))completion;
@@ -33,5 +32,4 @@
         actionButtonTitlte:(NSString *)actionButtonTitle
                     action:(ANCodeBlock)completion;
 
-- (void)showCantSendSmsErrorOldStyleToUser:(NSString *)userName completion:(ANCodeBlock)completion;
 @end

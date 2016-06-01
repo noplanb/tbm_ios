@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) ZZBaseEventHandler *eventHandler;
 @property (nonatomic, weak) id <ZZEventHandlerDelegate> delegate;
-@property (nonatomic, assign) BOOL isLastAcitionDone;
+@property (nonatomic, assign) BOOL isLastActionDone;
 @property (nonatomic, strong) ZZFriendDomainModel *hintModel;
 
 - (void)handleEvent:(ZZGridActionEventType)event

@@ -44,16 +44,19 @@ withCompletionBlock:(void (^)(BOOL isFeatureShowed))completionBlock;
 {
     if (event == ZZGridActionEventTypeMessageDidSent)
     {
-        self.strategy.isFeatureShowed = NO;
+        self.strategy.featureUnlocked = NO;
+        
         [self _handleBothCameraFeatureWithViewModel:model withIndex:index];
         [self _handleAbortRecordingWithDragWithViewModel:model withIndex:index];
         [self _handleDeleteFriendWithViewModel:model withIndex:index];
+        [self _handleFullscreenWithViewModel:model withIndex:index];
+        [self _handlePlaybackControlsWithViewModel:model withIndex:index];
         [self _handleEventEarpieceWithViewModel:model withIndex:index];
         [self _handelSpinWheelEventWithModel:model withIndex:index];
 
         if (completionBlock)
         {
-            completionBlock(self.strategy.isFeatureShowed);
+            completionBlock(self.strategy.featureUnlocked);
         }
     }
 }
@@ -117,6 +120,38 @@ withCompletionBlock:(void (^)(BOOL isFeatureShowed))completionBlock;
         if (isFeatureEnabled)
         {
             [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeEarpiece withIndex:index friendModel:model];
+        }
+        else
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
+        }
+    }];
+}
+
+#pragma mark - Fullscreen event
+
+- (void)_handleFullscreenWithViewModel:(ZZFriendDomainModel *)model withIndex:(NSInteger)index
+{
+    [self.strategy handleFullscreenFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+        if (isFeatureEnabled)
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypeFullscreen withIndex:index friendModel:model];
+        }
+        else
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionEventTypeNone withIndex:index friendModel:model];
+        }
+    }];
+}
+
+#pragma mark - Playback controls event
+
+- (void)_handlePlaybackControlsWithViewModel:(ZZFriendDomainModel *)model withIndex:(NSInteger)index
+{
+    [self.strategy handlePlaybackControlsFeatureWithModel:model withCompletionBlock:^(BOOL isFeatureEnabled) {
+        if (isFeatureEnabled)
+        {
+            [self.delegate handleUnlockFeatureWithType:ZZGridActionFeatureTypePlaybackControls withIndex:index friendModel:model];
         }
         else
         {

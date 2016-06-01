@@ -13,7 +13,7 @@
 
 - (void)handleBothCameraFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock
 {
-    //TODO: make assert this is base class!
+    NSLog(@"base class");
 }
 
 - (void)handleAbortRecordingFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock
@@ -22,6 +22,16 @@
 }
 
 - (void)handleDeleteFriendFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL isFeatureEnabled))completionBlock
+{
+    NSLog(@"base class");
+}
+
+- (void)handleFullscreenFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
+{
+    NSLog(@"base class");
+}
+
+- (void)handlePlaybackControlsFeatureWithModel:(ZZFriendDomainModel *)model withCompletionBlock:(void (^)(BOOL))completionBlock
 {
     NSLog(@"base class");
 }
@@ -36,24 +46,29 @@
     NSLog(@"base class");
 }
 
-- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)viewModel beforeUnlockFeatureSentCount:(NSInteger)sentCount
+- (BOOL)isFeatureEnabledWithModel:(ZZFriendDomainModel *)viewModel beforeUnlockFeatureSentCount:(NSInteger)minimalMessageCount
 {
     if (viewModel.isCreator)
     {
         return NO; // don't count this event if creator are not we
     }
     
+    BOOL featureUnlocked = NO;
+    
     EverSentHelper *helper = [EverSentHelper sharedInstance];
 
-    if (![helper isEverSentToFriend:viewModel.mKey] &&
-         helper.everSentCount < sentCount)
-    {
-        self.isFeatureShowed = YES;
-    }
-
+    BOOL isNewFriend = [helper isEverSentToFriend:viewModel.mKey];
+    
     [helper addToEverSent:viewModel.mKey];
     
-    return self.isFeatureShowed;
+    if (!isNewFriend && helper.everSentCount >= minimalMessageCount) // we have sended messages enough to unlock this feature
+    {
+        self.featureUnlocked = YES;
+        featureUnlocked = YES;
+    }
+
+    
+    return featureUnlocked;
 }
 
 @end

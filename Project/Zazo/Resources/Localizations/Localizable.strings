@@ -129,6 +129,8 @@
 "feature-alerts.use-both-cameras" = "Use both cameras!";
 "feature-alerts.abort-recording" = "Abort a recording!";
 "feature-alerts.delete-friend" = "Delete a friend!";
+"feature-alerts.fullscreen" = "Play full screen!";
+"feature-alerts.playback-controls" = "Fast Forward, Rewind!";
 "feature-alerts.listen-from-earpiece" = "Listen from earpiece!";
 "feature-alerts.spin-your-friends" = "Spin your friends!";
 

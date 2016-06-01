@@ -20,7 +20,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
             [self.delegate friendsNumberOnGrid] == 0)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
 
         if (completionBlock)
         {
@@ -31,7 +31,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else if (event == ZZGridActionEventTypeDontHaveFriends)// && ![ZZGridActionStoredSettings shared].inviteHintWasShown)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = YES;
-        self.isLastAcitionDone = YES;
+        self.isLastActionDone = YES;
 
         if (completionBlock)
         {
@@ -41,7 +41,7 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     else
     {
         self.hintModel = nil;
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         if (!ANIsEmpty(self.eventHandler))
         {
             [super nextHandlerHandleEvent:event model:model withCompletionBlock:completionBlock];
@@ -58,10 +58,10 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
 
 - (void)handleResetLastActionWithCompletionBlock:(void (^)(ZZGridActionEventType event, ZZFriendDomainModel *model))completionBlock
 {
-    if (self.isLastAcitionDone)
+    if (self.isLastActionDone)
     {
         [ZZGridActionStoredSettings shared].inviteHintWasShown = NO;
-        self.isLastAcitionDone = NO;
+        self.isLastActionDone = NO;
         if (completionBlock)
         {
             completionBlock(ZZGridActionEventTypeDontHaveFriends, self.hintModel);
