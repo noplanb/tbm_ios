@@ -9,6 +9,8 @@
 #import "ZZGridActionStoredSettings.h"
 #import "NSObject+ANUserDefaults.h"
 
+NSString * const ZZFeatureUnlockedNotificationName = @"ZZFeatureUnlockedNotificationName";
+
 static NSString *const kZZHintsDidStartPlayKey = @"kZZHintsDidStartPlayKey";
 static NSString *const kZZHintsDidStartRecordKey = @"kZZHintsDidStartRecordKey";
 static NSString *const kInviteHintDidShowKey = @"kInviteHintDidShowKey";
@@ -247,9 +249,15 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kAbortRecordFeatureEnabledKey] boolValue];
 }
 
-- (void)setAbortRecordingFeatureEnabled:(BOOL)abortRecordingFeatureEnabled
+- (void)setAbortRecordingFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:abortRecordingFeatureEnabled forKey:kAbortRecordFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kAbortRecordFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+
 }
 
 - (BOOL)deleteFriendFeatureEnabled
@@ -257,9 +265,15 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kDeleteFriendFeatureEnabledKey] boolValue];
 }
 
-- (void)setDeleteFriendFeatureEnabled:(BOOL)deleteFriendFeatureEnabled
+- (void)setDeleteFriendFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:deleteFriendFeatureEnabled forKey:kDeleteFriendFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kDeleteFriendFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+
     
 }
 
@@ -268,9 +282,14 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kEarpieceFeatureEnabledKey] boolValue];
 }
 
-- (void)setEarpieceFeatureEnabled:(BOOL)earpieceFeatureEnabled
+- (void)setEarpieceFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:earpieceFeatureEnabled forKey:kEarpieceFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kEarpieceFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
     
 }
 
@@ -279,9 +298,15 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kFrontCameraFeatureEnabledKey] boolValue];
 }
 
-- (void)setSwitchCameraFeatureEnabled:(BOOL)switchCameraFeatureEnabled
+- (void)setSwitchCameraFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:switchCameraFeatureEnabled forKey:kFrontCameraFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kFrontCameraFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+
 }
 
 - (BOOL)carouselFeatureEnabled
@@ -289,9 +314,15 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kSpinFeatureEnabledKey] boolValue];
 }
 
-- (void)setCarouselFeatureEnabled:(BOOL)spinUsageUsageUsageHintDidShow
+- (void)setCarouselFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:spinUsageUsageUsageHintDidShow forKey:kSpinFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kSpinFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+
 }
 
 - (BOOL)playbackControlsFeatureEnabled
@@ -299,9 +330,15 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kPlaybackControlsFeatureEnabledKey] boolValue];
 }
 
-- (void)setPlaybackControlsFeatureEnabled:(BOOL)playbackControlsFeatureEnabled
+- (void)setPlaybackControlsFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:playbackControlsFeatureEnabled forKey:kPlaybackControlsFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kPlaybackControlsFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+
 }
 
 - (BOOL)fullscreenFeatureEnabled
@@ -309,9 +346,23 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     return [[NSObject an_objectForKey:kFullscreenFeatureEnabledKey] boolValue];
 }
 
-- (void)setFullscreenFeatureEnabled:(BOOL)fullscreenFeatureEnabled
+- (void)setFullscreenFeatureEnabled:(BOOL)flag
 {
-    [NSObject an_updateBool:fullscreenFeatureEnabled forKey:kFullscreenFeatureEnabledKey];
+    [NSObject an_updateBool:flag forKey:kFullscreenFeatureEnabledKey];
+    
+    if (flag)
+    {
+        [self _postFeatureUnlockedNotification];
+    }
+}
+
+#pragma mark Notifications
+
+- (void)_postFeatureUnlockedNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZZFeatureUnlockedNotificationName
+                                                        object:nil];
+
 }
 
 @end

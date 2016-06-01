@@ -10,7 +10,7 @@
 
 //TODO: make extern constants or incapsulate it here later
 
-static NSString *const kFriendIdDefaultKey = @"userIdDefaultKey";
+extern NSString * const ZZFeatureUnlockedNotificationName;
 
 @interface ZZGridActionStoredSettings : NSObject
 
@@ -42,7 +42,6 @@ static NSString *const kFriendIdDefaultKey = @"userIdDefaultKey";
 @property (nonatomic, assign) BOOL carouselFeatureEnabled;
 @property (nonatomic, assign) BOOL fullscreenFeatureEnabled;
 @property (nonatomic, assign) BOOL playbackControlsFeatureEnabled;
-
 
 + (instancetype)shared;
 

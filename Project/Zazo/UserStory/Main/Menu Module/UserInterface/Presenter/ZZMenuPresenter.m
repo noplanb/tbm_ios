@@ -26,7 +26,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editFriendsUnlockedNotification:)
-                                                 name:ZZDeleteFriendsFeatureUnlockedNotificationName
+                                                 name:ZZFeatureUnlockedNotificationName
                                                object:nil];
 }
 

@@ -8,8 +8,6 @@
 
 #import "ZZDeleteFriendsFeatureEventHandler.h"
 
-NSString *const ZZDeleteFriendsFeatureUnlockedNotificationName = @"ZZDeleteFriendsFeatureUnlockedNotificationName";
-
 @implementation ZZDeleteFriendsFeatureEventHandler
 
 - (void)handleEvent:(ZZGridActionEventType)event
@@ -19,8 +17,6 @@ withCompletionBlock:(void (^)(ZZHintsType type, ZZFriendDomainModel *model))comp
     if (event == ZZGridActionEventTypeDeleteFriendsFeatureUnlocked && ![ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
         [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = YES;
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:ZZDeleteFriendsFeatureUnlockedNotificationName object:nil];
 
         if (completionBlock)
         {
