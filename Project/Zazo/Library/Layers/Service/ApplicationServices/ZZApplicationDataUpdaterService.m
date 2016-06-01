@@ -93,15 +93,12 @@
 
     [[ZZRemoteStorageTransportService loadRemoteEverSentFriendsIDsForUserMkey:me.mkey] subscribeNext:^(id x) {
 
-        ANDispatchBlockToBackgroundQueue(^{
-
             [ZZFriendDataUpdater updateEverSentFriendsWithMkeys:x];
             
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDownloadedMkeys
                                                notificationObject:x];
-            
-            [[ZZSettingsManager sharedInstance] unlockFeaturesWithEverSentCount:[x count]];
-        });
+        
+            [[ZZSettingsManager sharedInstance] fetchSettingsIfNeeded];
     }];
 }
 

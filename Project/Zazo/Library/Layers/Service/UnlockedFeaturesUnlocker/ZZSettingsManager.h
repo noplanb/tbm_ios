@@ -16,28 +16,30 @@ extern NSString * const ZZSpinWheelFeatureName;
 extern NSString * const ZZFullscreenFeatureName;
 extern NSString * const ZZPlaybackControlsFeatureName;
 
+/**
+ *  Currently settings have only list of unlocked features
+ */
 @interface ZZSettingsManager : NSObject
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // Sorted as ZZGridActionFeatureType
 @property (nonatomic, strong, readonly) NSArray <NSString *> *unlockedFeatureNames;
 
 /**
- *  Old update way for compatibility. Works only once after installation. Next calls will be ignored.
+ *  Old update way for compatibility. Works only once after installation. Next calls are ignored.
  *
  *  @param count Count of friends with ever sent messages
  */
 - (void)unlockFeaturesWithEverSentCount:(NSUInteger)count;
 
 /**
- *  Actual way
- *
- *  @param names Names of features
+ *  Fetches remote user setting. It is needed only at the most first call after installation. Next calls are ignored.
  */
-- (void)unlockFeaturesWithNames:(NSArray <NSString *> *)names;
+- (void)fetchSettingsIfNeeded;
 
-- (void)fetchSettings;
+/**
+ *  Should be called after every settings change (e.g. after feature unlocking)
+ */
 - (void)pushSettings;
 
 @end

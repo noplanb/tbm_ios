@@ -20,6 +20,7 @@ NSString * const ZZFullscreenFeatureName = @"PLAY_FULLSCREEN";
 NSString * const ZZPlaybackControlsFeatureName = @"PAUSE_PLAYBACK";
 
 NSString * const ZZUnlockingWithEverSentDisabled = @"ZZUnlockingWithEverSentDisabled";
+NSString * const ZZSettingsFetched = @"ZZSettingsFetched";
 
 typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 {
@@ -33,11 +34,13 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 
 @interface ZZSettingsManager ()
 
-@property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForLegacyFeatureUnlocking; // old feature order
+@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // Sorted as ZZGridActionFeatureType
+@property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForLegacyFeatureUnlocking; // Old features list prior to 3.1.0
 @property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForFeatureUnlocking;
 
 @property (nonatomic, assign) BOOL unlockingWithEverSentDisabled;
 @property (nonatomic, assign) BOOL shouldPushSettingAfterFetching;
+@property (nonatomic, assign) BOOL settingsFetched;
 
 @end
 
@@ -67,16 +70,29 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     if (self) {
         _unlockingWithEverSentDisabled =
             [[NSUserDefaults standardUserDefaults] boolForKey:ZZUnlockingWithEverSentDisabled];
+        
+        _settingsFetched =
+            [[NSUserDefaults standardUserDefaults] boolForKey:ZZSettingsFetched];
     }
     return self;
 }
 
-- (void)setunlockingWithEverSentDisabled:(BOOL)unlockingWithEverSentDisabled
+- (void)setUnlockingWithEverSentDisabled:(BOOL)unlockingWithEverSentDisabled
 {
     _unlockingWithEverSentDisabled = unlockingWithEverSentDisabled;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:unlockingWithEverSentDisabled forKey:ZZUnlockingWithEverSentDisabled];
+    [defaults synchronize];
+}
+
+- (void)setSettingsFetched:(BOOL)settingsFetched
+{
+    _settingsFetched = settingsFetched;
     
-    [[NSUserDefaults standardUserDefaults] setBool:unlockingWithEverSentDisabled
-                                            forKey:ZZUnlockingWithEverSentDisabled];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:settingsFetched forKey:ZZSettingsFetched];
+    [defaults synchronize];
 }
 
 - (void)unlockFeaturesWithEverSentCount:(NSUInteger)count
@@ -85,6 +101,8 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     {
         return;
     }
+    
+    self.unlockingWithEverSentDisabled = YES;
     
     if (count > self.keyValuesForLegacyFeatureUnlocking.count)
     {
@@ -106,12 +124,10 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     {
         self.shouldPushSettingAfterFetching = YES; // We need to push after polling because some features were unlocked via EverSent count.
     }
-    
-    self.unlockingWithEverSentDisabled = YES;
 
 }
 
-- (void)unlockFeaturesWithNames:(NSArray<NSString *> *)names
+- (void)_unlockFeaturesWithNames:(NSArray<NSString *> *)names
 {
     for (NSString *name in names)
     {
@@ -167,14 +183,23 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     
     openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
     
-    [[ZZSettingsManager sharedInstance] unlockFeaturesWithNames:openedFeatures];
+    [self _unlockFeaturesWithNames:openedFeatures];
 }
 
-- (void)fetchSettings
+- (void)fetchSettingsIfNeeded
 {
+    BOOL needed = !self.settingsFetched;
+    
+    if (!needed)
+    {
+        return;
+    }
+    
     ZZUserDomainModel *currentUser = [ZZUserDataProvider authenticatedUser];
     
     [[ZZRemoteStorageTransportService loadSettingsForUserMKey:currentUser.mkey] subscribeNext:^(id x) {
+        
+        self.settingsFetched = YES;
         
         if ([x isKindOfClass:[NSDictionary class]])
         {
