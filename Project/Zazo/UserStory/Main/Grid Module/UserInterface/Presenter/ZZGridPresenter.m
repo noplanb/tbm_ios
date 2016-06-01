@@ -27,6 +27,7 @@
 #import "ZZGridDataProvider.h"
 #import "ZZMainWireframe.h"
 #import "ZZMainModuleInterface.h"
+#import "ZZSettingsManager.h"
 
 @interface ZZGridPresenter ()
         <
@@ -662,6 +663,8 @@
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
                 (isTwoCamerasAvailable && [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)];
     }
+    
+    [[ZZSettingsManager sharedInstance] pushSettings];
 }
 
 - (NSInteger)friendsCountOnGrid

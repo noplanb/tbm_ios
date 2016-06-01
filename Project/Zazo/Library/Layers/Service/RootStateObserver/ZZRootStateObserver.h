@@ -12,7 +12,6 @@ typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents)
     ZZRootStateObserverEventsUserAuthorized,
     ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded,
     ZZRootStateObserverEventDownloadedMkeys,
-    ZZRootStateObserverEventDownloadedSettings,
     ZZRootStateObserverEventFriendWasAddedToGridWithVideo,
     ZZRootStateObserverEventFriendInContactChangeStauts,
     ZZRootStateObserverEventResetAllLoaderTask

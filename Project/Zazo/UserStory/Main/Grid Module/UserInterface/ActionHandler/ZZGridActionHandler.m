@@ -130,7 +130,10 @@
 
     if ([self _isAbleToShowHints])
     {
-        [self.startEventHandler handleEvent:event model:friendModel withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
+        [self.startEventHandler handleEvent:event
+                                      model:friendModel
+                        withCompletionBlock:^(ZZHintsType type, ZZFriendDomainModel *model) {
+                            
             if (type != ZZHintsTypeNoHint)
             {
                 if (type == ZZHintsTypeInviteSomeElseHint)
@@ -139,11 +142,16 @@
                 }
 
 
-                [self _configureHintControllerWithHintType:type withModel:model index:actionIndex];
+                [self _configureHintControllerWithHintType:type
+                                                 withModel:model
+                                                     index:actionIndex];
             }
 
-
-            [self.featureEventObserver handleEvent:event withModel:model withIndex:actionIndex withCompletionBlock:^(BOOL isFeatureShowed) {
+            [self.featureEventObserver handleEvent:event
+                                         withModel:model
+                                         withIndex:actionIndex
+                               withCompletionBlock:^(BOOL isFeatureShowed) {
+                                   
                 if (!isFeatureShowed && type == ZZHintsTypeNoHint)
                 {
                     [self _showNextFeatureHintIfNeeded];
@@ -153,7 +161,9 @@
     }
 }
 
-- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType withModel:(ZZFriendDomainModel *)model index:(NSInteger)index
+- (void)_configureHintControllerWithHintType:(ZZHintsType)hintType
+                                   withModel:(ZZFriendDomainModel *)model
+                                       index:(NSInteger)index
 {
     NSString *formatParametr = model.fullName;
 
@@ -181,7 +191,9 @@
 {
     if (type == ZZHintsTypeSentHint)
     {
-        [self handleEvent:ZZGridActionEventTypeSentZazo withIndex:2 friendModel:nil];
+        [self handleEvent:ZZGridActionEventTypeSentZazo
+                withIndex:2
+              friendModel:nil];
     }
 
     else if (type == ZZHintsTypeInviteSomeElseHint)
@@ -206,7 +218,8 @@
 {
     if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
-        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView] completionBlock:^{
+        [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView]
+                                                         completionBlock:^{
 
         }];
     }
@@ -234,7 +247,9 @@
     [self _showNextFeatureHintIfNeeded];
 }
 
-- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type withIndex:(NSInteger)index friendModel:(ZZFriendDomainModel *)model
+- (void)handleUnlockFeatureWithType:(ZZGridActionFeatureType)type
+                          withIndex:(NSInteger)index
+                        friendModel:(ZZFriendDomainModel *)model
 {
     switch (type)
     {
@@ -291,6 +306,7 @@
         }
             break;
     }
+    
 }
 
 

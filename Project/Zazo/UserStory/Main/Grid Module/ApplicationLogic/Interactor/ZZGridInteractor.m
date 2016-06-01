@@ -24,7 +24,7 @@
 #import "ZZRootStateObserver.h"
 #import "ZZGridUpdateService.h"
 #import "ZZVideoDataProvider.h"
-#import "ZZRemoteUnlockedFeaturesUpdater.h"
+#import "ZZSettingsManager.h"
 
 
 static NSInteger const kGridFriendsCellCount = 8;
@@ -499,33 +499,6 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _updatedFeatureWithFriendMkeys:notificationObject];
         }
     }
-    else if (event == ZZRootStateObserverEventDownloadedSettings)
-    {
-        if (!ANIsEmpty(notificationObject))
-        {
-            [self _updateSettingWithDictionary:notificationObject];
-        }
-    }
-}
-
-- (void)_updateSettingWithDictionary:(NSDictionary *)settings
-{
-    if (![settings isKindOfClass:[NSDictionary class]])
-    {
-        return;
-    }
-    
-    NSArray *openedFeatures = settings[@"openedFeatures"];
-    
-    if (ANIsEmpty(openedFeatures))
-    {
-        return;
-    }
-    
-    openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
-    
-    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithNames:openedFeatures];
-    
 }
 
 - (void)_updatedFeatureWithFriendMkeys:(NSArray *)keys
@@ -543,7 +516,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
     }];
     
-    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithEverSentCount:keys.count];
+    [[ZZSettingsManager sharedInstance] unlockFeaturesWithEverSentCount:keys.count];
 
 }
 

@@ -16,7 +16,7 @@ extern NSString * const ZZSpinWheelFeatureName;
 extern NSString * const ZZFullscreenFeatureName;
 extern NSString * const ZZPlaybackControlsFeatureName;
 
-@interface ZZRemoteUnlockedFeaturesUpdater : NSObject
+@interface ZZSettingsManager : NSObject
 
 + (instancetype)sharedInstance;
 
@@ -36,5 +36,8 @@ extern NSString * const ZZPlaybackControlsFeatureName;
  *  @param names Names of features
  */
 - (void)unlockFeaturesWithNames:(NSArray <NSString *> *)names;
+
+- (void)fetchSettings;
+- (void)pushSettings;
 
 @end
