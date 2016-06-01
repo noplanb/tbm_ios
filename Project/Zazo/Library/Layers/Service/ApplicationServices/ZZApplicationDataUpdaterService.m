@@ -18,6 +18,7 @@
 #import "ZZVideoStatusHandler.h"
 #import "ZZRootStateObserver.h"
 #import "ZZFriendDataUpdater.h"
+#import "ZZRemoteUnlockedFeaturesUpdater.h"
 
 
 @implementation ZZApplicationDataUpdaterService
@@ -99,22 +100,38 @@
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDownloadedMkeys
                                                notificationObject:x];
             
-            [self _fetchRemoteSettings];
+            [self _pollRemoteSettings];
         });
     }];
 }
 
-- (void)_fetchRemoteSettings
+- (void)_pollRemoteSettings
 {
-    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
+    ZZUserDomainModel *currentUser = [ZZUserDataProvider authenticatedUser];
 
-    [[ZZRemoteStorageTransportService loadSettingsForUserMKey:me.mkey] subscribeNext:^(id x) {
+    [[ZZRemoteStorageTransportService loadSettingsForUserMKey:currentUser.mkey] subscribeNext:^(id x) {
         
         if ([x isKindOfClass:[NSDictionary class]])
         {
             [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventDownloadedSettings
                                                notificationObject:x];
+            
         }
+        
+        [self _pushRemoteSettings]; // pushing after polling becasue
+
+    }];
+}
+
+- (void)_pushRemoteSettings
+{
+    ZZUserDomainModel *currentUser = [ZZUserDataProvider authenticatedUser];
+
+    NSDictionary *settings = @{@"openedFeatures": [ZZRemoteUnlockedFeaturesUpdater sharedInstance].unlockedFeatureNames};
+    
+    [[ZZRemoteStorageTransportService updateRemoteSettings:settings
+                                               forUserMkey:currentUser.mkey] subscribeNext:^(id x) {
+        
     }];
 }
 

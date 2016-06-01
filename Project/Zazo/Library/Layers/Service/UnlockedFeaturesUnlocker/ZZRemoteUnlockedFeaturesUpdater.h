@@ -20,10 +20,21 @@ extern NSString * const ZZPlaybackControlsFeatureName;
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // sorted as ZZGridActionFeatureType
+@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // Sorted as ZZGridActionFeatureType
 @property (nonatomic, strong, readonly) NSArray <NSString *> *unlockedFeatureNames;
 
-- (void)unlockFeaturesWithMKeys:(NSArray <NSString *> *)keys; // old update way for compatibility
-- (void)unlockFeaturesWithNames:(NSArray <NSString *> *)names; // actual way
+/**
+ *  Old update way for compatibility. Works only once after installation. Next calls will be ignored.
+ *
+ *  @param count Count of friends with ever sent messages
+ */
+- (void)unlockFeaturesWithEverSentCount:(NSUInteger)count;
+
+/**
+ *  Actual way
+ *
+ *  @param names Names of features
+ */
+- (void)unlockFeaturesWithNames:(NSArray <NSString *> *)names;
 
 @end

@@ -86,6 +86,8 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = NO;
     [ZZGridActionStoredSettings shared].earpieceFeatureEnabled = NO;
     [ZZGridActionStoredSettings shared].carouselFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled = NO;
+    [ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled = NO;
 
     [[EverSentHelper sharedInstance] clear];
 }
@@ -98,6 +100,8 @@ static NSString *const kPlaybackControlsFeatureEnabledKey = @"kPlaybackControlsF
     [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled = isEnabled;
     [ZZGridActionStoredSettings shared].earpieceFeatureEnabled = isEnabled;
     [ZZGridActionStoredSettings shared].carouselFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled = isEnabled;
+    [ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled = isEnabled;
 }
 
 

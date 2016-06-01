@@ -17,6 +17,8 @@ NSString * const ZZSpinWheelFeatureName = @"CAROUSEL";
 NSString * const ZZFullscreenFeatureName = @"PLAY_FULLSCREEN";
 NSString * const ZZPlaybackControlsFeatureName = @"PAUSE_PLAYBACK";
 
+NSString * const ZZAlreadyUpdatedFeaturesFromEverSentCount = @"ZZAlreadyUpdatedFeaturesFromEverSentCount";
+
 typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 {
     ZZFeatureUnlockNone = 0,
@@ -31,6 +33,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 
 @property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForLegacyFeatureUnlocking; // old feature order
 @property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForFeatureUnlocking;
+@property (nonatomic, assign) BOOL alreadyUpdatedFeaturesFromEverSentCount;
 
 @end
 
@@ -54,10 +57,30 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     return instance;
 }
 
-- (void)unlockFeaturesWithMKeys:(NSArray <NSString *> *)keys
-{    
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _alreadyUpdatedFeaturesFromEverSentCount =
+            [[NSUserDefaults standardUserDefaults] boolForKey:ZZAlreadyUpdatedFeaturesFromEverSentCount];
+    }
+    return self;
+}
+
+- (void)setAlreadyUpdatedFeaturesFromEverSentCount:(BOOL)alreadyUpdatedFeaturesFromEverSentCount
+{
+    _alreadyUpdatedFeaturesFromEverSentCount = alreadyUpdatedFeaturesFromEverSentCount;
     
-    NSInteger count = keys.count;
+    [[NSUserDefaults standardUserDefaults] setBool:alreadyUpdatedFeaturesFromEverSentCount
+                                            forKey:ZZAlreadyUpdatedFeaturesFromEverSentCount];
+}
+
+- (void)unlockFeaturesWithEverSentCount:(NSUInteger)count
+{
+    if (self.alreadyUpdatedFeaturesFromEverSentCount)
+    {
+        return;
+    }
     
     if (count > self.keyValuesForFeatureUnlocking.count)
     {
@@ -74,6 +97,8 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     [unlockFeaturesKeys enumerateObjectsUsingBlock:^(NSString *_Nonnull propertyKey, NSUInteger idx, BOOL *_Nonnull stop) {
         [[ZZGridActionStoredSettings shared] setValue:@(YES) forKey:propertyKey];
     }];
+    
+    self.alreadyUpdatedFeaturesFromEverSentCount = YES;
 
 }
 

@@ -522,9 +522,10 @@ static NSInteger const kGridFriendsCellCount = 8;
         return;
     }
     
-    openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"lenght > 0"]];
+    openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
     
     [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithNames:openedFeatures];
+    
 }
 
 - (void)_updatedFeatureWithFriendMkeys:(NSArray *)keys
@@ -542,7 +543,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
     }];
     
-    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithMKeys:keys];
+    [[ZZRemoteUnlockedFeaturesUpdater sharedInstance] unlockFeaturesWithEverSentCount:keys.count];
 
 }
 
