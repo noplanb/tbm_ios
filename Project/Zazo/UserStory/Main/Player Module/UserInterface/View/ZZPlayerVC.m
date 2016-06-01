@@ -10,6 +10,7 @@
 #import "ZZPlayer.h"
 #import "ZZPlayerBackgroundView.h"
 #import "ZZTabbarView.h"
+#import "ZZGridActionStoredSettings.h"
 
 @interface ZZPlayerVC ()
 
@@ -119,6 +120,9 @@
         }];
         
         _segmentIndicator.delegate = self.eventHandler;
+        
+        RAC(_segmentIndicator, hidden) = RACObserve([ZZGridActionStoredSettings shared], playbackControlsFeatureEnabled).not;
+
     }
 }
 
@@ -161,7 +165,7 @@
     
     self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
+    
     [super viewDidLoad];
     
 }
@@ -255,7 +259,7 @@
     _playerController.showsPlaybackControls = NO;
     
     self.fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
-
+    RAC(self.fullscreenHelper, enabled) = RACObserve([ZZGridActionStoredSettings shared], fullscreenFeatureEnabled);
 }
 
 - (void)hidePlayerAnimated:(ANCodeBlock)completion

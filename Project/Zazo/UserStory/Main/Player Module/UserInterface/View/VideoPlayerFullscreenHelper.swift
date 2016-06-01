@@ -45,6 +45,13 @@ import UIKit
         return recognizer.state != .Possible
     }
     
+    var enabled = true
+    {
+        didSet {
+            recognizer.enabled = enabled
+        }
+    }
+    
     let view: UIView
     
     var initialFrame: CGRect {

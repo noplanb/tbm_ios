@@ -235,6 +235,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)didSwipeRight
 {
+    if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled)
+    {
+        return;
+    }
+
     NSTimeInterval playedSeconds = CMTimeGetSeconds(self.currentItem.currentTime);
     
     if (playedSeconds > 5)
@@ -261,6 +266,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)didSwipeLeft
 {
+    if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled)
+    {
+        return;
+    }
+    
     [self _playNextOrStop];
 }
 
