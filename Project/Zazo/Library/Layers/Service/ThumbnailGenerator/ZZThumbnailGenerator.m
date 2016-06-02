@@ -149,6 +149,7 @@
 + (BOOL)_generateThumbForVideo:(ZZVideoDomainModel *)video
 {
     ZZLogInfo(@"generateThumb vid: %@ for %@", video.videoID, video.relatedUserID);
+    
     if (![ZZFileHelper isFileValidWithFileURL:video.videoURL])
     {
         ZZLogInfo(@"generateThumb: vid: %@ !hasValidVideoFile", video.videoID);
@@ -158,20 +159,35 @@
     AVAsset *asset = [AVAsset assetWithURL:video.videoURL];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     imageGenerator.appliesPreferredTrackTransform = YES;
+    
     CMTime duration = asset.duration;
     CMTime timeFromEnd = CMTimeMake(1, 10); // 1/10 of a second
     CMTime thumbTime = CMTimeSubtract(duration, timeFromEnd);
     CMTime actual;
+    
     NSError *err = nil;
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime actualTime:&actual error:&err];
+    
+    imageGenerator.requestedTimeToleranceAfter = kCMTimeZero;
+    imageGenerator.requestedTimeToleranceBefore = kCMTimeZero;
+    
+    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime
+                                                 actualTime:&actual
+                                                      error:&err];
+    
     if (err != nil)
     {
         ZZLogError(@"generateThumb: %@", err);
         return NO;
     }
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
+    
+    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef
+                                             scale:1.0
+                                       orientation:UIImageOrientationUp];
+    
     CGImageRelease(imageRef);
+    
     [UIImagePNGRepresentation(thumbnail) writeToURL:[self thumbUrlForVideo:video] atomically:YES];
+    
     return YES;
 }
 
