@@ -207,7 +207,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (NSInteger)indexForViewModel:(ZZGridCellViewModel *)model
 {
-
     NSInteger index = NSNotFound;
 
     if ([model isKindOfClass:[ZZGridCellViewModel class]])
@@ -278,7 +277,18 @@ static NSInteger const kGridCenterCellIndex = 4;
                            viewModel:(ZZGridCellViewModel *)viewModel
                  withCompletionBlock:(ZZBoolBlock)completionBlock
 {
-    [self.delegate recordingStateUpdatedToState:isEnabled viewModel:viewModel withCompletionBlock:completionBlock];
+    [self.delegate recordingStateUpdatedToState:isEnabled
+                                      viewModel:viewModel
+                            withCompletionBlock:completionBlock];
+    
+    ZZFriendDomainModel *friendModel = viewModel.item.relatedUser;
+    
+    if (isEnabled || friendModel.hasApp)
+    {
+        return;
+    }
+    
+    [self nudgeSelectedWithUserModel:friendModel];
 }
 
 - (void)nudgeSelectedWithUserModel:(id)userModel

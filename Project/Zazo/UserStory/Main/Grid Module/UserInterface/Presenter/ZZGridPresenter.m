@@ -306,7 +306,7 @@
     {
         [self _showInvitationFormForModel:friendModel
                                   isNudge:NO
-                         invatationMethod:self.userSelectedInviteType];
+                         invitationMethod:self.userSelectedInviteType];
     }
 }
 
@@ -486,11 +486,8 @@
 
 - (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel *)userModel
 {
-    if (![[ZZVideoRecorder shared] isRecording])
-    {
-        [self.interactor updateLastActionForFriend:userModel];
-        [self _nudgeUser:userModel];
-    }
+    [self.interactor updateLastActionForFriend:userModel];
+    [self _nudgeUser:userModel];
 }
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
@@ -500,6 +497,7 @@
     ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
 
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
+    
     if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
     {
 
@@ -526,6 +524,7 @@
         else
         {
             ANDispatchBlockToMainQueue(^{
+                
                 // Don't rely on completion by videoRecorder to reset the view in case
                 // for some reason it does not complete.
                 [self.userInterface updateRecordViewStateTo:isEnabled];
@@ -537,6 +536,8 @@
                     }
                     completionBlock(isRecordingSuccess);
                 }];
+                
+                
 
             });
         }

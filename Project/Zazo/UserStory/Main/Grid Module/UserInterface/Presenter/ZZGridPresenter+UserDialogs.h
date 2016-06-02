@@ -27,6 +27,6 @@
 
 - (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel
                             isNudge:(BOOL)isNudge
-                   invatationMethod:(ZZInviteType)method;
+                   invitationMethod:(ZZInviteType)method;
 
 @end

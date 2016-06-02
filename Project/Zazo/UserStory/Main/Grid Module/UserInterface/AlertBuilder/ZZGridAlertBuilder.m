@@ -37,8 +37,6 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 + (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(void (^)(ZZInviteType inviteType))completion
 {
     NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, [self _appName]];
-
-//    [ZZAlertBuilder presentAlertWithTitle:@"Invite" details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
     
     UIAlertAction *smsAction =
     [UIAlertAction actionWithTitle:@"Invite via SMS"
@@ -96,51 +94,35 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
     [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"OK"];
 }
 
-+ (void)showPreNudgeAlertWithFriendFirstName:(NSString *)firstName completion:(ANCodeBlock)completion
++ (void)showPreNudgeAlertWithFriendFirstName:(NSString *)firstName completion:(void (^)(ZZInviteType inviteType))completion
 {
     firstName = [NSObject an_safeString:firstName];
+    
     NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@.\n Send them the link again.", firstName, [self _appName]];
     NSString *title = [NSString stringWithFormat:@"Nudge %@", firstName];
 
-    [ZZAlertBuilder presentAlertWithTitle:title details:msg cancelButtonTitle:@"Cancel" actionButtonTitle:@"Send" action:completion];
-}
+    UIAlertAction *smsAction =
+    [UIAlertAction actionWithTitle:@"Nudge via SMS"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               
+                               completion(ZZInviteTypeSMS);
+                           }];
+    
+    UIAlertAction *sharingAction =
+    [UIAlertAction actionWithTitle:@"Nudge via another app"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               completion(ZZInviteTypeSharing);
+                           }];
+    
+    
+    [ZZAlertBuilder presentAlertWithTitle:title
+                                  details:msg
+                        cancelButtonTitle:@"Cancel"
+                       cancelButtonAction:nil
+                                  actions:@[smsAction, sharingAction]];
 
-+ (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void (^)(ZZInviteType selectedType, NSString *text))aCompetion
-{
-//    __block ZZInviteType selectedType = ZZInviteTypeUnknown;
-//
-//    ZZAlertController *alert =
-//            [ZZAlertBuilder alertWithTitle:@"Send link"];
-//
-//    UITextView *textView = [UITextView new];
-//
-//    ANCodeBlock completion = ^{
-//        NSString *userText = textView.text;
-//
-//        aCompetion(selectedType, userText);
-//    };
-//
-//
-//    [alert addAction:smsAction];
-//    [alert addAction:sharingAction];
-//
-//    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
-//                                               style:UIAlertActionStyleCancel
-//                                             handler:nil]];
-//
-//    CGFloat textViewHeight = IS_IPHONE_4 ? 50 : 70;
-//
-//    textView.text = text;
-//    textView.frame = CGRectMake(0, 0, alert.visualStyle.width, textViewHeight);
-//    textView.font = alert.visualStyle.messageLabelFont;
-//
-//    [alert.contentView addSubview:textView];
-//
-//    ANDispatchBlockToMainQueue(^{
-//        [alert presentWithCompletion:^{
-//            [textView becomeFirstResponder];
-//        }];
-//    });
 }
 
 + (NSAttributedString *)_boldStringWithText:(NSString *)text

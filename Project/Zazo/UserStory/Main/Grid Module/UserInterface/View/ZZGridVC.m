@@ -260,8 +260,11 @@
 - (void)updateRecordViewStateTo:(BOOL)isRecording
 {
     NSInteger centerCellIndex = 4;
+    
     ZZGridCenterCell *centerCell = self.gridView.items[centerCellIndex];
+    
     [centerCell updateRecordStateTo:isRecording];
+    
 }
 
 #pragma mark ZZTabbarViewItem

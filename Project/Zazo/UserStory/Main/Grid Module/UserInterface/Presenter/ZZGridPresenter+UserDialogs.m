@@ -81,7 +81,7 @@
 
 - (void)_showInvitationFormForModel:(ZZFriendDomainModel *)friendModel
                             isNudge:(BOOL)isNudge
-                   invatationMethod:(ZZInviteType)method
+                   invitationMethod:(ZZInviteType)method
 {
     NSString *text = [self _defaultInvitationMessageForModel:friendModel];
 
@@ -166,9 +166,9 @@
 
 - (void)_nudgeUser:(ZZFriendDomainModel *)userModel
 {
-//    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^{
-//        [self _showInvitationFormForModel:userModel isNudge:YES];
-//    }];
+    [ZZGridAlertBuilder showPreNudgeAlertWithFriendFirstName:userModel.firstName completion:^(ZZInviteType inviteType) {
+        [self _showInvitationFormForModel:userModel isNudge:YES invitationMethod:inviteType];
+    }];
 }
 
 - (void)_showNoValidPhonesDialogFromModel:(ZZContactDomainModel *)model

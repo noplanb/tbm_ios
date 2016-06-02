@@ -22,9 +22,7 @@
 
 + (void)showHintalertWithMessage:(NSString *)message;
 
-+ (void)showPreNudgeAlertWithFriendFirstName:(NSString *)firstName completion:(ANCodeBlock)completion;
-
-+ (void)showInvitationMethodDialogWithText:(NSString *)text completion:(void (^)(ZZInviteType selectedType, NSString *text))competion;
++ (void)showPreNudgeAlertWithFriendFirstName:(NSString *)firstName completion:(void (^)(ZZInviteType inviteType))completion;
 
 + (void)showAlertWithTitle:(NSString *)title
                    message:(NSString *)message
