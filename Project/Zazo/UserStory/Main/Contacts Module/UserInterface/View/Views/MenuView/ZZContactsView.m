@@ -74,13 +74,40 @@ static CGFloat const kSearchBarHeight = 44;
         searchTextField.font = [UIFont zz_regularFontWithSize:18];
         searchTextField.layer.borderColor = [UIColor clearColor].CGColor;
         searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
-        searchTextField.leftView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(1.5, 1.5), -18, 0);
-
+        searchTextField.leftView.transform = CGAffineTransformMakeScale(1.5, 1.5);
+        
+        UIImageView *imageView = (id)searchTextField.leftView;
+        
+        imageView.image = [self addPaddingToImage:imageView.image]; // for task 1102
+        [imageView sizeToFit];
+        
         [_searchBar setImage:[UIImage imageNamed:@"clear-button"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
 
     }
     return _searchBar;
+}
+
+- (UIImage *)addPaddingToImage:(UIImage *)image
+{
+    // Setup a new context with the correct size
+    CGFloat width = image.size.width * 1.7;
+    CGFloat height = image.size.height;
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIGraphicsPushContext(context);
+    
+    // Now we can draw anything we want into this new context.
+    CGPoint origin = CGPointMake(0, 0);
+    
+    [image drawAtPoint:origin];
+    
+    // Clean up and get the new image.
+    UIGraphicsPopContext();
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
 }
 
 @end
