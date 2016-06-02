@@ -283,7 +283,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     
     ZZFriendDomainModel *friendModel = viewModel.item.relatedUser;
     
-    if (isEnabled || friendModel.hasApp)
+    if (isEnabled || friendModel.hasApp || !friendModel.everSent)
     {
         return;
     }
