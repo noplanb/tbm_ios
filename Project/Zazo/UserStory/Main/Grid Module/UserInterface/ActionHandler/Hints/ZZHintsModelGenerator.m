@@ -55,28 +55,39 @@
         case ZZHintsTypeEarpieceUsageHint:
             return [self _earpieceUsage];
             break;
-
+            
+        case ZZHintsTypeFullscreenUsageHint:
+            return [self _fullscreenHintModel];
+            break;
+            
         case ZZHintsTypeSpinUsageHint:
             return [self _spin];
             break;
+            
         case ZZHintsTypePlayHint:
             return [self _playHintModel];
             break;
+            
         case ZZHintsTypeViewedHint:
             return [self _viewedHint];
             break;
+            
         case ZZHintsTypeInviteSomeElseHint:
             return [self _inviteSomeoneElseHint];
             break;
+            
         case ZZHintsTypeRecrodWelcomeHint:
             return [self _recordWelocmeHint];
             break;
+            
         case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
             return [self _welcomeHintForUserWithoutApp];
             break;
+            
         case ZZHintsTypeRecordAndTapToPlay:
             return [self _recordAndTapToPlay];
             break;
+            
         default:
             break;
     }
@@ -163,6 +174,24 @@
     model.hidesArrow = NO;
     model.imageType = ZZHintsBottomImageTypeNone;
 
+    return model;
+}
+
++ (ZZHintsDomainModel *)_fullscreenHintModel
+{
+    ZZHintsDomainModel *model = [ZZHintsDomainModel new];
+
+    model.title = NSLocalizedString(@"hints.fullscreen.label.text", nil);
+    model.type = ZZHintsTypePlayHint;
+    model.hidesArrow = YES;
+
+    return model;
+}
+
++ (ZZHintsDomainModel *)_playbackControlsHintModel
+{
+    ZZHintsDomainModel *model = [ZZHintsDomainModel new];
+    
     return model;
 }
 

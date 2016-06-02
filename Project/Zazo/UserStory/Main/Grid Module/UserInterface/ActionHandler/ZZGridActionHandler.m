@@ -208,6 +208,8 @@
             type == ZZHintsTypeAbortRecordingUsageHint ||
             type == ZZHintsTypeDeleteFriendUsageHint ||
             type == ZZHintsTypeEarpieceUsageHint ||
+            type == ZZHintsTypeFullscreenUsageHint ||
+            type == ZZHintsTypePlaybackControlsUsageHint ||
             type == ZZHintsTypeSpinUsageHint) &&
             ![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
     {
