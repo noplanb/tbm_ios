@@ -76,7 +76,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-//    [self.eventHandler stopPlaying];
+    [self.eventHandler stopPlaying];
 }
 
 - (void)tabbarItemDidDisappear

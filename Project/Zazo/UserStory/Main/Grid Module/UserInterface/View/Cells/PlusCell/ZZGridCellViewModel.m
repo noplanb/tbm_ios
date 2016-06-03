@@ -275,7 +275,7 @@
                 }
             }];
         }
-        else if (recognizer.state == UIGestureRecognizerStateEnded)
+        else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
         {
             self.initialRecordPoint = CGPointZero;
             [self _stopVideoRecording];

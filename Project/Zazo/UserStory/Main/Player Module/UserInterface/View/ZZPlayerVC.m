@@ -72,18 +72,13 @@
         _dimView = [UIView new];
         
         _dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        _dimView.userInteractionEnabled = NO;
         
         [self.view addSubview:_dimView];
         
         [_dimView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, ZZTabbarViewHeight, 0));
         }];
-        
-        UITapGestureRecognizer *recognizer =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(_didTapToDimView)];
-        
-        [_dimView addGestureRecognizer:recognizer];
         
     }
     
