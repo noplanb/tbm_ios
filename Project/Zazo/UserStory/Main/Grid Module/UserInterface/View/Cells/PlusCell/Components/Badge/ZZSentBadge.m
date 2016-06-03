@@ -7,6 +7,7 @@
 //
 
 #import "ZZSentBadge.h"
+#import "UIView+ZZAdditions.h"
 
 @interface ZZSentBadge ()
 
@@ -56,51 +57,10 @@
     }               completion:^(BOOL finished) {
         if (state == ZZSentBadgeStateViewed)
         {
-            [self _blinkAnimatedTimes:3];
+            [self.imageView blinkAnimatedTimes:3];
         }
     }];
 }
-
-- (void)_blinkAnimatedTimes:(NSUInteger)times
-{
-    if (times == 0)
-    {
-        return;
-    }
-
-    [self _hideAnimated:^{
-        [self _showAnimated:^{
-            [self _blinkAnimatedTimes:times - 1];
-        }];
-    }];
-}
-
-- (void)_hideAnimated:(ANCodeBlock)completion
-{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options:0
-                     animations:^{
-                         self.imageView.alpha = 0;
-
-                     } completion:^(BOOL finished) {
-                completion();
-            }];
-}
-
-- (void)_showAnimated:(ANCodeBlock)completion
-{
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options:0
-                     animations:^{
-                         self.imageView.alpha = 1;
-
-                     } completion:^(BOOL finished) {
-                completion();
-            }];
-}
-
 
 - (NSString *)_imageFilenameForState:(ZZSentBadgeState)state
 {

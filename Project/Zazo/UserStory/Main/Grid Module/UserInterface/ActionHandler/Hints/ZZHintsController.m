@@ -15,7 +15,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZFriendDataHelper.h"
-
+#import "UIView+ZZAdditions.h"
 
 static CGFloat const kDelayBeforHintHidden = 3.5;
 
@@ -24,6 +24,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 @property (nonatomic, strong) ZZHintsView *hintsView;
 @property (nonatomic, assign) ZZHintsType showedHintType;
 
+@property (nonatomic, weak) PlaybackSegmentIndicator *indicator;
 
 @end
 
@@ -54,12 +55,43 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
         [self hideHintView];
     }
 
-
     ZZHintsDomainModel *model = [ZZHintsModelGenerator generateHintModelForType:type];
+    
+    if (model.type == ZZHintsTypePlaybackControlsUsageHint)
+    {
+        PlaybackSegmentIndicator *indicator = [PlaybackSegmentIndicator new];
+        indicator.segmentCount = 3;
+        indicator.segmentProgress = 0.5;
+        
+        [self.hintsView addSubview:indicator];
+        
+        [indicator mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.hintsView);
+            make.centerY.equalTo(self.hintsView.mas_bottom).offset(-60);
+            make.height.equalTo(@22);
+        }];
+        
+        [self.hintsView layoutIfNeeded];
+        
+        indicator.userInteractionEnabled = NO;
+        [indicator blinkAnimatedTimes:3];
+        
+        focusFrame = indicator.frame;
+        focusFrame.origin.y += 10;
+        focusFrame.size.height += 100;
+        
+        self.indicator = indicator;
+    }
+    else
+    {
+        [self.indicator removeFromSuperview];
+    }
+    
     if (!ANIsEmpty(parameter))
     {
         model.formatParameter = parameter;
     }
+    
     ZZHintsViewModel *viewModel = [ZZHintsViewModel viewModelWithItem:model];
 
     if (model.type == ZZHintsTypeDeleteFriendUsageHint)
@@ -75,7 +107,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     [viewModel updateFocusFrame:focusFrame];
 
     [self.hintsView updateWithHintsViewModel:viewModel andIndex:index];
-
+    
     [[self.delegate hintPresentedView] addSubview:self.hintsView];
     [self _removeViewAfterDelayIfNeededWithType:type];
 

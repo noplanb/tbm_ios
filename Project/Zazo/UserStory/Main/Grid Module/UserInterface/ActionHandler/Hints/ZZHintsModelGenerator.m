@@ -60,6 +60,10 @@
             return [self _fullscreenHintModel];
             break;
             
+        case ZZHintsTypePlaybackControlsUsageHint:
+            return [self _playbackControlsHintModel];
+            break;
+            
         case ZZHintsTypeSpinUsageHint:
             return [self _spin];
             break;
@@ -182,7 +186,7 @@
     ZZHintsDomainModel *model = [ZZHintsDomainModel new];
 
     model.title = NSLocalizedString(@"hints.fullscreen.label.text", nil);
-    model.type = ZZHintsTypePlayHint;
+    model.type = ZZHintsTypeFullscreenUsageHint;
     model.hidesArrow = YES;
 
     return model;
@@ -192,6 +196,10 @@
 {
     ZZHintsDomainModel *model = [ZZHintsDomainModel new];
     
+    model.title = NSLocalizedString(@"hints.fullscreen.label.text", nil);
+    model.type = ZZHintsTypePlaybackControlsUsageHint;
+    model.hidesArrow = YES;
+
     return model;
 }
 

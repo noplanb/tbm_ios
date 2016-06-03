@@ -9,4 +9,6 @@
 
 - (UIImage *)zz_renderToImage;
 
+- (void)blinkAnimatedTimes:(NSUInteger)times;
+
 @end

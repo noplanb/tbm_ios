@@ -100,6 +100,7 @@
 "hints.press-to-record.label.text" = "Press and hold to record";
 "hints.play-video.label.text" = "Tap to play";
 "hints.fullscreen.label.text" = "Drag up or down while playing to play full screen";
+"hints.controls.label.text" = "Slide ball while playing to fast forward and rewind";
 "hints.send-first-video.label.text" = "Zazo sent! Well done!";
 "hints.viewed-video.label.text" = "Your Zazo was Viewed!";
 "hints.invite-someone-else.label.text" = "A gift is waiting \nJust Zazo someone else!";
