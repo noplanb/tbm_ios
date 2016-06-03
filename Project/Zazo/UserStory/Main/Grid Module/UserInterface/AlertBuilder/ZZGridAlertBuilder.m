@@ -36,10 +36,10 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 
 + (void)showSendInvitationDialogForUser:(NSString *)firsName completion:(void (^)(ZZInviteType inviteType))completion
 {
-    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send them a link!", firsName, [self _appName]];
+    NSString *msg = [NSString stringWithFormat:@"%@ has not installed %@ yet. Send a link!", firsName, [self _appName]];
     
     UIAlertAction *smsAction =
-    [UIAlertAction actionWithTitle:@"Invite via SMS"
+    [UIAlertAction actionWithTitle:@"Via SMS"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
 
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
                            }];
 
     UIAlertAction *sharingAction =
-    [UIAlertAction actionWithTitle:@"Invite via another app"
+    [UIAlertAction actionWithTitle:@"Via another app"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
                               completion(ZZInviteTypeSharing);
@@ -98,11 +98,11 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 {
     firstName = [NSObject an_safeString:firstName];
     
-    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@.\n Send them the link again.", firstName, [self _appName]];
-    NSString *title = [NSString stringWithFormat:@"Nudge %@", firstName];
+    NSString *msg = [NSString stringWithFormat:@"%@ still hasn't installed %@.\n Send the link again.", firstName, [self _appName]];
+    NSString *title = [NSString stringWithFormat:@"Remind %@", firstName];
 
     UIAlertAction *smsAction =
-    [UIAlertAction actionWithTitle:@"Nudge via SMS"
+    [UIAlertAction actionWithTitle:@"Via SMS"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
                                
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
                            }];
     
     UIAlertAction *sharingAction =
-    [UIAlertAction actionWithTitle:@"Nudge via another app"
+    [UIAlertAction actionWithTitle:@"Via another app"
                              style:UIAlertActionStyleDefault
                            handler:^(UIAlertAction *action) {
                                completion(ZZInviteTypeSharing);

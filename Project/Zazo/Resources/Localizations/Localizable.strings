@@ -78,7 +78,6 @@
  *  Grid Controller
  */
 
-"grid-controller.nudge.title" = "NUDGE";
 "grid-controller.record.title" = "RECORD";
 "grid-controller.cell.record.title" = "Recording";
 "grid-controller.menu.edit-friends.button.title" = "Edit friends";
