@@ -99,17 +99,21 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)removeUserFromContacts:(ZZFriendDomainModel *)model
 {
     BOOL isContainedOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:model.idTbm];
+    
     if (isContainedOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+        
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:nil];
+        
         [self updateLastActionForFriend:model];
-        [self.output updateGridWithModel:gridModel isNewFriend:NO];
+        [self.output updateGridWithModel:gridModel animated:YES];
 
-        ZZFriendDomainModel *fillHoleOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider allFriendsModels]];
-        if (!ANIsEmpty(fillHoleOnGrid))
+        ZZFriendDomainModel *fillGapOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider allFriendsModels]];
+        
+        if (!ANIsEmpty(fillGapOnGrid))
         {
-            [self addUserToGrid:fillHoleOnGrid];
+            [self addUserToGrid:fillGapOnGrid];
         }
     }
 }
@@ -173,15 +177,17 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     if (isVisible)
     {
-        ZZGridDomainModel *model = [ZZGridDataProvider loadFirstEmptyGridElement];
-        if (ANIsEmpty(model))
+        ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
+        if (ANIsEmpty(gridModel))
         {
-            model = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+            gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
         }
 
-        model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
-        [self updateLastActionForFriend:model.relatedUser];
-        [self.output updateGridWithModel:model isNewFriend:NO];
+        gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+        
+        [self updateLastActionForFriend:gridModel.relatedUser];
+        [self.output updateGridWithModel:gridModel animated:YES];
     }
     else
     {
@@ -226,29 +232,84 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm];
 
+    ZZGridDomainModel *gridModel = nil;
+    ZZGridDomainModel *gridModelToSwap = nil;
+
     if (isUserAlreadyOnGrid)
     {
-        ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+        gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
         
-        if (isFromNotification)
-        {
-            [self.output updateGridWithModel:gridModel isNewFriend:NO];
-        }
+        gridModelToSwap = [self _swapCellWithMiddleCell:&gridModel];
+        
+//        if (!isFromNotification)
+//        {
+//            gridModel = nil; // no need to UI update
+//        }
     }
     else
     {
-        ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
         if (ANIsEmpty(gridModel))
         {
             gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+            gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+            gridModelToSwap = [self _swapCellWithMiddleCell:&gridModel];
         }
-
-        gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+        else
+        {
+            gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+        }
         
-        [self updateLastActionForFriend:gridModel.relatedUser];
-        [self.output updateGridWithModel:gridModel isNewFriend:YES];
+        [self updateLastActionForFriend:friendModel];
+        
     }
     
+    
+    // Update the UI
+    
+    if (gridModelToSwap)
+    {
+        [self.output updateGridWithModel:gridModelToSwap animated:YES];
+        [self.output updateGridWithModel:gridModel animated:NO];
+    }
+    else
+    {
+        [self.output updateGridWithModel:gridModel animated:YES];
+    }
+
+}
+
+- (ZZGridDomainModel *)_swapCellWithMiddleCell:(ZZGridDomainModel **)gridModelPointer
+{
+    // Swap them because [1082 Always add friend from contacts to grid position 1 when full grid]
+    
+    NSUInteger indexToReplace = [self.output indexOfBottomMiddleCell];
+    
+    ZZGridDomainModel *gridModelToSwap = nil;
+    ZZGridDomainModel *gridModel = *gridModelPointer;
+    
+    if (gridModel && gridModel.index != indexToReplace)
+    {
+        NSArray *allGridModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+        
+        gridModelToSwap = allGridModels[indexToReplace];
+        
+        [self _swapCell:&gridModel withCell:&gridModelToSwap];
+    }
+
+    *gridModelPointer = gridModel;
+    
+    return gridModelToSwap;
+}
+
+- (void)_swapCell:(ZZGridDomainModel **)firstDomainModel withCell:(ZZGridDomainModel **)secondDomainModel
+{
+    ZZFriendDomainModel *firstFriend = (* firstDomainModel).relatedUser;
+    ZZFriendDomainModel *secondFriend = (* secondDomainModel).relatedUser;
+    
+    *firstDomainModel = [ZZGridDataUpdater updateRelatedUserOnItemID:(* firstDomainModel).itemID toValue:secondFriend];
+    *secondDomainModel = [ZZGridDataUpdater updateRelatedUserOnItemID:(* secondDomainModel).itemID toValue:firstFriend];
 }
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel *)contactModel
@@ -257,8 +318,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
     if (!ANIsEmpty(contactModel.phones))
     {
-        if (ANIsEmpty(contactModel.primaryPhone) ||
-                (!ANIsEmpty(contactModel.primaryPhone) && contactModel.phones.count > 1))
+        if (ANIsEmpty(contactModel.primaryPhone) ||  (!ANIsEmpty(contactModel.primaryPhone) && contactModel.phones.count > 1))
         {
             [self.output userNeedsToPickPrimaryPhone:contactModel];
         }
@@ -483,7 +543,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateGridDataWithModels:(NSArray *)models
 {
     [models enumerateObjectsUsingBlock:^(ZZGridDomainModel *_Nonnull gridModel, NSUInteger idx, BOOL *_Nonnull stop) {
-        [self.output updateGridWithModel:gridModel isNewFriend:NO];
+        [self.output updateGridWithModel:gridModel animated:YES];
     }];
 }
 
