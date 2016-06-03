@@ -233,47 +233,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }];
 }
 
-- (void)didSwipeRight
-{
-    if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled)
-    {
-        return;
-    }
-
-    NSTimeInterval playedSeconds = CMTimeGetSeconds(self.currentItem.currentTime);
-    
-    if (playedSeconds > 5)
-    {
-        [self.currentItem seekToTime:kCMTimeZero];
-
-    }
-    else
-    {
-        BOOL isFirstVideo = self.currentVideoModel == self.allVideoModels.firstObject;
-    
-        if (!isFirstVideo)
-        {
-            NSUInteger currentVideoIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
-
-            [self _changeCurrentVideoToVideoWithIndex:currentVideoIndex - 1 completion:^{
-                [self _startPlayingIfPossible];
-            }];
-        }
-
-    }
-    
-}
-
-- (void)didSwipeLeft
-{
-    if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled)
-    {
-        return;
-    }
-    
-    [self _playNextOrStop];
-}
-
 #pragma mark - Public
 
 - (BOOL)isPlaying

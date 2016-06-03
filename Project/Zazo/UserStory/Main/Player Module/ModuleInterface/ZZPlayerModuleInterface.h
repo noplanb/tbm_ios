@@ -25,7 +25,5 @@
 
 - (void)didTapVideo;
 - (void)didTapBackground;
-- (void)didSwipeRight;
-- (void)didSwipeLeft;
 
 @end

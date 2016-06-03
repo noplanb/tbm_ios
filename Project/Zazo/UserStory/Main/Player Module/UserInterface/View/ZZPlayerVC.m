@@ -85,21 +85,6 @@
         
         [_dimView addGestureRecognizer:recognizer];
         
-        UISwipeGestureRecognizer *rightSwipeRecognizer =
-        [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(_didSwipeRight)];
-        
-        [_dimView addGestureRecognizer:rightSwipeRecognizer];
-        
-        UISwipeGestureRecognizer *leftSwipeRecognizer =
-        [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(_didSwipeLeft)];
-        
-        leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        
-        [_dimView addGestureRecognizer:leftSwipeRecognizer];
-        
-        
     }
     
     return _dimView;
@@ -286,17 +271,6 @@
 - (void)_didTapToDimView
 {
     [self.eventHandler didTapBackground];
-}
-
-
-- (void)_didSwipeRight
-{
-    [self.eventHandler didSwipeRight];
-}
-
-- (void)_didSwipeLeft
-{
-    [self.eventHandler didSwipeLeft];
 }
 
 @end
