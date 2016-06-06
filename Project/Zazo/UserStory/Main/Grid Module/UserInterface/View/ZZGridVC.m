@@ -54,7 +54,6 @@
 
 - (NSArray *)items
 {
-    [self.view layoutIfNeeded];
     return self.gridView.items;
 }
 
@@ -175,22 +174,42 @@
 {
     __block NSMutableArray *filledGridModels = [NSMutableArray new];
 
-    [[self items] enumerateObjectsUsingBlock:^(ZZGridCell *_Nonnull gridCell, NSUInteger idx, BOOL *_Nonnull stop) {
-        [self.controller.initalFrames enumerateObjectsUsingBlock:^(NSValue *_Nonnull rectValue, NSUInteger index, BOOL *_Nonnull stop) {
+    [self.items.copy enumerateObjectsUsingBlock:^(ZZGridCell *_Nonnull gridCell, NSUInteger idx, BOOL *_Nonnull stop) {
+        
+        [self.controller.initalFrames.copy enumerateObjectsUsingBlock:^(NSValue *_Nonnull rectValue, NSUInteger index, BOOL *_Nonnull stop) {
+            
             CGRect rect = [rectValue CGRectValue];
-            if (CGRectIntersectsRect(rect, gridCell.frame))
+            
+            if (!CGRectIntersectsRect(rect, gridCell.frame))
             {
-                if ([gridCell respondsToSelector:@selector(model)])
-                {
-                    id model = [gridCell model];
-                    if ([model isKindOfClass:[ZZGridCellViewModel class]])
-                    {
-                        ZZGridCellViewModel *cellModel = (ZZGridCellViewModel *)model;
-                        cellModel.item.index = kReverseIndexConvertation(index);
-                        [filledGridModels addObject:cellModel.item];
-                    }
-                }
+                return;
             }
+            
+            if (![gridCell respondsToSelector:@selector(model)])
+            {
+                return;
+            }
+            
+            id model = [gridCell model];
+            
+            if (![model isKindOfClass:[ZZGridCellViewModel class]])
+            {
+                return;
+            }
+            
+            ZZGridCellViewModel *cellModel = (ZZGridCellViewModel *)model;
+
+            ZZGridDomainModel *item = cellModel.item;
+            
+            if (!item)
+            {
+                return;
+            }
+            
+            item.index = kReverseIndexConvertation(index);
+            
+            [filledGridModels addObject:item];
+
         }];
     }];
 
