@@ -70,8 +70,14 @@
                           duration:0.65f
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         completion:^(BOOL finished) {
+                            
                             window.rootViewController = presentedController;
-                            completionBlock();
+                            
+                            if (completionBlock)
+                            {
+                                completionBlock();
+                            }
+                            
                         }];
     });
 
