@@ -7,6 +7,7 @@
 //
 
 #import "ZZStringUtils.h"
+#import "ANHelperFunctions.h"
 
 @implementation ZZStringUtils
 
@@ -14,7 +15,16 @@
 {
     NSString *jsonString;
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+    
+    NSData *jsonData = nil;
+    
+    if (!ANIsEmpty(dict))
+    {
+        jsonData = [NSJSONSerialization dataWithJSONObject:dict
+                                                   options:kNilOptions
+                                                     error:&error];
+    }    
+    
     if (!jsonData)
     {
         jsonString = @"";
@@ -29,10 +39,19 @@
 
 + (NSDictionary *)dictionaryWithJson:(NSString *)jsonString
 {
-    NSDictionary *try = [[NSDictionary alloc] init];
-    NSDictionary *result = [[NSDictionary alloc] init];
+    NSDictionary *try = [NSDictionary new];
+    NSDictionary *result = [NSDictionary new];
     NSError *error;
-    try = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+    
+    if (ANIsEmpty(jsonString))
+    {
+        return @{@"error" : @"JSON is empty"};
+    }
+    
+    try = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
+                                          options:kNilOptions
+                                            error:&error];
+    
     if (error)
     {
         result = @{@"error" : [error localizedDescription]};
