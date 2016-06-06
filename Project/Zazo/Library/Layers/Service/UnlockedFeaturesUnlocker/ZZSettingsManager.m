@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
         return;
     }
     
-    NSArray *unlockFeaturesKeys = [self.keyValuesForLegacyFeatureUnlocking subarrayWithRange:NSMakeRange(0, count - 1)];
+    NSArray *unlockFeaturesKeys = [self.keyValuesForLegacyFeatureUnlocking subarrayWithRange:NSMakeRange(0, count)];
     
     [unlockFeaturesKeys enumerateObjectsUsingBlock:^(NSString *_Nonnull propertyKey, NSUInteger idx, BOOL *_Nonnull stop) {
         [[ZZGridActionStoredSettings shared] setValue:@(YES) forKey:propertyKey];
