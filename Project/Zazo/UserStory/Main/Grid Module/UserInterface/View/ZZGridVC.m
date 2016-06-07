@@ -260,6 +260,8 @@
 
 - (CGRect)_frameForIndex:(NSInteger)index
 {
+    [self.controller updateInitialViewFramesIfNeeded];
+    
     UIView *cell = [self _cellAdapterWithDependsOnIndex:index];
     CGRect position = [cell convertRect:cell.bounds toView:self.view];
     return position;
