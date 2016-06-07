@@ -109,9 +109,11 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     ZZLogDebug(@"deactivate:");
     NSError *error = nil;
+    
     [self setActive:NO
         withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
               error:&error];
+    
     if (error != nil) ZZLogError(@"%@", error);
 }
 
@@ -141,17 +143,25 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     ZZLogDebug(@"playFromEar");
     NSError *error = nil;
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error];
-    if (error != nil) ZZLogError(@"%@", error);
+
+    [self setCategory:AVAudioSessionCategoryPlayAndRecord error:&error]; // Needed because of https://zazo.fogbugz.com/f/cases/1203
+
+    if (![session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:&error])
+    {
+        ZZLogError(@"%@", error);
+    }
 }
 
 - (void)_playFromSpeaker
 {
     ZZLogDebug(@"playFromSpeaker");
     NSError *error = nil;
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+
     if (error != nil)
     {
         ZZLogError(@"%@", error);
@@ -163,6 +173,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 - (void)_addObservers
 {
     // We do not allow external calls to enable or disable proximity sensor. There seems to be a bug with UIDeviceProximityStateDidChangeNotification. 3 out of 10 times or so the first time that the user changes the proximity after enabling proximity monitoring we do not receive the notification. The second change and later ones we always receive the notification. This is a annoying as it makes the hold to ear feature feel like it works only intermittently. The current solution is to always enable proximity. The implication is that even if user is not playing a video screen will dim when proximity sensor is covered. This is better than an feature that feels like it works intermittently.
+    
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
