@@ -121,7 +121,7 @@
     ANCodeBlock successBlock = ^{
         if (isNudge)
         {
-            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
+//            [self _handleSentWelcomeHintWithFriendDomainModel:friendModel];
         }
         else
         {

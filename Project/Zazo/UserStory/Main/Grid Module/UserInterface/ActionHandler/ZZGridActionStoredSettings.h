@@ -18,9 +18,9 @@ extern NSString * const ZZFeatureUnlockedNotificationName;
 
 #pragma mark - Hints
 
-@property (nonatomic, assign) BOOL inviteHintWasShown;
-@property (nonatomic, assign) BOOL playHintWasShown;
-@property (nonatomic, assign) BOOL recordHintWasShown;
+@property (nonatomic, assign) BOOL inviteHintWasShown; // case C2466
+@property (nonatomic, assign) BOOL playHintWasShown; // C2468, C2469, C2470, C2520
+@property (nonatomic, assign) BOOL recordHintWasShown; // C2472, C2473, C2474
 @property (nonatomic, assign) BOOL sentHintWasShown;
 @property (nonatomic, assign) BOOL viewedHintWasShown;
 @property (nonatomic, assign) BOOL inviteSomeoneHintWasShown;
