@@ -196,7 +196,10 @@
 #pragma mark Input
 
 - (void)setInitialPlayerFrame:(CGRect)initialPlayerFrame
-{    
+{
+    
+    initialPlayerFrame.origin.y -= [UIApplication sharedApplication].statusBarFrame.size.height - 20.0f; // Hack for in-call statusbar
+    
     _initialPlayerFrame = initialPlayerFrame;
 
     [self updateTextLabel];
