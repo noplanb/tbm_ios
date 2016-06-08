@@ -31,8 +31,6 @@
 
 - (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel *)friendModel;
 
-- (NSInteger)indexOfBottomMiddleCell;
-
 - (void)configureViewPositions;
 
 - (void)prepareForCameraSwitchAnimation;

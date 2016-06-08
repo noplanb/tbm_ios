@@ -59,7 +59,7 @@
 
 - (void)friendRecievedFromServer:(ZZFriendDomainModel *)model;
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model animated:(BOOL)animated;
+- (void)updateGridWithModel:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend;
 
 - (void)loadingStateUpdatedTo:(BOOL)isLoading;
 
@@ -80,8 +80,6 @@
 - (void)updateDownloadProgress:(CGFloat)progree forModel:(ZZFriendDomainModel *)friendModel;
 
 - (void)showAlreadyContainFriend:(ZZFriendDomainModel *)friendModel compeltion:(ANCodeBlock)completion;
-
-- (NSInteger)indexOfBottomMiddleCell;
 
 @end
 
