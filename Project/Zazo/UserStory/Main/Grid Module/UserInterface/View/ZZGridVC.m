@@ -216,6 +216,27 @@
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }
 
+- (NSInteger)indexOfBottomMiddleCell
+{
+    static NSArray <NSNumber *> *indexes;
+    
+    if (!indexes)
+    {
+        indexes = @[@1, @3, @5, @7, @6, @4, @0, @2];
+    }
+    
+    NSUInteger offset = lroundf(self.gridView.calculatedCellsOffset / (2 * M_PI / 8));
+    
+    NSUInteger maxIndex = 7;
+    
+    if (offset > maxIndex)
+    {
+        offset = 0;
+    }
+    
+    return indexes[offset].integerValue;
+}
+
 #pragma mark - GridView Event Delgate
 
 - (void)updateRollingStateTo:(BOOL)isEnabled
@@ -293,13 +314,6 @@
 - (UIImage *)tabbarViewItemImage
 {
     return [UIImage imageNamed:@"grid"];
-}
-
-#pragma mark ZZGridContainerViewDelegate
-
-- (void)gridContainerViewDidTapOnDimView:(ZZGridContainerView *)containerView
-{
-    [self.eventHandler didTapOnDimView];
 }
 
 @end

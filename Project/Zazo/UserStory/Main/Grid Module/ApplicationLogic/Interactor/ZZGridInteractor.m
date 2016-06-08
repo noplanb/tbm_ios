@@ -99,17 +99,21 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)removeUserFromContacts:(ZZFriendDomainModel *)model
 {
     BOOL isContainedOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:model.idTbm];
+    
     if (isContainedOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
+        
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:nil];
+        
         [self updateLastActionForFriend:model];
-        [self.output updateGridWithModel:gridModel isNewFriend:NO];
+        [self.output updateGridWithModel:gridModel animated:YES];
 
-        ZZFriendDomainModel *fillHoleOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider allFriendsModels]];
-        if (!ANIsEmpty(fillHoleOnGrid))
+        ZZFriendDomainModel *fillGapOnGrid = [self _loadFirstFriendFromMenu:[ZZFriendDataProvider allFriendsModels]];
+        
+        if (!ANIsEmpty(fillGapOnGrid))
         {
-            [self addUserToGrid:fillHoleOnGrid];
+            [self addUserToGrid:fillGapOnGrid];
         }
     }
 }
@@ -173,15 +177,17 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     if (isVisible)
     {
-        ZZGridDomainModel *model = [ZZGridDataProvider loadFirstEmptyGridElement];
-        if (ANIsEmpty(model))
+        ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
+        if (ANIsEmpty(gridModel))
         {
-            model = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+            gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
         }
 
-        model = [ZZGridDataUpdater updateRelatedUserOnItemID:model.itemID toValue:friendModel];
-        [self updateLastActionForFriend:model.relatedUser];
-        [self.output updateGridWithModel:model isNewFriend:NO];
+        gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+        
+        [self updateLastActionForFriend:gridModel.relatedUser];
+        [self.output updateGridWithModel:gridModel animated:YES];
     }
     else
     {
@@ -229,24 +235,55 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (isUserAlreadyOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+        gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+        [self.output updateGridWithModel:gridModel animated:YES];
         
-        if (isFromNotification)
-        {
-            [self.output updateGridWithModel:gridModel isNewFriend:NO];
-        }
     }
     else
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        ZZGridDomainModel *gridModelToSwap = nil;
+
         if (ANIsEmpty(gridModel))
         {
             gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
-        }
+            
+            NSUInteger indexToReplace = [self.output indexOfBottomMiddleCell];
 
-        gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+            if (gridModel.index != indexToReplace)
+            {
+                NSArray *allGridModels = [ZZGridDataProvider loadAllGridsSortByIndex:YES];
+                
+                gridModelToSwap = allGridModels[indexToReplace];
+                
+                ZZFriendDomainModel *friendToSwap = gridModelToSwap.relatedUser;
+                
+                gridModelToSwap = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModelToSwap.itemID toValue:friendModel];
+                gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendToSwap];
+            }
+            else
+            {
+                gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
+            }
+        }
+        else
+        {
+            NSLog(@"123");
+        }
         
-        [self updateLastActionForFriend:gridModel.relatedUser];
-        [self.output updateGridWithModel:gridModel isNewFriend:YES];
+        [self updateLastActionForFriend:friendModel];
+        
+        if (gridModelToSwap)
+        {
+            [self.output updateGridWithModel:gridModelToSwap animated:YES];
+            [self.output updateGridWithModel:gridModel animated:NO];
+        }
+        else
+        {
+            [self.output updateGridWithModel:gridModel animated:YES];
+        }
+        
+
     }
     
 }
@@ -257,8 +294,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 
     if (!ANIsEmpty(contactModel.phones))
     {
-        if (ANIsEmpty(contactModel.primaryPhone) ||
-                (!ANIsEmpty(contactModel.primaryPhone) && contactModel.phones.count > 1))
+        if (ANIsEmpty(contactModel.primaryPhone) ||  (!ANIsEmpty(contactModel.primaryPhone) && contactModel.phones.count > 1))
         {
             [self.output userNeedsToPickPrimaryPhone:contactModel];
         }
@@ -483,7 +519,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateGridDataWithModels:(NSArray *)models
 {
     [models enumerateObjectsUsingBlock:^(ZZGridDomainModel *_Nonnull gridModel, NSUInteger idx, BOOL *_Nonnull stop) {
-        [self.output updateGridWithModel:gridModel isNewFriend:NO];
+        [self.output updateGridWithModel:gridModel animated:YES];
     }];
 }
 

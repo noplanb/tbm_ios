@@ -163,18 +163,29 @@
     }
 }
 
-- (void)updateGridWithModel:(ZZGridDomainModel *)model isNewFriend:(BOOL)isNewFriend
+- (void)updateGridWithModel:(ZZGridDomainModel *)model animated:(BOOL)animated
 {
+    if (!model)
+    {
+        return;
+    }
+    
     if ([self _isAbleToUpdateWithModel:model])
     {
         model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
-        [self showFriendAnimationWithFriend:model.relatedUser];
+        
+        if (animated)
+        {
+            [self showFriendAnimationWithFriend:model.relatedUser];
+        }
+        
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendWasAddedToGridWithVideo
                                            notificationObject:nil];
 
         // Update first grid cell to let it show active icon
         ZZGridDomainModel *firstEmpty = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
         if (firstEmpty)
         {
             [self.dataSource updateCellWithModel:firstEmpty];
@@ -318,6 +329,11 @@
 - (NSInteger)indexOnGridViewForFriendModel:(ZZFriendDomainModel *)model
 {
     return [self.userInterface indexOfFriendModelOnGridView:model];
+}
+
+- (NSInteger)indexOfBottomMiddleCell
+{
+    return [self.userInterface indexOfBottomMiddleCell];;
 }
 
 #pragma mark - Module Interface

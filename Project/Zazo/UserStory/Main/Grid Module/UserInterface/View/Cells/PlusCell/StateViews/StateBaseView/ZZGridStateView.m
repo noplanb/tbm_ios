@@ -253,7 +253,7 @@
 
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = [NSValue valueWithCATransform3D:self.layer.mask.transform];
-        animation.duration = 1;
+        animation.duration = 0.5;
         return animation;
     }
 
