@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZZPlayerBackgroundView : UIView
+@interface ZZPlayerBackgroundView : UIControl
 
 @property (nonatomic, weak) UIView *presentingView;
 

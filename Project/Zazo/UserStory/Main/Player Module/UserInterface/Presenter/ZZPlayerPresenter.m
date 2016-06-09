@@ -134,7 +134,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     if (self.isPlayingVideo)
     {
         [self stop];
-        [self _setPlayerVisible:NO];
     }
     else
     {
@@ -198,11 +197,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         completion();
         
     }];
-}
-
-- (void)didTapBackground
-{
-    [self stop];
 }
 
 - (void)didStartDragging
@@ -363,6 +357,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)stop
 {
     [self _stopWithPlayChecking:YES];
+    [self _setPlayerVisible:NO];
+
 }
 
 - (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel

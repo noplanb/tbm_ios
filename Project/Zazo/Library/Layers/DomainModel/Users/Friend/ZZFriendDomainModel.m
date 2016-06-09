@@ -98,7 +98,7 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 }
 
 - (BOOL)hasDownloadedVideo
-{
+{    
     if (ANIsEmpty(self.videos))
     {
         return NO;

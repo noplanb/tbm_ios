@@ -24,6 +24,5 @@
 // UI events:
 
 - (void)didTapVideo;
-- (void)didTapBackground;
 
 @end

@@ -574,16 +574,30 @@
 
     if (state)
     {
-        [self.videoPlayer playVideoModels:model.playerVideoURLs];
+        if (self.videoPlayer.isPlayingVideo)
+        {
+            [self.videoPlayer stop];
+        }
+        else
+        {
+            [self.videoPlayer playVideoModels:model.playerVideoURLs];
+        }
     }
     else
     {
+        
         [self.videoPlayer stop];
     }
 }
 
 - (void)switchCamera
 {
+    if (self.videoPlayer.isPlayingVideo)
+    {
+        [self.videoPlayer stop];
+        return;
+    }
+    
     [self.userInterface prepareForCameraSwitchAnimation];
     [[ZZVideoRecorder shared] switchCamera:^{
         [self.userInterface showCameraSwitchAnimation];

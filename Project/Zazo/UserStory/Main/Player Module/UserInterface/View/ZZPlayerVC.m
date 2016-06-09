@@ -39,6 +39,7 @@
     [self _makeSegmentIndicator];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     self.contentView.presentingView = self.presentingViewController.view;
@@ -265,11 +266,5 @@
     }
 }
 
-#pragma mark UI events
-
-- (void)_didTapToDimView
-{
-    [self.eventHandler didTapBackground];
-}
 
 @end
