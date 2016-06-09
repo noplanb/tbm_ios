@@ -41,8 +41,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self _makeBaseView];
-
     self.contentView.presentingView = self.presentingViewController.view;
 }
 
@@ -205,6 +203,9 @@
     [self updateTextLabel];
 
     self.fullscreenHelper.initialFrame = initialPlayerFrame;
+    
+    [self _makeBaseView];
+
 }
 
 - (void)updatePlayerText:(NSString *)text

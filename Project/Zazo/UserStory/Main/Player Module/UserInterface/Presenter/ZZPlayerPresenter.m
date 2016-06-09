@@ -134,6 +134,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     if (self.isPlayingVideo)
     {
         [self stop];
+        [self _setPlayerVisible:NO];
     }
     else
     {
@@ -263,6 +264,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
+    [self _stopWithPlayChecking:YES];
+    
     self.dragging = NO;
     
     self.allVideoModels = [self _filterVideoModels:videoModels];
@@ -292,6 +295,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     self.isPlayingVideo = YES;
     
+    [self _setPlayerVisible:YES];
 }
 
 - (void)_startPlayingIfPossible
@@ -462,6 +466,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     else
     {
         [self _stopWithPlayChecking:NO];
+        [self _setPlayerVisible:NO];
     }
 }
 
@@ -540,12 +545,13 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)setIsPlayingVideo:(BOOL)isPlayingVideo
 {
     _isPlayingVideo = isPlayingVideo;
-    
+}
+
+- (void)_setPlayerVisible:(BOOL)playerVisible
+{
     [self.userInterface hidePlayerAnimated:^{
-        
-        self.wireframe.playerVisible = isPlayingVideo;
+        self.wireframe.playerVisible = playerVisible;
     }];
-    
 }
 
 @dynamic currentItem;
