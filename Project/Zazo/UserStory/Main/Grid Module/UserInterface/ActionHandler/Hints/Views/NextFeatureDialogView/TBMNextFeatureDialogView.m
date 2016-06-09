@@ -90,8 +90,8 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
     [self setNeedsLayout];
     [self layoutIfNeeded];
     CGFloat height = CGRectGetHeight(self.frame);
-    CGFloat correctDialogTop = CGRectGetMaxY(self.frame) - height;
-    CGFloat dialogTop = CGRectGetMaxY(self.frame);
+    CGFloat correctDialogTop = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat dialogTop = - height;
     self.frame = [self makeRectWithTop:dialogTop];
     self.alpha = 1;
 
@@ -113,7 +113,7 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
 
 - (void)hideAnimated
 {
-    CGFloat correctDialogTop = CGRectGetMaxY(self.frame);
+    CGFloat correctDialogTop = - self.frame.size.height;
 
     [UIView animateWithDuration:kNextFeatureAnimationDuration
                           delay:kNextFeatureDialogAnimationDelay
@@ -237,7 +237,7 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
     {
         _posibbleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
                 @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
-                @"Unlock a another feature!" : @"Just Zazo someone new.",
+                @"Unlock an another feature!" : @"Just Zazo someone new.",
                 @"Surprise feature waiting" : @"Zazo someone new to unlock.",
                 @"Unlock a secret feature!" : @"Just Zazo someone new.",
                 @"Unlock a surprise!" : @"Just Zazo someone new.",
