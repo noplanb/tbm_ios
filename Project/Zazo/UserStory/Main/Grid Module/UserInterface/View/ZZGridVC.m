@@ -176,65 +176,94 @@
 
     [self.items.copy enumerateObjectsUsingBlock:^(ZZGridCell *_Nonnull gridCell, NSUInteger idx, BOOL *_Nonnull stop) {
         
-        [self.controller.initalFrames.copy enumerateObjectsUsingBlock:^(NSValue *_Nonnull rectValue, NSUInteger index, BOOL *_Nonnull stop) {
-            
-            CGRect rect = [rectValue CGRectValue];
-            
-            if (!CGRectIntersectsRect(rect, gridCell.frame))
-            {
-                return;
-            }
-            
-            if (![gridCell respondsToSelector:@selector(model)])
-            {
-                return;
-            }
-            
-            id model = [gridCell model];
-            
-            if (![model isKindOfClass:[ZZGridCellViewModel class]])
-            {
-                return;
-            }
-            
-            ZZGridCellViewModel *cellModel = (ZZGridCellViewModel *)model;
+        NSUInteger index = [self _indexOfFrameForCell:gridCell];
+        
+        if (index == NSNotFound)
+        {
+            return;
+        }
+        
+        ZZGridDomainModel *gridModel = [self _gridModelfromCell:gridCell];
+        
+        if (!gridModel)
+        {
+            return;
+        }
+        
+        gridModel.index = index;
+        
+        [filledGridModels addObject:gridModel];
 
-            ZZGridDomainModel *item = cellModel.item;
-            
-            if (!item)
-            {
-                return;
-            }
-            
-            item.index = kReverseIndexConvertation(index);
-            
-            [filledGridModels addObject:item];
-
-        }];
     }];
 
     [self.eventHandler updatePositionForViewModels:filledGridModels];
 }
 
+- (NSUInteger)_indexOfFrameForCell:(ZZGridCell *)gridCell
+{
+    __block NSUInteger index = NSNotFound;
+    
+    [self.controller.initalFrames.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGRect rect = [obj CGRectValue];
+        
+        if (CGRectIntersectsRect(rect, gridCell.frame))
+        {
+            index = idx;
+            *stop = YES;
+        }
+        
+    }];
+    
+    if (index == NSNotFound)
+    {
+        return NSNotFound;
+    }
+    
+    return kReverseIndexConvertation(index);
+}
+
+- (ZZGridDomainModel *)_gridModelfromCell:(ZZGridCell *)gridCell
+{
+    if (![gridCell respondsToSelector:@selector(model)])
+    {
+        return nil;
+    }
+    
+    id model = [gridCell model];
+    
+    if (![model isKindOfClass:[ZZGridCellViewModel class]])
+    {
+        return nil;
+    }
+    
+    ZZGridCellViewModel *cellModel = (ZZGridCellViewModel *)model;
+    
+    ZZGridDomainModel *item = cellModel.item;
+    
+    if (!item)
+    {
+        return nil;
+    }
+    
+    return item;
+}
+
 - (NSInteger)indexOfBottomMiddleCell
 {
-    static NSArray <NSNumber *> *indexes;
+    __block NSUInteger result = NSNotFound;
+
+    [self.items.copy enumerateObjectsUsingBlock:^(ZZGridCell *_Nonnull gridCell, NSUInteger idx, BOOL *_Nonnull stop) {
+        
+        NSUInteger index = [self _indexOfFrameForCell:gridCell];
+        
+        if (index == 1) // position of bottom middle cell
+        {
+            result = [self _gridModelfromCell:gridCell].index;
+        }
+    }];
     
-    if (!indexes)
-    {
-        indexes = @[@1, @3, @5, @7, @6, @4, @0, @2];
-    }
-    
-    NSUInteger offset = lroundf(self.gridView.calculatedCellsOffset / (2 * M_PI / 8));
-    
-    NSUInteger maxIndex = 7;
-    
-    if (offset > maxIndex)
-    {
-        offset = 0;
-    }
-    
-    return indexes[offset].integerValue;
+    return result;
 }
 
 #pragma mark - GridView Event Delgate
