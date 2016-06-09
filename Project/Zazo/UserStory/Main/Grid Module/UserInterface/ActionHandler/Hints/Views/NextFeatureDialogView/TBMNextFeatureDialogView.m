@@ -237,7 +237,7 @@ static CGFloat const kNextFeatureAnimationDuration = 0.35f;
     {
         _posibbleHeaders = @{@"What is in the box?" : @"Find out. Just Zazo someone new.",
                 @"A gift is waiting!" : @"Find out. Just Zazo someone new.",
-                @"Unlock an another feature!" : @"Just Zazo someone new.",
+                @"Unlock another feature!" : @"Just Zazo someone new.",
                 @"Surprise feature waiting" : @"Zazo someone new to unlock.",
                 @"Unlock a secret feature!" : @"Just Zazo someone new.",
                 @"Unlock a surprise!" : @"Just Zazo someone new.",
