@@ -244,7 +244,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
         ZZGridDomainModel *gridModelToSwap = nil;
 
-        if (ANIsEmpty(gridModel))
+        if (ANIsEmpty(gridModel) && !isFromNotification)
         {
             gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
             
@@ -268,7 +268,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
-            NSLog(@"123");
+            gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
         }
         
         [self updateLastActionForFriend:friendModel];

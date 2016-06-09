@@ -327,7 +327,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
                                                                 friendMkey:self.currentFriendModel.mKey
                                                                 friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
     
-    
+    [self _updateFriendVideoStatus];
     
 }
 
@@ -487,14 +487,21 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self.userInterface updatePlaybackProgress:progress];
 }
 
-// temporary
-- (void)_updateFriendVideoStatusWithFriend:(ZZFriendDomainModel*)friendModel
-                                     video:(ZZVideoDomainModel*)videoModel
-                                videoIndex:(NSInteger)index
+- (void)_updateFriendVideoStatus
 {
-    NSInteger arrayBoundsIndex = 1;
+    ZZVideoDomainModel *videoModel = self.currentVideoModel;
+    ZZFriendDomainModel *friendModel = self.currentFriendModel;
     
-    if (index == (self.loadedVideoModels.count - arrayBoundsIndex) &&
+    NSInteger index = [self.allVideoModels indexOfObject:videoModel];
+    
+    if (index == NSNotFound)
+    {
+        return;
+    }
+    
+    BOOL isLastVideo = index == (self.allVideoModels.count - 1);
+    
+    if (isLastVideo &&
         friendModel.lastIncomingVideoStatus != videoModel.incomingStatusValue)
     {
         friendModel.lastIncomingVideoStatus = videoModel.incomingStatusValue;
