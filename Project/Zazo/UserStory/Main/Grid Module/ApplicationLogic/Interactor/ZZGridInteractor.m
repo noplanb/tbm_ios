@@ -234,7 +234,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm];
 
-    if (NO && isUserAlreadyOnGrid)
+    if (isUserAlreadyOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
