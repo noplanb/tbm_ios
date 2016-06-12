@@ -67,6 +67,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [self.output dataLoadedWithArray:[self _gridModels]];
     [self _configureFeatureObserver];
+    
+
 }
 
 - (void)reloadDataAfterResetUserData
@@ -232,7 +234,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm];
 
-    if (isUserAlreadyOnGrid)
+    if (NO && isUserAlreadyOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
@@ -268,6 +270,11 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
+            if (ANIsEmpty(gridModel))
+            {
+                gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+            }
+            
             gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
         }
         

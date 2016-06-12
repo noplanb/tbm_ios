@@ -89,7 +89,7 @@
     if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
     {
         [self.presentedView hideActiveBorder];
-//        self.userNameLabel.hidden = YES;
+
         [self.model updateVideoPlayingStateTo:YES];
     }
 }

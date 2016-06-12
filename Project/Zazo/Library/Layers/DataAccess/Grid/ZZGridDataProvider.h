@@ -16,8 +16,7 @@
 
 #pragma mark - Fetches
 
-+ (NSArray *)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
-//+ (ZZGridDomainModel*)modelWithIndex:(NSInteger)index;
++ (NSArray <ZZGridDomainModel *> *)loadAllGridsSortByIndex:(BOOL)shouldSortByIndex;
 
 + (ZZGridDomainModel *)modelWithRelatedUserID:(NSString *)userID;
 

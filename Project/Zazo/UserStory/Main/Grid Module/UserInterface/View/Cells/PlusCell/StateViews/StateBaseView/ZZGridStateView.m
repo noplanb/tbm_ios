@@ -253,7 +253,7 @@
 
         CABasicAnimation *animation = [CABasicAnimation animation];
         animation.fromValue = [NSValue valueWithCATransform3D:self.layer.mask.transform];
-        animation.duration = 0.5;
+        animation.duration = 0.8;
         return animation;
     }
 
@@ -271,6 +271,7 @@
     }
 
     UIImageView *backgroundView = [UIImageView new];
+    backgroundView.layer.shouldRasterize = YES;
     backgroundView.image = [UIImage imageNamed:@"pattern"];
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
@@ -301,6 +302,7 @@
     }];
     _backgroundView.hidden = YES;
     _backgroundView = backgroundView;
+    
     return _backgroundView;
 
 }
