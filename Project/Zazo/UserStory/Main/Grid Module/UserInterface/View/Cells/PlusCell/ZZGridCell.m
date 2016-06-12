@@ -25,7 +25,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 @property (nonatomic, strong) ZZGridCellViewModel *model;
 @property (nonatomic, strong) ZZAddContactButton *plusButton;
-@property (nonatomic, strong) UIGestureRecognizer *plusRecognizer;
 @property (nonatomic, strong) ZZGridStateView *stateView;
 @property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
 @property (nonatomic, strong) ZZFriendDomainModel *cellFriendModel;
@@ -172,7 +171,6 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)setStateView:(ZZGridStateView *)stateView
 {
-
     if (_stateView != stateView)
     {
         [_stateView removeFromSuperview];
@@ -191,17 +189,11 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)showContainFriendAnimation
 {
-    //TODO: implement
     [self.stateView showAppearAnimation];
 }
 
-- (void)_itemSelected
+- (void)_itemSelected:(id)r
 {
-//    if (self.model.hasActiveContactIcon)
-//    {
-//        [self _hidePlusButtonAnimated];
-//    }
-
     [self.model itemSelected];
 }
 
@@ -211,10 +203,17 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     {
         _plusButton = [ZZAddContactButton new];
 
-        [_plusButton addTarget:self
-                        action:@selector(_itemSelected)
-              forControlEvents:UIControlEventTouchUpInside];
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_itemSelected:)];
 
+        [_plusButton addGestureRecognizer:recognizer];
+        
+        UILongPressGestureRecognizer *longPressRecognizer =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(_itemSelected:)];
+        
+        longPressRecognizer.minimumPressDuration = 0.8;
+        [self addGestureRecognizer:longPressRecognizer];
+        
         [self addSubview:_plusButton];
         [self sendSubviewToBack:_plusButton];
 
@@ -227,7 +226,9 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_hidePlusButtonAnimated
 {
-    [self.plusButton setPlusViewHidden:YES animated:YES completion:nil];
+    [self.plusButton setPlusViewHidden:YES
+                              animated:YES
+                            completion:nil];
 }
 
 - (void)hideAllAnimations

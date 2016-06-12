@@ -19,6 +19,7 @@
 @property (nonatomic, strong) ZZGridView *gridView;
 @property (nonatomic, strong) ZZGridCollectionController *controller;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -48,6 +49,8 @@
         }] subscribeNext:^(id x) {
             [self.eventHandler hideHintIfNeeded];
         }];
+        
+        [self _makeTapRecognizer];
     }
     return self;
 }
@@ -343,6 +346,51 @@
 - (UIImage *)tabbarViewItemImage
 {
     return [UIImage imageNamed:@"grid"];
+}
+
+#pragma mark Tap recognizer
+
+- (void)_makeTapRecognizer
+{
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleTap:)];
+    [self.view addGestureRecognizer:self.tapRecognizer];
+    self.tapRecognizer.delegate = self;
+}
+
+/**
+ *  When the recognizer is enabled it intercept all taps, but passes long taps and other gestures.
+ *
+ *  @param recognizer
+ */
+- (void)_handleTap:(UITapGestureRecognizer *)recognizer
+{
+    [self.eventHandler stopPlaying];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return self.presentedViewController != nil;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+{
+    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+{
+    
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+{
+    return YES;
 }
 
 @end

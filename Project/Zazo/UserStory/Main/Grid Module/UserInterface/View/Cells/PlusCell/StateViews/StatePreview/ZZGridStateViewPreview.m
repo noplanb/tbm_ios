@@ -105,9 +105,11 @@
         _thumbnailImageView.backgroundColor = [ZZColorTheme shared].gridCellGrayColor;
         _thumbnailImageView.userInteractionEnabled = YES;
         _thumbnailImageView.clipsToBounds = YES;
+        
         UITapGestureRecognizer *tap =
                 [[UITapGestureRecognizer alloc] initWithTarget:self
                                                         action:@selector(_startVideo:)];
+        
         [_thumbnailImageView addGestureRecognizer:tap];
 
         [self insertSubview:_thumbnailImageView belowSubview:self.backGradientView];

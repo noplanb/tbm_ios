@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ZZAddContactButton : UIButton
+@interface ZZAddContactButton : UIView
 
 @property (nonatomic, assign) BOOL isActive;
 

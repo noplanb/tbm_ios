@@ -25,31 +25,15 @@
         [self addSubview:_imageView];
 
         self.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor;
-        self.adjustsImageWhenHighlighted = NO;
-        self.showsTouchWhenHighlighted = NO;
-        self.reversesTitleShadowWhenHighlighted = NO;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
 
         [self _makeLayout];
-        [self _makeLongTapRecognizer];
 
         _isActive = YES;
         self.isActive = NO;
     }
 
     return self;
-}
-
-- (void)_makeLongTapRecognizer
-{
-    UILongPressGestureRecognizer *longPressRecognizer =
-            [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                          action:@selector(_itemSelectedWithRecognizer:)];
-
-    longPressRecognizer.minimumPressDuration = 0.8;
-    [self addGestureRecognizer:longPressRecognizer];
-
 }
 
 - (void)_makeLayout
@@ -73,14 +57,6 @@
     }];
 
 
-}
-
-- (void)_itemSelectedWithRecognizer:(UILongPressGestureRecognizer *)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        [self sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
 }
 
 #pragma mark Setters & getters

@@ -20,8 +20,6 @@
 
 - (void)updatePositionForViewModels:(NSArray *)models;
 
-- (void)didTapOnDimView;
-
 - (CGRect)frameOfViewForFriendModelWithID:(NSString *)friendID; // return friend's view frame relative to parent window
 
 @end
