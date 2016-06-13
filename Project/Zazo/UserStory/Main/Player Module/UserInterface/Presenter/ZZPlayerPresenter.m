@@ -372,6 +372,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     if (![self.loadedVideoModels containsObject:lastVideoModel])
     {
         [self _loadModel:lastVideoModel];
+        
+        [self.userInterface updateVideoCount:self.loadedVideoModels.count];
     }
 }
 

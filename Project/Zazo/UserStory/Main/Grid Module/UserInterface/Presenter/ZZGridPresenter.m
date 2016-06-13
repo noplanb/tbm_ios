@@ -143,23 +143,22 @@
     [self.dataSource updateCellWithModel:model];
 }
 
-- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)model
+- (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)gridModel
 {
-    if ([self _isAbleToUpdateWithModel:model])
-    {
-        [self.dataSource updateCellWithModel:model];
+    [self.dataSource updateCellWithModel:gridModel];
 
-        if (model.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-                model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
-        {
-            CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
-            ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
-                if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
-                {
-                    [self.soundPlayer play];
-                }
-            });
-        }
+    [self _appendVideoIfNeeded:gridModel];
+        
+    if (gridModel.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
+            gridModel.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
+    {
+        CGFloat delayAfterDownloadAnimationCompleted = 1.6f;
+        ANDispatchBlockAfter(delayAfterDownloadAnimationCompleted, ^{
+            if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
+            {
+                [self.soundPlayer play];
+            }
+        });
     }
 }
 
@@ -200,19 +199,27 @@
 
 - (BOOL)_isAbleToUpdateWithModel:(ZZGridDomainModel *)model
 {
-    BOOL isAbleUpdte = YES;
-
     if ([[self.videoPlayer playedFriendModel].idTbm isEqualToString:model.relatedUser.idTbm])
     {
-        if (model.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
-        {
-            [self.videoPlayer appendLastVideoFromFriendModel:model.relatedUser];
-        }
-
-        isAbleUpdte = NO;
+        return NO;
     }
 
-    return isAbleUpdte;
+    return YES;
+}
+
+- (void)_appendVideoIfNeeded:(ZZGridDomainModel *)gridModel
+{
+    if (![[self.videoPlayer playedFriendModel].idTbm isEqualToString:gridModel.relatedUser.idTbm])
+    {
+        return;
+    }
+    
+    if (gridModel.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded)
+    {
+        return;
+    }
+    
+    [self.videoPlayer appendLastVideoFromFriendModel:gridModel.relatedUser];
 }
 
 #pragma mark - Output
