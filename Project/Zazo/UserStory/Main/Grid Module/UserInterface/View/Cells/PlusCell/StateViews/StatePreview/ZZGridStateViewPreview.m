@@ -75,7 +75,7 @@
 
         [UIView transitionWithView:self.thumbnailImageView
                           duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
+                           options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction
                         animations:^{
                             self.thumbnailImageView.image = thumbImage;
                         } completion:NULL];
