@@ -15,7 +15,7 @@
     NSString *appName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     
     NSString *badConnectionMessage =
-    [NSString stringWithFormat:@"Unable to reach %@ please check your Internet connection and try again.", [NSObject an_safeString:appName]];
+    [NSString stringWithFormat:@"Unable to reach %@. Please check your Internet connection and try again.", [NSObject an_safeString:appName]];
     
     NSString *title = @"Bad Connection";
     
