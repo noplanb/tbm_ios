@@ -168,7 +168,7 @@
     NSError *err = nil;
     
     imageGenerator.requestedTimeToleranceAfter = kCMTimeZero;
-    imageGenerator.requestedTimeToleranceBefore = kCMTimeZero;
+    imageGenerator.requestedTimeToleranceBefore = CMTimeMake(7, 10);
     
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime
                                                  actualTime:&actual
