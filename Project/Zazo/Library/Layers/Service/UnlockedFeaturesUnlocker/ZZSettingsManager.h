@@ -24,6 +24,7 @@ extern NSString * const ZZSpinWheelFeatureName;
 + (instancetype)sharedInstance;
 
 @property (nonatomic, strong, readonly) NSArray <NSString *> *unlockedFeatureNames;
+@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // Sorted as ZZGridActionFeatureType
 
 /**
  *  Old update way for compatibility. Works only once after installation. Next calls are ignored.

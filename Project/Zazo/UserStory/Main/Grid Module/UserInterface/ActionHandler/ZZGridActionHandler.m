@@ -28,6 +28,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZFullscreenFeatureEventHandler.h"
 #import "ZZPlaybackControlsFeatureEventHandler.h"
+#import "ZZSettingsManager.h"
 
 @interface ZZGridActionHandler ()
         <
@@ -221,7 +222,7 @@
 
 - (void)_showNextFeatureHintIfNeeded
 {
-    if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled)
+    if ([ZZSettingsManager sharedInstance].unlockedFeatureNames.count != [ZZSettingsManager sharedInstance].allFeatureNames.count)
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView]
                                                          completionBlock:^{

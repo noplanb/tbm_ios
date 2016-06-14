@@ -34,7 +34,6 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
 
 @interface ZZSettingsManager ()
 
-@property (nonatomic, strong, readonly) NSArray <NSString *> *allFeatureNames; // Sorted as ZZGridActionFeatureType
 @property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForLegacyFeatureUnlocking; // Old features list prior to 3.1.0
 @property (nonatomic, strong, readonly) NSArray <NSString *> *keyValuesForFeatureUnlocking;
 
