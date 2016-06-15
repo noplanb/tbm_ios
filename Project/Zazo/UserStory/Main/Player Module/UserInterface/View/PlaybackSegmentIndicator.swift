@@ -123,7 +123,10 @@ public class PlaybackSegmentIndicator: UIView
             }
         }
      
-        self.layoutIfNeeded()
+        UIView.animateWithDuration(0.5)
+        {
+            self.layoutIfNeeded()
+        }
     }
     
     override public func intrinsicContentSize() -> CGSize {

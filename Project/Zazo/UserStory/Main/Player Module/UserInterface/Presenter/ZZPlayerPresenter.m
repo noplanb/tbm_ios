@@ -373,7 +373,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     {
         [self _loadModel:lastVideoModel];
         
+        NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+        
         [self.userInterface updateVideoCount:self.loadedVideoModels.count];
+        [self.userInterface updateCurrentVideoIndex:currentSegmentIndex];
     }
 }
 
