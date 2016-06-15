@@ -173,7 +173,8 @@
     ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
     [[ZZNotificationTransportService sendVideoStatusUpdateNotificationTo:friendModel
                                                              videoItemID:videoID
-                                                                  status:status from:me] subscribeNext:^(id x) {
+                                                                  status:status
+                                                                    from:me] subscribeNext:^(id x) {
     }];
 }
 

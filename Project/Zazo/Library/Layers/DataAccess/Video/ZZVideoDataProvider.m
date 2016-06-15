@@ -16,8 +16,9 @@
 #import "TBMFriend.h"
 #import "ZZFriendDomainModel.h"
 
-@implementation ZZVideoDataProvider
+NSString * const ZZVideosDeletedNotification = @"ZZVideosDeletedNotification";
 
+@implementation ZZVideoDataProvider
 
 #pragma mark - Fetches
 

@@ -53,18 +53,27 @@
     });
 }
 
-+ (void)deleteAllViewedVideosWithFriendID:(NSString *)friendID
++ (void)deleteAllViewedVideosWithFriendID:(NSString *)friendID exceptVideoWithID:(NSString *)videoID
 {
     ZZLogInfo(@"deleteAllViewedVideos");
 
+    __block BOOL videosDeleted = NO;
+    
     NSArray *sortedVideos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:friendID];
 
     for (ZZVideoDomainModel *videoModel in sortedVideos)
     {
-        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed)
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed && ![videoModel.videoID isEqualToString:videoID])
         {
+            videosDeleted = YES;
             [self _deleteVideo:videoModel];
         }
+    }
+    
+    if (videosDeleted)
+    {
+        ZZLogInfo(@"Deletion completed");
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZZVideosDeletedNotification object:nil];
     }
 }
 
@@ -73,7 +82,8 @@
     ZZLogEvent(@"deleteAllFailedVideos");
     ANDispatchBlockToMainQueue(^{
 
-        NSArray <ZZVideoDomainModel *> *downloadingEntities = [ZZVideoDataProvider videosWithStatus:ZZVideoIncomingStatusFailedPermanently];
+        NSArray <ZZVideoDomainModel *> *downloadingEntities =
+            [ZZVideoDataProvider videosWithStatus:ZZVideoIncomingStatusFailedPermanently];
 
         [downloadingEntities enumerateObjectsUsingBlock:^(ZZVideoDomainModel *obj, NSUInteger idx, BOOL *stop) {
             [self _deleteVideo:obj];
@@ -136,12 +146,24 @@
     });
 }
 
-+ (void)_deleteVideoFileWithVideo:(ZZVideoDomainModel *)videoModel
++ (BOOL)_deleteVideoFileWithVideo:(ZZVideoDomainModel *)videoModel
 {
     ZZLogInfo(@"deleteVideoFile: %@", videoModel);
-    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     NSError *error = nil;
-    [fm removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideoModel:videoModel] error:&error];
+    
+    if([fileManager removeItemAtURL:[ZZVideoDataProvider videoUrlWithVideoModel:videoModel] error:&error])
+    {
+        return YES;
+    }
+    else
+    {
+        ZZLogWarning(@"Videofile deletion error: %@", error);
+        return NO;
+    }
+    
 }
 
 + (void)_deleteFilesForVideo:(ZZVideoDomainModel *)videoModel

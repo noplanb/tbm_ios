@@ -54,4 +54,20 @@
     }
 }
 
+- (NSArray *)zz_arrayWithoutObject:(id)obj
+{
+    NSInteger index = [self indexOfObject:obj];
+    
+    if (index == NSNotFound)
+    {
+        return self.copy;
+    }
+    
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.count)];
+    [indexSet removeIndex:index];
+    
+    return [self objectsAtIndexes:indexSet];
+
+}
+
 @end

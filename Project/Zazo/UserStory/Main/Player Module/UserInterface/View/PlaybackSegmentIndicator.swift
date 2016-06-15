@@ -43,6 +43,8 @@ public class PlaybackSegmentIndicator: UIView
             if let segment = segmentAtIndex(oldValue)
             {
                 segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
+                
+//                print("thumb cleared for \(currentSegment)")
             }
        
         }
@@ -60,6 +62,8 @@ public class PlaybackSegmentIndicator: UIView
             
             segment.value = segmentProgress
             
+//            print(segmentProgress)
+
             if (segmentProgressChangesToIgnore > 0)
             {
                 segmentProgressChangesToIgnore -= 1
@@ -71,6 +75,8 @@ public class PlaybackSegmentIndicator: UIView
                 {
                     let image = ZZBadgeIndicator.renderWithNumber(currentSegment + Int(1))
                     segment.setThumbImage(image, forState: .Normal)
+                    
+//                    print("thumb set for \(currentSegment)")
                 }
             }
 
@@ -123,7 +129,7 @@ public class PlaybackSegmentIndicator: UIView
             }
         }
      
-        UIView.animateWithDuration(0.5)
+        UIView.animateWithDuration(0.25)
         {
             self.layoutIfNeeded()
         }
@@ -231,11 +237,6 @@ public class PlaybackSegmentIndicator: UIView
     
     func segmentAtIndex(index: Int) -> UISlider?
     {
-        if stackView.arrangedSubviews.count < index
-        {
-            return nil
-        }
-        
         guard stackView.arrangedSubviews.count > index else
         {
             return nil

@@ -10,7 +10,6 @@
 #import "OBFileTransferManager.h"
 #import "ZZS3CredentialsDomainModel.h"
 #import "ZZRemoteStorageConstants.h"
-#import "ZZThumbnailGenerator.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZRemoteStorageTransportService.h"
 #import "ZZCommonNetworkTransportService.h"
@@ -379,13 +378,6 @@
 
     if (ANIsEmpty(error))
     {
-        BOOL validThumb = [ZZThumbnailGenerator generateThumbVideo:videoModel];
-
-        if (validThumb)
-        {
-            [ZZVideoDataUpdater deleteAllViewedVideosWithFriendID:friendId];
-        }
-
         [self.delegate setAndNotifyIncomingVideoStatus:ZZVideoIncomingStatusDownloaded friendId:friendId videoId:videoId];
 
         [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:videoId

@@ -25,6 +25,8 @@
 
 @interface ZZVideoStatusHandler : NSObject
 
+@property (nonatomic, strong) NSString *currentlyPlayedVideoID;
+
 + (instancetype)sharedInstance;
 
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;

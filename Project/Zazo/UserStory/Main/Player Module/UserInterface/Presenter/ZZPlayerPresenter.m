@@ -24,6 +24,8 @@
 #import "AVAudioSession+ZZAudioSession.h"
 #import "NSDate+ZZAdditions.h"
 #import "ZZPlayerWireframe.h"
+#import "ZZVideoStatusHandler.h"
+#import "NSArray+ANAdditions.h"
 
 static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
@@ -64,12 +66,12 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self = [super init];
     if (self)
     {
-        [self _addNotifications];
+        [self _addObservers];
     }
     return self;
 }
 
-- (void)_addNotifications
+- (void)_addObservers
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_didFinishPlayingItemNotification:)
@@ -81,7 +83,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_videosDeletedNotification)
+                                                 name:ZZVideosDeletedNotification
+                                               object:nil];
 }
 
 - (void)_makePlayer
@@ -321,6 +326,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
                                                                 friendMkey:self.currentFriendModel.mKey
                                                                 friendCKey:self.currentFriendModel.cKey] subscribeNext:^(id x) {}];
     
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = self.currentVideoModel.videoID;
+    
     [self _updateFriendVideoStatus];
     
 }
@@ -358,7 +365,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 {
     [self _stopWithPlayChecking:YES];
     [self _setPlayerVisible:NO];
-
 }
 
 - (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel
@@ -367,17 +373,25 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     NSArray *actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     
-    ZZVideoDomainModel *lastVideoModel = [actualVideos lastObject];
+    ZZVideoDomainModel *videoModel = [actualVideos lastObject];
     
-    if (![self.loadedVideoModels containsObject:lastVideoModel])
+    if (![self.loadedVideoModels containsObject:videoModel])
     {
-        [self _loadModel:lastVideoModel];
+        [self _loadModel:videoModel];
         
-        NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+        self.allVideoModels = [self.allVideoModels arrayByAddingObject:videoModel];
         
-        [self.userInterface updateVideoCount:self.loadedVideoModels.count];
-        [self.userInterface updateCurrentVideoIndex:currentSegmentIndex];
+        [self _updateSegments];
     }
+}
+
+- (void)_updateSegments
+{
+    NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
+    
+    [self.userInterface updateVideoCount:self.loadedVideoModels.count];
+    [self.userInterface updateCurrentVideoIndex:currentSegmentIndex];
+
 }
 
 - (ZZFriendDomainModel *)playedFriendModel
@@ -392,6 +406,97 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 }
 
 #pragma mark - Private
+
+- (void)_videosDeletedNotification
+{
+    if (!self.isPlayingVideo)
+    {
+        return;
+    }
+    
+    NSArray <ZZVideoDomainModel *> *availableVideos =
+        [ZZVideoDataProvider sortedIncomingVideosForUserWithID:self.currentFriendModel.idTbm];
+    
+    NSArray <NSString *> *availableVideoIDs = [availableVideos.rac_sequence map:^id(ZZVideoDomainModel *videoModel) {
+        return videoModel.videoID;
+    }].array;
+    
+    NSMutableArray <ZZVideoDomainModel *> *unavailableVideos = [NSMutableArray new];
+    
+    [self.allVideoModels enumerateObjectsUsingBlock:^(ZZVideoDomainModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (![availableVideoIDs containsObject:obj.videoID])
+        {
+            [unavailableVideos addObject:obj];
+        }
+        
+    }];
+    
+    if (!ANIsEmpty(unavailableVideos))
+    {
+        [self _videosUnavailable:unavailableVideos];
+    }
+}
+
+- (void)_videosUnavailable:(NSArray <ZZVideoDomainModel *> *)videoModels
+{
+//    NSMutableArray <ZZVideoDomainModel *> *videoModels = [self.allVideoModels mutableCopy];
+//    
+//    [videoModels removeObjectsInArray:videoModels];
+    
+    [self.player pause];
+    
+    [videoModels enumerateObjectsUsingBlock:^(ZZVideoDomainModel * _Nonnull videoModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self _unloadVideoModel:videoModel];
+    }];
+    
+    [self _updateSegments];
+    [self _startPlayingIfPossible];
+}
+
+- (void)_unloadVideoModel:(ZZVideoDomainModel *)videoModel
+{
+    NSInteger index = [self.loadedVideoModels indexOfObject:videoModel];
+    
+    if (index == NSNotFound)
+    {
+        return;
+    }
+ 
+    ZZLogInfo(@"index = %ld", (long)index);
+    
+    self.loadedVideoModels = [self.loadedVideoModels zz_arrayWithoutObject:videoModel];
+    self.allVideoModels = [self.allVideoModels zz_arrayWithoutObject:videoModel];
+    
+    AVPlayerItem *item = [self _itemForVideoModel:videoModel];
+    
+    if (!item)
+    {
+        return;
+    }
+    
+    [self.player removeItem:item];
+}
+
+- (AVPlayerItem *)_itemForVideoModel:(ZZVideoDomainModel *)videoModel
+{
+    if (!videoModel)
+    {
+        return nil;
+    }
+    
+    for (AVPlayerItem *item in self.player.items)
+    {
+        AVURLAsset *URLAsset = (id)item.asset;
+
+        if ([videoModel.videoURL.path isEqualToString:URLAsset.URL.path])
+        {
+            return item;
+        }
+    }
+
+    return nil;
+}
 
 - (void)_showDateForVideoModel:(ZZVideoDomainModel *)videoModel
 {
@@ -456,6 +561,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.currentFriendModel];
     
     self.currentFriendModel = nil;
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
 }
 
 - (void)_playNextOrStop

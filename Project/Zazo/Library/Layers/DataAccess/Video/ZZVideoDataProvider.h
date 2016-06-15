@@ -11,6 +11,8 @@
 
 @class ZZFriendDomainModel;
 
+extern NSString * const ZZVideosDeletedNotification;
+
 @interface ZZVideoDataProvider : NSObject
 
 + (ZZVideoDomainModel *)itemWithID:(NSString *)itemID;

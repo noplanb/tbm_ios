@@ -14,7 +14,7 @@
 
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count;
 
-+ (void)deleteAllViewedVideosWithFriendID:(NSString *)friendId;
++ (void)deleteAllViewedVideosWithFriendID:(NSString *)friendId exceptVideoWithID:(NSString *)videoID;
 
 + (void)deleteAllFailedVideos;
 

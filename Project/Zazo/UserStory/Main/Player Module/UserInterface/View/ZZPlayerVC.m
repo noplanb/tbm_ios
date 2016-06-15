@@ -101,6 +101,7 @@
         [self.view addSubview:_baseView];
         
         [self.view bringSubviewToFront:self.playerController.view];
+        [self.view bringSubviewToFront:self.segmentIndicator];
         
         _baseView.layer.cornerRadius = 4;
         _baseView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.75].CGColor;
