@@ -99,6 +99,7 @@
 - (void)updateRotatingEnabled:(BOOL)enabled
 {
     self.touchObserver.enabled = enabled;
+    self.tapRecognizer.enabled = !enabled;
 }
 
 #pragma mark VC Interface
@@ -360,6 +361,7 @@
     self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleTap:)];
     [self.view addGestureRecognizer:self.tapRecognizer];
     self.tapRecognizer.delegate = self;
+    self.tapRecognizer.enabled = NO;
 }
 
 /**
@@ -374,12 +376,12 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    return self.presentedViewController != nil;
+    return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 {
-    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
+    if ([otherGestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
     {
         return NO;
     }
@@ -387,14 +389,14 @@
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
-{
-    
-    return NO;
-}
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 {
+    
+    if ([otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+    {
+        return NO;
+    }
+    
     return YES;
 }
 
