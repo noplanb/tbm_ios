@@ -96,6 +96,11 @@
     [self updateStateToLoading:isLoading message:nil];
 }
 
+- (void)updateRotatingEnabled:(BOOL)enabled
+{
+    self.touchObserver.enabled = enabled;
+}
+
 #pragma mark VC Interface
 
 - (void)prepareForCameraSwitchAnimation

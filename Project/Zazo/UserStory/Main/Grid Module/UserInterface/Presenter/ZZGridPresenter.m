@@ -486,6 +486,7 @@
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
     
     [self.userInterface setBadgesHidden:YES forFriendModel:friendModel];
+    [self.userInterface updateRotatingEnabled:NO];
 }
 
 - (void)videoPlayerDidFinishPlayingWithModel:(ZZFriendDomainModel *)friendModel
@@ -493,6 +494,7 @@
     [self.interactor updateFriendAfterVideoStopped:friendModel];
     [self _handleRecordHintWithCellViewModel:friendModel];
     [self.userInterface setBadgesHidden:NO forFriendModel:friendModel];
+    [self.userInterface updateRotatingEnabled:YES];
 }
 
 #pragma mark - ZZGridDataSourceDelegate
