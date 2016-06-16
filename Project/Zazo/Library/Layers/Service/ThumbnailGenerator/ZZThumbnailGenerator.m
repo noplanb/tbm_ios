@@ -161,14 +161,14 @@
     imageGenerator.appliesPreferredTrackTransform = YES;
     
     CMTime duration = asset.duration;
-    CMTime timeFromEnd = CMTimeMake(3, 10); 
+    CMTime timeFromEnd = CMTimeMake(7, 10);
     CMTime thumbTime = CMTimeSubtract(duration, timeFromEnd);
     CMTime actual;
     
     NSError *err = nil;
     
-    imageGenerator.requestedTimeToleranceAfter = kCMTimeZero;
-    imageGenerator.requestedTimeToleranceBefore = CMTimeMake(7, 10);
+    imageGenerator.requestedTimeToleranceAfter = CMTimeMake(2, 10);
+    imageGenerator.requestedTimeToleranceBefore = CMTimeMake(2, 10);
     
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbTime
                                                  actualTime:&actual
