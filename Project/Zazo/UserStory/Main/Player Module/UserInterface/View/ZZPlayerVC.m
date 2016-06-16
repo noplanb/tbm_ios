@@ -179,15 +179,24 @@
 
 - (void)setInitialPlayerFrame:(CGRect)initialPlayerFrame
 {
+    [self.dimView layoutIfNeeded];
     
     initialPlayerFrame.origin.y -= [UIApplication sharedApplication].statusBarFrame.size.height - 20.0f; // Hack for in-call statusbar
+ 
+    CGFloat frameBottom = CGRectGetMaxY(initialPlayerFrame);
+    CGFloat containerBottom = CGRectGetMaxY(self.dimView.frame);
+    
+    if (frameBottom > containerBottom)
+    {
+        initialPlayerFrame.size.height -= frameBottom - containerBottom; // shrink it a bit to fit in the container
+    }
     
     _initialPlayerFrame = initialPlayerFrame;
 
     [self updateTextLabel];
 
     self.fullscreenHelper.initialFrame = initialPlayerFrame;
-    
+ 
     [self _makeBaseView];
 
 }
