@@ -185,6 +185,8 @@
         case ZZHintsTypePlayHint:
         case ZZHintsTypeInviteSomeElseHint:
         case ZZHintsTypeFrontCameraUsageHint:
+        case ZZHintsTypeFullscreenUsageHint:
+        case ZZHintsTypePlaybackControlsUsageHint:            
         case ZZHintsTypeSpinUsageHint:
         case ZZHintsTypeSendWelcomeHintForFriendWithoutApp:
         case ZZHintsTypeRecordAndTapToPlay:
