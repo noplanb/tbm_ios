@@ -15,6 +15,7 @@
 @interface ZZPlayerVC ()
 
 @property (nonatomic, strong) ZZPlayerBackgroundView *contentView;
+@property (nonatomic, strong) UIButton* tapButton;
 @property (nonatomic, strong, readonly) UIView *baseView;
 @property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, strong) UILabel *textLabel;
@@ -42,6 +43,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.contentView.presentingView = self.presentingViewController.view;
+}
+
+- (UIButton *)tapButton
+{
+    if (!_tapButton)
+    {
+        _tapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [_tapButton addTarget:self.eventHandler
+                       action:@selector(didTapVideo)
+             forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.playerController.view addSubview:_tapButton];
+        
+        [_tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.playerController.view);
+        }];
+    }
+    return _tapButton;
 }
 
 - (UIView *)dimView
@@ -229,9 +249,8 @@
     _playerController = playerController;
     
     [self.view addSubview:playerController.view];
+    [_playerController.view addSubview:self.tapButton];
     
-    _playerController.view.userInteractionEnabled = NO;
-
     _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
     _playerController.view.backgroundColor = [UIColor clearColor];
     _playerController.showsPlaybackControls = NO;
