@@ -350,7 +350,7 @@
     if (![[ZZVideoRecorder shared] isRecording])
     {
         [self.actionHandler hideHint];
-        [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+        self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabContacts;
     }
 }
 
@@ -696,12 +696,12 @@
 
 - (void)showMenuTab
 {
-    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabMenu];
+    self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabMenu;
 }
 
 - (void)showGridTab
 {
-    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
+    self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabGrid;
 }
 
 #pragma mark - Interactor Action Handler

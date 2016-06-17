@@ -409,16 +409,18 @@
 #pragma mark - IS ABLE SHOW HINTS
 
 - (BOOL)_isAbleToShowHints
-{
-    BOOL isAble = NO;
-
-    if (![[ZZVideoRecorder shared] isRecording] &&
-            ![self.delegate isVideoPlayingNow])
+{    
+    if ([[ZZVideoRecorder shared] isRecording])
     {
-        isAble = YES;
+        return NO;
     }
-
-    return isAble;
+    
+    if([self.delegate isVideoPlayingNow])
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)resetLastHintAndShowIfNeeded

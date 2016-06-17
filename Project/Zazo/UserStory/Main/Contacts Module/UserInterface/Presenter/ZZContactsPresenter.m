@@ -128,7 +128,7 @@
         }
         else
         {
-            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
+            self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabGrid;
         }
     }];
 }
@@ -137,7 +137,7 @@
 {
     ZZContactCellViewModel *model = (ZZContactCellViewModel *)item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
-    [self.wireframe.mainWireframe showTab:ZZMainWireframeTabGrid];
+    self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabGrid;
     [self.interactor enableUpdateContactData];
 }
 

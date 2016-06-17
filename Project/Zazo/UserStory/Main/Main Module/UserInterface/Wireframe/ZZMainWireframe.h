@@ -15,9 +15,9 @@ typedef enum : NSUInteger
 
 @interface ZZMainWireframe : NSObject
 
-- (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
+@property (nonatomic, assign) ZZMainWireframeTab activeTab;
 
-- (void)showTab:(ZZMainWireframeTab)tab;
+- (void)presentMainControllerFromWindow:(UIWindow *)window completion:(ANCodeBlock)completionBlock;
 
 - (void)presentSendFeedbackWithModel:(ANMessageDomainModel *)model;
 

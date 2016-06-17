@@ -25,7 +25,7 @@
 
 - (void)_applicationDidEnterBackgroundNotification
 {
-    [self.wireframe showTab:ZZMainWireframeTabGrid];
+    self.wireframe.activeTab = ZZMainWireframeTabGrid;
     [self.wireframe popToRootVC];
 }
 

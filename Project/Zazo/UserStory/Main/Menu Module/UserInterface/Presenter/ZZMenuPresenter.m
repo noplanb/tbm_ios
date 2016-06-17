@@ -115,10 +115,10 @@
     switch (type)
     {
         case ZZMenuItemTypeContacts:
-            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabContacts;
             break;
         case ZZMenuItemTypeInviteFriends:
-            [self.wireframe.mainWireframe showTab:ZZMainWireframeTabContacts];
+            self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabContacts;
             break;
 
         case ZZMenuItemTypeEditFriends:

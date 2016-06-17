@@ -87,9 +87,16 @@
     self.mainController = mainController;
 }
 
-- (void)showTab:(ZZMainWireframeTab)tab
+@dynamic activeTab;
+
+- (void)setActiveTab:(ZZMainWireframeTab)activeTab
 {
-    self.presenter.activePageIndex = tab;
+    self.presenter.activePageIndex = activeTab;
+}
+
+- (ZZMainWireframeTab)activeTab
+{
+    return self.presenter.activePageIndex;
 }
 
 - (void)presentEditFriendsController
