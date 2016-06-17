@@ -15,7 +15,6 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id <UIGestureRecognizerDelegate>)self;
 }
 
 - (void)viewDidLoad
