@@ -209,7 +209,7 @@
 {
     ANDispatchBlockToMainQueue(^{
         [[ZZTableModal shared] setupViewWithParentView:[UIApplication sharedApplication].windows.firstObject.rootViewController.view
-                                                 title:@"Choose phone number"
+                                                 title:@"Mobile Phone?"
                                                contact:user
                                               delegate:(id <TBMTableModalDelegate>)self];
         [[ZZTableModal shared] show];
