@@ -196,7 +196,7 @@
 {
     ZZHintsDomainModel *model = [ZZHintsDomainModel new];
     
-    model.title = NSLocalizedString(@"hints.fullscreen.label.text", nil);
+    model.title = NSLocalizedString(@"hints.controls.label.text", nil);
     model.type = ZZHintsTypePlaybackControlsUsageHint;
     model.hidesArrow = YES;
 
