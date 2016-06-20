@@ -96,5 +96,15 @@
     return [self.fullName hash];
 }
 
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString string];
+    [description appendFormat:@"self.fullName=%@", self.fullName];
+    [description appendFormat:@", self.phones=%@", self.phones];
+
+    return [NSString stringWithFormat:@"<%@: %@>", NSStringFromClass([self class]), description];
+
+}
+
 
 @end

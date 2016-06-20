@@ -17,6 +17,17 @@ const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
 
 @implementation ZZGridDomainModel
 
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"itemID=%@", self.itemID];
+    [description appendFormat:@", relatedUser=%@", self.relatedUser];
+    [description appendFormat:@", index=%i", self.index];
+    [description appendString:@">"];
+    return description;
+}
+
+
 - (NSInteger)indexPathIndexForItem
 {
     return kGridIndexFromFlowIndex(self.index);

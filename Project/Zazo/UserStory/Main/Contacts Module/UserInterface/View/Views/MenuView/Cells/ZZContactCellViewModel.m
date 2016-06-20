@@ -34,6 +34,15 @@ static UIImage *kImagePlaceholder = nil;
     return model;
 }
 
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"self.username=%@", self.username];
+    [description appendString:@">"];
+    return description;
+}
+
+
 - (instancetype)init
 {
     self = [super init];

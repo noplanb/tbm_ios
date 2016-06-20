@@ -135,7 +135,9 @@
 
 - (void)itemSelected:(id)item
 {
-    ZZContactCellViewModel *model = (ZZContactCellViewModel *)item;
+    ZZLogEvent(@"item selected: %@", item);
+    
+    ZZContactCellViewModel *model = item;
     [self.menuModuleDelegate userSelectedOnMenu:model.item];
     self.wireframe.mainWireframe.activeTab = ZZMainWireframeTabGrid;
     [self.interactor enableUpdateContactData];

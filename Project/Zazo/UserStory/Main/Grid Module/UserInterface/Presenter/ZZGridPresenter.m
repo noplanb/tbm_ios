@@ -615,6 +615,7 @@
     
     if ([ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm])
     {
+        ZZLogDebug(@"Friend already in grid: %@", user);
         [self.userInterface showFriendAnimationWithFriendModel:friendModel];
     }
     else

@@ -157,6 +157,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateLastActionForFriend:(ZZFriendDomainModel *)friendModel
 {
+    ZZLogDebug(@"updateLastActionForFriend: %@", friendModel);
+
     ANDispatchBlockToBackgroundQueue(^{
         [ZZFriendDataUpdater updateLastTimeActionFriendWithID:friendModel.idTbm];
     });
@@ -232,8 +234,14 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_addUserAsFriendToGrid:(ZZFriendDomainModel *)friendModel fromNotification:(BOOL)isFromNotification
 {
+    ZZLogEvent(@"add user: %@", friendModel);
+    
+    ZZLogDebug(@"from notification = %d", isFromNotification);
+    
     BOOL isUserAlreadyOnGrid = [ZZGridDataProvider isRelatedUserOnGridWithID:friendModel.idTbm];
 
+    ZZLogDebug(@"already on grid = %d", isUserAlreadyOnGrid);
+    
     if (isUserAlreadyOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
@@ -244,11 +252,16 @@ static NSInteger const kGridFriendsCellCount = 8;
     else
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider loadFirstEmptyGridElement];
+        
+        ZZLogDebug(@"first empty grid model: %@", gridModel);
+        
         ZZGridDomainModel *gridModelToSwap = nil;
 
         if (ANIsEmpty(gridModel) && !isFromNotification)
         {
             gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
+            
+            ZZLogDebug(@"no empty cell, use cell with earliest last action: %@", gridModel);
             
             NSUInteger indexToReplace = [self.output indexOfBottomMiddleCell];
 
@@ -258,6 +271,8 @@ static NSInteger const kGridFriendsCellCount = 8;
                 
                 gridModelToSwap = allGridModels[indexToReplace];
                 
+                ZZLogDebug(@"swapping with bottom middle friend: %@", gridModelToSwap);
+
                 ZZFriendDomainModel *friendToSwap = gridModelToSwap.relatedUser;
                 
                 gridModelToSwap = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModelToSwap.itemID toValue:friendModel];
@@ -265,11 +280,14 @@ static NSInteger const kGridFriendsCellCount = 8;
             }
             else
             {
+                ZZLogDebug(@"cell with earliest last action already in bottom middle cell -- no need in swapping");
                 gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:friendModel];
             }
         }
         else
         {
+            ZZLogDebug(@"there are free cell or isFromNotification -- no need in swapping");
+
             if (ANIsEmpty(gridModel))
             {
                 gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
@@ -297,6 +315,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)_addUserAsContactToGrid:(ZZContactDomainModel *)contactModel
 {
+    ZZLogEvent(@"Add friend as contact: %@", contactModel);
+    
     contactModel.phones = [ZZPhoneHelper validatePhonesFromContactModel:contactModel];
 
     if (!ANIsEmpty(contactModel.phones))
@@ -308,7 +328,6 @@ static NSInteger const kGridFriendsCellCount = 8;
         else if ([self _isContactExistAsFriendAndAbleAddToGrid:contactModel])
         {
             [self _addFriendFromDrawerToGridWithContact:contactModel];
-
         }
         else
         {

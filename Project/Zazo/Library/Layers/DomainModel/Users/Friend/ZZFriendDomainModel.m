@@ -77,6 +77,20 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     }];
 }
 
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"idTbm=%@", self.idTbm];
+    [description appendFormat:@", firstName=%@", self.firstName];
+    [description appendFormat:@", lastName=%@", self.lastName];
+    [description appendFormat:@", mKey=%@", self.mKey];
+    [description appendFormat:@", cKey=%@", self.cKey];
+    [description appendFormat:@", mobileNumber=%@", self.mobileNumber];
+    [description appendString:@">"];
+    return description;
+}
+
+
 - (NSString *)fullName
 {
     return [ZZUserPresentationHelper fullNameWithFirstName:self.firstName lastName:self.lastName];
