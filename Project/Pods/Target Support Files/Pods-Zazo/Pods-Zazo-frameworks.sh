@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Zazo/DeviceUtil.framework"
   install_framework "Pods-Zazo/FastEasyMapping.framework"
   install_framework "Pods-Zazo/FrameAccessor.framework"
+  install_framework "Pods-Zazo/JPFPSStatus.framework"
   install_framework "Pods-Zazo/MagicalRecord.framework"
   install_framework "Pods-Zazo/Masonry.framework"
   install_framework "Pods-Zazo/OAStackView.framework"

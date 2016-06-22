@@ -1,5 +1,5 @@
 
-platform :ios, '8.0'
+platform :ios, '8.3'
 
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/noplanb/Private-Cocoapods.git'
@@ -31,6 +31,7 @@ target 'Zazo' do
     pod 'Reveal-iOS-SDK', '~> 1.6.1', :configurations => ['Debug']
     pod 'Fabric', '~> 1.6.1'
     pod 'Crashlytics', '~> 3.7.0'
+    pod 'JPFPSStatus', '~> 0.1', :configurations => ['Debug']
 
     #Core Data
     pod 'FastEasyMapping', '~> 0.5.1'
