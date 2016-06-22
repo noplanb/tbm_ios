@@ -24,7 +24,7 @@ target 'Zazo' do
     pod 'SnapKit', '~> 0.21.0'
     
     #Network
-    pod 'OBFileTransfer', '0.9.3'
+    pod 'OBFileTransfer', '0.9.4'
     pod 'AFNetworking', '~> 2.6.0'
 
     #Testing
