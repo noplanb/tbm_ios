@@ -62,6 +62,8 @@
             [self handlePushNotification:remoteNotification];
         }
         [self installRootViewControllerIntoWindow:window];
+       
+        
     }];
 }
 
