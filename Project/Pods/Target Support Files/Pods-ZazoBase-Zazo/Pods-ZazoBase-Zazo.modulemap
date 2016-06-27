@@ -1,0 +1,6 @@
+framework module Pods_ZazoBase_Zazo {
+  umbrella header "Pods-ZazoBase-Zazo-umbrella.h"
+
+  export *
+  module * { export * }
+}
