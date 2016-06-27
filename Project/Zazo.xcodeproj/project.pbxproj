@@ -636,6 +636,7 @@
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
 		3DA17F0BFD1BE5C72BD422B7 /* Pods_ZazoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0613F5EA8D5A84A59D99108B /* Pods_ZazoTests.framework */; };
+		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		4777554F698D4EE9112D504D /* Pods_Zazo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C2F61D60AEF2211590F587 /* Pods_Zazo.framework */; };
 		677DB03B5E3BE727E44BABFB /* ZZMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB335EE8BA15A32F90A43 /* ZZMenuHeaderView.m */; };
 		677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB5E01892C6DD290A2F02 /* UIView+ZZAdditions.m */; };
@@ -658,7 +659,6 @@
 		677DBD7A4FCDDC3B119C5B63 /* ZZNumberBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */; };
 		677DBD86857050304E29C056 /* ZZTabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB1628D3A1A9B706A49CE /* ZZTabbarView.m */; };
 		677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */; };
-		677DBED704921BCE2D8790A4 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBF19084E4148FA07B8BE /* ZZMenuCell.m */; };
 		677DBEDB16DE54419B7A54C6 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC3A1ECFBC77257A04EC /* ZZDownloadErrorHandler.m */; };
 		677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB7A90D38DEF1F20E30AD /* NSDate+ZZAdditions.m */; };
 		677DBF54457251510DB0FCC2 /* UIFont+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB383E3F8392A390FAF95 /* UIFont+ZZAdditions.m */; };
@@ -1513,10 +1513,11 @@
 		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
+		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
+		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		42748D07D709D70EAD15DD9D /* Pods-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
-		677DB0925A9D4E9737C755FB /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		677DB15E93D69B95C60A5DB7 /* ZZMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuView.m; sourceTree = "<group>"; };
 		677DB1628D3A1A9B706A49CE /* ZZTabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarView.m; sourceTree = "<group>"; };
 		677DB27DD35FC30AAB28D584 /* ZZNumberBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZNumberBadge.m; sourceTree = "<group>"; };
@@ -1555,7 +1556,6 @@
 		677DBEA772DEFC53B3A5D368 /* ZZAddContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAddContactButton.m; sourceTree = "<group>"; };
 		677DBEE0F61F000A23841FC2 /* ANHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHelperFunctions.h; sourceTree = "<group>"; };
 		677DBEF5494B9162399CA3E8 /* ZZTabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZTabbarView.h; sourceTree = "<group>"; };
-		677DBF19084E4148FA07B8BE /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		677DBF34BB962DE0FB0FA70C /* ZZFullscreenFeatureEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFullscreenFeatureEventHandler.m; sourceTree = "<group>"; };
 		677DBF53C2AFCBD7CE09D5E5 /* ZZMenuCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCellModel.h; sourceTree = "<group>"; };
 		79123D711BB032C3007E1CBF /* ZZHintsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsController.h; sourceTree = "<group>"; };
@@ -3638,6 +3638,8 @@
 		151A6C231CA5688800F2B53D /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */,
+				3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */,
 				151A6C241CA5688800F2B53D /* ZZMenuPresenter.h */,
 				151A6C251CA5688800F2B53D /* ZZMenuPresenter.m */,
 			);
@@ -5097,8 +5099,6 @@
 				220E90261909A18B003C4F82 /* Products */,
 				0732F5031B8B93D3004FD3AF /* ZazoTests */,
 				182255A91C16CA07003885A3 /* Zazo copy-Info.plist */,
-				677DBF19084E4148FA07B8BE /* ZZMenuCell.m */,
-				677DB0925A9D4E9737C755FB /* ZZMenuCell.h */,
 				FEE1B546C538C0A50838F138 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -6198,6 +6198,7 @@
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
+				3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */,
 				079E901F1BD47073001A4718 /* ZZApplicationStateInfoConstants.m in Sources */,
 				151A6C2F1CA5688800F2B53D /* ZZMenuInteractor.m in Sources */,
 				182255EE1C16E08A003885A3 /* ZZNetworkTestInteractor.m in Sources */,
@@ -6309,7 +6310,6 @@
 				677DB1F8C4E29A814EDFDD27 /* ZZMenuCellModel.m in Sources */,
 				677DBA4AFB50F79654935EE2 /* ZZMenuController.m in Sources */,
 				158960841CB7B61E0040D8E3 /* ANTableViewCell.m in Sources */,
-				677DBED704921BCE2D8790A4 /* ZZMenuCell.m in Sources */,
 				677DB23996D92F32B5FC62D8 /* ZZAlertTableStyle.m in Sources */,
 				677DBD86857050304E29C056 /* ZZTabbarView.m in Sources */,
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
