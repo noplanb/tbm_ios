@@ -36,6 +36,21 @@
                BlueprintName = "ZazoTests"
                ReferencedContainer = "container:Zazo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ZZLoadFriendListTest">
+               </Test>
+               <Test
+                  Identifier = "ZZRegistrationWithSMSTest">
+               </Test>
+               <Test
+                  Identifier = "ZZRemoteStorageValueGeneratorTest">
+               </Test>
+            </SkippedTests>
+            <LocationScenarioReference
+               identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
+               referenceType = "1">
+            </LocationScenarioReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
@@ -94,7 +109,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Ad-hoc"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

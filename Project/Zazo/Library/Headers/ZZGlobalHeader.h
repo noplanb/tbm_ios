@@ -6,7 +6,7 @@
 //
 
 #ifdef RELEASE
-#error Don't forget update this number
+//#error Don't forget update this number
 #endif
 static NSString* const kGlobalApplicationVersion = @"48";
 
@@ -23,7 +23,11 @@ static NSString* const kGlobalApplicationVersion = @"48";
 
 //swiftas
 
+#ifdef TESTS
+#import "ZazoTests-Swift.h"
+#else
 #import "Zazo-Swift.h"
+#endif
 
 //helpers
 #import "NSObject+ANSafeValues.h"
