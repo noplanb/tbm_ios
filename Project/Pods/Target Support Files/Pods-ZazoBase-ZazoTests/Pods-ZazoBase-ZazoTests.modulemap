@@ -1,0 +1,6 @@
+framework module Pods_ZazoBase_ZazoTests {
+  umbrella header "Pods-ZazoBase-ZazoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

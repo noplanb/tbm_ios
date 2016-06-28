@@ -9,8 +9,15 @@ use_frameworks!
 
 abstract_target 'ZazoBase' do
 
-target 'Zazo' do end
-target 'Zazo-NetworkTest' do end
+    target 'Zazo' do end
+
+    target 'Zazo-NetworkTest' do end
+
+    target 'ZazoTests' do
+        pod 'Specta', '~> 1.0.3'
+        pod 'Expecta', '~> 1.0.2'
+        pod 'KIF', '~> 3.2.3'
+    end
 
     #UI
     pod 'FrameAccessor', '~> 1.3.2'
@@ -49,13 +56,6 @@ target 'Zazo-NetworkTest' do end
     #Logging
     pod 'Rollbar', '~> 0.1.5'
     pod 'OBLogger', '~> 0.4.0'
-end
-
-
-target 'ZazoTests' do
-    pod 'Specta', '~> 1.0.3'
-    pod 'Expecta', '~> 1.0.2'
-    pod 'KIF', '~> 3.2.3'
 end
 
 post_install do |installer|
