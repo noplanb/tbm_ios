@@ -638,6 +638,9 @@
 		3E2C267B1D215605009E4942 /* RecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA391D210F16005A9E7C /* RecognitionManager.swift */; };
 		3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 3E2C267C1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
+		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
+		3E3CA3851D22A763008EB1DD /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E3CA3841D22A763008EB1DD /* test.mp4 */; };
+		3E3CA3861D22D7B8008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
 		3E4613951D216D1D0011558D /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
 		3E4613981D22810C0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
@@ -1506,6 +1509,8 @@
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
+		3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioExtractionOperation.swift; sourceTree = "<group>"; };
+		3E3CA3841D22A763008EB1DD /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		3E81CA2F1D210E4F005A9E7C /* NuanceRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceRecognizer.swift; sourceTree = "<group>"; };
 		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
@@ -4952,6 +4957,7 @@
 		182255FC1C1714CE003885A3 /* TestVideo */ = {
 			isa = PBXGroup;
 			children = (
+				3E3CA3841D22A763008EB1DD /* test.mp4 */,
 				18F195A21C1961620084FB34 /* IMG_0764.MOV */,
 			);
 			path = TestVideo;
@@ -5190,6 +5196,7 @@
 				3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */,
 				3E81CA391D210F16005A9E7C /* RecognitionManager.swift */,
 				3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */,
+				3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */,
 			);
 			name = "Voice Recognition";
 			sourceTree = "<group>";
@@ -5578,6 +5585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */,
+				3E3CA3851D22A763008EB1DD /* test.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6262,6 +6270,7 @@
 				1589606D1CB7B61E0040D8E3 /* ANBaseStorage.m in Sources */,
 				15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */,
 				07636E251BA49A0100925671 /* ZZGridDataProvider.m in Sources */,
+				3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */,
 				158960481CB7B61D0040D8E3 /* ANColorThemeButton.m in Sources */,
 				07636EAF1BA49A0100925671 /* ZZSecretWireframe.m in Sources */,
 				1589606F1CB7B61E0040D8E3 /* ANStorageUpdate.m in Sources */,
@@ -6378,6 +6387,7 @@
 				3E2C26761D215605009E4942 /* RecognitionOperation.swift in Sources */,
 				3E2C26791D215605009E4942 /* NativeRecognitionOperation.swift in Sources */,
 				3E2C267B1D215605009E4942 /* RecognitionManager.swift in Sources */,
+				3E3CA3861D22D7B8008EB1DD /* AudioExtractionOperation.swift in Sources */,
 				3EA6FB081D2160560038FF72 /* NuanceAPIData.swift in Sources */,
 				3E2C26781D215605009E4942 /* NuanceRecognitionOperation.swift in Sources */,
 				3E2C26751D2155DF009E4942 /* NuanceTest.swift in Sources */,

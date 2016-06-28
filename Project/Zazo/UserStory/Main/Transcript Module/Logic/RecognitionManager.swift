@@ -21,16 +21,21 @@ public class RecognitionManager {
     
     let output: RecognitionManagerOutput
     
+    let urlSession: NSURLSession
+    
     var operationQueue = NSOperationQueue()
     
     var operationTypes = Array<operationType>()
     
-    init(handler: RecognitionManagerOutput) {
-        self.output = handler
-    }
-    
     public init(output: RecognitionManagerOutput) {
 
+        operationQueue.qualityOfService = .UserInitiated
+        
+        urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+                                  delegate: NuanceURLSessionHandler(),
+                                  delegateQueue: operationQueue)
+
+        
         self.output = output
         
     }
@@ -42,6 +47,21 @@ public class RecognitionManager {
     }
     
     public func recognizeFile(url: NSURL) {
+        
+        let operation = AudioExtractionOperation(withFile: url)
+        
+        operation.completionBlock = {
+            
+            if let url = operation.resultURL {
+                self.recognizeAudioFile(url)
+            }
+        }
+        
+        operationQueue.addOperation(operation)
+        
+    }
+    
+    func recognizeAudioFile(url: NSURL) {
         
         var operation: RecognitionOperation?
         
@@ -60,6 +80,11 @@ public class RecognitionManager {
                 self.operationCompleted(operation)
             }
             
+            if let operation = operation as? NuanceRecognitionOperation {
+                operation.urlSession = urlSession
+                operation.apiData = NuanceAPIData.sandboxData
+            }
+            
             operationQueue.addOperation(operation)
             return
         }
@@ -69,6 +94,13 @@ public class RecognitionManager {
     }
     
     func operationCompleted(operation: RecognitionOperation) {
+        
+        if let error = operation.error {
+            output.didFailRecognition(operation.fileURL, error: error)
+            
+        } else {
+            output.didRecognize(operation.result!)
+        }
         
     }
     

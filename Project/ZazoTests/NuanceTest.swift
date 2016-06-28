@@ -7,8 +7,9 @@
 //
 
 import XCTest
+import AVFoundation
 
-class NuanceTest: XCTestCase {
+class NuanceTest: XCTestCase, RecognitionManagerOutput {
 
     let operationQueue = NSOperationQueue()
     var urlSession = NSURLSession()
@@ -26,8 +27,36 @@ class NuanceTest: XCTestCase {
 
         super.tearDown()
     }
+    
+    
+    func testManager() {
+        
+        let exp = expectationWithDescription("operation")
 
-    func testExample() {
+        let manager = RecognitionManager(output: self)
+        
+        manager.registerType(NuanceRecognitionOperation)
+        
+        guard let resource = NSBundle(forClass: self.classForCoder).URLForResource("test", withExtension: "mp4") else {
+            XCTFail()
+            return
+        }
+
+        manager.recognizeFile(resource)
+        
+        waitForExpectationsWithTimeout(30.0, handler: nil)
+
+    }
+    
+    func didRecognize(result: String) {
+        
+    }
+    
+    func didFailRecognition(url: NSURL, error: NSError) {
+        
+    }
+
+    func stestExample() {
 
         let exp = expectationWithDescription("operation")
         
@@ -49,13 +78,6 @@ class NuanceTest: XCTestCase {
         operationQueue.addOperation(operation!)
         
         waitForExpectationsWithTimeout(30.0, handler: nil)
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

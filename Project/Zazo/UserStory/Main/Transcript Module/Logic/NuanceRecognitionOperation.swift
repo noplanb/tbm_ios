@@ -46,7 +46,7 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func networkTaskCompleted(data: NSData) {
-        result = NSString(data: data, encoding: NSUTF8StringEncoding)
+        result = String(data: data, encoding: NSUTF8StringEncoding)
         state = .Finished
     }
     

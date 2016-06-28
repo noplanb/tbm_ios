@@ -10,7 +10,7 @@ import Foundation
 
 public class RecognitionOperation: ConcurrentOperation {
         
-    var result: NSString?
+    var result: String?
     var error: NSError?
     
     var fileURL: NSURL
