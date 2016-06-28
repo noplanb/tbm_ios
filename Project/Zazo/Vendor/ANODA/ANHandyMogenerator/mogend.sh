@@ -34,7 +34,8 @@ TEMPLATEPATH=$(dirname $0)
 		--human-dir "${BASEPATH}/Entities/" \
 		--includeh "${BASEPATH}/${DB_NAME}EntitiesHeader.h" \
 		--v2 \
-		--template-path "${TEMPLATEPATH}"
+		--template-path "${TEMPLATEPATH}" \
+        --template-var arc=true
 )
 
 (

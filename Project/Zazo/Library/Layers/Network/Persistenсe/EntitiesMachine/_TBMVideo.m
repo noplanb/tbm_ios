@@ -13,6 +13,7 @@
 const struct TBMVideoAttributes TBMVideoAttributes = {
     .downloadRetryCount = @"downloadRetryCount",
     .status = @"status",
+    .transcription = @"transcription",
     .videoId = @"videoId",
 };
 
@@ -114,6 +115,8 @@ const struct TBMVideoRelationships TBMVideoRelationships = {
 {
     [self setPrimitiveStatus:@(value_)];
 }
+
+@dynamic transcription;
 
 @dynamic videoId;
 

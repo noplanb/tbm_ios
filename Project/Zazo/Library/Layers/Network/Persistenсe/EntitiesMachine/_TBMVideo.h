@@ -11,6 +11,7 @@
 extern const struct TBMVideoAttributes {
 	__unsafe_unretained NSString *downloadRetryCount;
 	__unsafe_unretained NSString *status;
+	__unsafe_unretained NSString *transcription;
 	__unsafe_unretained NSString *videoId;
 } TBMVideoAttributes;
 
@@ -45,6 +46,10 @@ extern const struct TBMVideoRelationships {
 
 //- (BOOL)validateStatus:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* transcription;
+
+//- (BOOL)validateTranscription:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* videoId;
 
 //- (BOOL)validateVideoId:(id*)value_ error:(NSError**)error_;
@@ -68,6 +73,9 @@ extern const struct TBMVideoRelationships {
 
 - (int32_t)primitiveStatusValue;
 - (void)setPrimitiveStatusValue:(int32_t)value_;
+
+- (NSString*)primitiveTranscription;
+- (void)setPrimitiveTranscription:(NSString*)value;
 
 - (NSString*)primitiveVideoId;
 - (void)setPrimitiveVideoId:(NSString*)value;

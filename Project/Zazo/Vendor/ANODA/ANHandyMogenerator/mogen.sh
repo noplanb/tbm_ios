@@ -27,7 +27,8 @@ TEMPLATEPATH=$(dirname $0)
 		--human-dir "$HUMAN_DIR/" \
 		--includeh "$INCLUDE_H" \
 		--v2 \
-		--template-path "${TEMPLATEPATH}"
+		--template-path "${TEMPLATEPATH}" \
+        --template-var arc=true
 )
 
 (
