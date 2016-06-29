@@ -2,7 +2,7 @@
 //  NuanceRecognitionOperation.swift
 //  Zazo
 //
-//  Created by Server on 27/06/16.
+//  Created by Rinat Gabdullin on 27/06/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 
 class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
+    
+    static let extractor = AudioExtractor()
     
     var urlSession: NSURLSession?
     var apiData: NuanceAPIData?
@@ -42,7 +44,12 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func makeInputStream() -> NSInputStream? {
-        return NSInputStream(URL: fileURL)
+        
+        if let data = NuanceRecognitionOperation.extractor.extractRawAudio(fileURL) {
+            return NSInputStream(data: data)
+        }
+        
+        return nil
     }
     
     func networkTaskCompleted(data: NSData) {
@@ -64,8 +71,8 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
         let request = NSMutableURLRequest(URL: url)
         
         request.HTTPMethod = "POST"
-        request.addValue("audio/x-wav;codec=pcm;bit=16;rate=16000", forHTTPHeaderField: "Content-Type")
-        request.addValue("en-US", forHTTPHeaderField: "Accept-Language")
+        request.addValue("audio/x-wav;codec=pcm;bit=16;rate=8000", forHTTPHeaderField: "Content-Type")
+        request.addValue("en_us", forHTTPHeaderField: "Accept-Language")
         request.addValue("chunked", forHTTPHeaderField: "Transfer-Encoding")
         request.addValue("text/plain", forHTTPHeaderField: "Accept")
         request.addValue("Dictation", forHTTPHeaderField: "Accept-Topic")
@@ -86,7 +93,7 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func didFailRecognition() {
-        
+        state = .Finished
     }
 }
 

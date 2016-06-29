@@ -154,15 +154,15 @@ extern const struct TBMFriendRelationships {
 
 //- (BOOL)validateGridElement:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSSet<TBMVideo*> *videos;
+@property (nonatomic, strong) NSSet *videos;
 
-- (NSMutableSet<TBMVideo*>*)videosSet;
+- (NSMutableSet*)videosSet;
 
 @end
 
 @interface _TBMFriend (VideosCoreDataGeneratedAccessors)
-- (void)addVideos:(NSSet<TBMVideo*>*)value_;
-- (void)removeVideos:(NSSet<TBMVideo*>*)value_;
+- (void)addVideos:(NSSet*)value_;
+- (void)removeVideos:(NSSet*)value_;
 - (void)addVideosObject:(TBMVideo*)value_;
 - (void)removeVideosObject:(TBMVideo*)value_;
 @end
@@ -250,7 +250,7 @@ extern const struct TBMFriendRelationships {
 - (TBMGridElement*)primitiveGridElement;
 - (void)setPrimitiveGridElement:(TBMGridElement*)value;
 
-- (NSMutableSet<TBMVideo*>*)primitiveVideos;
-- (void)setPrimitiveVideos:(NSMutableSet<TBMVideo*>*)value;
+- (NSMutableSet*)primitiveVideos;
+- (void)setPrimitiveVideos:(NSMutableSet*)value;
 
 @end

@@ -2,7 +2,7 @@
 //  NuanceTest.swift
 //  Zazo
 //
-//  Created by Server on 27/06/16.
+//  Created by Rinat Gabdullin on 27/06/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
@@ -29,31 +29,34 @@ class NuanceTest: XCTestCase, RecognitionManagerOutput {
     }
     
     
+    var exp: XCTestExpectation?
+    
     func testManager() {
         
-        let exp = expectationWithDescription("operation")
+        exp = expectationWithDescription("operation")
 
         let manager = RecognitionManager(output: self)
         
         manager.registerType(NuanceRecognitionOperation)
         
-        guard let resource = NSBundle(forClass: self.classForCoder).URLForResource("test", withExtension: "mp4") else {
+        guard let resource = NSBundle(forClass: self.classForCoder).URLForResource("test", withExtension: "mov") else {
             XCTFail()
             return
         }
 
         manager.recognizeFile(resource)
         
-        waitForExpectationsWithTimeout(30.0, handler: nil)
+        waitForExpectationsWithTimeout(120.0, handler: nil)
 
     }
     
-    func didRecognize(result: String) {
-        
+    func didRecognize(url: NSURL, result: String) {
+        print(result)
+        exp?.fulfill()
     }
     
     func didFailRecognition(url: NSURL, error: NSError) {
-        
+        XCTFail()
     }
 
     func stestExample() {
@@ -70,6 +73,7 @@ class NuanceTest: XCTestCase, RecognitionManagerOutput {
         operation?.apiData = NuanceAPIData.sandboxData
         
         operation?.completionBlock = {
+            print(operation?.result)
             exp.fulfill()
         }
         

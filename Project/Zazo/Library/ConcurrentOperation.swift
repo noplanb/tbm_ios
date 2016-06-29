@@ -2,7 +2,7 @@
 //  ConcurrentOperation.swift
 //  Zazo
 //
-//  Created by Server on 28/06/16.
+//  Created by Rinat Gabdullin on 28/06/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 

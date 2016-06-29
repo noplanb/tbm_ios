@@ -2,7 +2,7 @@
 //  RecognitionManager.swift
 //  Zazo
 //
-//  Created by Server on 27/06/16.
+//  Created by Rinat Gabdullin on 27/06/16.
 //  Copyright © 2016 No Plan B. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 
 public protocol RecognitionManagerOutput {
     
-    func didRecognize(result: String)
+    func didRecognize(url: NSURL, result: String)
     func didFailRecognition(url: NSURL, error: NSError)
 
 }
@@ -34,7 +34,6 @@ public class RecognitionManager {
         urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
                                   delegate: NuanceURLSessionHandler(),
                                   delegateQueue: operationQueue)
-
         
         self.output = output
         
@@ -47,21 +46,6 @@ public class RecognitionManager {
     }
     
     public func recognizeFile(url: NSURL) {
-        
-        let operation = AudioExtractionOperation(withFile: url)
-        
-        operation.completionBlock = {
-            
-            if let url = operation.resultURL {
-                self.recognizeAudioFile(url)
-            }
-        }
-        
-        operationQueue.addOperation(operation)
-        
-    }
-    
-    func recognizeAudioFile(url: NSURL) {
         
         var operation: RecognitionOperation?
         
@@ -99,7 +83,7 @@ public class RecognitionManager {
             output.didFailRecognition(operation.fileURL, error: error)
             
         } else {
-            output.didRecognize(operation.result!)
+            output.didRecognize(operation.fileURL, result: operation.result!)
         }
         
     }

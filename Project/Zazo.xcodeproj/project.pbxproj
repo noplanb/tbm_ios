@@ -199,6 +199,7 @@
 		151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3411CC124EC007CE007 /* PermissionScope.swift */; };
 		151BB3471CC124EC007CE007 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3421CC124EC007CE007 /* Structs.swift */; };
 		151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */; };
+		151EC1AC1D23BEBF009CFA82 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = 151EC1AB1D23BEBF009CFA82 /* test.mov */; };
 		152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158191C84932A00260AFD /* ZZRecordButtonView.m */; };
 		152158271C84932A00260AFD /* ZZDateLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581C1C84932A00260AFD /* ZZDateLabel.m */; };
 		152158281C84932A00260AFD /* ZZGridCellGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521581F1C84932A00260AFD /* ZZGridCellGradientView.m */; };
@@ -639,7 +640,6 @@
 		3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 3E2C267C1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
-		3E3CA3851D22A763008EB1DD /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3E3CA3841D22A763008EB1DD /* test.mp4 */; };
 		3E3CA3861D22D7B8008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
 		3E4613951D216D1D0011558D /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
@@ -1134,6 +1134,7 @@
 		151BB3421CC124EC007CE007 /* Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		151EAD9F1CA18A9900CE0FDE /* ZZContactsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsTableHeaderView.h; sourceTree = "<group>"; };
 		151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsTableHeaderView.m; sourceTree = "<group>"; };
+		151EC1AB1D23BEBF009CFA82 /* test.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = test.mov; sourceTree = "<group>"; };
 		152158181C84932A00260AFD /* ZZRecordButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordButtonView.h; sourceTree = "<group>"; };
 		152158191C84932A00260AFD /* ZZRecordButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordButtonView.m; sourceTree = "<group>"; };
 		1521581B1C84932A00260AFD /* ZZDateLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDateLabel.h; sourceTree = "<group>"; };
@@ -1510,7 +1511,6 @@
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioExtractionOperation.swift; sourceTree = "<group>"; };
-		3E3CA3841D22A763008EB1DD /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		3E81CA2F1D210E4F005A9E7C /* NuanceRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceRecognizer.swift; sourceTree = "<group>"; };
 		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
@@ -4957,7 +4957,7 @@
 		182255FC1C1714CE003885A3 /* TestVideo */ = {
 			isa = PBXGroup;
 			children = (
-				3E3CA3841D22A763008EB1DD /* test.mp4 */,
+				151EC1AB1D23BEBF009CFA82 /* test.mov */,
 				18F195A21C1961620084FB34 /* IMG_0764.MOV */,
 			);
 			path = TestVideo;
@@ -5584,8 +5584,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151EC1AC1D23BEBF009CFA82 /* test.mov in Resources */,
 				3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */,
-				3E3CA3851D22A763008EB1DD /* test.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6508,6 +6508,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = "Ad-hoc";
@@ -6798,6 +6799,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -6825,6 +6827,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ZazoTests;
 				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
+				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
