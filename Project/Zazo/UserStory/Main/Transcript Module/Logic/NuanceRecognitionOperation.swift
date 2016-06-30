@@ -93,6 +93,7 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func didFailRecognition() {
+        error = NSError(domain: "Zazo", code: 0, userInfo: nil)
         state = .Finished
     }
 }
