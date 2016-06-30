@@ -10,3 +10,4 @@
 #import "ZZBadgeIndicator.h"
 #import "UIColor+ANAdditions.h"
 #import "ZZColorTheme.h"
+#import "ZZVideoDataProvider.h"

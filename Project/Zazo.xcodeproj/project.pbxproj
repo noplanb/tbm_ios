@@ -221,6 +221,16 @@
 		153682441C99539D006EDC12 /* ZZMainWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823D1C99539D006EDC12 /* ZZMainWireframe.m */; };
 		153682451C99539D006EDC12 /* ZZMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823F1C99539D006EDC12 /* ZZMain.m */; };
 		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
+		15443A861D252539009F55CD /* TranscriptModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */; };
+		15443A881D25256A009F55CD /* TranscriptModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */; };
+		15443A8A1D252575009F55CD /* TranscriptModuleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A891D252575009F55CD /* TranscriptModuleVC.swift */; };
+		15443A8C1D25257F009F55CD /* TranscriptModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */; };
+		15443A8E1D252590009F55CD /* TranscriptModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */; };
+		15443A901D252717009F55CD /* TranscriptModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */; };
+		15443A921D252A59009F55CD /* TranscriptUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A911D252A59009F55CD /* TranscriptUI.swift */; };
+		15443A941D252DAF009F55CD /* TranscriptLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A931D252DAF009F55CD /* TranscriptLogic.swift */; };
+		15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A951D253249009F55CD /* TranscriptRouter.swift */; };
+		15443A9A1D255A91009F55CD /* TranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A991D255A91009F55CD /* TranscriptView.swift */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1583CDB51C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
@@ -1181,6 +1191,16 @@
 		1536823D1C99539D006EDC12 /* ZZMainWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainWireframe.m; sourceTree = "<group>"; };
 		1536823E1C99539D006EDC12 /* ZZMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMain.h; sourceTree = "<group>"; };
 		1536823F1C99539D006EDC12 /* ZZMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMain.m; sourceTree = "<group>"; };
+		15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleAssembly.swift; sourceTree = "<group>"; };
+		15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModulePresenter.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModulePresenter.swift"; sourceTree = SOURCE_ROOT; };
+		15443A891D252575009F55CD /* TranscriptModuleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModuleVC.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModuleVC.swift"; sourceTree = SOURCE_ROOT; };
+		15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModuleView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModuleView.swift"; sourceTree = SOURCE_ROOT; };
+		15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleInteractor.swift; sourceTree = "<group>"; };
+		15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleInterface.swift; sourceTree = "<group>"; };
+		15443A911D252A59009F55CD /* TranscriptUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptUI.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptUI.swift"; sourceTree = SOURCE_ROOT; };
+		15443A931D252DAF009F55CD /* TranscriptLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptLogic.swift; sourceTree = "<group>"; };
+		15443A951D253249009F55CD /* TranscriptRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptRouter.swift; sourceTree = "<group>"; };
+		15443A991D255A91009F55CD /* TranscriptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptView.swift"; sourceTree = SOURCE_ROOT; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
@@ -2797,8 +2817,8 @@
 			isa = PBXGroup;
 			children = (
 				3E81CA2C1D210E19005A9E7C /* Transcript Module */,
-				152594C81CE8C9F200DDA507 /* Player Module */,
 				151A6C181CA5688800F2B53D /* Menu Module */,
+				152594C81CE8C9F200DDA507 /* Player Module */,
 				153682291C99539D006EDC12 /* Main Module */,
 				07636C791BA49A0100925671 /* EditFriendList Module */,
 				07636C9C1BA49A0100925671 /* Grid Module */,
@@ -5164,6 +5184,9 @@
 			children = (
 				3E81CA2D1D210E19005A9E7C /* Logic */,
 				3E81CA2E1D210E19005A9E7C /* UI */,
+				15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */,
+				15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */,
+				15443A951D253249009F55CD /* TranscriptRouter.swift */,
 			);
 			path = "Transcript Module";
 			sourceTree = "<group>";
@@ -5172,6 +5195,8 @@
 			isa = PBXGroup;
 			children = (
 				3E81CA3B1D210F2E005A9E7C /* Voice Recognition */,
+				15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */,
+				15443A931D252DAF009F55CD /* TranscriptLogic.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -5179,6 +5204,11 @@
 		3E81CA2E1D210E19005A9E7C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */,
+				15443A891D252575009F55CD /* TranscriptModuleVC.swift */,
+				15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */,
+				15443A991D255A91009F55CD /* TranscriptView.swift */,
+				15443A911D252A59009F55CD /* TranscriptUI.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -5194,7 +5224,7 @@
 				3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */,
 				3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */,
 			);
-			name = "Voice Recognition";
+			path = "Voice Recognition";
 			sourceTree = "<group>";
 		};
 		677DB0666F7F7AA52DD743AB /* CacheCleaner */ = {
@@ -6008,6 +6038,7 @@
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
 				158960811CB7B61E0040D8E3 /* ANBaseTableFooterView.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
+				15443A9A1D255A91009F55CD /* TranscriptView.swift in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				158960431CB7B61D0040D8E3 /* UIFont+ANAdditions.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
@@ -6039,6 +6070,7 @@
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
 				187634A31C1858BF00C518BD /* ZZTestVideoStateController.m in Sources */,
+				15443A8E1D252590009F55CD /* TranscriptModuleInteractor.swift in Sources */,
 				158960381CB7B61D0040D8E3 /* NSDate+ANUIAdditions.m in Sources */,
 				158960411CB7B61D0040D8E3 /* UIBarButtonItem+ANAdditions.m in Sources */,
 				158960371CB7B61D0040D8E3 /* NSDate+ANServerAdditions.m in Sources */,
@@ -6092,6 +6124,7 @@
 				151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */,
 				15D1BA551CF7049E001B6849 /* iToast.m in Sources */,
 				158960421CB7B61D0040D8E3 /* UIColor+ANAdditions.m in Sources */,
+				15443A881D25256A009F55CD /* TranscriptModulePresenter.swift in Sources */,
 				151BB3471CC124EC007CE007 /* Structs.swift in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
 				07636EA71BA49A0100925671 /* ZZSecretSegmentCell.m in Sources */,
@@ -6130,6 +6163,7 @@
 				07636EA81BA49A0100925671 /* ZZSecretSegmentCellViewModel.m in Sources */,
 				07636EB81BA49A0100925671 /* ZZEditFriendListVC.m in Sources */,
 				181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */,
+				15443A8A1D252575009F55CD /* TranscriptModuleVC.swift in Sources */,
 				3E81CA3D1D211242005A9E7C /* NativeRecognitionOperation.swift in Sources */,
 				182255F01C16E08A003885A3 /* ZZNetworkTestPresenter.m in Sources */,
 				182256041C172B80003885A3 /* ZZSendVideoService.m in Sources */,
@@ -6232,6 +6266,7 @@
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
 				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
+				15443A901D252717009F55CD /* TranscriptModuleInterface.swift in Sources */,
 				158960731CB7B61E0040D8E3 /* ANMemoryStorage+ANItems.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
@@ -6280,6 +6315,7 @@
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */,
+				15443A921D252A59009F55CD /* TranscriptUI.swift in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */,
@@ -6308,6 +6344,7 @@
 				79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */,
 				07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */,
 				07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */,
+				15443A941D252DAF009F55CD /* TranscriptLogic.swift in Sources */,
 				1521582D1C84989700260AFD /* ZZCellEffectView.m in Sources */,
 				07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */,
 				07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */,
@@ -6321,6 +6358,7 @@
 				07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */,
 				22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,
 				1589603D1CB7B61D0040D8E3 /* NSString+ZZAdditions.m in Sources */,
+				15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */,
 				07636E281BA49A0100925671 /* ZZUserModelsMapper.m in Sources */,
 				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
 				07636EB11BA49A0100925671 /* ZZEditFriendEnumsAdditions.m in Sources */,
@@ -6340,6 +6378,7 @@
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
 				677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */,
+				15443A861D252539009F55CD /* TranscriptModuleAssembly.swift in Sources */,
 				1589604A1CB7B61D0040D8E3 /* ANColorTheme.m in Sources */,
 				677DBF54457251510DB0FCC2 /* UIFont+ZZAdditions.m in Sources */,
 				677DB60F315E9CE35B2497D6 /* ZZBadge.m in Sources */,
@@ -6355,6 +6394,7 @@
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
 				15B823071CB7BBD4006473E1 /* _TBMGridElement.m in Sources */,
 				677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */,
+				15443A8C1D25257F009F55CD /* TranscriptModuleView.swift in Sources */,
 				158D8ED51CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift in Sources */,
 				677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */,
 				677DB5F5A7401439DEC6B2D8 /* ANHelperFunctions.m in Sources */,
