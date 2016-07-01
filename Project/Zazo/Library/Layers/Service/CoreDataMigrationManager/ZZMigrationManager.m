@@ -10,7 +10,7 @@
 #import "ZZMigrationManager.h"
 
 static NSString *const kSourceBaseName = @"tbm";
-static NSString *const kDestinationBaseName = @"tbm-v2";
+static NSString *const kDestinationBaseName = @"tbm-v3";
 
 
 @implementation ZZMigrationManager
@@ -55,7 +55,9 @@ static NSString *const kDestinationBaseName = @"tbm-v2";
     NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
     NSManagedObjectModel *destinationModel = self.coordinator.managedObjectModel;
 
-    NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel destinationModel:destinationModel error:&error];
+    NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel
+                                                                     destinationModel:destinationModel
+                                                                                error:&error];
 
     if (mappingModel)
     {
@@ -95,7 +97,11 @@ static NSString *const kDestinationBaseName = @"tbm-v2";
                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
 
-        [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error];
+        [_coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                   configuration:nil
+                                             URL:storeURL
+                                         options:options
+                                           error:&error];
     }
 
 
