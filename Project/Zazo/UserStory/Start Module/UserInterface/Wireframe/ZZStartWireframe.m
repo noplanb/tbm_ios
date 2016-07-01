@@ -58,6 +58,7 @@
 
 - (void)presentMenuControllerWithGrid
 {
+
     ZZMainWireframe *wireframe = [ZZMainWireframe new];
     [wireframe presentMainControllerFromWindow:self.presentedWindow completion:^{
 

@@ -574,6 +574,11 @@
 
 - (void)toggleVideoWithViewModel:(ZZGridCellViewModel *)model toState:(BOOL)state
 {
+    if (state) {
+        [self.wireframe presentTranscriptionForUserWithID:model.item.relatedUser.idTbm];
+        return;
+    }
+    
     [self.interactor updateLastActionForFriend:model.item.relatedUser];
 
     if (state)

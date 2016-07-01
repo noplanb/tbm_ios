@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class TranscriptModuleAssembly {
+@objc public class TranscriptModuleAssembly: NSObject {
     
     private let viewController: TranscriptVC
     private let presenter: TranscriptPresenter
     private let interactor: TranscriptInteractor
     
-    var module: TranscriptModule {
+    @objc public var module: TranscriptModule {
         return presenter
     }
     

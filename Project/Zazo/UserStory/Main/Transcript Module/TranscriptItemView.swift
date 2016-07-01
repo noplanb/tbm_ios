@@ -16,16 +16,36 @@ public class TranscriptItemView: UIView {
     convenience init() {
         
         self.init(frame: CGRect.zero)
+
+        // Configure self:
+        
+        self.clipsToBounds = true
+        self.backgroundColor = UIColor.whiteColor()
+        
+        let layer = self.layer
+        
+        layer.cornerRadius = 12
+        layer.shadowOpacity = 1
+        layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5).CGColor
+        layer.shadowRadius = 8
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        
+        self.layoutMargins = UIEdgeInsets(top: 6,
+                                          left: 12,
+                                          bottom: 6,
+                                          right: 12)
+        
+        // Configure subviews:
         
         timeLabel.textColor = UIColor.grayColor()
         timeLabel.textAlignment = .Right
+        timeLabel.font = UIFont.systemFontOfSize(11)
         
-        self.backgroundColor = UIColor.whiteColor()
-        self.layer.cornerRadius = 16
+        textLabel.numberOfLines = 0;
         
-        self.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5).CGColor
-        self.layer.shadowRadius = 8
-        self.layer.shadowOffset = CGSize(width: 0, height: 4)
+        addSubview(textLabel)
+        addSubview(timeLabel)
+        
     }
     
     public override func updateConstraints() {

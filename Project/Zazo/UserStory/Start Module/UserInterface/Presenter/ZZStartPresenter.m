@@ -23,7 +23,6 @@
     [self.interactor checkVersionStateAndSession];
 }
 
-
 #pragma mark - Output
 
 - (void)userRequiresAuthentication

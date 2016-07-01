@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol TranscriptModuleDelegate {
+@objc public protocol TranscriptModuleDelegate {
     
 }
 
-protocol TranscriptModule {
+@objc public protocol TranscriptModule {
     
     func present(for friendWithID: String)
     

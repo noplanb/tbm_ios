@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UINavigationController *presentedController;
 @property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 @property (nonatomic, strong) ZZPlayerWireframe *playerWireframe;
+@property (nonatomic, strong) TranscriptModuleAssembly *transcriptAssembly;
 
 @end
 
@@ -43,6 +44,14 @@
 
 #pragma mark - Details
 
+- (void)presentTranscriptionForUserWithID:(NSString *)friendID
+{
+    self.transcriptAssembly = [[TranscriptModuleAssembly alloc] initWith:self.gridController];
+    
+    [self.transcriptAssembly.module presentFor:friendID];
+    
+}
+
 - (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model
                           success:(ANCodeBlock)success
                              fail:(ANCodeBlock)fail
@@ -51,8 +60,7 @@
     
     [self.messageWireframe presentMessageControllerFromViewController:self.gridController
                                                             withModel:model
-                                                           completion:^(MessageComposeResult result) {
-                                                               
+                                                           completion:^(MessageComposeResult result) {                                                               
         switch (result)
         {
             case MessageComposeResultSent:

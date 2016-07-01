@@ -25,9 +25,9 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     
     // MARK: TranscriptModule interface
     
-    func present(for friendWithID: String) {
-        router.show()
+    @objc func present(for friendWithID: String) {
         
+        router.show()        
     }
     
     // MARK: TranscriptUIOutput interface
