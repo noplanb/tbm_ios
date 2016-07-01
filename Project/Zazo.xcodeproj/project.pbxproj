@@ -222,15 +222,15 @@
 		153682451C99539D006EDC12 /* ZZMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823F1C99539D006EDC12 /* ZZMain.m */; };
 		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
 		15443A861D252539009F55CD /* TranscriptModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */; };
-		15443A881D25256A009F55CD /* TranscriptModulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */; };
-		15443A8A1D252575009F55CD /* TranscriptModuleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A891D252575009F55CD /* TranscriptModuleVC.swift */; };
-		15443A8C1D25257F009F55CD /* TranscriptModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */; };
-		15443A8E1D252590009F55CD /* TranscriptModuleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */; };
+		15443A881D25256A009F55CD /* TranscriptPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A871D25256A009F55CD /* TranscriptPresenter.swift */; };
+		15443A8A1D252575009F55CD /* TranscriptVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A891D252575009F55CD /* TranscriptVC.swift */; };
+		15443A8C1D25257F009F55CD /* TranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8B1D25257F009F55CD /* TranscriptView.swift */; };
+		15443A8E1D252590009F55CD /* TranscriptInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8D1D252590009F55CD /* TranscriptInteractor.swift */; };
 		15443A901D252717009F55CD /* TranscriptModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */; };
 		15443A921D252A59009F55CD /* TranscriptUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A911D252A59009F55CD /* TranscriptUI.swift */; };
 		15443A941D252DAF009F55CD /* TranscriptLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A931D252DAF009F55CD /* TranscriptLogic.swift */; };
 		15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A951D253249009F55CD /* TranscriptRouter.swift */; };
-		15443A9A1D255A91009F55CD /* TranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A991D255A91009F55CD /* TranscriptView.swift */; };
+		15443A9A1D255A91009F55CD /* TranscriptItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A991D255A91009F55CD /* TranscriptItemView.swift */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1583CDB51C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
@@ -1192,15 +1192,15 @@
 		1536823E1C99539D006EDC12 /* ZZMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMain.h; sourceTree = "<group>"; };
 		1536823F1C99539D006EDC12 /* ZZMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMain.m; sourceTree = "<group>"; };
 		15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleAssembly.swift; sourceTree = "<group>"; };
-		15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModulePresenter.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModulePresenter.swift"; sourceTree = SOURCE_ROOT; };
-		15443A891D252575009F55CD /* TranscriptModuleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModuleVC.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModuleVC.swift"; sourceTree = SOURCE_ROOT; };
-		15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptModuleView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptModuleView.swift"; sourceTree = SOURCE_ROOT; };
-		15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleInteractor.swift; sourceTree = "<group>"; };
+		15443A871D25256A009F55CD /* TranscriptPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptPresenter.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptPresenter.swift"; sourceTree = SOURCE_ROOT; };
+		15443A891D252575009F55CD /* TranscriptVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptVC.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptVC.swift"; sourceTree = SOURCE_ROOT; };
+		15443A8B1D25257F009F55CD /* TranscriptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptView.swift"; sourceTree = SOURCE_ROOT; };
+		15443A8D1D252590009F55CD /* TranscriptInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptInteractor.swift; sourceTree = "<group>"; };
 		15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleInterface.swift; sourceTree = "<group>"; };
 		15443A911D252A59009F55CD /* TranscriptUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptUI.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptUI.swift"; sourceTree = SOURCE_ROOT; };
 		15443A931D252DAF009F55CD /* TranscriptLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptLogic.swift; sourceTree = "<group>"; };
 		15443A951D253249009F55CD /* TranscriptRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptRouter.swift; sourceTree = "<group>"; };
-		15443A991D255A91009F55CD /* TranscriptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptView.swift"; sourceTree = SOURCE_ROOT; };
+		15443A991D255A91009F55CD /* TranscriptItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptItemView.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptItemView.swift"; sourceTree = SOURCE_ROOT; };
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
@@ -5195,7 +5195,7 @@
 			isa = PBXGroup;
 			children = (
 				3E81CA3B1D210F2E005A9E7C /* Voice Recognition */,
-				15443A8D1D252590009F55CD /* TranscriptModuleInteractor.swift */,
+				15443A8D1D252590009F55CD /* TranscriptInteractor.swift */,
 				15443A931D252DAF009F55CD /* TranscriptLogic.swift */,
 			);
 			path = Logic;
@@ -5204,10 +5204,10 @@
 		3E81CA2E1D210E19005A9E7C /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				15443A871D25256A009F55CD /* TranscriptModulePresenter.swift */,
-				15443A891D252575009F55CD /* TranscriptModuleVC.swift */,
-				15443A8B1D25257F009F55CD /* TranscriptModuleView.swift */,
-				15443A991D255A91009F55CD /* TranscriptView.swift */,
+				15443A871D25256A009F55CD /* TranscriptPresenter.swift */,
+				15443A891D252575009F55CD /* TranscriptVC.swift */,
+				15443A8B1D25257F009F55CD /* TranscriptView.swift */,
+				15443A991D255A91009F55CD /* TranscriptItemView.swift */,
 				15443A911D252A59009F55CD /* TranscriptUI.swift */,
 			);
 			path = UI;
@@ -6038,7 +6038,7 @@
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
 				158960811CB7B61E0040D8E3 /* ANBaseTableFooterView.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
-				15443A9A1D255A91009F55CD /* TranscriptView.swift in Sources */,
+				15443A9A1D255A91009F55CD /* TranscriptItemView.swift in Sources */,
 				07636E2E1BA49A0100925671 /* ZZS3CredentialsDomainModel.m in Sources */,
 				158960431CB7B61D0040D8E3 /* UIFont+ANAdditions.m in Sources */,
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
@@ -6070,7 +6070,7 @@
 				079280A41BA8544800E22553 /* ZZGridActionHandler.m in Sources */,
 				07636EB91BA49A0100925671 /* ZZEditFriendListWireframe.m in Sources */,
 				187634A31C1858BF00C518BD /* ZZTestVideoStateController.m in Sources */,
-				15443A8E1D252590009F55CD /* TranscriptModuleInteractor.swift in Sources */,
+				15443A8E1D252590009F55CD /* TranscriptInteractor.swift in Sources */,
 				158960381CB7B61D0040D8E3 /* NSDate+ANUIAdditions.m in Sources */,
 				158960411CB7B61D0040D8E3 /* UIBarButtonItem+ANAdditions.m in Sources */,
 				158960371CB7B61D0040D8E3 /* NSDate+ANServerAdditions.m in Sources */,
@@ -6124,7 +6124,7 @@
 				151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */,
 				15D1BA551CF7049E001B6849 /* iToast.m in Sources */,
 				158960421CB7B61D0040D8E3 /* UIColor+ANAdditions.m in Sources */,
-				15443A881D25256A009F55CD /* TranscriptModulePresenter.swift in Sources */,
+				15443A881D25256A009F55CD /* TranscriptPresenter.swift in Sources */,
 				151BB3471CC124EC007CE007 /* Structs.swift in Sources */,
 				07636E3D1BA49A0100925671 /* ZZVideoNetworkTransport.m in Sources */,
 				07636EA71BA49A0100925671 /* ZZSecretSegmentCell.m in Sources */,
@@ -6163,7 +6163,7 @@
 				07636EA81BA49A0100925671 /* ZZSecretSegmentCellViewModel.m in Sources */,
 				07636EB81BA49A0100925671 /* ZZEditFriendListVC.m in Sources */,
 				181D1CB31BC522C600044F83 /* ZZInviteSomeoneElseEventHandler.m in Sources */,
-				15443A8A1D252575009F55CD /* TranscriptModuleVC.swift in Sources */,
+				15443A8A1D252575009F55CD /* TranscriptVC.swift in Sources */,
 				3E81CA3D1D211242005A9E7C /* NativeRecognitionOperation.swift in Sources */,
 				182255F01C16E08A003885A3 /* ZZNetworkTestPresenter.m in Sources */,
 				182256041C172B80003885A3 /* ZZSendVideoService.m in Sources */,
@@ -6394,7 +6394,7 @@
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
 				15B823071CB7BBD4006473E1 /* _TBMGridElement.m in Sources */,
 				677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */,
-				15443A8C1D25257F009F55CD /* TranscriptModuleView.swift in Sources */,
+				15443A8C1D25257F009F55CD /* TranscriptView.swift in Sources */,
 				158D8ED51CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift in Sources */,
 				677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */,
 				677DB5F5A7401439DEC6B2D8 /* ANHelperFunctions.m in Sources */,

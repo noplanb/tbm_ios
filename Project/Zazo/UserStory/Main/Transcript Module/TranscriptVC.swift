@@ -8,9 +8,13 @@
 
 import Foundation
 
-class TranscriptModuleVC: UIViewController, TranscriptUIInput {
+class TranscriptVC: UIViewController, TranscriptUIInput {
     
     var output: TranscriptUIOutput?
+    
+    override func loadView() {
+        view = TranscriptView()
+    }
     
     func loading(ofType type:TranscriptUILoadingType, isVisible visible:Bool) {
         

@@ -10,9 +10,9 @@ import Foundation
 
 public class TranscriptModuleAssembly {
     
-    private let viewController: TranscriptModuleVC
-    private let presenter: TranscriptModulePresenter
-    private let interactor: TranscriptModuleInteractor
+    private let viewController: TranscriptVC
+    private let presenter: TranscriptPresenter
+    private let interactor: TranscriptInteractor
     
     var module: TranscriptModule {
         return presenter
@@ -20,18 +20,18 @@ public class TranscriptModuleAssembly {
     
     init(with parentVC: UIViewController) {
         
-        interactor = TranscriptModuleInteractor()
+        interactor = TranscriptInteractor()
         
         let manager = RecognitionManager(output: interactor)
         manager.registerType(NuanceRecognitionOperation)
         interactor.recognitionManager = manager
         
-        viewController = TranscriptModuleVC(nibName: nil, bundle: nil)
+        viewController = TranscriptVC(nibName: nil, bundle: nil)
         
         let router = TranscriptRouter(forPresenting: viewController, in: parentVC)
         
-        presenter = TranscriptModulePresenter(view: viewController,
-                                              logic: interactor,
-                                              router: router)
+        presenter = TranscriptPresenter(view: viewController,
+                                        logic: interactor,
+                                        router: router)
     }
 }

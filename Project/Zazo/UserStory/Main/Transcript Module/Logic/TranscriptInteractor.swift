@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TranscriptModuleInteractor: TranscriptLogic, RecognitionManagerOutput {
+class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
     
     var recognitionManager: RecognitionManager?
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TranscriptModulePresenter: TranscriptModule, TranscriptUIOutput {
+class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     
     let view: TranscriptUIInput
     let logic: TranscriptLogic
