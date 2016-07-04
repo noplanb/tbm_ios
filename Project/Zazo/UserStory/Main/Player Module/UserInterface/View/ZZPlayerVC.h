@@ -8,6 +8,6 @@
 
 @interface ZZPlayerVC : UIViewController <ZZPlayerViewInterface>
 
-@property (nonatomic, strong) id<ZZPlayerModuleInterface, PlaybackSegmentIndicatorDelegate> eventHandler;
+@property (nonatomic, strong) id<ZZPlayerModuleInterface, PlaybackIndicatorDelegate> eventHandler;
 
 @end

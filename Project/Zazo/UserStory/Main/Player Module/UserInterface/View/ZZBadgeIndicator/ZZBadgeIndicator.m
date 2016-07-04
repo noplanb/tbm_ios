@@ -34,8 +34,14 @@
 }
 
 + (UIImage *)renderWithNumber:(NSInteger)number
+                    fontColor:(UIColor *)fontColor
+              backgroundColor:(UIColor *)backgroundColor
 {
-    [self shared].badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)number];
+    ZZBadgeIndicator *shared = [self shared];
+    
+    shared.badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)number];
+    shared.backgroundColor = backgroundColor;
+    shared.badgeLabel.textColor = fontColor;
     
     UIImage *badge = [[self shared] zz_renderToImage];
 

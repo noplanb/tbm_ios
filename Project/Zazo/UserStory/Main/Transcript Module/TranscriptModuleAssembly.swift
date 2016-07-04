@@ -33,5 +33,7 @@ import Foundation
         presenter = TranscriptPresenter(view: viewController,
                                         logic: interactor,
                                         router: router)
+        
+        viewController.output = presenter
     }
 }

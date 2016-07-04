@@ -34,7 +34,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
     self = [super init];
     if (self)
     {
-        self.tintColor = [UIColor an_colorWithHexString:@"#0E51B8"];
+        self.tintColor = [UIColor an_colorWithHexString:@"#1153A9"];
 
         self.authBackgroundColor = [UIColor an_colorWithHexString:@"#5AAEFF"];
         self.gridBackgroundColor = [UIColor an_colorWithHexString:@"#eeeeee"];
@@ -65,7 +65,7 @@ static CGFloat const kNavigationBarIconHeight = 20;
         self.gridStatusViewThumbnailDefaultColor = [UIColor an_colorWithHexString:@"#343434"];
         self.gridStatusViewThumbnailColor = [UIColor an_colorWithHexString:@"#625F58"];
 
-        self.menuTintColor = [UIColor an_colorWithHexString:@"#4E4D42"];
+        self.menuTintColor = [UIColor an_colorWithHexString:@"#1164A9"];
 
         self.gridCellBackgroundColor1 = [UIColor an_colorWithHexString:@"#1871ca"];
         self.gridCellTintColor1 = [UIColor an_colorWithHexString:@"#0d46a0"];

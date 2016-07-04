@@ -19,7 +19,7 @@
 @property (nonatomic, strong, readonly) UIView *baseView;
 @property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, strong) UILabel *textLabel;
-@property (nonatomic, strong) PlaybackSegmentIndicator *segmentIndicator;
+@property (nonatomic, strong) PlaybackIndicator *segmentIndicator;
 @property (nonatomic, strong) VideoPlayerFullscreenHelper *fullscreenHelper;
 
 @end
@@ -88,7 +88,7 @@
 {
     if (!_segmentIndicator)
     {
-        _segmentIndicator = [PlaybackSegmentIndicator new];
+        _segmentIndicator = [PlaybackIndicator new];
         
         [self.view addSubview:_segmentIndicator];
         

@@ -26,14 +26,13 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
             UIBarButtonItem(title: "Close",
                             style: .Plain,
                             target: self,
-                            action: #selector(didPressClose))
+                            action: #selector(didTapClose))
+        
         
         
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
-        
-        view.addSubview(navigationBar)
-        
+    
     }
     
     override func loadView() {
@@ -41,7 +40,18 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     }
     
     override func viewDidAppear(animated: Bool) {
-        add(transcript: "Copyright © 2016 No Plan B. All rights reserved", with: NSDate())
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
+        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
+        
         
 //        self.performSelector(#selector(viewDidAppear), withObject: true, afterDelay: 0.5)
     }
@@ -62,20 +72,17 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
         self.contentView.stackView.addArrangedSubview(item)
         self.contentView.stackView.layoutIfNeeded()
 
-        var frame = item.frame
-        frame.size.height = 0
-        item.frame = frame
+        item.alpha = 0
         
         let animations = {
-            item.setNeedsLayout()
-            item.layoutIfNeeded()
+            item.alpha = 1
         }
         
         UIView.animateWithDuration(0.5,
                                    delay: 0,
                                    usingSpringWithDamping: 0.7,
                                    initialSpringVelocity: 1,
-                                   options: [],
+                                   options: UIViewAnimationOptions.AllowUserInteraction,
                                    animations: animations,
                                    completion: nil)
         
@@ -83,11 +90,27 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     func setVolumeEnabled(enabled:Bool) {
         
+        let imageName = enabled ? "mute-off" : "mute-on"
+        
+        let image = UIImage(named: imageName,
+                            inBundle: nil,
+                            compatibleWithTraitCollection: nil)
+        
+        let button = UIBarButtonItem(image: image,
+                                     style: .Plain,
+                                     target: self,
+                                     action: #selector(didTapMute))
+        
+        navigationItem.setRightBarButtonItem(button, animated: true)
     }
     
     // MARK: Support
     
-    func didPressClose() {
+    func didTapMute() {
+        self.output?.didTapMuteButton()
+    }
+    
+    func didTapClose() {
         self.output?.didTapCloseButton()
     }
 }

@@ -14,6 +14,8 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     let logic: TranscriptLogic
     let router: TranscriptRouter
     
+    var volumeEnabled = true
+    
     init(view: TranscriptUIInput,
          logic: TranscriptLogic,
          router: TranscriptRouter)
@@ -27,6 +29,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     
     @objc func present(for friendWithID: String) {
         
+        view.setVolumeEnabled(volumeEnabled)
         router.show()        
     }
     
@@ -37,11 +40,13 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     }
     
     func didTapCloseButton() {
-        
+        router.hide()
     }
     
     func didTapMuteButton() {
         
+        volumeEnabled = !volumeEnabled
+        view.setVolumeEnabled(volumeEnabled)
     }
 
 }

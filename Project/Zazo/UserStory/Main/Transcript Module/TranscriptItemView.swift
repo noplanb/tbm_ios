@@ -19,15 +19,15 @@ public class TranscriptItemView: UIView {
 
         // Configure self:
         
-        self.clipsToBounds = true
+//        self.clipsToBounds = true
         self.backgroundColor = UIColor.whiteColor()
         
         let layer = self.layer
         
         layer.cornerRadius = 12
         layer.shadowOpacity = 1
-        layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5).CGColor
-        layer.shadowRadius = 8
+        layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.2).CGColor
+        layer.shadowRadius = 2
         layer.shadowOffset = CGSize(width: 0, height: 4)
         
         self.layoutMargins = UIEdgeInsets(top: 6,

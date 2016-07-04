@@ -313,6 +313,8 @@
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
 		15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */; };
 		15ADFE891CAD62B600D4B33F /* ZZAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* ZZAlertController.m */; };
+		15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */; };
+		15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15B823021CB7BBD4006473E1 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822EE1CB7BBD4006473E1 /* TBMFriend.m */; };
 		15B823031CB7BBD4006473E1 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822F01CB7BBD4006473E1 /* TBMGridElement.m */; };
@@ -1365,6 +1367,8 @@
 		15ACCB731C8089220025798A /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
 		15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZLoadingAnimationView.h; sourceTree = "<group>"; };
 		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
+		15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FadingView.swift; path = Zazo/Library/Categories/FadingView.swift; sourceTree = SOURCE_ROOT; };
+		15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Transcript.xcassets; sourceTree = "<group>"; };
 		15B822ED1CB7BBD4006473E1 /* TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriend.h; sourceTree = "<group>"; };
 		15B822EE1CB7BBD4006473E1 /* TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriend.m; sourceTree = "<group>"; };
 		15B822EF1CB7BBD4006473E1 /* TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElement.h; sourceTree = "<group>"; };
@@ -5187,6 +5191,7 @@
 				15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */,
 				15443A8F1D252717009F55CD /* TranscriptModuleInterface.swift */,
 				15443A951D253249009F55CD /* TranscriptRouter.swift */,
+				15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */,
 			);
 			path = "Transcript Module";
 			sourceTree = "<group>";
@@ -5209,6 +5214,7 @@
 				15443A8B1D25257F009F55CD /* TranscriptView.swift */,
 				15443A991D255A91009F55CD /* TranscriptItemView.swift */,
 				15443A911D252A59009F55CD /* TranscriptUI.swift */,
+				15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -5577,6 +5583,7 @@
 				15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */,
 				15ACCB761C8089220025798A /* Animations.xcassets in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
+				15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */,
 				158960561CB7B61D0040D8E3 /* human.h.motemplate in Resources */,
 				07636E831BA49A0100925671 /* icon_menu_dots.png in Resources */,
 				158960591CB7B61D0040D8E3 /* machine.m.motemplate in Resources */,
@@ -6093,6 +6100,7 @@
 				07636E381BA49A0100925671 /* ZZRemoteStorageTransport.m in Sources */,
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
+				15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */,
 				158960651CB7B61D0040D8E3 /* ANMessageDomainModel.m in Sources */,
 				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
 				153682451C99539D006EDC12 /* ZZMain.m in Sources */,

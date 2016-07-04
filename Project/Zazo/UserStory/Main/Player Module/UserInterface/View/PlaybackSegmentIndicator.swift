@@ -1,5 +1,5 @@
 //
-//  PlaybackSegmentIndicator.swift
+//  PlaybackIndicator.swift
 //  Zazo
 //
 //  Created by Rinat on 15/05/16.
@@ -10,18 +10,50 @@ import Foundation
 import OAStackView
 import SnapKit
 
-@objc public protocol PlaybackSegmentIndicatorDelegate: class
+struct PlaybackIndicatorTheme {
+    
+    let bodyColor: UIColor
+    let textColor: UIColor
+    
+    static let defaultTheme =
+        PlaybackIndicatorTheme(bodyColor: ZZColorTheme.shared().tintColor,
+                               textColor: UIColor.whiteColor())
+    
+    static let invertedTheme =
+        PlaybackIndicatorTheme(bodyColor: UIColor.whiteColor(),
+                               textColor: ZZColorTheme.shared().tintColor)
+}
+
+@objc public protocol PlaybackIndicatorDelegate: class
 {
     func didStartDragging()
     func didFinishDragging()
     func didSeekToPosition(position: CGFloat, ofSegmentWithIndex: Int)
 }
 
-public class PlaybackSegmentIndicator: UIView
+public class PlaybackIndicator: UIView
 {
     let emptySegmentPositionImage = UIImage()
     
-    @objc public weak var delegate: PlaybackSegmentIndicatorDelegate?
+    @objc public var invertedColorTheme = false {
+        didSet {
+            if oldValue != invertedColorTheme {
+                colorTheme = invertedColorTheme ? PlaybackIndicatorTheme.invertedTheme : PlaybackIndicatorTheme.defaultTheme
+            }
+        }
+    }
+    
+    var colorTheme = PlaybackIndicatorTheme.defaultTheme {
+        didSet {
+            
+            UIView.performWithoutAnimation {
+                self.segmentCount = 0
+                self.segmentCount = 1
+            }
+        }
+    }
+    
+    @objc public weak var delegate: PlaybackIndicatorDelegate?
     
     @objc public var segmentCount: Int = 1 {
         didSet {
@@ -73,7 +105,11 @@ public class PlaybackSegmentIndicator: UIView
 
                 if segment.thumbImageForState(.Normal) == emptySegmentPositionImage
                 {
-                    let image = ZZBadgeIndicator.renderWithNumber(currentSegment + Int(1))
+                    let badgeNumber = currentSegment + Int(1)
+                    let image = ZZBadgeIndicator.renderWithNumber(badgeNumber ,
+                                                                  fontColor: colorTheme.textColor,
+                                                                  backgroundColor: colorTheme.bodyColor)
+                    
                     segment.setThumbImage(image, forState: .Normal)
                     
 //                    print("thumb set for \(currentSegment)")
@@ -164,14 +200,13 @@ public class PlaybackSegmentIndicator: UIView
         
         segment.backgroundColor = UIColor.clearColor()
         segment.exclusiveTouch = true
-        segment.minimumTrackTintColor = self.tintColor
-        segment.maximumTrackTintColor = self.tintColor
+        segment.minimumTrackTintColor = self.colorTheme.bodyColor
+        segment.maximumTrackTintColor = self.colorTheme.bodyColor
         segment.userInteractionEnabled = false
         segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
 
         return segment
     }
-    
     
     var previousSegment: UISlider?    
     

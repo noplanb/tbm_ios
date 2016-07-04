@@ -24,7 +24,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 @property (nonatomic, strong) ZZHintsView *hintsView;
 @property (nonatomic, assign) ZZHintsType showedHintType;
 
-@property (nonatomic, weak) PlaybackSegmentIndicator *indicator;
+@property (nonatomic, weak) PlaybackIndicator *indicator;
 
 @end
 
@@ -59,7 +59,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     
     if (model.type == ZZHintsTypePlaybackControlsUsageHint)
     {
-        PlaybackSegmentIndicator *indicator = [PlaybackSegmentIndicator new];
+        PlaybackIndicator *indicator = [PlaybackIndicator new];
         indicator.segmentCount = 3;
         indicator.segmentProgress = 0.5;
         

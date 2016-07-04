@@ -10,6 +10,8 @@
 
 @interface ZZBadgeIndicator : UIView
 
-+ (UIImage *)renderWithNumber:(NSInteger)number;
++ (UIImage *)renderWithNumber:(NSInteger)number
+                    fontColor:(UIColor *)color
+              backgroundColor:(UIColor *)color;
 
 @end
