@@ -403,8 +403,16 @@
 
         [self addSubview:_userNameLabel];
 
+        CGFloat offset = 0;
+        
+        if (self.overflowButton) {
+            offset = 12;
+        }
+        
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.left.right.equalTo(self);
+            make.bottom.equalTo(self);
+            make.left.equalTo(self).offset(offset);
+            make.right.equalTo(self).offset(-offset);
             make.height.equalTo(@(kLayoutConstNameLabelHeight));
         }];
     }
@@ -448,16 +456,6 @@
 
     return holdEffectView;
 }
-
-//- (DownloadingView *)downloadingView
-//{
-//    if (!_downloadingView)
-//    {
-//        _downloadingView = [[DownloadingView alloc] initWithFrame:CGRectMake(0, 0, 62, 62)];
-//    }
-//    
-//    return _downloadingView;
-//}
 
 #pragma mark Touches
 

@@ -26,6 +26,7 @@ static CGFloat const kUserNameFontSize = 18;
 
 @property (nonatomic, strong) ZZGridCell *presentedView;
 @property (nonatomic, strong) ZZUserNameLabel *userNameLabel;
+@property (nonatomic, strong) UIButton *overflowButton;
 
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIView *backGradientView;

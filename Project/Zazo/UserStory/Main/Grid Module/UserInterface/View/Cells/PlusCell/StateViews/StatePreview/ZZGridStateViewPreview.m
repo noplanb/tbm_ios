@@ -26,6 +26,8 @@
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
+        [self makeOverflowButton];
+        
         [self thumbnailImageView];
         [self userNameLabel];
         [self dateLabel];
@@ -34,6 +36,9 @@
         [self effectView];
         [self sentBadge];
         [self numberBadge];
+        
+        [self bringSubviewToFront:self.overflowButton];
+
     }
 
     return self;
@@ -142,6 +147,31 @@
     }
 
     return _dateLabel;
+}
+
+- (void)makeOverflowButton
+{
+    UIButton *button = [UIButton new];
+    
+    [self addSubview:button];
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.equalTo(@(kLayoutConstNameLabelHeight));
+    }];
+    
+    UIImage *overflowIcon = [UIImage imageNamed:@"overflow-icon"];
+    
+    UIImageView *overflowImageView = [[UIImageView alloc] initWithImage:overflowIcon];
+    overflowImageView.tintColor = [UIColor whiteColor];
+    
+    [button addSubview:overflowImageView];
+    [overflowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(button);
+        make.right.equalTo(button);
+    }];
+
+    self.overflowButton = button;
 }
 
 @end

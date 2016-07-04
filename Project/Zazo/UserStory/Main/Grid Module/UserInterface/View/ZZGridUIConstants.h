@@ -85,7 +85,7 @@ static inline CGFloat const kGridHeight()
 }
 
 
-static CGFloat const kLayoutConstNameLabelHeight = 32;
+static CGFloat const kLayoutConstNameLabelHeight = 33;
 static CGFloat const kLayoutConstDateLabelFontSize = 12;
 
 static UIEdgeInsets const kGridSectionInsets = {12, 12, 12, 12};

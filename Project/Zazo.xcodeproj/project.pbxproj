@@ -186,7 +186,6 @@
 		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
 		107C303D9F04AF4ED4B439C0 /* Pods_ZazoBase_Zazo_NetworkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */; };
-		150A9E0A1CDB942B007E7441 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		151A6C2F1CA5688800F2B53D /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */; };
 		151A6C301CA5688800F2B53D /* Menu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 151A6C221CA5688800F2B53D /* Menu.strings */; };
 		151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C251CA5688800F2B53D /* ZZMenuPresenter.m */; };
@@ -315,6 +314,7 @@
 		15ADFE891CAD62B600D4B33F /* ZZAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* ZZAlertController.m */; };
 		15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */; };
 		15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */; };
+		15B1C2EC1D2AA7A100B9CDCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
 		15B6F2F61C24011600148E0F /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
 		15B823021CB7BBD4006473E1 /* TBMFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822EE1CB7BBD4006473E1 /* TBMFriend.m */; };
 		15B823031CB7BBD4006473E1 /* TBMGridElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822F01CB7BBD4006473E1 /* TBMGridElement.m */; };
@@ -1369,6 +1369,7 @@
 		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
 		15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FadingView.swift; path = Zazo/Library/Categories/FadingView.swift; sourceTree = SOURCE_ROOT; };
 		15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Transcript.xcassets; sourceTree = "<group>"; };
+		15B1C2ED1D2AA7E300B9CDCD /* Thumbnail.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Thumbnail.xcassets; sourceTree = "<group>"; };
 		15B822ED1CB7BBD4006473E1 /* TBMFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMFriend.h; sourceTree = "<group>"; };
 		15B822EE1CB7BBD4006473E1 /* TBMFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMFriend.m; sourceTree = "<group>"; };
 		15B822EF1CB7BBD4006473E1 /* TBMGridElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMGridElement.h; sourceTree = "<group>"; };
@@ -2395,6 +2396,7 @@
 				182255FC1C1714CE003885A3 /* TestVideo */,
 				07636BD71BA49A0100925671 /* Images */,
 				07636BFE1BA49A0100925671 /* Localizations */,
+				15B1C2ED1D2AA7E300B9CDCD /* Thumbnail.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -5569,9 +5571,9 @@
 				151A6C301CA5688800F2B53D /* Menu.strings in Resources */,
 				07636E861BA49A0100925671 /* navbar_btn_back.pdf in Resources */,
 				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
+				15B1C2EC1D2AA7A100B9CDCD /* Assets.xcassets in Resources */,
 				15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */,
 				158960581CB7B61D0040D8E3 /* machine.h.motemplate in Resources */,
-				150A9E0A1CDB942B007E7441 /* Assets.xcassets in Resources */,
 				07636E8B1BA49A0100925671 /* ANGeneralErrorLocalizable.strings in Resources */,
 				07636DFD1BA49A0100925671 /* Images.xcassets in Resources */,
 				15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */,
