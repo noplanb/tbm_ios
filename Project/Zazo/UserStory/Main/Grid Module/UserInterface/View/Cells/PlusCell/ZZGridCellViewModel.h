@@ -16,7 +16,21 @@
 
 @end
 
-@protocol ZZGridCellViewModelDelegate <NSObject>
+@protocol ZZGridModelPresenterInterface <NSObject>
+
+- (void)didTapOverflowButton:(UIButton *)button
+                     atModel:(ZZGridCellViewModel *)model;
+
+- (BOOL)isGridRotate;
+
+- (void)playingStateUpdatedToState:(BOOL)isEnabled
+                         viewModel:(ZZGridCellViewModel *)viewModel;
+
+- (void)addUserToItem:(ZZGridCellViewModel *)model;
+
+- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model;
+
+- (void)nudgeSelectedWithUserModel:(id)userModel;
 
 - (void)recordingStateUpdatedToState:(BOOL)isEnabled
                            viewModel:(ZZGridCellViewModel *)viewModel
@@ -24,20 +38,10 @@
 
 - (void)cancelRecordingWithReason:(NSString *)reason;
 
-- (void)playingStateUpdatedToState:(BOOL)isEnabled
-                         viewModel:(ZZGridCellViewModel *)viewModel;
-
-- (void)nudgeSelectedWithUserModel:(id)userModel;
-
 - (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)model;
 
-- (BOOL)isGridRotate;
-
-- (void)addUserToItem:(ZZGridCellViewModel *)model;
-
-- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model;
-
 @end
+
 
 typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 {
@@ -65,7 +69,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @interface ZZGridCellViewModel : NSObject
 
 @property (nonatomic, strong) ZZGridDomainModel *item;
-@property (nonatomic, weak) id <ZZGridCellViewModelDelegate> delegate;
+@property (nonatomic, weak) id <ZZGridModelPresenterInterface> presenter;
 @property (nonatomic, weak) id <ZZGridCellViewModelAnimationDelegate> animationDelegate;
 @property (nonatomic, assign) NSInteger badgeNumber;
 @property (nonatomic, weak) UIView *playerContainerView;
@@ -77,18 +81,11 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign, readonly) BOOL isRecording;
 @property (nonatomic, weak) UILabel *usernameLabel;
 
-- (void)updateRecordingStateTo:(BOOL)isRecording
-           withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock;
-
-- (void)itemSelected;
-
 - (NSArray *)playerVideoURLs;
 
 - (NSString *)firstName;
 
 - (UIImage *)videoThumbnailImage;
-
-- (void)updateVideoPlayingStateTo:(BOOL)isPlaying;
 
 - (ZZGridCellViewModelState)state;
 
@@ -100,5 +97,13 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 - (BOOL)isEnablePlayingVideo;
 
 - (BOOL)isVideoPlayed;
+
+// MARK: Events
+
+- (void)didChangeRecordingState:(BOOL)isRecording
+                     completion:(void (^)(BOOL isRecordingSuccess))completionBlock;
+- (void)didChangePlayingState:(BOOL)isPlaying;
+- (void)didTapEmptyCell;
+- (void)didTapOverflowButton:(UIButton *)button;
 
 @end

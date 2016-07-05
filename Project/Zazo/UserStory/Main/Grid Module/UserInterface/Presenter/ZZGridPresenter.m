@@ -33,7 +33,8 @@
         <
         ZZGridDataSourceDelegate,
         ZZGridActionHanlderDelegate,
-        TBMTableModalDelegate
+        TBMTableModalDelegate,
+        ZZGridModelPresenterInterface
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;
@@ -56,6 +57,7 @@
 
     self.dataSource = [ZZGridDataSource new];
     self.dataSource.delegate = self;
+    self.dataSource.presenter = self;
     [self.userInterface updateWithDataSource:self.dataSource];
 
     [self _setupNotifications];
@@ -394,16 +396,6 @@
 //    [ZZGridAlertBuilder showOneTouchRecordViewHint];
 }
 
-- (BOOL)isGridRotate
-{
-    return [self.userInterface isGridRotating];
-}
-
-- (void)addUser
-{
-    [self presentMenu];
-}
-
 - (void)showHint
 {
     if ([ZZFriendDataProvider friendsCount] == 0)
@@ -434,46 +426,6 @@
     [[iToast makeText:message] show];
 }
 
-- (BOOL)isVideoPlayingEnabledWithModel:(ZZGridCellViewModel *)model
-{
-
-    BOOL isEnabled = YES;
-
-    if ([self _isNetworkEnabled])
-    {
-        if ((model.badgeNumber == 0) &&
-                model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-        {
-            isEnabled = NO;
-            [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
-        }
-    }
-    else
-    {
-        if (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading && model.badgeNumber == 0)
-        {
-            isEnabled = NO;
-
-            NSString *badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
-            NSString *message = NSLocalizedString(@"internet-connection-error-message", nil);
-            NSString *actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
-            [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
-                                           message:message
-                                 cancelButtonTitle:nil
-                                actionButtonTitlte:actionButtonTitle action:^{
-                    }];
-
-        }
-        else
-        {
-            isEnabled = YES;
-        }
-    }
-
-    return isEnabled;
-}
-
-
 - (BOOL)_isNetworkEnabled
 {
     return [self.reachability isReachable];
@@ -498,99 +450,6 @@
 }
 
 #pragma mark - ZZGridDataSourceDelegate
-
-- (BOOL)isVideoPlayingWithFriendModel:(ZZFriendDomainModel *)friendModel
-{
-    return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel];
-}
-
-- (void)nudgeSelectedWithUserModel:(ZZFriendDomainModel *)userModel
-{
-    [self.interactor updateLastActionForFriend:userModel];
-    [self _nudgeUser:userModel];
-}
-
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel *)viewModel
-                 withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
-{
-    ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
-
-    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
-    
-    if (!ANIsEmpty(viewModel.item.relatedUser.idTbm))
-    {
-
-        if (isEnabled)
-        {
-            [self.actionHandler hideHint];
-            if ([self.videoPlayer isPlaying])
-            {
-                [self.videoPlayer stop];
-            }
-
-            ANDispatchBlockToMainQueue(^{
-                [self.videoPlayer stop];
-                NSURL *url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
-                [self.userInterface updateRecordViewStateTo:isEnabled];
-
-                [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
-                    [self.userInterface updateRecordViewStateTo:NO];
-
-                    completionBlock(isRecordingSuccess);
-                }];
-            });
-        }
-        else
-        {
-            ANDispatchBlockToMainQueue(^{
-                
-                // Don't rely on completion by videoRecorder to reset the view in case
-                // for some reason it does not complete.
-                [self.userInterface updateRecordViewStateTo:isEnabled];
-
-                [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
-                    if (isRecordingSuccess)
-                    {
-                        [self _handleSentMessageEventWithCellViewModel:viewModel];
-                    }
-                    completionBlock(isRecordingSuccess);
-                }];
-                
-                
-
-            });
-        }
-
-        [self.userInterface updateRollingStateTo:!isEnabled];
-    }
-}
-
-- (void)cancelRecordingWithReason:(NSString *)reason
-{
-    [[ZZVideoRecorder shared] cancelRecordingWithReason:reason];
-    [self.userInterface updateRecordViewStateTo:NO];
-}
-
-- (void)toggleVideoWithViewModel:(ZZGridCellViewModel *)model toState:(BOOL)state
-{
-    if (state) {
-        [self.wireframe presentTranscriptionForUserWithID:model.item.relatedUser.idTbm];
-        return;
-    }
-    
-    [self.interactor updateLastActionForFriend:model.item.relatedUser];
-
-    if (state)
-    {
-        [self.videoPlayer playVideoModels:model.playerVideoURLs];
-    }
-    else
-    {
-        
-        [self.videoPlayer stop];
-    }
-}
 
 - (void)switchCamera
 {    
@@ -774,6 +633,169 @@
     ANDispatchBlockAfter(kZZVideoRecorderDelayBeforeNextMessage, ^{
         [self _showToastWithMessage:NSLocalizedString(@"record-canceled-not-sent", nil)];
     });
+}
+
+#pragma mark - ZZGridModelPresenterInterface
+
+- (void)didTapOverflowButton:(UIButton *)button
+                     atModel:(ZZGridCellViewModel *)model
+{
+    
+}
+
+- (BOOL)isGridRotate
+{
+    return [self.userInterface isGridRotating];
+}
+
+- (void)playingStateUpdatedToState:(BOOL)isEnabled
+                         viewModel:(ZZGridCellViewModel *)viewModel
+{
+
+    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
+    
+    if (isEnabled)
+    {
+        [self.videoPlayer playVideoModels:viewModel.playerVideoURLs];
+    }
+    else
+    {
+        
+        [self.videoPlayer stop];
+    }
+
+}
+
+- (void)addUserToItem:(ZZGridCellViewModel *)model
+{
+    [self presentMenu];
+}
+
+- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model
+{
+    BOOL isEnabled = YES;
+    
+    if ([self _isNetworkEnabled])
+    {
+        if ((model.badgeNumber == 0) &&
+            model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
+        {
+            isEnabled = NO;
+            [self _showToastWithMessage:NSLocalizedString(@"video-playing-disabled-reason-downloading", nil)];
+        }
+    }
+    else
+    {
+        if (model.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading && model.badgeNumber == 0)
+        {
+            isEnabled = NO;
+            
+            NSString *badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
+            NSString *message = NSLocalizedString(@"internet-connection-error-message", nil);
+            NSString *actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
+            [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
+                                           message:message
+                                 cancelButtonTitle:nil
+                                actionButtonTitlte:actionButtonTitle action:^{
+                                }];
+            
+        }
+        else
+        {
+            isEnabled = YES;
+        }
+    }
+    
+    return isEnabled;
+
+}
+
+- (void)nudgeSelectedWithUserModel:(id)userModel
+{
+    [self.interactor updateLastActionForFriend:userModel];
+    [self _nudgeUser:userModel];
+
+}
+
+- (void)recordingStateUpdatedToState:(BOOL)isEnabled
+                           viewModel:(ZZGridCellViewModel *)viewModel
+                 withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
+{
+    ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
+    
+    [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
+    
+    if (ANIsEmpty(viewModel.item.relatedUser.idTbm))
+    {
+        return;
+    }
+    
+    if (isEnabled)
+    {
+        [self.actionHandler hideHint];
+        if ([self.videoPlayer isPlaying])
+        {
+            [self.videoPlayer stop];
+        }
+        
+        ANDispatchBlockToMainQueue(^{
+            [self.videoPlayer stop];
+            NSURL *url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
+            [self.userInterface updateRecordViewStateTo:isEnabled];
+            
+            [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
+                [self.userInterface updateRecordViewStateTo:NO];
+                
+                completionBlock(isRecordingSuccess);
+            }];
+        });
+    }
+    else
+    {
+        ANDispatchBlockToMainQueue(^{
+            
+            // Don't rely on completion by videoRecorder to reset the view in case
+            // for some reason it does not complete.
+            [self.userInterface updateRecordViewStateTo:isEnabled];
+            
+            [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
+                if (isRecordingSuccess)
+                {
+                    [self _handleSentMessageEventWithCellViewModel:viewModel];
+                }
+                completionBlock(isRecordingSuccess);
+            }];
+            
+            
+            
+        });
+    }
+    
+    [self.userInterface updateRollingStateTo:!isEnabled];
+    
+    // Show nudge dialog case: 
+    
+    ZZFriendDomainModel *friendModel = viewModel.item.relatedUser;
+    
+    if (isEnabled || friendModel.hasApp || !friendModel.everSent)
+    {
+        return;
+    }
+    
+    [self nudgeSelectedWithUserModel:friendModel];
+
+}
+
+- (void)cancelRecordingWithReason:(NSString *)reason
+{
+    [[ZZVideoRecorder shared] cancelRecordingWithReason:reason];
+    [self.userInterface updateRecordViewStateTo:NO];
+
+}
+
+- (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)friendModel
+{
+    return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel.item.relatedUser];
 }
 
 

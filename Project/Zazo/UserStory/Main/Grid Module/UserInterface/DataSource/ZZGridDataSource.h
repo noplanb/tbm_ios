@@ -17,6 +17,7 @@
 
 @interface ZZGridDataSource : NSObject
 
+@property (nonatomic, weak) id <ZZGridModelPresenterInterface> presenter;
 @property (nonatomic, weak) id <ZZGridDataSourceDelegate> delegate;
 @property (nonatomic, weak) id <ZZGridDataSourceControllerDelegate> controllerDelegate;
 

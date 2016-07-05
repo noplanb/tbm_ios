@@ -15,7 +15,6 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 @interface ZZGridDataSource ()
         <
-        ZZGridCellViewModelDelegate,
         ZZGridCenterCellViewModelDelegate
         >
 
@@ -120,7 +119,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 - (void)_configureCellViewModel:(ZZGridCellViewModel *)viewModel withDomainModel:(ZZGridDomainModel *)model
 {
     viewModel.item = model;
-    viewModel.delegate = self;
+    viewModel.presenter = self.presenter;
 
     viewModel.hasDownloadedVideo = [model.relatedUser hasDownloadedVideo];
 
@@ -266,52 +265,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     return NSNotFound;
 }
 
-
-#pragma mark - ViewModel Delegate
-
-- (BOOL)isGridRotate
-{
-    return [self.delegate isGridRotate];
-}
-
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel *)viewModel
-                 withCompletionBlock:(ZZBoolBlock)completionBlock
-{
-    [self.delegate recordingStateUpdatedToState:isEnabled
-                                      viewModel:viewModel
-                            withCompletionBlock:completionBlock];
-    
-    ZZFriendDomainModel *friendModel = viewModel.item.relatedUser;
-    
-    if (isEnabled || friendModel.hasApp || !friendModel.everSent)
-    {
-        return;
-    }
-    
-    [self nudgeSelectedWithUserModel:friendModel];
-}
-
-- (void)nudgeSelectedWithUserModel:(id)userModel
-{
-    [self.delegate nudgeSelectedWithUserModel:userModel];
-}
-
-- (void)playingStateUpdatedToState:(BOOL)isEnabled viewModel:(ZZGridCellViewModel *)viewModel
-{
-    [self.delegate toggleVideoWithViewModel:viewModel toState:isEnabled];
-}
-
-- (void)addUserToItem:(ZZGridCellViewModel *)model
-{
-    [self.delegate addUser];
-}
-
-- (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model
-{
-    return [self.delegate isVideoPlayingEnabledWithModel:model];
-}
-
 #pragma mark - Center Cell Delegate
 
 - (void)switchCamera
@@ -319,20 +272,11 @@ static NSInteger const kGridCenterCellIndex = 4;
     [self.delegate switchCamera];
 }
 
-- (void)cancelRecordingWithReason:(NSString *)reason
-{
-    [self.delegate cancelRecordingWithReason:reason];
-}
-
 - (void)showHint
 {
     [self.delegate showHint];
 }
 
-- (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)model
-{
-    return [self.delegate isVideoPlayingWithFriendModel:model.item.relatedUser];
-}
 
 #pragma mark - Private
 

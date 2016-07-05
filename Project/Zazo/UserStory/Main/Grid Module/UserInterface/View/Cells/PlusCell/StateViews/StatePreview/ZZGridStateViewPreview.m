@@ -95,7 +95,7 @@
     {
         [self.presentedView hideActiveBorder];
 
-        [self.model updateVideoPlayingStateTo:YES];
+        [self.model didChangePlayingState:YES];
     }
 }
 
@@ -160,6 +160,10 @@
         make.height.equalTo(@(kLayoutConstNameLabelHeight));
     }];
     
+    [button addTarget:self
+               action:@selector(didTapOverflowButton:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
     UIImage *overflowIcon = [UIImage imageNamed:@"overflow-icon"];
     
     UIImageView *overflowImageView = [[UIImageView alloc] initWithImage:overflowIcon];
@@ -172,6 +176,11 @@
     }];
 
     self.overflowButton = button;
+}
+
+- (void)didTapOverflowButton:(UIButton *)button
+{
+    [self.model didTapOverflowButton:(UIButton *)button];
 }
 
 @end

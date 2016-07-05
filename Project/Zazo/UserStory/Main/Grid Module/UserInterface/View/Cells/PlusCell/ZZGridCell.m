@@ -194,7 +194,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 
 - (void)_itemSelected:(id)r
 {
-    [self.model itemSelected];
+    [self.model didTapEmptyCell];
 }
 
 - (ZZAddContactButton *)plusButton

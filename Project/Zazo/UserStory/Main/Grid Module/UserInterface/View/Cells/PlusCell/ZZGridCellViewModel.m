@@ -76,14 +76,6 @@
     return videoStatusString;
 }
 
-- (void)itemSelected
-{
-    if (![self.delegate isGridRotate])
-    {
-        [self.delegate addUserToItem:self];
-    }
-}
-
 - (void)reloadDebugVideoStatus
 {
     ANDispatchBlockToMainQueue(^{
@@ -94,16 +86,6 @@
 - (BOOL)isRecording
 {
     return !CGPointEqualToPoint(self.initialRecordPoint, CGPointZero);
-}
-
-- (void)updateRecordingStateTo:(BOOL)isRecording
-           withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
-{
-    [self.delegate recordingStateUpdatedToState:isRecording
-                                      viewModel:self
-                            withCompletionBlock:completionBlock];
-
-    [self reloadDebugVideoStatus];
 }
 
 - (ZZGridCellViewModelState)state
@@ -198,13 +180,6 @@
     return stateWithAdditionalState;
 }
 
-
-- (void)updateVideoPlayingStateTo:(BOOL)isPlaying
-{
-    [self.delegate playingStateUpdatedToState:isPlaying viewModel:self];
-    [self reloadDebugVideoStatus];
-}
-
 - (NSString *)firstName
 {
     return [NSObject an_safeString:self.item.relatedUser.firstName];
@@ -260,13 +235,13 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-    if (![self.delegate isGridRotate])
+    if (![self.presenter isGridRotate])
     {
         if (recognizer.state == UIGestureRecognizerStateBegan)
         {
             self.initialRecordPoint = [recognizer locationInView:recognizer.view];
 
-            [self updateRecordingStateTo:YES withCompletionBlock:^(BOOL isRecordingSuccess) {
+            [self didChangeRecordingState:YES completion:^(BOOL isRecordingSuccess) {
                 if (isRecordingSuccess)
                 {
                     self.hasUploadedVideo = YES;
@@ -290,7 +265,7 @@
 
 - (void)_stopVideoRecording
 {
-    [self updateRecordingStateTo:NO withCompletionBlock:^(BOOL isRecordingSuccess) {
+    [self didChangeRecordingState:NO completion:^(BOOL isRecordingSuccess) {
         if (isRecordingSuccess)
         {
             self.hasUploadedVideo = YES;
@@ -320,7 +295,7 @@
                 (addTouchBounds * 2));
         if (!CGRectContainsPoint(observeFrame, location))
         {
-            [self.delegate cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
+            [self.presenter cancelRecordingWithReason:NSLocalizedString(@"record-dragged-finger-away", nil)];
         }
     }
 }
@@ -355,12 +330,44 @@
 
 - (BOOL)isEnablePlayingVideo
 {
-    return [self.delegate isGridCellEnablePlayingVideo:self];
+    return [self.presenter isGridCellEnablePlayingVideo:self];
 }
 
 - (BOOL)isVideoPlayed
 {
-    return [self.delegate isVideoPlayingWithModel:self];
+    return [self.presenter isVideoPlayingWithModel:self];
+}
+
+// MARK: Events
+
+- (void)didTapEmptyCell
+{
+    if (![self.presenter isGridRotate])
+    {
+        [self.presenter addUserToItem:self];
+    }
+}
+
+- (void)didChangeRecordingState:(BOOL)isRecording
+                     completion:(void (^)(BOOL isRecordingSuccess))completionBlock
+{
+    [self.presenter recordingStateUpdatedToState:isRecording
+                                      viewModel:self
+                            withCompletionBlock:completionBlock];
+
+    [self reloadDebugVideoStatus];
+}
+
+- (void)didChangePlayingState:(BOOL)isPlaying
+{
+    [self.presenter playingStateUpdatedToState:isPlaying viewModel:self];
+    [self reloadDebugVideoStatus];
+}
+
+- (void)didTapOverflowButton:(UIButton *)button
+{
+    [self.presenter didTapOverflowButton:(UIButton *)button
+                                atModel:self];
 }
 
 @end
