@@ -10,6 +10,8 @@
 
 @protocol ZZGridModuleInterface <NSObject>
 
+- (void)didTapOverflowMenuItem:(MenuItem *)item atFriendModelWithID:(NSString *)friendID;
+
 - (void)presentMenu;
 
 - (void)stopPlaying;

@@ -8,14 +8,14 @@
 
 import Foundation
 
-public protocol RecognitionManagerOutput {
+@objc public protocol RecognitionManagerOutput {
     
     func didRecognize(url: NSURL, result: String)
     func didFailRecognition(url: NSURL, error: NSError)
 
 }
 
-public class RecognitionManager {
+@objc public class RecognitionManager: NSObject {
     
     public typealias operationType = RecognitionOperation.Type
     
@@ -28,7 +28,7 @@ public class RecognitionManager {
     var operationTypes = Array<operationType>()
     
     public init(output: RecognitionManagerOutput) {
-
+        
         operationQueue.qualityOfService = .UserInitiated
         
         urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -36,6 +36,10 @@ public class RecognitionManager {
                                   delegateQueue: operationQueue)
         
         self.output = output
+        
+        super.init()
+        
+        registerType(NuanceRecognitionOperation)
         
     }
     
@@ -46,6 +50,8 @@ public class RecognitionManager {
     }
     
     public func recognizeFile(url: NSURL) {
+        
+        print("started", NSDate())
         
         var operation: RecognitionOperation?
         
@@ -78,6 +84,8 @@ public class RecognitionManager {
     }
     
     func operationCompleted(operation: RecognitionOperation) {
+        
+        print("finished", NSDate())
         
         if let error = operation.error {
             output.didFailRecognition(operation.fileURL, error: error)

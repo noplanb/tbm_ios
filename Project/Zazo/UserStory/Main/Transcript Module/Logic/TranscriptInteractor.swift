@@ -20,11 +20,11 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         completion("asd")
     }
     
-    func didRecognize(url: NSURL, result: String) {
+    @objc func didRecognize(url: NSURL, result: String) {
         
     }
     
-    func didFailRecognition(url: NSURL, error: NSError) {
+    @objc func didFailRecognition(url: NSURL, error: NSError) {
         
     }
 

@@ -34,7 +34,8 @@
         ZZGridDataSourceDelegate,
         ZZGridActionHanlderDelegate,
         TBMTableModalDelegate,
-        ZZGridModelPresenterInterface
+        ZZGridModelPresenterInterface,
+        RecognitionManagerOutput
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;
@@ -42,6 +43,7 @@
 @property (nonatomic, strong) ZZGridActionHandler *actionHandler;
 @property (nonatomic, strong) RollbarReachability *reachability;
 @property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
+@property (nonatomic, strong) RecognitionManager *recognitionManager;
 
 @end
 
@@ -65,6 +67,8 @@
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
 
     [self _startTouchObserve];
+    
+    self.recognitionManager = [[RecognitionManager alloc] initWithOutput:self];
 }
 
 - (void)_setupNotifications
@@ -237,6 +241,7 @@
     [self.userInterface updateDownloadingProgressTo:progress forModel:friendModel];
 }
 
+
 #pragma mark - EVENT InviteHint
 
 - (void)dataLoadedWithArray:(NSArray *)data
@@ -389,12 +394,29 @@
     return [view convertRect:view.frame toView:view.window];
 }
 
-#pragma mark - DataSource Delegate
-
-- (void)showRecorderHint
+- (void)didTapOverflowMenuItem:(MenuItem *)item atFriendModelWithID:(NSString *)friendID
 {
-//    [ZZGridAlertBuilder showOneTouchRecordViewHint];
+    if ([item.title isEqualToString:@"Transcript"])
+    {
+        [self.wireframe presentTranscriptionForUserWithID:friendID];
+        return;
+    }
+    
+    if ([item.title isEqualToString:@"Fullscreen"])
+    {
+        
+        ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:friendID];
+        
+        ZZVideoDomainModel *videoModel = friend.videos.lastObject;
+        
+        [self.recognitionManager recognizeFile:videoModel.videoURL];
+        
+        return;
+    }
+    
 }
+
+#pragma mark - DataSource Delegate
 
 - (void)showHint
 {

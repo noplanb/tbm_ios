@@ -9,7 +9,7 @@
 import Foundation
 import Popover
 
-public protocol MenuOutput {
+@objc public protocol MenuOutput {
     
     func event(from menu: Menu, didPick item: MenuItem)
     
@@ -27,7 +27,7 @@ public protocol MenuOutput {
 
 @objc public class Menu: NSObject {
     
-    public var output: MenuOutput?
+    @objc public var output: MenuOutput?
     
     var table = MenuTable(frame: CGRect.zero, style: UITableViewStyle.Plain)
     weak var popover: Popover?

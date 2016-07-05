@@ -14,14 +14,14 @@
 #import "ZZGridUIConstants.h"
 #import "ZZTabbarView.h"
 
-@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate>
+@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, MenuOutput>
 
 @property (nonatomic, strong) ZZGridView *gridView;
 @property (nonatomic, strong) ZZGridCollectionController *controller;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) Menu *menu;
-
+@property (nonatomic, strong) NSString *overflowMenuFriendID;
 @end
 
 @implementation ZZGridVC
@@ -54,6 +54,7 @@
         [self _makeTapRecognizer];
         
         _menu = [Menu new];
+        _menu.output = self;
     }
     return self;
 }
@@ -113,6 +114,8 @@
     ZZGridCell *cell = (id)[self.controller gridCellWithFriendModel:friendModel];
 
     [self.menu showFrom:cell items:items];
+    
+    self.overflowMenuFriendID = friendModel.idTbm;
 }
 
 - (void)prepareForCameraSwitchAnimation
@@ -409,6 +412,13 @@
     }
     
     return YES;
+}
+
+#pragma mark MenuOutput
+
+- (void)eventFrom:(Menu * _Nonnull)menu didPick:(MenuItem * _Nonnull)item
+{
+    [self.eventHandler didTapOverflowMenuItem:item atFriendModelWithID:self.overflowMenuFriendID];
 }
 
 @end
