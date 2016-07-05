@@ -11,7 +11,7 @@ import Popover
 
 public protocol MenuOutput {
     
-    func eventFromMenu(menu: Menu, didPick item: MenuItem)
+    func event(from menu: Menu, didPick item: MenuItem)
     
 }
 
@@ -29,13 +29,24 @@ public protocol MenuOutput {
     
     public var output: MenuOutput?
     
-    let table = MenuTable(frame: CGRect.init(x: 0, y: 0, width: 200, height: 100), style: UITableViewStyle.Plain)
+    var table = MenuTable(frame: CGRect.zero, style: UITableViewStyle.Plain)
+    weak var popover: Popover?
+    
+    override init() {
+        super.init()
+        table.menu = self
+    }
     
     public func show(from view: UIView, items: [MenuItem]) {
         
+        let popover = Popover()
+        self.popover = popover
+        
         table.items = items
         
-        let popover = Popover(options: [.Type(.Up)])
+        guard let rootView = view.window?.rootViewController?.view else {
+            return
+        }
         
         var point = view.frame.origin
         
@@ -43,24 +54,61 @@ public protocol MenuOutput {
         point.x += view.frame.size.width / 2 // Center X
         point.y += view.frame.size.height    // Bottom Y
         
+        let isTopCell = point.y < rootView.frame.height / 2
+
         // Corrections:
         
         point.y += UIApplication.sharedApplication().statusBarFrame.height
-        point.y -= kLayoutConstNameLabelHeight
+        
+        if isTopCell {
+            
+            popover.popoverType = .Down
+            point.y += 8
+            
+        }
+        else {
+            
+            popover.popoverType = .Up
+            point.y -= kLayoutConstNameLabelHeight
+            
+        }
         
         popover.show(table,
                      point: point,
-                     inView: view.window!)
+                     inView: rootView)
     }
-    
+ 
+    public func hide() {
+        popover?.dismiss()
+    }
 }
 
 class MenuTable: UITableView {
     
+    var width = CGFloat(160)
+    weak var menu: Menu?
+    
     var items: [MenuItem]? {
+        
         didSet {
             self.reloadData()
+            self.updateFrame()
         }
+    }
+    
+    override init(frame: CGRect, style: UITableViewStyle) {
+        super.init(frame: frame, style: style)
+        
+        delegate = self
+        dataSource = self
+        
+        alwaysBounceVertical = false
+        
+        rowHeight = 44
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     var height: CGFloat {
@@ -69,11 +117,23 @@ class MenuTable: UITableView {
             return 100
         }
         
-        return CGFloat(count) * 44
+        return CGFloat(count) * rowHeight
     }
     
     override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: 200, height: height)
+        
+        return CGSize(width: self.width,
+                      height: height)
+        
+    }
+    
+    func updateFrame() {
+        
+        invalidateIntrinsicContentSize()
+        
+        self.frame = CGRect(origin: CGPoint.zero,
+                            size: intrinsicContentSize())
+        
     }
 }
 
@@ -81,8 +141,14 @@ extension MenuTable: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let item = items![indexPath.row]
+        
+        menu?.output?.event(from: menu!, didPick: item)
+        
+        menu?.hide()
     }
-
 }
 
 extension MenuTable: UITableViewDataSource {

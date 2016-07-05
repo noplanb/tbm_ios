@@ -110,7 +110,7 @@
 - (void)showOverflowMenuWithItems:(NSArray <MenuItem *> *)items
                          forModel:(ZZFriendDomainModel *)friendModel
 {
-    ZZGridCellViewModel *cell = (id)[self.controller gridCellWithFriendModel:friendModel];
+    ZZGridCell *cell = (id)[self.controller gridCellWithFriendModel:friendModel];
 
     [self.menu showFrom:cell items:items];
 }

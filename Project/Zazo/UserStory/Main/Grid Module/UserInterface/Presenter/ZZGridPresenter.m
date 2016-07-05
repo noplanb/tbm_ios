@@ -641,7 +641,10 @@
                      atModel:(ZZGridCellViewModel *)model
 {
     
-    NSArray<MenuItem *> *items = @[[[MenuItem alloc] initWithTitle:@"Transcript"]];
+    MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
+    MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
+    
+    NSArray<MenuItem *> *items = @[transcript, fullscreen];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
 }
