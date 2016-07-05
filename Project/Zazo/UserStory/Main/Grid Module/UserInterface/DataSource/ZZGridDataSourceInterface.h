@@ -21,8 +21,6 @@
 
 @protocol ZZGridDataSourceDelegate <NSObject>
 
-- (void)addUser;
-
 - (void)showHint;
 
 - (void)switchCamera;
