@@ -641,6 +641,9 @@
                      atModel:(ZZGridCellViewModel *)model
 {
     
+    NSArray<MenuItem *> *items = @[[[MenuItem alloc] initWithTitle:@"Transcript"]];
+    
+    [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
 }
 
 - (BOOL)isGridRotate

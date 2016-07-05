@@ -12,8 +12,12 @@
 @class ZZFriendDomainModel;
 @class ZZGridCellViewModel;
 @class ZZGridDomainModel;
+@class MenuItem;
 
 @protocol ZZGridViewInterface <ZZGridActionHanlderUserInterfaceDelegate>
+
+- (void)showOverflowMenuWithItems:(NSArray <MenuItem *> *)items
+                         forModel:(ZZFriendDomainModel *)friendModel;
 
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource;
 

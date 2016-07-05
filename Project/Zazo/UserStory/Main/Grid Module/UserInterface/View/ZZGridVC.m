@@ -20,6 +20,7 @@
 @property (nonatomic, strong) ZZGridCollectionController *controller;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
+@property (nonatomic, strong) Menu *menu;
 
 @end
 
@@ -51,6 +52,8 @@
         }];
         
         [self _makeTapRecognizer];
+        
+        _menu = [Menu new];
     }
     return self;
 }
@@ -103,6 +106,14 @@
 }
 
 #pragma mark VC Interface
+
+- (void)showOverflowMenuWithItems:(NSArray <MenuItem *> *)items
+                         forModel:(ZZFriendDomainModel *)friendModel
+{
+    ZZGridCellViewModel *cell = (id)[self.controller gridCellWithFriendModel:friendModel];
+
+    [self.menu showFrom:cell items:items];
+}
 
 - (void)prepareForCameraSwitchAnimation
 {
