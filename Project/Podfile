@@ -53,7 +53,8 @@ abstract_target 'ZazoBase' do
     pod 'ReactiveCocoa', '~> 2.4.7'
     pod 'APAddressBook', '~> 0.2.1'
     pod 'libPhoneNumber-iOS', '~> 0.8.7'
-
+    pod 'GCDKit'
+    
     #Logging
     pod 'Rollbar', '~> 0.1.5'
     pod 'OBLogger', '~> 0.4.0'
