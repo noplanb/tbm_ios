@@ -11,6 +11,9 @@ import Foundation
 protocol TranscriptLogic {
     
     func videosFromFriendWithID(id: String) -> [ZZVideoDomainModel]
+    
     func recognizeVideo(fileURL: NSURL, completion: String -> Void)
+    
+    func getThumbnailForFriendID(friendID: String) -> UIImage?
     
 }

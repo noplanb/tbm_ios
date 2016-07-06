@@ -8,14 +8,13 @@
 
 import Foundation
 
-@objc public protocol RecognitionManagerOutput {
+public protocol RecognitionManagerOutput {
     
     func didRecognize(url: NSURL, result: String)
     func didFailRecognition(url: NSURL, error: NSError)
-
 }
 
-@objc public class RecognitionManager: NSObject {
+public class RecognitionManager: NSObject {
     
     public typealias operationType = RecognitionOperation.Type
     

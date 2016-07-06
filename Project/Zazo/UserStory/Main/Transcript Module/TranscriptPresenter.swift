@@ -30,7 +30,13 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
     @objc func present(for friendWithID: String) {
         
         view.setVolumeEnabled(volumeEnabled)
-        router.show()        
+        
+        if let thumb = logic.getThumbnailForFriendID(friendWithID) {
+            view.setThumbnail(thumb)
+        }
+        
+        
+        router.show()
     }
     
     // MARK: TranscriptUIOutput interface

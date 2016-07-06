@@ -24,7 +24,7 @@
 {
     if ([self hasLastThumbForUser:friend])
     {
-        return [self lastThumbImageForUser:friend];
+        return [self lastThumbImageForFriendID:friend.idTbm];
     }
     else if ([self legacyThumbImageForFriend:friend])
     {
@@ -72,9 +72,9 @@
     return [ZZFileHelper fileURLInDocumentsDirectoryWithName:filename];
 }
 
-+ (UIImage *)lastThumbImageForUser:(ZZFriendDomainModel *)friend
++ (UIImage *)lastThumbImageForFriendID:(NSString *)friendID
 {
-    UIImage *image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUserWithID:friend.idTbm].path];
+    UIImage *image = [UIImage imageWithContentsOfFile:[self lastThumbUrlForForUserWithID:friendID].path];
     return image;
 }
 
@@ -128,6 +128,17 @@
 
 
 #pragma mark - Video 
+
++ (UIImage *)imageForVideo:(ZZVideoDomainModel *)videoModel
+{
+    if (![ZZThumbnailGenerator hasThumbForVideo:videoModel])
+    {
+        [ZZThumbnailGenerator generateThumbVideo:videoModel];
+    }
+    
+    return [ZZThumbnailGenerator lastThumbImageForFriendID:videoModel.relatedUserID];
+
+}
 
 + (NSURL *)thumbUrlForVideo:(ZZVideoDomainModel *)video
 {

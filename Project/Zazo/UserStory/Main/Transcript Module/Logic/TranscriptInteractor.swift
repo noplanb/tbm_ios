@@ -20,11 +20,19 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         completion("asd")
     }
     
-    @objc func didRecognize(url: NSURL, result: String) {
+    func getThumbnailForFriendID(friendID: String) -> UIImage? {
+        
+        let friend = ZZFriendDataProvider.friendWithItemID(friendID)
+        
+        return ZZThumbnailGenerator.thumbImageForUser(friend)
         
     }
     
-    @objc func didFailRecognition(url: NSURL, error: NSError) {
+    func didRecognize(url: NSURL, result: String) {
+        
+    }
+    
+    func didFailRecognition(url: NSURL, error: NSError) {
         
     }
 

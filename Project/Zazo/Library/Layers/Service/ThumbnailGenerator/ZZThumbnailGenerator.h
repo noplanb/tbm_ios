@@ -19,7 +19,7 @@
 
 + (NSURL *)lastThumbUrlForForUserWithID:(NSString *)friendID;
 
-+ (UIImage *)lastThumbImageForUser:(ZZFriendDomainModel *)friendModel;
++ (UIImage *)lastThumbImageForFriendID:(NSString *)friendID;
 
 + (BOOL)hasLastThumbForUser:(ZZFriendDomainModel *)friendModel;
 
@@ -32,6 +32,8 @@
 + (UIImage *)thumbnailPlaceholderImageForName:(NSString *)name;
 
 #pragma mark - Video
+
++ (UIImage *)imageForVideo:(ZZVideoDomainModel *)video;
 
 + (NSURL *)thumbUrlForVideo:(ZZVideoDomainModel *)video;
 

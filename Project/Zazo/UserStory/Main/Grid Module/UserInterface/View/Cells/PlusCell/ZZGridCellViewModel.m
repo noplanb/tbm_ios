@@ -322,7 +322,7 @@
         [ZZThumbnailGenerator generateThumbVideo:lastModel];
     }
 
-    return [ZZThumbnailGenerator lastThumbImageForUser:self.item.relatedUser];
+    return [ZZThumbnailGenerator lastThumbImageForFriendID :self.item.relatedUser.idTbm];
 }
 
 

@@ -16,6 +16,7 @@ protocol TranscriptUIInput {
     func loading(ofType type:TranscriptUILoadingType, isVisible visible:Bool)
     func add(transcript text:String, with time:NSDate)
     func setVolumeEnabled(enabled:Bool)
+    func setThumbnail(image: UIImage)
 }
 
 protocol TranscriptUIOutput

@@ -22,7 +22,7 @@ const struct ZZGridDomainModelAttributes ZZGridDomainModelAttributes = {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"itemID=%@", self.itemID];
     [description appendFormat:@", relatedUser=%@", self.relatedUser];
-    [description appendFormat:@", index=%i", self.index];
+    [description appendFormat:@", index=%li", (long)self.index];
     [description appendString:@">"];
     return description;
 }

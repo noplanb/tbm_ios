@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
-@class ZZFriendDomainModel;
+#import "ZZFriendDomainModel.h"
 
 @interface ZZFriendDataProvider : NSObject
 

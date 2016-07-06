@@ -14,10 +14,11 @@ public class TranscriptView: UIView {
 
     public let stackView = OAStackView()
     public let scrollView = UIScrollView()
-    public let thumb = UIView()
+    public let thumb = UIImageView()
     public let navigationBar = UINavigationBar()
     public let playbackIndicator = PlaybackIndicator()
 
+    let thumbHolder = UIView()
     let fadingView = FadingView()
 
     convenience init() {
@@ -25,7 +26,7 @@ public class TranscriptView: UIView {
         
         self.backgroundColor = ZZColorTheme.shared().tintColor
         
-        addSubview(thumb)
+        addSubview(thumbHolder)
         addSubview(fadingView)
         addSubview(navigationBar)
         addSubview(playbackIndicator)
@@ -43,8 +44,12 @@ public class TranscriptView: UIView {
         stackView.axis = .Vertical
         stackView.spacing = 12
         
-        thumb.backgroundColor = UIColor.whiteColor()
-        thumb.layer.cornerRadius = 8
+        thumbHolder.addSubview(thumb)
+        thumbHolder.backgroundColor = UIColor.whiteColor()
+        thumbHolder.layer.cornerRadius = 4
+        
+        thumb.contentMode = .ScaleAspectFill
+        thumb.clipsToBounds = true
         
         playbackIndicator.translatesAutoresizingMaskIntoConstraints = false
         playbackIndicator.invertedColorTheme = true
@@ -82,10 +87,14 @@ public class TranscriptView: UIView {
             make.right.equalTo(self.snp_rightMargin)
         }
         
-        thumb.snp_remakeConstraints { (make) in
+        thumbHolder.snp_remakeConstraints { (make) in
             make.left.equalTo(self.snp_leftMargin)
             make.top.equalTo(top).offset(24)
             make.size.equalTo(kGridItemSize())
+        }
+        
+        thumb.snp_remakeConstraints { (make) in
+            make.edges.equalTo(thumbHolder).inset(4)
         }
         
         navigationBar.snp_remakeConstraints { (make) in

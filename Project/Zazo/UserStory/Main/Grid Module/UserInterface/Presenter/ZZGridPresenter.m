@@ -34,8 +34,7 @@
         ZZGridDataSourceDelegate,
         ZZGridActionHanlderDelegate,
         TBMTableModalDelegate,
-        ZZGridModelPresenterInterface,
-        RecognitionManagerOutput
+        ZZGridModelPresenterInterface
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;
@@ -43,7 +42,6 @@
 @property (nonatomic, strong) ZZGridActionHandler *actionHandler;
 @property (nonatomic, strong) RollbarReachability *reachability;
 @property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
-@property (nonatomic, strong) RecognitionManager *recognitionManager;
 
 @end
 
@@ -67,8 +65,6 @@
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
 
     [self _startTouchObserve];
-    
-    self.recognitionManager = [[RecognitionManager alloc] initWithOutput:self];
 }
 
 - (void)_setupNotifications
@@ -407,18 +403,6 @@
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         [self.videoPlayer playVideoModels:friendModel.videos];
         [self.videoPlayer showFullscreen];
-        return;
-    }
-    
-    if ([item.title isEqualToString:@"Measure"])
-    {
-        
-        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
-        
-        ZZVideoDomainModel *videoModel = friendModel.videos.lastObject;
-        
-        [self.recognitionManager recognizeFile:videoModel.videoURL];
-        
         return;
     }
     
@@ -833,20 +817,6 @@
 - (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)friendModel
 {
     return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel.item.relatedUser];
-}
-
-#pragma mark RecognitionManagerOutput
-
-- (void)didRecognize:(NSURL *)url result:(NSString *)result
-{
-    NSTimeInterval recognitionTime = [[NSDate new] timeIntervalSinceDate: self.recognitionManager.startTime];
-    
-    [ZZGridAlertBuilder showHintalertWithMessage:[NSString stringWithFormat:@"Completed in %1.2f sec", recognitionTime]];
-}
-
-- (void)didFailRecognition:(NSURL *)url error:(NSError *)error
-{
-    
 }
 
 @end

@@ -11,3 +11,5 @@
 #import "UIColor+ANAdditions.h"
 #import "ZZColorTheme.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZThumbnailGenerator.h"

@@ -58,11 +58,11 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     // MARK: TranscriptUIInput
     
-    func loading(ofType type:TranscriptUILoadingType, isVisible visible:Bool) {
+    func loading(ofType type: TranscriptUILoadingType, isVisible visible: Bool) {
         
     }
     
-    func add(transcript text:String, with time:NSDate) {
+    func add(transcript text: String, with time: NSDate) {
         
         let item = TranscriptItemView()
         
@@ -88,7 +88,7 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
         
     }
     
-    func setVolumeEnabled(enabled:Bool) {
+    func setVolumeEnabled(enabled: Bool) {
         
         let imageName = enabled ? "mute-off" : "mute-on"
         
@@ -102,6 +102,10 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
                                      action: #selector(didTapMute))
         
         navigationItem.setRightBarButtonItem(button, animated: true)
+    }
+    
+    func setThumbnail(image: UIImage) {
+        self.contentView.thumb.image = image
     }
     
     // MARK: Support
