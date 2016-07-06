@@ -27,6 +27,8 @@ import Foundation
     
     var operationTypes = Array<operationType>()
     
+    private(set) var startTime = NSDate()
+    
     public init(output: RecognitionManagerOutput) {
         
         operationQueue.qualityOfService = .UserInitiated
@@ -51,7 +53,9 @@ import Foundation
     
     public func recognizeFile(url: NSURL) {
         
-        print("started", NSDate())
+        print("Recognition started:", NSDate())
+        
+        startTime = NSDate()
         
         var operation: RecognitionOperation?
         
@@ -85,7 +89,7 @@ import Foundation
     
     func operationCompleted(operation: RecognitionOperation) {
         
-        print("finished", NSDate())
+        print("Recognition completed:", NSDate())
         
         if let error = operation.error {
             output.didFailRecognition(operation.fileURL, error: error)
@@ -93,7 +97,6 @@ import Foundation
         } else {
             output.didRecognize(operation.fileURL, result: operation.result!)
         }
-        
     }
     
     func genericError() -> NSError {

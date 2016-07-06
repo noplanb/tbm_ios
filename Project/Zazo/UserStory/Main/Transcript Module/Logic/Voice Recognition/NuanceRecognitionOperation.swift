@@ -53,7 +53,10 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func networkTaskCompleted(data: NSData) {
-        result = String(data: data, encoding: NSUTF8StringEncoding)
+        let result = String(data: data, encoding: NSUTF8StringEncoding)
+        
+        self.result = result?.componentsSeparatedByString("\n").first
+        
         state = .Finished
     }
     

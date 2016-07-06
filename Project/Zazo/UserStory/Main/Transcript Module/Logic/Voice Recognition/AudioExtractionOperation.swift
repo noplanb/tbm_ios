@@ -24,6 +24,7 @@ public class AudioExtractor {
     
     public func extractRawAudio(fileURL: NSURL) -> NSData? {
         
+        print("Audio extraction started: ", NSDate())
         let asset = AVAsset(URL: fileURL)
         
         guard let reader = try? AVAssetReader(asset: asset) else {
@@ -56,6 +57,8 @@ public class AudioExtractor {
             
             data.appendData(sample)
         }
+        
+        print("Audio extraction completed: ", NSDate())
         
         return data
     }

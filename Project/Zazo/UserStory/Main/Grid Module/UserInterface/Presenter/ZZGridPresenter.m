@@ -402,7 +402,7 @@
         return;
     }
     
-    if ([item.title isEqualToString:@"Fullscreen"])
+    if ([item.title isEqualToString:@"Measure"])
     {
         
         ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:friendID];
@@ -665,8 +665,9 @@
     
     MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
     MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
+    MenuItem *measure = [[MenuItem alloc] initWithTitle:@"Measure"];
     
-    NSArray<MenuItem *> *items = @[transcript, fullscreen];
+    NSArray<MenuItem *> *items = @[transcript, fullscreen, measure];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
 }
@@ -826,5 +827,18 @@
     return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel.item.relatedUser];
 }
 
+#pragma mark RecognitionManagerOutput
+
+- (void)didRecognize:(NSURL *)url result:(NSString *)result
+{
+    NSTimeInterval recognitionTime = [[NSDate new] timeIntervalSinceDate: self.recognitionManager.startTime];
+    
+    [ZZGridAlertBuilder showHintalertWithMessage:[NSString stringWithFormat:@"Completed in %1.2f sec", recognitionTime]];
+}
+
+- (void)didFailRecognition:(NSURL *)url error:(NSError *)error
+{
+    
+}
 
 @end
