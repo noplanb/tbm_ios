@@ -7,28 +7,58 @@
 //
 
 import Foundation
+import GCDKit
 
 class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
     
+    var output: TranscriptLogicOutput?
+    
     var recognitionManager: RecognitionManager?
+    
+    var recognizingURLs = [NSURL]()
 
-    func videosFromFriendWithID(id: String) -> [ZZVideoDomainModel] {
-        return []
+
+    func startRecognizingVideos(for friendID: String) {
+        
+        let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
+
+        recognitionManager?.operationQueue.cancelAllOperations()
+        
+        recognizingURLs = friendModel.videos.filter { (videoModel) -> Bool in
+            
+            return videoModel.incomingStatusValue == ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
+            
+        } .map { (videoModel) -> NSURL in
+            return videoModel.videoURL
+        }
+        
+        for url in recognizingURLs {
+            self.recognitionManager?.recognizeFile(url)
+        }
+        
     }
     
-    func recognizeVideo(fileURL: NSURL, completion: String -> Void) {
-        completion("asd")
+    func cancelRecognizingVideos() {
+        recognitionManager?.operationQueue.cancelAllOperations()
     }
     
     func getThumbnailForFriendID(friendID: String) -> UIImage? {
         
-        let friend = ZZFriendDataProvider.friendWithItemID(friendID)
+        let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
         
-        return ZZThumbnailGenerator.thumbImageForUser(friend)
+        return ZZThumbnailGenerator.thumbImageForUser(friendModel)
         
     }
     
     func didRecognize(url: NSURL, result: String) {
+        
+        if let index = recognizingURLs.indexOf(url) {
+            
+            GCDBlock.async(.Main) {
+                self.output?.didRecognizeVideoAtIndex(UInt(index), with: result)
+            }
+            
+        }
         
     }
     

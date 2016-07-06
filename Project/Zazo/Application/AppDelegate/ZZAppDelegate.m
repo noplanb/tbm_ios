@@ -20,7 +20,9 @@
 - (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
     [self.appDependencies initialApplicationSetup:app launchOptions:launchOptions window:self.window];
+    
     [self.window makeKeyAndVisible];
 
     return YES;

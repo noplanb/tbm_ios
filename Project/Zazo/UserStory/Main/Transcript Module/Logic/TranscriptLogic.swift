@@ -8,11 +8,15 @@
 
 import Foundation
 
+protocol TranscriptLogicOutput {
+    
+    func didRecognizeVideoAtIndex(index: UInt, with result: String)
+    
+}
+
 protocol TranscriptLogic {
     
-    func videosFromFriendWithID(id: String) -> [ZZVideoDomainModel]
-    
-    func recognizeVideo(fileURL: NSURL, completion: String -> Void)
+    func startRecognizingVideos(for friendID: String)
     
     func getThumbnailForFriendID(friendID: String) -> UIImage?
     

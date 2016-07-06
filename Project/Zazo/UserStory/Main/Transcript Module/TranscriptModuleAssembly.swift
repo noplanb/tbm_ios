@@ -35,5 +35,7 @@ import Foundation
                                         router: router)
         
         viewController.output = presenter
+        
+        interactor.output = presenter
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
+class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogicOutput {
     
     let view: TranscriptUIInput
     let logic: TranscriptLogic
@@ -35,8 +35,15 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput {
             view.setThumbnail(thumb)
         }
         
+        logic.startRecognizingVideos(for: friendWithID)
         
         router.show()
+    }
+    
+    // MARK: TranscriptLogicOutput
+    
+    func didRecognizeVideoAtIndex(index: UInt, with result: String) {
+        view.add(transcript: result, with: NSDate())
     }
     
     // MARK: TranscriptUIOutput interface

@@ -28,9 +28,6 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
                             target: self,
                             action: #selector(didTapClose))
         
-        
-        
-        
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
     
     }
@@ -40,20 +37,7 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     }
     
     override func viewDidAppear(animated: Bool) {
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        add(transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", with: NSDate())
-        
-        
-//        self.performSelector(#selector(viewDidAppear), withObject: true, afterDelay: 0.5)
+
     }
     
     // MARK: TranscriptUIInput
