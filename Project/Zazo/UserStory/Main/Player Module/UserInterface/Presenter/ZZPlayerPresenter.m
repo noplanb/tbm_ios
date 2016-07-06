@@ -405,6 +405,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
             [friendModel.idTbm isEqualToString:self.currentFriendModel.idTbm]);
 }
 
+- (void)showFullscreen
+{
+    [self.userInterface setFullscreenEnabled:YES completion:nil];
+}
+
 #pragma mark - Private
 
 - (void)_videosDeletedNotification
@@ -663,9 +668,17 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_setPlayerVisible:(BOOL)playerVisible
 {
-    [self.userInterface hidePlayerAnimated:^{
+    ANCodeBlock settingBlock = ^{
         self.wireframe.playerVisible = playerVisible;
-    }];
+    };
+    
+    if (playerVisible)
+    {
+        settingBlock();
+        return;
+    }
+    
+    [self.userInterface setFullscreenEnabled:NO completion:settingBlock];
 }
 
 @dynamic currentItem;

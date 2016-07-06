@@ -10,7 +10,7 @@
 @property (nonatomic, weak) AVPlayerViewController *playerController;
 @property (nonatomic, assign) CGRect initialPlayerFrame;
 
-- (void)hidePlayerAnimated:(ANCodeBlock)completion;
+- (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;
 
 - (void)updatePlayerText:(NSString *)text;
 - (void)updateVideoCount:(NSInteger)count;

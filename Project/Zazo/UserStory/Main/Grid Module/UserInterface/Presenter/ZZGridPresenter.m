@@ -402,12 +402,20 @@
         return;
     }
     
+    if ([item.title isEqualToString:@"Fullscreen"])
+    {
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+        [self.videoPlayer playVideoModels:friendModel.videos];
+        [self.videoPlayer showFullscreen];
+        return;
+    }
+    
     if ([item.title isEqualToString:@"Measure"])
     {
         
-        ZZFriendDomainModel *friend = [ZZFriendDataProvider friendWithItemID:friendID];
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         
-        ZZVideoDomainModel *videoModel = friend.videos.lastObject;
+        ZZVideoDomainModel *videoModel = friendModel.videos.lastObject;
         
         [self.recognitionManager recognizeFile:videoModel.videoURL];
         
@@ -685,7 +693,7 @@
     
     if (isEnabled)
     {
-        [self.videoPlayer playVideoModels:viewModel.playerVideoURLs];
+        [self.videoPlayer playVideoModels:viewModel.playerVideos];
     }
     else
     {

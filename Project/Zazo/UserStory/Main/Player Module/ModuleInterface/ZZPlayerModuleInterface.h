@@ -15,6 +15,8 @@
 
 - (void)playVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels;
 
+- (void)showFullscreen;
+
 - (void)stop;
 
 - (BOOL)isPlaying;

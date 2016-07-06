@@ -259,19 +259,27 @@
     RAC(self.fullscreenHelper, enabled) = RACObserve([ZZGridActionStoredSettings shared], fullscreenFeatureEnabled);
 }
 
-- (void)hidePlayerAnimated:(ANCodeBlock)completion
+- (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;
 {
     if (!completion)
     {
         completion = ^{};
     }
     
-    if (self.fullscreenHelper.isFullscreen)
+    if (!enabled && self.fullscreenHelper.isFullscreen)
     {
         [self.fullscreenHelper completeAnimatedToPosition:0 velocity:1 completion:^(BOOL finished) {
             completion();
         }];
     }
+    
+    if (enabled && !self.fullscreenHelper.isFullscreen)
+    {
+        [self.fullscreenHelper completeAnimatedToPosition:0 velocity:1 completion:^(BOOL finished) {
+            completion();
+        }];
+    }
+
     else
     {
         completion();

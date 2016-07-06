@@ -185,7 +185,7 @@
     return [NSObject an_safeString:self.item.relatedUser.firstName];
 }
 
-- (NSArray *)playerVideoURLs
+- (NSArray *)playerVideos
 {
     return self.item.relatedUser.videos;
 }

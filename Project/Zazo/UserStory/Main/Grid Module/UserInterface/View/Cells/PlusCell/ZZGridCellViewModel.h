@@ -81,7 +81,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, assign, readonly) BOOL isRecording;
 @property (nonatomic, weak) UILabel *usernameLabel;
 
-- (NSArray *)playerVideoURLs;
+- (NSArray *)playerVideos;
 
 - (NSString *)firstName;
 
