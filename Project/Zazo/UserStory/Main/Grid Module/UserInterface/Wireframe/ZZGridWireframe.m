@@ -15,6 +15,9 @@
 #import "ZZEditFriendListPresenter.h"
 #import "ZZMainWireframe.h"
 #import "ZZPlayerWireframe.h"
+#import "ZZGridCollectionController.h"
+#import "ZZFriendDataProvider.h"
+#import "ZZGridCell.h"
 
 @interface ZZGridWireframe ()
 
@@ -26,6 +29,9 @@
 @end
 
 @implementation ZZGridWireframe
+
+@synthesize gridController = _gridController;
+@synthesize presenter = _presenter;
 
 - (UIViewController *)gridController
 {
@@ -48,7 +54,13 @@
 {
     self.transcriptAssembly = [[TranscriptModuleAssembly alloc] initWith:self.gridController];
     
-    [self.transcriptAssembly.module presentFor:friendID];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    
+    ZZGridVC *gridVC = (ZZGridVC *)self.gridController;
+    
+    UIView *fromView = [gridVC.controller gridCellWithFriendModel:friendModel];
+    
+    [self.transcriptAssembly.module presentFor:friendID from:fromView];
     
 }
 
@@ -112,8 +124,8 @@
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:gridController];
 
-    self.presenter = presenter;
-    self.gridController = gridController;
+    _presenter = presenter;
+    _gridController = gridController;
     
     [self _setupPlayer];
 }

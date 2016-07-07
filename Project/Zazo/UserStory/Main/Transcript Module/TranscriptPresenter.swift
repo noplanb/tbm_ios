@@ -27,7 +27,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     // MARK: TranscriptModule interface
     
-    @objc func present(for friendID: String) {
+    @objc func present(for friendID: String, from sourceView: UIView) {
         
         view.setVolumeEnabled(volumeEnabled)
         
@@ -43,7 +43,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         
         view.loading(ofType: .Transcript, isVisible: true)
         
-        router.show()
+        router.show(from: sourceView)
     }
     
     // MARK: TranscriptLogicOutput

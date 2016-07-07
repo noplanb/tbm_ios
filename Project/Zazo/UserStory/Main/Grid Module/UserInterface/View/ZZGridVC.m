@@ -8,7 +8,6 @@
 
 #import "ZZGridVC.h"
 #import "ZZGridView.h"
-#import "ZZGridCollectionController.h"
 #import "ZZGridDataSource.h"
 #import "ZZGridRotationTouchObserver.h"
 #import "ZZGridUIConstants.h"
@@ -17,7 +16,6 @@
 @interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, MenuOutput>
 
 @property (nonatomic, strong) ZZGridView *gridView;
-@property (nonatomic, strong) ZZGridCollectionController *controller;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) Menu *menu;

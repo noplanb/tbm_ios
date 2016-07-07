@@ -14,9 +14,9 @@
 
 @interface ZZGridWireframe : NSObject
 
-@property (nonatomic, strong) ZZGridPresenter *presenter;
 @property (nonatomic, strong) ZZMainWireframe *mainWireframe;
-@property (nonatomic, strong) UIViewController *gridController;
+@property (nonatomic, strong, readonly) ZZGridPresenter *presenter;
+@property (nonatomic, strong, readonly) UIViewController *gridController;
 
 #pragma mark - Details
 

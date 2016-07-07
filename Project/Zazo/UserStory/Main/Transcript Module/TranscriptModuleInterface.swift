@@ -14,6 +14,6 @@ import Foundation
 
 @objc public protocol TranscriptModule {
     
-    func present(for friendWithID: String)
+    func present(for friendWithID: String, from view: UIView)
     
 }

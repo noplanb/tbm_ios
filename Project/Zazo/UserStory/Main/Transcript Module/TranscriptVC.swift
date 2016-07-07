@@ -8,11 +8,11 @@
 
 import Foundation
 
-class TranscriptVC: UIViewController, TranscriptUIInput {
+public class TranscriptVC: UIViewController, TranscriptUIInput {
     
     var output: TranscriptUIOutput?
     
-    lazy var contentView = TranscriptView()
+    public lazy var contentView = TranscriptView()
     
     let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .White)
     
@@ -20,27 +20,31 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     // MARK: VC overrides
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         
         let navigationBar = contentView.navigationBar
         
         navigationItem.leftBarButtonItem =
             UIBarButtonItem(title: "Close",
                             style: .Plain,
-                            target: self,
+                            target: self
+                ,
                             action: #selector(didTapClose))
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
     
         dateFormater.dateStyle = .MediumStyle
         dateFormater.timeStyle = .MediumStyle
+                
     }
     
-    override func loadView() {
+    override public func loadView() {
+        
         view = contentView
+        
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
 
     }
     
