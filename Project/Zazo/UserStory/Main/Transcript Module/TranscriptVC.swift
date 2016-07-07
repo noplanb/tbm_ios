@@ -14,13 +14,15 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     lazy var contentView = TranscriptView()
     
+    let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    
+    let dateFormater = NSDateFormatter()
+    
     // MARK: VC overrides
     
     override func viewDidLoad() {
         
         let navigationBar = contentView.navigationBar
-        
-        navigationItem.title = "Mary"
         
         navigationItem.leftBarButtonItem =
             UIBarButtonItem(title: "Close",
@@ -30,6 +32,8 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
     
+        dateFormater.dateStyle = .MediumStyle
+        dateFormater.timeStyle = .MediumStyle
     }
     
     override func loadView() {
@@ -44,6 +48,29 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     func loading(ofType type: TranscriptUILoadingType, isVisible visible: Bool) {
         
+        switch type {
+        case .Transcript:
+            setTranscriptAnimationVisible(visible)
+            break
+        }
+        
+    }
+    
+    func setTranscriptAnimationVisible(flag: Bool) {
+        
+        let updateBlock = {
+            
+            if flag {
+                self.contentView.stackView.addArrangedSubview(self.loadingView)
+                self.loadingView.startAnimating()
+            }
+            else {
+                self.loadingView.stopAnimating()
+                self.contentView.stackView.removeArrangedSubview(self.loadingView)
+            }
+        }
+        
+        UIView.animateWithDuration(0.5, animations: updateBlock)
     }
     
     func add(transcript text: String, with time: NSDate) {
@@ -51,10 +78,16 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
         let item = TranscriptItemView()
         
         item.textLabel.text = text
-        item.timeLabel.text = time.description
+        item.timeLabel.text = dateFormater.stringFromDate(time)
         
-        self.contentView.stackView.addArrangedSubview(item)
-        self.contentView.stackView.layoutIfNeeded()
+        var index = UInt(contentView.stackView.arrangedSubviews.count)
+        
+        if (loadingView.isAnimating()) {
+            index -= 1
+        }
+        
+        contentView.stackView.insertArrangedSubview(item, atIndex: index)
+        contentView.stackView.layoutIfNeeded()
 
         item.alpha = 0
         
@@ -90,6 +123,10 @@ class TranscriptVC: UIViewController, TranscriptUIInput {
     
     func setThumbnail(image: UIImage) {
         self.contentView.thumb.image = image
+    }
+    
+    func setFriendName(name: String) {
+        self.navigationItem.title = name
     }
     
     // MARK: Support

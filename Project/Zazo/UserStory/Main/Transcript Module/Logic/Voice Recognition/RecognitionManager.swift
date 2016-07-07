@@ -12,6 +12,7 @@ public protocol RecognitionManagerOutput {
     
     func didRecognize(url: NSURL, result: String)
     func didFailRecognition(url: NSURL, error: NSError)
+    
 }
 
 public class RecognitionManager: NSObject {
@@ -50,7 +51,7 @@ public class RecognitionManager: NSObject {
         
     }
     
-    public func recognizeFile(url: NSURL) {
+    public func recognizeFile(url: NSURL) -> NSOperation? {
         
         print("Recognition started:", NSDate())
         
@@ -79,10 +80,12 @@ public class RecognitionManager: NSObject {
             }
             
             operationQueue.addOperation(operation)
-            return
+            return operation
         }
             
         output.didFailRecognition(url, error: genericError())
+        
+        return nil
         
     }
     

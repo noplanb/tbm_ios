@@ -17,6 +17,7 @@ protocol TranscriptUIInput {
     func add(transcript text:String, with time:NSDate)
     func setVolumeEnabled(enabled:Bool)
     func setThumbnail(image: UIImage)
+    func setFriendName(name: String)
 }
 
 protocol TranscriptUIOutput

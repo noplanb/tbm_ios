@@ -8,9 +8,15 @@
 
 import Foundation
 
+struct FriendData {
+    let thumbnail: UIImage?
+    let name: String
+}
+
 protocol TranscriptLogicOutput {
     
     func didRecognizeVideoAtIndex(index: UInt, with result: String)
+    func didCompleteRecognition(error: NSError?)
     
 }
 
@@ -18,6 +24,6 @@ protocol TranscriptLogic {
     
     func startRecognizingVideos(for friendID: String)
     
-    func getThumbnailForFriendID(friendID: String) -> UIImage?
+    func fetchFriendData(forID friendID: String) -> FriendData
     
 }

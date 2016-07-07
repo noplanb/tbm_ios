@@ -27,15 +27,21 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     // MARK: TranscriptModule interface
     
-    @objc func present(for friendWithID: String) {
+    @objc func present(for friendID: String) {
         
         view.setVolumeEnabled(volumeEnabled)
         
-        if let thumb = logic.getThumbnailForFriendID(friendWithID) {
+        let friendData = logic.fetchFriendData(forID: friendID)
+        
+        if let thumb = friendData.thumbnail {
             view.setThumbnail(thumb)
         }
         
-        logic.startRecognizingVideos(for: friendWithID)
+        view.setFriendName(friendData.name)
+        
+        logic.startRecognizingVideos(for: friendID)
+        
+        view.loading(ofType: .Transcript, isVisible: true)
         
         router.show()
     }
@@ -44,6 +50,10 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     func didRecognizeVideoAtIndex(index: UInt, with result: String) {
         view.add(transcript: result, with: NSDate())
+    }
+    
+    func didCompleteRecognition(error: NSError?) {
+        view.loading(ofType: .Transcript, isVisible: false)
     }
     
     // MARK: TranscriptUIOutput interface

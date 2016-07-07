@@ -32,9 +32,20 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
             return videoModel.videoURL
         }
         
-        for url in recognizingURLs {
-            self.recognitionManager?.recognizeFile(url)
+        let completion = NSBlockOperation {
+            GCDBlock.async(.Main, closure: {
+                self.output?.didCompleteRecognition(nil)
+            })
         }
+
+        for url in recognizingURLs {
+            if let operation = self.recognitionManager?.recognizeFile(url) {
+                completion.addDependency(operation)
+            }
+        }
+        
+        
+        self.recognitionManager?.operationQueue.addOperation(completion)
         
     }
     
@@ -42,11 +53,12 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         recognitionManager?.operationQueue.cancelAllOperations()
     }
     
-    func getThumbnailForFriendID(friendID: String) -> UIImage? {
+    func fetchFriendData(forID friendID: String) -> FriendData {
         
         let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
         
-        return ZZThumbnailGenerator.thumbImageForUser(friendModel)
+        return FriendData(thumbnail:  ZZThumbnailGenerator.thumbImageForUser(friendModel),
+                          name: friendModel.fullName())
         
     }
     
@@ -64,6 +76,9 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
     
     func didFailRecognition(url: NSURL, error: NSError) {
         
+        recognitionManager?.operationQueue.cancelAllOperations()
+        
+        self.output?.didCompleteRecognition(error)
     }
 
 }
