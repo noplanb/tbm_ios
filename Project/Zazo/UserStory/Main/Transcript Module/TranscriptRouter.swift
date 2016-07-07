@@ -25,34 +25,72 @@ public class TranscriptRouter {
         
         let thumbView = moduleVC.contentView.thumbHolder
         
+        thumbView.backgroundColor = UIColor.redColor()
+        
         let originalVCBackground = moduleVC.view.backgroundColor
         
         thumbView.alpha = 0;
         moduleVC.view.backgroundColor = UIColor.clearColor()
         
-        parentVC.presentViewController(moduleVC,
-                                       animated: false,
-                                       completion: {
+        let navigationBar = moduleVC.contentView.navigationBar
+
+        let completion = {
             
-            let originalCenter = thumbView.center
-            let centerPoint = sourceView.convertPoint(sourceView.center, toView: self.moduleVC.view)
-            thumbView.center = centerPoint
+            let navbarTranslate = CGAffineTransformMakeTranslation(0, -navigationBar.bounds.size.height)
+            
+            navigationBar.transform = navbarTranslate
+            
+            let sourceAbsolutePoint = sourceView.convertPoint(CGPoint.zero, toView: nil)
+            let destinationAbsolutePoint = thumbView.convertPoint(CGPoint.zero, toView: nil)
+            
+            let thumbTranslate =
+                CGAffineTransformMakeTranslation(sourceAbsolutePoint.x - destinationAbsolutePoint.x,
+                                                 sourceAbsolutePoint.y - destinationAbsolutePoint.y)
+            
+            thumbView.transform = thumbTranslate
+            
+            thumbView.alpha = 1;
+
+//            let origin = thumbView.frame.origin
+            
+//            thumbView.snp_remakeConstraints(closure: { (make) in
+//                make.edges.equalTo(sourceView)
+//            })
+//            
+//            thumbView.layoutIfNeeded()
+
             
             let animations = {
-                thumbView.center = originalCenter
-                thumbView.alpha = 1;
+            
+                thumbView.transform = CGAffineTransformIdentity
+                
+//                thumbView.snp_updateConstraints(closure: { (make) in
+//                    make.top.equalTo(origin.y)
+//                    make.left.equalTo(origin.x)
+//                })
+//                
+//                thumbView.layoutIfNeeded()
+                
+                navigationBar.transform = CGAffineTransformIdentity
+                
                 self.moduleVC.view.backgroundColor = originalVCBackground
             }
             
-            UIView.animateWithDuration(0.6,
-                delay: 0,
-                usingSpringWithDamping: 0.8,
-                initialSpringVelocity: 0.7,
-                options: [],
-                animations: animations,
-                completion: nil)
+            UIView.animateWithDuration(2,
+                                       delay: 0,
+                                       usingSpringWithDamping: 1,
+                                       initialSpringVelocity: 3,
+                                       options: [],
+                                       animations: animations,
+                                       completion: nil)
             
-        })
+
+        }
+        
+        parentVC.presentViewController(moduleVC,
+                                       animated: false,
+                                       completion:completion)
+        
     }
     
     public func hide() {

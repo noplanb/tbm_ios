@@ -56,7 +56,10 @@ public class TranscriptView: UIView {
         playbackIndicator.segmentCount = 3
         playbackIndicator.segmentProgress = 0.5
         
+        
     }
+    
+    var constraintsSet = false
     
     override public func updateConstraints() {
         
@@ -65,6 +68,12 @@ public class TranscriptView: UIView {
         guard let screenWidth = self.window?.bounds.width else {
             return
         }
+        
+        guard !constraintsSet else {
+            return
+        }
+        
+        constraintsSet = true
         
         let stackWidth = screenWidth * 2/3
         
