@@ -185,11 +185,6 @@
     return [NSObject an_safeString:self.item.relatedUser.firstName];
 }
 
-- (NSArray *)playerVideos
-{
-    return self.item.relatedUser.videos;
-}
-
 #pragma mark - Video Thumbnail
 
 - (UIImage *)videoThumbnailImage
@@ -331,11 +326,6 @@
 - (BOOL)isEnablePlayingVideo
 {
     return [self.presenter isGridCellEnablePlayingVideo:self];
-}
-
-- (BOOL)isVideoPlayed
-{
-    return [self.presenter isVideoPlayingWithModel:self];
 }
 
 // MARK: Events

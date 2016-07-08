@@ -415,11 +415,6 @@
         return NO;
     }
     
-    if([self.delegate isVideoPlayingNow])
-    {
-        return NO;
-    }
-    
     return YES;
 }
 

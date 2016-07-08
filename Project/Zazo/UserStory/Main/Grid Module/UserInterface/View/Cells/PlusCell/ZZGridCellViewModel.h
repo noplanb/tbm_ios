@@ -38,8 +38,6 @@
 
 - (void)cancelRecordingWithReason:(NSString *)reason;
 
-- (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)model;
-
 @end
 
 

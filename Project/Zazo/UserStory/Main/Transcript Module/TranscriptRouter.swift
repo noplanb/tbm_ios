@@ -25,8 +25,6 @@ public class TranscriptRouter {
         
         let thumbView = moduleVC.contentView.thumbHolder
         
-        thumbView.backgroundColor = UIColor.redColor()
-        
         let originalVCBackground = moduleVC.view.backgroundColor
         
         thumbView.alpha = 0;
@@ -50,26 +48,10 @@ public class TranscriptRouter {
             thumbView.transform = thumbTranslate
             
             thumbView.alpha = 1;
-
-//            let origin = thumbView.frame.origin
-            
-//            thumbView.snp_remakeConstraints(closure: { (make) in
-//                make.edges.equalTo(sourceView)
-//            })
-//            
-//            thumbView.layoutIfNeeded()
-
             
             let animations = {
             
                 thumbView.transform = CGAffineTransformIdentity
-                
-//                thumbView.snp_updateConstraints(closure: { (make) in
-//                    make.top.equalTo(origin.y)
-//                    make.left.equalTo(origin.x)
-//                })
-//                
-//                thumbView.layoutIfNeeded()
                 
                 navigationBar.transform = CGAffineTransformIdentity
                 

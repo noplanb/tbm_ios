@@ -11,7 +11,7 @@
 
 @class ZZPlayerWireframe;
 
-@interface ZZPlayerPresenter : NSObject <ZZPlayerInteractorOutput, ZZPlayerModuleInterface, PlaybackIndicatorDelegate>
+@interface ZZPlayerPresenter : NSObject <ZZPlayerInteractorOutput, ZZPlayerModuleInterface>
 
 @property (nonatomic, strong) id<ZZPlayerInteractorInput> interactor;
 @property (nonatomic, strong) ZZPlayerWireframe *wireframe;

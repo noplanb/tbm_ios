@@ -19,15 +19,15 @@
 @property (nonatomic, strong, readonly) UIView *baseView;
 @property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, strong) UILabel *textLabel;
-@property (nonatomic, strong) PlaybackIndicator *segmentIndicator;
 @property (nonatomic, strong) VideoPlayerFullscreenHelper *fullscreenHelper;
 
 @end
 
 @implementation ZZPlayerVC
 
-@synthesize playerController = _playerController;
 @synthesize initialPlayerFrame = _initialPlayerFrame;
+@synthesize playerView = _playerView;
+@synthesize playbackIndicator = _playbackIndicator;
 
 - (void)loadView
 {
@@ -36,7 +36,6 @@
     self.view.userInteractionEnabled = YES;
     
     [self dimView];
-    [self _makeSegmentIndicator];
 }
 
 
@@ -55,10 +54,10 @@
                        action:@selector(didTapVideo)
              forControlEvents:UIControlEventTouchUpInside];
         
-        [self.playerController.view addSubview:_tapButton];
+        [self.playerView addSubview:_tapButton];
         
         [_tapButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.playerController.view);
+            make.edges.equalTo(self.playerView);
         }];
     }
     return _tapButton;
@@ -84,30 +83,9 @@
     return _dimView;
 }
 
-- (void)_makeSegmentIndicator
-{
-    if (!_segmentIndicator)
-    {
-        _segmentIndicator = [PlaybackIndicator new];
-        
-        [self.view addSubview:_segmentIndicator];
-        
-        [_segmentIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.centerY.equalTo(self.dimView.mas_bottom).offset(-1);
-            make.height.equalTo(@22);
-        }];
-        
-        _segmentIndicator.delegate = self.eventHandler;
-        
-        RAC(_segmentIndicator, hidden) = RACObserve([ZZGridActionStoredSettings shared], playbackControlsFeatureEnabled).not;
-
-    }
-}
-
 - (void)_makeBaseView
 {
-    if (!self.playerController.view)
+    if (!self.view)
     {
         return;
     }
@@ -120,8 +98,8 @@
         
         [self.view addSubview:_baseView];
         
-        [self.view bringSubviewToFront:self.playerController.view];
-        [self.view bringSubviewToFront:self.segmentIndicator];
+        [self.view bringSubviewToFront:self.view];
+        [self.view bringSubviewToFront:self.playbackIndicator];
         
         _baseView.layer.cornerRadius = 4;
         _baseView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.75].CGColor;
@@ -149,7 +127,7 @@
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [super viewDidLoad];
-    
+
 }
 
 #pragma mark Properties
@@ -227,36 +205,31 @@
     [self.textLabel sizeToFit];
 }
 
-- (void)updateVideoCount:(NSInteger)count
+- (void)setPlaybackIndicator:(UIView *)playbackIndicator
 {
-    self.segmentIndicator.segmentCount = count;
+    _playbackIndicator = playbackIndicator;
+    
+    [self.view addSubview:playbackIndicator];
+    
+    [playbackIndicator mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.centerY.equalTo(self.dimView.mas_bottom).offset(-1);
+        make.height.equalTo(@22);
+    }];
+    
+    RAC(playbackIndicator, hidden) = RACObserve([ZZGridActionStoredSettings shared], playbackControlsFeatureEnabled).not;
 }
 
-- (void)updateCurrentVideoIndex:(NSInteger)index
+- (void)setPlayerView:(UIView *)playerView
 {
-    self.segmentIndicator.currentSegment = index;
-}
-
-- (void)updatePlaybackProgress:(CGFloat)progress
-{
-    self.segmentIndicator.segmentProgress = progress;
-}
-
-- (void)setPlayerController:(AVPlayerViewController *)playerController
-{
-    [_playerController.view removeFromSuperview];
+    _playerView = playerView;
     
-    _playerController = playerController;
+    [self.view addSubview:playerView];
+    [playerView addSubview:self.tapButton];
     
-    [self.view addSubview:playerController.view];
-    [_playerController.view addSubview:self.tapButton];
-    
-    _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    _playerController.view.backgroundColor = [UIColor clearColor];
-    _playerController.showsPlaybackControls = NO;
-    
-    self.fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:_playerController.view];
+    self.fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:playerView];
     RAC(self.fullscreenHelper, enabled) = RACObserve([ZZGridActionStoredSettings shared], fullscreenFeatureEnabled);
+
 }
 
 - (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;

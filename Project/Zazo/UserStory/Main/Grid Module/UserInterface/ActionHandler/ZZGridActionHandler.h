@@ -17,8 +17,6 @@
 
 - (void)unlockedFeature:(ZZGridActionFeatureType)feature;
 
-- (BOOL)isVideoPlayingNow;
-
 - (NSInteger)friendsCountOnGrid;
 
 - (void)showMenuTab;

@@ -401,7 +401,7 @@
     if ([item.title isEqualToString:@"Fullscreen"])
     {
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
-        [self.videoPlayer playVideoModels:friendModel.videos];
+        [self.videoPlayer playVideoForFriend:friendModel];
         [self.videoPlayer showFullscreen];
         return;
     }
@@ -595,11 +595,6 @@
     return [self.dataSource friendsOnGridNumber];
 }
 
-- (BOOL)isVideoPlayingNow
-{
-    return self.videoPlayer.isPlayingVideo;
-}
-
 - (ZZGridAlertBuilder *)alertBuilder
 {
     if (!_alertBuilder)
@@ -677,11 +672,10 @@
     
     if (isEnabled)
     {
-        [self.videoPlayer playVideoModels:viewModel.playerVideos];
+        [self.videoPlayer playVideoForFriend:viewModel.item.relatedUser];
     }
     else
     {
-        
         [self.videoPlayer stop];
     }
 
@@ -754,10 +748,8 @@
     if (isEnabled)
     {
         [self.actionHandler hideHint];
-        if ([self.videoPlayer isPlaying])
-        {
-            [self.videoPlayer stop];
-        }
+
+        [self.videoPlayer stop];
         
         ANDispatchBlockToMainQueue(^{
             [self.videoPlayer stop];
@@ -812,11 +804,6 @@
     [[ZZVideoRecorder shared] cancelRecordingWithReason:reason];
     [self.userInterface updateRecordViewStateTo:NO];
 
-}
-
-- (BOOL)isVideoPlayingWithModel:(ZZGridCellViewModel *)friendModel
-{
-    return [self.videoPlayer isVideoPlayingWithFriendModel:friendModel.item.relatedUser];
 }
 
 @end
