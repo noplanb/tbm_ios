@@ -8,11 +8,6 @@
 
 import Foundation
 
-struct FriendData {
-    let thumbnail: UIImage?
-    let name: String
-}
-
 protocol TranscriptLogicOutput {
     
     func didRecognizeVideoAtIndex(index: UInt, with result: String)
@@ -24,6 +19,6 @@ protocol TranscriptLogic {
     
     func startRecognizingVideos(for friendID: String)
     
-    func fetchFriendData(forID friendID: String) -> FriendData
+    func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel)
     
 }

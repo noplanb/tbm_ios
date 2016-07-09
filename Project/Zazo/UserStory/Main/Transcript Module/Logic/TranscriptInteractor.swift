@@ -53,12 +53,13 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         recognitionManager?.operationQueue.cancelAllOperations()
     }
     
-    func fetchFriendData(forID friendID: String) -> FriendData {
+    func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel) {
         
         let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
         
-        return FriendData(thumbnail:  ZZThumbnailGenerator.thumbImageForUser(friendModel),
-                          name: friendModel.fullName())
+        let thumb = ZZThumbnailGenerator.thumbImageForUser(friendModel)
+        
+        return (thumb, friendModel)
         
     }
     

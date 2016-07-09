@@ -13,3 +13,4 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZPlayerController.h"

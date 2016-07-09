@@ -652,9 +652,8 @@
     
     MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
     MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
-    MenuItem *measure = [[MenuItem alloc] initWithTitle:@"Measure"];
     
-    NSArray<MenuItem *> *items = @[transcript, fullscreen, measure];
+    NSArray<MenuItem *> *items = @[transcript, fullscreen];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
 }

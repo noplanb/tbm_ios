@@ -16,6 +16,10 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     var volumeEnabled = true
     
+    let playbackController = ZZPlayerController()
+    
+    var friendModel: ZZFriendDomainModel?
+    
     init(view: TranscriptUIInput,
          logic: TranscriptLogic,
          router: TranscriptRouter)
@@ -37,11 +41,16 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
             view.setThumbnail(thumb)
         }
         
-        view.setFriendName(friendData.name)
+        view.setFriendName(friendData.friendModel.fullName())
         
         logic.startRecognizingVideos(for: friendID)
         
         view.loading(ofType: .Transcript, isVisible: true)
+        
+        view.showPlayer(playbackController.playerView)
+        view.showPlaybackControl(playbackController.playbackIndicator)
+        
+        friendModel = friendData.friendModel
         
         router.show(from: sourceView)
     }
@@ -50,6 +59,10 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     func didRecognizeVideoAtIndex(index: UInt, with result: String) {
         view.add(transcript: result, with: NSDate())
+        
+        if index == 0 {
+            playbackController.playVideoForFriend(friendModel)
+        }
     }
     
     func didCompleteRecognition(error: NSError?) {

@@ -10,7 +10,7 @@ import Foundation
 import OAStackView
 import SnapKit
 
-struct PlaybackIndicatorTheme {
+public struct PlaybackIndicatorTheme {
     
     let bodyColor: UIColor
     let textColor: UIColor
@@ -43,12 +43,14 @@ public class PlaybackIndicator: UIView
         }
     }
     
-    var colorTheme = PlaybackIndicatorTheme.defaultTheme {
+    public var colorTheme = PlaybackIndicatorTheme.defaultTheme {
         didSet {
             
             UIView.performWithoutAnimation {
-                self.segmentCount = 0
-                self.segmentCount = 1
+                
+                let count = self.segmentCount
+                self.segmentCount = 0 // in order to redraw segments
+                self.segmentCount = count
             }
         }
     }

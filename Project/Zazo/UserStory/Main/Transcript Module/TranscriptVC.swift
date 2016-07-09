@@ -27,8 +27,7 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         navigationItem.leftBarButtonItem =
             UIBarButtonItem(title: "Close",
                             style: .Plain,
-                            target: self
-                ,
+                            target: self,
                             action: #selector(didTapClose))
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
@@ -49,6 +48,18 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     }
     
     // MARK: TranscriptUIInput
+    
+    func showPlayer(view: UIView) {
+        contentView.playerView = view
+    }
+    
+    func showPlaybackControl(view: UIView) {
+        contentView.playbackIndicator = view
+        
+        if let indicator = view as? PlaybackIndicator {
+            indicator.invertedColorTheme = true
+        }
+    }
     
     func loading(ofType type: TranscriptUILoadingType, isVisible visible: Bool) {
         

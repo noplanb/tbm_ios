@@ -24,9 +24,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
-@property (nonatomic, strong, readonly) AVQueuePlayer *player;
+@property (nonatomic, strong) PlaybackIndicator *indicator;
 
 @property (nonatomic, strong, readonly) AVPlayerItem *currentItem;
+@property (nonatomic, strong, readonly) AVQueuePlayer *player;
 
 // All videos:
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *allVideoModels; // video models passed to player
@@ -44,14 +45,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @dynamic player;
 @dynamic currentVideoModel;
 @dynamic currentItem;
+@dynamic playbackIndicator;
 
 - (instancetype)init
 {
     self = [super init];
     if (self)
     {
-        _playbackIndicator = [PlaybackIndicator new];
-        _playbackIndicator.delegate = self;
+        _indicator = [PlaybackIndicator new];
+        _indicator.delegate = self;
         
         _playerController = [AVPlayerViewController new];
         _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -532,17 +534,22 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)updateVideoCount:(NSInteger)count
 {
-    self.playbackIndicator.segmentCount = count;
+    self.indicator.segmentCount = count;
 }
 
 - (void)updateCurrentVideoIndex:(NSInteger)index
 {
-    self.playbackIndicator.currentSegment = index;
+    self.indicator.currentSegment = index;
 }
 
 - (void)updatePlaybackProgress:(CGFloat)progress
 {
-    self.playbackIndicator.segmentProgress = progress;
+    self.indicator.segmentProgress = progress;
+}
+
+- (UIView *)playbackIndicator
+{
+    return self.indicator;
 }
 
 @end

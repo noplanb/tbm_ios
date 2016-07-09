@@ -18,6 +18,8 @@ protocol TranscriptUIInput {
     func setVolumeEnabled(enabled:Bool)
     func setThumbnail(image: UIImage)
     func setFriendName(name: String)
+    func showPlayer(view: UIView)
+    func showPlaybackControl(view: UIView)
 }
 
 protocol TranscriptUIOutput

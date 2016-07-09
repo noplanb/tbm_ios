@@ -16,8 +16,37 @@ public class TranscriptView: UIView {
     public let scrollView = UIScrollView()
     public let thumb = UIImageView()
     public let navigationBar = UINavigationBar()
-    public let playbackIndicator = PlaybackIndicator()
+    
+    public var playbackIndicator: UIView? {
+        
+        didSet {
+            
+            if oldValue?.superview == self {
+                oldValue?.removeFromSuperview()
+            }
+            
+            if let newValue = playbackIndicator {
+                initiatePlaybackIndicator(newValue)
+            }
+            
+        }
+    }
 
+    public var playerView: UIView? {
+        
+        didSet {
+            
+            if oldValue?.superview == self {
+                oldValue?.removeFromSuperview()
+            }
+            
+            if let newValue = playerView {
+                initiatePlayerView(newValue)
+            }
+            
+        }
+    }
+    
     let thumbHolder = UIView()
     let fadingView = FadingView()
 
@@ -29,7 +58,6 @@ public class TranscriptView: UIView {
         addSubview(thumbHolder)
         addSubview(fadingView)
         addSubview(navigationBar)
-        addSubview(playbackIndicator)
         
         fadingView.addSubview(scrollView)
         
@@ -50,11 +78,7 @@ public class TranscriptView: UIView {
         
         thumb.contentMode = .ScaleAspectFill
         thumb.clipsToBounds = true
-        
-        playbackIndicator.translatesAutoresizingMaskIntoConstraints = false
-        playbackIndicator.invertedColorTheme = true
-        playbackIndicator.segmentCount = 3
-        playbackIndicator.segmentProgress = 0.5
+    
         
         
     }
@@ -111,11 +135,28 @@ public class TranscriptView: UIView {
             make.height.equalTo(65)
         }
         
-        playbackIndicator.snp_remakeConstraints { (make) in
+    }
+    
+    private func initiatePlaybackIndicator(indicator: UIView) {
+
+        addSubview(indicator)
+        
+        indicator.snp_remakeConstraints { (make) in
             make.left.right.equalTo(self)
             make.centerY.equalTo(navigationBar.snp_bottom)
             make.height.equalTo(22)
         }
+
     }
     
+    private func initiatePlayerView(view: UIView) {
+    
+        thumbHolder.addSubview(view)
+        
+        view.snp_remakeConstraints { (make) in
+            make.edges.equalTo(thumbHolder).inset(4)
+        }
+
+        
+    }
 }

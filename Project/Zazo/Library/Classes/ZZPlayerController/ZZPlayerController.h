@@ -29,7 +29,7 @@
 @property (nonatomic, assign) BOOL muted;
 
 @property (nonatomic, strong, readonly) UIView *playerView;
-@property (nonatomic, strong, readonly) PlaybackIndicator *playbackIndicator;
+@property (nonatomic, strong, readonly) UIView *playbackIndicator;
 
 @property (nonatomic, strong, readonly) ZZFriendDomainModel *currentFriendModel;
 
