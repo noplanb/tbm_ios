@@ -98,7 +98,7 @@
         
         [self.view addSubview:_baseView];
         
-        [self.view bringSubviewToFront:self.view];
+        [self.view bringSubviewToFront:self.playerView];
         [self.view bringSubviewToFront:self.playbackIndicator];
         
         _baseView.layer.cornerRadius = 4;

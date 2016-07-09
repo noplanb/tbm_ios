@@ -134,11 +134,6 @@
     {
         [self stop];
     }
-//    else
-//    {
-//        [self _loadVideoModels:self.allVideoModels];
-//        [self _startPlayingIfPossible];
-//    }
 }
 
 #pragma mark - Public
@@ -206,13 +201,6 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
     [self.userInterface updatePlayerText:[date zz_formattedDate]];
 }
-
-//- (NSTimeInterval)_durationByURL:(NSURL *)url
-//{
-//    AVURLAsset *sourceAsset = [AVURLAsset URLAssetWithURL:url options:nil];
-//    CMTime duration = sourceAsset.duration;
-//    return CMTimeGetSeconds(duration);
-//}
 
 #pragma mark - Properties
 
