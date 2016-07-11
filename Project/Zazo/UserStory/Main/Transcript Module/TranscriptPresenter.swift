@@ -14,7 +14,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     let logic: TranscriptLogic
     let router: TranscriptRouter
     
-    var volumeEnabled = true
+    var volumeEnabled = false
     
     let playbackController = ZZPlayerController()
     
@@ -83,6 +83,8 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         
         volumeEnabled = !volumeEnabled
         view.setVolumeEnabled(volumeEnabled)
+        
+        playbackController.muted = !volumeEnabled
     }
 
 }

@@ -47,6 +47,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @dynamic currentItem;
 @dynamic playbackIndicator;
 
+@synthesize muted = _muted;
+
 - (instancetype)init
 {
     self = [super init];
@@ -550,6 +552,13 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (UIView *)playbackIndicator
 {
     return self.indicator;
+}
+
+- (void)setMuted:(BOOL)muted
+{
+    _muted = muted;
+    
+    self.playerController.player.volume = (float)!muted;
 }
 
 @end
