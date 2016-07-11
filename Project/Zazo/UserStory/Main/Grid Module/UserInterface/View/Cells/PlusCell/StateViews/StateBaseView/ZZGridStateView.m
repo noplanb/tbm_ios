@@ -117,7 +117,7 @@
 {
     if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
     {
-        if (model.badgeNumber > 0 && ![self.model isVideoPlayed])
+        if (model.badgeNumber > 0)
         {
             [self updateBadgeWithNumber:model.badgeNumber];
         }

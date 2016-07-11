@@ -11,6 +11,7 @@ import Foundation
 protocol TranscriptLogicOutput {
     
     func didRecognizeVideoAtIndex(index: UInt, with result: String)
+    func didFailWithVideoAtIndex(index: UInt, with error: NSError?)
     func didCompleteRecognition(error: NSError?)
     
 }

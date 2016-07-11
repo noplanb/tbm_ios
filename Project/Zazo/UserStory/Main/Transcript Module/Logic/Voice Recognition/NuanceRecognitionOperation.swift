@@ -60,9 +60,9 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
         state = .Finished
     }
     
-    func networkTaskFailed(error: NSError) {
+    func networkTaskFailed(error: NSError?) {
         self.error = error
-        state = .Finished
+        didFailRecognition()
     }
     
     func request() -> NSURLRequest? {
@@ -96,7 +96,11 @@ class NuanceRecognitionOperation: RecognitionOperation, NuanceTask {
     }
     
     func didFailRecognition() {
-        error = NSError(domain: "Zazo", code: 0, userInfo: nil)
+        
+        if self.error == nil {
+            error = NSError(domain: "Zazo", code: 0, userInfo: nil)
+        }
+        
         state = .Finished
     }
 }

@@ -77,9 +77,15 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
     
     func didFailRecognition(url: NSURL, error: NSError) {
         
-        recognitionManager?.operationQueue.cancelAllOperations()
+        if let index = recognizingURLs.indexOf(url) {
+            
+            GCDBlock.async(.Main) {
+                self.output?.didFailWithVideoAtIndex(UInt(index), with: error)
+            }
+            
+        }
+
         
-        self.output?.didCompleteRecognition(error)
     }
 
 }

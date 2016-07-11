@@ -94,8 +94,6 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 
 - (BOOL)isEnablePlayingVideo;
 
-- (BOOL)isVideoPlayed;
-
 // MARK: Events
 
 - (void)didChangeRecordingState:(BOOL)isRecording

@@ -69,6 +69,10 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         view.loading(ofType: .Transcript, isVisible: false)
     }
     
+    func didFailWithVideoAtIndex(index: UInt, with error: NSError?) {
+        view.add(transcript: "(Recognition failed)", with: NSDate())
+    }
+    
     // MARK: TranscriptUIOutput interface
     
     func didTapReplyButton() {
@@ -76,6 +80,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     }
     
     func didTapCloseButton() {
+        playbackController.stop()
         router.hide()
     }
     

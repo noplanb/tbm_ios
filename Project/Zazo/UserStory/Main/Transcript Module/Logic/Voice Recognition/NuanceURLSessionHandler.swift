@@ -12,7 +12,7 @@ protocol NuanceTask {
     
     func makeInputStream() -> NSInputStream?
     func networkTaskCompleted(data: NSData)
-    func networkTaskFailed(error: NSError)
+    func networkTaskFailed(error: NSError?)
     
 }
 
@@ -45,7 +45,16 @@ public class NuanceURLSessionHandler: NSObject, NSURLSessionTaskDelegate {
         }
         
         guard error == nil else {
-            nuanceTask.networkTaskFailed(error!)
+            nuanceTask.networkTaskFailed(error)
+            return
+        }
+        
+        guard let response = task.response as? NSHTTPURLResponse else {
+            return
+        }
+        
+        if response.statusCode >= 500 {
+            nuanceTask.networkTaskFailed(error)
             return
         }
         
