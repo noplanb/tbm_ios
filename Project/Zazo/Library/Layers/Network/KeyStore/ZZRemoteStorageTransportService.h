@@ -7,6 +7,7 @@
 //
 
 #import "ZZRemoteStorageConstants.h"
+@import ReactiveCocoa;
 
 @interface ZZRemoteStorageTransportService : NSObject
 

@@ -16,7 +16,7 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
     var recognitionManager: RecognitionManager?
     
     var recognizingURLs = [NSURL]()
-
+    var recognizingVideos = [ZZVideoDomainModel]()
 
     func startRecognizingVideos(for friendID: String) {
         
@@ -24,11 +24,15 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
 
         recognitionManager?.operationQueue.cancelAllOperations()
         
-        recognizingURLs = friendModel.videos.filter { (videoModel) -> Bool in
+        
+        
+        recognizingVideos = friendModel.videos.filter { (videoModel) -> Bool in
+
+            return videoModel.incomingStatusValue ==
+                ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
+        }
             
-            return videoModel.incomingStatusValue == ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
-            
-        } .map { (videoModel) -> NSURL in
+        recognizingURLs = recognizingVideos.map { (videoModel) -> NSURL in
             return videoModel.videoURL
         }
         
@@ -71,6 +75,9 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
                 self.output?.didRecognizeVideoAtIndex(UInt(index), with: result)
             }
             
+            let videoModel = recognizingVideos[index]
+            
+            videoViewed(videoModel)
         }
         
     }
@@ -84,8 +91,21 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
             }
             
         }
-
-        
     }
 
+    func videoViewed(videoModel: ZZVideoDomainModel) {
+        
+        if let friendModel = ZZFriendDataProvider.friendWithItemID(videoModel.relatedUserID) {
+            
+            ZZVideoStatusHandler.sharedInstance().setAndNotityViewedIncomingVideoWithFriendID(friendModel.idTbm,
+                                                                                              videoID: videoModel.videoID)
+            
+            ZZRemoteStorageTransportService.updateRemoteStatusForVideoWithItemID(friendModel.idTbm,
+                                                                                 toStatus: .Viewed,
+                                                                                 friendMkey: friendModel.mKey,
+                                                                                 friendCKey: friendModel.cKey)
+        }
+        
+
+    }
 }

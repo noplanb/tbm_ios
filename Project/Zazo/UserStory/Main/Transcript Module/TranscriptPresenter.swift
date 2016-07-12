@@ -63,6 +63,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         if index == 0 {
             playbackController.playVideoForFriend(friendModel)
         }
+        
     }
     
     func didCompleteRecognition(error: NSError?) {
