@@ -57,10 +57,11 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     // MARK: TranscriptLogicOutput
     
-    func didRecognizeVideoAtIndex(index: UInt, with result: String) {
-        view.add(transcript: result, with: NSDate())
+    func didRecognizeVideoAtIndex(with result: RecognitionResult) {
         
-        if index == 0 {
+        view.add(transcript: result.text, with: result.date)
+        
+        if result.index == 0 {
             playbackController.playVideoForFriend(friendModel)
         }
         

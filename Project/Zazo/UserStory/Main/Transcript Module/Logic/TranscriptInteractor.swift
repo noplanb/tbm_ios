@@ -71,15 +71,27 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         
         if let index = recognizingURLs.indexOf(url) {
             
-            GCDBlock.async(.Main) {
-                self.output?.didRecognizeVideoAtIndex(UInt(index), with: result)
-            }
-            
             let videoModel = recognizingVideos[index]
+            
+            let result = RecognitionResult(text: result,
+                                           model: videoModel,
+                                           index: UInt(index),
+                                           date: _date(videoID: videoModel.videoID))
+            
+            GCDBlock.async(.Main) {
+                self.output?.didRecognizeVideoAtIndex(with: result)
+            }
             
             videoViewed(videoModel)
         }
         
+    }
+    
+    func _date(videoID id: String) -> NSDate {
+
+        let timestamp: NSTimeInterval = NSTimeInterval(id)! / 1000;
+        return NSDate(timeIntervalSince1970: timestamp);
+
     }
     
     func didFailRecognition(url: NSURL, error: NSError) {
