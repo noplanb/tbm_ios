@@ -19,6 +19,7 @@ import Popover
     
     var userData: AnyObject?
     var title: String
+    var icon = UIImage()
     
     init(title: String) {
         self.title = title
@@ -85,7 +86,7 @@ import Popover
 
 class MenuTable: UITableView {
     
-    var width = CGFloat(160)
+    var width = CGFloat(180)
     weak var menu: Menu?
     
     var items: [MenuItem]? {
@@ -178,6 +179,8 @@ extension MenuTable: UITableViewDataSource {
         }
         
         let item = items![indexPath.row]
+        
+        cell?.imageView?.image = item.icon
         
         cell?.textLabel?.text = item.title
         

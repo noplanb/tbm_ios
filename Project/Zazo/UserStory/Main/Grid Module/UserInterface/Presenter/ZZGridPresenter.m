@@ -653,6 +653,9 @@
     MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
     MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
     
+    transcript.icon = [UIImage imageNamed:@"transcript-icon"];
+    fullscreen.icon = [UIImage imageNamed:@"fullscreen-icon"];
+    
     NSArray<MenuItem *> *items = @[transcript, fullscreen];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
