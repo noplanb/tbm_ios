@@ -19,6 +19,13 @@
 
 #pragma mark Update methods
 
++ (void)updateVideoWithID:(NSString *)videoID setTranscription:(NSString *)transcription
+{
+    [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {
+        videoEntity.transcription = transcription;
+    }];
+}
+
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus
 {
     [self _updateVideoWithID:videoID usingBlock:^(TBMVideo *videoEntity) {

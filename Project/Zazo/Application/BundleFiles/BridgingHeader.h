@@ -16,3 +16,4 @@
 #import "ZZPlayerController.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZRemoteStorageTransportService.h"
+#import "ZZVideoDataUpdater.h"

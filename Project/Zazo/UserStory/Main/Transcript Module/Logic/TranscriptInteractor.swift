@@ -24,32 +24,54 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
 
         recognitionManager?.operationQueue.cancelAllOperations()
         
+        let alreadyRecognized = friendModel.videos.filter { $0.transcription != nil }
         
+        for videoModel in alreadyRecognized {
+            
+            let index = friendModel.videos.indexOf(videoModel)
+            
+            let result = RecognitionResult(text: videoModel.transcription,
+                                           model: videoModel,
+                                           index: UInt(index!),
+                                           date: _date(videoID: videoModel.videoID))
+            
+            didRecognize(result)
+        }
         
         recognizingVideos = friendModel.videos.filter { (videoModel) -> Bool in
 
+            if videoModel.transcription != nil {
+                return false
+            }
+            
             return videoModel.incomingStatusValue ==
                 ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
         }
             
-        recognizingURLs = recognizingVideos.map { (videoModel) -> NSURL in
-            return videoModel.videoURL
-        }
+        recognizingURLs = recognizingVideos.map { $0.videoURL }
         
-        let completion = NSBlockOperation {
+        let completion = {
             GCDBlock.async(.Main, closure: {
                 self.output?.didCompleteRecognition(nil)
             })
         }
+        
+        if recognizingVideos.count == 0 {
+            completion()
+            return
+        }
+        
+        let completionOperation = NSBlockOperation {
+            completion()
+        }
 
         for url in recognizingURLs {
             if let operation = self.recognitionManager?.recognizeFile(url) {
-                completion.addDependency(operation)
+                completionOperation.addDependency(operation)
             }
         }
         
-        
-        self.recognitionManager?.operationQueue.addOperation(completion)
+        self.recognitionManager?.operationQueue.addOperation(completionOperation)
         
     }
     
@@ -67,31 +89,24 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         
     }
     
-    func didRecognize(url: NSURL, result: String) {
+    func didRecognize(url: NSURL, result text: String) {
         
         if let index = recognizingURLs.indexOf(url) {
             
             let videoModel = recognizingVideos[index]
             
-            let result = RecognitionResult(text: result,
+            let result = RecognitionResult(text: text,
                                            model: videoModel,
                                            index: UInt(index),
                                            date: _date(videoID: videoModel.videoID))
             
-            GCDBlock.async(.Main) {
-                self.output?.didRecognizeVideoAtIndex(with: result)
-            }
+            ZZVideoDataUpdater.updateVideoWithID(videoModel.videoID, setTranscription: text)
             
-            videoViewed(videoModel)
+            videoViewed(result.model)
+
+            didRecognize(result)
         }
         
-    }
-    
-    func _date(videoID id: String) -> NSDate {
-
-        let timestamp: NSTimeInterval = NSTimeInterval(id)! / 1000;
-        return NSDate(timeIntervalSince1970: timestamp);
-
     }
     
     func didFailRecognition(url: NSURL, error: NSError) {
@@ -105,6 +120,22 @@ class TranscriptInteractor: TranscriptLogic, RecognitionManagerOutput {
         }
     }
 
+    // MARK: Other
+    
+    
+    func didRecognize(result: RecognitionResult) {
+        GCDBlock.async(.Main) {
+            self.output?.didRecognizeVideoAtIndex(with: result)
+        }
+    }
+    
+    func _date(videoID id: String) -> NSDate {
+        
+        let timestamp: NSTimeInterval = NSTimeInterval(id)! / 1000;
+        return NSDate(timeIntervalSince1970: timestamp);
+        
+    }
+    
     func videoViewed(videoModel: ZZVideoDomainModel) {
         
         if let friendModel = ZZFriendDataProvider.friendWithItemID(videoModel.relatedUserID) {

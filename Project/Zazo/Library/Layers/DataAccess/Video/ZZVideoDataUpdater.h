@@ -10,6 +10,8 @@
 
 @interface ZZVideoDataUpdater : NSObject
 
++ (void)updateVideoWithID:(NSString *)videoID setTranscription:(NSString *)transcription;
+
 + (void)updateVideoWithID:(NSString *)videoID setIncomingStatus:(ZZVideoIncomingStatus)videoStatus;
 
 + (void)updateVideoWithID:(NSString *)videoID setDownloadRetryCount:(NSUInteger)count;

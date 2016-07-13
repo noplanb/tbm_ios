@@ -44,22 +44,22 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         
         view.setFriendName(friendData.friendModel.fullName())
         
-        logic.startRecognizingVideos(for: friendID)
-        
-        view.loading(ofType: .Transcript, isVisible: true)
-        
         view.showPlayer(playbackController.playerView)
         view.showPlaybackControl(playbackController.playbackIndicator)
         
         friendModel = friendData.friendModel
         
-        router.show(from: sourceView)
+        router.show(from: sourceView) { (finished) in
+            self.view.loading(ofType: .Transcript, isVisible: true)
+            self.logic.startRecognizingVideos(for: friendID)
+        }
+        
     }
     
     // MARK: TranscriptLogicOutput
     
     func didRecognizeVideoAtIndex(with result: RecognitionResult) {
-        
+
         view.add(transcript: result.text, with: result.date)
         
         if result.index == 0 {

@@ -21,7 +21,7 @@ public class TranscriptRouter {
 
     }
     
-    public func show(from sourceView: UIView) {
+    public func show(from sourceView: UIView, completion: (Bool -> Void)?) {
         
         let thumbView = moduleVC.contentView.thumbHolder
         
@@ -31,7 +31,7 @@ public class TranscriptRouter {
         moduleVC.view.backgroundColor = UIColor.clearColor()
         
         let navigationBar = moduleVC.contentView.navigationBar
-
+        
         let completion = {
             
             let navbarTranslate = CGAffineTransformMakeTranslation(0, -navigationBar.bounds.size.height)
@@ -64,7 +64,7 @@ public class TranscriptRouter {
                                        initialSpringVelocity: 3,
                                        options: [],
                                        animations: animations,
-                                       completion: nil)
+                                       completion: completion)
             
 
         }

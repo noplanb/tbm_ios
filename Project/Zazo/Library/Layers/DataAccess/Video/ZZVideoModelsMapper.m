@@ -19,7 +19,8 @@
     videoEntity.videoId = videoModel.videoID;
     videoEntity.downloadRetryCount = @(videoModel.downloadRetryCount);
     videoEntity.status = @(videoModel.incomingStatusValue);
-
+    videoEntity.transcription = videoEntity.transcription;
+    
     return videoEntity;
 }
 
@@ -32,6 +33,7 @@
         videoModel.incomingStatusValue = [videoEntity.status integerValue];
         videoModel.videoURL = [ZZVideoDataProvider videoUrlWithVideo:videoEntity];
         videoModel.relatedUserID = videoEntity.friend.idTbm;
+        videoModel.transcription = videoEntity.transcription;
     }
     @catch (NSException *exception)
     {
