@@ -13,6 +13,20 @@ public class TranscriptItemView: UIView {
     public let textLabel = UILabel()
     public let timeLabel = UILabel()
     
+    public var iconView: UIView? {
+        didSet {
+            if oldValue?.superview == self {
+                oldValue?.removeFromSuperview()
+            }
+            
+            if let view = iconView {
+                addSubview(view)
+                setNeedsUpdateConstraints()
+                updateConstraintsIfNeeded()
+            }
+        }
+    }
+    
     convenience init() {
         
         self.init(frame: CGRect.zero)
@@ -52,8 +66,20 @@ public class TranscriptItemView: UIView {
         
         super.updateConstraints()
         
+        guard let leftAnchor = (iconView != nil) ? iconView?.snp_right : self.snp_left else {
+            return
+        }
+        
+        if (iconView != nil) {
+            iconView?.snp_remakeConstraints(closure: { (make) in
+                make.left.equalTo(self.snp_leftMargin)
+                make.top.equalTo(self.snp_topMargin)
+                make.bottom.equalTo(self.snp_bottomMargin)
+            })
+        }
+        
         textLabel.snp_remakeConstraints { (make) in
-            make.left.equalTo(self.snp_leftMargin)
+            make.left.equalTo(leftAnchor).offset(8)
             make.right.equalTo(self.snp_rightMargin)
             make.top.equalTo(self.snp_topMargin)
         }
@@ -65,5 +91,6 @@ public class TranscriptItemView: UIView {
             make.top.equalTo(self.textLabel.snp_bottom)
         }
         
+
     }
 }

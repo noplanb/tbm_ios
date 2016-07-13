@@ -14,9 +14,15 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     
     public lazy var contentView = TranscriptView()
     
-    let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    let loadingView = TranscriptItemView()
     
     let dateFormater = NSDateFormatter()
+    
+    var animating = false {
+        didSet {
+            _setTranscriptAnimationVisible(animating)
+        }
+    }
     
     // MARK: VC overrides
     
@@ -34,7 +40,14 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     
         dateFormater.dateStyle = .MediumStyle
         dateFormater.timeStyle = .MediumStyle
-                
+     
+        loadingView.textLabel.text = "Converting Zazo to text..."
+        
+        let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        loadingIndicator.startAnimating()
+        
+        loadingView.iconView = loadingIndicator
+        
     }
     
     override public func loadView() {
@@ -71,16 +84,19 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         
     }
     
+    
     func setTranscriptAnimationVisible(flag: Bool) {
+        animating = flag
+    }
+    
+    func _setTranscriptAnimationVisible(flag: Bool) {
         
         let updateBlock = {
             
             if flag {
                 self.contentView.stackView.addArrangedSubview(self.loadingView)
-                self.loadingView.startAnimating()
             }
             else {
-                self.loadingView.stopAnimating()
                 self.contentView.stackView.removeArrangedSubview(self.loadingView)
             }
         }
@@ -97,7 +113,7 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         
         var index = UInt(contentView.stackView.arrangedSubviews.count)
         
-        if (loadingView.isAnimating()) {
+        if (animating) {
             index -= 1
         }
         
