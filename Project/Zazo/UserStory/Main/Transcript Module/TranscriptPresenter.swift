@@ -34,6 +34,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     @objc func present(for friendID: String, from sourceView: UIView) {
         
         view.setVolumeEnabled(volumeEnabled)
+        playbackController.muted = !volumeEnabled
         
         let friendData = logic.fetchFriendData(forID: friendID)
         

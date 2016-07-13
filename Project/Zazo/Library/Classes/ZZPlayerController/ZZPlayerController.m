@@ -218,6 +218,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.playerController.player = [AVQueuePlayer new];
     self.playerController.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     
+    self.player.volume = (float)!self.muted;
+    
     RACSignal *currentItem = RACObserve(self.playerController.player, currentItem).distinctUntilChanged;
     
     RACSignal *status = [currentItem flattenMap:^RACStream *(AVPlayerItem *item) {
@@ -558,7 +560,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 {
     _muted = muted;
     
-    self.playerController.player.volume = (float)!muted;
+    self.player.volume = (float)!muted;
 }
 
 @end
