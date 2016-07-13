@@ -124,6 +124,8 @@
 {
     [self _setPlayerVisible:NO];
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.playerController.currentFriendModel];
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
+
 }
 
 #pragma mark UI events
