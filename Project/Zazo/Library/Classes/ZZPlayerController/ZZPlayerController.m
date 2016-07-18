@@ -59,10 +59,12 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         _indicator.delegate = self;
         
         _playerController = [AVPlayerViewController new];
+        _playerController.showsPlaybackControls = NO;
         _playerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
         _playerController.view.backgroundColor = [UIColor clearColor];
-        _playerController.showsPlaybackControls = NO;
 
+        [_playerController view];
+        
         [self _addObservers];
     }
     return self;

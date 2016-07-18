@@ -31,6 +31,7 @@
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
         self.presentedView = presentedView;
+        self.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return self;
 }
@@ -144,14 +145,6 @@
         [self updateBadgeWithNumber:model.badgeNumber];
     }
 
-}
-
-#pragma mark - Animation Views
-
-- (CGFloat)_indicatorCalculatedWidth
-{
-    return fminf(kLayoutConstIndicatorMaxWidth,
-            kLayoutConstIndicatorFractionalWidth * kGridItemSize().width);
 }
 
 

@@ -154,7 +154,7 @@ class TranscriptTransitionManager: NSObject, UIViewControllerTransitioningDelega
 class TranscriptTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
  
     @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 1
+        return 0.4
     }
     
     @objc func animateTransition(context: UIViewControllerContextTransitioning) {

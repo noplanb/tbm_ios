@@ -51,7 +51,7 @@ public class TranscriptView: UIView {
     let fadingView = FadingView()
 
     convenience init() {
-        self.init(frame: CGRect.zero)
+        self.init(frame: UIScreen.mainScreen().bounds)
         
         self.backgroundColor = ZZColorTheme.shared().tintColor
         
@@ -75,11 +75,11 @@ public class TranscriptView: UIView {
         thumbHolder.addSubview(thumb)
         thumbHolder.backgroundColor = UIColor.whiteColor()
         thumbHolder.layer.cornerRadius = 4
+        thumbHolder.translatesAutoresizingMaskIntoConstraints = false
         
         thumb.contentMode = .ScaleAspectFill
         thumb.clipsToBounds = true
     
-        
         
     }
     

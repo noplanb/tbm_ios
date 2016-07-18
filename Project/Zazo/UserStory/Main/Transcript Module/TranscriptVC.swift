@@ -56,10 +56,12 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     // MARK: TranscriptUIInput
     
     func showPlayer(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
         contentView.playerView = view
     }
     
     func showPlaybackControl(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false 
         contentView.playbackIndicator = view
         
         if let indicator = view as? PlaybackIndicator {

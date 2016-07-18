@@ -124,7 +124,6 @@ public class PlaybackIndicator: UIView
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        stackView.frame = self.bounds
         self.tintColor = ZZColorTheme.shared().tintColor
         
         let panRecognizer = UIPanGestureRecognizer(target: self,
@@ -145,8 +144,7 @@ public class PlaybackIndicator: UIView
     }
     
     func updateSegmentCountTo(segmentCount: Int)
-    {
-        
+    {        
         if segmentCount < stackView.arrangedSubviews.count
         {
             
@@ -168,7 +166,7 @@ public class PlaybackIndicator: UIView
                 stackView.addArrangedSubview(makeSegment())
             }
         }
-     
+             
         UIView.animateWithDuration(0.25)
         {
             self.layoutIfNeeded()
@@ -186,7 +184,7 @@ public class PlaybackIndicator: UIView
     
     lazy var stackView: OAStackView = {
         let result = OAStackView()
-        
+
         result.spacing = 10
         result.distribution = .FillEqually
         self.addSubview(result)
@@ -208,7 +206,8 @@ public class PlaybackIndicator: UIView
         segment.maximumTrackTintColor = self.colorTheme.bodyColor
         segment.userInteractionEnabled = false
         segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
-
+        segment.translatesAutoresizingMaskIntoConstraints = false
+        
         return segment
     }
     
