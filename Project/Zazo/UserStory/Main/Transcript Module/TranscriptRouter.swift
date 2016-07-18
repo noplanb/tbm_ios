@@ -21,9 +21,7 @@ public class TranscriptRouter: NSObject {
         
         controller.modalPresentationStyle = .Custom
         controller.transitioningDelegate = transitionManager
-
     }
-
     
     public func show(from sourceView: UIView, completion: (Bool -> Void)?) {
         
@@ -54,19 +52,13 @@ public class TranscriptRouter: NSObject {
             thumbView.alpha = 1;
             
             let animations = {
-            
                 thumbView.transform = CGAffineTransformIdentity
-                
                 navigationBar.transform = CGAffineTransformIdentity
-                
                 self.moduleVC.view.backgroundColor = originalVCBackground
             }
             
             UIView.animateWithDuration(0.6, delay: 0, options: [], animations: animations, completion: completion)
             self.addDismissGestureRecognizerTo(viewController: self.moduleVC)
-
-            
-
         }
         
         parentVC.presentViewController(moduleVC,
@@ -104,6 +96,7 @@ public class TranscriptRouter: NSObject {
         switch recognizer.state {
             
         case .Began:
+            self.transitionManager.interactiveTransitioning = true
             hide()
             moduleVC.output?.didStartInteractiveDismissal()
             
@@ -122,10 +115,12 @@ public class TranscriptRouter: NSObject {
             interactor.updateInteractiveTransition(progress)
             
         case .Cancelled:
+            self.transitionManager.interactiveTransitioning = false
             interactor.cancelInteractiveTransition()
             moduleVC.output?.didCancelInteractiveDismissal()
             
         case .Ended:
+            self.transitionManager.interactiveTransitioning = false
             if previousProgress > progress {
                 interactor.cancelInteractiveTransition()
                 moduleVC.output?.didCancelInteractiveDismissal()
@@ -140,39 +135,37 @@ public class TranscriptRouter: NSObject {
     }
 }
 
-
 class TranscriptTransitionManager: NSObject, UIViewControllerTransitioningDelegate {
     
     let interactive = UIPercentDrivenInteractiveTransition()
     let animated = TranscriptTransitioning()
-
+    
+    var interactiveTransitioning = false
+    
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animated
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactive
+        return interactiveTransitioning ? interactive : nil
     }
 }
 
 class TranscriptTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
  
-    // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
     @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 1
     }
     
-    // This is a convenience and if implemented will be invoked by the system when the transition context's completeTransition: method is invoked.
     @objc func animateTransition(context: UIViewControllerContextTransitioning) {
         
         guard
             let toController = context.viewControllerForKey(UITransitionContextFromViewControllerKey)
-            else {
-                return
+        else {
+            return
         }
         
         let height = CGFloat((context.containerView()?.bounds.size.height)!)
-        
         let duration = transitionDuration(context)
         
         UIView.animateWithDuration(duration, animations: { 
@@ -184,10 +177,6 @@ class TranscriptTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
     }
-    
-    @objc func animationEnded(transitionCompleted: Bool) {
-        
-    }    
 }
 
 extension TranscriptRouter: UIGestureRecognizerDelegate {
