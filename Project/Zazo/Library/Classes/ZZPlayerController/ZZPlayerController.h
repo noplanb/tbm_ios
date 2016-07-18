@@ -27,6 +27,7 @@
 
 @property (nonatomic, assign, readonly) BOOL isPlayingVideo;
 @property (nonatomic, assign) BOOL muted;
+@property (nonatomic, assign) BOOL paused;
 
 @property (nonatomic, strong, readonly) UIView *playerView;
 @property (nonatomic, strong, readonly) UIView *playbackIndicator;

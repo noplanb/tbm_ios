@@ -305,7 +305,7 @@
 		1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589C1561CD3C74800AB7E8C /* DownloadingView.swift */; };
 		158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */; };
 		158D8ED51CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */; };
-		158D8ED71CEB2D4600C95132 /* PlaybackSegmentIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */; };
+		158D8ED71CEB2D4600C95132 /* PlaybackIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */; };
 		158D8EDE1CEB43AF00C95132 /* ZZBadgeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */; };
 		158D8EE11CEB43C000C95132 /* ZZBadgeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */; };
 		15A1F9411CEC8DFC00BAC37D /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1F9401CEC8DFC00BAC37D /* PlaybackSegment.swift */; };
@@ -1356,7 +1356,7 @@
 		158C66661CE9EAA800756E48 /* ZZPlayerBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerBackgroundView.h; sourceTree = "<group>"; };
 		158C66671CE9EAA800756E48 /* ZZPlayerBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerBackgroundView.m; sourceTree = "<group>"; };
 		158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerFullscreenHelper.swift; sourceTree = "<group>"; };
-		158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegmentIndicator.swift; sourceTree = "<group>"; };
+		158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackIndicator.swift; sourceTree = "<group>"; };
 		158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZBadgeIndicator.xib; sourceTree = "<group>"; };
 		158D8EDF1CEB43C000C95132 /* ZZBadgeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBadgeIndicator.h; sourceTree = "<group>"; };
 		158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadgeIndicator.m; sourceTree = "<group>"; };
@@ -3874,7 +3874,7 @@
 			children = (
 				158D8EDC1CEB43AF00C95132 /* ZZBadgeIndicator */,
 				158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */,
-				158D8ED61CEB2D4600C95132 /* PlaybackSegmentIndicator.swift */,
+				158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */,
 				152594D71CE8C9F200DDA507 /* ZZPlayerVC.h */,
 				152594D81CE8C9F200DDA507 /* ZZPlayerVC.m */,
 				152594D91CE8C9F200DDA507 /* ZZPlayerViewInterface.h */,
@@ -6118,7 +6118,7 @@
 				151A6C331CA5688800F2B53D /* ZZMenuWireframe.m in Sources */,
 				180254A31BB2C5A400138A52 /* ZZVideoStatuses.m in Sources */,
 				151A6C341CA5688800F2B53D /* ZZMenu.m in Sources */,
-				158D8ED71CEB2D4600C95132 /* PlaybackSegmentIndicator.swift in Sources */,
+				158D8ED71CEB2D4600C95132 /* PlaybackIndicator.swift in Sources */,
 				181D1CC21BC5255D00044F83 /* ZZEarpieceFeatureEventHandler.m in Sources */,
 				3E81CA341D210E93005A9E7C /* NuanceRecognitionOperation.swift in Sources */,
 				152594E31CE8C9F200DDA507 /* ZZPlayerWireframe.m in Sources */,

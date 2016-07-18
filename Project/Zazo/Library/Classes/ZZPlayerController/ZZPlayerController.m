@@ -46,6 +46,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @dynamic currentVideoModel;
 @dynamic currentItem;
 @dynamic playbackIndicator;
+@dynamic paused;
 
 @synthesize muted = _muted;
 
@@ -561,6 +562,14 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     _muted = muted;
     
     self.player.volume = (float)!muted;
+}
+
+- (void)setPaused:(BOOL)paused {
+    self.player.rate = !paused;
+}
+
+- (BOOL)paused {
+    return self.player.rate;
 }
 
 @end

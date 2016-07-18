@@ -95,4 +95,11 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         playbackController.muted = !volumeEnabled
     }
 
+    func didStartInteractiveDismissal() {
+        playbackController.paused = true
+    }
+    
+    func didCancelInteractiveDismissal() {
+        playbackController.paused = false
+    }
 }

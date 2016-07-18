@@ -47,17 +47,10 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         loadingIndicator.startAnimating()
         
         loadingView.iconView = loadingIndicator
-        
     }
     
     override public func loadView() {
-        
         view = contentView
-        
-    }
-    
-    override public func viewDidAppear(animated: Bool) {
-
     }
     
     // MARK: TranscriptUIInput
@@ -75,15 +68,12 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     }
     
     func loading(ofType type: TranscriptUILoadingType, isVisible visible: Bool) {
-        
         switch type {
         case .Transcript:
             setTranscriptAnimationVisible(visible)
             break
         }
-        
     }
-    
     
     func setTranscriptAnimationVisible(flag: Bool) {
         animating = flag

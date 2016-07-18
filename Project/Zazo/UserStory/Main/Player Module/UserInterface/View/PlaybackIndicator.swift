@@ -130,6 +130,8 @@ public class PlaybackIndicator: UIView
         let panRecognizer = UIPanGestureRecognizer(target: self,
                                                    action: #selector(dragWithRecognizer))
         
+        panRecognizer.delegate = self
+        
         addGestureRecognizer(panRecognizer)
 
         let recognizer = UITapGestureRecognizer(target: self,
@@ -299,3 +301,15 @@ public class PlaybackIndicator: UIView
 
 }
 
+extension PlaybackIndicator: UIGestureRecognizerDelegate {
+    
+    public override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        guard let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
+            return true
+        }
+        
+        let velocity = gestureRecognizer.velocityInView(self)
+        return fabs(velocity.y) < fabs(velocity.x)
+    }
+}

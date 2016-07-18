@@ -27,5 +27,6 @@ protocol TranscriptUIOutput
     func didTapReplyButton()
     func didTapCloseButton()
     func didTapMuteButton()
-    
+    func didStartInteractiveDismissal()
+    func didCancelInteractiveDismissal()
 }
