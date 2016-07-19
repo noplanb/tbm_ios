@@ -21,11 +21,7 @@ import Foundation
     init(with parentVC: UIViewController) {
         
         interactor = ComposeInteractor()
-        
-        let manager = RecognitionManager(output: interactor)
-        manager.registerType(NuanceRecognitionOperation)
-        interactor.recognitionManager = manager
-        
+                
         viewController = ComposeVC(nibName: nil, bundle: nil)
         
         let router = ComposeRouter(forPresenting: viewController, in: parentVC)

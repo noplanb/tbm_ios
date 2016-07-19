@@ -398,6 +398,12 @@
         return;
     }
     
+    if ([item.title isEqualToString:@"Send text"])
+    {
+        [self.wireframe presentComposeForUserWithID:friendID];
+        return;
+    }
+    
     if ([item.title isEqualToString:@"Fullscreen"])
     {
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
@@ -652,11 +658,12 @@
     
     MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
     MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
+    MenuItem *sendText = [[MenuItem alloc] initWithTitle:@"Send text"];
     
     transcript.icon = [UIImage imageNamed:@"transcript-icon"];
     fullscreen.icon = [UIImage imageNamed:@"fullscreen-icon"];
     
-    NSArray<MenuItem *> *items = @[transcript, fullscreen];
+    NSArray<MenuItem *> *items = @[transcript, fullscreen, sendText];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
 }
@@ -710,6 +717,7 @@
             NSString *badConnectionTitle = NSLocalizedString(@"internet-connection-error-title", nil);
             NSString *message = NSLocalizedString(@"internet-connection-error-message", nil);
             NSString *actionButtonTitle = NSLocalizedString(@"internet-connection-error-button-title", nil);
+            
             [ZZGridAlertBuilder showAlertWithTitle:badConnectionTitle
                                            message:message
                                  cancelButtonTitle:nil

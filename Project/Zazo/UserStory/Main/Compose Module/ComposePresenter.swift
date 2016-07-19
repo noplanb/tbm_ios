@@ -31,6 +31,9 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     
     // MARK: ComposeModule interface
     
+    @objc func present(from view: UIView) {
+        router.show(from: view, completion: nil)
+    }
     
     // MARK: ComposeLogicOutput
     

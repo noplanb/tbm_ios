@@ -14,6 +14,6 @@ import Foundation
 
 @objc public protocol ComposeModule {
     
-    func present(for friendWithID: String, from view: UIView)
+    func present(from view: UIView)
     
 }

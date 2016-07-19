@@ -16,18 +16,15 @@ public class ComposeRouter: NSObject {
     init(forPresenting controller: ComposeVC, in parentVC: UIViewController) {
         self.parentVC = parentVC
         self.moduleVC = controller
-        
-        controller.modalPresentationStyle = .Custom
     }
     
     public func show(from sourceView: UIView, completion: (Bool -> Void)?) {
-        
+        parentVC.presentViewController(moduleVC, animated: true, completion: nil)
     }
     
     public func hide() {
         moduleVC.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 
 }
 

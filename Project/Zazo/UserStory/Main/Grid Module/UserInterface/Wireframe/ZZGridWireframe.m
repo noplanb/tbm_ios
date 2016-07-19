@@ -25,6 +25,7 @@
 @property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 @property (nonatomic, strong) ZZPlayerWireframe *playerWireframe;
 @property (nonatomic, strong) TranscriptModuleAssembly *transcriptAssembly;
+@property (nonatomic, strong) ComposeAssembly *composeAssembly;
 
 @end
 
@@ -50,18 +51,24 @@
 
 #pragma mark - Details
 
+- (void)presentComposeForUserWithID:(NSString *)friendID
+{
+    self.composeAssembly = [[ComposeAssembly alloc] initWith:self.gridController];
+    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    ZZGridVC *gridVC = (ZZGridVC *)self.gridController;
+    UIView *fromView = [gridVC.controller gridCellWithFriendModel:friendModel];
+
+    [self.composeAssembly.module presentFrom:fromView];
+}
+
 - (void)presentTranscriptionForUserWithID:(NSString *)friendID
 {
     self.transcriptAssembly = [[TranscriptModuleAssembly alloc] initWith:self.gridController];
-    
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
-    
     ZZGridVC *gridVC = (ZZGridVC *)self.gridController;
-    
     UIView *fromView = [gridVC.controller gridCellWithFriendModel:friendModel];
-    
     [self.transcriptAssembly.module presentFor:friendID from:fromView];
-    
 }
 
 - (void)presentSMSDialogWithModel:(ANMessageDomainModel *)model

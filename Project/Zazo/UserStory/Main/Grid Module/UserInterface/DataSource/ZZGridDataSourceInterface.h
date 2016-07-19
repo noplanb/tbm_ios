@@ -27,6 +27,4 @@
 
 - (BOOL)isNetworkEnabled;
 
-- (void)showRecorderHint;
-
 @end

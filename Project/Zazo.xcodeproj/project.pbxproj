@@ -224,6 +224,8 @@
 		153550521D3E357F0080BE9A /* ComposeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550491D3E357E0080BE9A /* ComposeUI.swift */; };
 		153550531D3E357F0080BE9A /* ComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1535504A1D3E357E0080BE9A /* ComposeVC.swift */; };
 		153550541D3E357F0080BE9A /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1535504B1D3E357E0080BE9A /* ComposeView.swift */; };
+		153550561D3E65EF0080BE9A /* ComposeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550551D3E65EF0080BE9A /* ComposeViews.swift */; };
+		1535505A1D3E7D900080BE9A /* Compose.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 153550591D3E7D900080BE9A /* Compose.xcassets */; };
 		153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536822D1C99539D006EDC12 /* ZZMainInteractor.m */; };
 		153682411C99539D006EDC12 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 153682331C99539D006EDC12 /* Main.strings */; };
 		153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 153682361C99539D006EDC12 /* ZZMainPresenter.m */; };
@@ -317,6 +319,7 @@
 		158D8ED71CEB2D4600C95132 /* PlaybackIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */; };
 		158D8EDE1CEB43AF00C95132 /* ZZBadgeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */; };
 		158D8EE11CEB43C000C95132 /* ZZBadgeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */; };
+		159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */; };
 		15A1F9411CEC8DFC00BAC37D /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1F9401CEC8DFC00BAC37D /* PlaybackSegment.swift */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
 		15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */; };
@@ -1201,6 +1204,8 @@
 		153550491D3E357E0080BE9A /* ComposeUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeUI.swift; sourceTree = "<group>"; };
 		1535504A1D3E357E0080BE9A /* ComposeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeVC.swift; sourceTree = "<group>"; };
 		1535504B1D3E357E0080BE9A /* ComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
+		153550551D3E65EF0080BE9A /* ComposeViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViews.swift; sourceTree = "<group>"; };
+		153550591D3E7D900080BE9A /* Compose.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Compose.xcassets; sourceTree = "<group>"; };
 		1536822C1C99539D006EDC12 /* ZZMainInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractor.h; sourceTree = "<group>"; };
 		1536822D1C99539D006EDC12 /* ZZMainInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainInteractor.m; sourceTree = "<group>"; };
 		1536822E1C99539D006EDC12 /* ZZMainInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractorIO.h; sourceTree = "<group>"; };
@@ -1379,6 +1384,7 @@
 		158D8EDF1CEB43C000C95132 /* ZZBadgeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBadgeIndicator.h; sourceTree = "<group>"; };
 		158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadgeIndicator.m; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
+		159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -1926,6 +1932,7 @@
 				07636B011BA49A0100925671 /* Helpers */,
 				07636B0E1BA49A0100925671 /* Layers */,
 				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
+				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -3922,6 +3929,7 @@
 				153550441D3E357E0080BE9A /* ComposeRouter.swift */,
 				153550451D3E357E0080BE9A /* Logic */,
 				153550481D3E357E0080BE9A /* UI */,
+				153550591D3E7D900080BE9A /* Compose.xcassets */,
 			);
 			path = "Compose Module";
 			sourceTree = "<group>";
@@ -3941,6 +3949,7 @@
 				153550491D3E357E0080BE9A /* ComposeUI.swift */,
 				1535504A1D3E357E0080BE9A /* ComposeVC.swift */,
 				1535504B1D3E357E0080BE9A /* ComposeView.swift */,
+				153550551D3E65EF0080BE9A /* ComposeViews.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -5680,6 +5689,7 @@
 				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,
 				1589605B1CB7B61D0040D8E3 /* mogend.sh in Resources */,
 				158960571CB7B61D0040D8E3 /* human.m.motemplate in Resources */,
+				1535505A1D3E7D900080BE9A /* Compose.xcassets in Resources */,
 				07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */,
 				07636DFC1BA49A0100925671 /* head.png in Resources */,
 				15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */,
@@ -6364,10 +6374,12 @@
 				3EA6FB0A1D2168110038FF72 /* NuanceURLSessionHandler.swift in Sources */,
 				07BAA7141BB1C55E009878B9 /* ZZThumbnailGenerator.m in Sources */,
 				1589603A1CB7B61D0040D8E3 /* NSObject+ANSafeValues.m in Sources */,
+				153550561D3E65EF0080BE9A /* ComposeViews.swift in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
 				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
 				15443A901D252717009F55CD /* TranscriptModuleInterface.swift in Sources */,
+				159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */,
 				158960731CB7B61E0040D8E3 /* ANMemoryStorage+ANItems.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,

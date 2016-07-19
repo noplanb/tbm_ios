@@ -25,5 +25,6 @@
 - (void)presentSharingDialogWithModel:(ANMessageDomainModel *)model success:(ANCodeBlock)success fail:(ANCodeBlock)fail;
 
 - (void)presentTranscriptionForUserWithID:(NSString *)friendID;
+- (void)presentComposeForUserWithID:(NSString *)friendID;
 
 @end
