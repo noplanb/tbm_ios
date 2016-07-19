@@ -215,6 +215,15 @@
 		152594E31CE8C9F200DDA507 /* ZZPlayerWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DC1CE8C9F200DDA507 /* ZZPlayerWireframe.m */; };
 		152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DE1CE8C9F200DDA507 /* ZZPlayer.m */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
+		1535504C1D3E357E0080BE9A /* ComposeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550411D3E357E0080BE9A /* ComposeAssembly.swift */; };
+		1535504D1D3E357F0080BE9A /* ComposeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550421D3E357E0080BE9A /* ComposeInterface.swift */; };
+		1535504E1D3E357F0080BE9A /* ComposePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550431D3E357E0080BE9A /* ComposePresenter.swift */; };
+		1535504F1D3E357F0080BE9A /* ComposeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550441D3E357E0080BE9A /* ComposeRouter.swift */; };
+		153550501D3E357F0080BE9A /* ComposeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550461D3E357E0080BE9A /* ComposeInteractor.swift */; };
+		153550511D3E357F0080BE9A /* ComposeLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550471D3E357E0080BE9A /* ComposeLogic.swift */; };
+		153550521D3E357F0080BE9A /* ComposeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550491D3E357E0080BE9A /* ComposeUI.swift */; };
+		153550531D3E357F0080BE9A /* ComposeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1535504A1D3E357E0080BE9A /* ComposeVC.swift */; };
+		153550541D3E357F0080BE9A /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1535504B1D3E357E0080BE9A /* ComposeView.swift */; };
 		153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536822D1C99539D006EDC12 /* ZZMainInteractor.m */; };
 		153682411C99539D006EDC12 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 153682331C99539D006EDC12 /* Main.strings */; };
 		153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 153682361C99539D006EDC12 /* ZZMainPresenter.m */; };
@@ -1183,6 +1192,15 @@
 		152594DE1CE8C9F200DDA507 /* ZZPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayer.m; sourceTree = "<group>"; };
 		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
 		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
+		153550411D3E357E0080BE9A /* ComposeAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeAssembly.swift; sourceTree = "<group>"; };
+		153550421D3E357E0080BE9A /* ComposeInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeInterface.swift; sourceTree = "<group>"; };
+		153550431D3E357E0080BE9A /* ComposePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposePresenter.swift; sourceTree = "<group>"; };
+		153550441D3E357E0080BE9A /* ComposeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeRouter.swift; sourceTree = "<group>"; };
+		153550461D3E357E0080BE9A /* ComposeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeInteractor.swift; sourceTree = "<group>"; };
+		153550471D3E357E0080BE9A /* ComposeLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeLogic.swift; sourceTree = "<group>"; };
+		153550491D3E357E0080BE9A /* ComposeUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeUI.swift; sourceTree = "<group>"; };
+		1535504A1D3E357E0080BE9A /* ComposeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeVC.swift; sourceTree = "<group>"; };
+		1535504B1D3E357E0080BE9A /* ComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
 		1536822C1C99539D006EDC12 /* ZZMainInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractor.h; sourceTree = "<group>"; };
 		1536822D1C99539D006EDC12 /* ZZMainInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainInteractor.m; sourceTree = "<group>"; };
 		1536822E1C99539D006EDC12 /* ZZMainInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMainInteractorIO.h; sourceTree = "<group>"; };
@@ -2828,6 +2846,7 @@
 		07636C781BA49A0100925671 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				153550401D3E357E0080BE9A /* Compose Module */,
 				3E81CA2C1D210E19005A9E7C /* Transcript Module */,
 				151A6C181CA5688800F2B53D /* Menu Module */,
 				152594C81CE8C9F200DDA507 /* Player Module */,
@@ -3892,6 +3911,38 @@
 				152594DC1CE8C9F200DDA507 /* ZZPlayerWireframe.m */,
 			);
 			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		153550401D3E357E0080BE9A /* Compose Module */ = {
+			isa = PBXGroup;
+			children = (
+				153550411D3E357E0080BE9A /* ComposeAssembly.swift */,
+				153550421D3E357E0080BE9A /* ComposeInterface.swift */,
+				153550431D3E357E0080BE9A /* ComposePresenter.swift */,
+				153550441D3E357E0080BE9A /* ComposeRouter.swift */,
+				153550451D3E357E0080BE9A /* Logic */,
+				153550481D3E357E0080BE9A /* UI */,
+			);
+			path = "Compose Module";
+			sourceTree = "<group>";
+		};
+		153550451D3E357E0080BE9A /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				153550461D3E357E0080BE9A /* ComposeInteractor.swift */,
+				153550471D3E357E0080BE9A /* ComposeLogic.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		153550481D3E357E0080BE9A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				153550491D3E357E0080BE9A /* ComposeUI.swift */,
+				1535504A1D3E357E0080BE9A /* ComposeVC.swift */,
+				1535504B1D3E357E0080BE9A /* ComposeView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		153682291C99539D006EDC12 /* Main Module */ = {
@@ -6135,6 +6186,7 @@
 				07636E381BA49A0100925671 /* ZZRemoteStorageTransport.m in Sources */,
 				07636ECD1BA49A0100925671 /* ZZGridHelper.m in Sources */,
 				07636EB01BA49A0100925671 /* ZZEditFriendListInteractor.m in Sources */,
+				1535504F1D3E357F0080BE9A /* ComposeRouter.swift in Sources */,
 				15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */,
 				158960651CB7B61D0040D8E3 /* ANMessageDomainModel.m in Sources */,
 				181D1CAA1BC5209000044F83 /* ZZRecordEventHandler.m in Sources */,
@@ -6148,6 +6200,7 @@
 				182255F21C16E08A003885A3 /* ZZNetworkTestVC.m in Sources */,
 				07636ED11BA49A0100925671 /* ZZGridRotationTouchObserver.m in Sources */,
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
+				1535504D1D3E357F0080BE9A /* ComposeInterface.swift in Sources */,
 				151A6C321CA5688800F2B53D /* ZZMenuVC.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
@@ -6156,6 +6209,7 @@
 				152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
+				153550501D3E357F0080BE9A /* ComposeInteractor.swift in Sources */,
 				151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */,
 				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
@@ -6174,6 +6228,7 @@
 				1589606C1CB7B61E0040D8E3 /* ANNetworkSessionManager.m in Sources */,
 				07636EA91BA49A0100925671 /* ZZSecretSwitchCell.m in Sources */,
 				07636E071BA49A0100925671 /* ZZTableModal.m in Sources */,
+				153550511D3E357F0080BE9A /* ComposeLogic.swift in Sources */,
 				18CA1BA91BC7F01B008A7A93 /* TBMNextFeatureDialogView.m in Sources */,
 				07636E211BA49A0100925671 /* ZZTextFieldsDelegate.m in Sources */,
 				187842311BB2F2760007CDE2 /* ZZCommunicationDomainModel.m in Sources */,
@@ -6199,6 +6254,7 @@
 				1589604D1CB7B61D0040D8E3 /* ANNavigationBarColorTheme.m in Sources */,
 				1589604F1CB7B61D0040D8E3 /* ANTextFieldColorTheme.m in Sources */,
 				158960391CB7B61D0040D8E3 /* NSObject+ANRACAdditions.m in Sources */,
+				153550521D3E357F0080BE9A /* ComposeUI.swift in Sources */,
 				18F235261C1B0D1E0078F3BF /* ZZNetworkTestStoredManger.m in Sources */,
 				07636EA01BA49A0100925671 /* ZZDebugStateVC.m in Sources */,
 				07E09E251BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m in Sources */,
@@ -6240,6 +6296,7 @@
 				072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */,
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				15B823051CB7BBD4006473E1 /* TBMVideo.m in Sources */,
+				1535504C1D3E357E0080BE9A /* ComposeAssembly.swift in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
 				151BB3431CC124EC007CE007 /* Constants.swift in Sources */,
 				15B823021CB7BBD4006473E1 /* TBMFriend.m in Sources */,
@@ -6343,6 +6400,7 @@
 				07636E201BA49A0100925671 /* ZZPhoneHelper.m in Sources */,
 				158960531CB7B61D0040D8E3 /* ANCrashlyticsAdapter.m in Sources */,
 				18EE04111BFF8A1400D57966 /* ZZMigrationManager.m in Sources */,
+				1535504E1D3E357F0080BE9A /* ComposePresenter.swift in Sources */,
 				07636E481BA49A0100925671 /* ZZBaseVC.m in Sources */,
 				07636EAA1BA49A0100925671 /* ZZSecretSwitchCellViewModel.m in Sources */,
 				158960661CB7B61D0040D8E3 /* ANMessagesWireframe.m in Sources */,
@@ -6420,12 +6478,14 @@
 				07636E331BA49A0100925671 /* ZZAccountTransportService.m in Sources */,
 				158960801CB7B61E0040D8E3 /* ANMemoryStorage+ANTableViewController.m in Sources */,
 				07636EC21BA49A0100925671 /* ZZGridStateView.m in Sources */,
+				153550531D3E357F0080BE9A /* ComposeVC.swift in Sources */,
 				07636EB31BA49A0100925671 /* ZZEditFriendListPresenter.m in Sources */,
 				677DBE36ED6A86EFF2A08833 /* ZZAddContactButton.m in Sources */,
 				15443A861D252539009F55CD /* TranscriptModuleAssembly.swift in Sources */,
 				1589604A1CB7B61D0040D8E3 /* ANColorTheme.m in Sources */,
 				677DBF54457251510DB0FCC2 /* UIFont+ZZAdditions.m in Sources */,
 				677DB60F315E9CE35B2497D6 /* ZZBadge.m in Sources */,
+				153550541D3E357F0080BE9A /* ComposeView.swift in Sources */,
 				677DBFA348CAC5CD49036810 /* ZZCacheCleaner.m in Sources */,
 				677DB95CE584049E41381FE6 /* ZZNumberBadge.m in Sources */,
 				677DB944F56B7CDA92960A00 /* ZZMenuView.m in Sources */,
