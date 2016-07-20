@@ -40,4 +40,7 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
 
     // MARK: ComposeUIOutput interface
 
+    func didTapCancel() {
+        router.hide()
+    }
 }

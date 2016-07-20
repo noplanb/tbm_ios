@@ -187,7 +187,6 @@
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
 		107C303D9F04AF4ED4B439C0 /* Pods_ZazoBase_Zazo_NetworkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */; };
 		1501715B1D2BCEC6007E49F5 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1501715A1D2BCEC5007E49F5 /* Menu.swift */; };
-		1501715C1D2C236C007E49F5 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = 151EC1AB1D23BEBF009CFA82 /* test.mov */; };
 		151A6C2F1CA5688800F2B53D /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */; };
 		151A6C301CA5688800F2B53D /* Menu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 151A6C221CA5688800F2B53D /* Menu.strings */; };
 		151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C251CA5688800F2B53D /* ZZMenuPresenter.m */; };
@@ -5686,7 +5685,6 @@
 				158960591CB7B61D0040D8E3 /* machine.m.motemplate in Resources */,
 				07636DFE1BA49A0100925671 /* NotificationTone.wav in Resources */,
 				15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */,
-				1501715C1D2C236C007E49F5 /* test.mov in Resources */,
 				1589605A1CB7B61D0040D8E3 /* mogen.sh in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,

@@ -21,6 +21,10 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     override public func viewDidLoad() {
         startKeyboardObserving()
         contentView.elements.textField.delegate = textViewDelegate
+        
+        self.navigationItem.title = "Send text"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(self.cancelTap))
+        contentView.elements.navigationBar.pushNavigationItem(self.navigationItem, animated: false)
     }
     
     override public func loadView() {
@@ -29,6 +33,12 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     
     public override func viewDidAppear(animated: Bool) {
         contentView.elements.textField.becomeFirstResponder()
+    }
+    
+    // MARK: Events
+    
+    func cancelTap() {
+        output!.didTapCancel()
     }
 
     // MARK: KeyboardObserver

@@ -662,6 +662,7 @@
     
     transcript.icon = [UIImage imageNamed:@"transcript-icon"];
     fullscreen.icon = [UIImage imageNamed:@"fullscreen-icon"];
+    sendText.icon   = [UIImage imageNamed:@"message-icon"];
     
     NSArray<MenuItem *> *items = @[transcript, fullscreen, sendText];
     

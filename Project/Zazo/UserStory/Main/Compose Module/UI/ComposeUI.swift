@@ -13,5 +13,5 @@ protocol ComposeUIInput {
 }
 
 protocol ComposeUIOutput {
-
+    func didTapCancel()
 }

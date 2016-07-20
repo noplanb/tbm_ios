@@ -176,6 +176,7 @@ extension MenuTable: UITableViewDataSource {
         
         if cell == nil {
             cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+            
         }
         
         let item = items![indexPath.row]
