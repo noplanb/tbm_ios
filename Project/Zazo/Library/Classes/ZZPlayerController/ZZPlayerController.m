@@ -111,14 +111,23 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
     
-    if (![self.loadedVideoModels containsObject:videoModel])
+    NSArray <NSString *> *videoIDs = [self.loadedVideoModels.rac_sequence map:^id(ZZVideoDomainModel *videoModel) {
+        return videoModel.videoID;
+    }].array;
+
+    if ([videoIDs containsObject:videoModel.videoID])
     {
-        [self _loadModel:videoModel];
-        
-        self.allVideoModels = [self.allVideoModels arrayByAddingObject:videoModel];
-        
-        [self _updateSegments];
+        return;
     }
+    
+    ZZLogInfo(@"Appending video id = %@", videoModel.videoID);
+    
+    [self _loadModel:videoModel];
+    
+    self.allVideoModels = [self.allVideoModels arrayByAddingObject:videoModel];
+    
+    [self _updateSegments];
+    
 }
 
 - (void)_prepareToPlay
@@ -145,13 +154,17 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_startPlayingIfPossible
 {
+    ZZLogInfo(@"Trying to start playing");
+    
     if (!self.currentVideoModel)
     {
+        ZZLogInfo(@"Aborting: currentVideoModel = nil");
         return;
     }
     
     if (self.dragging)
     {
+        ZZLogInfo(@"Aborting: dragging");
         return;
     }
     
@@ -161,12 +174,12 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     NSLog(@"Started playing with currentVideoIndex = %lu", (unsigned long)currentVideoIndex);
     
-    NSInteger index = [self.allVideoModels indexOfObject:self.currentVideoModel];
-
-    if (index == NSNotFound)
-    {
-        return;
-    }
+//    NSInteger index = [self.allVideoModels indexOfObject:self.currentVideoModel];
+//
+//    if (index == NSNotFound)
+//    {
+//        return;
+//    }
 
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
         
@@ -205,15 +218,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_videosUnavailable:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
-    //    NSMutableArray <ZZVideoDomainModel *> *videoModels = [self.allVideoModels mutableCopy];
-    //
-    //    [videoModels removeObjectsInArray:videoModels];
-    
     [self.player pause];
+    
+    ZZLogInfo(@"videos unavailable: %lu", (unsigned long) videoModels.count);
     
     [videoModels enumerateObjectsUsingBlock:^(ZZVideoDomainModel * _Nonnull videoModel, NSUInteger idx, BOOL * _Nonnull stop) {
         [self _unloadVideoModel:videoModel];
     }];
+    
+    ZZLogInfo(@"videos loaded: %lu", (unsigned long) self.loadedVideoModels.count);
     
     [self _updateSegments];
     [self _startPlayingIfPossible];
@@ -279,6 +292,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_loadModel:(ZZVideoDomainModel *)videoModel
 {
+    ZZLogInfo(@"Loading video model id = %@", videoModel.videoID);
+    
     self.loadedVideoModels = [self.loadedVideoModels arrayByAddingObject:videoModel];
     
     AVPlayerItem *item = [AVPlayerItem playerItemWithURL:videoModel.videoURL];
@@ -315,7 +330,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
     
-    ZZLogInfo(@"index = %ld", (long)index);
+    ZZLogInfo(@"Unloading %@ | index = %ld", videoModel.videoID, (long)index);
     
     self.loadedVideoModels = [self.loadedVideoModels zz_arrayWithoutObject:videoModel];
     
@@ -389,12 +404,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }];
 }
 
-
 - (AVQueuePlayer *)player
 {
     return (id)self.playerController.player;
 }
-
 
 - (ZZVideoDomainModel *)currentVideoModel
 {
@@ -431,13 +444,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_videosDeletedNotification
 {
+    ZZLogInfo(@"_videosDeletedNotification");
+    
     if (!self.isPlayingVideo)
     {
         return;
     }
     
     NSArray <ZZVideoDomainModel *> *availableVideos =
-    [ZZVideoDataProvider sortedIncomingVideosForUserWithID:self.currentFriendModel.idTbm];
+        [ZZVideoDataProvider sortedIncomingVideosForUserWithID:self.currentFriendModel.idTbm];
     
     NSArray <NSString *> *availableVideoIDs = [availableVideos.rac_sequence map:^id(ZZVideoDomainModel *videoModel) {
         return videoModel.videoID;
