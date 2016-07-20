@@ -84,7 +84,7 @@
 
 #pragma mark Player Controller delegate
 
-- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel isLastVideo:(BOOL)isLastVideo
+- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
     [self.delegate videoPlayerDidStartVideoModel:videoModel];
     
@@ -99,20 +99,6 @@
                                                                 friendCKey:self.playerController.currentFriendModel.cKey] subscribeNext:^(id x) {}];
     
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = videoModel.videoID;
-
-    if (!isLastVideo) {
-        return;
-    }
-    
-    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
-    
-    if (friendModel.lastIncomingVideoStatus != videoModel.incomingStatusValue)
-    {
-        friendModel.lastIncomingVideoStatus = videoModel.incomingStatusValue;
-
-        [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm
-                     setLastIncomingVideoStatus: videoModel.incomingStatusValue];
-    }
 }
 
 - (void)videoPlayerDidReceiveError:(NSError *)error
@@ -122,10 +108,10 @@
 
 - (void)videoPlayerDidCompletePlaying
 {
-    [self _setPlayerVisible:NO];
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.playerController.currentFriendModel];
+    
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
-
+    [self _setPlayerVisible:NO];
 }
 
 #pragma mark UI events
@@ -181,7 +167,6 @@
 - (void)stop
 {
     [self.playerController stop];
-    [self _setPlayerVisible:NO];
 }
 
 - (ZZFriendDomainModel *)playedFriendModel

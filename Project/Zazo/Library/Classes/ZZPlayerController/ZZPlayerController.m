@@ -34,6 +34,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *loadedVideoModels; // video models to play
 
 @property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
+@property (nonatomic, strong, readwrite) ZZFriendDomainModel *currentFriendModel;
 
 @property (nonatomic, assign) BOOL dragging;
 @property (nonatomic, assign, readwrite) BOOL isPlayingVideo;
@@ -87,7 +88,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     [[AVAudioSession sharedInstance] startPlaying]; // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
     
-    _currentFriendModel = friendModel;
+    self.currentFriendModel = friendModel;
     
     [self _prepareToPlay];
     
@@ -105,6 +106,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     NSArray *actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     ZZVideoDomainModel *videoModel = [actualVideos lastObject];
+    
+    if (videoModel.incomingStatusValue != ZZVideoIncomingStatusDownloaded) {
+        return;
+    }
     
     if (![self.loadedVideoModels containsObject:videoModel])
     {
@@ -163,9 +168,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
 
-    BOOL isLastVideo = index == (self.allVideoModels.count - 1);
-
-    [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel isLastVideo:isLastVideo];
+    [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
         
 }
 
@@ -463,9 +466,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     [self updateVideoCount:self.loadedVideoModels.count];
     [self updateCurrentVideoIndex:currentSegmentIndex];
-    
 }
-
 
 - (void)_playNextOrStop
 {
@@ -520,23 +521,22 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         ANDispatchBlockAfter(delayAfterToastRemoved, ^{
             [self _playNextOrStop];
         });
-
-        
     });
-    
 }
 
 - (void)stop
 {
-    
     if (!self.isPlayingVideo)
     {
         return;
     }
     
-    [self.player pause];
     self.isPlayingVideo = NO;
+    
+    [self.player pause];
     [self.delegate videoPlayerDidCompletePlaying];
+    
+    self.currentFriendModel = nil;
 }
 
 - (void)updateVideoCount:(NSInteger)count

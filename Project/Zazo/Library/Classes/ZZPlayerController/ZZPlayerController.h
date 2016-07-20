@@ -14,7 +14,7 @@
 
 @protocol ZZPlayerControllerDelegate
 
-- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel isLastVideo:(BOOL)lastVideo;
+- (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
 - (void)videoPlayerDidCompletePlaying;
 - (void)videoPlayerDidReceiveError:(NSError *)error;
 
