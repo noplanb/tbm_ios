@@ -14,16 +14,23 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     
     public lazy var contentView: ComposeView = ComposeView()
     
+    let textViewDelegate = ComposeTextViewDelegate()
+    
     // MARK: VC overrides
     
     override public func viewDidLoad() {
         startKeyboardObserving()
+        contentView.elements.textField.delegate = textViewDelegate
     }
     
     override public func loadView() {
         view = contentView
     }
     
+    public override func viewDidAppear(animated: Bool) {
+        contentView.elements.textField.becomeFirstResponder()
+    }
+
     // MARK: KeyboardObserver
     
     func willChangeKeyboardHeight(height: CGFloat) {

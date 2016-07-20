@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ComposeViews {
+struct ComposeSubviews {
     
     let navigationBar: UINavigationBar = {
         
@@ -22,13 +22,18 @@ struct ComposeViews {
         return bar
     }()
     
-    let textField: UITextField = {
+    let textField: UITextView = {
         
-        let field = UITextField()
+        let field = UITextView()
         
         field.text = "Hello!"
         field.textColor = UIColor.whiteColor()
         field.font = UIFont.systemFontOfSize(144)
+        field.backgroundColor = UIColor.clearColor()
+        field.tintColor = UIColor.whiteColor()
+        field.clipsToBounds = true
+        field.autocorrectionType = .No
+        
         
         return field
     }()

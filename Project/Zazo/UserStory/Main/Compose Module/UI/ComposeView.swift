@@ -12,7 +12,7 @@ import OAStackView
 
 public class ComposeView: UIView {
 
-    let elements = ComposeViews()
+    let elements = ComposeSubviews()
     
     public let scrollView = UIScrollView()
     
@@ -69,7 +69,7 @@ public class ComposeView: UIView {
         elements.textField.snp_remakeConstraints { (make) in
             make.left.right.equalTo(self)
             make.top.equalTo(elements.navigationBar.snp_bottom)
-            make.bottom.equalTo(bottomSpacer.snp_top)
+            make.bottom.equalTo(elements.keyboardButton.snp_top).offset(-8)
         }
         
         elements.emojiKeyboard.snp_remakeConstraints { (make) in
