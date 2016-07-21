@@ -15,7 +15,6 @@
 		071F18E91BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 071F18E81BBAF3BA004E4C09 /* ZZGridPresenter+UserDialogs.m */; };
 		072B6A471BD52F94000B824E /* NSArray+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */; };
 		072B6A481BD52F94000B824E /* NSError+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */; };
-		0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		073D556A1BD2D82B0014E83E /* ZZSoundEffectPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */; };
 		07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A011BA49A0000925671 /* TBMVideoIdUtils.m */; };
 		07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636A051BA49A0000925671 /* TBMVideoProcessor.m */; };
@@ -214,6 +213,7 @@
 		152594E31CE8C9F200DDA507 /* ZZPlayerWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DC1CE8C9F200DDA507 /* ZZPlayerWireframe.m */; };
 		152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DE1CE8C9F200DDA507 /* ZZPlayer.m */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
+		1532603C1D40F828004298CB /* ZazoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532603B1D40F828004298CB /* ZazoTests.swift */; };
 		1535504C1D3E357E0080BE9A /* ComposeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550411D3E357E0080BE9A /* ComposeAssembly.swift */; };
 		1535504D1D3E357F0080BE9A /* ComposeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550421D3E357E0080BE9A /* ComposeInterface.swift */; };
 		1535504E1D3E357F0080BE9A /* ComposePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550431D3E357E0080BE9A /* ComposePresenter.swift */; };
@@ -590,9 +590,7 @@
 		182255651C16CA06003885A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		182255661C16CA06003885A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		182255671C16CA06003885A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
-		1822556B1C16CA06003885A3 /* ZazoTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */; };
 		1822556F1C16CA06003885A3 /* navbar_btn_back.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 07636BF91BA49A0100925671 /* navbar_btn_back.pdf */; };
-		182255701C16CA06003885A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0732F5041B8B93D3004FD3AF /* InfoPlist.strings */; };
 		182255731C16CA06003885A3 /* ANGeneralErrorLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07636BFF1BA49A0100925671 /* ANGeneralErrorLocalizable.strings */; };
 		182255751C16CA06003885A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636AAA1BA49A0100925671 /* Images.xcassets */; };
 		182255771C16CA06003885A3 /* FeatureUnlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07636AA81BA49A0100925671 /* FeatureUnlock.wav */; };
@@ -648,9 +646,6 @@
 		220E902B1909A18B003C4F82 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902A1909A18B003C4F82 /* CoreGraphics.framework */; };
 		220E902D1909A18B003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
 		220E902F1909A18B003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
-		220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E90281909A18B003C4F82 /* Foundation.framework */; };
-		220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902C1909A18B003C4F82 /* UIKit.framework */; };
-		220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220E902E1909A18B003C4F82 /* CoreData.framework */; };
 		221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */; };
 		223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 223A1F591BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m */; };
 		22403C2B19D5E63400FC36E3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22403C2A19D5E63400FC36E3 /* MessageUI.framework */; };
@@ -658,25 +653,14 @@
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
-		3E2C26751D2155DF009E4942 /* NuanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26741D2155DF009E4942 /* NuanceTest.swift */; };
-		3E2C26761D215605009E4942 /* RecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */; };
-		3E2C26781D215605009E4942 /* NuanceRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */; };
-		3E2C26791D215605009E4942 /* NativeRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */; };
-		3E2C267B1D215605009E4942 /* RecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA391D210F16005A9E7C /* RecognitionManager.swift */; };
-		3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 3E2C267C1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
-		3E3CA3861D22D7B8008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
-		3E4613951D216D1D0011558D /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
-		3E4613981D22810C0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
 		3E81CA321D210E77005A9E7C /* RecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */; };
 		3E81CA341D210E93005A9E7C /* NuanceRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */; };
 		3E81CA3A1D210F16005A9E7C /* RecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA391D210F16005A9E7C /* RecognitionManager.swift */; };
 		3E81CA3D1D211242005A9E7C /* NativeRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */; };
-		3EA6FB081D2160560038FF72 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
 		3EA6FB0A1D2168110038FF72 /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
-		59F96019F078C3196EF3FD06 /* Pods_ZazoBase_ZazoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C884916FB5931EEBA3E707BD /* Pods_ZazoBase_ZazoTests.framework */; };
 		677DB03B5E3BE727E44BABFB /* ZZMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB335EE8BA15A32F90A43 /* ZZMenuHeaderView.m */; };
 		677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB5E01892C6DD290A2F02 /* UIView+ZZAdditions.m */; };
 		677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8A6A2814AE5992F581E /* ANBaseDomainModel.m */; };
@@ -709,6 +693,7 @@
 		7997E4F91BAABE85001697D5 /* NSInvocation+Constructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F21BAABE85001697D5 /* NSInvocation+Constructors.m */; };
 		7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F41BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m */; };
 		7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997E4F61BAABE85001697D5 /* UIView+Round.m */; };
+		89D7E7AB4996CE10A73D3E1F /* Pods_ZazoBase_ZazoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C884916FB5931EEBA3E707BD /* Pods_ZazoBase_ZazoTests.framework */; };
 		FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83231BBE580C00445108 /* ZZHintsArrow.m */; };
 		FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83251BBE580C00445108 /* ZZHintsGotItView.m */; };
 		FE7D832A1BBE580C00445108 /* ZZHintsView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D83271BBE580C00445108 /* ZZHintsView.m */; };
@@ -774,8 +759,6 @@
 		072B6A401BD52F94000B824E /* NSArray+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ZZAdditions.m"; sourceTree = "<group>"; };
 		072B6A421BD52F94000B824E /* NSError+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ZZAdditions.h"; sourceTree = "<group>"; };
 		072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ZZAdditions.m"; sourceTree = "<group>"; };
-		0732F5051B8B93D3004FD3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ZazoTests-Info.plist"; sourceTree = "<group>"; };
 		073D55681BD2D82B0014E83E /* ZZSoundEffectPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSoundEffectPlayer.h; sourceTree = "<group>"; };
 		073D55691BD2D82B0014E83E /* ZZSoundEffectPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSoundEffectPlayer.m; sourceTree = "<group>"; };
 		07636A001BA49A0000925671 /* TBMVideoIdUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMVideoIdUtils.h; sourceTree = "<group>"; };
@@ -1138,6 +1121,7 @@
 		07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		07E09E341BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferMarkerDomainModel.h; path = FileTransferModel/ZZFileTransferMarkerDomainModel.h; sourceTree = "<group>"; };
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
+		0F5472519E8A3F3020F32364 /* Pods-ZazoBase-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
 		1501715A1D2BCEC5007E49F5 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		151A6C1B1CA5688800F2B53D /* ZZMenuInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuInteractor.h; sourceTree = "<group>"; };
 		151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuInteractor.m; sourceTree = "<group>"; };
@@ -1195,6 +1179,9 @@
 		152594DE1CE8C9F200DDA507 /* ZZPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayer.m; sourceTree = "<group>"; };
 		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
 		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
+		153260391D40F828004298CB /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1532603B1D40F828004298CB /* ZazoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazoTests.swift; sourceTree = "<group>"; };
+		1532603D1D40F828004298CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		153550411D3E357E0080BE9A /* ComposeAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeAssembly.swift; sourceTree = "<group>"; };
 		153550421D3E357E0080BE9A /* ComposeInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeInterface.swift; sourceTree = "<group>"; };
 		153550431D3E357E0080BE9A /* ComposePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposePresenter.swift; sourceTree = "<group>"; };
@@ -1521,7 +1508,6 @@
 		1878422E1BB2D4960007CDE2 /* ZZGridActionHandlerUserInterfaceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZGridActionHandlerUserInterfaceDelegate.h; sourceTree = "<group>"; };
 		1878422F1BB2F2760007CDE2 /* ZZCommunicationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCommunicationDomainModel.h; sourceTree = "<group>"; };
 		187842301BB2F2760007CDE2 /* ZZCommunicationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCommunicationDomainModel.m; sourceTree = "<group>"; };
-		18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRemoteStorageValueGeneratorTest.m; sourceTree = "<group>"; };
 		18BDA6D91BE8A328008D3619 /* ZZFriendDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZFriendDataHelper.h; sourceTree = "<group>"; };
 		18BDA6DA1BE8A328008D3619 /* ZZFriendDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFriendDataHelper.m; sourceTree = "<group>"; };
 		18C893C61C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZNetworkTestFriendshipController.h; sourceTree = "<group>"; };
@@ -1547,7 +1533,6 @@
 		220E902A1909A18B003C4F82 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		220E902C1909A18B003C4F82 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		220E902E1909A18B003C4F82 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		220E90451909A18B003C4F82 /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		221058351BE6C4EF00E18A38 /* ZZVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoRecorder.h; sourceTree = "<group>"; };
 		221058361BE6C4EF00E18A38 /* ZZVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoRecorder.m; sourceTree = "<group>"; };
 		223A1F581BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AVAudioSession+ZZAudioSession.h"; path = "AVAudioSession/AVAudioSession+ZZAudioSession.h"; sourceTree = "<group>"; };
@@ -1559,9 +1544,6 @@
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
 		3E2C26711D214D16009E4942 /* NuanceAPIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceAPIData.swift; sourceTree = "<group>"; };
-		3E2C26731D2155DF009E4942 /* ZazoTests-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZazoTests-Swift.h"; sourceTree = "<group>"; };
-		3E2C26741D2155DF009E4942 /* NuanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceTest.swift; sourceTree = "<group>"; };
-		3E2C267C1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = vid_from_1465930091964_16000.pcm; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -1577,7 +1559,6 @@
 		4590611CB7763406F0073F83 /* Pods-ZazoBase-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo/Pods-ZazoBase-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
 		485E43F2AD183BC1A26BAB26 /* Pods-ZazoBase-Zazo-NetworkTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo-NetworkTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo-NetworkTest/Pods-ZazoBase-Zazo-NetworkTest.debug.xcconfig"; sourceTree = "<group>"; };
 		521763D32F575C2ABA495977 /* Pods-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoTests/Pods-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
-		55271B002526B09B241B358F /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		677DB03F566F3F9818E6E44A /* ZZFriendDataHelper+Entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataHelper+Entities.h"; sourceTree = "<group>"; };
 		677DB15E93D69B95C60A5DB7 /* ZZMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuView.m; sourceTree = "<group>"; };
 		677DB1628D3A1A9B706A49CE /* ZZTabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarView.m; sourceTree = "<group>"; };
@@ -1650,10 +1631,10 @@
 		982CE05B63806CD798A74679 /* Pods_ZazoBase_Zazo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZazoBase_Zazo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABBF4A45BCC066B654E0CCC9 /* Pods-ZazoBase-Zazo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo/Pods-ZazoBase-Zazo.release.xcconfig"; sourceTree = "<group>"; };
 		C884916FB5931EEBA3E707BD /* Pods_ZazoBase_ZazoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZazoBase_ZazoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CBE49CAB7834E667849C737B /* Pods-ZazoBase-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
+		D0707CCC0D22CBD99E892DA3 /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig"; sourceTree = "<group>"; };
 		D2D6EC5FEB566D8DA285C1A0 /* Pods-ZazoBase-Zazo-NetworkTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo-NetworkTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo-NetworkTest/Pods-ZazoBase-Zazo-NetworkTest.release.xcconfig"; sourceTree = "<group>"; };
+		F0B347B5EF7A207866294BDB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6DCEFE459E3F85FC7491E6B /* Pods-ZazoBase-Zazo-NetworkTest.ad-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo-NetworkTest.ad-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo-NetworkTest/Pods-ZazoBase-Zazo-NetworkTest.ad-hoc.xcconfig"; sourceTree = "<group>"; };
-		FD07657CF1D3A0623B5EEDCB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FE7D83201BBE57BB00445108 /* ZZGridPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZGridPart.h; path = Views/ZZGridPart.h; sourceTree = "<group>"; };
 		FE7D83221BBE580C00445108 /* ZZHintsArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZHintsArrow.h; sourceTree = "<group>"; };
 		FE7D83231BBE580C00445108 /* ZZHintsArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZHintsArrow.m; sourceTree = "<group>"; };
@@ -1665,6 +1646,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		153260361D40F828004298CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89D7E7AB4996CE10A73D3E1F /* Pods_ZazoBase_ZazoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1822555D1C16CA06003885A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1699,17 +1688,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		220E90421909A18B003C4F82 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				220E904A1909A18C003C4F82 /* CoreData.framework in Frameworks */,
-				220E90491909A18C003C4F82 /* UIKit.framework in Frameworks */,
-				220E90481909A18C003C4F82 /* Foundation.framework in Frameworks */,
-				59F96019F078C3196EF3FD06 /* Pods_ZazoBase_ZazoTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1725,9 +1703,9 @@
 				7EB82D383639EC04BBCC3B1D /* Pods-ZazoTests.debug.xcconfig */,
 				521763D32F575C2ABA495977 /* Pods-ZazoTests.release.xcconfig */,
 				06D6A8331FD0D747A5A9B76B /* Pods-ZazoTests.ad-hoc.xcconfig */,
-				FD07657CF1D3A0623B5EEDCB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */,
-				CBE49CAB7834E667849C737B /* Pods-ZazoBase-ZazoTests.release.xcconfig */,
-				55271B002526B09B241B358F /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */,
+				F0B347B5EF7A207866294BDB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */,
+				0F5472519E8A3F3020F32364 /* Pods-ZazoBase-ZazoTests.release.xcconfig */,
+				D0707CCC0D22CBD99E892DA3 /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1766,19 +1744,6 @@
 				072B6A431BD52F94000B824E /* NSError+ZZAdditions.m */,
 			);
 			path = NSError;
-			sourceTree = "<group>";
-		};
-		0732F5031B8B93D3004FD3AF /* ZazoTests */ = {
-			isa = PBXGroup;
-			children = (
-				18BD07AA1BE0B4B5005CB177 /* RemoteStorageValueGeneratorTests */,
-				0732F5041B8B93D3004FD3AF /* InfoPlist.strings */,
-				3E2C267C1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm */,
-				0732F50B1B8B93D3004FD3AF /* ZazoTests-Info.plist */,
-				3E2C26741D2155DF009E4942 /* NuanceTest.swift */,
-				3E2C26731D2155DF009E4942 /* ZazoTests-Swift.h */,
-			);
-			path = ZazoTests;
 			sourceTree = "<group>";
 		};
 		073D55671BD2D82B0014E83E /* SoundEffect */ = {
@@ -3921,6 +3886,15 @@
 			path = Wireframe;
 			sourceTree = "<group>";
 		};
+		1532603A1D40F828004298CB /* ZazoTests */ = {
+			isa = PBXGroup;
+			children = (
+				1532603B1D40F828004298CB /* ZazoTests.swift */,
+				1532603D1D40F828004298CB /* Info.plist */,
+			);
+			path = ZazoTests;
+			sourceTree = "<group>";
+		};
 		153550401D3E357E0080BE9A /* Compose Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -5143,14 +5117,6 @@
 			path = VideoStatusesController;
 			sourceTree = "<group>";
 		};
-		18BD07AA1BE0B4B5005CB177 /* RemoteStorageValueGeneratorTests */ = {
-			isa = PBXGroup;
-			children = (
-				18BD07AB1BE0B4E2005CB177 /* ZZRemoteStorageValueGeneratorTest.m */,
-			);
-			path = RemoteStorageValueGeneratorTests;
-			sourceTree = "<group>";
-		};
 		18C893C51C1AB9BA00A47611 /* FriendshipController */ = {
 			isa = PBXGroup;
 			children = (
@@ -5221,9 +5187,9 @@
 				15DF96331C7C6FE2007B4699 /* empty.xcappdata */,
 				076369C41BA49A0000925671 /* tbm */,
 				07636AE71BA49A0100925671 /* Zazo */,
+				1532603A1D40F828004298CB /* ZazoTests */,
 				220E90271909A18B003C4F82 /* Frameworks */,
 				220E90261909A18B003C4F82 /* Products */,
-				0732F5031B8B93D3004FD3AF /* ZazoTests */,
 				00BC37889AB20C5F5F16E37C /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -5232,8 +5198,8 @@
 			isa = PBXGroup;
 			children = (
 				220E90251909A18B003C4F82 /* Zazo.app */,
-				220E90451909A18B003C4F82 /* ZazoTests.xctest */,
 				182255A81C16CA06003885A3 /* Zazo-NetworkTest.app */,
+				153260391D40F828004298CB /* ZazoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5510,6 +5476,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		153260381D40F828004298CB /* ZazoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 153260401D40F828004298CB /* Build configuration list for PBXNativeTarget "ZazoTests" */;
+			buildPhases = (
+				00E81594097870DEF6482E8F /* [CP] Check Pods Manifest.lock */,
+				153260351D40F828004298CB /* Sources */,
+				153260361D40F828004298CB /* Frameworks */,
+				153260371D40F828004298CB /* Resources */,
+				0C345DCA2B2C28A5D121414F /* [CP] Embed Pods Frameworks */,
+				3884E9B16FABA00AB09EB530 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZazoTests;
+			productName = ZazoTests;
+			productReference = 153260391D40F828004298CB /* ZazoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		182254531C16CA06003885A3 /* Zazo-NetworkTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182255A41C16CA06003885A3 /* Build configuration list for PBXNativeTarget "Zazo-NetworkTest" */;
@@ -5557,26 +5543,6 @@
 			productReference = 220E90251909A18B003C4F82 /* Zazo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		220E90441909A18B003C4F82 /* ZazoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 220E905A1909A18C003C4F82 /* Build configuration list for PBXNativeTarget "ZazoTests" */;
-			buildPhases = (
-				1C1E63950BA9F47F39E54140 /* [CP] Check Pods Manifest.lock */,
-				220E90411909A18B003C4F82 /* Sources */,
-				220E90421909A18B003C4F82 /* Frameworks */,
-				220E90431909A18B003C4F82 /* Resources */,
-				A17A043C9BFF9E486F29493D /* [CP] Embed Pods Frameworks */,
-				78427C124D3C870E926722CF /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ZazoTests;
-			productName = tbmTests;
-			productReference = 220E90451909A18B003C4F82 /* ZazoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -5588,6 +5554,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "No Plan B";
 				TargetAttributes = {
+					153260381D40F828004298CB = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					182254531C16CA06003885A3 = {
 						DevelopmentTeam = DYQN26F8U9;
 					};
@@ -5608,9 +5577,6 @@
 							};
 						};
 					};
-					220E90441909A18B003C4F82 = {
-						DevelopmentTeam = DYQN26F8U9;
-					};
 				};
 			};
 			buildConfigurationList = 220E90201909A18B003C4F82 /* Build configuration list for PBXProject "Zazo" */;
@@ -5626,20 +5592,25 @@
 			projectRoot = "";
 			targets = (
 				220E90241909A18B003C4F82 /* Zazo */,
-				220E90441909A18B003C4F82 /* ZazoTests */,
 				182254531C16CA06003885A3 /* Zazo-NetworkTest */,
+				153260381D40F828004298CB /* ZazoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		153260371D40F828004298CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		182255691C16CA06003885A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1822556B1C16CA06003885A3 /* ZazoTests-Info.plist in Resources */,
 				1822556F1C16CA06003885A3 /* navbar_btn_back.pdf in Resources */,
-				182255701C16CA06003885A3 /* InfoPlist.strings in Resources */,
 				18F195A41C1961620084FB34 /* IMG_0764.MOV in Resources */,
 				182255731C16CA06003885A3 /* ANGeneralErrorLocalizable.strings in Resources */,
 				182255751C16CA06003885A3 /* Images.xcassets in Resources */,
@@ -5664,7 +5635,6 @@
 				15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */,
 				151A6C301CA5688800F2B53D /* Menu.strings in Resources */,
 				07636E861BA49A0100925671 /* navbar_btn_back.pdf in Resources */,
-				0732F50C1B8B93D3004FD3AF /* InfoPlist.strings in Resources */,
 				15B1C2EC1D2AA7A100B9CDCD /* Assets.xcassets in Resources */,
 				15BA1DA61CA2D4CB00EAD614 /* contact-pattern-4.png in Resources */,
 				158960581CB7B61D0040D8E3 /* machine.h.motemplate in Resources */,
@@ -5700,17 +5670,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		220E90431909A18B003C4F82 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E2C267D1D2157FF009E4942 /* vid_from_1465930091964_16000.pcm in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00E81594097870DEF6482E8F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		0233243B05DB6407A22982DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5740,6 +5717,21 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
+		0C345DCA2B2C28A5D121414F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		150820E11C457F2F0032EC29 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5768,21 +5760,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 614db54f91c11edf6117193953fc20467d62cd05 06786661ab10c149ccf35734a13a2efd732d9dd1cb481ab620fc97be50a9ef38";
 		};
-		1C1E63950BA9F47F39E54140 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		24E40A0744539C5D13FEEDB6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5798,6 +5775,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-Zazo-NetworkTest/Pods-ZazoBase-Zazo-NetworkTest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3884E9B16FABA00AB09EB530 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		41E6814B1C545E070B07AF98 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5811,21 +5803,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-Zazo/Pods-ZazoBase-Zazo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		78427C124D3C870E926722CF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9D85F57F0086B2B537603486 /* [CP] Embed Pods Frameworks */ = {
@@ -5858,21 +5835,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A17A043C9BFF9E486F29493D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CF633A5C46F438C2B6E75671 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5891,6 +5853,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		153260351D40F828004298CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1532603C1D40F828004298CB /* ZazoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		182254551C16CA06003885A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6523,34 +6493,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		220E90411909A18B003C4F82 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E4613981D22810C0011558D /* ConcurrentOperation.swift in Sources */,
-				3E2C26761D215605009E4942 /* RecognitionOperation.swift in Sources */,
-				3E2C26791D215605009E4942 /* NativeRecognitionOperation.swift in Sources */,
-				3E2C267B1D215605009E4942 /* RecognitionManager.swift in Sources */,
-				3E3CA3861D22D7B8008EB1DD /* AudioExtractionOperation.swift in Sources */,
-				3EA6FB081D2160560038FF72 /* NuanceAPIData.swift in Sources */,
-				3E2C26781D215605009E4942 /* NuanceRecognitionOperation.swift in Sources */,
-				3E2C26751D2155DF009E4942 /* NuanceTest.swift in Sources */,
-				3E4613951D216D1D0011558D /* NuanceURLSessionHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		0732F5041B8B93D3004FD3AF /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0732F5051B8B93D3004FD3AF /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0732F4C11B8B82B3004FD3AF /* Ad-hoc */ = {
@@ -6630,30 +6573,64 @@
 			};
 			name = "Ad-hoc";
 		};
-		0732F4C31B8B82B3004FD3AF /* Ad-hoc */ = {
+		153260411D40F828004298CB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55271B002526B09B241B358F /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */;
+			baseConfigurationReference = F0B347B5EF7A207866294BDB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"TESTS=1",
-				);
-				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ZazoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
-				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
-				WRAPPER_EXTENSION = xctest;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ZZ.ZazoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		153260421D40F828004298CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F5472519E8A3F3020F32364 /* Pods-ZazoBase-ZazoTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ZazoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = ZZ.ZazoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		153260431D40F828004298CB /* Ad-hoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0707CCC0D22CBD99E892DA3 /* Pods-ZazoBase-ZazoTests.ad-hoc.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ZazoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = ZZ.ZazoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Ad-hoc";
 		};
@@ -6922,63 +6899,19 @@
 			};
 			name = Release;
 		};
-		220E905B1909A18C003C4F82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD07657CF1D3A0623B5EEDCB /* Pods-ZazoBase-ZazoTests.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"TESTS=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
-				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		220E905C1909A18C003C4F82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBE49CAB7834E667849C737B /* Pods-ZazoBase-ZazoTests.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"TESTS=1",
-				);
-				INFOPLIST_FILE = "ZazoTests/ZazoTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.noplanbees.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = ZazoTests;
-				PROVISIONING_PROFILE = "5b5270fb-aa6d-4774-b381-346755393fd3";
-				SWIFT_OBJC_BRIDGING_HEADER = Zazo/Application/BundleFiles/BridgingHeader.h;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		153260401D40F828004298CB /* Build configuration list for PBXNativeTarget "ZazoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				153260411D40F828004298CB /* Debug */,
+				153260421D40F828004298CB /* Release */,
+				153260431D40F828004298CB /* Ad-hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		182255A41C16CA06003885A3 /* Build configuration list for PBXNativeTarget "Zazo-NetworkTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -7005,16 +6938,6 @@
 				220E90581909A18C003C4F82 /* Debug */,
 				220E90591909A18C003C4F82 /* Release */,
 				0732F4C21B8B82B3004FD3AF /* Ad-hoc */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		220E905A1909A18C003C4F82 /* Build configuration list for PBXNativeTarget "ZazoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				220E905B1909A18C003C4F82 /* Debug */,
-				220E905C1909A18C003C4F82 /* Release */,
-				0732F4C31B8B82B3004FD3AF /* Ad-hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

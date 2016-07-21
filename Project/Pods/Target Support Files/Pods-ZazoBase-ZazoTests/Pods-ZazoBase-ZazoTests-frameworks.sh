@@ -109,9 +109,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Expecta/Expecta.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/KIF/KIF.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Specta/Specta.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -139,9 +136,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Expecta/Expecta.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/KIF/KIF.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Specta/Specta.framework"
 fi
 if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -169,7 +163,4 @@ if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Expecta/Expecta.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/KIF/KIF.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Specta/Specta.framework"
 fi

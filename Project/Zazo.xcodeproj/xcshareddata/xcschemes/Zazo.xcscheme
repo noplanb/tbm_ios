@@ -31,7 +31,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "220E90441909A18B003C4F82"
+               BlueprintIdentifier = "153260381D40F828004298CB"
                BuildableName = "ZazoTests.xctest"
                BlueprintName = "ZazoTests"
                ReferencedContainer = "container:Zazo.xcodeproj">
@@ -42,9 +42,6 @@
                </Test>
                <Test
                   Identifier = "ZZRegistrationWithSMSTest">
-               </Test>
-               <Test
-                  Identifier = "ZZRemoteStorageValueGeneratorTest">
                </Test>
             </SkippedTests>
             <LocationScenarioReference

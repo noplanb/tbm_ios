@@ -27,14 +27,10 @@ PODS:
   - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
   - DeviceUtil (1.2.2)
-  - Expecta (1.0.5)
   - Fabric (1.6.7)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
   - GCDKit (1.2.5)
-  - KIF (3.2.3):
-    - KIF/XCTest (= 3.2.3)
-  - KIF/XCTest (3.2.3)
   - libPhoneNumber-iOS (0.8.13)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
@@ -63,7 +59,6 @@ PODS:
     - SDCAutoLayout (~> 2.0)
   - SDCAutoLayout (2.0.3)
   - SnapKit (0.21.1)
-  - Specta (1.0.5)
   - SVProgressHUD (1.1.3)
   - TPKeyboardAvoiding (1.3)
 
@@ -73,12 +68,10 @@ DEPENDENCIES:
   - APAddressBook (~> 0.2.1)
   - Crashlytics (~> 3.7.0)
   - DeviceUtil (~> 1.2.0)
-  - Expecta (~> 1.0.2)
   - Fabric (~> 1.6.1)
   - FastEasyMapping (~> 0.5.1)
   - FrameAccessor (~> 1.3.2)
   - GCDKit
-  - KIF (~> 3.2.3)
   - libPhoneNumber-iOS (~> 0.8.7)
   - MagicalRecord (~> 2.3.0)
   - Masonry (~> 0.6.2)
@@ -94,7 +87,6 @@ DEPENDENCIES:
   - Rollbar (~> 0.1.5)
   - SDCAlertView (~> 2.5.2)
   - SnapKit (~> 0.21.0)
-  - Specta (~> 1.0.3)
   - SVProgressHUD (~> 1.1.3)
   - TPKeyboardAvoiding
 
@@ -114,12 +106,10 @@ SPEC CHECKSUMS:
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
-  Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   GCDKit: ed6646fcf761ff139162aaac518b9ec1fb7aa720
-  KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   libPhoneNumber-iOS: 3a37004baf779b4262ab29a31a87d2ae668159d4
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
@@ -137,10 +127,9 @@ SPEC CHECKSUMS:
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
   SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
-  Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
-PODFILE CHECKSUM: 8d0950db16ac3971a3049943c209f160f0a6da09
+PODFILE CHECKSUM: 918f498d6ed2905be67bb74515dbe210333c75dd
 
 COCOAPODS: 1.0.1
