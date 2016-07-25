@@ -214,6 +214,7 @@
 		152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DE1CE8C9F200DDA507 /* ZZPlayer.m */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
 		1532603C1D40F828004298CB /* ZazoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532603B1D40F828004298CB /* ZazoTests.swift */; };
+		153260471D40FCFD004298CB /* ZazoCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153260461D40FCFD004298CB /* ZazoCRUD.swift */; };
 		1535504C1D3E357E0080BE9A /* ComposeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550411D3E357E0080BE9A /* ComposeAssembly.swift */; };
 		1535504D1D3E357F0080BE9A /* ComposeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550421D3E357E0080BE9A /* ComposeInterface.swift */; };
 		1535504E1D3E357F0080BE9A /* ComposePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153550431D3E357E0080BE9A /* ComposePresenter.swift */; };
@@ -1182,6 +1183,7 @@
 		153260391D40F828004298CB /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1532603B1D40F828004298CB /* ZazoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZazoTests.swift; sourceTree = "<group>"; };
 		1532603D1D40F828004298CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		153260461D40FCFD004298CB /* ZazoCRUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZazoCRUD.swift; sourceTree = "<group>"; };
 		153550411D3E357E0080BE9A /* ComposeAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeAssembly.swift; sourceTree = "<group>"; };
 		153550421D3E357E0080BE9A /* ComposeInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeInterface.swift; sourceTree = "<group>"; };
 		153550431D3E357E0080BE9A /* ComposePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposePresenter.swift; sourceTree = "<group>"; };
@@ -1897,8 +1899,6 @@
 				07636AFE1BA49A0100925671 /* Headers */,
 				07636B011BA49A0100925671 /* Helpers */,
 				07636B0E1BA49A0100925671 /* Layers */,
-				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
-				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -3788,6 +3788,9 @@
 		1522AB801D2FB6E1001A8D82 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				153260441D40FC50004298CB /* CRUD */,
+				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
+				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 				1522AB811D2FB6E1001A8D82 /* ZZPlayerController */,
 			);
 			path = Classes;
@@ -3893,6 +3896,14 @@
 				1532603D1D40F828004298CB /* Info.plist */,
 			);
 			path = ZazoTests;
+			sourceTree = "<group>";
+		};
+		153260441D40FC50004298CB /* CRUD */ = {
+			isa = PBXGroup;
+			children = (
+				153260461D40FCFD004298CB /* ZazoCRUD.swift */,
+			);
+			path = CRUD;
 			sourceTree = "<group>";
 		};
 		153550401D3E357E0080BE9A /* Compose Module */ = {
@@ -6267,6 +6278,7 @@
 				158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */,
 				15B823031CB7BBD4006473E1 /* TBMGridElement.m in Sources */,
 				158960351CB7B61D0040D8E3 /* ANBaseVC.m in Sources */,
+				153260471D40FCFD004298CB /* ZazoCRUD.swift in Sources */,
 				221058371BE6C4EF00E18A38 /* ZZVideoRecorder.m in Sources */,
 				079E90131BD43CEB001A4718 /* ZZRollbarAdapter.m in Sources */,
 				07636EDB1BA49A0100925671 /* ZZContactsVC.m in Sources */,

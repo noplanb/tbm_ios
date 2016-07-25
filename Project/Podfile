@@ -54,6 +54,7 @@ abstract_target 'ZazoBase' do
     pod 'APAddressBook', '~> 0.2.1'
     pod 'libPhoneNumber-iOS', '~> 0.8.7'
     pod 'GCDKit'
+    pod "PromiseKit", "~> 3.2"
     
     #Logging
     pod 'Rollbar', '~> 0.1.5'
