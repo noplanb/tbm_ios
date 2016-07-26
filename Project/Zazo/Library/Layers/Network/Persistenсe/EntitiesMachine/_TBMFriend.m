@@ -335,11 +335,11 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 
 @dynamic videos;
 
-- (NSMutableSet *)videosSet
+- (NSMutableSet<TBMVideo*> *)videosSet
 {
     [self willAccessValueForKey:@"videos"];
 
-    NSMutableSet *result = (NSMutableSet *)[self mutableSetValueForKey:@"videos"];
+    NSMutableSet<TBMVideo*> *result = (NSMutableSet<TBMVideo*> *)[self mutableSetValueForKey:@"videos"];
 
     [self didAccessValueForKey:@"videos"];
     return result;

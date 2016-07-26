@@ -7,145 +7,61 @@
 //
 
 import Foundation
-import PromiseKit
-import Alamofire
+import BoltsSwift
 import Unbox
 
-let serverURL = NSURL(string: "http://staging.zazoapp.com/")
-
-struct PromiseResult<T> {
-    let result: Promise<Result<T>>
-}
-
-enum Result<T> {
-    case Success(T)
-    case Failure(NSError)
-}
-
 protocol MessagesService: NSObjectProtocol {
-    func get() -> PromiseResult<MessagesResponse>
-//    func get(by ID: String) -> PromiseResult<MessagesResponse>
-//    func post(text: NSString, userID: NSString) -> PromiseResult<Response>
-//    func delete(by ID: Int) -> PromiseResult<Response>
+    func get() -> Task<GetAllMessagesResponse>
+    func get(by ID: String) -> Task<GetMessageResponse>
+    func post(text: String, userID: String) -> Task<GenericResponse>
+    func delete(by ID: Int) -> Task<GenericResponse>
 }
 
-struct CRUD {
+struct API {
     let messages: MessagesService
 }
-
 
 class ConcreteMessagesService: NSObject, MessagesService {
 
     let networkClient: NetworkClient
+    
+    let servicePath = "api/v1/messages"
     
     init(client: NetworkClient) {
         self.networkClient = client
         super.init()
     }
     
-    func get() -> PromiseResult<MessagesResponse> {
-        
-        when(promises: [networkClient.get("api/v1/messages/")])
-        
-        
-    }
-    
-//    func get(by ID: String) -> PromiseResult<MessagesResponse> {
-//        
-//    }
-//    
-//    func post(text: NSString, userID: NSString) -> PromiseResult<Response> {
-//        
-//    }
-//    
-//    func delete(by ID: Int) -> PromiseResult<Response> {
-//        
-//    }
-    
-}
-
-typealias RawResponse = (data: NSData, response: NSHTTPURLResponse)
-
-class NetworkClient: NSObject {
-    
-    let baseURL: NSURL
-    
-    init(url: NSURL) {
-        baseURL = url
-        super.init()
-    }
-    
-    let manager = Alamofire.Manager()
-    
-    func get(path: String, _ parameters: [String: String]?) -> Promise<RawResponse> {
-        return request(.GET, path: path, parameters)
-    }
-    
-    func post(path: String, parameters: [String: String]?) -> Promise<RawResponse> {
-        return request(.POST, path: path, parameters)
-    }
-    
-    func delete(path: String, parameters: [String: String]?) -> Promise<RawResponse> {
-        return request(.DELETE, path: path, parameters)
-    }
-    
-    private func request(method: Alamofire.Method, path: String, _ parameters: [String: String]?) -> Promise<RawResponse> {
-        
-        let encoding: ParameterEncoding = {
-            switch method {
-            case .GET:
-                return .URL
-            default:
-                return .JSON
-            }
-        }()
-        
-        return Promise { fullfill, reject in
-            
-            manager.request(method,
-                path,
-                parameters: parameters,
-                encoding: encoding,
-                headers: headers())
-                
-                .authenticate(usingCredential: credential()!)
-                .response { (request, response, data, error) in
-                    
-                    guard (error == nil) else {
-                        reject(error!)
-                        return
-                    }
-                    
-                    if let data = data, let response = response {
-                        fullfill(RawResponse(data, response))
-                        return
-                    }
-                    
-                    abort()
-            }
+    func get() -> Task<GetAllMessagesResponse> {
+        return networkClient.get(servicePath).continueOnSuccessWithTask { (response) -> Task<GetAllMessagesResponse> in
+            return unbox(response.data)
         }
     }
     
-    func headers() -> [String: String] {
+    func get(by ID: String) -> Task<GetMessageResponse> {
         
+        let path = servicePath.stringByAppendingString("/\(ID)")
+        
+        return networkClient.get(path).continueOnSuccessWithTask { (response) -> Task<GetMessageResponse> in
+            return unbox(response.data)
+        }
     }
     
-    func credential() -> NSURLCredential? {
+    func post(text: String, userID: String) -> Task<GenericResponse> {
         
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let params = ["body": text, "type": "text", "receiver_mkey": userID]
         
-        guard
-            let username = defaults.objectForKey("mkey") as? String,
-            let password = defaults.objectForKey("auth") as? String
-            else {
-                return nil
+        return networkClient.post(servicePath, parameters: params).continueOnSuccessWithTask { (response) -> Task<GenericResponse> in
+            return unbox(response.data)
         }
-        
-        return NSURLCredential(user: username,
-                               password: password,
-                               persistence: .ForSession)
-        
-        
+
+    }
+
+    func delete(by ID: Int) -> Task<GenericResponse> {
+        return networkClient.get(servicePath).continueOnSuccessWithTask { (response) -> Task<GenericResponse> in
+            return unbox(response.data)
+        }
     }
     
 }
+

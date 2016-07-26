@@ -9,27 +9,9 @@
 import Foundation
 import Unbox
 
-enum ResponseStatus: String {
-    case Success = "success"
-    case Failure = "failure"
-    case Unknown
-}
-
-extension ResponseStatus: UnboxableEnum {
-    static func unboxFallbackValue() -> ResponseStatus {
-        return .Unknown
-    }
-}
-
-struct MessagesResponse {
+struct GetAllMessagesResponse {
     
     struct Data {
-        
-        enum MessageType: String {
-            case Video = "video"
-            case Text = "text"
-            case Unknown
-        }
         
         struct IncomingMessage {
             let type: MessageType
@@ -59,46 +41,41 @@ struct MessagesResponse {
     let data: [Data]
 }
 
-extension MessagesResponse: Unboxable {
+extension GetAllMessagesResponse: Unboxable {
     init(unboxer: Unboxer) {
         status = unboxer.unbox("status")
         data = unboxer.unbox("data")
     }
 }
 
-extension MessagesResponse.Data: Unboxable {
+extension GetAllMessagesResponse.Data: Unboxable {
     init(unboxer: Unboxer) {
-        mKey = unboxer.unbox("mKey")
+        mKey = unboxer.unbox("mkey")
         incomingMessages = unboxer.unbox("messages")
         outcomingMessages = unboxer.unbox("statuses")
     }
 }
 
-extension MessagesResponse.Data.OutcomingMessage: Unboxable {
+extension GetAllMessagesResponse.Data.OutcomingMessage: Unboxable {
     init(unboxer: Unboxer) {
         type = unboxer.unbox("type")
-        id = unboxer.unbox("id")
+        id = unboxer.unbox("message_id")
         status = unboxer.unbox("status")
     }
 }
 
-extension MessagesResponse.Data.IncomingMessage: Unboxable {
+extension GetAllMessagesResponse.Data.IncomingMessage: Unboxable {
     init(unboxer: Unboxer) {
         type = unboxer.unbox("type")
-        id = unboxer.unbox("id")
+        id = unboxer.unbox("message_id")
         body = unboxer.unbox("body")
 
     }
 }
 
-extension MessagesResponse.Data.MessageType: UnboxableEnum {
-    static func unboxFallbackValue() -> MessagesResponse.Data.MessageType {
-        return .Unknown
-    }
-}
 
-extension MessagesResponse.Data.OutcomingMessage.Status: UnboxableEnum {
-    static func unboxFallbackValue() -> MessagesResponse.Data.OutcomingMessage.Status {
+extension GetAllMessagesResponse.Data.OutcomingMessage.Status: UnboxableEnum {
+    static func unboxFallbackValue() -> GetAllMessagesResponse.Data.OutcomingMessage.Status {
         return .Unknown
     }
 }
