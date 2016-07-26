@@ -109,6 +109,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Unbox/Unbox.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
@@ -138,6 +139,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Unbox/Unbox.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
@@ -167,6 +169,7 @@ if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Unbox/Unbox.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

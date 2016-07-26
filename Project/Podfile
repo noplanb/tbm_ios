@@ -42,9 +42,12 @@ abstract_target 'ZazoBase' do
     pod 'Crashlytics', '~> 3.7.0'
 
     #Core Data
-    pod 'FastEasyMapping', '~> 0.5.1'
     pod 'MagicalRecord', '~> 2.3.0'
 
+    #Mapping
+    pod 'FastEasyMapping', '~> 0.5.1'
+    pod "Unbox"
+    
     #Video
     pod 'PBJVision', git: 'https://github.com/noplanb/PBJVision', tag: 'v0.4.6'
 
