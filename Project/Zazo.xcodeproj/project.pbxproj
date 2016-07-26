@@ -662,6 +662,7 @@
 		3E81CA3A1D210F16005A9E7C /* RecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA391D210F16005A9E7C /* RecognitionManager.swift */; };
 		3E81CA3D1D211242005A9E7C /* NativeRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */; };
 		3EA6FB0A1D2168110038FF72 /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
+		3EC963CA1D47872A0063E58D /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC963C91D47872A0063E58D /* Messages.swift */; };
 		677DB03B5E3BE727E44BABFB /* ZZMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB335EE8BA15A32F90A43 /* ZZMenuHeaderView.m */; };
 		677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB5E01892C6DD290A2F02 /* UIView+ZZAdditions.m */; };
 		677DB0AB46F424BE5A2619C9 /* ANBaseDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8A6A2814AE5992F581E /* ANBaseDomainModel.m */; };
@@ -1556,6 +1557,7 @@
 		3E81CA391D210F16005A9E7C /* RecognitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionManager.swift; sourceTree = "<group>"; };
 		3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeRecognitionOperation.swift; sourceTree = "<group>"; };
 		3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceURLSessionHandler.swift; sourceTree = "<group>"; };
+		3EC963C91D47872A0063E58D /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZazoBase_Zazo_NetworkTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4590611CB7763406F0073F83 /* Pods-ZazoBase-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo/Pods-ZazoBase-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -3901,6 +3903,7 @@
 		153260441D40FC50004298CB /* CRUD */ = {
 			isa = PBXGroup;
 			children = (
+				3EC963C81D4786D80063E58D /* Models */,
 				153260461D40FCFD004298CB /* ZazoCRUD.swift */,
 			);
 			path = CRUD;
@@ -5306,6 +5309,14 @@
 			path = "Voice Recognition";
 			sourceTree = "<group>";
 		};
+		3EC963C81D4786D80063E58D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3EC963C91D47872A0063E58D /* Messages.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		677DB0666F7F7AA52DD743AB /* CacheCleaner */ = {
 			isa = PBXGroup;
 			children = (
@@ -6302,6 +6313,7 @@
 				07636E191BA49A0100925671 /* ZZAppDependencies.m in Sources */,
 				07636E261BA49A0100925671 /* ZZGridModelsMapper.m in Sources */,
 				07636ED61BA49A0100925671 /* ZZContactsPresenter.m in Sources */,
+				3EC963CA1D47872A0063E58D /* Messages.swift in Sources */,
 				FE7D83291BBE580C00445108 /* ZZHintsGotItView.m in Sources */,
 				15B8230A1CB7BBD4006473E1 /* tbm.xcdatamodeld in Sources */,
 				18C893C81C1AB9CE00A47611 /* ZZNetworkTestFriendshipController.m in Sources */,
