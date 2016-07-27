@@ -29,7 +29,7 @@ class ZazoTests: XCTestCase {
 
         let e = expectationWithDescription("1")
         
-        service.delete(by: 1469552394).continueWith { task  in
+        service.post("asdsadasd", userID: "rCjSwpr9R9KaCnL7gRdf").continueWith { task  in
             
             e.fulfill()
         }

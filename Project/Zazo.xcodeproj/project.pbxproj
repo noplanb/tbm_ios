@@ -655,6 +655,7 @@
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
+		3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */; };
 		3E3D3ECE1D48B8C3006FE502 /* ZZAPIRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
 		3E81CA321D210E77005A9E7C /* RecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */; };
@@ -1569,6 +1570,7 @@
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioExtractionOperation.swift; sourceTree = "<group>"; };
+		3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAPIRoutes.m; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
@@ -3927,6 +3929,7 @@
 		153260441D40FC50004298CB /* CRUD */ = {
 			isa = PBXGroup;
 			children = (
+				3E3D3ECA1D48B2CF006FE502 /* Services */,
 				3EC963C81D4786D80063E58D /* Models */,
 				153260461D40FCFD004298CB /* ZazoCRUD.swift */,
 				3EC963CB1D4798290063E58D /* NetworkClient.swift */,
@@ -5283,6 +5286,14 @@
 			name = KeyStore;
 			sourceTree = "<group>";
 		};
+		3E3D3ECA1D48B2CF006FE502 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		3E81CA2C1D210E19005A9E7C /* Transcript Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -6317,6 +6328,7 @@
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
 				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
+				3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				3EC963CC1D4798290063E58D /* NetworkClient.swift in Sources */,
 				158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */,

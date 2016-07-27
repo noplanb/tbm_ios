@@ -8,9 +8,35 @@
 
 import Foundation
 import GCDKit
+import BoltsSwift
 
 class ComposeInteractor: ComposeLogic {
     
     var output: ComposeLogicOutput?
+    var service: MessagesService!
+    
+    func getAllMessages() -> Task<GetAllMessagesResponse> {
+        return service.get().continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GetAllMessagesResponse> in
+            return task
+        })
+    }
+    
+    func get(byID ID: String) -> Task<GetMessageResponse> {
+        return service.get(by: ID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GetMessageResponse> in
+            return task
+        })
+    }
+    
+    func sendMessage(text: String, userID: String) -> Task<GenericResponse> {
+        return service.post(text, userID: userID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
+            return task
+        })
+    }
+    
+    func deleteMessage(byID ID: Int) -> Task<GenericResponse> {
+        return service.delete(by: ID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
+            return task
+        })
+    }
     
 }

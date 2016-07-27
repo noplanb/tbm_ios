@@ -50,11 +50,7 @@ public class ComposeView: UIView {
     override public func updateConstraints() {
         
         super.updateConstraints()
-        
-        guard let screenWidth = self.window?.bounds.width else {
-            return
-        }
-        
+               
         guard !constraintsSet else {
             return
         }

@@ -7,11 +7,17 @@
 //
 
 import Foundation
+import BoltsSwift
 
 protocol ComposeLogicOutput {
 
 }
 
 protocol ComposeLogic {
-
+    
+    func getAllMessages() -> Task<GetAllMessagesResponse>
+    func get(byID ID: String) -> Task<GetMessageResponse>
+    func sendMessage(text: String, userID: String) -> Task<GenericResponse>
+    func deleteMessage(byID ID: Int) -> Task<GenericResponse>
+    
 }
