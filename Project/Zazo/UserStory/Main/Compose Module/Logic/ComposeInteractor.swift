@@ -14,6 +14,7 @@ class ComposeInteractor: ComposeLogic {
     
     var output: ComposeLogicOutput?
     var service: MessagesService!
+    var friendMkey = ""
     
     func getAllMessages() -> Task<GetAllMessagesResponse> {
         return service.get().continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GetAllMessagesResponse> in
@@ -27,8 +28,9 @@ class ComposeInteractor: ComposeLogic {
         })
     }
     
-    func sendMessage(text: String, userID: String) -> Task<GenericResponse> {
-        return service.post(text, userID: userID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
+    func sendMessage(text: String) -> Task<GenericResponse>? {
+        
+        return service.post(text, userID: friendMkey).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
             return task
         })
     }

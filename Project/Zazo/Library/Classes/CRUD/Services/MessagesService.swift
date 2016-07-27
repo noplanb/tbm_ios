@@ -37,6 +37,11 @@ class ConcreteMessagesService: NSObject, MessagesService {
     
     func post(text: String, userID: String) -> Task<GenericResponse> {
         
+        guard (userID as NSString).length > 0 else {
+            logError("UserID is empty")
+            return Task(error: ResponseError.ValidationError(errorText: "UserID is empty"))
+        }
+        
         let params = ["body": text, "type": "text", "receiver_mkey": userID]
         
         return networkClient.post(servicePath, parameters: params).continueOnSuccessWithTask { (response) -> Task<GenericResponse> in

@@ -53,9 +53,10 @@
 
 - (void)presentComposeForUserWithID:(NSString *)friendID
 {
-    self.composeAssembly = [[ComposeAssembly alloc] initWith:self.gridController];
-    
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    
+    self.composeAssembly = [[ComposeAssembly alloc] initWithPresentFromVC:self.gridController toFriendWithKey:friendModel.mKey];
+    
     ZZGridVC *gridVC = (ZZGridVC *)self.gridController;
     UIView *fromView = [gridVC.controller gridCellWithFriendModel:friendModel];
 

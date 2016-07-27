@@ -9,9 +9,11 @@
 import Foundation
 
 protocol ComposeUIInput {
-
+    func typedText() -> String
 }
 
 protocol ComposeUIOutput {
     func didTapCancel()
+    func didTapSend()
+    func didTapKeyboard()
 }

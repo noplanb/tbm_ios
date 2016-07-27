@@ -43,4 +43,19 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     func didTapCancel() {
         router.hide()
     }
+    
+    func didTapSend() {
+        logic.sendMessage(view.typedText())?.continueWith(continuation: { task in
+            
+            if let error = task.error {
+                logWarning("\(error)")
+            }
+            
+            self.router.hide()
+        })
+    }
+    
+    func didTapKeyboard() {
+        
+    }
 }

@@ -36,6 +36,7 @@ extension ResponseStatus: UnboxableEnum {
 }
 
 enum ResponseError: ErrorType {
+    case ValidationError(errorText: String)
     case LogicError(response: GenericResponse)
     case OtherError(error: ErrorType)
 }
@@ -48,7 +49,18 @@ func unbox<T: Unboxable>(data: NSData) -> Task<T> {
         
         do {
             let result: T = try Unbox(data)
-            completion.setResult(result)
+            
+            if let genericResponse = result as? GenericResponse {
+                if genericResponse.errors != nil {
+                    completion.setError(ResponseError.LogicError(response: genericResponse))
+                }
+                else {
+                    completion.setResult(result)
+                }
+            }
+            else {
+                completion.setResult(result)
+            }
         }
         catch let unboxError as UnboxError {
             

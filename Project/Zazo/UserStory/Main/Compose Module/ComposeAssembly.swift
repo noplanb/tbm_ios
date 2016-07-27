@@ -18,10 +18,15 @@ import Foundation
         return presenter
     }
     
-    init(with parentVC: UIViewController) {
+    init(presentFromVC parentVC: UIViewController, toFriendWithKey mKey: String) {
         
         interactor = ComposeInteractor()
-                
+        
+        let service = ConcreteMessagesService(client: NetworkClient())
+        
+//        interactor.friendMkey = mKey
+        interactor.service = service
+        
         viewController = ComposeVC(nibName: nil, bundle: nil)
         
         let router = ComposeRouter(forPresenting: viewController, in: parentVC)
