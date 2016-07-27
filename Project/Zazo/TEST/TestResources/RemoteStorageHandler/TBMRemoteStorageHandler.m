@@ -102,7 +102,7 @@ static NSString *const kArraySeparator = @",";
 //-----------------------
 //+ (NSString *)fileTransferRemoteUrlBase
 //{
-//    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : apiBaseURL();
+//    return REMOTE_STORAGE_USE_S3 ? REMOTE_STORAGE_S3_BASE_URL_STRING : APIBaseURL();
 //}
 //
 //+ (NSString *)fileTransferUploadPath

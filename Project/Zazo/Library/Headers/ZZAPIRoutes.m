@@ -13,12 +13,12 @@ static const struct
 {
     __unsafe_unretained NSString *production;
     __unsafe_unretained NSString *staging;
-} ZZApiBaseURLsList = {
+} ZZAPIBaseURLsList = {
     .production = @"http://prod.zazoapp.com",
     .staging = @"http://staging.zazoapp.com",
 };
 
-NSString *apiBaseURL()
+NSString *APIBaseURL()
 {
     ZZConfigServerState state = [ZZStoredSettingsManager shared].serverEndpointState;
     
@@ -28,7 +28,7 @@ NSString *apiBaseURL()
     {
         case ZZConfigServerStateDeveloper:
         {
-            apiURLString = ZZApiBaseURLsList.staging;
+            apiURLString = ZZAPIBaseURLsList.staging;
         }
             break;
         case ZZConfigServerStateCustom:
@@ -38,16 +38,16 @@ NSString *apiBaseURL()
             break;
         default:
         {
-            apiURLString = ZZApiBaseURLsList.production;
+            apiURLString = ZZAPIBaseURLsList.production;
         }
             break;
     }
     if (ANIsEmpty(apiURLString))
     {
-        apiURLString = ZZApiBaseURLsList.production;
+        apiURLString = ZZAPIBaseURLsList.production;
     }
 #ifdef STAGESERVER
-    apiURLString = ZZApiBaseURLsList.staging;
+    apiURLString = ZZAPIBaseURLsList.staging;
 #endif
     
     return apiURLString;

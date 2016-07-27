@@ -58,7 +58,7 @@ static inline NSString *const remoteStorageS3Bucket()
 
 static inline NSString *const remoteStorageBaseURL()
 {
-    return kRemoteStorageShouldUseS3 ? kRemoteStorageS3Endpoint : apiBaseURL();
+    return kRemoteStorageShouldUseS3 ? kRemoteStorageS3Endpoint : APIBaseURL();
 }
 
 

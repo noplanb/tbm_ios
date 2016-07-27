@@ -16,7 +16,7 @@
     self = [super init];
     if (self)
     {
-        [self setBaseURL:apiBaseURL() andAPIVersion:@""];
+        [self setBaseURL:APIBaseURL() andAPIVersion:@""];
 
         RACSignal *authSignal = RACObserve([ZZStoredSettingsManager shared], authToken);
         RACSignal *itemIDSignal = RACObserve([ZZStoredSettingsManager shared], userID);

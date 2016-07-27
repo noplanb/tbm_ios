@@ -89,7 +89,7 @@
 - (void)updateCustomServerEnpointValueTo:(NSString *)value
 {
     [ZZStoredSettingsManager shared].serverURLString = value;
-    [[ZZNetworkTransport shared] setBaseURL:apiBaseURL() andAPIVersion:@""];
+    [[ZZNetworkTransport shared] setBaseURL:APIBaseURL() andAPIVersion:@""];
 }
 
 - (void)updateDebugStateTo:(BOOL)isEnabled
@@ -100,8 +100,8 @@
 - (void)updateServerStateTo:(NSInteger)state
 {
     [ZZStoredSettingsManager shared].serverEndpointState = state;
-    [[ZZNetworkTransport shared] setBaseURL:apiBaseURL() andAPIVersion:@""];
-    [self.output serverEndpointValueUpdatedTo:apiBaseURL()];
+    [[ZZNetworkTransport shared] setBaseURL:APIBaseURL() andAPIVersion:@""];
+    [self.output serverEndpointValueUpdatedTo:APIBaseURL()];
 }
 
 - (void)updateShouldUserSDKForLogging:(BOOL)isEnabled

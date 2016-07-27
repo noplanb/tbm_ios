@@ -10,7 +10,7 @@
 
 #pragma mark - API Routes settings
 
-NSString *apiBaseURL();
+NSString *APIBaseURL();
 
 #pragma mark - Authorization
 
