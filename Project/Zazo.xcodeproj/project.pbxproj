@@ -348,7 +348,6 @@
 		15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */; };
 		15BDEA891CFDD6240002F78A /* ZZSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA881CFDD6240002F78A /* ZZSettingsManager.m */; };
 		15D1BA551CF7049E001B6849 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA531CF7049E001B6849 /* iToast.m */; };
-		15D1BA561CF7049E001B6849 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA541CF7049E001B6849 /* README.md */; };
 		15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */; };
 		15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */; };
 		15E3CF701D3F92F900EDF2AD /* ComposeTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3CF6F1D3F92F900EDF2AD /* ComposeTextViewDelegate.swift */; };
@@ -656,6 +655,7 @@
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
+		3E3D3ECE1D48B8C3006FE502 /* ZZAPIRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
 		3E81CA321D210E77005A9E7C /* RecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */; };
 		3E81CA341D210E93005A9E7C /* NuanceRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */; };
@@ -1441,7 +1441,6 @@
 		15BDEA881CFDD6240002F78A /* ZZSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsManager.m; sourceTree = "<group>"; };
 		15D1BA521CF7049E001B6849 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		15D1BA531CF7049E001B6849 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
-		15D1BA541CF7049E001B6849 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MenuIcons.xcassets; sourceTree = "<group>"; };
 		15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
@@ -1570,6 +1569,7 @@
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioExtractionOperation.swift; sourceTree = "<group>"; };
+		3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAPIRoutes.m; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
 		3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceRecognitionOperation.swift; sourceTree = "<group>"; };
@@ -1957,6 +1957,7 @@
 			children = (
 				079E90181BD45616001A4718 /* ZZConstants.h */,
 				07636AFF1BA49A0100925671 /* ZZAPIRoutes.h */,
+				3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */,
 				07636B001BA49A0100925671 /* ZZGlobalHeader.h */,
 			);
 			path = Headers;
@@ -4749,7 +4750,6 @@
 			children = (
 				15D1BA521CF7049E001B6849 /* iToast.h */,
 				15D1BA531CF7049E001B6849 /* iToast.m */,
-				15D1BA541CF7049E001B6849 /* README.md */,
 			);
 			path = iToast;
 			sourceTree = "<group>";
@@ -6449,7 +6449,6 @@
 				07636E581BA49A0100925671 /* ZZKeychainDataProvider.m in Sources */,
 				153682431C99539D006EDC12 /* ZZTabbarVC.m in Sources */,
 				07636E5D1BA49A0100925671 /* ZZVideoProcessor.m in Sources */,
-				15D1BA561CF7049E001B6849 /* README.md in Sources */,
 				158960491CB7B61D0040D8E3 /* UIButton+ANThemes.m in Sources */,
 				079E901B1BD465CF001A4718 /* ZZApplicationStateInfoGenerator.m in Sources */,
 				18BDA6DB1BE8A328008D3619 /* ZZFriendDataHelper.m in Sources */,
@@ -6460,6 +6459,7 @@
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */,
 				15443A921D252A59009F55CD /* TranscriptUI.swift in Sources */,
+				3E3D3ECE1D48B8C3006FE502 /* ZZAPIRoutes.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,
 				1589C1571CD3C74800AB7E8C /* DownloadingView.swift in Sources */,
 				7952764A1BA6B4AB00E506D5 /* ZZContactCell.m in Sources */,
