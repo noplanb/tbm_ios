@@ -658,6 +658,7 @@
 		3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */; };
 		3E3D3ECE1D48B8C3006FE502 /* ZZAPIRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */; };
 		3E4613971D227C5F0011558D /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4613961D227C5F0011558D /* ConcurrentOperation.swift */; };
+		3E7821FD1D48FE910007CAA2 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7821FC1D48FE910007CAA2 /* Logging.swift */; };
 		3E81CA321D210E77005A9E7C /* RecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */; };
 		3E81CA341D210E93005A9E7C /* NuanceRecognitionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */; };
 		3E81CA3A1D210F16005A9E7C /* RecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81CA391D210F16005A9E7C /* RecognitionManager.swift */; };
@@ -1573,6 +1574,7 @@
 		3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAPIRoutes.m; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
+		3E7821FC1D48FE910007CAA2 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
 		3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceRecognitionOperation.swift; sourceTree = "<group>"; };
 		3E81CA391D210F16005A9E7C /* RecognitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionManager.swift; sourceTree = "<group>"; };
@@ -3820,6 +3822,7 @@
 				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
 				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 				1522AB811D2FB6E1001A8D82 /* ZZPlayerController */,
+				3E7821FC1D48FE910007CAA2 /* Logging.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -6488,6 +6491,7 @@
 				07636E501BA49A0100925671 /* ZZErrorHandler.m in Sources */,
 				07636F0F1BA49A0100925671 /* NSData+MD5.m in Sources */,
 				79123D8C1BB15002007E1CBF /* ZZHintsModelGenerator.m in Sources */,
+				3E7821FD1D48FE910007CAA2 /* Logging.swift in Sources */,
 				154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */,
 				07636E4A1BA49A0100925671 /* ZZAlertBuilder.m in Sources */,
 				151BB3451CC124EC007CE007 /* Permissions.swift in Sources */,
