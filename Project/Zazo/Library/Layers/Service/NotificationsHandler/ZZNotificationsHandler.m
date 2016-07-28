@@ -129,6 +129,10 @@
         {
             [self handleVideoReceivedNotification:userInfo];
         }
+        if ([self isMessageReceivedType:userInfo])
+        {
+            [self handleMessageReceivedNotification:userInfo];
+        }
         else if ([self isVideoStatusUpdateType:userInfo])
         {
             [self handleVideoStatusUpdateNotification:userInfo];
@@ -150,9 +154,19 @@
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_RECEIVED];
 }
 
+- (BOOL)isMessageReceivedType:(NSDictionary *)userInfo
+{
+    return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_MESSAGE_RECEIVED];
+}
+
 - (BOOL)isVideoStatusUpdateType:(NSDictionary *)userInfo
 {
     return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE];
+}
+
+- (void)handleMessageReceivedNotification:(NSDictionary *)userInfo
+{
+    
 }
 
 - (void)handleVideoReceivedNotification:(NSDictionary *)userInfo

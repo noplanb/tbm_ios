@@ -16,10 +16,7 @@ static NSString *NOTIFICATION_TYPE_KEY = @"type";
 
 static NSString *NOTIFICATION_TYPE_VIDEO_RECEIVED = @"video_received";
 static NSString *NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE = @"video_status_update";
-
-
-
-
+static NSString *NOTIFICATION_TYPE_MESSAGE_RECEIVED = @"message_received";
 
 //local notifs
 
