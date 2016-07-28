@@ -13,6 +13,7 @@
 #import "TBMVideoIdUtils.h"
 #import "ZZApplicationDataUpdaterService.h"
 #import "ZZNotificationDomainModel.h"
+#import "ZZMessageNotificationDomainModel.h"
 #import "ZZUserDomainModel.h"
 #import "ZZNotificationTransportService.h"
 #import "ZZUserDataProvider.h"
@@ -24,6 +25,7 @@
 #import "ZZFriendDomainModel.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZDownloadErrorHandler.h"
+#import "ZZAPIRoutes.h"
 
 @interface ZZApplicationRootService ()
         <
@@ -34,10 +36,11 @@
         >
 
 @property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
+@property (nonatomic, strong) MessageHandler *messageHandler;
+
 @property (nonatomic, strong) ZZApplicationDataUpdaterService *dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
 @property (nonatomic, strong) ZZDownloadErrorHandler *downloadErrorHandler;
-
 @end
 
 @implementation ZZApplicationRootService
@@ -49,6 +52,8 @@
     {
         self.videoFileHandler = [ZZVideoFileHandler new];
         self.videoFileHandler.delegate = self;
+        
+        self.messageHandler = [MessageHandler new];
 
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
@@ -215,6 +220,34 @@
 
 
 #pragma mark - Notification Delegate
+
+- (void)handleMessageReceivedNotification:(ZZMessageNotificationDomainModel *)notificationModel
+{
+    ZZUserDomainModel *me = [ZZUserDataProvider authenticatedUser];
+
+    if (![me.mkey isEqualToString:notificationModel.owner_mkey]) {
+        ZZLogWarning(@"handleMessageReceivedNotification: wrong owner");
+        return;
+    }
+    
+    NSString *currentAPIpath = APIBaseURL();
+    
+    if ([currentAPIpath rangeOfString:notificationModel.host].location == NSNotFound) {
+        ZZLogWarning(@"handleMessageReceivedNotification: wrong server");
+        return;
+    }
+    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:notificationModel.from_mkey];
+    
+    if (!friendModel)
+    {
+        ZZLogWarning(@"handleMessageReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        [self.dataUpdater updateAllData];
+        return;
+    }
+    
+    [self.messageHandler handleWithMessage:notificationModel];
+}
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)notificationModel
 {

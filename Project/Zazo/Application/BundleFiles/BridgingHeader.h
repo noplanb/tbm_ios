@@ -19,3 +19,4 @@
 #import "ZZVideoDataUpdater.h"
 #import "OBLoggerCore.h"
 #import "SVProgressHUD.h"
+#import "ZZMessageNotificationDomainModel.h"

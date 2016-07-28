@@ -653,6 +653,8 @@
 		22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */; };
 		22D7D2B51BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */; };
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
+		3E3097C61D4A27B80010A482 /* ZZMessageNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */; };
+		3E3097C81D4A2F240010A482 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C71D4A2F240010A482 /* MessageHandler.swift */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
 		3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */; };
@@ -1567,6 +1569,10 @@
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
 		3E2C26711D214D16009E4942 /* NuanceAPIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceAPIData.swift; sourceTree = "<group>"; };
+		3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v4.xcdatamodel"; sourceTree = "<group>"; };
+		3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageNotificationDomainModel.h; sourceTree = "<group>"; };
+		3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageNotificationDomainModel.m; sourceTree = "<group>"; };
+		3E3097C71D4A2F240010A482 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -2082,6 +2088,7 @@
 		07636B281BA49A0100925671 /* DomainModel */ = {
 			isa = PBXGroup;
 			children = (
+				3E3097C31D4A27A00010A482 /* MessageNotification */,
 				22D7D2B21BD9807600FF52AA /* KeyStore */,
 				079E90201BD48C57001A4718 /* DebugState */,
 				07636B291BA49A0100925671 /* Base */,
@@ -2092,6 +2099,7 @@
 				07636B3D1BA49A0100925671 /* Video */,
 				07E09E221BD5AB6600A59389 /* Notification */,
 				07AC534F1BD6F4FB00D5CBF0 /* FileTransferMarker */,
+				3E3097C71D4A2F240010A482 /* MessageHandler.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -5289,6 +5297,15 @@
 			name = KeyStore;
 			sourceTree = "<group>";
 		};
+		3E3097C31D4A27A00010A482 /* MessageNotification */ = {
+			isa = PBXGroup;
+			children = (
+				3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */,
+				3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */,
+			);
+			path = MessageNotification;
+			sourceTree = "<group>";
+		};
 		3E3D3ECA1D48B2CF006FE502 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -6185,6 +6202,7 @@
 				07636E901BA49A0100925671 /* ZZAuthContentView.m in Sources */,
 				15ADFE891CAD62B600D4B33F /* ZZAlertController.m in Sources */,
 				07636F101BA49A0100925671 /* NSString+MD5.m in Sources */,
+				3E3097C81D4A2F240010A482 /* MessageHandler.swift in Sources */,
 				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
 				158960341CB7B61D0040D8E3 /* ANBaseListTableCell.m in Sources */,
@@ -6244,6 +6262,7 @@
 				07636E2B1BA49A0100925671 /* ZZBaseDomainModel.m in Sources */,
 				07636EA41BA49A0100925671 /* ZZSecretPresenter.m in Sources */,
 				07636E8E1BA49A0100925671 /* ZZAuthInteractor.m in Sources */,
+				3E3097C61D4A27B80010A482 /* ZZMessageNotificationDomainModel.m in Sources */,
 				1589604C1CB7B61D0040D8E3 /* UILabel+ANThemes.m in Sources */,
 				153682401C99539D006EDC12 /* ZZMainInteractor.m in Sources */,
 				182255F21C16E08A003885A3 /* ZZNetworkTestVC.m in Sources */,
@@ -7032,11 +7051,12 @@
 		15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */,
 				3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */,
 				15B822FF1CB7BBD4006473E1 /* tbm-v2.xcdatamodel */,
 				15B823001CB7BBD4006473E1 /* tbm.xcdatamodel */,
 			);
-			currentVersion = 3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */;
+			currentVersion = 3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

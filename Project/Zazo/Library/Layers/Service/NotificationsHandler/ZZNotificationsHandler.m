@@ -10,6 +10,7 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZNotificationTransportService.h"
 #import "ZZNotificationDomainModel.h"
+#import "ZZMessageNotificationDomainModel.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
@@ -166,7 +167,12 @@
 
 - (void)handleMessageReceivedNotification:(NSDictionary *)userInfo
 {
+    FEMObjectMapping *mapping = ZZMessageNotificationDomainModel.mapping;
     
+    ZZMessageNotificationDomainModel *messageModel =
+    [FEMObjectDeserializer deserializeObjectExternalRepresentation:userInfo usingMapping:mapping];
+    
+    [self.delegate handleMessageReceivedNotification:messageModel];
 }
 
 - (void)handleVideoReceivedNotification:(NSDictionary *)userInfo
