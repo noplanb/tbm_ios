@@ -655,6 +655,8 @@
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
 		3E3097C61D4A27B80010A482 /* ZZMessageNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */; };
 		3E3097C81D4A2F240010A482 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C71D4A2F240010A482 /* MessageHandler.swift */; };
+		3E3097CB1D4A3CA10010A482 /* _TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */; };
+		3E3097CE1D4A3CA90010A482 /* TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097CD1D4A3CA90010A482 /* TBMMessage.m */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
 		3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */; };
@@ -1573,6 +1575,10 @@
 		3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageNotificationDomainModel.h; sourceTree = "<group>"; };
 		3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageNotificationDomainModel.m; sourceTree = "<group>"; };
 		3E3097C71D4A2F240010A482 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		3E3097C91D4A3CA10010A482 /* _TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMMessage.h; sourceTree = "<group>"; };
+		3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMMessage.m; sourceTree = "<group>"; };
+		3E3097CC1D4A3CA90010A482 /* TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMessage.h; sourceTree = "<group>"; };
+		3E3097CD1D4A3CA90010A482 /* TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMessage.m; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -4710,6 +4716,8 @@
 		15B822EC1CB7BBD4006473E1 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				3E3097CC1D4A3CA90010A482 /* TBMMessage.h */,
+				3E3097CD1D4A3CA90010A482 /* TBMMessage.m */,
 				15B822ED1CB7BBD4006473E1 /* TBMFriend.h */,
 				15B822EE1CB7BBD4006473E1 /* TBMFriend.m */,
 				15B822EF1CB7BBD4006473E1 /* TBMGridElement.h */,
@@ -4725,6 +4733,8 @@
 		15B822F51CB7BBD4006473E1 /* EntitiesMachine */ = {
 			isa = PBXGroup;
 			children = (
+				3E3097C91D4A3CA10010A482 /* _TBMMessage.h */,
+				3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */,
 				15B822F61CB7BBD4006473E1 /* _TBMFriend.h */,
 				15B822F71CB7BBD4006473E1 /* _TBMFriend.m */,
 				15B822F81CB7BBD4006473E1 /* _TBMGridElement.h */,
@@ -6504,6 +6514,7 @@
 				15B823091CB7BBD4006473E1 /* _TBMVideo.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
+				3E3097CE1D4A3CA90010A482 /* TBMMessage.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */,
 				152158271C84932A00260AFD /* ZZDateLabel.m in Sources */,
@@ -6574,6 +6585,7 @@
 				677DB23996D92F32B5FC62D8 /* ZZAlertTableStyle.m in Sources */,
 				677DBD86857050304E29C056 /* ZZTabbarView.m in Sources */,
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
+				3E3097CB1D4A3CA10010A482 /* _TBMMessage.m in Sources */,
 				15B823071CB7BBD4006473E1 /* _TBMGridElement.m in Sources */,
 				677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */,
 				15443A8C1D25257F009F55CD /* TranscriptView.swift in Sources */,

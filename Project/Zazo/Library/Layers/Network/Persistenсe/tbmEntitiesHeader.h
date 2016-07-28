@@ -1,4 +1,5 @@
 #import "TBMFriend.h"
 #import "TBMGridElement.h"
+#import "TBMMessage.h"
 #import "TBMUser.h"
 #import "TBMVideo.h"

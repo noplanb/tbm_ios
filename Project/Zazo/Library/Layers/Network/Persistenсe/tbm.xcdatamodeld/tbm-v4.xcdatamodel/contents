@@ -27,7 +27,7 @@
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="gridElement" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
-    <entity name="TBMMessage" syncable="YES">
+    <entity name="TBMMessage" representedClassName="TBMMessage" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
