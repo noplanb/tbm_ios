@@ -20,11 +20,18 @@
         <attribute name="timeOfLastAction" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="uploadRetryCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="gridElement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMGridElement" inverseName="friend" inverseEntity="TBMGridElement" syncable="YES"/>
+        <relationship name="messages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMMessage" inverseName="friend" inverseEntity="TBMMessage" syncable="YES"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TBMVideo" inverseName="friend" inverseEntity="TBMVideo" syncable="YES"/>
     </entity>
     <entity name="TBMGridElement" representedClassName="TBMGridElement" syncable="YES">
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="gridElement" inverseEntity="TBMFriend" syncable="YES"/>
+    </entity>
+    <entity name="TBMMessage" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="messages" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <entity name="TBMUser" representedClassName="TBMUser" syncable="YES">
         <attribute name="auth" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,9 +51,10 @@
         <relationship name="friend" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="videos" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="345"/>
+        <element name="TBMFriend" positionX="-18" positionY="2" width="128" height="360"/>
         <element name="TBMGridElement" positionX="-209" positionY="153" width="128" height="75"/>
         <element name="TBMUser" positionX="-216" positionY="-117" width="128" height="165"/>
         <element name="TBMVideo" positionX="234" positionY="260" width="128" height="120"/>
+        <element name="TBMMessage" positionX="0" positionY="45" width="128" height="105"/>
     </elements>
 </model>
