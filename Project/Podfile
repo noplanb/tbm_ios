@@ -20,7 +20,6 @@ abstract_target 'ZazoBase' do
         #        pod 'KIF', '~> 3.2.3'
     end
 
-
     #UI
     pod 'FrameAccessor', '~> 1.3.2'
     pod 'SVProgressHUD', '~> 1.1.3'

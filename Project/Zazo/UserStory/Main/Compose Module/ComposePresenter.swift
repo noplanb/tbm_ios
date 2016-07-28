@@ -45,7 +45,12 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     }
     
     func didTapSend() {
+        
+        view.showLoading(true)
+        
         logic.sendMessage(view.typedText())?.continueWith(continuation: { task in
+        
+            self.view.showLoading(false)
             
             if let error = task.error {
                 logWarning("\(error)")

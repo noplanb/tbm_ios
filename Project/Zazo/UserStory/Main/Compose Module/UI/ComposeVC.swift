@@ -19,6 +19,7 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     // MARK: VC overrides
     
     override public func viewDidLoad() {
+        
         startKeyboardObserving()
         contentView.elements.textField.delegate = textViewDelegate
         
@@ -27,10 +28,16 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         contentView.elements.navigationBar.pushNavigationItem(self.navigationItem, animated: false)
         
         contentView.elements.sendButton.addTarget(self, action: #selector(ComposeVC.sendTap), forControlEvents: .TouchUpInside)
+        
     }
     
     override public func loadView() {
         view = contentView
+    }
+    
+    public override func viewWillAppear(animated: Bool) {
+        contentView.elements.sendButton.alpha = 0
+        contentView.elements.keyboardButton.alpha = 0
     }
     
     public override func viewDidAppear(animated: Bool) {
@@ -41,6 +48,15 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     
     func typedText() -> String {
         return contentView.elements.textField.text
+    }
+    
+    func showLoading(loading: Bool) {
+        if loading {
+            SVProgressHUD.show()
+        }
+        else {
+            SVProgressHUD.dismiss()
+        }
     }
     
     // MARK: Events
@@ -58,6 +74,11 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     func willChangeKeyboardHeight(height: CGFloat) {
         contentView.bottomSpacer.snp_updateConstraints { (make) in
             make.height.equalTo(height)
+        }
+        
+        UIView.animateWithDuration(1) { 
+            self.contentView.elements.sendButton.alpha = 1
+//            self.contentView.elements.keyboardButton.alpha = 1
         }
     }
 }

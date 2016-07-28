@@ -24,7 +24,7 @@ import Foundation
         
         let service = ConcreteMessagesService(client: NetworkClient())
         
-//        interactor.friendMkey = mKey
+        interactor.friendMkey = mKey
         interactor.service = service
         
         viewController = ComposeVC(nibName: nil, bundle: nil)

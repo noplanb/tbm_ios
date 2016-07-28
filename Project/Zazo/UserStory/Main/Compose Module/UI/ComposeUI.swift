@@ -10,6 +10,7 @@ import Foundation
 
 protocol ComposeUIInput {
     func typedText() -> String
+    func showLoading(loading: Bool)
 }
 
 protocol ComposeUIOutput {

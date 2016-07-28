@@ -26,7 +26,7 @@ struct ComposeSubviews {
         
         let field = UITextView()
         
-        field.text = "Hello!"
+        field.text = ""
         field.textColor = UIColor.whiteColor()
         field.font = UIFont.systemFontOfSize(144)
         field.backgroundColor = UIColor.clearColor()
