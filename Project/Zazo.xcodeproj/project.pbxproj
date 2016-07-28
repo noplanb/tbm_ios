@@ -182,7 +182,6 @@
 		07E09E251BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E241BD5B15D00A59389 /* ZZApplicationDataUpdaterService.m */; };
 		07E09E291BD5B17F00A59389 /* ZZVideoFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */; };
 		07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
-		07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
 		107C303D9F04AF4ED4B439C0 /* Pods_ZazoBase_Zazo_NetworkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */; };
 		1501715B1D2BCEC6007E49F5 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1501715A1D2BCEC5007E49F5 /* Menu.swift */; };
@@ -562,7 +561,6 @@
 		1822553E1C16CA06003885A3 /* ZZDebugStateEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C2C1BA49A0100925671 /* ZZDebugStateEnumHelper.m */; };
 		182255401C16CA06003885A3 /* ZZDebugStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636C421BA49A0100925671 /* ZZDebugStateCell.m */; };
 		182255411C16CA06003885A3 /* ZZApplicationPermissionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */; };
-		182255421C16CA06003885A3 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */; };
 		182255441C16CA06003885A3 /* ZZUserDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B1F1BA49A0100925671 /* ZZUserDataProvider.m */; };
 		182255461C16CA06003885A3 /* ZZStartInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D121BA49A0100925671 /* ZZStartInteractor.m */; };
 		182255471C16CA06003885A3 /* ZZCommonNetworkTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636B481BA49A0100925671 /* ZZCommonNetworkTransport.m */; };
@@ -655,8 +653,7 @@
 		3E2C26721D214D16009E4942 /* NuanceAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C26711D214D16009E4942 /* NuanceAPIData.swift */; };
 		3E3097C61D4A27B80010A482 /* ZZMessageNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */; };
 		3E3097C81D4A2F240010A482 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C71D4A2F240010A482 /* MessageHandler.swift */; };
-		3E3097CB1D4A3CA10010A482 /* _TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */; };
-		3E3097CE1D4A3CA90010A482 /* TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097CD1D4A3CA90010A482 /* TBMMessage.m */; };
+		3E3097D21D4A3F120010A482 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097D11D4A3F120010A482 /* ZZApplicationRootService.m */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
 		3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */; };
@@ -675,6 +672,12 @@
 		3E9FDA871D47C02F00809EA2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FDA831D47BB1000809EA2 /* Models.swift */; };
 		3E9FDA881D47C04F00809EA2 /* GetMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FDA851D47BBE500809EA2 /* GetMessageResponse.swift */; };
 		3EA6FB0A1D2168110038FF72 /* NuanceURLSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */; };
+		3EB0D36B1D4A45DA001C3C2F /* _TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D36A1D4A45DA001C3C2F /* _TBMMessage.m */; };
+		3EB0D36E1D4A45E3001C3C2F /* TBMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D36D1D4A45E3001C3C2F /* TBMMessage.m */; };
+		3EB0D3721D4A474B001C3C2F /* ZZMessageDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D3711D4A474B001C3C2F /* ZZMessageDomainModel.m */; };
+		3EB0D3761D4A48B3001C3C2F /* ZZMessageDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D3751D4A48B3001C3C2F /* ZZMessageDataProvider.m */; };
+		3EB0D3791D4A48C5001C3C2F /* ZZMessageDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D3781D4A48C5001C3C2F /* ZZMessageDataUpdater.m */; };
+		3EB0D37C1D4A48F8001C3C2F /* ZZMessageDataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0D37B1D4A48F8001C3C2F /* ZZMessageDataMapper.m */; };
 		3EC963CA1D47872A0063E58D /* GetAllMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC963C91D47872A0063E58D /* GetAllMessagesResponse.swift */; };
 		3EC963CC1D4798290063E58D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC963CB1D4798290063E58D /* NetworkClient.swift */; };
 		4C5074B340893B26313109A7 /* Pods_ZazoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B29DD2A274E64EED91EE1D /* Pods_ZazoTests.framework */; };
@@ -1144,8 +1147,6 @@
 		07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZVideoFileHandler.m; path = ApplicationServices/ZZVideoFileHandler.m; sourceTree = "<group>"; };
 		07E09E2A1BD5B39000A59389 /* ZZApplicationPermissionsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationPermissionsHandler.h; path = ApplicationPermissionsHandler/ZZApplicationPermissionsHandler.h; sourceTree = "<group>"; };
 		07E09E2B1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationPermissionsHandler.m; path = ApplicationPermissionsHandler/ZZApplicationPermissionsHandler.m; sourceTree = "<group>"; };
-		07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationRootService.h; path = ApplicationServices/ZZApplicationRootService.h; sourceTree = "<group>"; };
-		07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		07E09E341BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZFileTransferMarkerDomainModel.h; path = FileTransferModel/ZZFileTransferMarkerDomainModel.h; sourceTree = "<group>"; };
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
 		0F5472519E8A3F3020F32364 /* Pods-ZazoBase-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1575,10 +1576,8 @@
 		3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageNotificationDomainModel.h; sourceTree = "<group>"; };
 		3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageNotificationDomainModel.m; sourceTree = "<group>"; };
 		3E3097C71D4A2F240010A482 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
-		3E3097C91D4A3CA10010A482 /* _TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMMessage.h; sourceTree = "<group>"; };
-		3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMMessage.m; sourceTree = "<group>"; };
-		3E3097CC1D4A3CA90010A482 /* TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMessage.h; sourceTree = "<group>"; };
-		3E3097CD1D4A3CA90010A482 /* TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMessage.m; sourceTree = "<group>"; };
+		3E3097D01D4A3F120010A482 /* ZZApplicationRootService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationRootService.h; path = ApplicationServices/ZZApplicationRootService.h; sourceTree = "<group>"; };
+		3E3097D11D4A3F120010A482 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -1594,6 +1593,18 @@
 		3E9FDA831D47BB1000809EA2 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		3E9FDA851D47BBE500809EA2 /* GetMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageResponse.swift; sourceTree = "<group>"; };
 		3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceURLSessionHandler.swift; sourceTree = "<group>"; };
+		3EB0D3691D4A45DA001C3C2F /* _TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMMessage.h; sourceTree = "<group>"; };
+		3EB0D36A1D4A45DA001C3C2F /* _TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMMessage.m; sourceTree = "<group>"; };
+		3EB0D36C1D4A45E3001C3C2F /* TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMessage.h; sourceTree = "<group>"; };
+		3EB0D36D1D4A45E3001C3C2F /* TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMMessage.m; sourceTree = "<group>"; };
+		3EB0D3701D4A474B001C3C2F /* ZZMessageDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageDomainModel.h; sourceTree = "<group>"; };
+		3EB0D3711D4A474B001C3C2F /* ZZMessageDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDomainModel.m; sourceTree = "<group>"; };
+		3EB0D3741D4A48B3001C3C2F /* ZZMessageDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageDataProvider.h; sourceTree = "<group>"; };
+		3EB0D3751D4A48B3001C3C2F /* ZZMessageDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDataProvider.m; sourceTree = "<group>"; };
+		3EB0D3771D4A48C5001C3C2F /* ZZMessageDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageDataUpdater.h; sourceTree = "<group>"; };
+		3EB0D3781D4A48C5001C3C2F /* ZZMessageDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDataUpdater.m; sourceTree = "<group>"; };
+		3EB0D37A1D4A48F8001C3C2F /* ZZMessageDataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageDataMapper.h; sourceTree = "<group>"; };
+		3EB0D37B1D4A48F8001C3C2F /* ZZMessageDataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDataMapper.m; sourceTree = "<group>"; };
 		3EC963C91D47872A0063E58D /* GetAllMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAllMessagesResponse.swift; sourceTree = "<group>"; };
 		3EC963CB1D4798290063E58D /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -2023,6 +2034,7 @@
 		07636B0F1BA49A0100925671 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
+				3EB0D3731D4A4863001C3C2F /* Message */,
 				18F52E001BFCAB6100042AAC /* Content */,
 				07636B131BA49A0100925671 /* Friend */,
 				07636B181BA49A0100925671 /* Grid */,
@@ -2094,6 +2106,7 @@
 		07636B281BA49A0100925671 /* DomainModel */ = {
 			isa = PBXGroup;
 			children = (
+				3EB0D36F1D4A4736001C3C2F /* Message */,
 				3E3097C31D4A27A00010A482 /* MessageNotification */,
 				22D7D2B21BD9807600FF52AA /* KeyStore */,
 				079E90201BD48C57001A4718 /* DebugState */,
@@ -2105,7 +2118,6 @@
 				07636B3D1BA49A0100925671 /* Video */,
 				07E09E221BD5AB6600A59389 /* Notification */,
 				07AC534F1BD6F4FB00D5CBF0 /* FileTransferMarker */,
-				3E3097C71D4A2F240010A482 /* MessageHandler.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -2295,9 +2307,8 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				3E3097C71D4A2F240010A482 /* MessageHandler.swift */,
 				15BDEA861CFDD5FC0002F78A /* SettingsManager */,
-				07E09E2E1BD69A7200A59389 /* ZZApplicationRootService.h */,
-				07E09E2F1BD69A7200A59389 /* ZZApplicationRootService.m */,
 				18EE040E1BFF8A1400D57966 /* CoreDataMigrationManager */,
 				1868E1B71BE26C5E000B80D3 /* RootStateObserver */,
 				07E09E2D1BD5B39C00A59389 /* ApplicationPermissionsHandler */,
@@ -3642,6 +3653,8 @@
 		07E09E261BD5B16200A59389 /* ApplicationServices */ = {
 			isa = PBXGroup;
 			children = (
+				3E3097D01D4A3F120010A482 /* ZZApplicationRootService.h */,
+				3E3097D11D4A3F120010A482 /* ZZApplicationRootService.m */,
 				07E09E271BD5B17F00A59389 /* ZZVideoFileHandler.h */,
 				07E09E281BD5B17F00A59389 /* ZZVideoFileHandler.m */,
 				07E09E231BD5B15D00A59389 /* ZZApplicationDataUpdaterService.h */,
@@ -4716,8 +4729,8 @@
 		15B822EC1CB7BBD4006473E1 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				3E3097CC1D4A3CA90010A482 /* TBMMessage.h */,
-				3E3097CD1D4A3CA90010A482 /* TBMMessage.m */,
+				3EB0D36C1D4A45E3001C3C2F /* TBMMessage.h */,
+				3EB0D36D1D4A45E3001C3C2F /* TBMMessage.m */,
 				15B822ED1CB7BBD4006473E1 /* TBMFriend.h */,
 				15B822EE1CB7BBD4006473E1 /* TBMFriend.m */,
 				15B822EF1CB7BBD4006473E1 /* TBMGridElement.h */,
@@ -4733,8 +4746,8 @@
 		15B822F51CB7BBD4006473E1 /* EntitiesMachine */ = {
 			isa = PBXGroup;
 			children = (
-				3E3097C91D4A3CA10010A482 /* _TBMMessage.h */,
-				3E3097CA1D4A3CA10010A482 /* _TBMMessage.m */,
+				3EB0D3691D4A45DA001C3C2F /* _TBMMessage.h */,
+				3EB0D36A1D4A45DA001C3C2F /* _TBMMessage.m */,
 				15B822F61CB7BBD4006473E1 /* _TBMFriend.h */,
 				15B822F71CB7BBD4006473E1 /* _TBMFriend.m */,
 				15B822F81CB7BBD4006473E1 /* _TBMGridElement.h */,
@@ -5372,6 +5385,28 @@
 				3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */,
 			);
 			path = "Voice Recognition";
+			sourceTree = "<group>";
+		};
+		3EB0D36F1D4A4736001C3C2F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				3EB0D3701D4A474B001C3C2F /* ZZMessageDomainModel.h */,
+				3EB0D3711D4A474B001C3C2F /* ZZMessageDomainModel.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		3EB0D3731D4A4863001C3C2F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				3EB0D3741D4A48B3001C3C2F /* ZZMessageDataProvider.h */,
+				3EB0D3751D4A48B3001C3C2F /* ZZMessageDataProvider.m */,
+				3EB0D3771D4A48C5001C3C2F /* ZZMessageDataUpdater.h */,
+				3EB0D3781D4A48C5001C3C2F /* ZZMessageDataUpdater.m */,
+				3EB0D37A1D4A48F8001C3C2F /* ZZMessageDataMapper.h */,
+				3EB0D37B1D4A48F8001C3C2F /* ZZMessageDataMapper.m */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		3EC963C81D4786D80063E58D /* Models */ = {
@@ -6167,7 +6202,6 @@
 				1822553E1C16CA06003885A3 /* ZZDebugStateEnumHelper.m in Sources */,
 				182255401C16CA06003885A3 /* ZZDebugStateCell.m in Sources */,
 				182255411C16CA06003885A3 /* ZZApplicationPermissionsHandler.m in Sources */,
-				182255421C16CA06003885A3 /* ZZApplicationRootService.m in Sources */,
 				182255441C16CA06003885A3 /* ZZUserDataProvider.m in Sources */,
 				182255461C16CA06003885A3 /* ZZStartInteractor.m in Sources */,
 				182255471C16CA06003885A3 /* ZZCommonNetworkTransport.m in Sources */,
@@ -6360,6 +6394,7 @@
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
 				181D1CBC1BC5246C00044F83 /* ZZAbortRecordingFeatureEventHandler.m in Sources */,
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
+				3EB0D3721D4A474B001C3C2F /* ZZMessageDomainModel.m in Sources */,
 				3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				3EC963CC1D4798290063E58D /* NetworkClient.swift in Sources */,
@@ -6405,6 +6440,7 @@
 				07636E4D1BA49A0100925671 /* ZZColorTheme.m in Sources */,
 				07BAA7101BB1C346009878B9 /* ZZFileHelper.m in Sources */,
 				183774A51BFF440D00CE390D /* ZZGridUpdateService.m in Sources */,
+				3E3097D21D4A3F120010A482 /* ZZApplicationRootService.m in Sources */,
 				FE7D83281BBE580C00445108 /* ZZHintsArrow.m in Sources */,
 				07636E371BA49A0100925671 /* ZZFriendsTransportService.m in Sources */,
 				07E09E1E1BD5A6D000A59389 /* ZZNotificationsConstants.m in Sources */,
@@ -6412,6 +6448,7 @@
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
+				3EB0D3761D4A48B3001C3C2F /* ZZMessageDataProvider.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				1522AB841D2FB753001A8D82 /* ZZPlayerController.m in Sources */,
 				151BB3441CC124EC007CE007 /* Extensions.swift in Sources */,
@@ -6450,7 +6487,9 @@
 				153550561D3E65EF0080BE9A /* ComposeSubviews.swift in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
 				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
+				3EB0D36B1D4A45DA001C3C2F /* _TBMMessage.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
+				3EB0D37C1D4A48F8001C3C2F /* ZZMessageDataMapper.m in Sources */,
 				15443A901D252717009F55CD /* TranscriptModuleInterface.swift in Sources */,
 				159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */,
 				158960731CB7B61E0040D8E3 /* ANMemoryStorage+ANItems.m in Sources */,
@@ -6514,7 +6553,6 @@
 				15B823091CB7BBD4006473E1 /* _TBMVideo.m in Sources */,
 				07636E2A1BA49A0100925671 /* ZZVideoModelsMapper.m in Sources */,
 				07BAA7081BB1B488009878B9 /* ZZUserPresentationHelper.m in Sources */,
-				3E3097CE1D4A3CA90010A482 /* TBMMessage.m in Sources */,
 				07636E5B1BA49A0100925671 /* ZZStringUtils.m in Sources */,
 				070D84791BBDAD8900196527 /* ZZGridContainerView.m in Sources */,
 				152158271C84932A00260AFD /* ZZDateLabel.m in Sources */,
@@ -6539,7 +6577,6 @@
 				07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */,
 				07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */,
 				3E9FDA861D47BBE500809EA2 /* GetMessageResponse.swift in Sources */,
-				07E09E301BD69A7200A59389 /* ZZApplicationRootService.m in Sources */,
 				3E81CA321D210E77005A9E7C /* RecognitionOperation.swift in Sources */,
 				07636E271BA49A0100925671 /* ZZUserDataProvider.m in Sources */,
 				07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */,
@@ -6552,6 +6589,7 @@
 				15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */,
 				07636E281BA49A0100925671 /* ZZUserModelsMapper.m in Sources */,
 				079E90251BD48C57001A4718 /* ZZDebugFriendStateDomainModel.m in Sources */,
+				3EB0D3791D4A48C5001C3C2F /* ZZMessageDataUpdater.m in Sources */,
 				07636EB11BA49A0100925671 /* ZZEditFriendEnumsAdditions.m in Sources */,
 				152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */,
 				15BDEA841CFDAA820002F78A /* ZZFeatureEventStrategy.m in Sources */,
@@ -6559,6 +6597,7 @@
 				070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */,
 				15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */,
 				152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */,
+				3EB0D36E1D4A45E3001C3C2F /* TBMMessage.m in Sources */,
 				158960671CB7B61D0040D8E3 /* ANNetworkActivityManager.m in Sources */,
 				079E90261BD48C57001A4718 /* ZZDebugVideoStateDomainModel.m in Sources */,
 				07636EAD1BA49A0100925671 /* ZZSecretController.m in Sources */,
@@ -6585,7 +6624,6 @@
 				677DB23996D92F32B5FC62D8 /* ZZAlertTableStyle.m in Sources */,
 				677DBD86857050304E29C056 /* ZZTabbarView.m in Sources */,
 				677DBEE33C55B518D1919DB2 /* NSDate+ZZAdditions.m in Sources */,
-				3E3097CB1D4A3CA10010A482 /* _TBMMessage.m in Sources */,
 				15B823071CB7BBD4006473E1 /* _TBMGridElement.m in Sources */,
 				677DB088AEBA20D017D52949 /* UIView+ZZAdditions.m in Sources */,
 				15443A8C1D25257F009F55CD /* TranscriptView.swift in Sources */,

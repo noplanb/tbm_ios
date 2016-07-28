@@ -81,17 +81,6 @@ const struct TBMVideoRelationships TBMVideoRelationships = {
     [self setDownloadRetryCount:@(value_)];
 }
 
-- (int32_t)primitiveDownloadRetryCountValue
-{
-    NSNumber *result = [self primitiveDownloadRetryCount];
-    return [result intValue];
-}
-
-- (void)setPrimitiveDownloadRetryCountValue:(int32_t)value_
-{
-    [self setPrimitiveDownloadRetryCount:@(value_)];
-}
-
 @dynamic status;
 
 - (int32_t)statusValue
@@ -103,17 +92,6 @@ const struct TBMVideoRelationships TBMVideoRelationships = {
 - (void)setStatusValue:(int32_t)value_
 {
     [self setStatus:@(value_)];
-}
-
-- (int32_t)primitiveStatusValue
-{
-    NSNumber *result = [self primitiveStatus];
-    return [result intValue];
-}
-
-- (void)setPrimitiveStatusValue:(int32_t)value_
-{
-    [self setPrimitiveStatus:@(value_)];
 }
 
 @dynamic transcription;

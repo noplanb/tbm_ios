@@ -95,16 +95,6 @@ const struct <$managedObjectClassName$>UserInfo <$managedObjectClassName$>UserIn
 }
 <$endif$>
 
-- (<$Attribute.scalarAttributeType$>)primitive<$Attribute.name.initialCapitalString$>Value
-{
-    NSNumber *result = [self primitive<$Attribute.name.initialCapitalString$>];
-    return [result <$Attribute.scalarAccessorMethodName$>];
-}
-
-- (void)setPrimitive<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)value_
-{
-    [self setPrimitive<$Attribute.name.initialCapitalString$>:<$if TemplateVar.noliterals$>[NSNumber <$Attribute.scalarFactoryMethodName$>value_]<$else$>@(value_)<$endif$>];
-}
 <$endif$>
 <$endif$>
 <$endforeach do$>

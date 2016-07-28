@@ -10,7 +10,7 @@
 
 extern const struct TBMMessageAttributes {
 	__unsafe_unretained NSString *body;
-	__unsafe_unretained NSString *id;
+	__unsafe_unretained NSString *messageID;
 	__unsafe_unretained NSString *type;
 } TBMMessageAttributes;
 
@@ -33,9 +33,9 @@ extern const struct TBMMessageRelationships {
 
 //- (BOOL)validateBody:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSString* id;
+@property (nonatomic, strong) NSString* messageID;
 
-//- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateMessageID:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* type;
 
@@ -56,8 +56,8 @@ extern const struct TBMMessageRelationships {
 - (NSString*)primitiveBody;
 - (void)setPrimitiveBody:(NSString*)value;
 
-- (NSString*)primitiveId;
-- (void)setPrimitiveId:(NSString*)value;
+- (NSString*)primitiveMessageID;
+- (void)setPrimitiveMessageID:(NSString*)value;
 
 - (TBMFriend*)primitiveFriend;
 - (void)setPrimitiveFriend:(TBMFriend*)value;

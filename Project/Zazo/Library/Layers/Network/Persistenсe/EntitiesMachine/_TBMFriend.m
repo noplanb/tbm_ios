@@ -133,17 +133,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     [self setCid:@(value_)];
 }
 
-- (int32_t)primitiveCidValue
-{
-    NSNumber *result = [self primitiveCid];
-    return [result intValue];
-}
-
-- (void)setPrimitiveCidValue:(int32_t)value_
-{
-    [self setPrimitiveCid:@(value_)];
-}
-
 @dynamic ckey;
 
 @dynamic everSent;
@@ -157,17 +146,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 - (void)setEverSentValue:(BOOL)value_
 {
     [self setEverSent:@(value_)];
-}
-
-- (BOOL)primitiveEverSentValue
-{
-    NSNumber *result = [self primitiveEverSent];
-    return [result boolValue];
-}
-
-- (void)setPrimitiveEverSentValue:(BOOL)value_
-{
-    [self setPrimitiveEverSent:@(value_)];
 }
 
 @dynamic firstName;
@@ -189,17 +167,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     [self setHasApp:@(value_)];
 }
 
-- (BOOL)primitiveHasAppValue
-{
-    NSNumber *result = [self primitiveHasApp];
-    return [result boolValue];
-}
-
-- (void)setPrimitiveHasAppValue:(BOOL)value_
-{
-    [self setPrimitiveHasApp:@(value_)];
-}
-
 @dynamic idTbm;
 
 @dynamic isFriendshipCreator;
@@ -215,17 +182,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     [self setIsFriendshipCreator:@(value_)];
 }
 
-- (BOOL)primitiveIsFriendshipCreatorValue
-{
-    NSNumber *result = [self primitiveIsFriendshipCreator];
-    return [result boolValue];
-}
-
-- (void)setPrimitiveIsFriendshipCreatorValue:(BOOL)value_
-{
-    [self setPrimitiveIsFriendshipCreator:@(value_)];
-}
-
 @dynamic lastIncomingVideoStatus;
 
 - (int32_t)lastIncomingVideoStatusValue
@@ -237,17 +193,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 - (void)setLastIncomingVideoStatusValue:(int32_t)value_
 {
     [self setLastIncomingVideoStatus:@(value_)];
-}
-
-- (int32_t)primitiveLastIncomingVideoStatusValue
-{
-    NSNumber *result = [self primitiveLastIncomingVideoStatus];
-    return [result intValue];
-}
-
-- (void)setPrimitiveLastIncomingVideoStatusValue:(int32_t)value_
-{
-    [self setPrimitiveLastIncomingVideoStatus:@(value_)];
 }
 
 @dynamic lastName;
@@ -263,17 +208,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 - (void)setLastVideoStatusEventTypeValue:(int32_t)value_
 {
     [self setLastVideoStatusEventType:@(value_)];
-}
-
-- (int32_t)primitiveLastVideoStatusEventTypeValue
-{
-    NSNumber *result = [self primitiveLastVideoStatusEventType];
-    return [result intValue];
-}
-
-- (void)setPrimitiveLastVideoStatusEventTypeValue:(int32_t)value_
-{
-    [self setPrimitiveLastVideoStatusEventType:@(value_)];
 }
 
 @dynamic mkey;
@@ -295,17 +229,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     [self setOutgoingVideoStatus:@(value_)];
 }
 
-- (int32_t)primitiveOutgoingVideoStatusValue
-{
-    NSNumber *result = [self primitiveOutgoingVideoStatus];
-    return [result intValue];
-}
-
-- (void)setPrimitiveOutgoingVideoStatusValue:(int32_t)value_
-{
-    [self setPrimitiveOutgoingVideoStatus:@(value_)];
-}
-
 @dynamic timeOfLastAction;
 
 @dynamic uploadRetryCount;
@@ -319,17 +242,6 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 - (void)setUploadRetryCountValue:(int32_t)value_
 {
     [self setUploadRetryCount:@(value_)];
-}
-
-- (int32_t)primitiveUploadRetryCountValue
-{
-    NSNumber *result = [self primitiveUploadRetryCount];
-    return [result intValue];
-}
-
-- (void)setPrimitiveUploadRetryCountValue:(int32_t)value_
-{
-    [self setPrimitiveUploadRetryCount:@(value_)];
 }
 
 @dynamic gridElement;

@@ -87,17 +87,6 @@ const struct TBMUserAttributes TBMUserAttributes = {
     [self setIsInvitee:@(value_)];
 }
 
-- (BOOL)primitiveIsInviteeValue
-{
-    NSNumber *result = [self primitiveIsInvitee];
-    return [result boolValue];
-}
-
-- (void)setPrimitiveIsInviteeValue:(BOOL)value_
-{
-    [self setPrimitiveIsInvitee:@(value_)];
-}
-
 @dynamic isRegistered;
 
 - (BOOL)isRegisteredValue
@@ -109,17 +98,6 @@ const struct TBMUserAttributes TBMUserAttributes = {
 - (void)setIsRegisteredValue:(BOOL)value_
 {
     [self setIsRegistered:@(value_)];
-}
-
-- (BOOL)primitiveIsRegisteredValue
-{
-    NSNumber *result = [self primitiveIsRegistered];
-    return [result boolValue];
-}
-
-- (void)setPrimitiveIsRegisteredValue:(BOOL)value_
-{
-    [self setPrimitiveIsRegistered:@(value_)];
 }
 
 @dynamic lastName;

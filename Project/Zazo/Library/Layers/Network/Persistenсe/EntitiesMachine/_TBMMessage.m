@@ -12,7 +12,7 @@
 
 const struct TBMMessageAttributes TBMMessageAttributes = {
     .body = @"body",
-    .id = @"id",
+    .messageID = @"messageID",
     .type = @"type",
 };
 
@@ -63,7 +63,7 @@ const struct TBMMessageRelationships TBMMessageRelationships = {
 
 @dynamic body;
 
-@dynamic id;
+@dynamic messageID;
 
 @dynamic type;
 
@@ -76,17 +76,6 @@ const struct TBMMessageRelationships TBMMessageRelationships = {
 - (void)setTypeValue:(int16_t)value_
 {
     [self setType:@(value_)];
-}
-
-- (int16_t)primitiveTypeValue
-{
-    NSNumber *result = [self primitiveType];
-    return [result shortValue];
-}
-
-- (void)setPrimitiveTypeValue:(int16_t)value_
-{
-    [self setPrimitiveType:@(value_)];
 }
 
 @dynamic friend;

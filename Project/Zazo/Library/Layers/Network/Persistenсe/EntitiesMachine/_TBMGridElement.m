@@ -72,17 +72,6 @@ const struct TBMGridElementRelationships TBMGridElementRelationships = {
     [self setIndex:@(value_)];
 }
 
-- (int32_t)primitiveIndexValue
-{
-    NSNumber *result = [self primitiveIndex];
-    return [result intValue];
-}
-
-- (void)setPrimitiveIndexValue:(int32_t)value_
-{
-    [self setPrimitiveIndex:@(value_)];
-}
-
 @dynamic friend;
 
 @end

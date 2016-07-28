@@ -29,7 +29,7 @@
     </entity>
     <entity name="TBMMessage" representedClassName="TBMMessage" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TBMFriend" inverseName="messages" inverseEntity="TBMFriend" syncable="YES"/>
     </entity>
