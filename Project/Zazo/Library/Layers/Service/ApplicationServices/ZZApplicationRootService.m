@@ -36,7 +36,6 @@
         >
 
 @property (nonatomic, strong) ZZVideoFileHandler *videoFileHandler;
-@property (nonatomic, strong) MessageHandler *messageHandler;
 
 @property (nonatomic, strong) ZZApplicationDataUpdaterService *dataUpdater;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskID;
@@ -53,8 +52,6 @@
         self.videoFileHandler = [ZZVideoFileHandler new];
         self.videoFileHandler.delegate = self;
         
-        self.messageHandler = [MessageHandler new];
-
         self.dataUpdater = [ZZApplicationDataUpdaterService new];
         self.dataUpdater.delegate = self;
 
@@ -246,7 +243,7 @@
         return;
     }
     
-    [self.messageHandler handleWithMessage:notificationModel];
+    [[MessageHandler sharedInstance] handleNewMessageWithNotification:notificationModel];
 }
 
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)notificationModel

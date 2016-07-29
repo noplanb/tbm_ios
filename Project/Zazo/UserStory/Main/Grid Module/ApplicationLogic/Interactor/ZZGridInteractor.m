@@ -25,6 +25,7 @@
 #import "ZZGridUpdateService.h"
 #import "ZZVideoDataProvider.h"
 #import "ZZSettingsManager.h"
+#import "ZZApplicationRootService.h"
 
 
 static NSInteger const kGridFriendsCellCount = 8;
@@ -33,7 +34,8 @@ static NSInteger const kGridFriendsCellCount = 8;
         <
         ZZVideoStatusHandlerDelegate,
         ZZRootStateObserverDelegate,
-        ZZGridUpdateServiceDelegate
+        ZZGridUpdateServiceDelegate,
+        MessageEventsObserver
         >
 
 @property (nonatomic, strong) ZZGridUpdateService *gridUpdateService;
@@ -49,6 +51,10 @@ static NSInteger const kGridFriendsCellCount = 8;
     {
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
+        [[MessageHandler sharedInstance] addMessageEventsObserver:self];
+        [[MessageHandler sharedInstance] addMessageEventsObserver:self];
+        
+        
         self.gridUpdateService = [ZZGridUpdateService new];
         self.gridUpdateService.delegate = self;
 
@@ -580,6 +586,13 @@ static NSInteger const kGridFriendsCellCount = 8;
     
     [[ZZSettingsManager sharedInstance] unlockFeaturesWithEverSentCount:keys.count];
 
+}
+
+#pragma mark MessageEventsObserver
+
+- (void)messageStatusChanged:(ZZMessageDomainModel *)message
+{
+    
 }
 
 @end
