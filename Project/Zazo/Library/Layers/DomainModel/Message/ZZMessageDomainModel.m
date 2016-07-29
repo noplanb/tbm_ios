@@ -10,4 +10,19 @@
 
 @implementation ZZMessageDomainModel
 
+- (void)setMessageTypeAsString:(NSString *)string
+{
+    if ([string isEqualToString:@"text"]) {
+        self.type = ZZMessageTypeText;
+        return;
+    }
+    
+    if ([string isEqualToString:@"transcript"]) {
+        self.type = ZZMessageTypeTranscript;
+        return;
+    }
+    
+    self.type = ZZMessageTypeUnknown;
+}
+
 @end

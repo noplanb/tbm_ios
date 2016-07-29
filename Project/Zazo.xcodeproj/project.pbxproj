@@ -1605,8 +1605,10 @@
 		3EB0D3781D4A48C5001C3C2F /* ZZMessageDataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDataUpdater.m; sourceTree = "<group>"; };
 		3EB0D37A1D4A48F8001C3C2F /* ZZMessageDataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageDataMapper.h; sourceTree = "<group>"; };
 		3EB0D37B1D4A48F8001C3C2F /* ZZMessageDataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageDataMapper.m; sourceTree = "<group>"; };
+		3EB0D37D1D4A4FB5001C3C2F /* ZZMessageDataUpdater+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZMessageDataUpdater+Entities.h"; sourceTree = "<group>"; };
 		3EC963C91D47872A0063E58D /* GetAllMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAllMessagesResponse.swift; sourceTree = "<group>"; };
 		3EC963CB1D4798290063E58D /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		3EE808221D4B635A00A94A18 /* ZZMessageDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZMessageDataProvider+Entities.h"; sourceTree = "<group>"; };
 		41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZazoBase_Zazo_NetworkTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4590611CB7763406F0073F83 /* Pods-ZazoBase-Zazo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-Zazo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-Zazo/Pods-ZazoBase-Zazo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -5400,8 +5402,10 @@
 			isa = PBXGroup;
 			children = (
 				3EB0D3741D4A48B3001C3C2F /* ZZMessageDataProvider.h */,
+				3EE808221D4B635A00A94A18 /* ZZMessageDataProvider+Entities.h */,
 				3EB0D3751D4A48B3001C3C2F /* ZZMessageDataProvider.m */,
 				3EB0D3771D4A48C5001C3C2F /* ZZMessageDataUpdater.h */,
+				3EB0D37D1D4A4FB5001C3C2F /* ZZMessageDataUpdater+Entities.h */,
 				3EB0D3781D4A48C5001C3C2F /* ZZMessageDataUpdater.m */,
 				3EB0D37A1D4A48F8001C3C2F /* ZZMessageDataMapper.h */,
 				3EB0D37B1D4A48F8001C3C2F /* ZZMessageDataMapper.m */,

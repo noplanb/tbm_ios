@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZZMessageDomainModel.h"
 
 @interface ZZMessageDataProvider : NSObject
+
++ (ZZMessageDomainModel *)modelWithID:(NSString *)messageID; // nil if no message
+
++ (BOOL)messageExists:(NSString *)messageID;
+
++ (NSArray <ZZMessageDomainModel *> *)messagesOfFriendWithID:(NSString *)friendID;
 
 @end

@@ -20,3 +20,6 @@
 #import "OBLoggerCore.h"
 #import "SVProgressHUD.h"
 #import "ZZMessageNotificationDomainModel.h"
+#import "ZZMessageDataProvider.h"
+#import "ZZMessageDataUpdater.h"
+

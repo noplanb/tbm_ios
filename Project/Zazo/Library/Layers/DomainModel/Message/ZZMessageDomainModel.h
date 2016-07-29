@@ -9,6 +9,7 @@
 #import "ZZBaseDomainModel.h"
 
 typedef NS_ENUM(NSUInteger, ZZMessageType) {
+    ZZMessageTypeUnknown,
     ZZMessageTypeText,
     ZZMessageTypeTranscript
 };
@@ -20,5 +21,7 @@ typedef NS_ENUM(NSUInteger, ZZMessageType) {
 @property (nonatomic, strong) NSString *friendID;
 
 @property (nonatomic, assign) ZZMessageType type;
+
+- (void)setMessageTypeAsString:(NSString *)string;
 
 @end
