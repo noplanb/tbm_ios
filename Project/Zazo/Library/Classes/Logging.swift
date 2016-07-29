@@ -8,18 +8,26 @@
 
 import Foundation
 
-func logInfo(string: String, _ file: String = #file, line: Int = #line) {
-    OBLogger.instance().info("\(file)(\(line)): \(string)")
+func logInfo(string: String,
+             _ file: String = #file,
+               methodName: String = #function) {
+    
+    OBLogger.instance().info("\(file)(\(methodName)): \(string)")
 }
 
-func logWarning(string: String, _ file: String = #file, line: Int = #line) {
-    OBLogger.instance().info("\(file)(\(line)): ⚠️ \(string)")
+func logWarning(string: String,
+                _ file: String = #file,
+                  methodName: String = #function) {
+    
+    OBLogger.instance().info("\(file)(\(methodName)): ⚠️ \(string)")
 }
 
-func logError(string: String, _ file: String = #file, line: Int = #line) {
+func logError(string: String,
+              _ file: String = #file,
+                methodName: String = #function) {
     
     let url = NSURL(string: file)!
     let filename = url.lastPathComponent ?? ""
     
-    OBLogger.instance().info("\(filename)(\(line)): 🚫 \(string)")
+    OBLogger.instance().info("\(filename)(\(methodName)): 🚫 \(string)")
 }
