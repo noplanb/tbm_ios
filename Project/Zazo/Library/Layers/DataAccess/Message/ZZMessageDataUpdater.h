@@ -12,9 +12,6 @@
 @interface ZZMessageDataUpdater : NSObject
 
 + (void)insertMessage:(ZZMessageDomainModel *)message; 
-
-//+ (void)updateMessageWithID:(NSString *)messageID setBody:(NSString *)body;
-//+ (void)updateMessageWithID:(NSString *)messageID setMessageID:(NSString *)messageID;
-//+ (void)updateMessageWithID:(NSString *)messageID setFriendID:(NSString *)friendID;
++ (void)updateMessageWithID:(NSString *)messageID setStatus:(ZZMessageStatus)status;
 
 @end

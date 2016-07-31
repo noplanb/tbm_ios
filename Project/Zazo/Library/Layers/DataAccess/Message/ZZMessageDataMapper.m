@@ -18,6 +18,7 @@
     model.messageID = [entity.messageID copy];
     model.friendID = entity.friend.idTbm;
     model.type = entity.typeValue;
+    model.status = entity.statusValue;
 }
 
 + (void)fillEntity:(TBMMessage *)entity fromModel:(ZZMessageDomainModel *)model
@@ -32,7 +33,8 @@
         entity.body = [model.body copy];
         entity.messageID = [model.messageID copy];
         entity.friend = [ZZFriendDataProvider friendEntityWithItemID:model.friendID];
-        entity.type = @(model.type);
+        entity.typeValue = model.type;
+        entity.statusValue = model.status;
     }
     
     @catch (NSException *exception)

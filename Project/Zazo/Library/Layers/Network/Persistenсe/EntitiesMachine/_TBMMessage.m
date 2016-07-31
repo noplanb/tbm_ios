@@ -13,6 +13,7 @@
 const struct TBMMessageAttributes TBMMessageAttributes = {
     .body = @"body",
     .messageID = @"messageID",
+    .status = @"status",
     .type = @"type",
 };
 
@@ -51,6 +52,12 @@ const struct TBMMessageRelationships TBMMessageRelationships = {
 {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+    if ([key isEqualToString:@"statusValue"])
+    {
+        NSSet *affectingKey = [NSSet setWithObject:@"status"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+        return keyPaths;
+    }
     if ([key isEqualToString:@"typeValue"])
     {
         NSSet *affectingKey = [NSSet setWithObject:@"type"];
@@ -64,6 +71,19 @@ const struct TBMMessageRelationships TBMMessageRelationships = {
 @dynamic body;
 
 @dynamic messageID;
+
+@dynamic status;
+
+- (int16_t)statusValue
+{
+    NSNumber *result = [self status];
+    return [result shortValue];
+}
+
+- (void)setStatusValue:(int16_t)value_
+{
+    [self setStatus:@(value_)];
+}
 
 @dynamic type;
 

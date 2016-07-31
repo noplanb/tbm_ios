@@ -36,12 +36,18 @@ public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
         
         ZZMessageDataUpdater.insertMessage(messageModel)
         
+        notifyObservers(messageChanged: messageModel)
+    }
+    
+    @objc func mark(asRead messageModel: ZZMessageDomainModel) {
+        ZZMessageDataUpdater.updateMessageWithID(messageModel.messageID, setStatus: .Read)
+        notifyObservers(messageChanged: messageModel)
     }
  
-    
 }
 
 extension MessageHandler {
+    
     func addMessageEventsObserver(observer: MessageEventsObserver) {
         
         guard messageEventsObservers.indexOf({$0 == observer}) == nil else {
@@ -51,4 +57,11 @@ extension MessageHandler {
         
         messageEventsObservers.append(observer)
     }
+    
+    func notifyObservers(messageChanged messageModel: ZZMessageDomainModel) {
+        for observer in messageEventsObservers {
+            observer.messageStatusChanged(messageModel)
+        }
+    }
+    
 }

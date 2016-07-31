@@ -49,19 +49,26 @@
     return messageEntity;
 }
 
-//+ (void)updateMessageWithID:(NSString *)messageID setBody:(NSString *)body
-//{
-//    
-//}
-//
-//+ (void)updateMessageWithID:(NSString *)messageID setType:(NSString *)messageID
-//{
-//    
-//}
-//
-//+ (void)updateMessageWithID:(NSString *)messageID setFriendID:(NSString *)friendID
-//{
-//    
-//}
++ (void)updateMessageWithID:(NSString *)messageID setStatus:(ZZMessageStatus)status
+{
+    [self _updateMessageWithID:messageID usingBlock:^(TBMMessage *messageEntity) {
+        messageEntity.statusValue = status;
+    }];
+}
+
++ (void)_updateMessageWithID:(NSString *)messageID usingBlock:(void (^)(TBMMessage *messageEntity))updateBlock
+{
+    ANDispatchBlockToMainQueue(^{
+        TBMMessage *messageEntity = [self entityWithID:messageID createIfNeeded:NO];
+        
+        if (!messageEntity) {
+            return;
+        }
+        
+        updateBlock(messageEntity);
+        [messageEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    });
+}
+
 
 @end
