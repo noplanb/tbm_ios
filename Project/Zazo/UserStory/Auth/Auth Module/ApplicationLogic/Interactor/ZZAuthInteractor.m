@@ -42,15 +42,15 @@
     ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef DEBUG_LOGIN_USER
-//    user.firstName = @"";
-//    user.lastName = @"";
-//    user.mobileNumber = @"";
+    user.firstName = @"A";
+    user.lastName = @"B";
+    user.mobileNumber = @"79093075049";
 
-    NSString *num = @"104";
-
-    user.firstName = num;
-    user.lastName = num;
-    user.mobileNumber = [NSString stringWithFormat:@"79990000%@", num];
+//    NSString *num = @"104";
+//
+//    user.firstName = num;
+//    user.lastName = num;
+//    user.mobileNumber = [NSString stringWithFormat:@"79990000%@", num];
 
 #endif
 
