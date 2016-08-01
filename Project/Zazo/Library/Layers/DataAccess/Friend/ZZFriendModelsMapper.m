@@ -14,6 +14,8 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDataHelper+Entities.h"
+#import "ZZMessageDataProvider.h"
+
 
 @implementation ZZFriendModelsMapper
 
@@ -30,7 +32,8 @@
 
     entity.lastIncomingVideoStatus = @(model.lastIncomingVideoStatus);
     entity.lastVideoStatusEventType = @(model.lastVideoStatusEventType);
-
+    entity.lastEventType = @(model.lastEventType);
+    
     entity.outgoingVideoId = model.outgoingVideoItemID;
     entity.outgoingVideoStatusValue = model.lastOutgoingVideoStatus;
     entity.everSent = @(model.everSent);
@@ -41,7 +44,6 @@
     entity.friendshipStatus = model.friendshipStatus;
 
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
-
     entity.isFriendshipCreator = @([model isCreator]);
 
     return entity;
@@ -62,7 +64,8 @@
 
         model.lastIncomingVideoStatus = [entity.lastIncomingVideoStatus integerValue];
         model.lastVideoStatusEventType = [entity.lastVideoStatusEventType integerValue];
-
+        model.lastEventType = [entity.lastEventType integerValue];
+        
         model.outgoingVideoItemID = entity.outgoingVideoId;
         model.lastOutgoingVideoStatus = [entity.outgoingVideoStatus integerValue];
         model.everSent = entity.everSent.boolValue;
@@ -73,7 +76,8 @@
         model.friendshipStatus = entity.friendshipStatus;
 
         model.videos = [ZZVideoDataProvider sortedIncomingVideosForUserWithID:entity.idTbm];
-
+        model.messages = [ZZMessageDataProvider messagesOfFriendWithID:entity.idTbm newOnly:NO];
+        
         model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
     }

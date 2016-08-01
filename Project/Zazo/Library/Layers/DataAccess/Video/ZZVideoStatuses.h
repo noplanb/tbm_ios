@@ -38,12 +38,14 @@ typedef NS_ENUM(NSInteger, ZZVideoStatusEventType)
     ZZVideoStatusEventTypeOutgoing
 };
 
+typedef NS_ENUM(NSUInteger, ZZLastEventType) {
+    ZZLastEventTypeVideo,
+    ZZLastEventTypeMessage
+};
+
 NSString *ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);
-
 NSString *ZZVideoIncomingStatusStringFromEnumValue(ZZVideoIncomingStatus);
-
 NSString *ZZVideoOutgoingStatusStringFromEnumValue(ZZVideoOutgoingStatus);
-
 NSString *ZZVideoStatusStringWithFriendModel(ZZFriendDomainModel *friend);
 
 static NSString *const kDeleteFileNotification = @"fileDeletedNotification";

@@ -44,12 +44,12 @@
     }) boolValue];
 }
 
-+ (NSArray <ZZMessageDomainModel *> *)messagesOfFriendWithID:(NSString *)friendID
++ (NSArray <ZZMessageDomainModel *> *)messagesOfFriendWithID:(NSString *)friendID newOnly:(BOOL)flag
 {
     return ZZDispatchOnMainThreadAndReturn(^id{
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"friend.idTbm = %@", friendID];
-        NSArray *entities = [TBMMessage MR_findAllWithPredicate:predicate];
+        NSPredicate *predicate = [self _predicateForFriendID:friendID newMessagesOnly:flag];
+        NSArray *entities = [TBMMessage MR_findAllSortedBy:@"messageID" ascending:YES withPredicate:predicate];        
         
         NSArray *models =[ entities.rac_sequence map:^id(TBMMessage *messageEntity) {
             return [self modelFromEntity:messageEntity];
@@ -57,6 +57,29 @@
         
         return models;
     });
+}
+
++ (NSUInteger)newMessageCountOfFriendWithID:(NSString *)friendID
+{
+    return [ZZDispatchOnMainThreadAndReturn(^id{
+        return @([TBMMessage MR_countOfEntitiesWithPredicate:[self _predicateForFriendID:friendID newMessagesOnly:YES]]);
+    }) unsignedIntegerValue];
+}
+
+
++ (NSPredicate *)_predicateForFriendID:(NSString *)friendID newMessagesOnly:(BOOL)flag
+{
+    NSPredicate *friendPredicate = [NSPredicate predicateWithFormat:@"friend.idTbm = %@", friendID];
+    
+    if (!flag) {
+        return friendPredicate;
+    }
+    
+    NSPredicate *statusPredicate = [NSPredicate predicateWithFormat:@"status = %d", ZZMessageStatusNew];
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[friendPredicate, statusPredicate]];
+    
+    return predicate;
+
 }
 
 + (ZZMessageDomainModel *)modelFromEntity:(TBMMessage *)messageEntity

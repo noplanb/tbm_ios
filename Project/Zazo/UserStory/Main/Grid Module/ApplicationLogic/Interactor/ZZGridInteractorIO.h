@@ -68,6 +68,7 @@
 - (void)reloadGridModel:(ZZGridDomainModel *)model;
 
 - (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)model;
+- (void)reloadAfterMessageUpdateGridModel:(ZZGridDomainModel *)gridModel;
 
 - (void)reloadGridWithData:(NSArray *)data;
 

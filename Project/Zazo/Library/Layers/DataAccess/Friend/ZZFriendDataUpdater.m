@@ -39,6 +39,13 @@
     }];
 }
 
++ (void)updateFriendWithID:(NSString *)friendID setLastEventType:(ZZLastEventType)type
+{
+    [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
+        friendEntity.lastEventTypeValue = type;
+    }];
+}
+
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status
 {
     [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {

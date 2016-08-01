@@ -33,14 +33,18 @@ public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
         messageModel.body = m.body
         messageModel.friendID = friendModel.idTbm
         messageModel.setMessageTypeAsString(m.type)
-        
+        messageModel.messageID = m.message_id
+            
         ZZMessageDataUpdater.insertMessage(messageModel)
+        ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
         
         notifyObservers(messageChanged: messageModel)
     }
     
     @objc func mark(asRead messageModel: ZZMessageDomainModel) {
+        
         ZZMessageDataUpdater.updateMessageWithID(messageModel.messageID, setStatus: .Read)
+        ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
         notifyObservers(messageChanged: messageModel)
     }
  

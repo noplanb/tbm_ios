@@ -26,7 +26,7 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZSettingsManager.h"
 #import "ZZApplicationRootService.h"
-
+#import "ZZMessageDomainModel.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -52,7 +52,7 @@ static NSInteger const kGridFriendsCellCount = 8;
         [[ZZVideoStatusHandler sharedInstance] addVideoStatusHandlerObserver:self];
         [[ZZRootStateObserver sharedInstance] addRootStateObserver:self];
         [[MessageHandler sharedInstance] addMessageEventsObserver:self];
-        
+
         self.gridUpdateService = [ZZGridUpdateService new];
         self.gridUpdateService.delegate = self;
 
@@ -588,9 +588,44 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 #pragma mark MessageEventsObserver
 
-- (void)messageStatusChanged:(ZZMessageDomainModel *)message
+- (void)messageStatusChanged:(ZZMessageDomainModel *)messageModel
 {
+    ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:messageModel.friendID];
     
+    if (!gridModel)
+    {
+        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:messageModel.friendID];
+        
+        //TODO:
+        BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
+        
+        if (!shouldBeVisible)
+        {
+            BOOL isUserSendsUsVideo = messageModel.status == ZZMessageStatusNew;
+
+            if (isUserSendsUsVideo)
+            {
+                ZZFriendshipStatusType status = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
+                [ZZFriendDataUpdater updateFriendWithID:friendModel.idTbm setConnectionStatus:status];
+                
+                [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
+                                                                  toVisible:!shouldBeVisible] subscribeNext:^(NSDictionary *response) {
+                }];
+                
+                [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+            }
+        }
+        if (shouldBeVisible)
+        {
+            [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
+        }
+    }
+    else if (!ANIsEmpty(gridModel.relatedUser) &&
+             !gridModel.isDownloadAnimationViewed)
+    {
+        [self.output reloadAfterMessageUpdateGridModel:gridModel];
+    }
+
 }
 
 @end

@@ -231,8 +231,8 @@
             }
             
             [ZZVideoDataUpdater updateVideoWithID:videoID setIncomingStatus:videoStatus];
-
             [ZZFriendDataUpdater updateFriendWithID:friendID setLastIncomingVideoStatus:videoStatus];
+            [ZZFriendDataUpdater updateFriendWithID:friendID setLastEventType:ZZLastEventTypeVideo];
 
             // Serhii says: We want to preserve previous status if last event type is incoming and status is VIEWED
             // Sani complicates it by saying: This is a bit subtle. We don't want an action by this user of

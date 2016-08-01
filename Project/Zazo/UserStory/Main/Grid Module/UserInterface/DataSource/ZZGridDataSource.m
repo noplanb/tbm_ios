@@ -9,6 +9,7 @@
 #import "ZZGridDataSource.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZGridDataProvider.h"
+#import "ZZMessageDataProvider.h"
 #import "ZZVideoDomainModel.h"
 
 static NSInteger const kGridCenterCellIndex = 4;
@@ -138,8 +139,10 @@ static NSInteger const kGridCenterCellIndex = 4;
         viewModel.lastMessageDate = nil;
     }
 
-    NSUInteger count = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
-
+    NSUInteger videoCount = [ZZFriendDataHelper unviewedVideoCountWithFriendID:model.relatedUser.idTbm];
+    NSUInteger textCount = [ZZMessageDataProvider newMessageCountOfFriendWithID:model.relatedUser.idTbm];
+    NSUInteger count = videoCount + textCount;
+    
     if (count > 0)
     {
         viewModel.badgeNumber = count;

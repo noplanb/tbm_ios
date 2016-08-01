@@ -15,6 +15,7 @@
 
 + (BOOL)messageExists:(NSString *)messageID;
 
-+ (NSArray <ZZMessageDomainModel *> *)messagesOfFriendWithID:(NSString *)friendID;
++ (NSArray <ZZMessageDomainModel *> *)messagesOfFriendWithID:(NSString *)friendID newOnly:(BOOL)flag;
++ (NSUInteger)newMessageCountOfFriendWithID:(NSString *)friendID;
 
 @end

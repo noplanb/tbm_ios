@@ -35,6 +35,7 @@
         ZZGridActionHanlderDelegate,
         TBMTableModalDelegate,
         ZZGridModelPresenterInterface
+//        MessageEventsObserver
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;
@@ -63,7 +64,7 @@
     [self _setupNotifications];
     [self.interactor loadData];
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
-
+    
     [self _startTouchObserve];
 }
 
@@ -143,6 +144,21 @@
 - (void)reloadGridModel:(ZZGridDomainModel *)model
 {
     [self.dataSource updateCellWithModel:model];
+}
+
+- (void)reloadAfterMessageUpdateGridModel:(ZZGridDomainModel *)gridModel
+{
+    [self.dataSource updateCellWithModel:gridModel];
+    
+    if (gridModel.relatedUser.messages.lastObject.status == ZZMessageStatusNew &&
+        gridModel.relatedUser.messages.lastObject.type == ZZMessageTypeText)
+    {
+        if (!self.videoPlayer.isPlayingVideo && ![ZZVideoRecorder shared].isRecording)
+        {
+            [self.soundPlayer play];
+        }
+    }
+
 }
 
 - (void)reloadAfterVideoUpdateGridModel:(ZZGridDomainModel *)gridModel
@@ -816,5 +832,8 @@
     [self.userInterface updateRecordViewStateTo:NO];
 
 }
+
+
+
 
 @end

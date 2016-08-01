@@ -12,7 +12,7 @@
 
 - (void)setMessageTypeAsString:(NSString *)string
 {
-    if ([string isEqualToString:@"text"]) {
+    if ([string isEqualToString:@"message_received"]) {
         self.type = ZZMessageTypeText;
         return;
     }

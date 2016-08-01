@@ -15,8 +15,7 @@
 @implementation ZZMessageDataUpdater
 
 + (void)insertMessage:(ZZMessageDomainModel *)messageModel
-{
-    
+{    
     ANDispatchBlockToMainQueue(^{
         
         if ([ZZMessageDataProvider messageExists:messageModel.messageID]) {

@@ -11,6 +11,7 @@
 #import "ZZEditFriendEnumsAdditions.h"
 #import "ZZContactEnumsAdditions.h"
 #import "ZZVideoStatuses.h"
+#import "ZZMessageDomainModel.h"
 
 @class FEMObjectMapping, ZZVideoDomainModel;
 
@@ -52,6 +53,7 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
 @property (nonatomic, assign) BOOL everSent;
+@property (nonatomic, assign) ZZLastEventType lastEventType;
 
 @property (nonatomic, copy) NSString *outgoingVideoItemID;
 
@@ -68,6 +70,7 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, assign) ZZVideoOutgoingStatus lastOutgoingVideoStatus;
 
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videos;
+@property (nonatomic, strong) NSArray <ZZMessageDomainModel *> *messages;
 
 + (FEMObjectMapping *)mapping;
 

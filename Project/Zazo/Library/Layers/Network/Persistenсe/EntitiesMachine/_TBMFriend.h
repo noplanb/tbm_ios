@@ -18,6 +18,7 @@ extern const struct TBMFriendAttributes {
 	__unsafe_unretained NSString *hasApp;
 	__unsafe_unretained NSString *idTbm;
 	__unsafe_unretained NSString *isFriendshipCreator;
+	__unsafe_unretained NSString *lastEventType;
 	__unsafe_unretained NSString *lastIncomingVideoStatus;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *lastVideoStatusEventType;
@@ -100,6 +101,14 @@ extern const struct TBMFriendRelationships {
 
 //- (BOOL)validateIsFriendshipCreator:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* lastEventType;
+
+@property (atomic) int32_t lastEventTypeValue;
+- (int32_t)lastEventTypeValue;
+- (void)setLastEventTypeValue:(int32_t)value_;
+
+//- (BOOL)validateLastEventType:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* lastIncomingVideoStatus;
 
 @property (atomic) int32_t lastIncomingVideoStatusValue;
@@ -156,14 +165,21 @@ extern const struct TBMFriendRelationships {
 
 //- (BOOL)validateGridElement:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) TBMMessage *messages;
+@property (nonatomic, strong) NSSet<TBMMessage*> *messages;
 
-//- (BOOL)validateMessages:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet<TBMMessage*>*)messagesSet;
 
 @property (nonatomic, strong) NSSet<TBMVideo*> *videos;
 
 - (NSMutableSet<TBMVideo*>*)videosSet;
 
+@end
+
+@interface _TBMFriend (MessagesCoreDataGeneratedAccessors)
+- (void)addMessages:(NSSet<TBMMessage*>*)value_;
+- (void)removeMessages:(NSSet<TBMMessage*>*)value_;
+- (void)addMessagesObject:(TBMMessage*)value_;
+- (void)removeMessagesObject:(TBMMessage*)value_;
 @end
 
 @interface _TBMFriend (VideosCoreDataGeneratedAccessors)
@@ -214,6 +230,12 @@ extern const struct TBMFriendRelationships {
 - (BOOL)primitiveIsFriendshipCreatorValue;
 - (void)setPrimitiveIsFriendshipCreatorValue:(BOOL)value_;
 
+- (NSNumber*)primitiveLastEventType;
+- (void)setPrimitiveLastEventType:(NSNumber*)value;
+
+- (int32_t)primitiveLastEventTypeValue;
+- (void)setPrimitiveLastEventTypeValue:(int32_t)value_;
+
 - (NSNumber*)primitiveLastIncomingVideoStatus;
 - (void)setPrimitiveLastIncomingVideoStatus:(NSNumber*)value;
 
@@ -256,8 +278,8 @@ extern const struct TBMFriendRelationships {
 - (TBMGridElement*)primitiveGridElement;
 - (void)setPrimitiveGridElement:(TBMGridElement*)value;
 
-- (TBMMessage*)primitiveMessages;
-- (void)setPrimitiveMessages:(TBMMessage*)value;
+- (NSMutableSet<TBMMessage*>*)primitiveMessages;
+- (void)setPrimitiveMessages:(NSMutableSet<TBMMessage*>*)value;
 
 - (NSMutableSet<TBMVideo*>*)primitiveVideos;
 - (void)setPrimitiveVideos:(NSMutableSet<TBMVideo*>*)value;

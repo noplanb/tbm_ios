@@ -20,6 +20,7 @@ const struct TBMFriendAttributes TBMFriendAttributes = {
     .hasApp = @"hasApp",
     .idTbm = @"idTbm",
     .isFriendshipCreator = @"isFriendshipCreator",
+    .lastEventType = @"lastEventType",
     .lastIncomingVideoStatus = @"lastIncomingVideoStatus",
     .lastName = @"lastName",
     .lastVideoStatusEventType = @"lastVideoStatusEventType",
@@ -89,6 +90,12 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     if ([key isEqualToString:@"isFriendshipCreatorValue"])
     {
         NSSet *affectingKey = [NSSet setWithObject:@"isFriendshipCreator"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+        return keyPaths;
+    }
+    if ([key isEqualToString:@"lastEventTypeValue"])
+    {
+        NSSet *affectingKey = [NSSet setWithObject:@"lastEventType"];
         keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
         return keyPaths;
     }
@@ -182,6 +189,19 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     [self setIsFriendshipCreator:@(value_)];
 }
 
+@dynamic lastEventType;
+
+- (int32_t)lastEventTypeValue
+{
+    NSNumber *result = [self lastEventType];
+    return [result intValue];
+}
+
+- (void)setLastEventTypeValue:(int32_t)value_
+{
+    [self setLastEventType:@(value_)];
+}
+
 @dynamic lastIncomingVideoStatus;
 
 - (int32_t)lastIncomingVideoStatusValue
@@ -247,6 +267,16 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 @dynamic gridElement;
 
 @dynamic messages;
+
+- (NSMutableSet<TBMMessage*> *)messagesSet
+{
+    [self willAccessValueForKey:@"messages"];
+
+    NSMutableSet<TBMMessage*> *result = (NSMutableSet<TBMMessage*> *)[self mutableSetValueForKey:@"messages"];
+
+    [self didAccessValueForKey:@"messages"];
+    return result;
+}
 
 @dynamic videos;
 

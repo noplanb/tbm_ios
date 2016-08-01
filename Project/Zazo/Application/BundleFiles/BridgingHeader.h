@@ -22,4 +22,5 @@
 #import "ZZMessageNotificationDomainModel.h"
 #import "ZZMessageDataProvider.h"
 #import "ZZMessageDataUpdater.h"
+#import "ZZFriendDataUpdater.h"
 
