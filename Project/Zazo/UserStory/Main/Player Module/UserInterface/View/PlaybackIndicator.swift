@@ -10,6 +10,17 @@ import Foundation
 import OAStackView
 import SnapKit
 
+@objc class PlaybackSegment: NSObject {
+    
+    @objc var userdata: NSDictionary!
+    let type: ZZIncomingEventType
+    
+    @objc init(type: ZZIncomingEventType) {
+        self.type = type
+        super.init()
+    }
+}
+
 public struct PlaybackIndicatorTheme {
     
     let bodyColor: UIColor
@@ -47,21 +58,20 @@ public class PlaybackIndicator: UIView
         didSet {
             
             UIView.performWithoutAnimation {
-                
-                let count = self.segmentCount
-                self.segmentCount = 0 // in order to redraw segments
-                self.segmentCount = count
+                self.updateSegments()
             }
         }
     }
     
     @objc public weak var delegate: PlaybackIndicatorDelegate?
     
-    @objc public var segmentCount: Int = 1 {
+    var segmentCount: Int {
+        return segmentScheme.count
+    }
+    
+    var segmentScheme = [PlaybackSegment]() {
         didSet {
-            updateSegmentCountTo(segmentCount)
-            currentSegment = 0
-            previousSegment = nil
+            updateSegments()
         }
     }
     
@@ -143,40 +153,68 @@ public class PlaybackIndicator: UIView
         self.init(frame: CGRectZero)
     }
     
-    func updateSegmentCountTo(segmentCount: Int)
-    {        
-        if segmentCount < stackView.arrangedSubviews.count
+    func updateSegments()
+    {
+        clearSegments()
+
+        for index in 0..<segmentCount
         {
-            
-            let count = stackView.arrangedSubviews.count - segmentCount
-            
-            for _ in 0..<count
-            {
-                stackView.removeArrangedSubview(stackView.arrangedSubviews.last!)
-            }
-            
+            let type = segmentScheme[index].type
+            stackView.addArrangedSubview(makeSegment(of: type))
         }
-            
-        else if segmentCount > stackView.arrangedSubviews.count
-        {
-            let count = segmentCount - stackView.arrangedSubviews.count
-            
-            for _ in 0..<count
-            {
-                stackView.addArrangedSubview(makeSegment())
-            }
-        }
-             
+        
+        updateSegmentWidths()
+        
         UIView.animateWithDuration(0.25)
         {
             self.layoutIfNeeded()
         }
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        updateSegmentWidths()
+    }
+    
+    func updateSegmentWidths() {
+        
+        let totalSpacingWidth = stackView.spacing * CGFloat(stackView.arrangedSubviews.count - 1)
+        let screenWidth = self.frame.width
+
+        let segmentViews = stackView.arrangedSubviews.filter { (view) -> Bool in
+            return view is PlaybackSegmentView
+        } .map { (element) -> PlaybackSegmentView in
+            return element as! PlaybackSegmentView
+        }
+    
+        let countOfNonSegmentViews = stackView.arrangedSubviews.count - segmentViews.count
+        let widthOfNonSegmentView = CGFloat(29)
+        let totalWidthOfNonSegmentViews = CGFloat(countOfNonSegmentViews) * widthOfNonSegmentView
+        
+        let segmentWidth = (screenWidth - totalSpacingWidth - totalWidthOfNonSegmentViews) / CGFloat(segmentViews.count)
+        
+        for segmentView in segmentViews {
+            segmentView.preferredWidth = segmentWidth
+        }
+        
+    }
+    
+    func clearSegments() {
+        
+        currentSegment = 0
+        previousSegment = nil
+        
+        let count = stackView.arrangedSubviews.count
+        
+        for _ in 0..<count
+        {
+            stackView.removeArrangedSubview(stackView.arrangedSubviews.last!)
+        }
+    }
+    
     override public func intrinsicContentSize() -> CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 23)
     }
-
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -186,7 +224,7 @@ public class PlaybackIndicator: UIView
         let result = OAStackView()
 
         result.spacing = 10
-        result.distribution = .FillEqually
+        result.distribution = .Fill
         self.addSubview(result)
         
         result.snp_makeConstraints { make in
@@ -196,19 +234,46 @@ public class PlaybackIndicator: UIView
         return result;
     }()
     
-    func makeSegment() -> UIView
+    func makeSegment(of type: ZZIncomingEventType) -> UIView
     {
-        let segment = PlaybackSegment()
+        if type == .Video {
+            
+            let segment = PlaybackSegmentView()
+            
+            segment.backgroundColor = UIColor.clearColor()
+            segment.exclusiveTouch = true
+            segment.minimumTrackTintColor = self.colorTheme.bodyColor
+            segment.maximumTrackTintColor = self.colorTheme.bodyColor
+            segment.userInteractionEnabled = false
+            segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
+            segment.translatesAutoresizingMaskIntoConstraints = false
+            segment.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+            segment.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+            segment.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+            segment.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+
+            return segment
+        }
+
+        if type == .Message {
+            
+            let icon = UIImage(named: "text-message-icon", inBundle: nil, compatibleWithTraitCollection: nil)!
+            let segment = UIImageView(image: icon)
+            
+            segment.sizeToFit()
+            segment.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+            segment.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Vertical)
+            segment.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+            segment.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+            segment.translatesAutoresizingMaskIntoConstraints = false
+
+            segment.contentMode = .Center
+            
+            return segment
+            
+        }
         
-        segment.backgroundColor = UIColor.clearColor()
-        segment.exclusiveTouch = true
-        segment.minimumTrackTintColor = self.colorTheme.bodyColor
-        segment.maximumTrackTintColor = self.colorTheme.bodyColor
-        segment.userInteractionEnabled = false
-        segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
-        segment.translatesAutoresizingMaskIntoConstraints = false
-        
-        return segment
+        return UIView()
     }
     
     var previousSegment: UISlider?    
@@ -240,37 +305,30 @@ public class PlaybackIndicator: UIView
     func handleTouchAtPoint(aPoint: CGPoint)
     {
         var point = aPoint
-        
         point.y = self.bounds.height / 2
-        
         let view = self.hitTest(point, withEvent: nil)
         
-        guard let segment = view as? PlaybackSegment else
+        guard let segment = view as? PlaybackSegmentView else
         {
             return
         }
         
         let pointOnSegment = segment.convertPoint(point, fromView: self)
-        
         let relativePosition = pointOnSegment.x / segment.bounds.width
         
         if segment != previousSegment
         {
-            
             guard let newSegmentIndex = stackView.arrangedSubviews.indexOf(segment) else
             {
                 return;
             }
             
             currentSegment = newSegmentIndex
-        
             previousSegment = segment;
         }
         
         segmentProgress = Float(relativePosition)
-        
         delegate?.didSeekToPosition(relativePosition, ofSegmentWithIndex: currentSegment)
-        
     }
     
     func segmentAtIndex(index: Int) -> UISlider?
@@ -288,13 +346,11 @@ public class PlaybackIndicator: UIView
         return nil
     }
     
-    @objc func didStartDragging()
-    {
+    @objc func didStartDragging() {
         delegate?.didStartDragging()
     }
     
-    @objc func didFinishDragging()
-    {
+    @objc func didFinishDragging() {
         delegate?.didFinishDragging()
     }
 

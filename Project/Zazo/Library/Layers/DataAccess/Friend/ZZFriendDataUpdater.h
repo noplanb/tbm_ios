@@ -17,7 +17,7 @@
 
 + (void)updateFriendWithID:(NSString *)friendID setLastIncomingVideoStatus:(ZZVideoIncomingStatus)status;
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoStatus:(ZZVideoOutgoingStatus)status;
-+ (void)updateFriendWithID:(NSString *)friendID setLastEventType:(ZZLastEventType)type;
++ (void)updateFriendWithID:(NSString *)friendID setLastEventType:(ZZIncomingEventType)type;
 + (void)updateFriendWithID:(NSString *)friendID setUploadRetryCount:(NSUInteger)count;
 + (void)updateFriendWithID:(NSString *)friendID setLastVideoStatusEventType:(ZZVideoStatusEventType)eventType;
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID;

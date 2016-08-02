@@ -53,7 +53,7 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, assign) ZZVideoStatusEventType lastVideoStatusEventType;
 @property (nonatomic, assign) ZZVideoIncomingStatus lastIncomingVideoStatus;
 @property (nonatomic, assign) BOOL everSent;
-@property (nonatomic, assign) ZZLastEventType lastEventType;
+@property (nonatomic, assign) ZZIncomingEventType lastEventType;
 
 @property (nonatomic, copy) NSString *outgoingVideoItemID;
 

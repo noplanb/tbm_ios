@@ -39,7 +39,7 @@
     }];
 }
 
-+ (void)updateFriendWithID:(NSString *)friendID setLastEventType:(ZZLastEventType)type
++ (void)updateFriendWithID:(NSString *)friendID setLastEventType:(ZZIncomingEventType)type
 {
     [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.lastEventTypeValue = type;

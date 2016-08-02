@@ -14,6 +14,7 @@
 #import "ZZFileHelper.h"
 #import "ZZVideoDataProvider.h"
 #import "NSArray+ANAdditions.h"
+#import "ZZSegmentSchemeItem.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -24,6 +25,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
+@property (nonatomic, strong) MessagePopoperController *popoverController;
+
 @property (nonatomic, strong) PlaybackIndicator *indicator;
 
 @property (nonatomic, strong, readonly) AVPlayerItem *currentItem;
@@ -32,6 +35,13 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 // All videos:
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *allVideoModels; // video models passed to player
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *loadedVideoModels; // video models to play
+
+// Text messages:
+@property (nonatomic, strong) NSArray <ZZMessageDomainModel *> *messages;
+
+// Text + video
+@property (nonatomic, strong) NSArray <id<ZZSegmentSchemeItem>> *mixedModels;
+- (void)updateMixedModels;
 
 @property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
 @property (nonatomic, strong, readwrite) ZZFriendDomainModel *currentFriendModel;
@@ -79,32 +89,24 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel
 {
     [self stop];
-    
     self.dragging = NO;
-    
     NSArray <ZZVideoDomainModel *> *videoModels = friendModel.videos;
-    
-    self.allVideoModels = [self _filterVideoModels:videoModels];    
+    self.allVideoModels = [self _filterVideoModels:videoModels];
+    self.messages = friendModel.messages;
+    [self updateMixedModels];
     
     [[AVAudioSession sharedInstance] startPlaying]; // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
-    
     self.currentFriendModel = friendModel;
-    
     [self _prepareToPlay];
-    
     [self _loadVideoModels:self.allVideoModels];
-    
     [self _startPlayingIfPossible];
-    
-    [self updateVideoCount:self.allVideoModels.count];
+    [self updateVideoCount];
 }
 
 - (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel
 {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-    
     NSArray *actualVideos = [friendModel.videos sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
     ZZVideoDomainModel *videoModel = [actualVideos lastObject];
     
     if (videoModel.incomingStatusValue != ZZVideoIncomingStatusDownloaded) {
@@ -125,6 +127,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self _loadModel:videoModel];
     
     self.allVideoModels = [self.allVideoModels arrayByAddingObject:videoModel];
+    [self updateMixedModels];
     
     [self _updateSegments];
     
@@ -335,6 +338,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.loadedVideoModels = [self.loadedVideoModels zz_arrayWithoutObject:videoModel];
     
     self.allVideoModels = [self.allVideoModels zz_arrayWithoutObject:videoModel];
+    [self updateMixedModels];
     
     AVPlayerItem *item = [self _itemForVideoModel:videoModel];
     
@@ -479,15 +483,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 {
     NSUInteger currentSegmentIndex = [self.allVideoModels indexOfObject:self.currentVideoModel];
     
-    [self updateVideoCount:self.loadedVideoModels.count];
+    [self updateVideoCount];
     [self updateCurrentVideoIndex:currentSegmentIndex];
 }
 
-- (void)_playNextOrStop
+- (void)_playNextVideoOrStop
 {
     if ([self _isAblePlayNext])
     {
-        [self _playNext];
+        [self _continueAfterItem:self.currentVideoModel];
     }
     else
     {
@@ -497,10 +501,10 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (BOOL)_isAblePlayNext
 {
-    return self.currentVideoModel != self.loadedVideoModels.lastObject;
+    return [self _itemAfterTimestamp:[self.currentVideoModel timestamp]];
 }
 
-- (void)_playNext
+- (void)_playNextVideo
 {
     [self.player advanceToNextItem];
     [self updateCurrentVideoIndex:[self.allVideoModels indexOfObject:self.currentVideoModel]];
@@ -520,8 +524,84 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     if (self.isPlayingVideo)
     {
-        [self _playNextOrStop];
+        [self _playNextVideoOrStop];
     }
+}
+
+- (void)_showMessage:(ZZMessageDomainModel *)messageModel
+{
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:messageModel.friendID];
+    
+    MessagePopoperModel *popoverModel = [MessagePopoperModel new];
+    popoverModel.text = messageModel.body;
+    popoverModel.name = friendModel.fullName;
+    popoverModel.date = [NSDate dateWithTimeIntervalSince1970:messageModel.timestamp];
+    
+    self.popoverController = [[MessagePopoperController alloc] initWithModel:popoverModel];
+    [self.popoverController showFrom:self.playerView];
+    
+//    ZZLogInfo(@"🐥");
+//    [self _continueAfterItem:messageModel];
+}
+
+- (void)_continueAfterItem:(id<ZZSegmentSchemeItem>)item
+{
+    id<ZZSegmentSchemeItem> nextItem = [self _itemAfterTimestamp:[item timestamp]];
+    
+    if (!nextItem) {
+        [self stop];
+        return;
+    }
+    
+    if ([nextItem type] == ZZIncomingEventTypeVideo)
+    {
+        [self _playNextVideo];
+        return;
+    }
+    
+    // else:
+    
+    ZZMessageDomainModel *messageModel = [self _messageAfterTimestamp:[item timestamp]];
+    
+    if (!messageModel) {
+        ZZLogWarning(@"Unexpected behaviour");
+        return;
+    }
+    
+    [self _showMessage:messageModel];
+}
+
+- (id<ZZSegmentSchemeItem>)_itemAfterTimestamp:(NSTimeInterval)timestamp
+{
+    for (id<ZZSegmentSchemeItem> item in self.mixedModels) {
+        if ([item timestamp] > timestamp) {
+            return item;
+        }
+    }
+    
+    return nil;
+}
+
+- (ZZMessageDomainModel *)_messageAfterTimestamp:(NSTimeInterval)timestamp
+{
+    for (ZZMessageDomainModel *messageModel in self.messages) {
+        if ([messageModel timestamp] > timestamp) {
+            return messageModel;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)updateMixedModels
+{
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
+    
+    NSArray <id<ZZSegmentSchemeItem>> *items = self.messages;
+    items = [items arrayByAddingObjectsFromArray:self.allVideoModels];
+    items = [items sortedArrayUsingDescriptors:@[descriptor]];
+
+    self.mixedModels = items;
 }
 
 - (void)_failedToPlayCurrentVideo
@@ -534,7 +614,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         CGFloat delayAfterToastRemoved = 0.4;
         
         ANDispatchBlockAfter(delayAfterToastRemoved, ^{
-            [self _playNextOrStop];
+            [self _playNextVideoOrStop];
         });
     });
 }
@@ -554,9 +634,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.currentFriendModel = nil;
 }
 
-- (void)updateVideoCount:(NSInteger)count
+- (void)updateVideoCount
 {
-    self.indicator.segmentCount = count;
+    self.indicator.segmentScheme = [self.mixedModels.rac_sequence map:^id(NSObject<ZZSegmentSchemeItem> *item) {
+        return [[PlaybackSegment alloc] initWithType:item.type];
+    }].array;
 }
 
 - (void)updateCurrentVideoIndex:(NSInteger)index

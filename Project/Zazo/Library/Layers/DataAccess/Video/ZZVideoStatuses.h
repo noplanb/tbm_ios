@@ -38,9 +38,9 @@ typedef NS_ENUM(NSInteger, ZZVideoStatusEventType)
     ZZVideoStatusEventTypeOutgoing
 };
 
-typedef NS_ENUM(NSUInteger, ZZLastEventType) {
-    ZZLastEventTypeVideo,
-    ZZLastEventTypeMessage
+typedef NS_ENUM(NSUInteger, ZZIncomingEventType) {
+    ZZIncomingEventTypeVideo,
+    ZZIncomingEventTypeMessage
 };
 
 NSString *ZZVideoIncomingStatusShortStringFromEnumValue(ZZVideoIncomingStatus);

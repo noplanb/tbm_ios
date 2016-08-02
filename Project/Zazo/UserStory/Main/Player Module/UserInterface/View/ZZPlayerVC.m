@@ -214,7 +214,7 @@
     [playbackIndicator mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.centerY.equalTo(self.dimView.mas_bottom).offset(-1);
-        make.height.equalTo(@22);
+        make.height.equalTo(@32);
     }];
     
     RAC(playbackIndicator, hidden) = RACObserve([ZZGridActionStoredSettings shared], playbackControlsFeatureEnabled).not;

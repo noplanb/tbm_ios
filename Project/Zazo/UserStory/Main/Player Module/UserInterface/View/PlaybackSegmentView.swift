@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlaybackSegment: UISlider {
+class PlaybackSegmentView: UISlider {
     
     override func trackRectForBounds(bounds: CGRect) -> CGRect {
         
@@ -27,5 +27,15 @@ class PlaybackSegment: UISlider {
         }
         
         return nil
+    }
+    
+    var preferredWidth = CGFloat(50) {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+   
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: preferredWidth, height: UIViewNoIntrinsicMetric)
     }
 }

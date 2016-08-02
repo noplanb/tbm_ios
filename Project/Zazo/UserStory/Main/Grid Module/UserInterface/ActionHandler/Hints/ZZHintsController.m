@@ -60,7 +60,12 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
     if (model.type == ZZHintsTypePlaybackControlsUsageHint)
     {
         PlaybackIndicator *indicator = [PlaybackIndicator new];
-        indicator.segmentCount = 3;
+        
+        NSArray *scheme = @[[[PlaybackSegment alloc] initWithType:ZZIncomingEventTypeVideo],
+                            [[PlaybackSegment alloc] initWithType:ZZIncomingEventTypeVideo],
+                            [[PlaybackSegment alloc] initWithType:ZZIncomingEventTypeVideo]];
+        
+        indicator.segmentScheme = scheme;
         indicator.segmentProgress = 0.5;
         
         [self.hintsView addSubview:indicator];
