@@ -68,13 +68,9 @@
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel
 {
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
-
     [self _setPlayerVisible:YES];
-
     [self.playerController playVideoForFriend:friendModel];
-    
     [self _updatePlayersFrame];
-    
 }
 
 - (BOOL)isPlayingVideo
@@ -86,8 +82,7 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
-    [self.delegate videoPlayerDidStartVideoModel:videoModel];
-    
+    [self.delegate videoPlayerDidStartVideoModel:videoModel];    
     [self _showDateForVideoModel:videoModel];
     
     [[ZZVideoStatusHandler sharedInstance]

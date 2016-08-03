@@ -21,7 +21,7 @@
 
 static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
-@interface ZZPlayerController () <PlaybackIndicatorDelegate>
+@interface ZZPlayerController () <PlaybackIndicatorDelegate, MessagePopoperControllerDelegate>
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
@@ -136,11 +136,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)_prepareToPlay
 {
     [self stop];
-    
     [self _makePlayer];
-    
     self.isPlayingVideo = YES;
-    
 }
 
 - (void)didStartDragging
@@ -334,9 +331,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }
     
     ZZLogInfo(@"Unloading %@ | index = %ld", videoModel.videoID, (long)index);
-    
     self.loadedVideoModels = [self.loadedVideoModels zz_arrayWithoutObject:videoModel];
-    
     self.allVideoModels = [self.allVideoModels zz_arrayWithoutObject:videoModel];
     [self updateMixedModels];
     
@@ -470,7 +465,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         {
             [unavailableVideos addObject:obj];
         }
-        
     }];
     
     if (!ANIsEmpty(unavailableVideos))
@@ -539,9 +533,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     self.popoverController = [[MessagePopoperController alloc] initWithModel:popoverModel];
     [self.popoverController showFrom:self.playerView];
-    
-//    ZZLogInfo(@"🐥");
-//    [self _continueAfterItem:messageModel];
+    self.popoverController.delegate = self;
 }
 
 - (void)_continueAfterItem:(id<ZZSegmentSchemeItem>)item
@@ -659,7 +651,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)setMuted:(BOOL)muted
 {
     _muted = muted;
-    
     self.player.volume = (float)!muted;
 }
 
@@ -669,6 +660,13 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (BOOL)paused {
     return self.player.rate;
+}
+
+#pragma mark MessagePopoperControllerDelegate
+
+- (void)messagePopoperControllerWithDidDismiss:(MessagePopoperController *)controller
+{
+    [self stop];
 }
 
 @end

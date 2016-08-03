@@ -9,6 +9,10 @@
 import Foundation
 import Popover
 
+@objc protocol MessagePopoperControllerDelegate: NSObjectProtocol {
+    func messagePopoperController(didDismiss controller: MessagePopoperController)
+}
+
 @objc public class MessagePopoperModel: NSObject {
     var date: NSDate!
     var text: String!
@@ -17,13 +21,22 @@ import Popover
 
 @objc public class MessagePopoperController: NSObject {
 
+    var delegate: MessagePopoperControllerDelegate?
     let text: NSAttributedString
-    let popover = Popover()
+    var popover: Popover!
+    var isBeingDismissedExternally = false
     
     init(model: MessagePopoperModel) {
         let textMaker = MessagePopoverTextMaker()
         text = textMaker.makeText(for: model)
+        
         super.init()
+        
+        popover = Popover(showHandler: nil, dismissHandler: {
+            self.didDismiss()
+        })
+        popover.blackOverlayColor = UIColor.clearColor()
+        
     }
     
     public func show(from view: UIView) {
@@ -52,22 +65,35 @@ import Popover
     }
     
     public func dismiss() {
+        isBeingDismissedExternally = true
         popover.dismiss()
+    }
+    
+    func didDismiss() {
+        if !isBeingDismissedExternally {
+            delegate?.messagePopoperController(didDismiss: self)
+        }
     }
     
     func textView() -> UITextView {
         let textView = UITextView()
         textView.attributedText = text
         textView.editable = false
+        textView.textContainerInset = UIEdgeInsetsMake(0, 4, 8, 4)
         textView.sizeToFit()
         return textView
     }
-    
 }
 
 public class MessagePopoverTextMaker {
     
     typealias attributes = [String : AnyObject]
+    let dateFormatter = NSDateFormatter()
+    
+    init() {
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .ShortStyle
+    }
     
     public func makeText(for model: MessagePopoperModel) -> NSAttributedString {
         
@@ -75,7 +101,7 @@ public class MessagePopoverTextMaker {
         
         let title = NSAttributedString(string: model.name, attributes: attributesForTitle())
         let body = NSAttributedString(string: model.text, attributes: attributesForBody())
-        let date = NSAttributedString(string: model.date.description, attributes: attributesForDate())
+        let date = NSAttributedString(string: dateFormatter.stringFromDate(model.date) , attributes: attributesForDate())
         
         let linebreak = NSAttributedString(string: "\n")
         
@@ -89,18 +115,27 @@ public class MessagePopoverTextMaker {
     }
     
     func attributesForTitle() -> attributes {
-        return [NSFontAttributeName: UIFont.systemFontOfSize(14),
+        return [NSFontAttributeName: UIFont.systemFontOfSize(18),
+                NSParagraphStyleAttributeName: paragraphAttributes(),
                 NSForegroundColorAttributeName: ZZColorTheme.shared().tintColor]
     }
     
     func attributesForBody() -> attributes {
-        return [NSFontAttributeName: UIFont.systemFontOfSize(12)]
+        return [NSFontAttributeName: UIFont.systemFontOfSize(16),
+                NSParagraphStyleAttributeName: paragraphAttributes()]
 
     }
     
     func attributesForDate() -> attributes {
-        return [NSFontAttributeName: UIFont.systemFontOfSize(11),
+        return [NSFontAttributeName: UIFont.systemFontOfSize(14),
+                NSParagraphStyleAttributeName: paragraphAttributes(),
                 NSForegroundColorAttributeName: UIColor.grayColor()]
 
+    }
+    
+    func paragraphAttributes() -> NSParagraphStyle {
+        let style = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        style.lineHeightMultiple = 1.3
+        return style
     }
 }
