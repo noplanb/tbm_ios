@@ -26,15 +26,17 @@ public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {
         
-        let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey)
-        
+        let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.owner_mkey)
         let messageModel = ZZMessageDomainModel()
         
         messageModel.body = m.body
         messageModel.friendID = friendModel.idTbm
         messageModel.setMessageTypeAsString(m.type)
         messageModel.messageID = m.message_id
-            
+        
+        ZZMessageDataUpdater.deleteReadMessagesForFriendWithID(friendModel.idTbm)
+        ZZVideoDataUpdater.deleteAllViewedVideosWithFriendID(friendModel.idTbm, exceptVideoWithID: ZZVideoStatusHandler.sharedInstance().currentlyPlayedVideoID)
+        
         ZZMessageDataUpdater.insertMessage(messageModel)
         ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
         

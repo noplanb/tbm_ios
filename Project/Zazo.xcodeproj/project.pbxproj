@@ -245,6 +245,8 @@
 		15443A9A1D255A91009F55CD /* TranscriptItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A991D255A91009F55CD /* TranscriptItemView.swift */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		1582971E1D5349360028AEF0 /* ZZPlayerQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */; };
+		158297221D5362050028AEF0 /* ZZVideoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 158297211D5362050028AEF0 /* ZZVideoObserver.m */; };
 		1583CDB51C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
 		1583CDB61C92C696001B30D1 /* ZZDownloadErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */; };
 		158960341CB7B61D0040D8E3 /* ANBaseListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15895F511CB7B61D0040D8E3 /* ANBaseListTableCell.m */; };
@@ -1256,6 +1258,10 @@
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
+		1582971C1D5349360028AEF0 /* ZZPlayerQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerQueue.h; sourceTree = "<group>"; };
+		1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerQueue.m; sourceTree = "<group>"; };
+		158297201D5362050028AEF0 /* ZZVideoObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoObserver.h; sourceTree = "<group>"; };
+		158297211D5362050028AEF0 /* ZZVideoObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoObserver.m; sourceTree = "<group>"; };
 		1583CDB31C92C696001B30D1 /* ZZDownloadErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDownloadErrorHandler.h; sourceTree = "<group>"; };
 		1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDownloadErrorHandler.m; sourceTree = "<group>"; };
 		15895F501CB7B61D0040D8E3 /* ANBaseListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseListTableCell.h; sourceTree = "<group>"; };
@@ -3874,6 +3880,10 @@
 				1522AB831D2FB753001A8D82 /* ZZPlayerController.m */,
 				3E3383DE1D50C2F400F533F7 /* ZZSegmentSchemeItem.h */,
 				3E3383DF1D50C31500F533F7 /* ZZSegmentSchemeItem.m */,
+				1582971C1D5349360028AEF0 /* ZZPlayerQueue.h */,
+				1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */,
+				158297201D5362050028AEF0 /* ZZVideoObserver.h */,
+				158297211D5362050028AEF0 /* ZZVideoObserver.m */,
 			);
 			path = ZZPlayerController;
 			sourceTree = "<group>";
@@ -6350,6 +6360,7 @@
 				7952764B1BA6B4AB00E506D5 /* ZZContactCellViewModel.m in Sources */,
 				07636EA21BA49A0100925671 /* ZZSecretInteractor.m in Sources */,
 				152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */,
+				1582971E1D5349360028AEF0 /* ZZPlayerQueue.m in Sources */,
 				07636E321BA49A0100925671 /* ZZAccountTransport.m in Sources */,
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				153550501D3E357F0080BE9A /* ComposeInteractor.swift in Sources */,
@@ -6598,6 +6609,7 @@
 				18E042AF1BBC2A3300318C6F /* ZZGridDataUpdater.m in Sources */,
 				07636E1D1BA49A0100925671 /* UIImage+ANDefault.m in Sources */,
 				158960501CB7B61D0040D8E3 /* UITextField+ANThemes.m in Sources */,
+				158297221D5362050028AEF0 /* ZZVideoObserver.m in Sources */,
 				07636ED51BA49A0100925671 /* ZZContactsDataSource.m in Sources */,
 				7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */,
 				152594E21CE8C9F200DDA507 /* ZZPlayerVC.m in Sources */,

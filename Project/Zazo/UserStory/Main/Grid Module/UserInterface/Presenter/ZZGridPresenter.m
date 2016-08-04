@@ -165,8 +165,6 @@
 {
     [self.dataSource updateCellWithModel:gridModel];
 
-    [self _appendVideoIfNeeded:gridModel];
-        
     if (gridModel.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
             gridModel.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
     {
@@ -223,21 +221,6 @@
     }
 
     return YES;
-}
-
-- (void)_appendVideoIfNeeded:(ZZGridDomainModel *)gridModel
-{
-    if (![[self.videoPlayer playedFriendModel].idTbm isEqualToString:gridModel.relatedUser.idTbm])
-    {
-        return;
-    }
-    
-    if (gridModel.relatedUser.lastIncomingVideoStatus != ZZVideoIncomingStatusDownloaded)
-    {
-        return;
-    }
-    
-    [self.videoPlayer appendLastVideoFromFriendModel:gridModel.relatedUser];
 }
 
 #pragma mark - Output

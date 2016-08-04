@@ -17,7 +17,8 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 @protocol ZZPlayerControllerDelegate
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
-- (void)videoPlayerDidCompletePlaying;
+- (void)videoPlayerDidCompletePlaying:(ZZVideoDomainModel *)videoModel;
+
 - (void)videoPlayerDidReceiveError:(NSError *)error;
 - (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion;
 
@@ -36,9 +37,8 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 @property (nonatomic, strong, readonly) UIView *playerView;
 @property (nonatomic, strong, readonly) UIView *playbackIndicator;
 
-@property (nonatomic, strong, readonly) ZZFriendDomainModel *currentFriendModel;
+@property (nonatomic, strong, readonly) ZZFriendDomainModel *friendModel;
 
-- (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel; // adds last video to playback queue
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel;
 - (void)stop;
 

@@ -58,11 +58,6 @@
     self.userInterface.playbackIndicator = self.playerController.playbackIndicator;
 }
 
-- (void)appendLastVideoFromFriendModel:(ZZFriendDomainModel *)friendModel
-{
-    [self.playerController appendLastVideoFromFriendModel:friendModel];
-}
-
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel
 {
     [ZZGridActionStoredSettings shared].incomingVideoWasPlayed = YES;
@@ -80,16 +75,18 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
+    
     [self.delegate videoPlayerDidStartVideoModel:videoModel];    
     [self _showDateForVideoModel:videoModel];
     
     [[ZZVideoStatusHandler sharedInstance]
-     setAndNotityViewedIncomingVideoWithFriendID:self.playerController.currentFriendModel.idTbm videoID:videoModel.videoID];
+     setAndNotityViewedIncomingVideoWithFriendID:friendModel.idTbm videoID:videoModel.videoID];
     
     [[ZZRemoteStorageTransportService updateRemoteStatusForVideoWithItemID:videoModel.videoID
                                                                   toStatus:ZZRemoteStorageVideoStatusViewed
-                                                                friendMkey:self.playerController.currentFriendModel.mKey
-                                                                friendCKey:self.playerController.currentFriendModel.cKey] subscribeNext:^(id x) {}];
+                                                                friendMkey:friendModel.mKey
+                                                                friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
     
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = videoModel.videoID;
 }
@@ -99,9 +96,11 @@
     [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
 }
 
-- (void)videoPlayerDidCompletePlaying
+- (void)videoPlayerDidCompletePlaying:(ZZVideoDomainModel *)videoModel
 {
-    [self.delegate videoPlayerDidFinishPlayingWithModel:self.playerController.currentFriendModel];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
+
+    [self.delegate videoPlayerDidFinishPlayingWithModel:friendModel];
     
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     [self _setPlayerVisible:NO];
@@ -174,7 +173,7 @@
 
 - (void)_updatePlayersFrame
 {
-    CGRect cellFrame = [self.grid frameOfViewForFriendModelWithID:self.playerController.currentFriendModel.idTbm];
+    CGRect cellFrame = [self.grid frameOfViewForFriendModelWithID:self.playerController.friendModel.idTbm];
     
     cellFrame = [self.userInterface.view convertRect:cellFrame
                                             fromView:self.userInterface.view.window];
@@ -193,7 +192,7 @@
 
 - (ZZFriendDomainModel *)playedFriendModel
 {
-    return self.playerController.currentFriendModel;
+    return self.playerController.friendModel;
 }
 
 - (void)showFullscreen

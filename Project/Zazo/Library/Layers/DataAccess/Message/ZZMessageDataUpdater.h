@@ -13,5 +13,6 @@
 
 + (void)insertMessage:(ZZMessageDomainModel *)message; 
 + (void)updateMessageWithID:(NSString *)messageID setStatus:(ZZMessageStatus)status;
++ (void)deleteReadMessagesForFriendWithID:(NSString *)friendID;
 
 @end

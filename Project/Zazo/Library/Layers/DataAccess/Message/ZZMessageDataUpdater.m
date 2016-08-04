@@ -69,5 +69,18 @@
     });
 }
 
++ (void)deleteReadMessagesForFriendWithID:(NSString *)friendID
+{
+        ZZLogInfo(@"deleteAllViewedMessages friendID: %@", friendID);
+                
+        ANDispatchBlockToMainQueue(^{
+            
+            NSPredicate *friendPredicate = [NSPredicate predicateWithFormat:@"friend.idTbm = %@", friendID];
+            NSPredicate *statusPredicate = [NSPredicate predicateWithFormat:@"status = %d", ZZMessageStatusRead];
+            NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[friendPredicate, statusPredicate]];
+                
+            [TBMMessage MR_deleteAllMatchingPredicate:predicate];
+        });
+}
 
 @end

@@ -368,12 +368,7 @@ public class PlaybackIndicator: UIView
             return nil
         }
         
-        if let slider = stackView.arrangedSubviews[index] as? UIView
-        {
-            return slider
-        }
-        
-        return nil
+        return stackView.arrangedSubviews[index]
     }
     
     @objc func didStartDragging() {

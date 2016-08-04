@@ -43,12 +43,8 @@ import Popover
     
     public func show(from view: UIView) {
         
-        guard let rootView = view.window?.rootViewController?.view else {
-            return
-        }
-        
-        var point = view.center        
-        let isTopCell = point.y < rootView.frame.height / 2
+        var point = view.center
+        let isTopCell = point.y < self.containerView.frame.height / 2
         
         point.y += UIApplication.sharedApplication().statusBarFrame.height
         
