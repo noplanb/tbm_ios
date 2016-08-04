@@ -13,7 +13,7 @@
 @property (nonatomic, assign) CGRect initialPlayerFrame;
 
 - (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;
-
 - (void)updatePlayerText:(NSString *)text;
+- (void)setNextButtonVisible:(BOOL)flag;
 
 @end

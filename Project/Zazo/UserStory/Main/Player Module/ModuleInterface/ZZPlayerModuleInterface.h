@@ -22,5 +22,6 @@
 // UI events:
 
 - (void)didTapVideo;
+- (void)didTapNextMessageButton;
 
 @end

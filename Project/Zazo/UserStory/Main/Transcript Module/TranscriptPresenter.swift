@@ -54,6 +54,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
             self.logic.startRecognizingVideos(for: friendID)
         }
         
+        playbackController.hideTextMessages = true
     }
     
     // MARK: TranscriptLogicOutput

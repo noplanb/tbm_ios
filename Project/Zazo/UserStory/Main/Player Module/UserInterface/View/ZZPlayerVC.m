@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIView *dimView;
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, strong) VideoPlayerFullscreenHelper *fullscreenHelper;
+@property (nonatomic, strong) AndroidButton *nextButton;
 
 @end
 
@@ -42,6 +43,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.contentView.presentingView = self.presentingViewController.view;
+}
+
+- (AndroidButton *)nextButton
+{
+    if (!_nextButton)
+    {
+        _nextButton = [[AndroidButton alloc] initWithAndroidButtonOfType:AndroidButtonTypeNext];
+        [self.view addSubview:_nextButton];
+        
+        [_nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view).offset(-16);
+            make.bottom.equalTo(self.dimView).offset(-16);
+        }];
+        
+        [_nextButton addTarget:self
+                        action:@selector(didTapNextButton)
+              forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _nextButton;
 }
 
 - (UIButton *)tapButton
@@ -127,7 +148,13 @@
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [super viewDidLoad];
+}
 
+#pragma mark Events
+
+- (void)didTapNextButton
+{
+    [self.eventHandler didTapNextMessageButton];
 }
 
 #pragma mark Properties
@@ -154,7 +181,6 @@
     }
     
     origin.x -= 4; // move little bit left
-    
     self.textLabel.origin = origin;
 }
 
@@ -175,6 +201,12 @@
 
 #pragma mark Input
 
+- (void)setNextButtonVisible:(BOOL)flag
+{
+    self.nextButton.hidden = !flag;
+    [self.view bringSubviewToFront:self.nextButton];
+}
+
 - (void)setInitialPlayerFrame:(CGRect)initialPlayerFrame
 {
     [self.dimView layoutIfNeeded];
@@ -190,11 +222,8 @@
     }
     
     _initialPlayerFrame = initialPlayerFrame;
-
     [self updateTextLabel];
-
     self.fullscreenHelper.initialFrame = initialPlayerFrame;
- 
     [self _makeBaseView];
 
 }
@@ -207,14 +236,26 @@
 
 - (void)setPlaybackIndicator:(UIView *)playbackIndicator
 {
-    _playbackIndicator = playbackIndicator;
+    _playbackIndicator = playbackIndicator;    
     
-    [self.view addSubview:playbackIndicator];
+    UIView *indicatorBackground = [UIView new];
+    indicatorBackground.backgroundColor = [UIColor whiteColor];
     
-    [playbackIndicator mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:indicatorBackground];
+    
+    [indicatorBackground mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.centerY.equalTo(self.dimView.mas_bottom).offset(-1);
-        make.height.equalTo(@32);
+        make.top.equalTo(self.dimView.mas_bottom);
+        make.height.equalTo(@(ZZTabbarViewHeight));
+    }];
+    
+    [indicatorBackground addSubview:playbackIndicator];
+    
+    [playbackIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(indicatorBackground.mas_leftMargin);
+        make.right.equalTo(indicatorBackground.mas_rightMargin);
+        make.top.equalTo(indicatorBackground);
+        make.bottom.equalTo(indicatorBackground);
     }];
     
     RAC(playbackIndicator, hidden) = RACObserve([ZZGridActionStoredSettings shared], playbackControlsFeatureEnabled).not;
@@ -223,13 +264,10 @@
 - (void)setPlayerView:(UIView *)playerView
 {
     _playerView = playerView;
-    
     [self.view addSubview:playerView];
     [playerView addSubview:self.tapButton];
-    
     self.fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:playerView];
     RAC(self.fullscreenHelper, enabled) = RACObserve([ZZGridActionStoredSettings shared], fullscreenFeatureEnabled);
-
 }
 
 - (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;
@@ -241,14 +279,18 @@
     
     if (!enabled && self.fullscreenHelper.isFullscreen)
     {
-        [self.fullscreenHelper completeAnimatedToPosition:0 velocity:1 completion:^(BOOL finished) {
+        [self.fullscreenHelper completeAnimatedToPosition:0
+                                                 velocity:1
+                                               completion:^(BOOL finished) {
             completion();
         }];
     }
     
     if (enabled && !self.fullscreenHelper.isFullscreen)
     {
-        [self.fullscreenHelper completeAnimatedToPosition:0 velocity:1 completion:^(BOOL finished) {
+        [self.fullscreenHelper completeAnimatedToPosition:0
+                                                 velocity:1
+                                               completion:^(BOOL finished) {
             completion();
         }];
     }
@@ -258,6 +300,5 @@
         completion();
     }
 }
-
 
 @end

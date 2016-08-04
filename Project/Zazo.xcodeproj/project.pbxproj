@@ -232,6 +232,7 @@
 		153682441C99539D006EDC12 /* ZZMainWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823D1C99539D006EDC12 /* ZZMainWireframe.m */; };
 		153682451C99539D006EDC12 /* ZZMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1536823F1C99539D006EDC12 /* ZZMain.m */; };
 		153AF2231C96C7D600AB11D9 /* ZZCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB4FB687187A5E0FF378E /* ZZCacheCleaner.m */; };
+		153CF0501D52375B005893A7 /* AndroidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153CF04F1D52375B005893A7 /* AndroidButton.swift */; };
 		15443A861D252539009F55CD /* TranscriptModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */; };
 		15443A881D25256A009F55CD /* TranscriptPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A871D25256A009F55CD /* TranscriptPresenter.swift */; };
 		15443A8A1D252575009F55CD /* TranscriptVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A891D252575009F55CD /* TranscriptVC.swift */; };
@@ -1240,6 +1241,8 @@
 		1536823D1C99539D006EDC12 /* ZZMainWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMainWireframe.m; sourceTree = "<group>"; };
 		1536823E1C99539D006EDC12 /* ZZMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMain.h; sourceTree = "<group>"; };
 		1536823F1C99539D006EDC12 /* ZZMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMain.m; sourceTree = "<group>"; };
+		153CF04E1D52375B005893A7 /* AndroidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndroidButton.h; sourceTree = "<group>"; };
+		153CF04F1D52375B005893A7 /* AndroidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AndroidButton.swift; sourceTree = "<group>"; };
 		15443A851D252539009F55CD /* TranscriptModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptModuleAssembly.swift; sourceTree = "<group>"; };
 		15443A871D25256A009F55CD /* TranscriptPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptPresenter.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptPresenter.swift"; sourceTree = SOURCE_ROOT; };
 		15443A891D252575009F55CD /* TranscriptVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranscriptVC.swift; path = "Zazo/UserStory/Main/Transcript Module/TranscriptVC.swift"; sourceTree = SOURCE_ROOT; };
@@ -3855,9 +3858,10 @@
 			isa = PBXGroup;
 			children = (
 				153260441D40FC50004298CB /* CRUD */,
+				1522AB811D2FB6E1001A8D82 /* ZZPlayerController */,
+				153CF04D1D52375B005893A7 /* AndroidButton */,
 				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
 				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
-				1522AB811D2FB6E1001A8D82 /* ZZPlayerController */,
 				3E7821FC1D48FE910007CAA2 /* Logging.swift */,
 			);
 			path = Classes;
@@ -4092,6 +4096,15 @@
 				1536823D1C99539D006EDC12 /* ZZMainWireframe.m */,
 			);
 			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		153CF04D1D52375B005893A7 /* AndroidButton */ = {
+			isa = PBXGroup;
+			children = (
+				153CF04E1D52375B005893A7 /* AndroidButton.h */,
+				153CF04F1D52375B005893A7 /* AndroidButton.swift */,
+			);
+			path = AndroidButton;
 			sourceTree = "<group>";
 		};
 		154C7F4A1C567EC000DFA0FD /* OBLogger */ = {
@@ -6266,6 +6279,7 @@
 				7997E4FA1BAABE85001697D5 /* UIColor+JFMinimalNotificationColors.m in Sources */,
 				07636E291BA49A0100925671 /* ZZVideoDataProvider.m in Sources */,
 				158960341CB7B61D0040D8E3 /* ANBaseListTableCell.m in Sources */,
+				153CF0501D52375B005893A7 /* AndroidButton.swift in Sources */,
 				15A1F9411CEC8DFC00BAC37D /* PlaybackSegmentView.swift in Sources */,
 				07E09E1A1BD5A69500A59389 /* ZZNotificationsHandler.m in Sources */,
 				15241ACB1CFC7F0F00758E1F /* EverSentHelper.swift in Sources */,

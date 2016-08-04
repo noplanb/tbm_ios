@@ -79,18 +79,19 @@ public class PlaybackIndicator: UIView
                 
         didSet {
             
-            guard oldValue != currentSegment else
-            {
-                return
+            guard oldValue != currentSegment else { return }
+            
+            if let iconView = segmentAtIndex(currentSegment) as? UIImageView {
+                animate(iconView)
             }
             
-            if let segment = segmentAtIndex(oldValue)
+            guard let oldSegment = segmentAtIndex(oldValue) else { return }
+            
+            if let slider = oldSegment as? UISlider
             {
-                segment.setThumbImage(emptySegmentPositionImage, forState: .Normal)
-                
-//                print("thumb cleared for \(currentSegment)")
+                slider.setThumbImage(emptySegmentPositionImage, forState: .Normal)
             }
-       
+            
         }
     }
     
@@ -99,7 +100,7 @@ public class PlaybackIndicator: UIView
     @objc public var segmentProgress: Float = 0 {
         didSet {
             
-            guard let segment = segmentAtIndex(currentSegment) else
+            guard let segment = segmentAtIndex(currentSegment) as? UISlider else
             {
                 return
             }
@@ -140,7 +141,6 @@ public class PlaybackIndicator: UIView
                                                    action: #selector(dragWithRecognizer))
         
         panRecognizer.delegate = self
-        
         addGestureRecognizer(panRecognizer)
 
         let recognizer = UITapGestureRecognizer(target: self,
@@ -276,10 +276,40 @@ public class PlaybackIndicator: UIView
         return UIView()
     }
     
+    private func animate(view: UIView) {
+        
+        UIView.animateWithDuration(0.2,
+                                   delay: 0,
+                                   usingSpringWithDamping: 1,
+                                   initialSpringVelocity: 1,
+                                   options: [],
+                                   animations: {
+                                    
+                                    view.transform = CGAffineTransformMakeScale(1.2, 1.2)
+                                    
+        }) { (completed) in
+            
+        }
+        
+        UIView.animateWithDuration(0.3,
+                                   delay: 0.2,
+                                   usingSpringWithDamping: 1,
+                                   initialSpringVelocity: 1,
+                                   options: [],
+                                   animations: {
+                                    
+                                    view.transform = CGAffineTransformIdentity
+                                    
+        }) { (completed) in
+            
+        }
+        
+        
+    }
+    
     var previousSegment: UISlider?    
     
-    @objc func dragWithRecognizer(recognizer: UIPanGestureRecognizer)
-    {
+    @objc func dragWithRecognizer(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state
         {
             case .Began:
@@ -331,14 +361,14 @@ public class PlaybackIndicator: UIView
         delegate?.didSeekToPosition(relativePosition, ofSegmentWithIndex: currentSegment)
     }
     
-    func segmentAtIndex(index: Int) -> UISlider?
+    func segmentAtIndex(index: Int) -> UIView?
     {
         guard stackView.arrangedSubviews.count > index else
         {
             return nil
         }
         
-        if let slider = stackView.arrangedSubviews[index] as? UISlider
+        if let slider = stackView.arrangedSubviews[index] as? UIView
         {
             return slider
         }

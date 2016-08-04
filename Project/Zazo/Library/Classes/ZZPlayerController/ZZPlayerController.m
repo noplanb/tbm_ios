@@ -21,12 +21,10 @@
 
 static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
-@interface ZZPlayerController () <PlaybackIndicatorDelegate, MessagePopoperControllerDelegate>
+@interface ZZPlayerController () <PlaybackIndicatorDelegate>
 
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
-@property (nonatomic, strong) MessagePopoperController *popoverController;
-
 @property (nonatomic, strong) PlaybackIndicator *indicator;
 
 @property (nonatomic, strong, readonly) AVPlayerItem *currentItem;
@@ -92,7 +90,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.dragging = NO;
     NSArray <ZZVideoDomainModel *> *videoModels = friendModel.videos;
     self.allVideoModels = [self _filterVideoModels:videoModels];
-    self.messages = friendModel.messages;
+    
+    if (!self.hideTextMessages) {
+        self.messages = friendModel.messages;        
+    }
+    
     [self updateMixedModels];
     
     [[AVAudioSession sharedInstance] startPlaying]; // Allow whether locked or unlocked. Users wont know about it till we tell them it is unlocked.
@@ -501,7 +503,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)_playNextVideo
 {
     [self.player advanceToNextItem];
-    [self updateCurrentVideoIndex:[self.allVideoModels indexOfObject:self.currentVideoModel]];
+    [self updateCurrentVideoIndex:[self.mixedModels indexOfObject:self.currentVideoModel]];
     [self _startPlayingIfPossible];
 }
 
@@ -530,10 +532,18 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     popoverModel.text = messageModel.body;
     popoverModel.name = friendModel.fullName;
     popoverModel.date = [NSDate dateWithTimeIntervalSince1970:messageModel.timestamp];
-    
-    self.popoverController = [[MessagePopoperController alloc] initWithModel:popoverModel];
-    [self.popoverController showFrom:self.playerView];
-    self.popoverController.delegate = self;
+
+    [[MessageHandler sharedInstance] markAsRead:messageModel];
+    [self updateCurrentVideoIndex:[self.mixedModels indexOfObject:messageModel]];
+
+    [self.delegate needsShowMessage:popoverModel completion:^(BOOL shouldContinue) {
+        if (shouldContinue) {
+            [self _continueAfterItem:messageModel];
+        }
+        else {
+            [self stop];
+        }
+    }];
 }
 
 - (void)_continueAfterItem:(id<ZZSegmentSchemeItem>)item
@@ -660,13 +670,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (BOOL)paused {
     return self.player.rate;
-}
-
-#pragma mark MessagePopoperControllerDelegate
-
-- (void)messagePopoperControllerWithDidDismiss:(MessagePopoperController *)controller
-{
-    [self stop];
 }
 
 @end

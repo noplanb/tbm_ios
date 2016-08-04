@@ -21,6 +21,8 @@ import Popover
 
 @objc public class MessagePopoperController: NSObject {
 
+    public var containerView: UIView = UIApplication.sharedApplication().keyWindow!
+    
     var delegate: MessagePopoperControllerDelegate?
     let text: NSAttributedString
     var popover: Popover!
@@ -60,7 +62,7 @@ import Popover
             point.y -= kLayoutConstNameLabelHeight
         }
         
-        popover.show(textView(), point: point)
+        popover.show(textView(), point: point, inView: self.containerView)
 
     }
     

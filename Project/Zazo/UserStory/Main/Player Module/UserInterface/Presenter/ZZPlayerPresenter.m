@@ -1,4 +1,3 @@
-
 //
 //  ZZPlayerPresenter.m
 //  Zazo
@@ -24,10 +23,11 @@
 #import "ZZPlayerController.h"
 
 
-@interface ZZPlayerPresenter () <ZZPlayerControllerDelegate>
+@interface ZZPlayerPresenter () <ZZPlayerControllerDelegate, MessagePopoperControllerDelegate>
 
 @property (nonatomic, strong) ZZPlayerController *playerController;
-
+@property (nonatomic, strong) MessagePopoperController *popoverController;
+@property (nonatomic, copy) ZZShowMessageCompletionBlock popoverCompletion;
 @end
 
 @implementation ZZPlayerPresenter
@@ -53,9 +53,7 @@
 - (void)configurePresenterWithUserInterface:(UIViewController<ZZPlayerViewInterface>*)userInterface
 {
     self.userInterface = userInterface;
-    
     [self.userInterface view]; // loading view
-    
     self.userInterface.playerView = self.playerController.playerView;
     self.userInterface.playbackIndicator = self.playerController.playbackIndicator;
 }
@@ -109,6 +107,31 @@
     [self _setPlayerVisible:NO];
 }
 
+- (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion
+{
+    self.popoverCompletion = completion;
+    self.popoverController = [[MessagePopoperController alloc] initWithModel:messageModel];
+    self.popoverController.delegate = self;
+    self.popoverController.containerView = self.userInterface.view;
+    [self.popoverController showFrom:self.playerController.playerView];
+    [self.userInterface setNextButtonVisible:YES];
+}
+
+- (void)callPopoverCompletion:(BOOL)shouldContinue
+{
+    [self.popoverController dismiss];
+    [self.userInterface setNextButtonVisible:NO];
+    
+    ZZShowMessageCompletionBlock completion = self.popoverCompletion;
+    self.popoverCompletion = nil;
+    
+    if (!completion) {
+        return;
+    }
+    
+    completion(shouldContinue);
+}
+
 #pragma mark UI events
 
 - (void)didTapVideo
@@ -117,6 +140,11 @@
     {
         [self stop];
     }
+}
+
+- (void)didTapNextMessageButton
+{
+    [self callPopoverCompletion:YES];
 }
 
 #pragma mark - Public
@@ -154,7 +182,6 @@
     CGFloat ZZCellBorderWidth = 4;
     
     cellFrame = CGRectOffset(cellFrame, -ZZCellBorderWidth, -ZZCellBorderWidth);
-    
     self.userInterface.initialPlayerFrame = cellFrame;
 
 }
@@ -209,5 +236,12 @@
     [self stop];
 }
 
+
+#pragma mark MessagePopoperControllerDelegate
+
+- (void)messagePopoperControllerWithDidDismiss:(MessagePopoperController *)controller
+{
+    [self callPopoverCompletion:NO];
+}
 
 @end
