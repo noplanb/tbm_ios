@@ -17,7 +17,7 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 @protocol ZZPlayerControllerDelegate
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
-- (void)videoPlayerDidCompletePlaying:(ZZVideoDomainModel *)videoModel;
+- (void)videoPlayerDidCompletePlaying;
 
 - (void)videoPlayerDidReceiveError:(NSError *)error;
 - (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion;

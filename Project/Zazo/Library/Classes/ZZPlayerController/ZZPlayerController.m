@@ -470,7 +470,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.isPlayingVideo = NO;
     
     [self.player pause];
-    [self.delegate videoPlayerDidCompletePlaying:self.currentVideoModel];
+    [self.delegate videoPlayerDidCompletePlaying];
     
     self.currentQueueItem = nil;
 }

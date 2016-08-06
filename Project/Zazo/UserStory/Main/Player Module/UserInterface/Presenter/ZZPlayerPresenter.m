@@ -75,7 +75,7 @@
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel
 {
-    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
+    ZZFriendDomainModel *friendModel = self.playerController.friendModel;
     
     [self.delegate videoPlayerDidStartVideoModel:videoModel];    
     [self _showDateForVideoModel:videoModel];
@@ -96,11 +96,9 @@
     [[iToast makeText:NSLocalizedString(@"video-player-not-playable", nil)] show];
 }
 
-- (void)videoPlayerDidCompletePlaying:(ZZVideoDomainModel *)videoModel
+- (void)videoPlayerDidCompletePlaying
 {
-    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:videoModel.relatedUserID];
-
-    [self.delegate videoPlayerDidFinishPlayingWithModel:friendModel];
+    [self.delegate videoPlayerDidFinishPlayingWithModel:self.playerController.friendModel];
     
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     [self _setPlayerVisible:NO];
