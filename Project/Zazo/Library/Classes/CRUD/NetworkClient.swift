@@ -77,24 +77,17 @@ class NetworkClient: NSObject {
     
     func credential() -> NSURLCredential? {
         
-        return NSURLCredential(user: "rCjSwpr9R9KaCnL7gRdf",
-                               password: "Gk2I2Y54DsdS3qPFtpBE",
-                               persistence: .ForSession)
-
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        
-//        guard
-//            let username = defaults.objectForKey("mkey") as? String,
-//            let password = defaults.objectForKey("auth") as? String
-//            else {
-//                return nil
-//        }
-//        
-//        return NSURLCredential(user: username,
-//                               password: password,
+//        return NSURLCredential(user: "rCjSwpr9R9KaCnL7gRdf",
+//                               password: "Gk2I2Y54DsdS3qPFtpBE",
 //                               persistence: .ForSession)
         
         
+        let password = ZZStoredSettingsManager.shared().authToken
+        let username = ZZStoredSettingsManager.shared().userID
+    
+        return NSURLCredential(user: username,
+                               password: password,
+                               persistence: .ForSession)        
     }
     
 }
