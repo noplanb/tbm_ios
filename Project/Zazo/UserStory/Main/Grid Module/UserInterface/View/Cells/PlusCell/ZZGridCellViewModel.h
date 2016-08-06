@@ -18,24 +18,18 @@
 
 @protocol ZZGridModelPresenterInterface <NSObject>
 
-- (void)didTapOverflowButton:(UIButton *)button
-                     atModel:(ZZGridCellViewModel *)model;
-
 - (BOOL)isGridRotate;
 
-- (void)playingStateUpdatedToState:(BOOL)isEnabled
-                         viewModel:(ZZGridCellViewModel *)viewModel;
+- (void)viewModelDidTapOverflowButton:(ZZGridCellViewModel *)viewModel;
+- (void)viewModelDidTapCell:(ZZGridCellViewModel *)viewModel;
+
+- (void)viewModel:(ZZGridCellViewModel *)viewModel
+didChangeRecordingState:(BOOL)isRecording
+       completion:(void (^)(BOOL isRecordingSuccess))completionBlock;
 
 - (void)addUserToItem:(ZZGridCellViewModel *)model;
-
 - (BOOL)isGridCellEnablePlayingVideo:(ZZGridCellViewModel *)model;
-
 - (void)nudgeSelectedWithUserModel:(id)userModel;
-
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel *)viewModel
-                 withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock;
-
 - (void)cancelRecordingWithReason:(NSString *)reason;
 
 @end
@@ -71,10 +65,12 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, weak) id <ZZGridCellViewModelAnimationDelegate> animationDelegate;
 @property (nonatomic, assign) NSInteger badgeNumber;
 @property (nonatomic, weak) UIView *playerContainerView;
-@property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL isUploadedVideoViewed;
+@property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
 @property (nonatomic, assign) BOOL hasActiveContactIcon;
+@property (nonatomic, assign) BOOL hasThumbnail;
+@property (nonatomic, assign) BOOL hasMessages;
 @property (nonatomic, strong) NSDate *lastMessageDate;
 @property (nonatomic, assign, readonly) BOOL isRecording;
 @property (nonatomic, weak) UILabel *usernameLabel;
@@ -96,7 +92,7 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 
 - (void)didChangeRecordingState:(BOOL)isRecording
                      completion:(void (^)(BOOL isRecordingSuccess))completionBlock;
-- (void)didChangePlayingState:(BOOL)isPlaying;
+- (void)didTapCell;
 - (void)didTapEmptyCell;
 - (void)didTapOverflowButton:(UIButton *)button;
 

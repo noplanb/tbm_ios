@@ -89,17 +89,6 @@
 
 }
 
-- (void)_startVideo:(UITapGestureRecognizer *)recognizer
-{
-    if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
-    {
-        [self.presentedView hideActiveBorder];
-
-        [self.model didChangePlayingState:YES];
-    }
-}
-
-
 #pragma mark - Lazy Load
 
 - (UIImageView *)thumbnailImageView
@@ -111,12 +100,6 @@
         _thumbnailImageView.userInteractionEnabled = YES;
         _thumbnailImageView.clipsToBounds = YES;
         
-        UITapGestureRecognizer *tap =
-                [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                        action:@selector(_startVideo:)];
-        
-        [_thumbnailImageView addGestureRecognizer:tap];
-
         [self insertSubview:_thumbnailImageView belowSubview:self.backGradientView];
 
         [_thumbnailImageView mas_makeConstraints:^(MASConstraintMaker *make) {

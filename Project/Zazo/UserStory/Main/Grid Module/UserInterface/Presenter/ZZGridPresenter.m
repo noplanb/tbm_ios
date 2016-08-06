@@ -651,10 +651,8 @@
 
 #pragma mark - ZZGridModelPresenterInterface
 
-- (void)didTapOverflowButton:(UIButton *)button
-                     atModel:(ZZGridCellViewModel *)model
-{
-    
+- (void)viewModelDidTapOverflowButton:(ZZGridCellViewModel *)viewModel
+{    
     MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
     MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
     MenuItem *sendText = [[MenuItem alloc] initWithTitle:@"Send text"];
@@ -665,7 +663,7 @@
     
     NSArray<MenuItem *> *items = @[transcript, fullscreen, sendText];
     
-    [self.userInterface showOverflowMenuWithItems:items forModel:model.item.relatedUser];
+    [self.userInterface showOverflowMenuWithItems:items forModel:viewModel.item.relatedUser];
 }
 
 - (BOOL)isGridRotate
@@ -673,21 +671,10 @@
     return [self.userInterface isGridRotating];
 }
 
-- (void)playingStateUpdatedToState:(BOOL)isEnabled
-                         viewModel:(ZZGridCellViewModel *)viewModel
+- (void)viewModelDidTapCell:(ZZGridCellViewModel *)viewModel
 {
-
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
-    
-    if (isEnabled)
-    {
-        [self.videoPlayer playVideoForFriend:viewModel.item.relatedUser];
-    }
-    else
-    {
-        [self.videoPlayer stop];
-    }
-
+    [self.videoPlayer playVideoForFriend:viewModel.item.relatedUser];
 }
 
 - (void)addUserToItem:(ZZGridCellViewModel *)model
@@ -742,11 +729,11 @@
 
 }
 
-- (void)recordingStateUpdatedToState:(BOOL)isEnabled
-                           viewModel:(ZZGridCellViewModel *)viewModel
-                 withCompletionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock
+      - (void)viewModel:(ZZGridCellViewModel *)viewModel
+didChangeRecordingState:(BOOL)isRecording
+             completion:(void (^)(BOOL isRecordingSuccess))completionBlock
 {
-    ZZLogInfo(@"recordingStateUpdatedToState:%d", isEnabled);
+    ZZLogInfo(@"recordingStateUpdatedToState:%d", isRecording);
     
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     
@@ -755,7 +742,7 @@
         return;
     }
     
-    if (isEnabled)
+    if (isRecording)
     {
         [self.actionHandler hideHint];
 
@@ -764,7 +751,7 @@
         ANDispatchBlockToMainQueue(^{
             [self.videoPlayer stop];
             NSURL *url = [TBMVideoIdUtils generateOutgoingVideoUrlWithFriendID:viewModel.item.relatedUser.idTbm];
-            [self.userInterface updateRecordViewStateTo:isEnabled];
+            [self.userInterface updateRecordViewStateTo:isRecording];
             
             [[ZZVideoRecorder shared] startRecordingWithVideoURL:url completionBlock:^(BOOL isRecordingSuccess) {
                 [self.userInterface updateRecordViewStateTo:NO];
@@ -773,13 +760,14 @@
             }];
         });
     }
+    
     else
     {
         ANDispatchBlockToMainQueue(^{
             
             // Don't rely on completion by videoRecorder to reset the view in case
             // for some reason it does not complete.
-            [self.userInterface updateRecordViewStateTo:isEnabled];
+            [self.userInterface updateRecordViewStateTo:isRecording];
             
             [[ZZVideoRecorder shared] stopRecordingWithCompletionBlock:^(BOOL isRecordingSuccess) {
                 if (isRecordingSuccess)
@@ -788,19 +776,16 @@
                 }
                 completionBlock(isRecordingSuccess);
             }];
-            
-            
-            
         });
     }
     
-    [self.userInterface updateRollingStateTo:!isEnabled];
+    [self.userInterface updateRollingStateTo:!isRecording];
     
     // Show nudge dialog case: 
     
     ZZFriendDomainModel *friendModel = viewModel.item.relatedUser;
     
-    if (isEnabled || friendModel.hasApp || !friendModel.everSent)
+    if (isRecording || friendModel.hasApp || !friendModel.everSent)
     {
         return;
     }

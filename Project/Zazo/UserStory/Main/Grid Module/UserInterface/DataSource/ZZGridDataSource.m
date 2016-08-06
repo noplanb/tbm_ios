@@ -123,7 +123,8 @@ static NSInteger const kGridCenterCellIndex = 4;
     viewModel.presenter = self.presenter;
 
     viewModel.hasDownloadedVideo = [model.relatedUser hasDownloadedVideo];
-
+    viewModel.hasMessages = !ANIsEmpty(model.relatedUser.messages);
+    viewModel.hasThumbnail = [ZZThumbnailGenerator hasLastThumbForUser:model.relatedUser];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];
 
     viewModel.isUploadedVideoViewed =

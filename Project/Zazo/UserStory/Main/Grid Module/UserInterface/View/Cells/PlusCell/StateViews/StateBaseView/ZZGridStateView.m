@@ -15,6 +15,7 @@
 #import "ZZNumberBadge.h"
 #import "ZZSentBadge.h"
 #import "ZZVideoDataProvider.h"
+#import "ZZGridCell.h"
 
 @interface ZZGridStateView ()
 
@@ -32,6 +33,13 @@
         self.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
         self.presentedView = presentedView;
         self.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        UITapGestureRecognizer *tap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(_didTapVideo:)];
+        
+        [self addGestureRecognizer:tap];
+
     }
     return self;
 }
@@ -145,6 +153,15 @@
         [self updateBadgeWithNumber:model.badgeNumber];
     }
 
+}
+
+- (void)_didTapVideo:(UITapGestureRecognizer *)recognizer
+{
+    if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
+    {
+        [self.presentedView hideActiveBorder];
+        [self.model didTapCell];
+    }
 }
 
 

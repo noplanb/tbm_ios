@@ -73,19 +73,12 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, strong) NSArray <ZZMessageDomainModel *> *messages;
 
 + (FEMObjectMapping *)mapping;
-
 - (NSString *)fullName;
-
 - (NSString *)displayName;
-
 - (NSString *)shortFirstName;
-
 - (ZZMenuContactType)contactType;
-
 - (BOOL)isCreator;
-
 - (BOOL)hasIncomingVideo;
-
 - (BOOL)hasDownloadedVideo;
 
 @end

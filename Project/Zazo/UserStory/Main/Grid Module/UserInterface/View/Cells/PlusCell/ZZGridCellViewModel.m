@@ -99,7 +99,7 @@
     else if (!ANIsEmpty(self.item.relatedUser) &&
             self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
     {
-        if (self.hasDownloadedVideo)
+        if (self.hasThumbnail)
         {
             modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
         }
@@ -108,7 +108,7 @@
             modelState = ZZGridCellViewModelStateFriendHasApp | ZZGridCellViewModelStateVideoFailedPermanently;
         }
     }
-    else if (self.hasDownloadedVideo)
+    else if (self.hasThumbnail)
     {
         modelState = ZZGridCellViewModelStatePreview;
     }
@@ -341,23 +341,22 @@
 - (void)didChangeRecordingState:(BOOL)isRecording
                      completion:(void (^)(BOOL isRecordingSuccess))completionBlock
 {
-    [self.presenter recordingStateUpdatedToState:isRecording
-                                      viewModel:self
-                            withCompletionBlock:completionBlock];
+    [self.presenter viewModel:self
+      didChangeRecordingState:isRecording
+                   completion:completionBlock];
 
     [self reloadDebugVideoStatus];
 }
 
-- (void)didChangePlayingState:(BOOL)isPlaying
+- (void)didTapCell
 {
-    [self.presenter playingStateUpdatedToState:isPlaying viewModel:self];
+    [self.presenter viewModelDidTapCell:self];
     [self reloadDebugVideoStatus];
 }
 
 - (void)didTapOverflowButton:(UIButton *)button
 {
-    [self.presenter didTapOverflowButton:(UIButton *)button
-                                atModel:self];
+    [self.presenter viewModelDidTapOverflowButton:self];
 }
 
 @end
