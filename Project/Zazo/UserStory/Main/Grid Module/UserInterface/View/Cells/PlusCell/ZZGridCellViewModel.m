@@ -350,6 +350,13 @@
 
 - (void)didTapCell
 {
+    BOOL canPlay = self.hasMessages || self.hasDownloadedVideo;
+    
+    if (!canPlay)
+    {
+        return;
+    }
+    
     [self.presenter viewModelDidTapCell:self];
     [self reloadDebugVideoStatus];
 }
