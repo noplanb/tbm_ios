@@ -106,6 +106,8 @@
 
 - (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion
 {
+    [self _updatePlayersFrame];
+
     self.popoverCompletion = completion;
     self.popoverController = [[MessagePopoperController alloc] initWithModel:messageModel];
     self.popoverController.delegate = self;
