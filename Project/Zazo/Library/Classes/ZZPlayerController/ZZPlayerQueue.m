@@ -7,7 +7,7 @@
 //
 
 #import "ZZPlayerQueue.h"
-#import "ZZSegmentSchemeItem.h"
+#import "ZZPlaybackQueueItem.h"
 #import "ZZFileHelper.h"
 #import "NSArray+ANAdditions.h"
 #import "ZZVideoObserver.h"
@@ -17,7 +17,7 @@
 @property (nonatomic, assign) BOOL loadTextMessages;
 @property (nonatomic, strong) ZZVideoObserver *observer;
 
-@property (nonatomic, strong, readwrite) NSArray <NSObject<ZZSegmentSchemeItem> *> *models;
+@property (nonatomic, strong, readwrite) NSArray <NSObject<ZZPlaybackQueueItem> *> *models;
 
 // All videos:
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *allVideoModels; // video models passed to player
@@ -106,7 +106,7 @@
 {
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
     
-    NSArray <NSObject<ZZSegmentSchemeItem> *> *items = self.messages;
+    NSArray <NSObject<ZZPlaybackQueueItem> *> *items = self.messages;
     items = [items arrayByAddingObjectsFromArray:self.allVideoModels];
     items = [items sortedArrayUsingDescriptors:@[descriptor]];
     
@@ -114,9 +114,9 @@
 }
 
 
-- (NSObject<ZZSegmentSchemeItem> *)itemAfterTimestamp:(NSTimeInterval)timestamp
+- (NSObject<ZZPlaybackQueueItem> *)itemAfterTimestamp:(NSTimeInterval)timestamp
 {
-    for (NSObject<ZZSegmentSchemeItem> *item in self.models) {
+    for (NSObject<ZZPlaybackQueueItem> *item in self.models) {
         if ([item timestamp] > timestamp) {
             return item;
         }
@@ -159,7 +159,7 @@
     NSRange rangeToPlay = NSMakeRange(count, self.models.count - count);
     NSArray *models = [self.models subarrayWithRange:rangeToPlay];
     
-    models = [models.rac_sequence filter:^BOOL(NSObject <ZZSegmentSchemeItem> *item) {
+    models = [models.rac_sequence filter:^BOOL(NSObject <ZZPlaybackQueueItem> *item) {
         return item.type == ZZIncomingEventTypeVideo;
     }].array;
     

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZZSegmentSchemeItem.h"
+#import "ZZPlaybackQueueItem.h"
 
 @class ZZPlayerQueue;
 
@@ -29,9 +29,9 @@
 
 @property (nonatomic, weak) id<ZZPlayerQueueDelegate> delegate;
 @property (nonatomic, strong, readwrite) ZZFriendDomainModel *friendModel;
-@property (nonatomic, strong, readonly) NSArray <NSObject<ZZSegmentSchemeItem> *> *models; // Text + video
+@property (nonatomic, strong, readonly) NSArray <NSObject<ZZPlaybackQueueItem> *> *models; // Text + video
 
-- (NSObject <ZZSegmentSchemeItem> *)itemAfterTimestamp:(NSTimeInterval)timestamp;
+- (NSObject <ZZPlaybackQueueItem> *)itemAfterTimestamp:(NSTimeInterval)timestamp;
 - (ZZMessageDomainModel *)messageAfterTimestamp:(NSTimeInterval)timestamp;
 
 //@property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;

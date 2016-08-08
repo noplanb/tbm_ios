@@ -1,5 +1,5 @@
 //
-//  ZZSegmentSchemeItem.h
+//  ZZPlaybackQueueItem.h
 //  Zazo
 //
 //  Created by Server on 02/08/16.
@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZZSegmentSchemeItem.h"
+#import "ZZPlaybackQueueItem.h"
 
-@implementation ZZVideoDomainModel (ZZSegmentSchemeItem)
+@implementation ZZVideoDomainModel (ZZPlaybackQueueItem)
 
 - (NSTimeInterval)timestamp
 {
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation ZZMessageDomainModel (ZZSegmentSchemeItem)
+@implementation ZZMessageDomainModel (ZZPlaybackQueueItem)
 
 
 - (NSTimeInterval)timestamp

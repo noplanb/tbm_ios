@@ -12,7 +12,7 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZVideoStatusHandler.h"
 #import "ZZVideoDataProvider.h"
-#import "ZZSegmentSchemeItem.h"
+#import "ZZPlaybackQueueItem.h"
 #import "ZZPlayerQueue.h"
 
 @import AVKit;
@@ -30,7 +30,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @property (nonatomic, strong) PlaybackIndicator *indicator;
 
 @property (nonatomic, strong, readonly) AVPlayerItem *currentPlayerItem;
-@property (nonatomic) NSObject<ZZSegmentSchemeItem> *currentQueueItem;
+@property (nonatomic) NSObject<ZZPlaybackQueueItem> *currentQueueItem;
 @property (nonatomic) ZZVideoDomainModel *currentVideoModel;
 
 @property (nonatomic, assign) BOOL dragging;
@@ -138,7 +138,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)didSeekToPosition:(CGFloat)position ofSegmentWithIndex:(NSInteger)index
 {
-    NSObject<ZZSegmentSchemeItem> *item = self.queue.models[index];
+    NSObject<ZZPlaybackQueueItem> *item = self.queue.models[index];
     
     if (item.type != ZZIncomingEventTypeVideo)
     {
@@ -256,7 +256,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         
         for (int i = 0; i < itemsToAdvance; i++)
         {
-            NSObject <ZZSegmentSchemeItem> *item = self.queue.models[currentSegmentIndex + i];
+            NSObject <ZZPlaybackQueueItem> *item = self.queue.models[currentSegmentIndex + i];
             
             if (item.type != ZZIncomingEventTypeVideo) {
                 continue;
@@ -405,9 +405,9 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }];
 }
 
-- (void)_continueAfterItem:(NSObject<ZZSegmentSchemeItem> *)queueItem
+- (void)_continueAfterItem:(NSObject<ZZPlaybackQueueItem> *)queueItem
 {
-    NSObject<ZZSegmentSchemeItem> *nextItem;
+    NSObject<ZZPlaybackQueueItem> *nextItem;
     
     if (!queueItem)
     {
@@ -477,7 +477,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)updateVideoCount
 {
-    self.indicator.segmentScheme = [self.queue.models.rac_sequence map:^id(NSObject<ZZSegmentSchemeItem> *item) {
+    self.indicator.segmentScheme = [self.queue.models.rac_sequence map:^id(NSObject<ZZPlaybackQueueItem> *item) {
         return [[PlaybackSegment alloc] initWithType:item.type];
     }].array;
 }

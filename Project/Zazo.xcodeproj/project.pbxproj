@@ -657,7 +657,7 @@
 		3E3097C61D4A27B80010A482 /* ZZMessageNotificationDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */; };
 		3E3097C81D4A2F240010A482 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097C71D4A2F240010A482 /* MessageHandler.swift */; };
 		3E3097D21D4A3F120010A482 /* ZZApplicationRootService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3097D11D4A3F120010A482 /* ZZApplicationRootService.m */; };
-		3E3383E01D50C47C00F533F7 /* ZZSegmentSchemeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3383DF1D50C31500F533F7 /* ZZSegmentSchemeItem.m */; };
+		3E3383E01D50C47C00F533F7 /* ZZPlaybackQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3383DF1D50C31500F533F7 /* ZZPlaybackQueueItem.m */; };
 		3E3383E21D50E18400F533F7 /* MessagePopoperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3383E11D50E18400F533F7 /* MessagePopoperController.swift */; };
 		3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */; };
 		3E3CA3831D22996D008EB1DD /* AudioExtractionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */; };
@@ -1590,8 +1590,8 @@
 		3E3097C71D4A2F240010A482 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
 		3E3097D01D4A3F120010A482 /* ZZApplicationRootService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZApplicationRootService.h; path = ApplicationServices/ZZApplicationRootService.h; sourceTree = "<group>"; };
 		3E3097D11D4A3F120010A482 /* ZZApplicationRootService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZApplicationRootService.m; path = ApplicationServices/ZZApplicationRootService.m; sourceTree = "<group>"; };
-		3E3383DE1D50C2F400F533F7 /* ZZSegmentSchemeItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZSegmentSchemeItem.h; sourceTree = "<group>"; };
-		3E3383DF1D50C31500F533F7 /* ZZSegmentSchemeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSegmentSchemeItem.m; sourceTree = "<group>"; };
+		3E3383DE1D50C2F400F533F7 /* ZZPlaybackQueueItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPlaybackQueueItem.h; sourceTree = "<group>"; };
+		3E3383DF1D50C31500F533F7 /* ZZPlaybackQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlaybackQueueItem.m; sourceTree = "<group>"; };
 		3E3383E11D50E18400F533F7 /* MessagePopoperController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopoperController.swift; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
@@ -3878,8 +3878,8 @@
 			children = (
 				1522AB821D2FB753001A8D82 /* ZZPlayerController.h */,
 				1522AB831D2FB753001A8D82 /* ZZPlayerController.m */,
-				3E3383DE1D50C2F400F533F7 /* ZZSegmentSchemeItem.h */,
-				3E3383DF1D50C31500F533F7 /* ZZSegmentSchemeItem.m */,
+				3E3383DE1D50C2F400F533F7 /* ZZPlaybackQueueItem.h */,
+				3E3383DF1D50C31500F533F7 /* ZZPlaybackQueueItem.m */,
 				1582971C1D5349360028AEF0 /* ZZPlayerQueue.h */,
 				1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */,
 				158297201D5362050028AEF0 /* ZZVideoObserver.h */,
@@ -6536,7 +6536,7 @@
 				159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */,
 				158960731CB7B61E0040D8E3 /* ANMemoryStorage+ANItems.m in Sources */,
 				07636E951BA49A0100925671 /* ANDebugController.m in Sources */,
-				3E3383E01D50C47C00F533F7 /* ZZSegmentSchemeItem.m in Sources */,
+				3E3383E01D50C47C00F533F7 /* ZZPlaybackQueueItem.m in Sources */,
 				07636EAC1BA49A0100925671 /* ZZSecretValueCellViewModel.m in Sources */,
 				07636E011BA49A0100925671 /* TBMContentViewModal.m in Sources */,
 				3E3B80EE1D20FECD00E55F20 /* ZZMenuCell.m in Sources */,

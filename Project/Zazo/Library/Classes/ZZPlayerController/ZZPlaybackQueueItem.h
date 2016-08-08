@@ -11,17 +11,17 @@
 #import "ZZVideoDomainModel.h"
 #import "ZZMessageDomainModel.h"
 
-@protocol ZZSegmentSchemeItem
+@protocol ZZPlaybackQueueItem
 
 - (NSTimeInterval)timestamp;
 - (ZZIncomingEventType)type;
 
 @end
 
-@interface ZZVideoDomainModel (ZZSegmentSchemeItem) <ZZSegmentSchemeItem>
+@interface ZZVideoDomainModel (ZZPlaybackQueueItem) <ZZPlaybackQueueItem>
 
 @end
 
-@interface ZZMessageDomainModel (ZZSegmentSchemeItem) <ZZSegmentSchemeItem>
+@interface ZZMessageDomainModel (ZZPlaybackQueueItem) <ZZPlaybackQueueItem>
 
 @end
