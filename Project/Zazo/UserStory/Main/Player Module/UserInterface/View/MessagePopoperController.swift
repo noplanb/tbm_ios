@@ -74,11 +74,25 @@ import Popover
     }
     
     func textView() -> UITextView {
+        
         let textView = UITextView()
         textView.attributedText = text
         textView.editable = false
-        textView.textContainerInset = UIEdgeInsetsMake(0, 4, 8, 4)
-        textView.sizeToFit()
+        textView.textContainerInset = UIEdgeInsetsMake(2, 6, 10, 6)
+        
+        var frame = textView.frame
+        let screenSize = UIScreen.mainScreen().bounds
+        var size = textView.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.max))
+        
+        let minWidth = screenSize.width / 3 + 20
+        let maxHeight = screenSize.height / 3 - 40
+        
+        size.width = max(minWidth, size.width)
+        size.height = min(maxHeight, size.height)
+        
+        frame.size = size
+        textView.frame = frame
+        
         return textView
     }
 }
@@ -89,7 +103,7 @@ public class MessagePopoverTextMaker {
     let dateFormatter = NSDateFormatter()
     
     init() {
-        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.dateStyle = .ShortStyle
         dateFormatter.timeStyle = .ShortStyle
     }
     
@@ -108,7 +122,13 @@ public class MessagePopoverTextMaker {
         
         for string in strings {
             result.appendAttributedString(string)
-            result.appendAttributedString(linebreak)
+            
+            let isLastString = strings.last === string
+
+            if !isLastString {
+                 result.appendAttributedString(linebreak)
+            }
+            
         }
         
         return result.copy() as! NSAttributedString
@@ -119,7 +139,7 @@ public class MessagePopoverTextMaker {
         let result = NSMutableAttributedString()
         
         let body = NSAttributedString(string: aBody, attributes: attributesForBody())
-        let date = NSAttributedString(string: dateFormatter.stringFromDate(aDate) , attributes: attributesForDate())
+        let date = NSAttributedString(string: aDate.zz_formattedDate() , attributes: attributesForDate())
         let linebreak = NSAttributedString(string: "\n")
         
         result.appendAttributedString(body)
