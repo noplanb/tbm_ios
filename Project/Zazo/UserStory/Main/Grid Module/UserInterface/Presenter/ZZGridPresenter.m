@@ -661,7 +661,10 @@
     fullscreen.icon = [UIImage imageNamed:@"fullscreen-icon"];
     sendText.icon   = [UIImage imageNamed:@"message-icon"];
     
-    NSArray<MenuItem *> *items = @[transcript, fullscreen, sendText];
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID: viewModel.item.relatedUser.idTbm];
+    BOOL hasVideoMessages = friendModel.videos.count > 0;
+    
+    NSArray<MenuItem *> *items = hasVideoMessages ? @[transcript, fullscreen, sendText] : @[sendText];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:viewModel.item.relatedUser];
 }
