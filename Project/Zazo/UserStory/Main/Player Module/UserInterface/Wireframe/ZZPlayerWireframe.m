@@ -61,7 +61,6 @@
 - (void)setGrid:(id<ZZGridModuleInterface>)grid
 {
     _grid = grid;
-    
     self.presenter.grid = grid;
 }
 

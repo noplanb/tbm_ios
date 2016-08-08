@@ -14,7 +14,7 @@
 @interface ZZPlayerPresenter : NSObject <ZZPlayerInteractorOutput, ZZPlayerModuleInterface>
 
 @property (nonatomic, strong) id<ZZPlayerInteractorInput> interactor;
-@property (nonatomic, strong) ZZPlayerWireframe *wireframe;
+@property (nonatomic, weak) ZZPlayerWireframe *wireframe;
 
 @property (nonatomic, weak) UIViewController<ZZPlayerViewInterface> *userInterface;
 @property (nonatomic, weak) id<ZZPlayerModuleDelegate> delegate;

@@ -35,6 +35,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 @property (nonatomic, assign) BOOL dragging;
 @property (nonatomic, assign, readwrite) BOOL isPlayingVideo;
+@property (nonatomic, assign) BOOL waitsForMessageCallback;
 
 @end
 
@@ -328,15 +329,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
 }
 
-
-- (void)_updateSegments
-{
-    NSUInteger currentSegmentIndex = [self.queue.models indexOfObject:self.currentVideoModel];
-    
-    [self updateVideoCount];
-    [self updateCurrentVideoIndex:currentSegmentIndex];
-}
-
 - (void)_playNextVideoOrStop
 {
     if ([self _isAblePlayNext])
@@ -391,7 +383,14 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     [self updateCurrentVideoIndex:[self.queue.models indexOfObject:messageGroup]];
 
+    self.waitsForMessageCallback = YES;
+    
+    @weakify(self);
+
     [self.delegate needsShowMessages:messageGroup completion:^(BOOL shouldContinue) {
+        
+        @strongify(self);
+        self.waitsForMessageCallback = NO;
         
         if (shouldContinue) {
             [self _continueAfterItem:messageGroup];
@@ -470,6 +469,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self.delegate videoPlayerDidCompletePlaying];
     
     self.currentQueueItem = nil;
+    self.queue = nil;
 }
 
 - (void)updateVideoCount
@@ -477,6 +477,9 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     self.indicator.segmentScheme = [self.queue.models.rac_sequence map:^id(NSObject<ZZPlaybackQueueItem> *item) {
         return [[PlaybackSegment alloc] initWithType:item.type];
     }].array;
+    
+    NSUInteger currentSegmentIndex = [self.queue.models indexOfObject:self.currentVideoModel];
+    [self updateCurrentVideoIndex:currentSegmentIndex];
 }
 
 - (void)updateCurrentVideoIndex:(NSInteger)index
@@ -525,7 +528,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)queueDidChange
 {
     [self updateVideoCount];
-    [self.player play];
+    
+    if (!self.waitsForMessageCallback && !self.dragging)
+    {
+        [self.player play];
+    }
 }
 
 - (void)loadVideoModel:(ZZVideoDomainModel *)videoModel

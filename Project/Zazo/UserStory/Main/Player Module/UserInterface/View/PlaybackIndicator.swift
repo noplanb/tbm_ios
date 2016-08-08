@@ -165,10 +165,10 @@ public class PlaybackIndicator: UIView
         
         updateSegmentWidths()
         
-        UIView.animateWithDuration(0.25)
-        {
+//        UIView.animateWithDuration(0.25)
+//        {
             self.layoutIfNeeded()
-        }
+//        }
     }
     
     public override func layoutSubviews() {

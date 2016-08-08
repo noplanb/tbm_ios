@@ -106,6 +106,7 @@
 
 - (void)needsShowMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion
 {
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     [self _updatePlayersFrame];
 
     self.popoverCompletion = completion;

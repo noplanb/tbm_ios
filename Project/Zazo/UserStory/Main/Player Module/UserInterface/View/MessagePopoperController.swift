@@ -23,7 +23,7 @@ import Popover
 
     public var containerView: UIView = UIApplication.sharedApplication().keyWindow!
     
-    var delegate: MessagePopoperControllerDelegate?
+    weak var delegate: MessagePopoperControllerDelegate?
     let text: NSAttributedString
     var popover: Popover!
     var isBeingDismissedExternally = false
