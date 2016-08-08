@@ -382,7 +382,6 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }
     
     [self updateCurrentVideoIndex:[self.queue.models indexOfObject:messageGroup]];
-
     self.waitsForMessageCallback = YES;
     
     @weakify(self);

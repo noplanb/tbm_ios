@@ -28,7 +28,7 @@
 
 - (NSTimeInterval)timestamp
 {
-    return self.messageID.doubleValue;
+    return self.messageID.doubleValue / 1000;
 }
 
 - (ZZIncomingEventType)type
