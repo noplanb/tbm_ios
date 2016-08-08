@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ZZPlaybackQueueItem.h"
+#import "ZZMessageGroup.h"
 
 @class ZZPlayerQueue;
 
@@ -32,7 +33,7 @@
 @property (nonatomic, strong, readonly) NSArray <NSObject<ZZPlaybackQueueItem> *> *models; // Text + video
 
 - (NSObject <ZZPlaybackQueueItem> *)itemAfterTimestamp:(NSTimeInterval)timestamp;
-- (ZZMessageDomainModel *)messageAfterTimestamp:(NSTimeInterval)timestamp;
+- (ZZMessageGroup *)messageGroupAfterTimestamp:(NSTimeInterval)timestamp;
 
 //@property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
 

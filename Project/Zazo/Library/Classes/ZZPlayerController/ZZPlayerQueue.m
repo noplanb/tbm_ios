@@ -14,7 +14,7 @@
 
 @interface ZZPlayerQueue () <ZZVideoObserverDelegate>
 
-@property (nonatomic, assign) BOOL loadTextMessages;
+@property (nonatomic, assign, readonly) BOOL loadTextMessages;
 @property (nonatomic, strong) ZZVideoObserver *observer;
 
 @property (nonatomic, strong, readwrite) NSArray <NSObject<ZZPlaybackQueueItem> *> *models;
@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *loadedVideoModels; // video models to play
 
 // Text messages:
-@property (nonatomic, strong) NSArray <ZZMessageDomainModel *> *messages;
+@property (nonatomic, strong) NSArray <ZZMessageGroup *> *messageGroups;
 
 
 @end
@@ -50,15 +50,12 @@
         self.friendModel = friendModel;
         self.delegate = delegate;
         
-        self.loadTextMessages = flag;
-        self.allVideoModels = [self _filterVideoModels:friendModel.videos];
-        
-        if (flag) {
-            self.messages = friendModel.messages;
-        }
+        _loadTextMessages = flag;
+        _allVideoModels = [self _filterVideoModels:friendModel.videos];
+        _messageGroups = @[];
         
         [self _loadVideoModels:self.allVideoModels];
-        [self _updateModels];        
+        [self _updateQueue];        
         [self _addObservers];
     }
     return self;
@@ -102,15 +99,57 @@
     self.observer.delegate = self;
 }
 
-- (void)_updateModels
+- (void)_updateQueue
 {
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
     
-    NSArray <NSObject<ZZPlaybackQueueItem> *> *items = self.messages;
-    items = [items arrayByAddingObjectsFromArray:self.allVideoModels];
+    NSArray <NSObject<ZZPlaybackQueueItem> *> *items = self.allVideoModels;
+    
+    if (self.loadTextMessages)
+    {
+        items = [items arrayByAddingObjectsFromArray:self.friendModel.messages];
+    }
+    
     items = [items sortedArrayUsingDescriptors:@[descriptor]];
     
-    self.models = items;
+    NSMutableArray *result = [NSMutableArray new];
+    __block ZZMessageGroup *group = [ZZMessageGroup new];
+    
+    dispatch_block_t finishGroupIfNeeded = ^{
+        if (group.messages.count > 0)
+        {
+            [result addObject:group];
+            self.messageGroups = [self.messageGroups arrayByAddingObject:group];
+            group = [ZZMessageGroup new];
+        }
+    };
+    
+    for (NSObject<ZZPlaybackQueueItem> *item in items)
+    {
+        if ([item type] == ZZIncomingEventTypeVideo)
+        {
+            finishGroupIfNeeded();
+            [result addObject:item];
+        }
+        else if ([item type] == ZZIncomingEventTypeMessage)
+        {
+            if (![item isKindOfClass:[ZZMessageDomainModel class]]) {
+                continue;
+            }
+            
+            ZZMessageDomainModel *messageModel = (id)item;
+            
+            if (group.messages.count == 0)
+            {
+                group.name = self.friendModel.fullName;
+            }
+            
+            [group addMessage:messageModel];            
+        }
+    }
+    
+    finishGroupIfNeeded();
+    self.models = [result copy];
 }
 
 
@@ -125,11 +164,11 @@
     return nil;
 }
 
-- (ZZMessageDomainModel *)messageAfterTimestamp:(NSTimeInterval)timestamp
+- (ZZMessageGroup *)messageGroupAfterTimestamp:(NSTimeInterval)timestamp
 {
-    for (ZZMessageDomainModel *messageModel in self.messages) {
-        if ([messageModel timestamp] > timestamp) {
-            return messageModel;
+    for (ZZMessageGroup *messageGroup in self.messageGroups) {
+        if ([messageGroup timestamp] > timestamp) {
+            return messageGroup;
         }
     }
     
@@ -148,7 +187,7 @@
     ZZLogInfo(@"Unloading %@ | index = %ld", videoModel.videoID, (long)index);
     self.loadedVideoModels = [self.loadedVideoModels zz_arrayWithoutObject:videoModel];
     self.allVideoModels = [self.allVideoModels zz_arrayWithoutObject:videoModel];
-    [self _updateModels];
+    [self _updateQueue];
     
     
     [self.delegate unloadVideoModel:videoModel];
@@ -186,7 +225,7 @@
     [self _loadModel:videoModel];
     
     self.allVideoModels = [self.allVideoModels arrayByAddingObject:videoModel];
-    [self _updateModels];
+    [self _updateQueue];
     
     [self.delegate queueDidChange];
 

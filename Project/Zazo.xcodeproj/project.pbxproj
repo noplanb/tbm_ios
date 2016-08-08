@@ -244,6 +244,7 @@
 		15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A951D253249009F55CD /* TranscriptRouter.swift */; };
 		15443A9A1D255A91009F55CD /* TranscriptItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15443A991D255A91009F55CD /* TranscriptItemView.swift */; };
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
+		1552F9091D5887E90025ED58 /* ZZMessageGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1552F9081D5887E90025ED58 /* ZZMessageGroup.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1582971E1D5349360028AEF0 /* ZZPlayerQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */; };
 		158297221D5362050028AEF0 /* ZZVideoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 158297211D5362050028AEF0 /* ZZVideoObserver.m */; };
@@ -1258,6 +1259,8 @@
 		1549F9E91C1953E8005AFC95 /* ZZFriendDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZFriendDataProvider+Entities.h"; sourceTree = "<group>"; };
 		154C7F4B1C567EDD00DFA0FD /* OBLogger+ZZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OBLogger+ZZAdditions.h"; sourceTree = "<group>"; };
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
+		1552F9071D5887E90025ED58 /* ZZMessageGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageGroup.h; sourceTree = "<group>"; };
+		1552F9081D5887E90025ED58 /* ZZMessageGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageGroup.m; sourceTree = "<group>"; };
 		1582971C1D5349360028AEF0 /* ZZPlayerQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayerQueue.h; sourceTree = "<group>"; };
 		1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerQueue.m; sourceTree = "<group>"; };
 		158297201D5362050028AEF0 /* ZZVideoObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZVideoObserver.h; sourceTree = "<group>"; };
@@ -3884,6 +3887,8 @@
 				1582971D1D5349360028AEF0 /* ZZPlayerQueue.m */,
 				158297201D5362050028AEF0 /* ZZVideoObserver.h */,
 				158297211D5362050028AEF0 /* ZZVideoObserver.m */,
+				1552F9071D5887E90025ED58 /* ZZMessageGroup.h */,
+				1552F9081D5887E90025ED58 /* ZZMessageGroup.m */,
 			);
 			path = ZZPlayerController;
 			sourceTree = "<group>";
@@ -6584,6 +6589,7 @@
 				07636EA31BA49A0100925671 /* ZZSecretDataSource.m in Sources */,
 				07636E391BA49A0100925671 /* ZZRemoteStorageTransportService.m in Sources */,
 				151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */,
+				1552F9091D5887E90025ED58 /* ZZMessageGroup.m in Sources */,
 				15443A921D252A59009F55CD /* TranscriptUI.swift in Sources */,
 				3E3D3ECE1D48B8C3006FE502 /* ZZAPIRoutes.m in Sources */,
 				07636DBC1BA49A0100925671 /* TBMVideoIdUtils.m in Sources */,

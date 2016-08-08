@@ -21,7 +21,7 @@
 #import "NSDate+ZZAdditions.h"
 #import "ZZPlayerWireframe.h"
 #import "ZZPlayerController.h"
-
+#import "ZZMessageGroup.h"
 
 @interface ZZPlayerPresenter () <ZZPlayerControllerDelegate, MessagePopoperControllerDelegate>
 
@@ -104,15 +104,16 @@
     [self _setPlayerVisible:NO];
 }
 
-- (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion
+- (void)needsShowMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion
 {
     [self _updatePlayersFrame];
 
     self.popoverCompletion = completion;
-    self.popoverController = [[MessagePopoperController alloc] initWithModel:messageModel];
+    self.popoverController = [[MessagePopoperController alloc] initWithGroup:messageGroup];
     self.popoverController.delegate = self;
     self.popoverController.containerView = self.userInterface.view;
     [self.popoverController showFrom:self.playerController.playerView];
+    
     [self.userInterface setNextButtonVisible:YES];
 }
 

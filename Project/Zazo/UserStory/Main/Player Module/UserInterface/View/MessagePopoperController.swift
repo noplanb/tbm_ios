@@ -16,7 +16,7 @@ import Popover
 @objc public class MessagePopoperModel: NSObject {
     var date: NSDate!
     var text: String!
-    var name: String!
+//    var name: String!
 }
 
 @objc public class MessagePopoperController: NSObject {
@@ -28,9 +28,9 @@ import Popover
     var popover: Popover!
     var isBeingDismissedExternally = false
     
-    init(model: MessagePopoperModel) {
+    init(group: ZZMessageGroup) {
         let textMaker = MessagePopoverTextMaker()
-        text = textMaker.makeText(for: model)
+        text = textMaker.makeText(for: group)
         
         super.init()
         
@@ -93,25 +93,42 @@ public class MessagePopoverTextMaker {
         dateFormatter.timeStyle = .ShortStyle
     }
     
-    public func makeText(for model: MessagePopoperModel) -> NSAttributedString {
+    public func makeText(for group: ZZMessageGroup) -> NSAttributedString {
         
         let result = NSMutableAttributedString()
-        
-        let title = NSAttributedString(string: model.name, attributes: attributesForTitle())
-        let body = NSAttributedString(string: model.text, attributes: attributesForBody())
-        let date = NSAttributedString(string: dateFormatter.stringFromDate(model.date) , attributes: attributesForDate())
-        
+        let title = NSAttributedString(string: group.name, attributes: attributesForTitle())
         let linebreak = NSAttributedString(string: "\n")
+        
+        let strings: [NSAttributedString] = group.messages.map({
+            self.makeText(for: $0.body, aDate: NSDate(timeIntervalSince1970: $0.timestamp()))
+        })
         
         result.appendAttributedString(title)
         result.appendAttributedString(linebreak)
+        
+        for string in strings {
+            result.appendAttributedString(string)
+            result.appendAttributedString(linebreak)
+        }
+        
+        return result.copy() as! NSAttributedString
+    }
+    
+    func makeText(for aBody: String, aDate: NSDate) -> NSAttributedString {
+        
+        let result = NSMutableAttributedString()
+        
+        let body = NSAttributedString(string: aBody, attributes: attributesForBody())
+        let date = NSAttributedString(string: dateFormatter.stringFromDate(aDate) , attributes: attributesForDate())
+        let linebreak = NSAttributedString(string: "\n")
+        
         result.appendAttributedString(body)
         result.appendAttributedString(linebreak)
         result.appendAttributedString(date)
         
         return result.copy() as! NSAttributedString
     }
-    
+
     func attributesForTitle() -> attributes {
         return [NSFontAttributeName: UIFont.systemFontOfSize(18),
                 NSParagraphStyleAttributeName: paragraphAttributes(),

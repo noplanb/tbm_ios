@@ -10,7 +10,7 @@
 
 @class ZZVideoDomainModel;
 @class ZZFriendDomainModel;
-@class MessagePopoperModel;
+@class ZZMessageGroup;
 
 typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 
@@ -20,7 +20,7 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 - (void)videoPlayerDidCompletePlaying;
 
 - (void)videoPlayerDidReceiveError:(NSError *)error;
-- (void)needsShowMessage:(MessagePopoperModel *)messageModel completion:(ZZShowMessageCompletionBlock)completion;
+- (void)needsShowMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion;
 
 @end
 

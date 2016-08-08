@@ -383,21 +383,18 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }
 }
 
-- (void)_showMessage:(ZZMessageDomainModel *)messageModel
+- (void)_showMessageGroup:(ZZMessageGroup *)messageGroup
 {
-    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:messageModel.friendID];
+    for (ZZMessageDomainModel *messageModel in messageGroup.messages) {
+        [[MessageHandler sharedInstance] markAsRead:messageModel];
+    }
     
-    MessagePopoperModel *popoverModel = [MessagePopoperModel new];
-    popoverModel.text = messageModel.body;
-    popoverModel.name = friendModel.fullName;
-    popoverModel.date = [NSDate dateWithTimeIntervalSince1970:messageModel.timestamp];
+    [self updateCurrentVideoIndex:[self.queue.models indexOfObject:messageGroup]];
 
-    [[MessageHandler sharedInstance] markAsRead:messageModel];
-    [self updateCurrentVideoIndex:[self.queue.models indexOfObject:messageModel]];
-
-    [self.delegate needsShowMessage:popoverModel completion:^(BOOL shouldContinue) {
+    [self.delegate needsShowMessages:messageGroup completion:^(BOOL shouldContinue) {
+        
         if (shouldContinue) {
-            [self _continueAfterItem:messageModel];
+            [self _continueAfterItem:messageGroup];
         }
         else {
             [self stop];
@@ -433,14 +430,14 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     // else:
     
-    ZZMessageDomainModel *messageModel = [self.queue messageAfterTimestamp:[queueItem timestamp]];
+    ZZMessageGroup *messageModel = [self.queue messageGroupAfterTimestamp:[queueItem timestamp]];
     
     if (!messageModel) {
         ZZLogWarning(@"Unexpected behaviour");
         return;
     }
     
-    [self _showMessage:messageModel];
+    [self _showMessageGroup:messageModel];
 }
 
 
