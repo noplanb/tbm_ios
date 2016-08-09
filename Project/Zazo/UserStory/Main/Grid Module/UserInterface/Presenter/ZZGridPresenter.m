@@ -187,7 +187,7 @@
     
     if ([self _isAbleToUpdateWithModel:model])
     {
-        model.isDownloadAnimationViewed = YES;
+//        model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
         
         if (animated)
@@ -285,7 +285,7 @@
 - (void)gridAlreadyContainsFriend:(ZZGridDomainModel *)model
 {
     [ZZGridAlertBuilder showAlreadyConnectedDialogForUser:model.relatedUser.firstName completion:^{
-        model.isDownloadAnimationViewed = YES;
+//        model.isDownloadAnimationViewed = YES;
         [self.dataSource updateCellWithModel:model];
         [self.userInterface showFriendAnimationWithFriendModel:model.relatedUser];
     }];

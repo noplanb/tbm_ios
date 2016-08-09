@@ -33,12 +33,10 @@ static CGFloat const kUserNameFontSize = 18;
 @property (nonatomic, strong) ZZLoadingAnimationView *animationView;
 @property (nonatomic, strong) ZZCellEffectView *effectView;
 
-//@property (nonatomic, strong) ZZHoldIndicator *holdIndicatorView;
-
 - (instancetype)initWithPresentedView:(ZZGridCell *)presentedView;
 - (void)updateBadgeWithNumber:(NSInteger)badgeNumber;
 - (void)showUploadAnimationWithCompletionBlock:(void (^)())completionBlock;
-- (void)showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock;
+- (void)showDownloadAnimation;
 - (void)showAppearAnimation;
 - (void)updateSendBadgePosition;
 

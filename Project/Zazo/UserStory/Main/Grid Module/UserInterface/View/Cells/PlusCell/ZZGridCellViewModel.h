@@ -34,28 +34,21 @@ didChangeRecordingState:(BOOL)isRecording
 
 @end
 
+typedef NS_ENUM(NSUInteger, ZZCellState) {
+    ZZCellStateNone,
+    ZZCellStateAdd,
+    ZZCellStateHasNoApp,
+    ZZCellStateHasApp,
+    ZZCellStatePreview
+};
 
-typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
-{
-    //base state
-            ZZGridCellViewModelStateNone = 0,
-    ZZGridCellViewModelStateAdd = 1 << 1,
-    ZZGridCellViewModelStateFriendHasApp = 1 << 2,
-    ZZGridCellViewModelStateFriendHasNoApp = 1 << 3,
-    ZZGridCellViewModelStatePreview = 1 << 4,
-
-    //additional state
-            ZZGridCellViewModelStateVideoWasUploaded = 1 << 5,
-    ZZGridCellViewModelStateVideoWasViewed = 1 << 6,
-    ZZGridCellViewModelStateVideoDownloading = 1 << 7,
-    ZZGridCellViewModelStateVideoDownloaded = 1 << 8,
-    ZZGridCellViewModelStateNeedToShowBorder = 1 << 9,
-
-    //badge state
-            ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne = 1 << 10,
-    ZZGridCellViewModelStateVideoCountMoreThatOne = 1 << 11,
-    ZZGridCellViewModelStateVideoFailedPermanently = 1 << 12,
-    ZZGridCellViewModelStateVideoFirstVideoDownloading = 1 << 13
+typedef NS_ENUM(NSUInteger, ZZCellVideoState) {
+    ZZCellVideoStateNone,
+    ZZCellVideoStateUploaded,
+    ZZCellVideoStateViewed,
+    ZZCellVideoStateDownloading,
+    ZZCellVideoStateDownloaded,
+    ZZCellVideoStateFailed
 };
 
 @interface ZZGridCellViewModel : NSObject
@@ -76,17 +69,16 @@ typedef NS_OPTIONS(NSInteger, ZZGridCellViewModelState)
 @property (nonatomic, weak) UILabel *usernameLabel;
 
 - (NSString *)firstName;
-
 - (UIImage *)videoThumbnailImage;
 
-- (ZZGridCellViewModelState)state;
+- (ZZCellState)friendState;
+- (ZZCellVideoState)videoState;
+
+- (void)reloadDebugVideoStatus;
+- (BOOL)isEnablePlayingVideo;
 
 - (void)setupRecorderRecognizerOnView:(UIView *)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate;
-
-- (void)reloadDebugVideoStatus;
-
-- (BOOL)isEnablePlayingVideo;
 
 // MARK: Events
 

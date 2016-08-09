@@ -88,96 +88,71 @@
     return !CGPointEqualToPoint(self.initialRecordPoint, CGPointZero);
 }
 
-- (ZZGridCellViewModelState)state
+- (ZZCellState)friendState
 {
-    ZZGridCellViewModelState modelState = ZZGridCellViewModelStateNone;
-
     if (!self.item.relatedUser)
     {
-        modelState = ZZGridCellViewModelStateAdd;
+        return ZZCellStateAdd;
     }
-    else if (!ANIsEmpty(self.item.relatedUser) &&
-            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusFailedPermanently)
+    
+    if (self.hasThumbnail)
     {
-        if (self.hasThumbnail)
-        {
-            modelState = ZZGridCellViewModelStatePreview | ZZGridCellViewModelStateVideoFailedPermanently;
-        }
-        else
-        {
-            modelState = ZZGridCellViewModelStateFriendHasApp | ZZGridCellViewModelStateVideoFailedPermanently;
-        }
+        return ZZCellStatePreview;
     }
-    else if (self.hasThumbnail)
+    
+    if (self.item.relatedUser.lastIncomingVideoStatus > ZZVideoIncomingStatusNew)
     {
-        modelState = ZZGridCellViewModelStatePreview;
-    }
-    else if (self.item.relatedUser.hasApp)
-    {
-        modelState = ZZGridCellViewModelStateFriendHasApp;
-    }
-    else if (!ANIsEmpty(self.item.relatedUser) && !self.item.relatedUser.hasApp)
-    {
-        modelState = ZZGridCellViewModelStateFriendHasNoApp;
+        return ZZCellStateHasApp;
     }
 
-    modelState = [self _additionalModelStateWithState:modelState];
+    else
+    {
+        return ZZCellStateHasNoApp;
+    }
 
-    return modelState;
+    return ZZCellStateNone;
 }
 
-- (ZZGridCellViewModelState)_additionalModelStateWithState:(ZZGridCellViewModelState)state
+- (ZZCellVideoState)videoState
 {
-    ZZGridCellViewModelState stateWithAdditionalState = state;
-
+    ZZVideoStatusEventType eventType = self.item.relatedUser.lastVideoStatusEventType;
+    ZZVideoIncomingStatus incomingStatus = self.item.relatedUser.lastIncomingVideoStatus;
+    
     if (self.hasUploadedVideo &&
-            !self.isUploadedVideoViewed &&
-            self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming &&
-            self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
+        !self.isUploadedVideoViewed &&
+        eventType != ZZVideoStatusEventTypeIncoming &&
+        self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
     {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasUploaded);
+        return ZZCellVideoStateUploaded;
     }
-    else if (self.isUploadedVideoViewed &&
-            self.item.relatedUser.lastVideoStatusEventType != ZZVideoStatusEventTypeIncoming)
+    
+    if (eventType == ZZVideoStatusEventTypeIncoming &&
+        incomingStatus == ZZVideoIncomingStatusDownloading)
+//         && [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
     {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoWasViewed);
+        return ZZCellVideoStateDownloading;
     }
-    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading &&
-            [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
+    
+    if (eventType == ZZVideoStatusEventTypeIncoming &&
+        incomingStatus == ZZVideoIncomingStatusDownloaded)
+//         && !self.item.isDownloadAnimationViewed)
     {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloading);
-    }
-    else if (self.item.relatedUser.lastVideoStatusEventType == ZZVideoStatusEventTypeIncoming &&
-            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded &&
-            !self.item.isDownloadAnimationViewed)
-    {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloaded);
+        return ZZCellVideoStateDownloaded;
     }
 
-    // green border state
-    if (self.badgeNumber > 0)
+    if (self.isUploadedVideoViewed &&
+        eventType != ZZVideoStatusEventTypeIncoming)
     {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateNeedToShowBorder);
+        return ZZCellVideoStateViewed;
     }
-    else if (self.badgeNumber == 0 &&
-            self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloading)
-    {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoFirstVideoDownloading);
-    }
+    
+    return ZZCellVideoStateNone;
+    
+//    if (self.badgeNumber > 0)
+//    {
+//        stateWithvideoState = (stateWithvideoState | ZZGridCellViewModelStateNeedToShowBorder);
+//    }    
 
-    // badge state
-    if (self.badgeNumber == 1
-            && self.item.relatedUser.lastIncomingVideoStatus == ZZVideoIncomingStatusDownloaded)
-    {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne);
-    }
-    else if (self.badgeNumber > 1)
-    {
-        stateWithAdditionalState = (stateWithAdditionalState | ZZGridCellViewModelStateVideoCountMoreThatOne);
-    }
-
-    return stateWithAdditionalState;
 }
 
 - (NSString *)firstName

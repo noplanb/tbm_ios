@@ -12,13 +12,9 @@
 @interface ZZGridCell : UIView <ANModelTransfer>
 
 - (void)showContainFriendAnimation;
-
 - (void)hideAllAnimations;
-
-- (void)hideActiveBorder;
-
+//- (void)hideActiveBorder;
 - (void)setBadgesHidden:(BOOL)hidden;
-
 - (void)setDownloadProgress:(CGFloat)progress;
 
 @end

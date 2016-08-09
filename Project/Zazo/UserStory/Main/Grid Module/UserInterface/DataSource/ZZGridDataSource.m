@@ -51,7 +51,7 @@ static NSInteger const kGridCenterCellIndex = 4;
     models = [[models.rac_sequence map:^id(ZZGridDomainModel *value) {
 
         ZZGridCellViewModel *viewModel = [ZZGridCellViewModel new];
-        value.isDownloadAnimationViewed = !self.wasInitialSetuped;
+//        value.isDownloadAnimationViewed = !self.wasInitialSetuped;
         [self _configureCellViewModel:viewModel withDomainModel:value];
         return viewModel;
     }] array];

@@ -49,21 +49,21 @@
     ANDispatchBlockToMainQueue(^{
         self.model = model;
 
-        // upload video animation
-        if (self.model.state & ZZGridCellViewModelStateVideoWasUploaded)
+        if (self.model.videoState == ZZCellVideoStateUploaded)
         {
             [self updateSendBadgePosition];
             self.sentBadge.hidden = NO;
         }
+
+        [self _setupNumberBadgeWithModel:model];
 
         model.playerContainerView = self;
 
         model.usernameLabel = self.userNameLabel;
         [self.model reloadDebugVideoStatus];
 
-        self.sentBadge.state = model.state & ZZGridCellViewModelStateVideoWasViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
-
-        self.sentBadge.hidden = !(model.state & ZZGridCellViewModelStateVideoWasViewed || model.state & ZZGridCellViewModelStateVideoWasUploaded);
+        self.sentBadge.state = model.videoState == ZZCellVideoStateViewed ? ZZSentBadgeStateViewed : ZZSentBadgeStateSent;
+        self.sentBadge.hidden = !(model.videoState == ZZCellVideoStateViewed || model.videoState == ZZCellVideoStateUploaded);
         
         [self _setupDownloadAnimationsWithModel:model];
     });
@@ -74,33 +74,42 @@
 
 - (void)_setupDownloadAnimationsWithModel:(ZZGridCellViewModel *)model
 {
+    switch (self.model.videoState) {
+            
+        case ZZCellVideoStateDownloading:
+            [self _showDownloadAnimationIfNeeded];
+            break;
+            
+        case ZZCellVideoStateFailed:
+        case ZZCellVideoStateDownloaded:
+            [self _finishDownloadAnimationIfNeeded];
+            break;
+            
+        default:
+            break;
+    }
 
-    if (self.model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
+}
+             
+- (void)_finishDownloadAnimationIfNeeded
+{
+    if ([self _countOfDownloadsForModel:self.model] != 0)
     {
-        [self _setupDownloadedStateWithModel:model];
+        return;
     }
-    else if (self.model.state & ZZGridCellViewModelStateVideoDownloading)
+    
+    [self.animationView finishDownloadingToView:self.numberBadge completion:nil];
+}
+
+- (void)_showDownloadAnimationIfNeeded
+{
+    if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading
+                                        fromFriend:self.model.item.relatedUser.idTbm] > 1)
     {
-        [self _setupDownloadedStateWithModel:model];
+        return; // No need show animation again if already downloading
     }
-    else if ((self.model.state & ZZGridCellViewModelStateVideoDownloaded) &&
-            ([self _countOfDownloadsForModel:model] == 0))
-    {
-        [self.animationView finishDownloadingToView:self.numberBadge completion:^{
-            [self _setupNumberBadgeWithModel:model];
-        }];
-    }
-    else if ((self.model.state & ZZGridCellViewModelStateVideoFailedPermanently) &&
-            [self _countOfDownloadsForModel:model] == 0)
-    {
-        [self.animationView finishDownloadingToView:self.numberBadge completion:^{
-            [self _setupNumberBadgeWithModel:model];
-        }];
-    }
-    else
-    {
-        [self _setupNumberBadgeWithModel:model];
-    }
+    
+    [self showDownloadAnimation];
 }
 
 - (NSUInteger)_countOfDownloadsForModel:(ZZGridCellViewModel *)gridModel
@@ -110,60 +119,19 @@
 
 }
 
-- (void)_setupDownloadedStateWithModel:(ZZGridCellViewModel *)model
-{
-    if ([ZZVideoDataProvider countVideosWithStatus:ZZVideoIncomingStatusDownloading fromFriend:model.item.relatedUser.idTbm] > 1)
-    {
-        return; // No need show animation again if already downloading
-    }
-
-    [self showDownloadAnimationWithCompletionBlock:^{
-
-    }];
-}
-
 - (void)_setupNumberBadgeWithModel:(ZZGridCellViewModel *)model
 {
-    if (model.state & ZZGridCellViewModelStateVideoDownloadedAndVideoCountOne)
-    {
-        if (model.badgeNumber > 0)
-        {
-            [self updateBadgeWithNumber:model.badgeNumber];
-        }
-    }
-    else if (model.state & ZZGridCellViewModelStateVideoCountMoreThatOne)
-    {
-        [self updateBadgeWithNumber:model.badgeNumber];
-    }
-    else if (model.state & ZZGridCellViewModelStateNeedToShowBorder)
-    {
-        [self updateBadgeWithNumber:model.badgeNumber];
-    }
-    else if (model.state & ZZGridCellViewModelStateVideoFirstVideoDownloading)
-    {
-
-    }
-    else if ((model.state & ZZGridCellViewModelStatePreview) &&
-            (model.state & ZZGridCellViewModelStateVideoDownloading))
-    {
-        [self updateBadgeWithNumber:model.badgeNumber];
-    }
-    else
-    {
-        [self updateBadgeWithNumber:model.badgeNumber];
-    }
-
+    [self updateBadgeWithNumber:model.badgeNumber];
 }
 
 - (void)_didTapVideo:(UITapGestureRecognizer *)recognizer
 {
     if (!self.superview.isHidden && [self.model isEnablePlayingVideo])
     {
-        [self.presentedView hideActiveBorder];
+//        [self.presentedView hideActiveBorder];
         [self.model didTapCell];
     }
 }
-
 
 #pragma mark - Animation part
 
@@ -174,7 +142,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
         [self updateSendBadgePosition];
-
+        
         [self.animationView animateWithType:ZZLoadingAnimationTypeUploading
                                      toView:self.sentBadge
                                  completion:^{
@@ -186,7 +154,7 @@
     });
 }
 
-- (void)showDownloadAnimationWithCompletionBlock:(void (^)())completionBlock
+- (void)showDownloadAnimation
 {
     [self.animationView startDownloading];
 }

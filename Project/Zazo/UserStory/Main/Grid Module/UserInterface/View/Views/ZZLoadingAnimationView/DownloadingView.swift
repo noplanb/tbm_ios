@@ -20,6 +20,7 @@ func delay(delay: Double, closure: () -> ()) {
 let minEndStroke: CGFloat = 0.05;
 
 public class DownloadingLayer: CALayer {
+    
     var backCircle = CAShapeLayer()
     var animatingProgressLayer = CAShapeLayer()
     var arrowLayer = CAShapeLayer()
@@ -125,6 +126,9 @@ public class DownloadingLayer: CALayer {
 }
 
 public class DownloadingView: UIView {
+    
+    private var isAnimating = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clearColor()
@@ -159,6 +163,12 @@ public class DownloadingView: UIView {
 
     public func startAnimating() {
 
+        if isAnimating {
+            return
+        }
+        
+        isAnimating = true
+        
         self.downloadingLayer.resetArrow()
 
         let animation = CABasicAnimation(keyPath: "transform.rotation")
@@ -174,6 +184,12 @@ public class DownloadingView: UIView {
     }
 
     public func finishAnimating(completion: () -> ()) {
+
+        if !isAnimating {
+            return
+        }
+        
+        isAnimating = false
 
         var frame = downloadingLayer.arrowLayer.frame
 

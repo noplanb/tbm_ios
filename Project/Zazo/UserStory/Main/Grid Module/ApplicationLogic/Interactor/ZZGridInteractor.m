@@ -174,7 +174,7 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
     ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
-    gridModel.isDownloadAnimationViewed = YES;
+//    gridModel.isDownloadAnimationViewed = YES;
     [self.output reloadGridModel:gridModel];
     [self updateLastActionForFriend:model];
 }
@@ -447,8 +447,8 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
         }
     }
-    else if (!ANIsEmpty(gridModel.relatedUser) &&
-            !gridModel.isDownloadAnimationViewed)
+    else if (!ANIsEmpty(gridModel.relatedUser))
+//             && !gridModel.isDownloadAnimationViewed)
     {
         [self.output reloadAfterVideoUpdateGridModel:gridModel];
     }
@@ -620,8 +620,8 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _addUserAsFriendToGrid:friendModel fromNotification:YES];
         }
     }
-    else if (!ANIsEmpty(gridModel.relatedUser) &&
-             !gridModel.isDownloadAnimationViewed)
+    else if (!ANIsEmpty(gridModel.relatedUser))
+//              && !gridModel.isDownloadAnimationViewed)
     {
         [self.output reloadAfterMessageUpdateGridModel:gridModel];
     }

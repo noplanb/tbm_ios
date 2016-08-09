@@ -26,8 +26,10 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 @property (nonatomic, strong) ZZGridCellViewModel *model;
 @property (nonatomic, strong) ZZAddContactButton *plusButton;
 @property (nonatomic, strong) ZZGridStateView *stateView;
-@property (nonatomic, assign) ZZGridCellViewModelState currentViewState;
 @property (nonatomic, strong) ZZFriendDomainModel *cellFriendModel;
+@property (nonatomic, assign) ZZCellState currentFriendState;
+@property (nonatomic, assign) ZZCellVideoState currentVideoState;
+
 @end
 
 @implementation ZZGridCell
@@ -38,13 +40,16 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellBorderColor;
         self.clipsToBounds = NO;
+        
         self.layer.cornerRadius = ZZCellCornerRadius;
         self.layer.shadowColor = [ZZColorTheme shared].gridCellShadowColor.CGColor;
         self.layer.shadowRadius = 2.0f;
         self.layer.shadowOffset = CGSizeZero;
         self.layer.shadowOpacity = 1.0f;
 
-        self.currentViewState = ZZGridCellViewModelStateNone;
+        self.currentFriendState = ZZCellStateNone;
+        self.currentVideoState = ZZCellVideoStateNone;
+        
         [self plusButton];
     }
     return self;
@@ -54,53 +59,63 @@ static CGFloat ZZCellBorderWidth = 4.0f;
 {
     ANDispatchBlockToMainQueue(^{
         self.model = model;
-        [self updateStateViewWithModel:model];
+        [self reloadStateViewIfNeeded];
+        [self.stateView updateWithModel:self.model];
+        [self storeCurrentState];
+        [self _showBorderIfNeeded];
     });
 }
 
-- (void)updateStateViewWithModel:(ZZGridCellViewModel *)model
+- (void)storeCurrentState
 {
-    ANDispatchBlockToMainQueue(^{
+    self.currentFriendState = self.model.friendState;
+    self.currentVideoState = self.model.videoState;
+    self.cellFriendModel = self.model.item.relatedUser;
+}
 
-        if ([self _isNeedToChangeStateViewWithModel:model])
-        {
-            if (model.state & ZZGridCellViewModelStateAdd)
-            {
-                [self _updatePlusButtonImage];
+- (void)_showBorderIfNeeded
+{
+    [self _setBorderHidden:self.model.badgeNumber == 0];
+}
 
-                if (self.stateView)
-                {
-                    self.currentViewState = ZZGridCellViewModelStateNone;
-                    [self.stateView removeFromSuperview];
-                }
-            }
+- (void)reloadStateViewIfNeeded
+{
+    if (![self _needsToReloadBaseView])
+    {
+        return;
+    }
+    
+    switch (self.model.friendState)
+    {
+        case ZZCellStateHasApp:
+        case ZZCellStateHasNoApp:
+            self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
+            break;
+            
+        case ZZCellStatePreview:
+            self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
+            break;
+            
+        default:
+            [self clearCell];
+            break;
+    }
+    
+    [self _setupRecordRecognizerWithModel:self.model];
+    //        [self _configureActiveBorderIfNeededWithModel:model];
 
-            else if (model.state & ZZGridCellViewModelStateFriendHasApp ||
-                    model.state & ZZGridCellViewModelStateFriendHasNoApp)
-            {
-                self.stateView = [[ZZGridStateViewRecord alloc] initWithPresentedView:self];
-            }
-            else if (model.state & ZZGridCellViewModelStatePreview)
-            {
-                self.stateView = [[ZZGridStateViewPreview alloc] initWithPresentedView:self];
-            }
-            else
-            {
-                [self.stateView removeFromSuperview];
-            }
+}
 
-            [self _setupRecordRecognizerWithModel:model];
-        }
-
-        [self _configureActiveBorderIfNeededWithModel:model];
-
-        if (self.stateView)
-        {
-            self.currentViewState = model.state;
-            [self.stateView updateWithModel:self.model];
-        }
-
-    });
+- (void)clearCell
+{
+    [self _updatePlusButtonImage];
+    
+    if (self.stateView)
+    {
+        self.currentFriendState = ZZCellStateNone;
+        self.currentVideoState = ZZCellVideoStateNone;
+        [self.stateView removeFromSuperview];
+    }
 }
 
 - (void)setBadgesHidden:(BOOL)hidden
@@ -108,28 +123,27 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     CGFloat alpha = hidden ? 0 : 1;
     self.stateView.sentBadge.alpha = alpha;
     self.stateView.numberBadge.alpha = alpha;
-}
-
-- (void)_configureActiveBorderIfNeededWithModel:(ZZGridCellViewModel *)model
-{
-    if (model.state & ZZGridCellViewModelStateNeedToShowBorder)
+    
+    if (hidden)
     {
-        [self _showActiveBorder];
+        [self _setBorderHidden:YES];
     }
     else
     {
-        [self hideActiveBorder];
+        [self _showBorderIfNeeded];
     }
 }
 
-- (void)_showActiveBorder
+- (void)_setBorderHidden:(BOOL)flag
 {
-    self.backgroundColor = [ZZColorTheme shared].tintColor;
-}
-
-- (void)hideActiveBorder
-{
-    self.backgroundColor = [UIColor whiteColor];
+    if (flag)
+    {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.backgroundColor = [ZZColorTheme shared].tintColor;
+    }
 }
 
 - (void)setDownloadProgress:(CGFloat)progress
@@ -137,18 +151,24 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     self.stateView.animationView.downloadProgress = progress;
 }
 
-- (BOOL)_isNeedToChangeStateViewWithModel:(ZZGridCellViewModel *)model
+- (BOOL)_needsToReloadBaseView
 {
-    BOOL isNeedChange = YES;
-    if ([self.cellFriendModel isEqual:model.item.relatedUser] &&
-            self.currentViewState != ZZGridCellViewModelStateNone
-                    && (model.state & self.currentViewState))
+    if (![self.cellFriendModel isEqual:self.model.item.relatedUser])
     {
-        isNeedChange = NO;
+        return YES;
     }
-    self.cellFriendModel = model.item.relatedUser;
+    
+    if (self.currentFriendState == ZZCellStateNone)
+    {
+        return YES;
+    }
 
-    return isNeedChange;
+    if (self.model.friendState != self.currentFriendState)
+    {
+        return YES;
+    }
+
+    return NO;
 }
 
 #pragma mark - Record recognizer;

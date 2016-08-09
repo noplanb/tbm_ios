@@ -26,7 +26,7 @@
         [self addSubview:self.imageView];
         self.imageView.contentMode = UIViewContentModeCenter;
 
-        self.state = NSUIntegerMax;
+        _state = NSUIntegerMax;
         self.state = ZZSentBadgeStateSent;
         [self.imageView sizeToFit];
 

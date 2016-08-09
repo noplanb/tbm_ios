@@ -83,7 +83,7 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
 - (void)finishDownloadingToView:(UIView *)targetView
                      completion:(ANCodeBlock)completion
 {
-    self.completion = completion;
+    self.completion = completion ?: ^{};
 
     [self.downloadingView finishAnimating:^{
         [UIView animateWithDuration:0.4

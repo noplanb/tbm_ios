@@ -64,10 +64,10 @@
 
 - (void)_handleFailedVideoDownloadWithModel:(ZZGridCellViewModel *)model
 {
-    if (model.badgeNumber == 0 && (model.state & ZZGridCellViewModelStateVideoFailedPermanently))
-    {
-        [self.presentedView hideActiveBorder];
-    }
+//    if (model.badgeNumber == 0 && (model.videoState == ZZCellStateVideoFailed))
+//    {
+//        [self.presentedView hideActiveBorder];
+//    }
 }
 
 - (void)_setupThumbnailWithModel:(ZZGridCellViewModel *)model
@@ -84,7 +84,6 @@
                         animations:^{
                             self.thumbnailImageView.image = thumbImage;
                         } completion:NULL];
-
     }
 
 }
