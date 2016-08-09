@@ -104,7 +104,7 @@
     [self _setPlayerVisible:NO];
 }
 
-- (void)needsShowMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion
+- (void)showMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion
 {
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     [self _updatePlayersFrame];
@@ -116,6 +116,13 @@
     [self.popoverController showFrom:self.playerController.playerView];
     
     [self.userInterface setNextButtonVisible:YES];
+}
+
+- (void)dismissMessages
+{
+    self.popoverCompletion = nil;
+    [self.popoverController dismiss];
+    [self.userInterface setNextButtonVisible:NO];
 }
 
 - (void)callPopoverCompletion:(BOOL)shouldContinue

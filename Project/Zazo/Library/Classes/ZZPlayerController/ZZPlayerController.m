@@ -146,6 +146,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
     
+    if (self.waitsForMessageCallback) {
+        self.waitsForMessageCallback = NO;
+        [self.delegate dismissMessages];
+    }
+    
     [self _changeCurrentVideoToVideoWithIndex:index completion:^{
         
         if (self.currentPlayerItem.status != AVPlayerItemStatusReadyToPlay)
@@ -386,7 +391,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     @weakify(self);
 
-    [self.delegate needsShowMessages:messageGroup completion:^(BOOL shouldContinue) {
+    [self.delegate showMessages:messageGroup completion:^(BOOL shouldContinue) {
         
         @strongify(self);
         self.waitsForMessageCallback = NO;
@@ -398,6 +403,16 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
             [self stop];
         }
     }];
+}
+
+- (void)_showDismissMessage
+{
+    if (!self.waitsForMessageCallback)
+    {
+        return;
+    }
+    
+    [self.delegate dismissMessages];
 }
 
 - (void)_continueAfterItem:(NSObject<ZZPlaybackQueueItem> *)queueItem

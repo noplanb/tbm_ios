@@ -205,6 +205,7 @@
 {
     self.nextButton.hidden = !flag;
     [self.view bringSubviewToFront:self.nextButton];
+    [self.view bringSubviewToFront:self.playbackIndicator.superview];
 }
 
 - (void)setInitialPlayerFrame:(CGRect)initialPlayerFrame

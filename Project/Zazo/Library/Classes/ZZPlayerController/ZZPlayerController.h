@@ -20,7 +20,9 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 - (void)videoPlayerDidCompletePlaying;
 
 - (void)videoPlayerDidReceiveError:(NSError *)error;
-- (void)needsShowMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion;
+
+- (void)showMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion;
+- (void)dismissMessages;
 
 @end
 
