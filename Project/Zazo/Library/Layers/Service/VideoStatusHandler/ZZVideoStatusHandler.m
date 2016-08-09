@@ -228,9 +228,10 @@
                                                         exceptVideoWithID:self.currentlyPlayedVideoID];
                 }
                 
+                [ZZMessageDataUpdater deleteReadMessagesForFriendWithID:friendID];
+
             }
 
-            [ZZMessageDataUpdater deleteReadMessagesForFriendWithID:friendID];
 
             [ZZFriendDataUpdater updateFriendWithID:friendID setLastEventType:ZZIncomingEventTypeVideo];
             [ZZVideoDataUpdater updateVideoWithID:videoID setIncomingStatus:videoStatus];
