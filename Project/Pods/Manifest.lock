@@ -24,7 +24,6 @@ PODS:
   - APAddressBook (0.2.3):
     - APAddressBook/Core (= 0.2.3)
   - APAddressBook/Core (0.2.3)
-  - Bolts-Swift (1.2.0)
   - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
   - DeviceUtil (1.2.2)
@@ -64,7 +63,6 @@ DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
   - Alamofire (~> 3.4)
   - APAddressBook (~> 0.2.1)
-  - Bolts-Swift
   - Crashlytics (~> 3.7.0)
   - DeviceUtil (~> 1.2.0)
   - Fabric (~> 1.6.1)
@@ -104,7 +102,6 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
-  Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
   Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
@@ -133,6 +130,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   Unbox: 576f1470399f84c411ced0a8ce4c4caaeb8acf1d
 
-PODFILE CHECKSUM: 72968aab1d4c3b4fa481802aec29b4d7244915ee
+PODFILE CHECKSUM: 6c0d0e193dd7f62d5f4f754d2da1f14cdad7b0ab
 
 COCOAPODS: 1.0.1
