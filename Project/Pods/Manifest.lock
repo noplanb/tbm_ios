@@ -24,7 +24,7 @@ PODS:
   - APAddressBook (0.2.3):
     - APAddressBook/Core (= 0.2.3)
   - APAddressBook/Core (0.2.3)
-  - Bolts-Swift (1.1.0)
+  - Bolts-Swift (1.2.0)
   - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
   - DeviceUtil (1.2.2)
@@ -46,13 +46,9 @@ PODS:
   - pop (1.0.9)
   - Popover (0.9.1)
   - RBBAnimation (0.4.0)
-  - ReactiveCocoa (2.4.7):
-    - ReactiveCocoa/UI (= 2.4.7)
-  - ReactiveCocoa/Core (2.4.7):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.4.7)
-  - ReactiveCocoa/UI (2.4.7):
-    - ReactiveCocoa/Core
+  - ReactiveCocoa (4.2.1):
+    - Result (~> 2.0)
+  - Result (2.1.3)
   - Reveal-iOS-SDK (1.6.2)
   - Rollbar (0.1.6)
   - SDCAlertView (2.5.4):
@@ -85,7 +81,7 @@ DEPENDENCIES:
   - PBJVision (from `https://github.com/noplanb/PBJVision`, tag `v0.4.6`)
   - pop (~> 1.0)
   - Popover
-  - ReactiveCocoa (~> 2.4.7)
+  - ReactiveCocoa (~> 4.2)
   - Reveal-iOS-SDK (~> 1.6.1)
   - Rollbar (~> 0.1.5)
   - SDCAlertView (~> 2.5.2)
@@ -108,7 +104,7 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
-  Bolts-Swift: 63ef77f967f795415531da45eef419eab79ec730
+  Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
   Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
@@ -126,7 +122,8 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Popover: e64ef6d6f6e98c1c5c5aceedf1d1b9e6fd7375d7
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
-  ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
+  ReactiveCocoa: 5a42745f11ea236f405bb9ce5e97c5e3b23562dd
+  Result: 18e1a7597fbcca5923c565b40a25a98afafdee02
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   Rollbar: 5500ff0227e60d4ebb3615341c18ca44df988bcb
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
@@ -136,6 +133,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   Unbox: 576f1470399f84c411ced0a8ce4c4caaeb8acf1d
 
-PODFILE CHECKSUM: 0dbcfc8605d9b58f8a483124343b2836dcb7dfc1
+PODFILE CHECKSUM: 72968aab1d4c3b4fa481802aec29b4d7244915ee
 
 COCOAPODS: 1.0.1

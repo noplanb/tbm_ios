@@ -54,7 +54,7 @@ abstract_target 'ZazoBase' do
 
     #Misc
     pod 'DeviceUtil', '~> 1.2.0'
-    pod 'ReactiveCocoa', '~> 2.4.7'
+    pod 'ReactiveCocoa', '~> 4.2'
     pod 'APAddressBook', '~> 0.2.1'
     pod 'libPhoneNumber-iOS', '~> 0.8.7'
     pod 'GCDKit'

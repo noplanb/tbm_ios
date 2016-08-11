@@ -8,6 +8,7 @@
 #import "ANBaseDomainModel.h"
 #import <objc/runtime.h>
 @import ReactiveCocoa;
+#import "EXTRuntimeExtensions.h"
 
 // Used to cache the reflection performed in +propertyKeys.
 static void *ANBaseModelCachedPropertyKeysKey = &ANBaseModelCachedPropertyKeysKey;
