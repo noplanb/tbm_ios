@@ -9,7 +9,8 @@
 import Foundation
 
 public struct RecognitionResult {
-    let text: String
+    var videoID: String?
+    var text: String
     let date: NSDate
 }
 
@@ -18,9 +19,8 @@ public func ==(lhs: RecognitionResult, rhs: RecognitionResult) -> Bool {
 }
 
 protocol TranscriptLogicOutput {
-    func didRecognizeVideoAtIndex(with result: RecognitionResult)
-    func didFailWithVideoAtIndex(index: UInt, with error: NSError?)
-    func didCompleteRecognition(error: NSError?)
+    func didRecognize(with result: RecognitionResult)
+    func didCompleteRecognition()
 }
 
 protocol TranscriptLogic {

@@ -8,6 +8,8 @@
 
 import Foundation
 import GCDKit
+import Result
+import ReactiveCocoa
 
 class TranscriptInteractor: TranscriptLogic {
     
@@ -24,14 +26,16 @@ class TranscriptInteractor: TranscriptLogic {
         
         for videoModel in alreadyRecognized {
             
-            let result = RecognitionResult(text: videoModel.transcription,
+            let result = RecognitionResult(videoID: videoModel.videoID,
+                                           text: videoModel.transcription,
                                            date: _date(videoID: videoModel.videoID))
             didRecognize(result)
         }
         
         for messageModel in messages {
             
-            let result = RecognitionResult(text: messageModel.body,
+            let result = RecognitionResult(videoID: nil,
+                                           text: messageModel.body,
                                            date: _date(videoID: messageModel.messageID))
             didRecognize(result)
             MessageHandler.sharedInstance.mark(asRead: messageModel)
@@ -47,30 +51,52 @@ class TranscriptInteractor: TranscriptLogic {
                 ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
         }
         
-//        let completion = {
-//            GCDBlock.async(.Main, closure: {
-//                self.output?.didCompleteRecognition(nil)
-//            })
-//        }
-//        
-//        if recognizingVideos.count == 0 {
-//            completion()
-//            return
-//        }
+
         
-        for videoModel in recognizingVideos {
-            fetchTranscription(forVideoID: videoModel.videoID)
+        if recognizingVideos.count == 0 {
+            return
         }
         
+        let recognizingSignal = SignalProducer<SignalProducer<RecognitionResult, ServiceError>, NoError>{
+            observer, disposal in
+            
+            for videoModel in self.recognizingVideos {
+                
+                var result = RecognitionResult(videoID: videoModel.videoID,
+                                                  text: "", 
+                                                  date: self._date(videoID: videoModel.videoID))
+                
+                let signal = self.messagesService.getTranscript(by: videoModel.videoID)
+                    .map({ (response) -> RecognitionResult in
+                        
+                        result.text = response.data.transcription
+                        return result
+                        
+                    })
+                    .flatMapError{
+                        _ in SignalProducer<RecognitionResult, ServiceError>(value: result)
+                    }
+                
+                observer.sendNext(signal)
+            }
+            observer.sendCompleted()
+        }
+        
+        recognizingSignal.flatten(.Concat).start { (event) in
+            switch event {
+            case .Next(let result):
+                self.saveTranscript(from: result)
+                self.didRecognize(result)
+            case .Completed:
+                self.output?.didCompleteRecognition()
+            case .Failed(let error):
+                logError("\(error)")
+            default:
+                break
+            }
+        }
     }
     
-    func fetchTranscription(forVideoID ID:String) {
-        messagesService.getTranscript(by: ID)
-    }
-    
-    func cancelRecognizingVideos() {
-
-    }
     
     func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel) {
         
@@ -80,40 +106,31 @@ class TranscriptInteractor: TranscriptLogic {
         
     }
     
-    func didRecognize(videoID: String, result text: String) {
-        
-//        if let index = recognizingURLs.indexOf(url) {
-//            
-//            let videoModel = recognizingVideos[index]
-//            
-//            let result = RecognitionResult(text: text,
-//                                           date: _date(videoID: videoModel.videoID))
-//            
-//            ZZVideoDataUpdater.updateVideoWithID(videoModel.videoID, setTranscription: text)
-//            
-//            videoViewed(videoModel)
-//            didRecognize(result)
-//        }
-        
-    }
-    
-    func didFailRecognition(url: NSURL, error: NSError) {
-        
-//        if let index = recognizingURLs.indexOf(url) {
-//            
-//            GCDBlock.async(.Main) {
-//                self.output?.didFailWithVideoAtIndex(UInt(index), with: error)
-//            }
-//            
-//        }
-    }
+
 
     // MARK: Other
-    
+
+    func saveTranscript(from result: RecognitionResult) {
+        
+        guard let videoID = result.videoID else {
+            return
+        }
+        
+        let videoModel = ZZVideoDataProvider.itemWithID(videoID)
+        videoViewed(videoModel)
+        
+        guard result.text.characters.count > 0 else {
+            return;
+        }
+        
+        ZZVideoDataUpdater.updateVideoWithID(result.videoID, setTranscription: result.text)
+
+    }
     
     func didRecognize(result: RecognitionResult) {
+
         GCDBlock.async(.Main) {
-            self.output?.didRecognizeVideoAtIndex(with: result)
+            self.output?.didRecognize(with: result)
         }
     }
     

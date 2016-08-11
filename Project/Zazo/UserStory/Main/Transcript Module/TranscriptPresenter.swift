@@ -59,11 +59,12 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     // MARK: TranscriptLogicOutput
     
-    func didRecognizeVideoAtIndex(with result: RecognitionResult) {
+    func didRecognize(with result: RecognitionResult) {
         insertToView(recognizingResult: result)        
     }
     
-    func didCompleteRecognition(error: NSError?) {
+    func didCompleteRecognition() {
+        
         view.loading(ofType: .Transcript, isVisible: false)
         playbackController.playVideoForFriend(friendModel)
     }

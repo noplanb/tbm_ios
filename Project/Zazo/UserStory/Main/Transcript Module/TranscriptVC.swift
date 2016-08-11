@@ -96,13 +96,18 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         UIView.animateWithDuration(0.5, animations: updateBlock)
     }
     
-    func insertItem(text:String,
-                    index: UInt,
-                    time:NSDate) {
+    func insertItem(text: String, index: UInt, time: NSDate) {
     
         let item = TranscriptItemView()
         
-        item.textLabel.text = text
+        let emptyText = "No text"
+        let noText = text.characters.count == 0
+        
+        if noText {
+            item.textLabel.font = UIFont.italicSystemFontOfSize(item.textLabel.font.pointSize)
+        }
+        
+        item.textLabel.text = noText ? emptyText : text
         item.timeLabel.text = dateFormater.stringFromDate(time)
         
 //        var index = index
