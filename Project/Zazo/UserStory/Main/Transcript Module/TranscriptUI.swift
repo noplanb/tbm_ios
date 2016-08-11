@@ -13,8 +13,12 @@ enum TranscriptUILoadingType {
 }
 
 protocol TranscriptUIInput {
+
+    func insertItem(text:String,
+                    index: UInt,
+                    time:NSDate)
+    
     func loading(ofType type:TranscriptUILoadingType, isVisible visible:Bool)
-    func add(transcript text:String, with time:NSDate)
     func setVolumeEnabled(enabled:Bool)
     func setThumbnail(image: UIImage)
     func setFriendName(name: String)

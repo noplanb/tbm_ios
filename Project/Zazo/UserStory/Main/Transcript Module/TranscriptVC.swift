@@ -96,18 +96,20 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         UIView.animateWithDuration(0.5, animations: updateBlock)
     }
     
-    func add(transcript text: String, with time: NSDate) {
-        
+    func insertItem(text:String,
+                    index: UInt,
+                    time:NSDate) {
+    
         let item = TranscriptItemView()
         
         item.textLabel.text = text
         item.timeLabel.text = dateFormater.stringFromDate(time)
         
-        var index = UInt(contentView.stackView.arrangedSubviews.count)
+//        var index = index
         
-        if (animating) {
-            index -= 1
-        }
+//        if (animating) {
+//            index -= 1
+//        }
         
         contentView.stackView.insertArrangedSubview(item, atIndex: index)
         contentView.stackView.layoutIfNeeded()

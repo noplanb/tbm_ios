@@ -48,16 +48,18 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
         
         view.showLoading(true)
         
-        logic.sendMessage(view.typedText())?.continueWith(continuation: { task in
-        
+        logic.sendMessage(view.typedText()).start { (event) in
+            
             self.view.showLoading(false)
-            
-            if let error = task.error {
-                logWarning("\(error)")
-            }
-            
             self.router.hide()
-        })
+            
+            switch event {
+            case .Failed(let error):
+                logWarning("\(error)")
+            default:
+                break
+            }
+        }
     }
     
     func didTapKeyboard() {

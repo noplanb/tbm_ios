@@ -60,21 +60,16 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     // MARK: TranscriptLogicOutput
     
     func didRecognizeVideoAtIndex(with result: RecognitionResult) {
-
-        view.add(transcript: result.text, with: result.date)
-        
-        if result.index == 0 {
-            playbackController.playVideoForFriend(friendModel)
-        }
-        
+        insertToView(recognizingResult: result)        
     }
     
     func didCompleteRecognition(error: NSError?) {
         view.loading(ofType: .Transcript, isVisible: false)
+        playbackController.playVideoForFriend(friendModel)
     }
     
     func didFailWithVideoAtIndex(index: UInt, with error: NSError?) {
-        view.add(transcript: "(Recognition failed)", with: NSDate())
+//        view.insertItem("(Recognition failed)", index: index, time: NSDate())
     }
     
     // MARK: TranscriptUIOutput interface
@@ -102,5 +97,43 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     func didCancelInteractiveDismissal() {
         playbackController.paused = false
+    }
+    
+    // MARK: Support
+    
+    let recognizedItems = SortingContainer<RecognitionResult>()
+    
+    func insertToView(recognizingResult result: RecognitionResult) {
+        
+        recognizedItems.add(item: result)
+        let index = recognizedItems.sorted.indexOf { result == $0 }
+        
+        view.insertItem(result.text,
+                        index: UInt(index!),
+                        time: result.date)
+    }
+}
+
+public protocol Sortable: Equatable {
+    func value() -> Int
+}
+
+extension RecognitionResult: Sortable {
+    public func value() -> Int {
+        return Int(self.date.timeIntervalSince1970)
+    }
+}
+
+class SortingContainer<T: Sortable> {
+    
+    var sorted: [T] {
+        return _sorted
+    }
+    
+    private var _sorted = [T]()
+    
+    func add(item item: T) {
+        let index = _sorted.indexOf { $0.value() > item.value() } ?? _sorted.count
+        _sorted.insert(item, atIndex: index)
     }
 }

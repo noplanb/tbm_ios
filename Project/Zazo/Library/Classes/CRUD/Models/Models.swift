@@ -8,7 +8,8 @@
 
 import Foundation
 import Unbox
-import BoltsSwift
+import ReactiveCocoa
+import Result
 import GCDKit
 
 enum ResponseStatus: String {
@@ -35,53 +36,51 @@ extension ResponseStatus: UnboxableEnum {
     }
 }
 
-enum ResponseError: ErrorType {
-    case ValidationError(errorText: String)
-    case LogicError(response: GenericResponse)
-    case OtherError(error: ErrorType)
+enum ServiceError: ErrorType {
+    case InputError(errorText: String)
+    case ClientError(response: GenericResponse) // 4XX
+    case ServerError(statusCode: Int) // 5XX
+    case AnotherError(error: ErrorType)
+    case UnknownError
 }
 
-func unbox<T: Unboxable>(data: NSData) -> Task<T> {
+
+func unbox<T: Unboxable>(data: NSData) -> Result<T, ServiceError> {
     
-    let completion = TaskCompletionSource<T>()
-    
-    GCDQueue.Background.async {
+    do {
+        let result: T = try Unbox(data)
         
-        do {
-            let result: T = try Unbox(data)
-            
-            if let genericResponse = result as? GenericResponse {
-                if genericResponse.errors != nil {
-                    completion.setError(ResponseError.LogicError(response: genericResponse))
-                }
-                else {
-                    completion.setResult(result)
-                }
+        if let genericResponse = result as? GenericResponse {
+            if genericResponse.errors != nil {
+                return .Failure(ServiceError.ClientError(response: genericResponse))
             }
             else {
-                completion.setResult(result)
+                return .Success(result)
             }
         }
-        catch let unboxError as UnboxError {
-            
-            do {
-                let genericResponse: GenericResponse = try Unbox(data)
-                
-                if genericResponse.errors != nil {
-                    completion.setError(ResponseError.LogicError(response: genericResponse))
-                }
-            }
-            catch {
-                completion.setError(ResponseError.OtherError(error: unboxError))
-            }
-            
-        }
-        catch let e {
-            completion.setError(ResponseError.OtherError(error: e))
+        else {
+            return .Success(result)
         }
     }
+    catch let unboxError as UnboxError {
+        
+        do {
+            let genericResponse: GenericResponse = try Unbox(data)
+            
+            if genericResponse.errors != nil {
+                return .Failure(ServiceError.ClientError(response: genericResponse))
+            }
+        }
+        catch {
+            return .Failure(ServiceError.AnotherError(error: unboxError))
+        }
+        
+    }
+    catch let e {
+        return .Failure(ServiceError.AnotherError(error: e))
+    }
     
-    return completion.task
+    return .Failure(ServiceError.UnknownError)
 }
 
 enum MessageType: String {

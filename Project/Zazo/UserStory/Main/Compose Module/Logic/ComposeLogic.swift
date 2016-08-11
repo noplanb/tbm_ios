@@ -7,17 +7,12 @@
 //
 
 import Foundation
-import BoltsSwift
+import ReactiveCocoa
 
 protocol ComposeLogicOutput {
 
 }
 
 protocol ComposeLogic {
-    
-    func getAllMessages() -> Task<GetAllMessagesResponse>
-    func get(byID ID: String) -> Task<GetMessageResponse>
-    func sendMessage(text: String) -> Task<GenericResponse>?
-    func deleteMessage(byID ID: Int) -> Task<GenericResponse>
-    
+    func sendMessage(text: String) -> SignalProducer<GenericResponse, ServiceError>
 }

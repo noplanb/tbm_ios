@@ -7,15 +7,11 @@
 //
 
 import Foundation
-import BoltsSwift
+import ReactiveCocoa
 
 protocol MessagesService: NSObjectProtocol {
-    func get() -> Task<GetAllMessagesResponse>
-    func get(by ID: String) -> Task<GetMessageResponse>
-    func post(text: String, userID: String) -> Task<GenericResponse>
-    func delete(by ID: Int) -> Task<GenericResponse>
+    func get() -> SignalProducer<GetAllMessagesResponse, ServiceError>
+    func getTranscript(by ID: String) -> SignalProducer<GetMessageResponse, ServiceError>
+    func post(text: String, userID: String) -> SignalProducer<GenericResponse, ServiceError>
+    func delete(by ID: Int) -> SignalProducer<GenericResponse, ServiceError>
 }
-
-//struct API {    
-//    let messages: MessagesService
-//}

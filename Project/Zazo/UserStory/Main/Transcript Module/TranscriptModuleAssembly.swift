@@ -21,11 +21,7 @@ import Foundation
     init(with parentVC: UIViewController) {
         
         interactor = TranscriptInteractor()
-        
-        let manager = RecognitionManager(output: interactor)
-        manager.registerType(NuanceRecognitionOperation)
-        interactor.recognitionManager = manager
-        
+        interactor.messagesService = ConcreteMessagesService(client: NetworkClient())
         viewController = TranscriptVC(nibName: nil, bundle: nil)
         
         let router = TranscriptRouter(forPresenting: viewController, in: parentVC)
@@ -34,8 +30,7 @@ import Foundation
                                         logic: interactor,
                                         router: router)
         
-        viewController.output = presenter
-        
+        viewController.output = presenter        
         interactor.output = presenter
     }
 }

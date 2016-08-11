@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BoltsSwift
+import ReactiveCocoa
 import Alamofire
 
 typealias RawResponse = (data: NSData, response: NSHTTPURLResponse)
@@ -15,64 +15,60 @@ typealias RawResponse = (data: NSData, response: NSHTTPURLResponse)
 class NetworkClient: NSObject {
     
     let baseURL = NSURL(string: "http://staging.zazoapp.com")!
-    
     let manager = Alamofire.Manager()
     
-    func get(path: String, _ parameters: [String: String]? = nil) -> Task<RawResponse> {
+    func get(path: String, _ parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {
         return request(.GET, path: path, parameters)
     }
     
-    func post(path: String, parameters: [String: String]? = nil) -> Task<RawResponse> {
+    func post(path: String, parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {
         return request(.POST, path: path, parameters)
     }
     
-    func delete(path: String, parameters: [String: String]? = nil) -> Task<RawResponse> {
+    func delete(path: String, parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {
         return request(.DELETE, path: path, parameters)
     }
     
     private func request(method: Alamofire.Method,
                          path: String,
-                         _ parameters: [String: String]?) -> Task<RawResponse> {
+                         _ parameters: [String: String]?) -> SignalProducer<RawResponse, ServiceError> {
         
-        let completion = TaskCompletionSource<RawResponse>()
-        
-        let encoding: ParameterEncoding = {
-            switch method {
-            case .GET:
-                return .URL
-            default:
-                return .JSON
-            }
-        }()
-        
-        
-        manager.request(method,
-            NSURL(string: path, relativeToURL: baseURL)!,
-            parameters: parameters,
-            encoding: encoding,
-            headers: headers())
+        return SignalProducer<RawResponse, ServiceError> {
+            observer, disposable in
             
-            .authenticate(usingCredential: credential()!)
-            .response { (request, response, data, error) in
-                
-                guard (error == nil) else {
-                    completion.setError(error!)
-                    return
+            let encoding: ParameterEncoding = {
+                switch method {
+                case .GET:
+                    return .URL
+                default:
+                    return .JSON
                 }
+            }()
+            
+            
+            self.manager.request(method,
+                NSURL(string: path, relativeToURL: self.baseURL)!,
+                parameters: parameters,
+                encoding: encoding,
+                headers: nil)
                 
-                if let data = data, let response = response {
-                    completion.setResult(RawResponse(data, response))
-                    return
-                }
-                
-                abort()
+                .authenticate(usingCredential: self.credential()!)
+                .response { (request, response, data, error) in
+                    
+                    guard (error == nil) else {
+                        observer.sendFailed(ServiceError.AnotherError(error: error!))
+                        return
+                    }
+                    
+                    if let data = data, let response = response {
+                        observer.sendNext(RawResponse(data, response))
+                        observer.sendCompleted()
+                        return
+                    }
+                    
+                    observer.sendFailed(ServiceError.UnknownError)
+            }
         }
-        
-        return completion.task
-    }
-    
-    func headers() -> [String: String]? {
-        return nil
     }
     
     func credential() -> NSURLCredential? {

@@ -8,11 +8,13 @@
 
 import Foundation
 
-struct RecognitionResult {
+public struct RecognitionResult {
     let text: String
-    let model: ZZVideoDomainModel
-    let index: UInt
     let date: NSDate
+}
+
+public func ==(lhs: RecognitionResult, rhs: RecognitionResult) -> Bool {
+    return lhs.date == rhs.date && lhs.text == rhs.text
 }
 
 protocol TranscriptLogicOutput {
@@ -25,3 +27,4 @@ protocol TranscriptLogic {
     func startRecognizingVideos(for friendID: String)
     func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel)
 }
+

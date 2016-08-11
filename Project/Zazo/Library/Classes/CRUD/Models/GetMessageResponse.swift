@@ -12,8 +12,7 @@ import Unbox
 struct GetMessageResponse {
     
     struct MessageData {
-        let type: MessageType
-        let body: String
+        let transcription: String
     }
 
     let status: ResponseStatus
@@ -30,7 +29,6 @@ extension GetMessageResponse: Unboxable {
 
 extension GetMessageResponse.MessageData: Unboxable {
     init(unboxer: Unboxer) {
-        type = unboxer.unbox("type")
-        body = unboxer.unbox("body")
+        transcription = unboxer.unbox("transcription")
     }
 }

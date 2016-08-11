@@ -43,12 +43,16 @@ import Foundation
         notifyObservers(messageChanged: messageModel)
         
         let messageID = Int(m.message_id)!
-        messagesService.delete(by: messageID).continueWith { (task) in
-            
-            if let error = task.error {
+        messagesService.delete(by: messageID).start { (event) in
+
+            switch event {
+            case .Failed(let error):
                 logWarning("Error deletion for message \(messageID): \(error)")
-            }            
+            default:
+                break
+            }
         }
+        
     }
     
     @objc func mark(asRead messageModel: ZZMessageDomainModel) {

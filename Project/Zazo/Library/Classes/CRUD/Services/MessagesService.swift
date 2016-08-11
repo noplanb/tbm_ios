@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import BoltsSwift
+import ReactiveCocoa
+import Result
 
 class ConcreteMessagesService: NSObject, MessagesService {
     
@@ -20,43 +21,42 @@ class ConcreteMessagesService: NSObject, MessagesService {
         super.init()
     }
     
-    func get() -> Task<GetAllMessagesResponse> {
-        return networkClient.get(servicePath).continueOnSuccessWithTask { (response) -> Task<GetAllMessagesResponse> in
-            return unbox(response.data)
-        }
+    func get() -> SignalProducer<GetAllMessagesResponse, ServiceError> {
+        return networkClient.get(servicePath).attemptMap({ (data, response) -> Result<GetAllMessagesResponse, ServiceError> in
+            return unbox(data)
+        })
     }
     
-    func get(by ID: String) -> Task<GetMessageResponse> {
+    func getTranscript(by ID: String) -> SignalProducer<GetMessageResponse, ServiceError> {
         
         let path = servicePath.stringByAppendingString("/\(ID)")
         
-        return networkClient.get(path).continueOnSuccessWithTask { (response) -> Task<GetMessageResponse> in
-            return unbox(response.data)
-        }
+        return networkClient.get(path).attemptMap({ (data, response) -> Result<GetMessageResponse, ServiceError> in
+            return unbox(data)
+        })
     }
     
-    func post(text: String, userID: String) -> Task<GenericResponse> {
+    func post(text: String, userID: String) -> SignalProducer<GenericResponse, ServiceError> {
         
         guard (userID as NSString).length > 0 else {
             logError("UserID is empty")
-            return Task(error: ResponseError.ValidationError(errorText: "UserID is empty"))
+            return SignalProducer(error: ServiceError.InputError(errorText: "UserID is empty"))
         }
         
         let params = ["body": text, "type": "text", "receiver_mkey": userID]
         
-        return networkClient.post(servicePath, parameters: params).continueOnSuccessWithTask { (response) -> Task<GenericResponse> in
-            return unbox(response.data)
-        }
-        
+        return networkClient.post(servicePath, parameters: params).attemptMap({ (data, response) -> Result<GenericResponse, ServiceError> in
+            return unbox(data)
+        })
     }
     
-    func delete(by ID: Int) -> Task<GenericResponse> {
+    func delete(by ID: Int) -> SignalProducer<GenericResponse, ServiceError> {
         
         let path = servicePath.stringByAppendingString("/\(ID)")
         
-        return networkClient.delete(path).continueOnSuccessWithTask { (response) -> Task<GenericResponse> in
-            return unbox(response.data)
-        }
+        return networkClient.delete(path).attemptMap({ (data, response) -> Result<GenericResponse, ServiceError> in
+            return unbox(data)
+        })
     }
     
 }

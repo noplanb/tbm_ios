@@ -73,7 +73,6 @@ extension GetAllMessagesResponse.Data.IncomingMessage: Unboxable {
     }
 }
 
-
 extension GetAllMessagesResponse.Data.OutcomingMessage.Status: UnboxableEnum {
     static func unboxFallbackValue() -> GetAllMessagesResponse.Data.OutcomingMessage.Status {
         return .Unknown

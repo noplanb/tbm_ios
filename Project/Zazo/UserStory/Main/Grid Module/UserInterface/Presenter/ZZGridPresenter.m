@@ -35,7 +35,6 @@
         ZZGridActionHanlderDelegate,
         TBMTableModalDelegate,
         ZZGridModelPresenterInterface
-//        MessageEventsObserver
         >
 
 @property (nonatomic, strong) ZZGridDataSource *dataSource;

@@ -8,7 +8,7 @@
 
 import Foundation
 import GCDKit
-import BoltsSwift
+import ReactiveCocoa
 
 class ComposeInteractor: ComposeLogic {
     
@@ -16,29 +16,8 @@ class ComposeInteractor: ComposeLogic {
     var service: MessagesService!
     var friendMkey = ""
     
-    func getAllMessages() -> Task<GetAllMessagesResponse> {
-        return service.get().continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GetAllMessagesResponse> in
-            return task
-        })
-    }
-    
-    func get(byID ID: String) -> Task<GetMessageResponse> {
-        return service.get(by: ID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GetMessageResponse> in
-            return task
-        })
-    }
-    
-    func sendMessage(text: String) -> Task<GenericResponse>? {
-        
-        return service.post(text, userID: friendMkey).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
-            return task
-        })
-    }
-    
-    func deleteMessage(byID ID: Int) -> Task<GenericResponse> {
-        return service.delete(by: ID).continueWithTask(Executor.MainThread, continuation: { (task) -> Task<GenericResponse> in
-            return task
-        })
+    func sendMessage(text: String) -> SignalProducer<GenericResponse, ServiceError> {
+        return service.post(text, userID: friendMkey)
     }
     
 }
