@@ -13,16 +13,16 @@ import Foundation
     func messageStatusChanged(message: ZZMessageDomainModel)
 }
 
-public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
-    return lhs === rhs
-}
-
-
 @objc class MessageHandler: NSObject {
     
     static let sharedInstance = MessageHandler()
     
     private var messageEventsObservers = [MessageEventsObserver]()
+    private let messagesService: MessagesService
+    
+    override init() {
+        messagesService = ConcreteMessagesService(client: NetworkClient())
+    }
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {
         
@@ -41,6 +41,14 @@ public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
         ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
         
         notifyObservers(messageChanged: messageModel)
+        
+        let messageID = Int(m.message_id)!
+        messagesService.delete(by: messageID).continueWith { (task) in
+            
+            if let error = task.error {
+                logWarning("Error deletion for message \(messageID): \(error)")
+            }            
+        }
     }
     
     @objc func mark(asRead messageModel: ZZMessageDomainModel) {
@@ -70,4 +78,9 @@ extension MessageHandler {
         }
     }
     
+}
+
+
+public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
+    return lhs === rhs
 }
