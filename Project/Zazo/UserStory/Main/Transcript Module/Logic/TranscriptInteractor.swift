@@ -50,7 +50,6 @@ class TranscriptInteractor: TranscriptLogic {
             return videoModel.incomingStatusValue ==
                 ZZVideoIncomingStatus.Downloaded || videoModel.incomingStatusValue == ZZVideoIncomingStatus.Viewed
         }
-        
 
         
         if recognizingVideos.count == 0 {

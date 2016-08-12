@@ -1579,7 +1579,6 @@
 		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
-		3E2C26711D214D16009E4942 /* NuanceAPIData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceAPIData.swift; sourceTree = "<group>"; };
 		3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v4.xcdatamodel"; sourceTree = "<group>"; };
 		3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageNotificationDomainModel.h; sourceTree = "<group>"; };
 		3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageNotificationDomainModel.m; sourceTree = "<group>"; };
@@ -1592,19 +1591,13 @@
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
 		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
-		3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioExtractionOperation.swift; sourceTree = "<group>"; };
 		3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAPIRoutes.m; sourceTree = "<group>"; };
 		3E3E37491D4F833D00D6DA35 /* Player.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Player.xcassets; sourceTree = "<group>"; };
 		3E4613961D227C5F0011558D /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		3E7821FC1D48FE910007CAA2 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
-		3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionOperation.swift; sourceTree = "<group>"; };
-		3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceRecognitionOperation.swift; sourceTree = "<group>"; };
-		3E81CA391D210F16005A9E7C /* RecognitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognitionManager.swift; sourceTree = "<group>"; };
-		3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeRecognitionOperation.swift; sourceTree = "<group>"; };
 		3E9FDA831D47BB1000809EA2 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		3E9FDA851D47BBE500809EA2 /* GetMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMessageResponse.swift; sourceTree = "<group>"; };
-		3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NuanceURLSessionHandler.swift; sourceTree = "<group>"; };
 		3EB0D3691D4A45DA001C3C2F /* _TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TBMMessage.h; sourceTree = "<group>"; };
 		3EB0D36A1D4A45DA001C3C2F /* _TBMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TBMMessage.m; sourceTree = "<group>"; };
 		3EB0D36C1D4A45E3001C3C2F /* TBMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMMessage.h; sourceTree = "<group>"; };
@@ -5387,7 +5380,6 @@
 		3E81CA2D1D210E19005A9E7C /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				3E81CA3B1D210F2E005A9E7C /* Voice Recognition */,
 				15443A8D1D252590009F55CD /* TranscriptInteractor.swift */,
 				15443A931D252DAF009F55CD /* TranscriptLogic.swift */,
 			);
@@ -5405,20 +5397,6 @@
 				15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		3E81CA3B1D210F2E005A9E7C /* Voice Recognition */ = {
-			isa = PBXGroup;
-			children = (
-				3E81CA311D210E77005A9E7C /* RecognitionOperation.swift */,
-				3E2C26711D214D16009E4942 /* NuanceAPIData.swift */,
-				3E81CA331D210E93005A9E7C /* NuanceRecognitionOperation.swift */,
-				3E81CA3C1D211242005A9E7C /* NativeRecognitionOperation.swift */,
-				3E81CA391D210F16005A9E7C /* RecognitionManager.swift */,
-				3EA6FB091D2168110038FF72 /* NuanceURLSessionHandler.swift */,
-				3E3CA3821D22996D008EB1DD /* AudioExtractionOperation.swift */,
-			);
-			path = "Voice Recognition";
 			sourceTree = "<group>";
 		};
 		3EB0D36F1D4A4736001C3C2F /* Message */ = {
