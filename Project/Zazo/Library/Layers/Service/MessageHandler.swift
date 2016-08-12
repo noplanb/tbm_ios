@@ -25,7 +25,7 @@ import Foundation
     }
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {
-        
+                
         let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey)
         let messageModel = ZZMessageDomainModel()
         
@@ -34,17 +34,28 @@ import Foundation
         messageModel.setMessageTypeAsString(m.type)
         messageModel.messageID = m.message_id
         
-        ZZMessageDataUpdater.deleteReadMessagesForFriendWithID(friendModel.idTbm)
-        ZZVideoDataUpdater.deleteAllViewedVideosWithFriendID(friendModel.idTbm, exceptVideoWithID: ZZVideoStatusHandler.sharedInstance().currentlyPlayedVideoID)
+        handleNewMessage(model: messageModel)
+    }
+    
+    func handleNewMessage(model messageModel: ZZMessageDomainModel) {
         
+        deleteMessage(Int(messageModel.messageID)!)
+        
+        guard !ZZMessageDataProvider.messageExists(messageModel.messageID) else {
+            logWarning("message exists")
+            return
+        }
+
+        ZZMessageDataUpdater.deleteReadMessagesForFriendWithID(messageModel.friendID)
+        ZZVideoDataUpdater.deleteAllViewedVideosWithFriendID(messageModel.friendID, exceptVideoWithID: ZZVideoStatusHandler.sharedInstance().currentlyPlayedVideoID)
         ZZMessageDataUpdater.insertMessage(messageModel)
         ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
-        
         notifyObservers(messageChanged: messageModel)
-        
-        let messageID = Int(m.message_id)!
+    }
+    
+    func deleteMessage(messageID: Int) {
         messagesService.delete(by: messageID).start { (event) in
-
+            
             switch event {
             case .Failed(let error):
                 logWarning("Error deletion for message \(messageID): \(error)")
@@ -52,7 +63,6 @@ import Foundation
                 break
             }
         }
-        
     }
     
     @objc func mark(asRead messageModel: ZZMessageDomainModel) {
@@ -61,7 +71,42 @@ import Foundation
         ZZFriendDataUpdater.updateFriendWithID(messageModel.friendID, setLastEventType: .Message)
         notifyObservers(messageChanged: messageModel)
     }
- 
+    
+    @objc func pollMessages() {
+        messagesService.get().start { (event) in
+            switch event {
+            case .Next(let result):
+                for group in result.data {
+                    self.handleNewMessages(group.incomingMessages, from: group.mKey)
+                }
+            case .Failed(let error):
+                logError("\(error)")
+            default: break
+            }
+        }
+    }
+    
+    func handleNewMessages(messages: [GetAllMessagesResponse.Data.IncomingMessage],
+                           from friendMKey: String) {
+        
+        guard messages.count > 0 else {
+            return
+        }
+        
+        guard let friendModel = ZZFriendDataProvider.friendWithMKeyValue(friendMKey) else {
+            logWarning("invalid mkey \(friendMKey)")
+            return
+        }
+        
+        for message in messages {
+            let messageModel = ZZMessageDomainModel()
+            messageModel.body = message.body
+            messageModel.friendID = friendModel.idTbm
+            messageModel.setMessageTypeAsString(message.type.rawValue)
+            messageModel.messageID = message.id
+            handleNewMessage(model: messageModel)
+        }
+    }
 }
 
 extension MessageHandler {
@@ -83,7 +128,6 @@ extension MessageHandler {
     }
     
 }
-
 
 public func ==(lhs: MessageEventsObserver, rhs: MessageEventsObserver) -> Bool {
     return lhs === rhs

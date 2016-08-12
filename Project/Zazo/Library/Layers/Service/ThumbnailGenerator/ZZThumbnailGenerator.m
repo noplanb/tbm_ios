@@ -40,6 +40,10 @@
 
 + (BOOL)generateThumbVideo:(ZZVideoDomainModel *)video
 {
+    if (!video) {
+        return NO;
+    }
+    
     ZZLogInfo(@"generateThumbWithVideo: %@ vid:%@", video.relatedUserID, video.videoID);
     if ([self _generateThumbForVideo:video])
     {

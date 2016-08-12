@@ -84,6 +84,7 @@
         [self _pollEverSentStatusForAllFriends];
         [self _pollAllIncomingVideos];
         [self _pollAllOutgoingVideoStatus];
+        [[MessageHandler sharedInstance] pollMessages];
     });
 }
 
