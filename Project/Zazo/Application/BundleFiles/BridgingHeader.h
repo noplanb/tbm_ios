@@ -27,3 +27,4 @@
 #import "ZZStoredSettingsManager.h"
 #import "ZZMessageGroup.h"
 #import "NSDate+ZZAdditions.h"
+#import "ZZTabbarView.h"

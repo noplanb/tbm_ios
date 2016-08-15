@@ -23,48 +23,109 @@ import Popover
 
     public var containerView: UIView = UIApplication.sharedApplication().keyWindow!
     
+    var popoverWidth: CGFloat {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        return screenWidth * 3 / 4
+    }
+    
     weak var delegate: MessagePopoperControllerDelegate?
-    let text: NSAttributedString
-    var popover: Popover!
+    
+    var popoverView: Popover?
+    var fullscreenView: FullscreenView?
+    
     var isBeingDismissedExternally = false
+    let textMaker = MessagePopoverTextMaker()
+    let maxPopoverHeight: CGFloat
+    let messages: ZZMessageGroup
     
     init(group: ZZMessageGroup) {
-        let textMaker = MessagePopoverTextMaker()
-        text = textMaker.makeText(for: group)
+        
+        messages = group
+        let screenSize = UIScreen.mainScreen().bounds
+        maxPopoverHeight = screenSize.height / 3 - 40
         
         super.init()
-        
-        popover = Popover(showHandler: nil, dismissHandler: {
-            self.didDismiss()
-        })
-        popover.blackOverlayColor = UIColor.clearColor()
-        
     }
     
     public func show(from view: UIView) {
         
-        var point = view.center
-        let isTopCell = point.y < self.containerView.frame.height / 2
+        let content = textMaker.makeText(for: messages)
+        let contentView = messageView(withText: content)
         
-        point.y += UIApplication.sharedApplication().statusBarFrame.height
+        if contentView.bounds.height > maxPopoverHeight {
+            let views = textMaker.makeTexts(for: messages).map({ text in
+                messageView(withText: text)
+            })
+            showFullscreen(with: views)
+        }
+        else {
+            showPopover(contentView, from: view)
+        }
+    }
+    
+    public func showPopover(view: UIView, from fromView: UIView) {
+        
+        popoverView = Popover(showHandler: nil, dismissHandler: {
+            self.didDismiss()
+        })
+        
+        guard let popoverView = popoverView else {
+            return
+        }
+
+        popoverView.blackOverlayColor = UIColor.clearColor()
+
+        var point = fromView.superview!.convertPoint(fromView.center, toView: containerView)
+        let isTopCell = point.y < containerView.bounds.height / 2
+        
+//        point.y += UIApplication.sharedApplication().statusBarFrame.height
         
         if isTopCell {
-            popover.popoverType = .Down
+            popoverView.popoverType = .Down
             point.y += 8
             
         }
         else {
-            popover.popoverType = .Up
+            popoverView.popoverType = .Up
             point.y -= kLayoutConstNameLabelHeight
         }
         
-        popover.show(textView(), point: point, inView: self.containerView)
+        popoverView.show(view, point: point, inView: self.containerView)
+    }
+    
+    public func showFullscreen(with views: [UIView]) {
+        
+        let fullscreenView = FullscreenView()
+        self.fullscreenView = fullscreenView
+        
+        fullscreenView.delegate = self
+        
+        fullscreenView.frame = containerView.bounds
+        containerView.addSubview(fullscreenView)
+        
+        for view in views {
+            fullscreenView.stackView.addArrangedSubview(self.fullscreenItemContainer(for: view))
+        }
+    }
+    
+    func fullscreenItemContainer(for view: UIView) -> UIView {
+        
+        let containerView = UIView()
+        containerView.addSubview(view)
+        
+        view.snp_makeConstraints { (make) in
+            make.bottom.top.equalTo(containerView)
+            make.centerX.equalTo(containerView)
+            make.size.equalTo(view.frame.size)
+        }
 
+        return containerView
     }
     
     public func dismiss() {
         isBeingDismissedExternally = true
-        popover.dismiss()
+        popoverView?.dismiss()
+        fullscreenView?.removeFromSuperview()
     }
     
     func didDismiss() {
@@ -73,27 +134,31 @@ import Popover
         }
     }
     
-    func textView() -> UITextView {
+    func messageView(withText text: NSAttributedString) -> UIView {
         
         let textView = UITextView()
+        textView.scrollEnabled = false
         textView.attributedText = text
         textView.editable = false
         textView.textContainerInset = UIEdgeInsetsMake(2, 6, 10, 6)
+        textView.layer.cornerRadius = 8
         
-        var frame = textView.frame
-        let screenSize = UIScreen.mainScreen().bounds
-        var size = textView.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.max))
+        var size = textView.sizeThatFits(CGSize(width: popoverWidth, height: CGFloat.max))
+        size.width = max(popoverWidth, size.width)
         
-        let minWidth = screenSize.width / 3 + 20
-        let maxHeight = screenSize.height / 3 - 40
+//        let view = UIView()
+//        view.addSubview(textView)
         
-        size.width = max(minWidth, size.width)
-        size.height = min(maxHeight, size.height)
-        
-        frame.size = size
-        textView.frame = frame
-        
+        textView.frame = CGRect(origin: CGPointZero, size: size)
+
         return textView
+    }
+}
+
+extension MessagePopoperController: FullscreenViewDelegate {
+    func didTapBackground() {
+        self.fullscreenView?.removeFromSuperview()
+        self.didDismiss()
     }
 }
 
@@ -105,6 +170,19 @@ public class MessagePopoverTextMaker {
     init() {
         dateFormatter.dateStyle = .ShortStyle
         dateFormatter.timeStyle = .ShortStyle
+    }
+    
+    public func makeTexts(for group: ZZMessageGroup) -> [NSAttributedString] {
+        
+        var strings: [NSAttributedString] = group.messages.map({
+            self.makeText(for: $0.body, aDate: NSDate(timeIntervalSince1970: $0.timestamp()))
+        })
+        
+        let firstString = NSMutableAttributedString(string: "\(group.name)\n", attributes: attributesForTitle())
+        firstString.appendAttributedString(strings[0])
+        strings[0] = firstString
+        
+        return strings
     }
     
     public func makeText(for group: ZZMessageGroup) -> NSAttributedString {
@@ -128,7 +206,6 @@ public class MessagePopoverTextMaker {
             if !isLastString {
                  result.appendAttributedString(linebreak)
             }
-            
         }
         
         return result.copy() as! NSAttributedString
