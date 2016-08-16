@@ -331,6 +331,9 @@
 		15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */; };
 		15ADFE891CAD62B600D4B33F /* ZZAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* ZZAlertController.m */; };
 		15AED2541D632DB40083948A /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AED2531D632DB40083948A /* MenuItem.swift */; };
+		15AED2571D63405B0083948A /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AED2561D63405B0083948A /* MessageView.xib */; };
+		15AED25E1D6357AB0083948A /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AED25D1D6357AB0083948A /* MessageView.m */; };
+		15AED2621D637B780083948A /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AED2611D637B780083948A /* Popover.swift */; };
 		15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */; };
 		15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */; };
 		15B1C2EC1D2AA7A100B9CDCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
@@ -1424,6 +1427,10 @@
 		15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZLoadingAnimationView.h; sourceTree = "<group>"; };
 		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
 		15AED2531D632DB40083948A /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		15AED2561D63405B0083948A /* MessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageView.xib; sourceTree = "<group>"; };
+		15AED25C1D6357AB0083948A /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		15AED25D1D6357AB0083948A /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		15AED2611D637B780083948A /* Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Popover.swift; path = Zazo/Library/Popover.swift; sourceTree = SOURCE_ROOT; };
 		15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FadingView.swift; path = Zazo/Library/Categories/FadingView.swift; sourceTree = SOURCE_ROOT; };
 		15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Transcript.xcassets; sourceTree = "<group>"; };
 		15B1C2ED1D2AA7E300B9CDCD /* Thumbnail.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Thumbnail.xcassets; sourceTree = "<group>"; };
@@ -3863,6 +3870,7 @@
 				3E4613961D227C5F0011558D /* ConcurrentOperation.swift */,
 				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 				3E7821FC1D48FE910007CAA2 /* Logging.swift */,
+				15AED2611D637B780083948A /* Popover.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3947,6 +3955,7 @@
 		152594D61CE8C9F200DDA507 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				15AED2551D6340450083948A /* MessageView */,
 				158D8EDC1CEB43AF00C95132 /* ZZBadgeIndicator */,
 				158D8ED41CEB2CFA00C95132 /* VideoPlayerFullscreenHelper.swift */,
 				158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */,
@@ -4746,6 +4755,16 @@
 				1589C1561CD3C74800AB7E8C /* DownloadingView.swift */,
 			);
 			path = ZZLoadingAnimationView;
+			sourceTree = "<group>";
+		};
+		15AED2551D6340450083948A /* MessageView */ = {
+			isa = PBXGroup;
+			children = (
+				15AED2561D63405B0083948A /* MessageView.xib */,
+				15AED25C1D6357AB0083948A /* MessageView.h */,
+				15AED25D1D6357AB0083948A /* MessageView.m */,
+			);
+			path = MessageView;
 			sourceTree = "<group>";
 		};
 		15B822EB1CB7BBD4006473E1 /* Persistenсe */ = {
@@ -5802,6 +5821,7 @@
 				15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */,
 				1589605A1CB7B61D0040D8E3 /* mogen.sh in Resources */,
 				07636E841BA49A0100925671 /* icon_menu_dots@2x.png in Resources */,
+				15AED2571D63405B0083948A /* MessageView.xib in Resources */,
 				182D8D981BB5D45E0080E100 /* icon_camera_switch@2x.png in Resources */,
 				1589605B1CB7B61D0040D8E3 /* mogend.sh in Resources */,
 				158960571CB7B61D0040D8E3 /* human.m.motemplate in Resources */,
@@ -6255,6 +6275,7 @@
 				07E09E131BD5770500A59389 /* ZZRemoteStorageValueGenerator.m in Sources */,
 				072B6A481BD52F94000B824E /* NSError+ZZAdditions.m in Sources */,
 				07636E2D1BA49A0100925671 /* ZZGridDomainModel.m in Sources */,
+				15AED2621D637B780083948A /* Popover.swift in Sources */,
 				152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */,
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
 				07636ED71BA49A0100925671 /* ZZContactsView.m in Sources */,
@@ -6617,6 +6638,7 @@
 				15BDEA841CFDAA820002F78A /* ZZFeatureEventStrategy.m in Sources */,
 				07636EC81BA49A0100925671 /* ZZGridCollectionController.m in Sources */,
 				070561001BA8824F00C130E0 /* ZZGridActionHandlerEnums.m in Sources */,
+				15AED25E1D6357AB0083948A /* MessageView.m in Sources */,
 				15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */,
 				152158291C84932A00260AFD /* ZZHoldEffectLayer.m in Sources */,
 				3EB0D36E1D4A45E3001C3C2F /* TBMMessage.m in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Popover
+import OAStackView
 
 @objc protocol MessagePopoperControllerDelegate: NSObjectProtocol {
     func messagePopoperController(didDismiss controller: MessagePopoperController)
@@ -28,32 +28,47 @@ import Popover
         return screenWidth * 3 / 4
     }
     
+    var maxPopoverHeight: CGFloat {
+        let screenSize = UIScreen.mainScreen().bounds
+        return screenSize.height / 3 - 40
+    }
+    
     weak var delegate: MessagePopoperControllerDelegate?
     
     var popoverView: Popover?
     var fullscreenView: FullscreenView?
     
     var isBeingDismissedExternally = false
+    let group: ZZMessageGroup
+    
     let textMaker = MessagePopoverTextMaker()
-    let maxPopoverHeight: CGFloat
-    let messages: ZZMessageGroup
     
     init(group: ZZMessageGroup) {
-        
-        messages = group
-        let screenSize = UIScreen.mainScreen().bounds
-        maxPopoverHeight = screenSize.height / 3 - 40
-        
+
+        self.group = group
         super.init()
     }
     
     public func show(from view: UIView) {
         
-        let content = textMaker.makeText(for: messages)
-        let contentView = messageView(withText: content)
+//        let content = textMaker.makeText(for: group)
+        let views = group.messages.map({ self.messageView(withModel: $0) })
+        
+        let spacing = CGFloat(8)
+        var height: CGFloat = CGFloat(views.count - 1) * spacing
+        let contentView = OAStackView()
+        contentView.spacing = spacing
+        contentView.axis = .Vertical
+        
+        for view in views {
+            height += view.bounds.height
+            contentView.addArrangedSubview(view)
+        }
+        
+        contentView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: popoverWidth, height: height))
         
         if contentView.bounds.height > maxPopoverHeight {
-            let views = textMaker.makeTexts(for: messages).map({ text in
+            let views = textMaker.makeTexts(for: group).map({ text in
                 messageView(withText: text)
             })
             showFullscreen(with: views)
@@ -69,10 +84,11 @@ import Popover
             self.didDismiss()
         })
         
+        
         guard let popoverView = popoverView else {
             return
         }
-
+        
         popoverView.blackOverlayColor = UIColor.clearColor()
 
         var point = fromView.superview!.convertPoint(fromView.center, toView: containerView)
@@ -153,6 +169,21 @@ import Popover
 
         return textView
     }
+    
+    func messageView(withModel model: ZZMessageDomainModel) -> UIView {
+        let view = NSBundle.mainBundle().loadNibNamed("MessageView", owner: self, options: [:]).first as! MessageView
+        view.nameLabel.text = group.name.uppercaseString
+        view.timeLabel.text = NSDate(timeIntervalSince1970: model.timestamp()).zz_formattedDate()
+        view.bodyLabel.text = model.body
+        view.layer.cornerRadius = 8
+        
+        var size = view.systemLayoutSizeFittingSize(CGSize(width: popoverWidth, height: 0))
+        size.width = max(popoverWidth, size.width)
+        view.frame = CGRect(origin: CGPoint.zero, size: size)
+        view.autoresizingMask = []
+        
+        return view
+    }
 }
 
 extension MessagePopoperController: FullscreenViewDelegate {
@@ -165,13 +196,7 @@ extension MessagePopoperController: FullscreenViewDelegate {
 public class MessagePopoverTextMaker {
     
     typealias attributes = [String : AnyObject]
-    let dateFormatter = NSDateFormatter()
-    
-    init() {
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .ShortStyle
-    }
-    
+
     public func makeTexts(for group: ZZMessageGroup) -> [NSAttributedString] {
         
         var strings: [NSAttributedString] = group.messages.map({

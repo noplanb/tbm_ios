@@ -28,3 +28,4 @@
 #import "ZZMessageGroup.h"
 #import "NSDate+ZZAdditions.h"
 #import "ZZTabbarView.h"
+#import "MessageView.h"
