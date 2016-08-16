@@ -28,12 +28,9 @@ struct ComposeSubviews {
         
         field.text = ""
         field.textColor = UIColor.whiteColor()
-        field.font = UIFont.systemFontOfSize(144)
         field.backgroundColor = UIColor.clearColor()
         field.tintColor = UIColor.whiteColor()
         field.clipsToBounds = true
-        field.autocorrectionType = .No
-        
         
         return field
     }()

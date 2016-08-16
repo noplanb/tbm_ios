@@ -10,9 +10,14 @@ import Foundation
 
 class ComposeTextViewDelegate: NSObject, UITextViewDelegate {
     
-    let maximumFontSize = CGFloat(144)
+    let maximumFontSize = CGFloat(42)
     let minimumFontSize = CGFloat(18)
     var previousLength = 0
+    var blockScrolling = false
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        textView.font = UIFont.systemFontOfSize(maximumFontSize)
+    }
     
     func textViewDidChange(textView: UITextView) {
         
@@ -23,14 +28,21 @@ class ComposeTextViewDelegate: NSObject, UITextViewDelegate {
         var size = CGSize.zero
         
         repeat {
-            
             textView.font = UIFont.systemFontOfSize(fontSize!)
             size = textView.sizeThatFits(viewSize)
             fontSize! -= 2
             
-            
         } while textView.bounds.size.height < size.height && fontSize > minimumFontSize
         
+        blockScrolling = fontSize > minimumFontSize
         previousLength = textView.text.characters.count
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        if blockScrolling {
+            scrollView.contentOffset = CGPoint.zero
+        }
+
     }
 }
