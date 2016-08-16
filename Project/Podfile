@@ -29,7 +29,6 @@ abstract_target 'ZazoBase' do
     pod 'OAStackView', '~> 1.0'
     pod 'SDCAlertView', '~> 2.5.2'
     pod 'SnapKit', '~> 0.21.0'
-    pod "Popover"
     
     #Network
     pod 'OBFileTransfer', '0.9.4'
