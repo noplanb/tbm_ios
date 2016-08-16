@@ -11,19 +11,7 @@ import Popover
 
 @objc public protocol MenuOutput {
     
-    func event(from menu: Menu, didPick item: MenuItem)
-    
-}
-
-@objc public class MenuItem: NSObject {
-    
-    var userData: AnyObject?
-    var title: String
-    var icon = UIImage()
-    
-    init(title: String) {
-        self.title = title
-    }
+    func event(from menu: Menu, didPick item: MenuItem)    
 }
 
 @objc public class Menu: NSObject {
@@ -86,7 +74,7 @@ import Popover
 
 class MenuTable: UITableView {
     
-    var width = CGFloat(180)
+    var width = CGFloat(200)
     weak var menu: Menu?
     
     var items: [MenuItem]? {

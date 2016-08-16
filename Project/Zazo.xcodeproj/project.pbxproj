@@ -330,6 +330,7 @@
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
 		15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */; };
 		15ADFE891CAD62B600D4B33F /* ZZAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07636D8A1BA49A0100925671 /* ZZAlertController.m */; };
+		15AED2541D632DB40083948A /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AED2531D632DB40083948A /* MenuItem.swift */; };
 		15B1C2E91D2A8D8400B9CDCD /* FadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */; };
 		15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */; };
 		15B1C2EC1D2AA7A100B9CDCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07636BD81BA49A0100925671 /* Assets.xcassets */; };
@@ -1422,6 +1423,7 @@
 		15ACCB731C8089220025798A /* Animations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Animations.xcassets; sourceTree = "<group>"; };
 		15ACCB741C8089220025798A /* ZZLoadingAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZLoadingAnimationView.h; sourceTree = "<group>"; };
 		15ACCB751C8089220025798A /* ZZLoadingAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZLoadingAnimationView.m; sourceTree = "<group>"; };
+		15AED2531D632DB40083948A /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		15B1C2E81D2A8D8400B9CDCD /* FadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FadingView.swift; path = Zazo/Library/Categories/FadingView.swift; sourceTree = SOURCE_ROOT; };
 		15B1C2EA1D2A9BF900B9CDCD /* Transcript.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Transcript.xcassets; sourceTree = "<group>"; };
 		15B1C2ED1D2AA7E300B9CDCD /* Thumbnail.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Thumbnail.xcassets; sourceTree = "<group>"; };
@@ -3685,6 +3687,7 @@
 			isa = PBXGroup;
 			children = (
 				1501715A1D2BCEC5007E49F5 /* Menu.swift */,
+				15AED2531D632DB40083948A /* MenuItem.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -6602,6 +6605,7 @@
 				07636EE11BA49A0100925671 /* ZZStartWireframe.m in Sources */,
 				07636EDA1BA49A0100925671 /* ZZContactsController.m in Sources */,
 				07BAA7191BB1DE4E009878B9 /* ZZDebugSettingsStateDomainModel.m in Sources */,
+				15AED2541D632DB40083948A /* MenuItem.swift in Sources */,
 				22D3EC5F1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m in Sources */,
 				1589603D1CB7B61D0040D8E3 /* NSString+ZZAdditions.m in Sources */,
 				15443A961D253249009F55CD /* TranscriptRouter.swift in Sources */,

@@ -390,19 +390,19 @@
 
 - (void)didTapOverflowMenuItem:(MenuItem *)item atFriendModelWithID:(NSString *)friendID
 {
-    if ([item.title isEqualToString:@"Transcript"])
+    if (item.type == MenuItemTypeConvertToText)
     {
         [self.wireframe presentTranscriptionForUserWithID:friendID];
         return;
     }
     
-    if ([item.title isEqualToString:@"Send text"])
+    if (item.type == MenuItemTypeSendText)
     {
         [self.wireframe presentComposeForUserWithID:friendID];
         return;
     }
     
-    if ([item.title isEqualToString:@"Fullscreen"])
+    if (item.type == MenuItemTypePlayFullscreen)
     {
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         [self.videoPlayer playVideoForFriend:friendModel];
@@ -652,18 +652,14 @@
 
 - (void)viewModelDidTapOverflowButton:(ZZGridCellViewModel *)viewModel
 {    
-    MenuItem *transcript = [[MenuItem alloc] initWithTitle:@"Transcript"];
-    MenuItem *fullscreen = [[MenuItem alloc] initWithTitle:@"Fullscreen"];
-    MenuItem *sendText = [[MenuItem alloc] initWithTitle:@"Send text"];
-    
-    transcript.icon = [UIImage imageNamed:@"transcript-icon"];
-    fullscreen.icon = [UIImage imageNamed:@"fullscreen-icon"];
-    sendText.icon   = [UIImage imageNamed:@"message-icon"];
+    MenuItem *convertToText = [[MenuItem alloc] initWithType:MenuItemTypeConvertToText];
+    MenuItem *playFullscreen = [[MenuItem alloc] initWithType:MenuItemTypePlayFullscreen];
+    MenuItem *sendText = [[MenuItem alloc] initWithType:MenuItemTypeSendText];
     
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID: viewModel.item.relatedUser.idTbm];
     BOOL hasVideoMessages = friendModel.videos.count > 0;
     
-    NSArray<MenuItem *> *items = hasVideoMessages ? @[transcript, fullscreen, sendText] : @[sendText];
+    NSArray<MenuItem *> *items = hasVideoMessages ? @[convertToText, sendText, playFullscreen] : @[sendText];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:viewModel.item.relatedUser];
 }
