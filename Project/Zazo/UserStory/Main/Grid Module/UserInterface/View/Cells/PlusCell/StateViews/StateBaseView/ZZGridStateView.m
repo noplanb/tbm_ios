@@ -375,17 +375,18 @@
     if (!_userNameLabel)
     {
         _userNameLabel = [ZZUserNameLabel new];
-        _userNameLabel.textAlignment = NSTextAlignmentCenter;
+        _userNameLabel.textAlignment = NSTextAlignmentLeft;
         _userNameLabel.textColor = [ZZColorTheme shared].gridCellTextColor;
         _userNameLabel.font = [UIFont zz_regularFontWithSize:kUserNameFontSize];
 
         [self addSubview:_userNameLabel];
 
-        CGFloat offset = 0;
+        CGFloat offset = 8;
         
-        if (self.overflowButton) {
-            offset = 12;
-        }
+//        if (self.overflowButton) {
+//            offset = 8;
+//            _userNameLabel.textAlignment = NSTextAlignmentLeft;
+//        }
         
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
