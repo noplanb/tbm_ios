@@ -15,7 +15,7 @@ import Foundation
 
 @objc public class Menu: NSObject {
     
-    @objc public var output: MenuOutput?
+    @objc weak public var output: MenuOutput?
     
     var table = MenuTable(frame: CGRect.zero, style: UITableViewStyle.Plain)
     weak var popover: Popover?

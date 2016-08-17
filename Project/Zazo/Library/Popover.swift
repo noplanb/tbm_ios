@@ -249,19 +249,6 @@ public class Popover: UIView {
     }
   }
 
-
-//  override public func drawRect(rect: CGRect) {
-//    super.drawRect(rect)
-//    
-//    let arrow = self.popoverType.arrowPath()
-//    let arrowPoint = self.containerView.convertPoint(self.arrowShowPoint, toView: self)
-//    
-//    
-//    
-//    self.popoverColor.setFill()
-//    arrow.fill()
-//  }
-
   private func isCornerLeftArrow() -> Bool {
     return self.arrowShowPoint.x == self.frame.origin.x
   }
@@ -296,7 +283,6 @@ extension PopoverType {
         path.addLineToPoint(CGPointMake(16, 0))
         path.addLineToPoint(CGPointMake(8, 10))
         point = CGPoint(x: 0.5, y: 1)
-      default: break
       }
     
       return (path, point)

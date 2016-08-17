@@ -13,7 +13,7 @@ import ReactiveCocoa
 
 class TranscriptInteractor: TranscriptLogic {
     
-    var output: TranscriptLogicOutput?
+    weak var output: TranscriptLogicOutput?
     var messagesService: MessagesService!
     var recognizingVideos = [ZZVideoDomainModel]()
 

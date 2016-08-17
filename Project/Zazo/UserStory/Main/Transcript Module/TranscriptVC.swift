@@ -10,18 +10,19 @@ import Foundation
 
 public class TranscriptVC: UIViewController, TranscriptUIInput {
     
-    var output: TranscriptUIOutput?
+    weak var output: TranscriptUIOutput?
     
     public lazy var contentView = TranscriptView()
-    
     let loadingView = TranscriptItemView()
-    
-    let dateFormater = NSDateFormatter()
     
     var animating = false {
         didSet {
             _setTranscriptAnimationVisible(animating)
         }
+    }
+    
+    deinit {
+        
     }
     
     // MARK: VC overrides
@@ -37,10 +38,7 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
                             action: #selector(didTapClose))
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
-    
-        dateFormater.dateStyle = .MediumStyle
-        dateFormater.timeStyle = .MediumStyle
-     
+        
         loadingView.textLabel.text = "Converting Zazo to text..."
         
         let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -108,7 +106,7 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         }
         
         item.textLabel.text = noText ? emptyText : text
-        item.timeLabel.text = dateFormater.stringFromDate(time)
+        item.timeLabel.text = time.zz_formattedDate()
         
 //        var index = index
         

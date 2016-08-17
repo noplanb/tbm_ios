@@ -31,6 +31,10 @@
 
 @implementation ZZPlayerQueue
 
+- (void)dealloc {
+    
+}
+
 + (instancetype)queueForFriend:(ZZFriendDomainModel *)friendModel
               withTextMessages:(BOOL)flag
                       delegate:(id<ZZPlayerQueueDelegate>)delegate;

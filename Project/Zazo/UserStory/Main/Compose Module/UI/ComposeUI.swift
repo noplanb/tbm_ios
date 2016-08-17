@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol ComposeUIInput {
+protocol ComposeUIInput: class {
     func typedText() -> String
     func showLoading(loading: Bool)
 }
 
-protocol ComposeUIOutput {
+protocol ComposeUIOutput: class {
     func didTapCancel()
     func didTapSend()
     func didTapKeyboard()

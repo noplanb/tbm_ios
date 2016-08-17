@@ -10,7 +10,7 @@ import Foundation
 
 public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     
-    var output: ComposeUIOutput?
+    weak var output: ComposeUIOutput?
     
     public lazy var contentView: ComposeView = ComposeView()
     

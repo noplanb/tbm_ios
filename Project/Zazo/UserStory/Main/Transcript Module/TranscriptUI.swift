@@ -12,7 +12,7 @@ enum TranscriptUILoadingType {
     case Transcript
 }
 
-protocol TranscriptUIInput {
+protocol TranscriptUIInput: class {
 
     func insertItem(text:String,
                     index: UInt,
@@ -26,7 +26,7 @@ protocol TranscriptUIInput {
     func showPlaybackControl(view: UIView)
 }
 
-protocol TranscriptUIOutput
+protocol TranscriptUIOutput: class
 {
     func didTapReplyButton()
     func didTapCloseButton()

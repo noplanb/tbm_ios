@@ -12,7 +12,7 @@ import ReactiveCocoa
 
 class ComposeInteractor: ComposeLogic {
     
-    var output: ComposeLogicOutput?
+    weak var output: ComposeLogicOutput?
     var service: MessagesService!
     var friendMkey = ""
     

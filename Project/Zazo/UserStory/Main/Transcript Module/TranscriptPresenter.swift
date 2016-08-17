@@ -10,24 +10,13 @@ import Foundation
 
 class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogicOutput {
     
-    let view: TranscriptUIInput
-    let logic: TranscriptLogic
-    let router: TranscriptRouter
+    weak var view: TranscriptUIInput!
+    weak var logic: TranscriptLogic!
+    weak var router: TranscriptRouter!
     
     var volumeEnabled = false
-    
     let playbackController = ZZPlayerController()
-    
     var friendModel: ZZFriendDomainModel?
-    
-    init(view: TranscriptUIInput,
-         logic: TranscriptLogic,
-         router: TranscriptRouter)
-    {
-        self.view = view
-        self.logic = logic
-        self.router = router
-    }
     
     // MARK: TranscriptModule interface
     

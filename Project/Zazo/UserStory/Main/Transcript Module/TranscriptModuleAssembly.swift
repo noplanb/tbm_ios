@@ -13,6 +13,7 @@ import Foundation
     private let viewController: TranscriptVC
     private let presenter: TranscriptPresenter
     private let interactor: TranscriptInteractor
+    private let router: TranscriptRouter
     
     @objc public var module: TranscriptModule {
         return presenter
@@ -23,14 +24,18 @@ import Foundation
         interactor = TranscriptInteractor()
         interactor.messagesService = ConcreteMessagesService(client: NetworkClient())
         viewController = TranscriptVC(nibName: nil, bundle: nil)
+        router = TranscriptRouter(forPresenting: viewController, in: parentVC)
         
-        let router = TranscriptRouter(forPresenting: viewController, in: parentVC)
-        
-        presenter = TranscriptPresenter(view: viewController,
-                                        logic: interactor,
-                                        router: router)
+        presenter = TranscriptPresenter()
+        presenter.view = viewController
+        presenter.logic = interactor
+        presenter.router = router
         
         viewController.output = presenter        
         interactor.output = presenter
+    }
+    
+    deinit {
+        
     }
 }

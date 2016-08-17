@@ -483,7 +483,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self.delegate videoPlayerDidCompletePlaying];
     
     self.currentQueueItem = nil;
-    self.queue = nil;
+//    self.queue = nil;
 }
 
 - (void)updateVideoCount

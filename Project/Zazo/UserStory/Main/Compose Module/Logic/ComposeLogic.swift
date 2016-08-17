@@ -9,10 +9,10 @@
 import Foundation
 import ReactiveCocoa
 
-protocol ComposeLogicOutput {
+protocol ComposeLogicOutput: class {
 
 }
 
-protocol ComposeLogic {
+protocol ComposeLogic: class {
     func sendMessage(text: String) -> SignalProducer<GenericResponse, ServiceError>
 }

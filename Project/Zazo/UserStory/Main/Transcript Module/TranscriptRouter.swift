@@ -10,8 +10,8 @@ import Foundation
 
 public class TranscriptRouter: NSObject {
     
-    private let parentVC: UIViewController
-    private let moduleVC: TranscriptVC
+    weak private var parentVC: UIViewController!
+    weak private var moduleVC: TranscriptVC!
     
     private let transitionManager = TranscriptTransitionManager()
     
