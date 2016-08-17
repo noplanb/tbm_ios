@@ -24,14 +24,14 @@ PODS:
   - APAddressBook (0.2.3):
     - APAddressBook/Core (= 0.2.3)
   - APAddressBook/Core (0.2.3)
-  - Crashlytics (3.7.1):
+  - Crashlytics (3.7.3):
     - Fabric (~> 1.6.3)
   - DeviceUtil (1.2.2)
-  - Fabric (1.6.7)
+  - Fabric (1.6.8)
   - FastEasyMapping (0.5.1)
   - FrameAccessor (1.3.2)
-  - GCDKit (1.2.5)
-  - libPhoneNumber-iOS (0.8.13)
+  - GCDKit (1.2.6)
+  - libPhoneNumber-iOS (0.8.15)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
@@ -39,7 +39,7 @@ PODS:
   - OAStackView (1.0.1)
   - OBFileTransfer (0.9.4):
     - OBLogger
-  - ObjectMapper (1.3.0)
+  - ObjectMapper (1.4.0)
   - OBLogger (0.4.0)
   - PBJVision (0.4.6)
   - pop (1.0.9)
@@ -56,11 +56,11 @@ PODS:
   - SnapKit (0.21.1)
   - SVProgressHUD (1.1.3)
   - TPKeyboardAvoiding (1.3)
-  - Unbox (1.7)
+  - Unbox (1.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
-  - Alamofire (~> 3.4)
+  - Alamofire (from `git@github.com:Alamofire/Alamofire.git`, branch `swift2.3`)
   - APAddressBook (~> 0.2.1)
   - Crashlytics (~> 3.7.0)
   - DeviceUtil (~> 1.2.0)
@@ -87,11 +87,17 @@ DEPENDENCIES:
   - Unbox
 
 EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift2.3
+    :git: git@github.com:Alamofire/Alamofire.git
   PBJVision:
     :git: https://github.com/noplanb/PBJVision
     :tag: v0.4.6
 
 CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: 1ac83593aaea0bb31c5d22c86d5a2cf90498ee71
+    :git: git@github.com:Alamofire/Alamofire.git
   PBJVision:
     :git: https://github.com/noplanb/PBJVision
     :tag: v0.4.6
@@ -100,18 +106,18 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
-  Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
+  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   DeviceUtil: 6781344f19a7684796d3b2684a9cab5b285ebb3a
-  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FastEasyMapping: 03a3fbe3af1005e67974358a4ec2b4764f8aa3b4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
-  GCDKit: ed6646fcf761ff139162aaac518b9ec1fb7aa720
-  libPhoneNumber-iOS: 3a37004baf779b4262ab29a31a87d2ae668159d4
+  GCDKit: 739f0feaf0dd4bb59da88667b077198d809e3dfd
+  libPhoneNumber-iOS: 62a740e1ea5741060f5cec0f788b52071115cf31
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   OAStackView: 95e7cb79cbea25c2342f496a44bdbe8bd4c8d510
   OBFileTransfer: 9ce8f27a7b0dbedaf803ede22bacfb9fd29a3012
-  ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
+  ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
   OBLogger: 401d6270b2a00cfd4c7fae3841178ebcc125b927
   PBJVision: 1309d424eb458e0f3f19d496187699bd1f0aa186
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
@@ -125,8 +131,8 @@ SPEC CHECKSUMS:
   SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
-  Unbox: 576f1470399f84c411ced0a8ce4c4caaeb8acf1d
+  Unbox: a6f56a1682b5fd2ba6aea96d7b1ec17599db4f05
 
-PODFILE CHECKSUM: e5228d01c29c95df13090773778ba00d6becadcf
+PODFILE CHECKSUM: 0584f555a6012cfd655fdff34f58b7bd030413cc
 
 COCOAPODS: 1.0.1

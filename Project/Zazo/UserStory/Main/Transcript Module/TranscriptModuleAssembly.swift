@@ -34,8 +34,4 @@ import Foundation
         viewController.output = presenter        
         interactor.output = presenter
     }
-    
-    deinit {
-        
-    }
 }
