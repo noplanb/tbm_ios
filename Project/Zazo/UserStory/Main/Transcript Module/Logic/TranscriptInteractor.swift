@@ -53,6 +53,7 @@ class TranscriptInteractor: TranscriptLogic {
 
         
         if recognizingVideos.count == 0 {
+            self.output?.didCompleteRecognition()
             return
         }
         
