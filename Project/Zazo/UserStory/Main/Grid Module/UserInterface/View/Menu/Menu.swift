@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Popover
 
 @objc public protocol MenuOutput {
     
