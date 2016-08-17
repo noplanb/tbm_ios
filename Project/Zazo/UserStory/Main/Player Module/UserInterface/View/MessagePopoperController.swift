@@ -51,9 +51,18 @@ import OAStackView
     
     public func show(from view: UIView) {
         
-//        let content = textMaker.makeText(for: group)
         let views = group.messages.map({ self.messageView(withModel: $0) })
+        let contentView = makeStackedView(with: views)
         
+        if contentView.bounds.height > maxPopoverHeight {
+            showFullscreen(with: contentView)
+        }
+        else {
+            showPopover(contentView, from: view)
+        }
+    }
+    
+    public func makeStackedView(with views: [UIView]) -> UIView {
         let spacing = CGFloat(8)
         var height: CGFloat = CGFloat(views.count - 1) * spacing
         let contentView = OAStackView()
@@ -66,16 +75,7 @@ import OAStackView
         }
         
         contentView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: popoverWidth, height: height))
-        
-        if contentView.bounds.height > maxPopoverHeight {
-            let views = textMaker.makeTexts(for: group).map({ text in
-                messageView(withText: text)
-            })
-            showFullscreen(with: views)
-        }
-        else {
-            showPopover(contentView, from: view)
-        }
+        return contentView
     }
     
     public func showPopover(view: UIView, from fromView: UIView) {
@@ -83,7 +83,6 @@ import OAStackView
         popoverView = Popover(showHandler: nil, dismissHandler: {
             self.didDismiss()
         })
-        
         
         guard let popoverView = popoverView else {
             return
@@ -109,18 +108,18 @@ import OAStackView
         popoverView.show(view, point: point, inView: self.containerView)
     }
     
-    public func showFullscreen(with views: [UIView]) {
+    public func showFullscreen(with view: UIView) {
         
         let fullscreenView = FullscreenView()
         self.fullscreenView = fullscreenView
-        
         fullscreenView.delegate = self
         
         fullscreenView.frame = containerView.bounds
         containerView.addSubview(fullscreenView)
         
-        for view in views {
-            fullscreenView.stackView.addArrangedSubview(self.fullscreenItemContainer(for: view))
+        fullscreenView.contentView.addSubview(view)
+        view.snp_makeConstraints { (make) in
+            make.edges.equalTo(fullscreenView.contentView)
         }
     }
     
@@ -177,7 +176,9 @@ import OAStackView
         view.bodyLabel.text = model.body
         view.layer.cornerRadius = 8
         
-        var size = view.systemLayoutSizeFittingSize(CGSize(width: popoverWidth, height: 0))
+        var size = view.systemLayoutSizeFittingSize(CGSize(width: popoverWidth, height: 1000),
+                                                    withHorizontalFittingPriority: UILayoutPriorityRequired,
+                                                    verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
         size.width = max(popoverWidth, size.width)
         view.frame = CGRect(origin: CGPoint.zero, size: size)
         view.autoresizingMask = []

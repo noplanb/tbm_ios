@@ -162,8 +162,7 @@ extension MenuTable: UITableViewDataSource {
         var cell = dequeueReusableCellWithIdentifier(cellIdentifier)
         
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
-            
+            cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)            
         }
         
         let item = items![indexPath.row]

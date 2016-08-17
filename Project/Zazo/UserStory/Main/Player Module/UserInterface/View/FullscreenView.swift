@@ -18,9 +18,8 @@ public class FullscreenView: UIView {
     
     weak var delegate: FullscreenViewDelegate?
     
-    public let stackView = OAStackView()
     let scrollView = UIScrollView()
-    let contentView = UIView()
+    public let contentView = UIView()
     
     convenience init() {
         self.init(frame: CGRect.zero)
@@ -34,14 +33,9 @@ public class FullscreenView: UIView {
         
         addSubview(scrollView)
         
-        contentView.addSubview(stackView)
-        
         scrollView.addSubview(contentView)
-        scrollView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 90, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: 44, left: 16, bottom: 90, right: 16)
         scrollView.clipsToBounds = true
-        
-        stackView.axis = .Vertical
-        stackView.spacing = 8
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
         self.addGestureRecognizer(recognizer)
@@ -52,13 +46,7 @@ public class FullscreenView: UIView {
         
         contentView.snp_makeConstraints { (make) in
             make.edges.equalTo(scrollView)
-            make.width.equalTo(self)
-        }
-        
-        stackView.snp_makeConstraints { (make) in
-            make.left.right.top.equalTo(contentView)
-            make.bottom.lessThanOrEqualTo(contentView)
-            
+            make.width.equalTo(self).offset(-32)
         }
     }
     
