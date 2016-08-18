@@ -37,6 +37,7 @@ CGFloat ZZLoadingAnimationDuration = 2.0f;
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self _setupView];
 }
 

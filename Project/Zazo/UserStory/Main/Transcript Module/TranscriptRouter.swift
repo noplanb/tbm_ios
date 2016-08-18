@@ -165,7 +165,7 @@ class TranscriptTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
             return
         }
         
-        let height = CGFloat(context.containerView().bounds.size.height)
+        let height = CGFloat(context.containerView()!.bounds.size.height)
         let duration = transitionDuration(context)
         
         UIView.animateWithDuration(duration, animations: { 
