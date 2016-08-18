@@ -241,6 +241,7 @@
 
 - (void)_applicationWillResignNotication
 {
+    [self callPopoverCompletion:NO];
     [self stop];
 }
 
