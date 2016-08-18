@@ -659,7 +659,7 @@
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID: viewModel.item.relatedUser.idTbm];
     BOOL hasVideoMessages = friendModel.videos.count > 0;
     
-    NSArray<MenuItem *> *items = hasVideoMessages ? @[convertToText, sendText, playFullscreen] : @[sendText];
+    NSArray<MenuItem *> *items = hasVideoMessages ? @[sendText, playFullscreen] : @[convertToText, sendText];
     
     [self.userInterface showOverflowMenuWithItems:items forModel:viewModel.item.relatedUser];
 }
