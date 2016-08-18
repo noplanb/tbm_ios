@@ -42,6 +42,7 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 @property (nonatomic, strong, readonly) ZZFriendDomainModel *friendModel;
 
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel;
+- (void)gotoTimestamp:(NSTimeInterval)timestamp;
 - (void)stop;
 
 @end

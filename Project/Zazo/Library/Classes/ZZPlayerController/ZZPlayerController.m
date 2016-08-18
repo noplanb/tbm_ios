@@ -470,6 +470,19 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     });
 }
 
+- (void)gotoTimestamp:(NSTimeInterval)timestamp
+{
+    [self.player pause];
+    
+    NSObject<ZZPlaybackQueueItem> *nextItem = [self.queue itemAfterTimestamp:timestamp - 1];
+    self.currentQueueItem = nextItem;
+    NSUInteger index = [self.queue.models indexOfObject:nextItem];
+    [self didSeekToPosition:0 ofSegmentWithIndex:index];
+    
+    [self updateVideoCount];
+    [self.player play];
+}
+
 - (void)stop
 {
     if (!self.isPlayingVideo)

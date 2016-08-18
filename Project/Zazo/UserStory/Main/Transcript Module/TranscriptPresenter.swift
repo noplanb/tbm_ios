@@ -76,10 +76,8 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     }
     
     func didTapMuteButton() {
-        
         volumeEnabled = !volumeEnabled
         view.setVolumeEnabled(volumeEnabled)
-        
         playbackController.muted = !volumeEnabled
     }
 
@@ -89,6 +87,18 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     func didCancelInteractiveDismissal() {
         playbackController.paused = false
+    }
+    
+    func didTapAtItem(at index: Int) {
+        let item = recognizedItems.sorted[index]
+        
+        guard let videoID = item.videoID else {
+            return
+        }
+        
+        let timestamp = Int(videoID)!/1000
+        
+        self.playbackController.gotoTimestamp(NSTimeInterval(timestamp))
     }
     
     // MARK: Support

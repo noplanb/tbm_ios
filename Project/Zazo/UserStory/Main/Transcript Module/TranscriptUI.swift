@@ -28,6 +28,7 @@ protocol TranscriptUIInput: class {
 
 protocol TranscriptUIOutput: class
 {
+    func didTapAtItem(at index: Int)
     func didTapReplyButton()
     func didTapCloseButton()
     func didTapMuteButton()

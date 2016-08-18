@@ -21,10 +21,6 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         }
     }
     
-    deinit {
-        
-    }
-    
     // MARK: VC overrides
     
     override public func viewDidLoad() {
@@ -94,6 +90,9 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     
         let item = TranscriptItemView()
         
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleItemTap(with:)))
+        item.addGestureRecognizer(recognizer)
+        
         let emptyText = "No text"
         let noText = text.characters.count == 0
         
@@ -161,5 +160,18 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     
     func didTapClose() {
         self.output?.didTapCloseButton()
+    }
+    
+    
+    func handleItemTap(with recognizer: UIGestureRecognizer) {
+        guard let view = recognizer.view else {
+            return
+        }
+        
+        guard let index = contentView.stackView.arrangedSubviews.indexOf(view) else {
+            return
+        }
+        
+        self.output?.didTapAtItem(at: index)
     }
 }
