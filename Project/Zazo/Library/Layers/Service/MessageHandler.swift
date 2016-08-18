@@ -89,6 +89,8 @@ import Foundation
     func handleNewMessages(messages: [GetAllMessagesResponse.Data.IncomingMessage],
                            from friendMKey: String) {
         
+        let messages = messages.filter({ $0.type == .Text })
+        
         guard messages.count > 0 else {
             return
         }
@@ -97,6 +99,7 @@ import Foundation
             logWarning("invalid mkey \(friendMKey)")
             return
         }
+        
         
         for message in messages {
             let messageModel = ZZMessageDomainModel()

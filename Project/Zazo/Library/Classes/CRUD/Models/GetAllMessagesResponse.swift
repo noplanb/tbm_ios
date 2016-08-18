@@ -68,8 +68,7 @@ extension GetAllMessagesResponse.Data.IncomingMessage: Unboxable {
     init(unboxer: Unboxer) {
         type = unboxer.unbox("type")
         id = unboxer.unbox("message_id")
-        body = unboxer.unbox("body")
-
+        body = type == .Text ? unboxer.unbox("body") : ""
     }
 }
 

@@ -70,17 +70,17 @@ func unbox<T: Unboxable>(data: NSData) -> Result<T, ServiceError> {
             if genericResponse.errors != nil {
                 return .Failure(ServiceError.ClientError(response: genericResponse))
             }
+            
+            return .Failure(ServiceError.AnotherError(error: unboxError))
         }
         catch {
             return .Failure(ServiceError.AnotherError(error: unboxError))
         }
         
     }
-    catch let e {
-        return .Failure(ServiceError.AnotherError(error: e))
+    catch {
+        return .Failure(ServiceError.AnotherError(error: error))
     }
-    
-    return .Failure(ServiceError.UnknownError)
 }
 
 enum MessageType: String {
