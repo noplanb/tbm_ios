@@ -61,10 +61,6 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
     func showPlaybackControl(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false 
         contentView.playbackIndicator = view
-        
-        if let indicator = view as? PlaybackIndicator {
-            indicator.invertedColorTheme = true
-        }
     }
     
     func loading(ofType type: TranscriptUILoadingType, isVisible visible: Bool) {

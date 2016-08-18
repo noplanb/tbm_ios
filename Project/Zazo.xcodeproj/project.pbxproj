@@ -323,6 +323,7 @@
 		158D8ED71CEB2D4600C95132 /* PlaybackIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158D8ED61CEB2D4600C95132 /* PlaybackIndicator.swift */; };
 		158D8EDE1CEB43AF00C95132 /* ZZBadgeIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */; };
 		158D8EE11CEB43C000C95132 /* ZZBadgeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */; };
+		159374871D65D10D00DD7320 /* SortingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159374861D65D10D00DD7320 /* SortingContainer.swift */; };
 		159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */; };
 		15A1F9411CEC8DFC00BAC37D /* PlaybackSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1F9401CEC8DFC00BAC37D /* PlaybackSegmentView.swift */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
@@ -1413,6 +1414,7 @@
 		158D8EDD1CEB43AF00C95132 /* ZZBadgeIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZZBadgeIndicator.xib; sourceTree = "<group>"; };
 		158D8EDF1CEB43C000C95132 /* ZZBadgeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZBadgeIndicator.h; sourceTree = "<group>"; };
 		158D8EE01CEB43C000C95132 /* ZZBadgeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZBadgeIndicator.m; sourceTree = "<group>"; };
+		159374861D65D10D00DD7320 /* SortingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingContainer.swift; sourceTree = "<group>"; };
 		159D544D1C60D55300714DDC /* ZZInviteType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZInviteType.h; sourceTree = "<group>"; };
 		159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		15A1777F1C1AA9240031480F /* ZZGridDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZGridDataProvider+Entities.h"; sourceTree = "<group>"; };
@@ -3871,6 +3873,7 @@
 				159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */,
 				3E7821FC1D48FE910007CAA2 /* Logging.swift */,
 				15AED2611D637B780083948A /* Popover.swift */,
+				159374861D65D10D00DD7320 /* SortingContainer.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -6491,6 +6494,7 @@
 				07636E5A1BA49A0100925671 /* ZZStoredSettingsManager.m in Sources */,
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
+				159374871D65D10D00DD7320 /* SortingContainer.swift in Sources */,
 				3EB0D3761D4A48B3001C3C2F /* ZZMessageDataProvider.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				1522AB841D2FB753001A8D82 /* ZZPlayerController.m in Sources */,

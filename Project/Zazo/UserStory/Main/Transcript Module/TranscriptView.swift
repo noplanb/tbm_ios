@@ -16,6 +16,7 @@ public class TranscriptView: UIView {
     public let scrollView = UIScrollView()
     public let thumb = UIImageView()
     public let navigationBar = UINavigationBar()
+    public let bottomBar = UIView()
     
     public var playbackIndicator: UIView? {
         
@@ -58,6 +59,7 @@ public class TranscriptView: UIView {
         addSubview(thumbHolder)
         addSubview(fadingView)
         addSubview(navigationBar)
+        addSubview(bottomBar)
         
         fadingView.addSubview(scrollView)
         
@@ -80,7 +82,10 @@ public class TranscriptView: UIView {
         thumb.contentMode = .ScaleAspectFill
         thumb.clipsToBounds = true
     
-        
+        bottomBar.backgroundColor = UIColor.whiteColor()
+        bottomBar.layer.shadowColor = ZZColorTheme.shared().tintColor.CGColor
+        bottomBar.layer.shadowOffset = CGSize(width: 0, height: -1)
+        bottomBar.hidden = true
     }
     
     var constraintsSet = false
@@ -100,7 +105,6 @@ public class TranscriptView: UIView {
         constraintsSet = true
         
         let stackWidth = screenWidth * 2/3
-        
         let top = navigationBar.snp_bottom
         
         fadingView.snp_remakeConstraints { (make) in
@@ -135,16 +139,21 @@ public class TranscriptView: UIView {
             make.height.equalTo(65)
         }
         
+        bottomBar.snp_remakeConstraints { (make) in
+            make.left.right.bottom.equalTo(self)
+            make.height.equalTo(ZZTabbarViewHeight)
+        }
     }
     
     private func initiatePlaybackIndicator(indicator: UIView) {
-
-        addSubview(indicator)
+        bottomBar.hidden = false
+        bottomBar.addSubview(indicator)
         
         indicator.snp_remakeConstraints { (make) in
-            make.left.right.equalTo(self)
-            make.centerY.equalTo(navigationBar.snp_bottom)
-            make.height.equalTo(22)
+            make.left.equalTo(bottomBar.snp_leftMargin)
+            make.right.equalTo(bottomBar.snp_rightMargin)
+            make.centerY.equalTo(bottomBar)
+            make.height.equalTo(44)
         }
 
     }
