@@ -11,9 +11,9 @@
 #import "ZZStartVC.h"
 #import "ZZStartPresenter.h"
 #import "ZZAuthWireframe.h"
-#import "ZZMainWireframe.h"
 #import "ZZNetworkTestWireframe.h"
 #import "ZZUpdateHelper.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZStartWireframe ()
 
@@ -58,9 +58,7 @@
 
 - (void)presentMenuControllerWithGrid
 {
-
-    ZZMainWireframe *wireframe = [ZZMainWireframe new];
-    [wireframe presentMainControllerFromWindow:self.presentedWindow completion:^{
+    [self.mainWireframe presentMainControllerFromWindow:self.presentedWindow completion:^{
 
         [[ZZUpdateHelper shared] checkForUpdates];
 

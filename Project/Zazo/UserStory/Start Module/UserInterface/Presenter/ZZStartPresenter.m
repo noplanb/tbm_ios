@@ -40,7 +40,6 @@
 
 #pragma mark Private
 
-
 - (void)_showMenuWithGrid
 {
     [self.wireframe presentMenuControllerWithGrid];

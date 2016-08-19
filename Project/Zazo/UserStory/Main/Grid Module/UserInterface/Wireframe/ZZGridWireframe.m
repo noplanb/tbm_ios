@@ -53,6 +53,11 @@
 
 - (void)presentComposeForUserWithID:(NSString *)friendID
 {
+    if ([self.composeAssembly.module isBeingPresented]) {
+        ZZLogWarning(@"presentComposeForUserWithID failed: already presented");
+        return;
+    }
+    
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
     
     self.composeAssembly = [[ComposeAssembly alloc] initWithPresentFromVC:self.gridController toFriendWithKey:friendModel.mKey];

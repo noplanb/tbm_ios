@@ -23,7 +23,6 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         startKeyboardObserving()
         contentView.elements.textField.delegate = textViewDelegate
         
-        self.navigationItem.title = "Send text"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(self.cancelTap))
         contentView.elements.navigationBar.pushNavigationItem(self.navigationItem, animated: false)
         
@@ -57,6 +56,10 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         else {
             SVProgressHUD.dismiss()
         }
+    }
+    
+    func showFriendName(name: String) {
+        self.navigationItem.title = name
     }
     
     // MARK: Events

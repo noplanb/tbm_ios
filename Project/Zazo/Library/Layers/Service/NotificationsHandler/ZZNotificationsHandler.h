@@ -8,6 +8,10 @@
 
 @class ZZNotificationDomainModel, ZZMessageNotificationDomainModel;
 
+extern NSString * const ZZMessageCategoryIdentifier;
+extern NSString * const ZZMessageTextActionIdentifier;
+extern NSString * const ZZMessageVideoActionIdentifier;
+
 @protocol ZZNotificationsHandlerDelegate <NSObject>
 
 - (void)requestBackground;

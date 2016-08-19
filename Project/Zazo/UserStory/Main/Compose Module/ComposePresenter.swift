@@ -13,12 +13,8 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     let view: ComposeUIInput
     let logic: ComposeLogic
     let router: ComposeRouter
-    
-    var volumeEnabled = false
-    
-    let playbackController = ZZPlayerController()
-    
-    var friendModel: ZZFriendDomainModel?
+        
+    var friendModel: ZZFriendDomainModel!
     
     init(view: ComposeUIInput,
          logic: ComposeLogic,
@@ -32,7 +28,12 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     // MARK: ComposeModule interface
     
     @objc func present(from view: UIView) {
+        self.view.showFriendName(friendModel.fullName())
         router.show(from: view, completion: nil)
+    }
+    
+    @objc func isBeingPresented() -> Bool {
+        return router.isBeingPresented
     }
     
     // MARK: ComposeLogicOutput

@@ -21,8 +21,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    [self.appDependencies initialApplicationSetup:app launchOptions:launchOptions window:self.window];
-    
+    [self.appDependencies initialApplicationSetup:app
+                                    launchOptions:launchOptions
+                                           window:self.window];
     [self.window makeKeyAndVisible];
 
     return YES;
@@ -74,7 +75,6 @@
 - (void)   application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-
     [self.appDependencies handlePushNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -100,6 +100,17 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
     [self.appDependencies handlePushNotification:userInfo];
 }
 
+        - (void)application:(UIApplication *)application
+ handleActionWithIdentifier:(NSString *)identifier
+      forRemoteNotification:(NSDictionary *)userInfo
+           withResponseInfo:(NSDictionary *)responseInfo
+          completionHandler:(void (^)())completionHandler
+{
+    [self.appDependencies handleActionWithIdentifier:identifier
+                               forRemoteNotification:userInfo
+                                    withResponseInfo:responseInfo
+                                   completionHandler:completionHandler];
+}
 
 #pragma mark - External
 

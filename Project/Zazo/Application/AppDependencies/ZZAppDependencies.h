@@ -29,7 +29,6 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url inApplication:(NSString *)application;
 
-
 #pragma mark - Notifications
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token;
@@ -39,6 +38,11 @@
 - (void)handleNotificationSettings:(UIUserNotificationSettings *)settings;
 
 - (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+
+- (void)handleActionWithIdentifier:(NSString *)identifier
+             forRemoteNotification:(NSDictionary *)userInfo
+                  withResponseInfo:(NSDictionary *)responseInfo
+                 completionHandler:(void (^)())completionHandler;
 
 
 #pragma mark - UI

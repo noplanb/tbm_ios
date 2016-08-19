@@ -9,7 +9,6 @@
 @import CoreTelephony;
 
 #import "ZZAppDependencies.h"
-#import "ZZRootWireframe.h"
 #import "ANCrashlyticsAdapter.h"
 #import "ZZContentDataAccessor.h"
 #import "ZZRollbarAdapter.h"
@@ -18,6 +17,15 @@
 #import "ZZGridActionStoredSettings.h"
 #import "OBLogger+ZZAdditions.h"
 #import "ZZCacheCleaner.h"
+#import "FEMObjectDeserializer.h"
+#import "ZZFriendDataProvider.h"
+
+#import "ZZRootWireframe.h"
+#import "ZZStartWireframe.h"
+#import "ZZGridWireframe.h"
+#import "ZZContactsWireframe.h"
+#import "ZZMenuWireframe.h"
+#import "ZZMainWireframe.h"
 
 @interface ZZAppDependencies ()
 
@@ -25,8 +33,10 @@
 @property (nonatomic, strong) CTCallCenter *callCenter;
 @property (nonatomic, strong) ZZNotificationsHandler *notificationsHandler;
 @property (nonatomic, strong) ZZApplicationRootService *rootService;
+@property (nonatomic, strong) NotificationActionHandler *notificationActionHandler;
 
-@property (nonatomic, assign) BOOL initialisationCompleted;
+@property (nonatomic, assign) BOOL initializationCompleted;
+@property (nonatomic, strong) NSString *shouldShowComposeForUserID;
 
 @end
 
@@ -52,17 +62,22 @@
 
         self.notificationsHandler = [ZZNotificationsHandler new];
         self.rootService = [ZZApplicationRootService new];
-
+        
         self.notificationsHandler.delegate = self.rootService;
         self.rootService.notificationDelegate = (id)self.notificationsHandler;
-
+        self.notificationActionHandler = [NotificationActionHandler new];
+        
+        [self.notificationActionHandler register:ZZMessageTextActionIdentifier handler:^(NSDictionary<NSString *,id> * _Nonnull userData) {
+            [self handleTextActionWithUserData:userData];
+            [self showComposeScreenIfNeeded];
+        }];
+        
         NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotification)
         {
             [self handlePushNotification:remoteNotification];
         }
         [self installRootViewControllerIntoWindow:window];
-       
         
     }];
 }
@@ -89,7 +104,7 @@
 {
     ZZLogEvent(@"APP ENTERED FOREGROUND");
 
-    if (self.initialisationCompleted)
+    if (self.initializationCompleted)
     {
         [self.rootService checkApplicationPermissionsAndResources];
     }
@@ -121,15 +136,15 @@
 - (void)installRootViewControllerIntoWindow:(UIWindow *)window
 {
     [self.rootWireframe showStartViewControllerInWindow:window completionBlock:^{
-        self.initialisationCompleted = YES;
+        self.initializationCompleted = YES;
 
         if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground)
         {
             [self.rootService checkApplicationPermissionsAndResources];
+            [self showComposeScreenIfNeeded];
         }
     }];
 }
-
 
 #pragma mark - External URL
 
@@ -137,7 +152,6 @@
 {
     return NO;
 }
-
 
 #pragma mark - Background Session
 
@@ -169,6 +183,14 @@
     [self.notificationsHandler applicationDidFailToRegisterWithError:error];
 }
 
+- (void)handleActionWithIdentifier:(NSString *)identifier
+             forRemoteNotification:(NSDictionary *)userInfo
+                  withResponseInfo:(NSDictionary *)responseInfo
+                 completionHandler:(void (^)())completionHandler
+{
+    [self.notificationActionHandler handle:identifier userInfo:userInfo];
+    completionHandler();
+}
 
 #pragma mark - Private
 
@@ -177,8 +199,54 @@
     if (!_rootWireframe)
     {
         _rootWireframe = [ZZRootWireframe new];
+
+        ZZStartWireframe *startWireframe = [ZZStartWireframe new];
+        _rootWireframe.startWireframe = startWireframe;
+        
+        ZZMainWireframe *mainWireframe = [ZZMainWireframe new];
+        startWireframe.mainWireframe = mainWireframe;
+        
+        ZZGridWireframe *gridWireframe = [ZZGridWireframe new];
+        ZZContactsWireframe *contactsWireframe = [ZZContactsWireframe new];
+        ZZMenuWireframe *menuWireframe = [ZZMenuWireframe new];
+        
+        gridWireframe.mainWireframe = mainWireframe;
+        contactsWireframe.mainWireframe = mainWireframe;
+        menuWireframe.mainWireframe = mainWireframe;
+
+        mainWireframe.gridWireframe = gridWireframe;
+        mainWireframe.contactsWireframe = contactsWireframe;
+        mainWireframe.menuWireframe = menuWireframe;
     }
     return _rootWireframe;
+}
+
+- (void)handleTextActionWithUserData:(NSDictionary *)userData {
+    
+    FEMObjectMapping *mapping = ZZMessageNotificationDomainModel.mapping;
+    ZZMessageNotificationDomainModel *messageModel =
+    [FEMObjectDeserializer deserializeObjectExternalRepresentation:userData usingMapping:mapping];
+    
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:messageModel.from_mkey];
+    
+    if (!friendModel) {
+        return;
+    }
+    
+    self.shouldShowComposeForUserID = friendModel.idTbm;
+}
+
+- (void)showComposeScreenIfNeeded {
+    
+    if (ANIsEmpty(self.shouldShowComposeForUserID)) {
+        return;
+    }
+    
+    if (!self.initializationCompleted) {
+        return;
+    }
+    
+    [self.rootWireframe.startWireframe.mainWireframe.gridWireframe presentComposeForUserWithID:self.shouldShowComposeForUserID];
 }
 
 @end

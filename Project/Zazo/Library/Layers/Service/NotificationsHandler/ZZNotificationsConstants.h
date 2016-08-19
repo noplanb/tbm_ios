@@ -28,12 +28,10 @@ typedef NS_ENUM(NSInteger, ZZNotificationType)
 {
     ZZNotificationTypeNone,
     ZZNotificationTypeVideoReceived,
-    ZZNotificationTypeVideoStatusUpdate
+    ZZNotificationTypeVideoStatusUpdate,
+    ZZNotificationTypeMessageReceived    
 };
 
 
 NSString *ZZNotificationTypeStringFromEnumValue(ZZNotificationType);
-
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString *);
-
-
+ZZNotificationType ZZNotificationTypeEnumValueFromString(NSString *);

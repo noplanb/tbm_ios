@@ -15,5 +15,6 @@ import Foundation
 @objc public protocol ComposeModule {
     
     func present(from view: UIView)
-    
+    func isBeingPresented() -> Bool
+
 }

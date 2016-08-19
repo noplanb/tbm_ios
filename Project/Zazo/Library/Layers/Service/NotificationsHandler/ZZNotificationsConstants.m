@@ -11,7 +11,8 @@
 static NSString *notificationsTypeString[] = {
         @"none",
         @"video_received",
-        @"video_status_update"
+        @"video_status_update",
+        @"message_received"
 };
 
 NSString *ZZNotificationTypeStringFromEnumValue(ZZNotificationType type)
@@ -19,9 +20,9 @@ NSString *ZZNotificationTypeStringFromEnumValue(ZZNotificationType type)
     return notificationsTypeString[type];
 }
 
-ZZNotificationType ZZNotificationTypeEnumValueFromSrting(NSString *string)
+ZZNotificationType ZZNotificationTypeEnumValueFromString(NSString *string)
 {
-    NSArray *array = [NSArray arrayWithObjects:notificationsTypeString count:3];
+    NSArray *array = [NSArray arrayWithObjects:notificationsTypeString count:4];
     NSInteger index = [array indexOfObject:string];
     if (index == NSNotFound)
     {

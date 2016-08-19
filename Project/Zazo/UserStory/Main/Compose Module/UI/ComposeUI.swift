@@ -11,6 +11,7 @@ import Foundation
 protocol ComposeUIInput: class {
     func typedText() -> String
     func showLoading(loading: Bool)
+    func showFriendName(name: String)
 }
 
 protocol ComposeUIOutput: class {

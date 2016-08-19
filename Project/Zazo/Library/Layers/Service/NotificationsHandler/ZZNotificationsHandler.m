@@ -11,20 +11,38 @@
 #import "ZZNotificationTransportService.h"
 #import "ZZNotificationDomainModel.h"
 #import "ZZMessageNotificationDomainModel.h"
-#import "FEMObjectDeserializer.h"
 #import "ZZUserDataProvider.h"
 #import "ZZFriendDataProvider.h"
 #import "ZZApplicationPermissionsHandler.h"
+#import "ZZNotificationsConstants.h"
+
+#import "FEMObjectDeserializer.h"
+
+NSString * const ZZMessageCategoryIdentifier = @"MESSAGE_CATEGORY";
+NSString * const ZZMessageTextActionIdentifier = @"TEXT_ACTION";
+NSString * const ZZMessageVideoActionIdentifier = @"VIDEO_ACTION";
+
+typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
 
 @interface ZZNotificationsHandler ()
 
 @property (nonatomic, assign) BOOL isPushAlreadyFailed;
 @property (nonatomic, assign) UIUserNotificationType notificationAllowedTypes; //TODO: ???
 @property (nonatomic, copy) NSString *pushVideoID;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, ZZNotificationsHandlerBlock> *handlers;
 
 @end
 
 @implementation ZZNotificationsHandler
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _handlers = [NSMutableDictionary new];
+    }
+    return self;
+}
 
 + (void)registerToPushNotifications
 {
@@ -37,7 +55,9 @@
                 UIUserNotificationTypeSound |
                 UIUserNotificationTypeAlert;
 
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        NSSet *categories = [NSSet setWithObject:[self messageCategory]];
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
 }
@@ -45,6 +65,39 @@
 + (void)disablePushNotifications
 {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+}
+
++ (UIUserNotificationCategory *)messageCategory
+{
+    UIMutableUserNotificationCategory *messageCategory = [UIMutableUserNotificationCategory new];
+    
+    messageCategory.identifier = ZZMessageCategoryIdentifier;
+    
+    UIMutableUserNotificationAction *textAction = [UIMutableUserNotificationAction new];
+    textAction.identifier = ZZMessageTextActionIdentifier;
+    textAction.title = @"Text";
+    textAction.activationMode = UIUserNotificationActivationModeForeground;
+    
+    UIMutableUserNotificationAction *videoAction = [UIMutableUserNotificationAction new];
+    videoAction.identifier = ZZMessageVideoActionIdentifier;
+    videoAction.title = @"Zazo";
+    videoAction.activationMode = UIUserNotificationActivationModeForeground;
+    
+    [messageCategory setActions:@[textAction, videoAction]
+                     forContext:UIUserNotificationActionContextDefault];
+    
+    return [messageCategory copy];
+}
+
+- (void)registerHandlerForActionIdentifier:(NSString *)identifier
+                                   handler:(ZZNotificationsHandlerBlock)handler {
+    
+    if (ANIsEmpty(identifier)) {
+        ZZLogError(@"identifier is empty");
+        return;
+    }
+    
+    self.handlers[identifier] = handler;
 }
 
 - (void)receivedPushNotificationsToken:(NSData *)deviceToken
@@ -126,21 +179,26 @@
 
     if ([ZZUserDataProvider authenticatedUser].isRegistered)
     {
-        if ([self isVideoReceivedType:userInfo])
-        {
-            [self handleVideoReceivedNotification:userInfo];
-        }
-        if ([self isMessageReceivedType:userInfo])
-        {
-            [self handleMessageReceivedNotification:userInfo];
-        }
-        else if ([self isVideoStatusUpdateType:userInfo])
-        {
-            [self handleVideoStatusUpdateNotification:userInfo];
-        }
-        else
-        {
-            ZZLogError(@"handleNotificationPayload: ERROR unknown notification type received");
+        NSString *typeString = userInfo[NOTIFICATION_TYPE_KEY];
+        ZZNotificationType type = ZZNotificationTypeEnumValueFromString(typeString);
+        
+        switch (type) {
+                
+            case ZZNotificationTypeVideoReceived:
+                [self handleVideoReceivedNotification:userInfo];
+                break;
+                
+            case ZZNotificationTypeVideoStatusUpdate:
+                [self handleVideoStatusUpdateNotification:userInfo];
+                break;
+                
+            case ZZNotificationTypeMessageReceived:
+                [self handleMessageReceivedNotification:userInfo];
+                break;
+                
+            default:
+                ZZLogError(@"handleNotificationPayload: ERROR unknown notification type received");
+                break;
         }
     }
 }
@@ -148,21 +206,6 @@
 - (NSString *)videoIdWithUserInfo:(NSDictionary *)userInfo
 {
     return userInfo[NOTIFICATION_VIDEO_ID_KEY];
-}
-
-- (BOOL)isVideoReceivedType:(NSDictionary *)userInfo
-{
-    return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_RECEIVED];
-}
-
-- (BOOL)isMessageReceivedType:(NSDictionary *)userInfo
-{
-    return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_MESSAGE_RECEIVED];
-}
-
-- (BOOL)isVideoStatusUpdateType:(NSDictionary *)userInfo
-{
-    return [userInfo[NOTIFICATION_TYPE_KEY] isEqualToString:NOTIFICATION_TYPE_VIDEO_STATUS_UPDATE];
 }
 
 - (void)handleMessageReceivedNotification:(NSDictionary *)userInfo

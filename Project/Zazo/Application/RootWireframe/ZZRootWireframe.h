@@ -6,10 +6,12 @@
 //  Copyright (c) 2015 ANODA. All rights reserved.
 //
 
+@class ZZStartWireframe;
 extern NSString *const ZZNeedsToShowSecretScreenNotificationName;
 
 @interface ZZRootWireframe : NSObject
 
+@property (nonatomic, strong) ZZStartWireframe *startWireframe;
 - (void)showStartViewControllerInWindow:(UIWindow *)window completionBlock:(ANCodeBlock)completionBlock;
 
 @end

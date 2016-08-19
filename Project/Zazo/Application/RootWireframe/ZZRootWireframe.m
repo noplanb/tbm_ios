@@ -31,8 +31,7 @@ NSString *const ZZNeedsToShowSecretScreenNotificationName = @"ZZNeedsToShowSecre
     UIViewController* vc = [ANDebugVC new];
     [self showRootController:vc inWindow:window];
 #else
-    ZZStartWireframe *wireframe = [ZZStartWireframe new];
-    [wireframe presentStartControllerFromWindow:window completion:completionBlock];
+    [self.startWireframe presentStartControllerFromWindow:window completion:completionBlock];
 #endif
 
     self.window = window;

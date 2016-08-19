@@ -23,9 +23,6 @@
 @property (nonatomic, weak) ZZTabbarVC *mainController;
 @property (nonatomic, weak) UINavigationController *presentedController;
 
-@property (nonatomic, strong) ZZGridWireframe *gridWireframe;
-@property (nonatomic, strong) ZZContactsWireframe *contactsWireframe;
-@property (nonatomic, strong) ZZMenuWireframe *menuWireframe;
 @property (nonatomic, strong) ANMessagesWireframe *messageWireframe;
 
 @end
@@ -37,14 +34,6 @@
     ZZTabbarVC *mainController = [ZZTabbarVC new];
     ZZMainInteractor *interactor = [ZZMainInteractor new];
     ZZMainPresenter *presenter = [ZZMainPresenter new];
-
-    self.gridWireframe = [ZZGridWireframe new];
-    self.contactsWireframe = [ZZContactsWireframe new];
-    self.menuWireframe = [ZZMenuWireframe new];
-
-    self.gridWireframe.mainWireframe = self;
-    self.contactsWireframe.mainWireframe = self;
-    self.menuWireframe.mainWireframe = self;
 
     mainController.viewControllers = @[self.menuWireframe.menuController,
             self.gridWireframe.gridController,
