@@ -146,6 +146,12 @@
         return ZZCellVideoStateViewed;
     }
     
+    if (eventType == ZZVideoStatusEventTypeIncoming &&
+        incomingStatus == ZZVideoIncomingStatusFailedPermanently)
+    {
+        return ZZCellVideoStateFailed;
+    }
+    
     return ZZCellVideoStateNone;
     
 //    if (self.badgeNumber > 0)
