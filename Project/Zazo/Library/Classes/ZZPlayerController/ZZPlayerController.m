@@ -475,9 +475,9 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     [self.player pause];
     
     NSObject<ZZPlaybackQueueItem> *nextItem = [self.queue itemAfterTimestamp:timestamp - 1];
-    self.currentQueueItem = nextItem;
     NSUInteger index = [self.queue.models indexOfObject:nextItem];
     [self didSeekToPosition:0 ofSegmentWithIndex:index];
+    self.currentQueueItem = nextItem;
     
     [self updateVideoCount];
     [self.player play];
