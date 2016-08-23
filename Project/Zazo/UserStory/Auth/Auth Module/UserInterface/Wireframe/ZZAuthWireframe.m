@@ -67,9 +67,8 @@
 
 - (void)presentGridController
 {
-    ZZMainWireframe *wireframe = [ZZMainWireframe new];
-    [wireframe presentMainControllerFromWindow:self.authController.view.window
-                                    completion:self.completionBlock];
+    [self.mainWireframe presentMainControllerFromWindow:self.authController.view.window
+                                             completion:self.completionBlock];
 }
 
 - (void)presentNetworkTestController

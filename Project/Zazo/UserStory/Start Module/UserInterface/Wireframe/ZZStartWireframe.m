@@ -72,7 +72,11 @@
 - (void)presentRegistrationController
 {
     ZZAuthWireframe *wireframe = [ZZAuthWireframe new];
-    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:self.completionBlock];
+    wireframe.mainWireframe = self.mainWireframe;
+    
+    [wireframe presentAuthControllerFromWindow:self.presentedWindow completion:^{
+        [self presentMenuControllerWithGrid];
+    }];
     [[ZZUpdateHelper shared] checkForUpdates];
 }
 
