@@ -28,6 +28,7 @@
 #import "ZZMainWireframe.h"
 #import "ZZMainModuleInterface.h"
 #import "ZZSettingsManager.h"
+#import "ZZThumbnailGenerator.h"
 
 @interface ZZGridPresenter ()
         <
@@ -660,6 +661,11 @@
     BOOL hasVideoMessages = friendModel.videos.count > 0;
     
     NSArray<MenuItem *> *items = hasVideoMessages ? @[convertToText, sendText, playFullscreen] : @[convertToText, sendText];
+    
+    if (![ZZThumbnailGenerator hasLastThumbForUser:friendModel])
+    {
+        items = @[sendText];
+    }
     
     [self.userInterface showOverflowMenuWithItems:items forModel:viewModel.item.relatedUser];
 }

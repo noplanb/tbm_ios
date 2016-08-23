@@ -30,6 +30,7 @@
         [self animationView];
         [self numberBadge];
         [self sentBadge];
+        [self overflowButton];
     }
 
     return self;

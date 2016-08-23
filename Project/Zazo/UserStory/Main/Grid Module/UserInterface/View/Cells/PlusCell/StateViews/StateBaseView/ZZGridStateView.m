@@ -383,11 +383,6 @@
 
         CGFloat offset = 8;
         
-//        if (self.overflowButton) {
-//            offset = 8;
-//            _userNameLabel.textAlignment = NSTextAlignmentLeft;
-//        }
-        
         [_userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self);
             make.left.equalTo(self).offset(offset);
@@ -434,6 +429,46 @@
     _effectView = holdEffectView;
 
     return holdEffectView;
+}
+
+
+- (UIButton *)overflowButton
+{
+    if (!_overflowButton) {
+        
+        UIButton *button = [UIButton new];
+        
+        [self addSubview:button];
+        
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self);
+            make.height.equalTo(@(kLayoutConstNameLabelHeight));
+        }];
+        
+        [button addTarget:self
+                   action:@selector(didTapOverflowButton:)
+         forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *overflowIcon = [UIImage imageNamed:@"overflow-icon"];
+        
+        UIImageView *overflowImageView = [[UIImageView alloc] initWithImage:overflowIcon];
+        overflowImageView.tintColor = [UIColor whiteColor];
+        
+        [button addSubview:overflowImageView];
+        [overflowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(button);
+            make.right.equalTo(button);
+        }];
+        
+        _overflowButton = button;
+    }
+    
+    return _overflowButton;
+}
+
+- (void)didTapOverflowButton:(UIButton *)button
+{
+    [self.model didTapOverflowButton:(UIButton *)button];
 }
 
 #pragma mark Touches

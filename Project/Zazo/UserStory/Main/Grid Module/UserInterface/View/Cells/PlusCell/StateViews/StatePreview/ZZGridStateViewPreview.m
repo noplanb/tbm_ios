@@ -26,7 +26,7 @@
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
-        [self makeOverflowButton];
+        [self overflowButton];
         
         [self thumbnailImageView];
         [self userNameLabel];
@@ -131,38 +131,5 @@
     return _dateLabel;
 }
 
-- (void)makeOverflowButton
-{
-    UIButton *button = [UIButton new];
-    
-    [self addSubview:button];
-    
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.equalTo(@(kLayoutConstNameLabelHeight));
-    }];
-    
-    [button addTarget:self
-               action:@selector(didTapOverflowButton:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-    UIImage *overflowIcon = [UIImage imageNamed:@"overflow-icon"];
-    
-    UIImageView *overflowImageView = [[UIImageView alloc] initWithImage:overflowIcon];
-    overflowImageView.tintColor = [UIColor whiteColor];
-    
-    [button addSubview:overflowImageView];
-    [overflowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(button);
-        make.right.equalTo(button);
-    }];
-
-    self.overflowButton = button;
-}
-
-- (void)didTapOverflowButton:(UIButton *)button
-{
-    [self.model didTapOverflowButton:(UIButton *)button];
-}
 
 @end
