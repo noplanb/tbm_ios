@@ -41,6 +41,9 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         loadingIndicator.startAnimating()
         
         loadingView.iconView = loadingIndicator
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
+        self.contentView.scrollView.addGestureRecognizer(tapRecognizer)
     }
     
     override public func loadView() {
@@ -162,6 +165,9 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         self.output?.didTapCloseButton()
     }
     
+    func didTapBackground() {
+        self.output?.didTapBackground()
+    }
     
     func handleItemTap(with recognizer: UIGestureRecognizer) {
         guard let view = recognizer.view else {

@@ -89,6 +89,10 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         playbackController.paused = false
     }
     
+    func didTapBackground() {
+        router.hide()
+    }
+    
     func didTapAtItem(at index: Int) {
         let item = recognizedItems.sorted[index]
         

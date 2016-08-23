@@ -32,6 +32,7 @@ protocol TranscriptUIOutput: class
     func didTapReplyButton()
     func didTapCloseButton()
     func didTapMuteButton()
+    func didTapBackground()
     func didStartInteractiveDismissal()
     func didCancelInteractiveDismissal()
 }
