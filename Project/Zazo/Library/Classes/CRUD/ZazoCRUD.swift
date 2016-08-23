@@ -13,5 +13,5 @@ protocol MessagesService: NSObjectProtocol {
     func get() -> SignalProducer<GetAllMessagesResponse, ServiceError>
     func getTranscript(by ID: String) -> SignalProducer<GetMessageResponse, ServiceError>
     func post(text: String, userID: String) -> SignalProducer<GenericResponse, ServiceError>
-    func delete(by ID: Int) -> SignalProducer<GenericResponse, ServiceError>
+    func delete(by ID: String) -> SignalProducer<GenericResponse, ServiceError>
 }

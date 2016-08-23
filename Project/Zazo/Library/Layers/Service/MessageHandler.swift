@@ -25,7 +25,7 @@ import Foundation
     }
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {
-                
+        
         let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey)
         let messageModel = ZZMessageDomainModel()
         
@@ -39,7 +39,7 @@ import Foundation
     
     func handleNewMessage(model messageModel: ZZMessageDomainModel) {
         
-        deleteMessage(Int(messageModel.messageID)!)
+        deleteMessage(messageModel.messageID)
         
         guard !ZZMessageDataProvider.messageExists(messageModel.messageID) else {
             logWarning("message exists")
@@ -53,7 +53,7 @@ import Foundation
         notifyObservers(messageChanged: messageModel)
     }
     
-    func deleteMessage(messageID: Int) {
+    func deleteMessage(messageID: String) {
         messagesService.delete(by: messageID).start { (event) in
             
             switch event {

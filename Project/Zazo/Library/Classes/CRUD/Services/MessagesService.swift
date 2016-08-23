@@ -50,9 +50,9 @@ class ConcreteMessagesService: NSObject, MessagesService {
         })
     }
     
-    func delete(by ID: Int) -> SignalProducer<GenericResponse, ServiceError> {
+    func delete(by ID: String) -> SignalProducer<GenericResponse, ServiceError> {
         
-        let path = servicePath.stringByAppendingString("/\(ID)")
+        let path = servicePath.stringByAppendingString("/").stringByAppendingString(ID)
         
         return networkClient.delete(path).attemptMap({ (data, response) -> Result<GenericResponse, ServiceError> in
             return unbox(data)
