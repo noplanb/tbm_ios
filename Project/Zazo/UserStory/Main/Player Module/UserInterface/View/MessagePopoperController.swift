@@ -171,7 +171,7 @@ import OAStackView
     
     func messageView(withModel model: ZZMessageDomainModel) -> UIView {
         let view = NSBundle.mainBundle().loadNibNamed("MessageView", owner: self, options: [:])!.first as! MessageView
-        view.nameLabel.text = group.name.uppercaseString
+        view.nameLabel.text = group.name
         view.timeLabel.text = NSDate(timeIntervalSince1970: model.timestamp()).zz_formattedDate()
         view.bodyLabel.text = model.body
         view.layer.cornerRadius = 8
