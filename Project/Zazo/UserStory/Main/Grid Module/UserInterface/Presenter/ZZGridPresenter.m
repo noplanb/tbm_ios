@@ -665,7 +665,13 @@
 #pragma mark - ZZGridModelPresenterInterface
 
 - (void)viewModelDidTapOverflowButton:(ZZGridCellViewModel *)viewModel
-{    
+{
+    if (self.videoPlayer.isPlayingVideo)
+    {
+        [self.videoPlayer stop];
+        return;
+    }
+    
     MenuItem *convertToText = [[MenuItem alloc] initWithType:MenuItemTypeConvertToText];
     MenuItem *playFullscreen = [[MenuItem alloc] initWithType:MenuItemTypePlayFullscreen];
     MenuItem *sendText = [[MenuItem alloc] initWithType:MenuItemTypeSendText];
@@ -690,6 +696,11 @@
 
 - (void)viewModelDidTapCell:(ZZGridCellViewModel *)viewModel
 {
+    if (self.userInterface.isGridRotating)
+    {
+        return;
+    }
+    
     [self.interactor updateLastActionForFriend:viewModel.item.relatedUser];
     [self.videoPlayer playVideoForFriend:viewModel.item.relatedUser];
 }
