@@ -26,19 +26,14 @@
     self = [super initWithPresentedView:presentedView];
     if (self)
     {
-        [self overflowButton];
-        
         [self thumbnailImageView];
         [self userNameLabel];
         [self dateLabel];
+        [self overflowButton];
         [self animationView];
-//        [self holdIndicatorView];
         [self effectView];
         [self sentBadge];
         [self numberBadge];
-        
-        [self bringSubviewToFront:self.overflowButton];
-
     }
 
     return self;

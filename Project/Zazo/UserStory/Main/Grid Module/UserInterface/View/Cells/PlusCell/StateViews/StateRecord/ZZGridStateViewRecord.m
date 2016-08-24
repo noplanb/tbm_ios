@@ -26,11 +26,11 @@
         [self userNameLabel];
         [self recordView];
         [self uploadBarView];
+        [self overflowButton];
         [self downloadBarView];
         [self animationView];
         [self numberBadge];
         [self sentBadge];
-        [self overflowButton];
     }
 
     return self;
