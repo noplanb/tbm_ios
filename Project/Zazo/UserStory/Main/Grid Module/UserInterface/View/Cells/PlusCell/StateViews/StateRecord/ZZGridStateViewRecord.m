@@ -39,6 +39,7 @@
 - (void)updateWithModel:(ZZGridCellViewModel *)model
 {
     [super updateWithModel:model];
+    self.recordView.userInteractionEnabled = !model.hasMessages; // task 1437
 }
 
 #pragma mark - Private
