@@ -316,11 +316,12 @@ public class PlaybackIndicator: UIView
                 didStartDragging()
             case .Cancelled, .Ended:
                 didFinishDragging()
+            case .Changed:
+                handleTouchAtPoint(recognizer.locationInView(self))
             default:
                 break
         }
         
-        handleTouchAtPoint(recognizer.locationInView(self))
     }
     
     @objc func tapWithRecognizer(recognizer: UITapGestureRecognizer)

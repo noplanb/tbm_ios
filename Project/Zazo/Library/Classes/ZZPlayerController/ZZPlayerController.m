@@ -37,6 +37,8 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 @property (nonatomic, assign, readwrite) BOOL isPlayingVideo;
 @property (nonatomic, assign) BOOL waitsForMessageCallback;
 
+@property (nonatomic, strong) id playerObserver;
+
 @end
 
 @implementation ZZPlayerController
@@ -101,7 +103,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 - (void)didFinishDragging
 {
     self.dragging = NO;
-    [self _startPlayingIfPossible];
+    
+    if (self.currentPlayerItem.status == AVPlayerItemStatusFailed)
+    {
+        [self _restoreFromFailedPlayback];
+    }
+    else
+    {
+        [self _startPlayingIfPossible];
+    }
 }
 
 - (void)_startPlayingIfPossible
@@ -168,6 +178,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)_makePlayer
 {
+    if (self.playerObserver && self.playerController.player)
+    {
+        [self.playerController.player removeTimeObserver:self.playerObserver];
+    }
+    
     self.playerController.player = [AVQueuePlayer new];
     self.playerController.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     
@@ -179,12 +194,12 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return RACObserve(item, status);
     }];
     
-    [status.distinctUntilChanged subscribeNext:^(NSNumber *x) {
-        
-        if (self.isPlayingVideo && x.integerValue == AVPlayerStatusFailed)
-        {
-            [self _failedToPlayCurrentVideo];
-        }
+    status = [status filter:^BOOL(id value) {
+        return self.isPlayingVideo && [value integerValue] == AVPlayerStatusFailed;
+    }];
+    
+    [status subscribeNext:^(NSNumber *x) {
+        [self _failedToPlayCurrentVideo];
     }];
     
     @weakify(self);
@@ -405,15 +420,15 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     }];
 }
 
-- (void)_showDismissMessage
-{
-    if (!self.waitsForMessageCallback)
-    {
-        return;
-    }
-    
-    [self.delegate dismissMessages];
-}
+//- (void)_showDismissMessage
+//{
+//    if (!self.waitsForMessageCallback)
+//    {
+//        return;
+//    }
+//    
+//    [self.delegate dismissMessages];
+//}
 
 - (void)_continueAfterItem:(NSObject<ZZPlaybackQueueItem> *)queueItem
 {
@@ -459,15 +474,38 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 {
     NSError *error = self.currentPlayerItem.error;
     ZZLogError(@"VideoPlayer#playbackDidFail: %@", error);
+    [self.delegate videoPlayerDidReceiveError:error];
+ 
+    if (self.dragging)
+    {
+        return;
+    }
     
     ANDispatchBlockToMainQueue(^{
 
         CGFloat delayAfterToastRemoved = 0.4;
         
         ANDispatchBlockAfter(delayAfterToastRemoved, ^{
-            [self _playNextVideoOrStop];
+            [self _restoreFromFailedPlayback];
         });
     });
+}
+
+- (void)_restoreFromFailedPlayback
+{
+    BOOL isLastVideo = self.queue.models.lastObject == self.currentQueueItem;
+    
+    if (isLastVideo)
+    {
+        [self stop];
+        return;
+    }
+    
+    [self.player advanceToNextItem];
+    [self.player pause];
+    
+    [self _continueAfterItem:self.currentQueueItem];
+    [self updateVideoCount];
 }
 
 - (void)gotoTimestamp:(NSTimeInterval)timestamp
