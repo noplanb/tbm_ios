@@ -29,4 +29,7 @@
                             isNudge:(BOOL)isNudge
                    invitationMethod:(ZZInviteType)method;
 
+- (void)_showNoMessagingFeatureDialog:(ZZFriendDomainModel *)friendModel
+                         confirmation:(ANCodeBlock)confirmation;
+
 @end

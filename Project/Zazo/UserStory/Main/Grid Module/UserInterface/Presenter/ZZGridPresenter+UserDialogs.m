@@ -217,4 +217,22 @@
 }
 
 
+- (void)_showNoMessagingFeatureDialog:(ZZFriendDomainModel *)friendModel
+                         confirmation:(ANCodeBlock)confirmation
+{
+    NSString *message = [NSString stringWithFormat:@"It seems that %@ doesn't have the latest Zazo version and won't be able to receive your message", friendModel.fullName];
+    
+    ZZAlertController *alert = [ZZAlertController alertControllerWithTitle:nil message:message];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Send anyway" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        confirmation();
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    [alert presentWithCompletion:nil];
+}
+
 @end

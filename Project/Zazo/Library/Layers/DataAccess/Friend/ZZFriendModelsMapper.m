@@ -46,6 +46,8 @@
     entity.friendshipCreatorMKey = model.friendshipCreatorMkey;
     entity.isFriendshipCreator = @([model isCreator]);
 
+    entity.abilities = @(model.abilities);
+    
     return entity;
 }
 
@@ -80,6 +82,8 @@
         
         model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
+        
+        model.abilities = entity.abilitiesValue;
     }
     @catch (NSException *exception)
     {

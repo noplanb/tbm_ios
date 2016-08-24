@@ -29,6 +29,7 @@
 #import "ZZMainModuleInterface.h"
 #import "ZZSettingsManager.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZAbilities.h"
 
 @interface ZZGridPresenter ()
         <
@@ -391,6 +392,8 @@
 
 - (void)didTapOverflowMenuItem:(MenuItem *)item atFriendModelWithID:(NSString *)friendID
 {
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
+    
     if (item.type == MenuItemTypeConvertToText)
     {
         [self.wireframe presentTranscriptionForUserWithID:friendID];
@@ -399,13 +402,23 @@
     
     if (item.type == MenuItemTypeSendText)
     {
-        [self.wireframe presentComposeForUserWithID:friendID];
+        ANCodeBlock block = ^{
+            [self.wireframe presentComposeForUserWithID:friendID];
+        };
+        
+        if (friendModel.abilities & ZZFriendAbilitiesMessaging)
+        {
+            block();
+        }
+        else
+        {
+            [self _showNoMessagingFeatureDialog:friendModel confirmation:block];
+        }
         return;
     }
     
     if (item.type == MenuItemTypePlayFullscreen)
     {
-        ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
         [self.videoPlayer playVideoForFriend:friendModel];
         [self.videoPlayer showFullscreen];
         return;

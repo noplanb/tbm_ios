@@ -33,9 +33,13 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
         .isFriendshipCreator = @"isFriendshipCreator",
         .friendshipCreatorMkey = @"friendshipCreatorMkey",
         .cid = @"cid",
+        .abilities = @"abilities",
+        .abilitiesArray = @"abilitiesArray",
 };
 
 @implementation ZZFriendDomainModel
+
+@dynamic abilitiesArray;
 
 - (instancetype)init
 {
@@ -65,7 +69,8 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
                         ZZFriendDomainModelAttributes.cKey : @"ckey",
                         ZZFriendDomainModelAttributes.friendshipStatus : @"connection_status",
                         ZZFriendDomainModelAttributes.friendshipCreatorMkey : @"connection_creator_mkey",
-                        ZZFriendDomainModelAttributes.cid : @"cid"
+                        ZZFriendDomainModelAttributes.cid : @"cid",
+                        ZZFriendDomainModelAttributes.abilitiesArray: @"abilities",
                 }];
 
         FEMAttribute *attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
@@ -128,6 +133,16 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     }
 
     return NO;
+}
+
+- (void)setAbilitiesArray:(NSArray<NSString *> *)abilitiesArray
+{
+    self.abilities = ZZAbilitiesFromArray(abilitiesArray);
+}
+
+- (NSArray<NSString *> *)abilitiesArray
+{
+    return ZZArrayFromAbilities(self.abilities);
 }
 
 #pragma mark - Getters / Setters

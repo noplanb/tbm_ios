@@ -12,6 +12,7 @@
 #import "ZZContactEnumsAdditions.h"
 #import "ZZVideoStatuses.h"
 #import "ZZMessageDomainModel.h"
+#import "ZZAbilities.h"
 
 @class FEMObjectMapping, ZZVideoDomainModel;
 
@@ -33,6 +34,8 @@ extern const struct ZZFriendDomainModelAttributes
     __unsafe_unretained NSString *friendshipStatus;
     __unsafe_unretained NSString *isFriendshipCreator;
     __unsafe_unretained NSString *friendshipCreatorMkey;
+    __unsafe_unretained NSString *abilities;
+    __unsafe_unretained NSString *abilitiesArray;
     __unsafe_unretained NSString *cid;
 } ZZFriendDomainModelAttributes;
 
@@ -72,11 +75,15 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, strong) NSArray <ZZVideoDomainModel *> *videos;
 @property (nonatomic, strong) NSArray <ZZMessageDomainModel *> *messages;
 
+@property (nonatomic, assign) ZZFriendAbilities abilities;
+@property (nonatomic, strong) NSArray <NSString *> *abilitiesArray;
+
 + (FEMObjectMapping *)mapping;
 - (NSString *)fullName;
 - (NSString *)displayName;
 - (NSString *)shortFirstName;
 - (ZZMenuContactType)contactType;
+
 - (BOOL)isCreator;
 - (BOOL)hasIncomingVideo;
 - (BOOL)hasDownloadedVideo;
