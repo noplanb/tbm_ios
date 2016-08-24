@@ -47,9 +47,15 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     
     func didTapSend() {
         
+        let text = view.typedText().stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        guard text.characters.count > 0 else {
+            return
+        }
+        
         view.showLoading(true)
         
-        logic.sendMessage(view.typedText()).start { (event) in
+        logic.sendMessage(text).start { (event) in
             
             self.view.showLoading(false)
             self.router.hide()
