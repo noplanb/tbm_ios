@@ -26,11 +26,11 @@
         [self userNameLabel];
         [self recordView];
         [self uploadBarView];
+        [self overflowButton];
         [self downloadBarView];
         [self animationView];
         [self numberBadge];
         [self sentBadge];
-        [self overflowButton];
     }
 
     return self;
@@ -39,6 +39,7 @@
 - (void)updateWithModel:(ZZGridCellViewModel *)model
 {
     [super updateWithModel:model];
+    self.recordView.userInteractionEnabled = !model.hasMessages; // task 1437
 }
 
 #pragma mark - Private

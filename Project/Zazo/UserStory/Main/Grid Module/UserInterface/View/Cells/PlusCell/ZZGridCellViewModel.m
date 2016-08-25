@@ -344,6 +344,11 @@
 
 - (void)didTapOverflowButton:(UIButton *)button
 {
+    if (self.videoState == ZZCellVideoStateDownloading)
+    {
+        return;
+    }
+    
     [self.presenter viewModelDidTapOverflowButton:self];
 }
 

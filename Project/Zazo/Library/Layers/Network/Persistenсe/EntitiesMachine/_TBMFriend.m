@@ -11,6 +11,7 @@
 #import "_TBMFriend.h"
 
 const struct TBMFriendAttributes TBMFriendAttributes = {
+    .abilities = @"abilities",
     .cid = @"cid",
     .ckey = @"ckey",
     .everSent = @"everSent",
@@ -69,6 +70,12 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+    if ([key isEqualToString:@"abilitiesValue"])
+    {
+        NSSet *affectingKey = [NSSet setWithObject:@"abilities"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+        return keyPaths;
+    }
     if ([key isEqualToString:@"cidValue"])
     {
         NSSet *affectingKey = [NSSet setWithObject:@"cid"];
@@ -125,6 +132,19 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     }
 
     return keyPaths;
+}
+
+@dynamic abilities;
+
+- (int32_t)abilitiesValue
+{
+    NSNumber *result = [self abilities];
+    return [result intValue];
+}
+
+- (void)setAbilitiesValue:(int32_t)value_
+{
+    [self setAbilities:@(value_)];
 }
 
 @dynamic cid;
