@@ -1263,7 +1263,6 @@
 		154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OBLogger+ZZAdditions.m"; sourceTree = "<group>"; };
 		1552F9071D5887E90025ED58 /* ZZMessageGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageGroup.h; sourceTree = "<group>"; };
 		1552F9081D5887E90025ED58 /* ZZMessageGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageGroup.m; sourceTree = "<group>"; };
-		1555C7E41D6DA8CC00A852BC /* tbm-v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v5.xcdatamodel"; sourceTree = "<group>"; };
 		1555C7E51D6DAE1000A852BC /* ZZAbilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAbilities.h; sourceTree = "<group>"; };
 		1555C7E61D6DAE5C00A852BC /* ZZAbilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAbilities.m; sourceTree = "<group>"; };
 		1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationActionHandler.swift; sourceTree = "<group>"; };
@@ -7169,13 +7168,12 @@
 		15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1555C7E41D6DA8CC00A852BC /* tbm-v5.xcdatamodel */,
 				3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */,
 				3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */,
 				15B822FF1CB7BBD4006473E1 /* tbm-v2.xcdatamodel */,
 				15B823001CB7BBD4006473E1 /* tbm.xcdatamodel */,
 			);
-			currentVersion = 1555C7E41D6DA8CC00A852BC /* tbm-v5.xcdatamodel */;
+			currentVersion = 3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

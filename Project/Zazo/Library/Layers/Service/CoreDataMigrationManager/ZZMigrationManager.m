@@ -10,7 +10,7 @@
 #import "ZZMigrationManager.h"
 
 static NSString *const kSourceBaseName = @"tbm";
-static NSString *const kDestinationBaseName = @"tbm-v5";
+static NSString *const kDestinationBaseName = @"tbm-v4";
 
 
 @implementation ZZMigrationManager
