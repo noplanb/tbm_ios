@@ -47,8 +47,9 @@
                          window:(UIWindow *)window
 {
     [ANCrashlyticsAdapter start];
+    [ZZRollbarAdapter shared];
+    
     [ZZContentDataAccessor startWithCompletionBlock:^{
-        [ZZRollbarAdapter shared];
 
         [self _logAppLaunch];
 

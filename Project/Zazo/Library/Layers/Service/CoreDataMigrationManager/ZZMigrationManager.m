@@ -10,8 +10,7 @@
 #import "ZZMigrationManager.h"
 
 static NSString *const kSourceBaseName = @"tbm";
-static NSString *const kDestinationBaseName = @"tbm-v4";
-
+static NSString *const kDestinationBaseName = @"tbm-v2";
 
 @implementation ZZMigrationManager
 
@@ -28,6 +27,7 @@ static NSString *const kDestinationBaseName = @"tbm-v4";
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
                                                                                               URL:storeUrl
                                                                                             error:&error];
+    
     NSManagedObjectModel *destinationModel = [self coordinator].managedObjectModel;
     if (ANIsEmpty(sourceMetadata) ||
             [destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata])
@@ -43,65 +43,87 @@ static NSString *const kDestinationBaseName = @"tbm-v4";
 
 - (BOOL)migrate
 {
-    BOOL isSuccess = NO;
 
-    NSURL *sourceUrl = [self sourceUrl];
-
-    NSError *error;
-    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
-                                                                                              URL:sourceUrl
-                                                                                            error:&error];
-
-    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
-    NSManagedObjectModel *destinationModel = self.coordinator.managedObjectModel;
-
-    NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel
-                                                                     destinationModel:destinationModel
-                                                                                error:&error];
-
-    if (mappingModel)
-    {
-
-        NSError *error = nil;
-        NSMigrationManager *migrationManager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
-        NSString *destinationPathComponent = [NSString stringWithFormat:@"%@.sqlite", kDestinationBaseName];
-        NSURL *destinationStore = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:destinationPathComponent];
-
-        isSuccess = [migrationManager migrateStoreFromURL:sourceUrl
-                                                     type:NSSQLiteStoreType
-                                                  options:nil
-                                         withMappingModel:mappingModel
-                                         toDestinationURL:destinationStore
-                                          destinationType:NSSQLiteStoreType
-                                       destinationOptions:nil
-                                                    error:&error];
-    }
-
-    return isSuccess;
+//    NSURL *sourceUrl = [self sourceUrl];
+//    NSError *error = nil;
+//    NSManagedObjectModel *destinationModel = self.coordinator.managedObjectModel;
+//
+//    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
+//                                                                                              URL:sourceUrl
+//                                                                                            error:&error];
+//
+//    if (!sourceMetadata)
+//    {
+//        ZZLogError(@"metadataForPersistentStoreOfType: %@", error);
+//        return NO;
+//    }
+//
+//    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
+//
+//    NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel
+//                                                                     destinationModel:destinationModel
+//                                                                                error:&error];
+//
+//    if (!mappingModel)
+//    {
+//        ZZLogError(@"inferredMappingModelForSourceModel: %@", error);
+//        return NO;
+//    }
+//
+//    NSMigrationManager *migrationManager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
+//    
+//    
+//    NSDictionary *options = nil;// @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+//                              //NSInferMappingModelAutomaticallyOption: @YES};
+//    
+//    if (![migrationManager migrateStoreFromURL:sourceUrl
+//                                                 type:NSSQLiteStoreType
+//                                              options:options
+//                                     withMappingModel:mappingModel
+//                                     toDestinationURL:nil
+//                                      destinationType:NSSQLiteStoreType
+//                                   destinationOptions:options
+//                                                error:&error])
+//    {
+//        ZZLogError(@"migrateStoreFromURL: %@", error);
+//        return NO;
+//    }
+//
+    return  YES;
 }
+
 
 
 #pragma mark - Lazy load
 
 - (NSPersistentStoreCoordinator *)coordinator
 {
-
+    NSError *error;
     if (!_coordinator)
     {
-        NSError *error;
-        _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-        NSString *sourcePathComponent = [NSString stringWithFormat:@"%@.sqlite", kSourceBaseName];
+        
+        NSPersistentStoreCoordinator *coordinator =
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        
+        NSString *sourcePathComponent = [NSString stringWithFormat:@"%@.sqlite", kDestinationBaseName];
         NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:sourcePathComponent];
 
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
 
-        [_coordinator addPersistentStoreWithType:NSSQLiteStoreType
+        if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType
                                    configuration:nil
                                              URL:storeURL
                                          options:options
-                                           error:&error];
+                                           error:&error])
+        {
+            ZZLogError(@"addPersistentStoreWithType: %@", error);
+        }
+        else
+        {
+            _coordinator = coordinator;
+        }
     }
 
 
@@ -132,7 +154,7 @@ static NSString *const kDestinationBaseName = @"tbm-v4";
 
 - (NSURL *)sourceUrl
 {
-    return [NSURL fileURLWithPath:[[self applicationDocumentsDirectory].path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", kSourceBaseName]]];
+    return [NSURL fileURLWithPath:[[self applicationDocumentsDirectory].path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", kDestinationBaseName]]];
 }
 
 - (NSURL *)destinationUrl

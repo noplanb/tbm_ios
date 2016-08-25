@@ -23,9 +23,8 @@
 + (void)startWithCompletionBlock:(ANCodeBlock)completionBlock
 {
     [MagicalRecord setShouldDeleteStoreOnModelMismatch:NO];
-
-
     ZZMigrationManager *migrationManager = [ZZMigrationManager new];
+    
     if ([migrationManager isMigrationNecessary])
     {
         [migrationManager migrate];

@@ -14,11 +14,8 @@
 @property (nonatomic, strong) NSPersistentStoreCoordinator *coordinator;
 
 - (BOOL)isMigrationNecessary;
-
 - (BOOL)migrate;
-
 - (NSURL *)destinationUrl;
-
 - (NSURL *)sourceUrl;
 
 @end

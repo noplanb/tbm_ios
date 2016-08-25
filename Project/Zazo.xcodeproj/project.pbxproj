@@ -328,6 +328,8 @@
 		159374871D65D10D00DD7320 /* SortingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159374861D65D10D00DD7320 /* SortingContainer.swift */; };
 		159D9A0F1D3E8B410001DFFE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159D9A0E1D3E8B410001DFFE /* KeyboardObserver.swift */; };
 		15A1F9411CEC8DFC00BAC37D /* PlaybackSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1F9401CEC8DFC00BAC37D /* PlaybackSegmentView.swift */; };
+		15A58AE51D6F3FC5006F33B8 /* v2-v3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 15A58AE11D6F361A006F33B8 /* v2-v3.xcmappingmodel */; };
+		15A58AE61D6F3FC6006F33B8 /* v2-v3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 15A58AE11D6F361A006F33B8 /* v2-v3.xcmappingmodel */; };
 		15AC014C1C98694000B12D92 /* ZZRecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC014B1C98694000B12D92 /* ZZRecordingView.m */; };
 		15AC014E1C986AF400B12D92 /* ZZRecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15AC014D1C986AF400B12D92 /* ZZRecordingView.xib */; };
 		15ACCB761C8089220025798A /* Animations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15ACCB731C8089220025798A /* Animations.xcassets */; };
@@ -1426,6 +1428,7 @@
 		15A177801C1AAA5F0031480F /* ZZUserDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZUserDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A177811C1AAB090031480F /* ZZVideoDataProvider+Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZZVideoDataProvider+Entities.h"; sourceTree = "<group>"; };
 		15A1F9401CEC8DFC00BAC37D /* PlaybackSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackSegmentView.swift; sourceTree = "<group>"; };
+		15A58AE11D6F361A006F33B8 /* v2-v3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "v2-v3.xcmappingmodel"; sourceTree = "<group>"; };
 		15AB0DA91CE36C5A005E15AA /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		15AC014A1C98694000B12D92 /* ZZRecordingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZRecordingView.h; sourceTree = "<group>"; };
 		15AC014B1C98694000B12D92 /* ZZRecordingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZRecordingView.m; sourceTree = "<group>"; };
@@ -1597,7 +1600,7 @@
 		22D3EC5E1BD9AD35009FF01E /* ZZKeyStoreOutgoingVideoStatusDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreOutgoingVideoStatusDomainModel.m; path = KeyStore/ZZKeyStoreOutgoingVideoStatusDomainModel.m; sourceTree = "<group>"; };
 		22D7D2B31BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZZKeyStoreIncomingVideoIdsDomainModel.h; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.h; sourceTree = "<group>"; };
 		22D7D2B41BD9819600FF52AA /* ZZKeyStoreIncomingVideoIdsDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZKeyStoreIncomingVideoIdsDomainModel.m; path = KeyStore/ZZKeyStoreIncomingVideoIdsDomainModel.m; sourceTree = "<group>"; };
-		3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v4.xcdatamodel"; sourceTree = "<group>"; };
+		3E3097C01D4A24AF0010A482 /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E3097C41D4A27B80010A482 /* ZZMessageNotificationDomainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMessageNotificationDomainModel.h; sourceTree = "<group>"; };
 		3E3097C51D4A27B80010A482 /* ZZMessageNotificationDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageNotificationDomainModel.m; sourceTree = "<group>"; };
 		3E3097C71D4A2F240010A482 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
@@ -1608,7 +1611,6 @@
 		3E3383E11D50E18400F533F7 /* MessagePopoperController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopoperController.swift; sourceTree = "<group>"; };
 		3E3B80EC1D20FECD00E55F20 /* ZZMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuCell.h; sourceTree = "<group>"; };
 		3E3B80ED1D20FECD00E55F20 /* ZZMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuCell.m; sourceTree = "<group>"; };
-		3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E3D3ECB1D48B2DE006FE502 /* MessagesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		3E3D3ECD1D48B8C3006FE502 /* ZZAPIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAPIRoutes.m; sourceTree = "<group>"; };
 		3E3E37491D4F833D00D6DA35 /* Player.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Player.xcassets; sourceTree = "<group>"; };
@@ -4785,6 +4787,7 @@
 				15B822F51CB7BBD4006473E1 /* EntitiesMachine */,
 				15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */,
 				15B823011CB7BBD4006473E1 /* tbmEntitiesHeader.h */,
+				15A58AE11D6F361A006F33B8 /* v2-v3.xcmappingmodel */,
 			);
 			path = "Persistenсe";
 			sourceTree = "<group>";
@@ -6075,6 +6078,7 @@
 				182254711C16CA06003885A3 /* ZZFileTransferMarkerDomainModel.m in Sources */,
 				182254721C16CA06003885A3 /* UIImage+PDF.m in Sources */,
 				182254731C16CA06003885A3 /* ZZAuthWireframe.m in Sources */,
+				15A58AE61D6F3FC6006F33B8 /* v2-v3.xcmappingmodel in Sources */,
 				182254751C16CA06003885A3 /* ZZAuthRegistrationView.m in Sources */,
 				182254771C16CA06003885A3 /* ZZGridWireframe.m in Sources */,
 				182254781C16CA06003885A3 /* ZZHintArrowConfigurationModel.m in Sources */,
@@ -6443,6 +6447,7 @@
 				07636F091BA49A0100925671 /* ZZVerfiicationAlertHandler.m in Sources */,
 				15BDEA891CFDD6240002F78A /* ZZSettingsManager.m in Sources */,
 				79123D731BB032C3007E1CBF /* ZZHintsController.m in Sources */,
+				15A58AE51D6F3FC5006F33B8 /* v2-v3.xcmappingmodel in Sources */,
 				158960851CB7B61E0040D8E3 /* ANTableViewHeaderFooterView.m in Sources */,
 				07829D681BB2AA840000D5D9 /* ZZGridTransportService.m in Sources */,
 				07636EB41BA49A0100925671 /* ZZEditFriendCell.m in Sources */,
@@ -7168,12 +7173,11 @@
 		15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */,
-				3E3CA3811D22932B008EB1DD /* tbm-v3.xcdatamodel */,
+				3E3097C01D4A24AF0010A482 /* tbm-v3.xcdatamodel */,
 				15B822FF1CB7BBD4006473E1 /* tbm-v2.xcdatamodel */,
 				15B823001CB7BBD4006473E1 /* tbm.xcdatamodel */,
 			);
-			currentVersion = 3E3097C01D4A24AF0010A482 /* tbm-v4.xcdatamodel */;
+			currentVersion = 3E3097C01D4A24AF0010A482 /* tbm-v3.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
