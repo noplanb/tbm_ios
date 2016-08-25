@@ -34,10 +34,7 @@
 
         __block ZZUserDomainModel *authUser = [ZZUserDataProvider authenticatedUser];
 
-        [ZZStoredSettingsManager shared].userID = authUser.idTbm;
-        [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZStoredSettingsManager shared].mobileNumber = authUser.mobileNumber;
-
         [ZZStoredSettingsManager shared].userID = authUser.mkey;
         [ZZStoredSettingsManager shared].authToken = authUser.auth;
         [ZZUserDataProvider upsertUserWithModel:authUser];
