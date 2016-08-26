@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogicOutput {
+class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogicOutput, TranscriptRouterDelegate {
     
     weak var view: TranscriptUIInput!
     weak var logic: TranscriptLogic!
@@ -76,10 +76,6 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         }
     }
     
-    func didFailWithVideoAtIndex(index: UInt, with error: NSError?) {
-//        view.insertItem("(Recognition failed)", index: index, time: NSDate())
-    }
-    
     // MARK: TranscriptUIOutput interface
     
     func didTapReplyButton() {
@@ -123,6 +119,13 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         timestamp = timestamp / 1000
         
         self.playbackController.gotoTimestamp(NSTimeInterval(timestamp))
+    }
+    
+    // MARK: TranscriptRouterDelegate
+    
+    func didHide() {
+        self.playbackController.stop()
+        self.logic.stopRecognition()
     }
     
     // MARK: Support

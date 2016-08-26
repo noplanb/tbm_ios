@@ -8,10 +8,15 @@
 
 import Foundation
 
+protocol TranscriptRouterDelegate: class {
+    func didHide()
+}
+
 public class TranscriptRouter: NSObject {
     
     weak private var parentVC: UIViewController!
     weak private var moduleVC: TranscriptVC!
+    weak var delegate: TranscriptRouterDelegate?
     
     private let transitionManager = TranscriptTransitionManager()
     
@@ -68,7 +73,9 @@ public class TranscriptRouter: NSObject {
     }
     
     public func hide() {
-        moduleVC.dismissViewControllerAnimated(true, completion: nil)
+        moduleVC.dismissViewControllerAnimated(true) {
+            self.delegate?.didHide()
+        }
     }
     
     

@@ -31,7 +31,9 @@ import Foundation
         presenter.logic = interactor
         presenter.router = router
         
-        viewController.output = presenter        
+        router.delegate = presenter
+
+        viewController.output = presenter
         interactor.output = presenter
     }
 }

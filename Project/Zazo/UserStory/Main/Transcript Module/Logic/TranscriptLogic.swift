@@ -25,6 +25,7 @@ protocol TranscriptLogicOutput: class {
 
 protocol TranscriptLogic: class {
     func startRecognizingVideos(for friendID: String) -> Bool
+    func stopRecognition()
     func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel)
 }
 

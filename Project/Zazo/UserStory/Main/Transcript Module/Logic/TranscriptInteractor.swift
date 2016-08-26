@@ -16,16 +16,11 @@ class TranscriptInteractor: TranscriptLogic {
     weak var output: TranscriptLogicOutput?
     var messagesService: MessagesService!
     var recognizingVideos = [ZZVideoDomainModel]()
-    var isRecognizing = false
+    var recognizingDisposable: Disposable?
     
     func startRecognizingVideos(for friendID: String) -> Bool {
         
-        guard isRecognizing == false else {
-            logError("already recognizing")
-            return false
-        }
-        
-        isRecognizing = true
+        self.stopRecognition()
         
         let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
         let videos = friendModel.videos.filter{ $0.incomingStatusValue == .Downloaded || $0.incomingStatusValue == .Viewed }
@@ -90,6 +85,7 @@ class TranscriptInteractor: TranscriptLogic {
             observer.sendCompleted()
         }
         
+        recognizingDisposable =
         recognizingSignal.flatten(.Concat).start { (event) in
             switch event {
             case .Next(let result):
@@ -121,6 +117,12 @@ class TranscriptInteractor: TranscriptLogic {
 
     // MARK: Other
 
+    func stopRecognition() {
+        if let recognizingDisposable = recognizingDisposable {
+            recognizingDisposable.dispose()
+        }
+    }
+    
     func saveTranscript(from result: RecognitionResult) {
         
         guard let videoID = result.videoID else {
@@ -169,7 +171,6 @@ class TranscriptInteractor: TranscriptLogic {
     
     func didCompleteRecognition() {
         GCDBlock.async(.Main) {
-            self.isRecognizing = false
             self.output?.didCompleteRecognition()
         }
     }
