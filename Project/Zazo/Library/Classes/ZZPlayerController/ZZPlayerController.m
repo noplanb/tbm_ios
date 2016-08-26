@@ -592,6 +592,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)queueDidChange
 {
+    if (!self.isPlayingVideo)
+    {
+        return;
+    }
+    
     [self updateVideoCount];
     
     if (!self.waitsForMessageCallback && !self.dragging)
