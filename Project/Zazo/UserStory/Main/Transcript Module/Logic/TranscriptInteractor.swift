@@ -16,8 +16,16 @@ class TranscriptInteractor: TranscriptLogic {
     weak var output: TranscriptLogicOutput?
     var messagesService: MessagesService!
     var recognizingVideos = [ZZVideoDomainModel]()
-
-    func startRecognizingVideos(for friendID: String) {
+    var isRecognizing = false
+    
+    func startRecognizingVideos(for friendID: String) -> Bool {
+        
+        guard isRecognizing == false else {
+            logError("already recognizing")
+            return false
+        }
+        
+        isRecognizing = true
         
         let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
         let videos = friendModel.videos.filter{ $0.incomingStatusValue == .Downloaded || $0.incomingStatusValue == .Viewed }
@@ -54,7 +62,7 @@ class TranscriptInteractor: TranscriptLogic {
         
         if recognizingVideos.count == 0 {
             self.output?.didCompleteRecognition()
-            return
+            return false
         }
         
         let recognizingSignal = SignalProducer<SignalProducer<RecognitionResult, ServiceError>, NoError>{
@@ -63,7 +71,7 @@ class TranscriptInteractor: TranscriptLogic {
             for videoModel in self.recognizingVideos {
                 
                 var result = RecognitionResult(videoID: videoModel.videoID,
-                                                  text: "", 
+                                                  text: nil,
                                                   date: self._date(videoID: videoModel.videoID))
                 
                 let signal = self.messagesService.getTranscript(by: videoModel.videoID)
@@ -88,13 +96,16 @@ class TranscriptInteractor: TranscriptLogic {
                 self.saveTranscript(from: result)
                 self.didRecognize(result)
             case .Completed:
-                self.output?.didCompleteRecognition()
+                self.didCompleteRecognition()
             case .Failed(let error):
                 logError("\(error)")
+                self.didCompleteRecognition()
             default:
                 break
             }
         }
+        
+        return true
     }
     
     
@@ -119,7 +130,7 @@ class TranscriptInteractor: TranscriptLogic {
         let videoModel = ZZVideoDataProvider.itemWithID(videoID)
         videoViewed(videoModel)
         
-        guard result.text.characters.count > 0 else {
+        guard result.text?.characters.count > 0 else {
             return;
         }
         
@@ -128,7 +139,6 @@ class TranscriptInteractor: TranscriptLogic {
     }
     
     func didRecognize(result: RecognitionResult) {
-
         GCDBlock.async(.Main) {
             self.output?.didRecognize(with: result)
         }
@@ -155,5 +165,12 @@ class TranscriptInteractor: TranscriptLogic {
         }
         
 
+    }
+    
+    func didCompleteRecognition() {
+        GCDBlock.async(.Main) {
+            self.isRecognizing = false
+            self.output?.didCompleteRecognition()
+        }
     }
 }

@@ -70,6 +70,20 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         }
     }
     
+    func askRetry(completion: (Bool) -> ()) {
+        
+        let alertController = UIAlertController(title: "Recognition has failed",
+                                                message: "If the error is repeating please try later",
+                                                preferredStyle: .Alert)
+        
+        let handler: UIAlertAction -> Void = { completion($0.style == .Default) }
+        
+        alertController.addAction(UIAlertAction(title: "Try again", style: .Default, handler: handler))
+        alertController.addAction(UIAlertAction(title: "Later", style: .Cancel, handler: handler))
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func setTranscriptAnimationVisible(flag: Bool) {
         animating = flag
     }
@@ -96,7 +110,7 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleItemTap(with:)))
         item.addGestureRecognizer(recognizer)
         
-        let emptyText = "No text"
+        let emptyText = "No recognized text"
         let noText = text.characters.count == 0
         
         if noText {
@@ -129,6 +143,12 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
                                    animations: animations,
                                    completion: nil)
         
+    }
+    
+    func clearItems() {
+        for view in contentView.stackView.arrangedSubviews {
+            contentView.stackView.removeArrangedSubview(view)
+        }
     }
     
     func setVolumeEnabled(enabled: Bool) {

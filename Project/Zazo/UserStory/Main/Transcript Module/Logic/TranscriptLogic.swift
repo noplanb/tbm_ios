@@ -10,7 +10,7 @@ import Foundation
 
 public struct RecognitionResult {
     var videoID: String?
-    var text: String
+    var text: String?
     let date: NSDate
 }
 
@@ -24,7 +24,7 @@ protocol TranscriptLogicOutput: class {
 }
 
 protocol TranscriptLogic: class {
-    func startRecognizingVideos(for friendID: String)
+    func startRecognizingVideos(for friendID: String) -> Bool
     func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel)
 }
 

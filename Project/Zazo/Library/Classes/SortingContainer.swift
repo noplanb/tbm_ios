@@ -30,4 +30,8 @@ class SortingContainer<T: Sortable> {
         let index = _sorted.indexOf { $0.value() > item.value() } ?? _sorted.count
         _sorted.insert(item, atIndex: index)
     }
+    
+    func clear() {
+        _sorted.removeAll()
+    }
 }

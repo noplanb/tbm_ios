@@ -18,12 +18,14 @@ protocol TranscriptUIInput: class {
                     index: UInt,
                     time:NSDate)
     
+    func clearItems()
     func loading(ofType type:TranscriptUILoadingType, isVisible visible:Bool)
     func setVolumeEnabled(enabled:Bool)
     func setThumbnail(image: UIImage)
     func setFriendName(name: String)
     func showPlayer(view: UIView)
     func showPlaybackControl(view: UIView)
+    func askRetry(completion: (Bool)->())
 }
 
 protocol TranscriptUIOutput: class

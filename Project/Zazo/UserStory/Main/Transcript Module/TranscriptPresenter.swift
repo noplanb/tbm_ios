@@ -41,8 +41,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
         friendModel = friendData.friendModel
         
         router.show(from: sourceView) { (finished) in
-            self.view.loading(ofType: .Transcript, isVisible: true)
-            self.logic.startRecognizingVideos(for: friendID)
+            self.startRecognition()
         }
         
         playbackController.hideTextMessages = true
@@ -51,13 +50,30 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     // MARK: TranscriptLogicOutput
     
     func didRecognize(with result: RecognitionResult) {
+        
+        if result.text == nil {
+            hasFailedRecognitions = true
+        }
+        
         insertToView(recognizingResult: result)        
     }
     
     func didCompleteRecognition() {
-        
         view.loading(ofType: .Transcript, isVisible: false)
-        playbackController.playVideoForFriend(friendModel)
+        
+        if hasFailedRecognitions {
+            view.askRetry({ (shouldRetry) in
+                if shouldRetry {
+                    self.startRecognition()
+                }
+                else {
+                    self.startPlaying()
+                }
+            })
+        }
+        else {
+            self.startPlaying()
+        }
     }
     
     func didFailWithVideoAtIndex(index: UInt, with error: NSError?) {
@@ -100,7 +116,11 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
             return
         }
         
-        let timestamp = Int(videoID)!/1000
+        guard var timestamp = Int(videoID) else {
+            return
+        }
+        
+        timestamp = timestamp / 1000
         
         self.playbackController.gotoTimestamp(NSTimeInterval(timestamp))
     }
@@ -108,15 +128,30 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     // MARK: Support
     
     let recognizedItems = SortingContainer<RecognitionResult>()
+    var hasFailedRecognitions = false
+
+    func startRecognition() {
+        view.clearItems()
+        recognizedItems.clear()
+        hasFailedRecognitions = false
+        if (self.logic.startRecognizingVideos(for: self.friendModel!.idTbm))
+        {
+            self.view.loading(ofType: .Transcript, isVisible: true)
+        }
+    }
     
     func insertToView(recognizingResult result: RecognitionResult) {
         
         recognizedItems.add(item: result)
         let index = recognizedItems.sorted.indexOf { result == $0 }
         
-        view.insertItem(result.text,
+        view.insertItem(result.text ?? "",
                         index: UInt(index!),
                         time: result.date)
+    }
+    
+    func startPlaying() {
+        playbackController.playVideoForFriend(friendModel)
     }
 }
 
