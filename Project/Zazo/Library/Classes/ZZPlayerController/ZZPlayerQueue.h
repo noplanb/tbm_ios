@@ -36,6 +36,7 @@
 - (ZZMessageGroup *)messageGroupAfterTimestamp:(NSTimeInterval)timestamp;
 
 //@property (nonatomic, strong, readonly) ZZVideoDomainModel *currentVideoModel;
+@property (nonatomic, assign) BOOL appendNewItems;
 
 - (void)reloadWithSkip:(NSUInteger)count;
 

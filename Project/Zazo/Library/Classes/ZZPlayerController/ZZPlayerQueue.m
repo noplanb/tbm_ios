@@ -31,10 +31,6 @@
 
 @implementation ZZPlayerQueue
 
-- (void)dealloc {
-    
-}
-
 + (instancetype)queueForFriend:(ZZFriendDomainModel *)friendModel
               withTextMessages:(BOOL)flag
                       delegate:(id<ZZPlayerQueueDelegate>)delegate;
@@ -43,6 +39,11 @@
                                                         withTextMessages:flag
                                                                 delegate:delegate];
     return instance;
+}
+
+- (void)dealloc
+{
+    [self _removeObservers];
 }
 
 - (instancetype)initWithFriendModel:(ZZFriendDomainModel *)friendModel
@@ -57,9 +58,10 @@
         _loadTextMessages = flag;
         _allVideoModels = [self _filterVideoModels:friendModel.videos];
         _messageGroups = @[];
-        
         [self _loadVideoModels:self.allVideoModels];
-        [self _updateQueue];        
+        [self _updateQueue];
+        
+        _appendNewItems = YES;
         [self _addObservers];
     }
     return self;
@@ -101,6 +103,12 @@
 {
     self.observer = [ZZVideoObserver observeVideosForFriend:self.friendModel];
     self.observer.delegate = self;
+}
+
+- (void)_removeObservers
+{
+    [self.observer stop];
+    self.observer = nil;
 }
 
 - (void)_updateQueue
@@ -209,10 +217,20 @@
     [self _loadVideoModels:models];
 }
 
+- (void)setAppendNewItems:(BOOL)appendNewItems
+{
+    _appendNewItems = appendNewItems;
+}
+
 #pragma mark ZZVideoObserverDelegate
 
 - (void)newVideo:(ZZVideoDomainModel *)videoModel
 {
+    if (!self.appendNewItems)
+    {
+        return;
+    }
+    
     [self.delegate queueWillChange];
     
     NSArray <NSString *> *videoIDs = [self.loadedVideoModels.rac_sequence map:^id(ZZVideoDomainModel *videoModel) {

@@ -14,6 +14,7 @@
 #import "ZZVideoDataProvider.h"
 #import "ZZPlaybackQueueItem.h"
 #import "ZZPlayerQueue.h"
+#import "ZZVideoStatusHandler.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -25,13 +26,14 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 // UI elements
 @property (nonatomic, strong) AVPlayerViewController *playerController;
 @property (nonatomic, strong, readonly) AVQueuePlayer *player;
-@property (nonatomic, strong) ZZPlayerQueue *queue;
+@property (nonatomic, strong, readwrite) ZZPlayerQueue *queue;
 
 @property (nonatomic, strong) PlaybackIndicator *indicator;
 
 @property (nonatomic, strong, readonly) AVPlayerItem *currentPlayerItem;
 @property (nonatomic) NSObject<ZZPlaybackQueueItem> *currentQueueItem;
 @property (nonatomic) ZZVideoDomainModel *currentVideoModel;
+
 
 @property (nonatomic, assign) BOOL dragging;
 @property (nonatomic, assign, readwrite) BOOL isPlayingVideo;
@@ -144,7 +146,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 //    }
 
     [self.delegate videoPlayerDidStartVideoModel:self.currentVideoModel];
-        
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = self.currentVideoModel.videoID;
 }
 
 - (void)didSeekToPosition:(CGFloat)position ofSegmentWithIndex:(NSInteger)index
@@ -532,9 +534,9 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
     
     [self.player pause];
     [self.delegate videoPlayerDidCompletePlaying];
-    
+
+    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     self.currentQueueItem = nil;
-//    self.queue = nil;
 }
 
 - (void)updateVideoCount

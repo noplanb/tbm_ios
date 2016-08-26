@@ -19,5 +19,6 @@
 
 + (ZZVideoObserver *)observeVideosForFriend:(ZZFriendDomainModel *)friendModel;
 @property (nonatomic, weak) id<ZZVideoObserverDelegate> delegate;
+- (void)stop;
 
 @end

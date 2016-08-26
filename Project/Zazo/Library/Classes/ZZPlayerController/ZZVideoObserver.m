@@ -54,7 +54,7 @@
 
 - (void)dealloc
 {
-    [self stop];
+    
 }
 
 - (void)_videosDeletedNotification

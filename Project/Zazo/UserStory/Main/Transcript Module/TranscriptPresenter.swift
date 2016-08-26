@@ -155,6 +155,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     
     func startPlaying() {
         playbackController.playVideoForFriend(friendModel)
+        playbackController.queue.appendNewItems = false
     }
 }
 

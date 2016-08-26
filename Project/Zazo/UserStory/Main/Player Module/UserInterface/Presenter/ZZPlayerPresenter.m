@@ -15,7 +15,6 @@
 #import "ZZGridActionStoredSettings.h"
 #import "ZZRemoteStorageTransportService.h"
 #import "ZZVideoDataProvider.h"
-#import "ZZVideoStatusHandler.h"
 #import "ZZFriendDataHelper.h"
 #import "ZZFriendDataUpdater.h"
 #import "NSDate+ZZAdditions.h"
@@ -88,7 +87,6 @@
                                                                 friendMkey:friendModel.mKey
                                                                 friendCKey:friendModel.cKey] subscribeNext:^(id x) {}];
     
-    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = videoModel.videoID;
 }
 
 - (void)videoPlayerDidReceiveError:(NSError *)error
@@ -100,7 +98,6 @@
 {
     [self.delegate videoPlayerDidFinishPlayingWithModel:self.playerController.friendModel];
     
-    [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     [self _setPlayerVisible:NO];
 }
 

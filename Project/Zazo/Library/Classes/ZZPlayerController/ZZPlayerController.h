@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZZPlayerQueue.h"
 
 @class ZZVideoDomainModel;
 @class ZZFriendDomainModel;
@@ -20,7 +21,6 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 - (void)videoPlayerDidCompletePlaying;
 
 - (void)videoPlayerDidReceiveError:(NSError *)error;
-
 - (void)showMessages:(ZZMessageGroup *)messageGroup completion:(ZZShowMessageCompletionBlock)completion;
 - (void)dismissMessages;
 
@@ -40,6 +40,7 @@ typedef void(^ZZShowMessageCompletionBlock)(BOOL shouldContinue);
 @property (nonatomic, strong, readonly) UIView *playbackIndicator;
 
 @property (nonatomic, strong, readonly) ZZFriendDomainModel *friendModel;
+@property (nonatomic, strong, readonly) ZZPlayerQueue *queue;
 
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel;
 - (void)gotoTimestamp:(NSTimeInterval)timestamp;
