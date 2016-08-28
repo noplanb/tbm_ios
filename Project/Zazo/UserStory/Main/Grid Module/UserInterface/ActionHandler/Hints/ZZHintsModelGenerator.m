@@ -187,7 +187,7 @@
 
     model.title = NSLocalizedString(@"hints.fullscreen.label.text", nil);
     model.type = ZZHintsTypeFullscreenUsageHint;
-    model.hidesArrow = YES;
+    model.hidesArrow = NO;
 
     return model;
 }

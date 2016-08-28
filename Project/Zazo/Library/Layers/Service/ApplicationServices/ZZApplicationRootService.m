@@ -238,7 +238,7 @@
     
     if (!friendModel)
     {
-        ZZLogWarning(@"handleMessageReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        ZZLogWarning(@"handleMessageReceivedNotification: got notification for non existant friend. ");
         [self.dataUpdater updateAllData];
         return;
     }
@@ -256,7 +256,7 @@
     }
     else
     {
-        ZZLogInfo(@"handleVideoReceivedNotification: got notification for non existant friend. calling getAndPollAllFriends");
+        ZZLogInfo(@"handleVideoReceivedNotification: got notification for non existant friend. ");
         [self.dataUpdater updateAllData];
     }
 }
