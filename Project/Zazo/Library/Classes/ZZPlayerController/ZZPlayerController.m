@@ -151,6 +151,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (void)didSeekToPosition:(CGFloat)position ofSegmentWithIndex:(NSInteger)index
 {
+    if (index + 1 > self.queue.models.count)
+    {
+        return;
+    }
+    
     NSObject<ZZPlaybackQueueItem> *item = self.queue.models[index];
     
     if (item.type != ZZIncomingEventTypeVideo)
