@@ -677,9 +677,10 @@
     MenuItem *sendText = [[MenuItem alloc] initWithType:MenuItemTypeSendText];
     
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID: viewModel.item.relatedUser.idTbm];
-    BOOL hasVideoMessages = friendModel.videos.count > 0;
     
-    NSArray<MenuItem *> *items = hasVideoMessages ? @[convertToText, sendText, playFullscreen] : @[convertToText, sendText];
+    BOOL showFullscreenItem = friendModel.videos.count > 0 && [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled;
+    
+    NSArray<MenuItem *> *items = showFullscreenItem ? @[convertToText, sendText, playFullscreen] : @[convertToText, sendText];
     
     if (![ZZThumbnailGenerator hasLastThumbForUser:friendModel])
     {
