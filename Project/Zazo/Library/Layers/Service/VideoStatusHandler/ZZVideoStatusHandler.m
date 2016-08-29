@@ -18,6 +18,7 @@
 #import "ZZFriendDataUpdater.h"
 #import "ZZVideoDomainModel.h"
 #import "ZZThumbnailGenerator.h"
+#import "ZZVideoDomainModel+Validation.h"
 
 @interface ZZVideoStatusHandler ()
 
@@ -220,9 +221,9 @@
             
             if (videoStatus == ZZVideoIncomingStatusDownloaded)
             {
-                BOOL validThumbnail = [ZZThumbnailGenerator generateThumbVideo:videoModel];
                 
-                if (validThumbnail)
+                [ZZThumbnailGenerator generateThumbVideo:videoModel];
+                if ([videoModel isValidVideo])
                 {
                     [ZZVideoDataUpdater deleteAllViewedVideosWithFriendID:friendID
                                                         exceptVideoWithID:self.currentlyPlayedVideoID];
