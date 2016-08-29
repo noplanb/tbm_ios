@@ -135,6 +135,19 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
     return NO;
 }
 
+- (BOOL)hasDownloadingVideo
+{
+    for (ZZVideoDomainModel *videoModel in self.videos)
+    {
+        if (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloading)
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 - (void)setAbilitiesArray:(NSArray<NSString *> *)abilitiesArray
 {
     self.abilities = ZZAbilitiesFromArray(abilitiesArray);

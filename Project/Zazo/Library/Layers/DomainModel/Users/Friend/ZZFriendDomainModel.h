@@ -85,7 +85,9 @@ extern const struct ZZFriendDomainModelAttributes
 - (ZZMenuContactType)contactType;
 
 - (BOOL)isCreator;
+
 - (BOOL)hasIncomingVideo;
 - (BOOL)hasDownloadedVideo;
+- (BOOL)hasDownloadingVideo;
 
 @end

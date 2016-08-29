@@ -26,7 +26,7 @@ static NSString* const kGlobalApplicationVersion = @"49";
 #ifdef TESTS
 #import "ZazoTests-Swift.h"
 #else
-#import "Zazo-Swift.h"
+#import "Zazo-Swift.h"  
 #endif
 
 //helpers

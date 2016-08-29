@@ -69,13 +69,32 @@
 
 - (NSArray <ZZVideoDomainModel *> *)_filterVideoModels:(NSArray <ZZVideoDomainModel *> *)videoModels
 {
-    videoModels = [videoModels.rac_sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
-        return (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
-                videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed) &&
-        [ZZFileHelper isFileExistsAtURL:videoModel.videoURL];
-    }].array;
+    BOOL skipViewedVideos = self.friendModel.hasDownloadingVideo; // see task 1430
+    RACSequence *sequence = videoModels.rac_sequence;
+
+    if (skipViewedVideos)
+    {
+        sequence = [sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
+            return videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded;
+        }];
+    }
+    else
+    {
+        sequence = [sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
+            return (videoModel.incomingStatusValue == ZZVideoIncomingStatusDownloaded ||
+                    videoModel.incomingStatusValue == ZZVideoIncomingStatusViewed);
+        }];
+    }
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    sequence = [sequence filter:^BOOL(ZZVideoDomainModel *videoModel) {
+        return [ZZFileHelper isFileExistsAtURL:videoModel.videoURL];
+    }];
+    
+    videoModels = sequence.array;
+    
+    NSSortDescriptor *sortDescriptor =
+        [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    
     videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     return videoModels;
@@ -86,9 +105,10 @@
     [self.delegate unloadAllVideoModels];
     self.loadedVideoModels = @[];
     
-    for (ZZVideoDomainModel *model in videoModels)
-    {
-        [self _loadModel:model];
+    
+    for (ZZVideoDomainModel *videoModel in videoModels)
+    {       
+        [self _loadModel:videoModel];
     }
 }
 
