@@ -105,7 +105,7 @@ public class TranscriptRouter: NSObject {
         case .Began:
             self.transitionManager.interactiveTransitioning = true
             hide()
-            moduleVC.output?.didStartInteractiveDismissal()
+//            moduleVC.output?.didStartInteractiveDismissal()
             
         case .Changed:
             
@@ -128,13 +128,13 @@ public class TranscriptRouter: NSObject {
             
         case .Ended:
             self.transitionManager.interactiveTransitioning = false
-            if previousProgress > progress {
+            if previousProgress > progress || progress < 0.15 {
                 interactor.cancelInteractiveTransition()
-                moduleVC.output?.didCancelInteractiveDismissal()
             }
             else {
                 interactor.finishInteractiveTransition()
             }
+//            moduleVC.output?.didCancelInteractiveDismissal()
             
         default:
             break
