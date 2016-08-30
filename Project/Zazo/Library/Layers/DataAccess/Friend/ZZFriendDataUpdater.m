@@ -108,10 +108,23 @@
 
         if (friendEntity)
         {
+            BOOL needsSave = NO;
+            
             if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
             {
                 ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
                 friendEntity.hasApp = @(friendModel.hasApp);
+                needsSave = YES;
+            }
+            
+            if (friendEntity.abilitiesValue != friendModel.abilities)
+            {
+                friendEntity.abilitiesValue = friendModel.abilities;
+                needsSave = YES;
+            }
+            
+            if (needsSave)
+            {
                 [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
                 [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
             }
