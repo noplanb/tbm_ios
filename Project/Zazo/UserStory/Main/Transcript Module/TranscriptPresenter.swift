@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GCDKit
 
 class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogicOutput, TranscriptRouterDelegate {
     
@@ -98,7 +99,9 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     }
     
     func didCancelInteractiveDismissal() {
-        playbackController.paused = false
+        GCDBlock.after(.Main, delay: 0.5) { 
+            self.playbackController.paused = false
+        }
     }
     
     func didTapBackground() {

@@ -354,6 +354,7 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:nil];
     
+    
 }
 
 - (void)_playNextVideoOrStop
