@@ -14,7 +14,7 @@ typealias RawResponse = (data: NSData, response: NSHTTPURLResponse)
 
 class NetworkClient: NSObject {
     
-    let baseURL = NSURL(string: "http://staging.zazoapp.com")!
+    var baseURL: NSURL!
     let manager = Alamofire.Manager()
     
     func get(path: String, _ parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {

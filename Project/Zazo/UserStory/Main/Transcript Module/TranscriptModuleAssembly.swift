@@ -22,7 +22,11 @@ import Foundation
     init(with parentVC: UIViewController) {
         
         interactor = TranscriptInteractor()
-        interactor.messagesService = ConcreteMessagesService(client: NetworkClient())
+        
+        let client = NetworkClient()
+        client.baseURL = NSURL(string: APIBaseURL())
+        
+        interactor.messagesService = ConcreteMessagesService(client: client)
         viewController = TranscriptVC(nibName: nil, bundle: nil)
         router = TranscriptRouter(forPresenting: viewController, in: parentVC)
         

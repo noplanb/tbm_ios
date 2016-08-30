@@ -21,7 +21,9 @@ import Foundation
     private let messagesService: MessagesService
     
     override init() {
-        messagesService = ConcreteMessagesService(client: NetworkClient())
+        let client = NetworkClient()
+        client.baseURL = NSURL(string: APIBaseURL())
+        messagesService = ConcreteMessagesService(client: client)
     }
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {

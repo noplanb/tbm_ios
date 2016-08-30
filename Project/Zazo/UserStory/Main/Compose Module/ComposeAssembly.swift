@@ -26,8 +26,10 @@ import Foundation
         }
         
         interactor = ComposeInteractor()
+        let client = NetworkClient()
+        client.baseURL = NSURL(string: APIBaseURL())
         
-        let service = ConcreteMessagesService(client: NetworkClient())
+        let service = ConcreteMessagesService(client: client)
         
         interactor.friendMkey = mKey
         interactor.service = service
