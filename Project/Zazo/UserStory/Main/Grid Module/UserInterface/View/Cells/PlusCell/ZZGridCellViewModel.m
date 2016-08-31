@@ -115,25 +115,32 @@
 
 - (ZZCellVideoState)videoState
 {
-    ZZVideoStatusEventType eventType = self.item.relatedUser.lastVideoStatusEventType;
+    ZZIncomingEventType eventType = self.item.relatedUser.lastEventType;
+    
+    if (eventType == ZZIncomingEventTypeMessage)
+    {
+        return ZZCellVideoStateNone;
+    }
+    
+    ZZVideoStatusEventType videoEvent = self.item.relatedUser.lastVideoStatusEventType;
     ZZVideoIncomingStatus incomingStatus = self.item.relatedUser.lastIncomingVideoStatus;
     
     if (self.hasUploadedVideo &&
         !self.isUploadedVideoViewed &&
-        eventType != ZZVideoStatusEventTypeIncoming &&
+        videoEvent != ZZVideoStatusEventTypeIncoming &&
         self.item.relatedUser.lastOutgoingVideoStatus >= ZZVideoOutgoingStatusUploaded)
     {
         return ZZCellVideoStateUploaded;
     }
     
-    if (eventType == ZZVideoStatusEventTypeIncoming &&
+    if (videoEvent == ZZVideoStatusEventTypeIncoming &&
         incomingStatus == ZZVideoIncomingStatusDownloading)
 //         && [ZZFriendDataHelper unviewedVideoCountWithFriendID:self.item.relatedUser.idTbm] > 0)
     {
         return ZZCellVideoStateDownloading;
     }
     
-    if (eventType == ZZVideoStatusEventTypeIncoming &&
+    if (videoEvent == ZZVideoStatusEventTypeIncoming &&
         incomingStatus == ZZVideoIncomingStatusDownloaded)
 //         && !self.item.isDownloadAnimationViewed)
     {
@@ -141,12 +148,12 @@
     }
 
     if (self.isUploadedVideoViewed &&
-        eventType != ZZVideoStatusEventTypeIncoming)
+        videoEvent != ZZVideoStatusEventTypeIncoming)
     {
         return ZZCellVideoStateViewed;
     }
     
-    if (eventType == ZZVideoStatusEventTypeIncoming &&
+    if (videoEvent == ZZVideoStatusEventTypeIncoming &&
         incomingStatus == ZZVideoIncomingStatusFailedPermanently)
     {
         return ZZCellVideoStateFailed;
