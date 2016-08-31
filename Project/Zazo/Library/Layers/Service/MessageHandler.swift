@@ -26,8 +26,7 @@ import Foundation
         messagesService = ConcreteMessagesService(client: client)
     }
     
-    @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {
-        
+    @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {        
         let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey)
         let messageModel = ZZMessageDomainModel()
         
