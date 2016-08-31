@@ -56,7 +56,7 @@ class NetworkClient: NSObject {
                 .response { (request, response, data, error) in
                     
                     guard (error == nil) else {
-                        observer.sendFailed(ServiceError.AnotherError(error: error!))
+                        observer.sendFailed(ServiceError.CocoaError(error: error!))
                         return
                     }
                     

@@ -62,6 +62,17 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         self.navigationItem.title = name
     }
     
+    func askForRetry(text: String?, completion: (Bool) -> ()) {
+        let alert = UIAlertController(title: "Message wasn't sent", message: text, preferredStyle: .Alert)
+        
+        let completion: ((UIAlertAction) -> Void) = { completion($0.style != .Cancel) }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: completion))
+        alert.addAction(UIAlertAction(title: "Retry", style: .Default, handler: completion))
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     // MARK: Events
     
     func cancelTap() {
