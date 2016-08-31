@@ -23,6 +23,11 @@
                                                object:nil];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)_applicationDidEnterBackgroundNotification
 {
     self.wireframe.activeTab = ZZMainWireframeTabGrid;
