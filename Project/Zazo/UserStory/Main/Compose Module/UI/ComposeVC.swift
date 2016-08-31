@@ -43,6 +43,9 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         contentView.elements.textField.becomeFirstResponder()
     }
     
+    public override func viewDidDisappear(animated: Bool) {
+        finishKeyboardObserving()
+    }
     // MARK: Input
     
     func typedText() -> String {
@@ -92,6 +95,7 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         
         UIView.animateWithDuration(1) { 
             self.contentView.elements.sendButton.alpha = 1
+            
 //            self.contentView.elements.keyboardButton.alpha = 1
         }
     }

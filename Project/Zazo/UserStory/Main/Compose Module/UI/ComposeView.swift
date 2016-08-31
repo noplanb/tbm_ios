@@ -18,14 +18,13 @@ public class ComposeView: UIView {
     
     public let bottomSpacer = UIView()
     
-    var constraintsSet = false
-    
     convenience init() {
         self.init(frame: UIScreen.mainScreen().bounds)
         
         self.backgroundColor = ZZColorTheme.shared().tintColor
         
         addSubviews()
+        installConstraints()
         
         bottomSpacer.accessibilityIdentifier = "Bottom spacer"
     }
@@ -47,15 +46,8 @@ public class ComposeView: UIView {
         
     }
     
-    override public func updateConstraints() {
-        
-        super.updateConstraints()
-               
-        guard !constraintsSet else {
-            return
-        }
-        
-        constraintsSet = true
+    
+    func installConstraints() {
         
         elements.navigationBar.snp_remakeConstraints { (make) in
             make.left.right.top.equalTo(self)
