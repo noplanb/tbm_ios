@@ -99,7 +99,14 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     }
     
     func didCancelInteractiveDismissal() {
-        GCDBlock.after(.Main, delay: 0.5) { 
+        GCDBlock.after(.Main, delay: 0.5) {
+            let vc = self.router.moduleVC
+            guard
+                vc.isBeingDismissed() == false &&
+                vc.presentingViewController != nil
+            else {
+                return
+            }
             self.playbackController.paused = false
         }
     }

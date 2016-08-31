@@ -15,7 +15,7 @@ protocol TranscriptRouterDelegate: class {
 public class TranscriptRouter: NSObject {
     
     weak private var parentVC: UIViewController!
-    weak private var moduleVC: TranscriptVC!
+    weak private(set) var moduleVC: TranscriptVC!
     weak var delegate: TranscriptRouterDelegate?
     
     private let transitionManager = TranscriptTransitionManager()
