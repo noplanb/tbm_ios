@@ -74,7 +74,9 @@ public class TranscriptRouter: NSObject {
     
     public func hide() {
         moduleVC.dismissViewControllerAnimated(true) {
-            self.delegate?.didHide()
+            if self.moduleVC.presentingViewController == nil {
+                self.delegate?.didHide()
+            }
         }
     }
     
