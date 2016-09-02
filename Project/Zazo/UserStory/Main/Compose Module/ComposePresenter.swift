@@ -53,18 +53,34 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
             return
         }
         
+        sendMessage(text)
+    }
+    
+    func sendMessage(text: String) {
         view.showLoading(true)
         
         logic.sendMessage(text).start { (event) in
             
             self.view.showLoading(false)
-            self.router.hide()
             
             switch event {
-            case .Failed(let error):
-                logWarning("\(error)")
+                case .Failed(let error):
+                    self.sending(text, didFailedWith: error)
+                case .Completed:
+                    self.router.hide()
             default:
                 break
+            }
+        }
+
+    }
+    
+    func sending(message: String, didFailedWith error:ServiceError) {
+        logWarning("\(error)")
+        
+        view.askForRetry(error.toString()) { (shouldRetry) in
+            if shouldRetry {
+                self.sendMessage(message)
             }
         }
     }

@@ -12,6 +12,7 @@ protocol ComposeUIInput: class {
     func typedText() -> String
     func showLoading(loading: Bool)
     func showFriendName(name: String)
+    func askForRetry(text: String?, completion: (Bool)->())
 }
 
 protocol ComposeUIOutput: class {

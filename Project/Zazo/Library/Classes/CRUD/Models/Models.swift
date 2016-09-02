@@ -40,8 +40,26 @@ enum ServiceError: ErrorType {
     case InputError(errorText: String)
     case ClientError(response: GenericResponse) // 4XX
     case ServerError(statusCode: Int) // 5XX
-    case AnotherError(error: ErrorType)
+    case AnotherError(errorText: String)
+    case CocoaError(error: NSError)
     case UnknownError
+    
+    func toString() -> String? {
+        switch self {
+        case .InputError(let errorText):
+            return errorText
+        case .ClientError(let response):
+            return response.errors?.joinWithSeparator("\n")
+        case .ServerError(let code):
+            return "Server error \(code)"
+        case .AnotherError(let error):
+            return error
+        case .CocoaError(let error):
+            return error.localizedDescription
+        default:
+            return nil
+        }
+    }
 }
 
 
@@ -71,15 +89,15 @@ func unbox<T: Unboxable>(data: NSData) -> Result<T, ServiceError> {
                 return .Failure(ServiceError.ClientError(response: genericResponse))
             }
             
-            return .Failure(ServiceError.AnotherError(error: unboxError))
+            return .Failure(ServiceError.AnotherError(errorText: unboxError.description))
         }
         catch {
-            return .Failure(ServiceError.AnotherError(error: unboxError))
+            return .Failure(ServiceError.AnotherError(errorText: unboxError.description))
         }
         
     }
     catch {
-        return .Failure(ServiceError.AnotherError(error: error))
+        return .Failure(ServiceError.AnotherError(errorText: "\(error)"))
     }
 }
 

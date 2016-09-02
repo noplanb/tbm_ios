@@ -35,7 +35,11 @@ public class TranscriptVC: UIViewController, TranscriptUIInput {
         
         navigationBar.pushNavigationItem(self.navigationItem, animated: false)
         
-        loadingView.textLabel.text = "Converting Zazo to text..."
+        loadingView.textLabel.text = "Converting"
+        
+        if #available(iOS 9, *) {
+            loadingView.textLabel.text = "Converting Zazo to text..."
+        }
         
         let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         loadingIndicator.startAnimating()

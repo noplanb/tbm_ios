@@ -195,6 +195,7 @@
 
         [ZZFriendDataUpdater updateFriendWithID:friendID setLastVideoStatusEventType:ZZVideoStatusEventTypeOutgoing];
         [ZZFriendDataUpdater updateFriendWithID:friendID setOutgoingVideoStatus:status];
+        [ZZFriendDataUpdater updateFriendWithID:friendID setLastEventType:ZZIncomingEventTypeVideo];
 
         if (status == ZZVideoOutgoingStatusUploaded ||
                 status == ZZVideoOutgoingStatusDownloaded ||

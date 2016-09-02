@@ -43,6 +43,9 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         contentView.elements.textField.becomeFirstResponder()
     }
     
+    public override func viewDidDisappear(animated: Bool) {
+        finishKeyboardObserving()
+    }
     // MARK: Input
     
     func typedText() -> String {
@@ -60,6 +63,17 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
     
     func showFriendName(name: String) {
         self.navigationItem.title = name
+    }
+    
+    func askForRetry(text: String?, completion: (Bool) -> ()) {
+        let alert = UIAlertController(title: "Message wasn't sent", message: text, preferredStyle: .Alert)
+        
+        let completion: ((UIAlertAction) -> Void) = { completion($0.style != .Cancel) }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: completion))
+        alert.addAction(UIAlertAction(title: "Retry", style: .Default, handler: completion))
+        
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     // MARK: Events
@@ -81,6 +95,7 @@ public class ComposeVC: UIViewController, ComposeUIInput, KeyboardObserver {
         
         UIView.animateWithDuration(1) { 
             self.contentView.elements.sendButton.alpha = 1
+            
 //            self.contentView.elements.keyboardButton.alpha = 1
         }
     }

@@ -99,9 +99,7 @@ class TranscriptPresenter: TranscriptModule, TranscriptUIOutput, TranscriptLogic
     }
     
     func didCancelInteractiveDismissal() {
-        GCDBlock.after(.Main, delay: 0.5) { 
-            self.playbackController.paused = false
-        }
+        self.playbackController.paused = false
     }
     
     func didTapBackground() {
