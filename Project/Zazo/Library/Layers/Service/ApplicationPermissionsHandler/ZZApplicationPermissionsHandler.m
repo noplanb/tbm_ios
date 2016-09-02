@@ -50,20 +50,21 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
     return [[[[[self _checkFreeSpace]
 
-            flattenMap:^RACStream *(id value) {
+    flattenMap:^RACStream *(id value) {
+        return [self _askPermissions];
+    }]
 
-                return [self _askPermissions];
-
-            }]
-
-            flattenMap:^RACStream *(id value) {
-
-                return [self _checkAudioSession];
-
-            }] doError:^(NSError *error) {
+    flattenMap:^RACStream *(id value) {
+        return [self _checkAudioSession];
+    }]
+    
+    doError:^(NSError *error) {
         permissionScope = nil;
         [self _handlePermissionError:error];
-    }] doCompleted:^{
+        
+    }]
+    
+    doCompleted:^{
         permissionScope = nil;
     }];
 }
@@ -73,7 +74,6 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 + (RACSignal *)_askForPermissions:(NSArray <id <Permission>> *_Nonnull)permissions
 {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-
         [self _showAlertSubscriber:subscriber permissions:permissions];
         return nil;
     }];
@@ -84,6 +84,7 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     if (ANIsEmpty(permissions))
     {
         [subscriber sendNext:nil];
+        [subscriber sendCompleted];
         return;
     }
 
@@ -108,22 +109,20 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
     permissionScope.viewControllerForAlerts = [UIViewController sdc_currentViewController];
 
     [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> *_Nonnull result) {
-
-//        [permissionScope hide];
-
+        
         if (completed)
         {
             [subscriber sendNext:nil];
+            [subscriber sendCompleted];
         }
         else
         {
             [self _showAlertSubscriber:subscriber permissions:[self _permissions]];
         }
 
-    }           cancelled:^(NSArray<PermissionResult *> *_Nonnull result) {
-
+    } cancelled:^(NSArray<PermissionResult *> *_Nonnull result) {
+        [subscriber sendNext:nil];
         [subscriber sendCompleted];
-
     }];
 
 }
