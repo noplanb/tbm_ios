@@ -23,12 +23,9 @@
 @property (nonatomic, assign) BOOL enabled;
 
 @property (nonatomic, weak) id <ZZGridRotationTouchObserverDelegate> delegate;
-@property (nonatomic, assign) BOOL isMoving;
+@property (nonatomic, assign, readonly) BOOL isRotating;
 
 - (instancetype)initWithGridView:(ZZGridView *)gridView;
-
-- (BOOL)isGridRotate;
-
 - (void)placeCells;
 
 @end

@@ -39,7 +39,7 @@
 * @param velocity Initial angle velocity, with which animation will start
 * @param grid Grid to animatze
  */
-- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView *)grid;
+- (void)decayAnimationWithVelocity:(CGFloat)velocity;
 
 /**
 * decay animation name
@@ -56,7 +56,7 @@
 * @param angle Angle to which bounce should be performed
 * @param grid Grid to animate
 */
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid;
+- (void)bounceAnimationToAngle:(CGFloat)angle;
 
 /**
 * animate bounce on view with speed
@@ -64,29 +64,34 @@
 * @param grid Grid to animate
 * @param velocity Velocity to bounce
 */
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid withVelocity:(CGFloat)velocity;
+- (void)bounceAnimationToAngle:(CGFloat)angle withVelocity:(CGFloat)velocity;
 
 /**
 * Deciding whether it is necessary to stop decay animation and stopping it
 * @param anim Animation that needs to be checked
 * @param grid Grid that is animated
 */
-- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZGridView *)grid;
+- (void)stopDecayAnimationIfNeeded;
 
 /**
 * Stop all animations on grid
 * @param grid Grid to be un animated
 */
-- (void)stopAnimationsOnGrid:(UIView *)grid;
+- (void)stopAnimations;
 
 /**
 * check is decay animation active on carousel view
 */
-- (BOOL)isDecayAnimationActiveOnGrid:(UIView *)grid;
+- (BOOL)isDecayAnimationActive;
 
 /**
 * check is bounce animation active on carousel view
 */
-- (BOOL)isBounceAnimationActiveOnGrid:(UIView *)grid;
+- (BOOL)isBounceAnimationActive;
+
+/**
+ *  Jump to nearest 
+ */
+- (void)jumpToNearest;
 
 @end

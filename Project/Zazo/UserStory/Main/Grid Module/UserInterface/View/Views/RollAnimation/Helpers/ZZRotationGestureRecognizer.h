@@ -32,6 +32,4 @@
 */
 - (CGFloat)angleVelocityInView:(UIView *)view;
 
-- (void)stateChanged;
-
 @end

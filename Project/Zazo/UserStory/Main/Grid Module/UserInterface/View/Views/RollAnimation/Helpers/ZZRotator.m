@@ -40,7 +40,7 @@
 
 }
 
-- (void)decayAnimationWithVelocity:(CGFloat)velocity onCarouselView:(UIView *)grid
+- (void)decayAnimationWithVelocity:(CGFloat)velocity
 {
     self.decayAnimation = [POPDecayAnimation animation];
 
@@ -51,21 +51,21 @@
     self.decayAnimation.name = self.decayAnimationName;
     self.decayAnimation.delegate = self.delegate;
 
-    [grid pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
+    [self.gridView pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid
+- (void)bounceAnimationToAngle:(CGFloat)angle
 {
-    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:self.velocityOfBounce];
+    [self bounceAnimationToAngle:angle withVelocity:self.velocityOfBounce];
 }
 
-- (void)bounceAnimationToAngle:(CGFloat)angle onCarouselView:(UIView *)grid withVelocity:(CGFloat)velocity
+- (void)bounceAnimationToAngle:(CGFloat)angle withVelocity:(CGFloat)velocity
 {
     POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
     springAnimation.property = [self animatableProperty];
     springAnimation.velocity = @(velocity);
     springAnimation.toValue = @(angle);
-    [grid pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
+    [self.gridView pop_addAnimation:springAnimation forKey:self.bounceAnimationName];
     springAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         if (finished)
         {
@@ -77,47 +77,77 @@
     };
 }
 
-- (void)stopDecayAnimationIfNeeded:(POPAnimation *)anim onGrid:(ZZGridView *)grid
+- (void)jumpToNearest
 {
-    if ([[anim class] isSubclassOfClass:[POPDecayAnimation class]])
+    [self stopAnimations];
+    
+    CGFloat nearestAngle =
+    [ZZGeometryHelper nextFixedPositionFrom:self.gridView.calculatedCellsOffset
+                              withDirection:[self _currentDirection]];
+
+//    CGFloat currentAngle = 
+    
+    self.gridView.calculatedCellsOffset = nearestAngle;
+}
+
+- (ZZSpinDirection)_currentDirection
+{
+    CGFloat velocity = [self.decayAnimation.velocity floatValue];
+    
+    if (velocity == 0)
     {
-        CGFloat velocity = [((POPDecayAnimation *)anim).velocity floatValue];
+        return ZZSpinDirectionNone;
+    }
+    
+    ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+    return direction;
+}
 
-        if (fabs(velocity) < self.velocityOfBounce * 7.5f)
-        {
-            CGFloat angle = [((POPDecayAnimation *)anim).toValue floatValue];
-            angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[grid maxCellsOffset]];
+- (void)stopDecayAnimationIfNeeded
+{
+    CGFloat velocity = [self.decayAnimation.velocity floatValue];
 
-            if ((angle - grid.calculatedCellsOffset) < M_PI_4)
-            {      //TODO: add better determining direction
-                ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
-                angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:direction];
+    if (fabs(velocity) >= self.velocityOfBounce * 7.5f)
+    {
+        return;
+    }
+    
+    CGFloat angle = [self.decayAnimation.toValue floatValue];
+    angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[self.gridView maxCellsOffset]];
 
-                if ((angle >= (grid.calculatedCellsOffset - 0.09f)) || (angle <= (grid.calculatedCellsOffset + 0.09f)))
-                {
-                    NSLog(@"Bounce");
-                    [self stopAnimationsOnGrid:grid];
-                    [self bounceAnimationToAngle:angle onCarouselView:grid withVelocity:velocity];
-                }
-            }
-        }
+    if ((angle - self.gridView.calculatedCellsOffset) >= M_PI_4)
+    {
+        return;
+    }
+    
+    //TODO: add better determining direction
+    velocity = [self.decayAnimation.velocity floatValue];
+    
+    angle = [self.decayAnimation.toValue floatValue];
+    angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:[self _currentDirection]];
+    
+    if ((angle >= (self.gridView.calculatedCellsOffset - 0.09f)) || (angle <= (self.gridView.calculatedCellsOffset + 0.09f)))
+    {
+        NSLog(@"Bounce");
+        [self stopAnimations];
+        [self bounceAnimationToAngle:angle withVelocity:velocity];
     }
 }
 
-- (void)stopAnimationsOnGrid:(UIView *)grid
+- (void)stopAnimations
 {
-    [grid pop_removeAnimationForKey:self.bounceAnimationName];
-    [grid pop_removeAnimationForKey:self.decayAnimationName];
+    [self.gridView pop_removeAnimationForKey:self.bounceAnimationName];
+    [self.gridView pop_removeAnimationForKey:self.decayAnimationName];
 }
 
-- (BOOL)isDecayAnimationActiveOnGrid:(UIView *)grid
+- (BOOL)isDecayAnimationActive
 {
-    return ([grid pop_animationForKey:self.decayAnimationName] != nil);
+    return ([self.gridView pop_animationForKey:self.decayAnimationName] != nil);
 }
 
-- (BOOL)isBounceAnimationActiveOnGrid:(UIView *)grid
+- (BOOL)isBounceAnimationActive
 {
-    return ([grid pop_animationForKey:self.bounceAnimationName] != nil);
+    return ([self.gridView pop_animationForKey:self.bounceAnimationName] != nil);
 }
 
 - (NSString *)decayAnimationName
@@ -140,10 +170,11 @@
     return 0.2f;
 }
 
-
 #pragma mark - Private
 
-- (CGRect)_frameForCellAtPosition:(ZZGridSpinPositionType)position withOffset:(CGFloat)offset withGrid:(ZZGridHelper *)grid
+- (CGRect)_frameForCellAtPosition:(ZZGridSpinPositionType)position
+                       withOffset:(CGFloat)offset
+                         withGrid:(ZZGridHelper *)grid
 {
     CGRect frame = (CGRect){CGPointZero, [grid cellSize]};
 
@@ -160,19 +191,23 @@
 
 - (POPAnimatableProperty *)animatableProperty
 {
-    POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"spin.cellsOffset"
-                                                              initializer:^(POPMutableAnimatableProperty *local_prop) {
-                                                                  // read value
-                                                                  local_prop.readBlock = ^(id obj, CGFloat values[]) {
-                                                                      values[0] = [obj calculatedCellsOffset];
-                                                                  };
-                                                                  // write value
-                                                                  local_prop.writeBlock = ^(ZZGridView *obj, const CGFloat values[]) {
-                                                                      [obj setCalculatedCellsOffset:values[0]];
-                                                                  };
-                                                                  // dynamics threshold
-                                                                  local_prop.threshold = 0.01;
-                                                              }];
+    void (^initializer)(POPMutableAnimatableProperty *prop) = ^(POPMutableAnimatableProperty *property) {
+
+        property.readBlock = ^(id obj, CGFloat values[]) {
+            values[0] = [obj calculatedCellsOffset];
+        };
+        
+        property.writeBlock = ^(ZZGridView *obj, const CGFloat values[]) {
+            
+            [obj setCalculatedCellsOffset:values[0]];
+        };
+        
+        property.threshold = 0.01;
+    };
+    
+    POPAnimatableProperty *prop =
+    [POPAnimatableProperty propertyWithName:@"spin.cellsOffset"
+                                initializer:initializer];
 
     return prop;
 }

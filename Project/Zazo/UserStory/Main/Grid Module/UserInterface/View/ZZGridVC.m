@@ -43,7 +43,7 @@
 
         self.gridView.itemsContainerView.touchObserver = self.touchObserver;
 
-        [[RACObserve(self.touchObserver, isMoving) filter:^BOOL(NSNumber *value) {
+        [[RACObserve(self.touchObserver, isRotating) filter:^BOOL(NSNumber *value) {
             return [value boolValue];
         }] subscribeNext:^(id x) {
             [self.eventHandler hideHintIfNeeded];
@@ -175,7 +175,7 @@
 
 - (BOOL)isGridRotating
 {
-    return [self.touchObserver isGridRotate];
+    return self.touchObserver.isRotating;
 }
 
 - (NSInteger)indexOfFriendModelOnGridView:(ZZFriendDomainModel *)frindModel

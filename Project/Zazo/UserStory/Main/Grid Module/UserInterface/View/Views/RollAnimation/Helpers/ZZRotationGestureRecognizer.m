@@ -60,9 +60,4 @@
     return angleVelocity;
 }
 
-- (void)stateChanged
-{
-    self.state = UIGestureRecognizerStateChanged;
-}
-
 @end
