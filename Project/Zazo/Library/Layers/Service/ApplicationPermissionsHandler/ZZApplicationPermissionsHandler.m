@@ -89,7 +89,12 @@ typedef NS_ENUM(NSInteger, ZZApplicationPermissionType)
 
     permissionScope = [[PermissionScope alloc] initWithBackgroundTapCancels:NO];
     permissionScope.closeButton.hidden = YES;
-
+        
+    if (permissions.count == 1 && permissions.firstObject.type == PermissionTypeNotifications)
+    {
+        permissionScope.closeButton.hidden = NO;
+    }
+    
     permissionScope.headerLabel.text = @"Permissions";
     permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
     permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
