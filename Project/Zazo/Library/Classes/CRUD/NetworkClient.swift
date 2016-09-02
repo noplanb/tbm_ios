@@ -53,7 +53,7 @@ class NetworkClient: NSObject {
             NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) in
                 
                 guard (error == nil) else {
-                    observer.sendFailed(ServiceError.AnotherError(error: error!))
+                    observer.sendFailed(ServiceError.AnotherError(errorText: "\(error)"))
                     return
                 }
                 
