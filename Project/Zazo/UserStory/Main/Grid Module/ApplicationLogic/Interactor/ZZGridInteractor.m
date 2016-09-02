@@ -498,11 +498,18 @@ static NSInteger const kGridFriendsCellCount = 8;
         }
         else
         {
+            /*
+             * Apple: We also noticed that your app does not obtain user consent before collecting the user's personal data.
+             * Specifically, the modal alert requesting Contacts access does not notify the user that their Contacts info is being uploaded to an external server.
+             * Sani: We need to remove the upload of contacts I think
+             
             if (!ANIsEmpty(contactModel.emails))
             {
                 [[ZZGridTransportService updateContactEmails:contactModel friend:friendModel] subscribeNext:^(id x) {
                 }];
             }
+             
+            */
 
             [ZZFriendDataUpdater upsertFriend:friendModel];
 
