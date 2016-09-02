@@ -46,7 +46,11 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
 
 + (void)registerToPushNotifications
 {
-
+    if ([PermissionScope new].statusNotifications != PermissionStatusAuthorized)
+    {
+        return;
+    }
+    
     if ([ZZStoredSettingsManager shared].isPushNotificatonEnabled)
     {
         OB_INFO(@"registerForPushNotification");
