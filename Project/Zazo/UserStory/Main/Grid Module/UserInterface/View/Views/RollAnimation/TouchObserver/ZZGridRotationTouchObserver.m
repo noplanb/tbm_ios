@@ -72,35 +72,17 @@ static CGFloat const kStartGridRotationOffset = 5;
 
 - (void)_makeLongPressGestureRecognizer
 {
-    //    UIWindow *stopWindow = [UIApplication sharedApplication].keyWindow;
-    //    [[[stopWindow rac_signalForSelector:@selector(sendEvent:)] filter:^BOOL(RACTuple *touches) {
-    //
-    //        BOOL isTouchEnabled = NO;
-    //        BOOL isTouchInArea = NO;
-    //        for (id event in touches)
-    //        {
-    //            NSSet *touches = [event allTouches];
-    //            UITouch *touch = [touches anyObject];
-    //            isTouchEnabled = (touch.phase == UITouchPhaseBegan);
-    //
-    //            CGPoint location = [touch locationInView:stopWindow];
-    //            CGRect containerRect = self.gridView.itemsContainerView.frame;
-    //            isTouchInArea = CGRectContainsPoint(containerRect, location);
-    //        };
-    //
-    //        BOOL isUserRotation = self.rotationRecognizer.state != UIGestureRecognizerStatePossible;
-    //
-    //        return self.isMoving && isTouchEnabled && isTouchInArea && !isUserRotation;
-    //
-    //    }] subscribeNext:^(RACTuple *touches) {
-    //        [self.rotator jumpToNearest];
-    //    }];
-    
-    self.pressRecognizer =
+    UILongPressGestureRecognizer *pressRecognizer =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(_handlerLongPressWithRecognizer:)];
-    self.pressRecognizer.delegate = self;
-    [self.gridView.itemsContainerView addGestureRecognizer:self.pressRecognizer];
+                                                  action:@selector(_handleLongPressWithRecognizer:)];
+    
+    pressRecognizer.delegate = self;
+    pressRecognizer.minimumPressDuration = 0.01;
+    pressRecognizer.cancelsTouchesInView = NO;
+    pressRecognizer.delaysTouchesEnded = NO;
+//    [pressRecognizer requireGestureRecognizerToFail:self.rotationRecognizer];
+    [self.gridView.itemsContainerView addGestureRecognizer:pressRecognizer];
+    self.pressRecognizer = pressRecognizer;
 }
 
 - (void)_setupStateObserver
@@ -119,23 +101,43 @@ static CGFloat const kStartGridRotationOffset = 5;
       }];
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if (<#condition#>) {
-        <#statements#>
+    if (gestureRecognizer == self.rotationRecognizer && otherGestureRecognizer == self.pressRecognizer) {
+        return YES;
     }
     
+    if (gestureRecognizer == self.pressRecognizer && otherGestureRecognizer == self.rotationRecognizer)
+    {
+        return YES;
+    }
     
-    UIPanGestureRecognizer
+    return NO;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer == self.pressRecognizer)
+    {
+        return self.rotationRecognizer.state == UIGestureRecognizerStatePossible && self.isRotating;
+    }
     
-    // Prevent scrolling from horizontal swiping:
-    CGPoint velocity = [gestureRecognizer velocityInView:self.gridView];
-    return fabs(velocity.y) > fabs(velocity.x);
+    if (gestureRecognizer == self.rotationRecognizer)
+    {
+        UIPanGestureRecognizer *recognizer = (id)gestureRecognizer;
+        
+        // Prevent scrolling from horizontal swiping:
+        CGPoint velocity = [recognizer velocityInView:self.gridView];
+        BOOL shouldBegin = fabs(velocity.y) > fabs(velocity.x);
+        return shouldBegin;
+    }
+    
+    return YES;
 }
 
 - (void)handleRotationGesture:(ZZRotationGestureRecognizer *)recognizer
 {
-    if ([self _isEnableRotationWithRecorgnizer:recognizer])
+    if ([self _isRotationEnabledWithRecognizer:recognizer])
     {
         switch (recognizer.state)
         {
@@ -143,6 +145,7 @@ static CGFloat const kStartGridRotationOffset = 5;
             {
                 self.startOffset = self.gridView.calculatedCellsOffset;
                 [self.rotator stopAnimations];
+                self.pressRecognizer.enabled = NO;
             }
                 break;
 
@@ -166,6 +169,7 @@ static CGFloat const kStartGridRotationOffset = 5;
             case UIGestureRecognizerStateCancelled:
             case UIGestureRecognizerStateEnded:
             {
+                self.pressRecognizer.enabled = YES;
                 if (self.isRotating)
                 {
                     [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView]];
@@ -194,7 +198,7 @@ static CGFloat const kStartGridRotationOffset = 5;
                      withGrid:self.gridHelper];
 }
 
-- (BOOL)_isEnableRotationWithRecorgnizer:(ZZRotationGestureRecognizer *)recognizer
+- (BOOL)_isRotationEnabledWithRecognizer:(ZZRotationGestureRecognizer *)recognizer
 {
     BOOL isEnable = NO;
     CGPoint location = [recognizer locationInView:recognizer.view];
@@ -214,9 +218,18 @@ static CGFloat const kStartGridRotationOffset = 5;
 
 #pragma mark - Stop Rotation methods
 
-- (void)_handlerLongPressWithRecognizer:(UILongPressGestureRecognizer *)recognizer
+- (void)_handleLongPressWithRecognizer:(UILongPressGestureRecognizer *)recognizer
 {
-    NSLog(@"state = %d", recognizer.state);
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            [self.rotator stopAnimations];
+            break;
+        case UIGestureRecognizerStateEnded:
+            [self.rotator jumpToNearest];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

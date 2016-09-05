@@ -81,13 +81,20 @@
 {
     [self stopAnimations];
     
-    CGFloat nearestAngle =
-    [ZZGeometryHelper nextFixedPositionFrom:self.gridView.calculatedCellsOffset
-                              withDirection:[self _currentDirection]];
-
-//    CGFloat currentAngle = 
+    CGFloat position = self.gridView.calculatedCellsOffset;
     
-    self.gridView.calculatedCellsOffset = nearestAngle;
+    CGFloat nearestClockwise =
+    [ZZGeometryHelper nextFixedPositionFrom:position
+                              withDirection:ZZSpinDirectionClockwise];
+    CGFloat nearestCounterClockwise =
+    [ZZGeometryHelper nextFixedPositionFrom:position
+                              withDirection:ZZSpinDirectionCounterClockwise];
+
+    CGFloat clockwiseDistantion = nearestClockwise - position;
+    CGFloat counterDistantion = position - nearestCounterClockwise;
+    
+    CGFloat neededVelocity = clockwiseDistantion > counterDistantion ? -0.1 : 0.1;
+    [self decayAnimationWithVelocity:neededVelocity];
 }
 
 - (ZZSpinDirection)_currentDirection
@@ -99,7 +106,7 @@
         return ZZSpinDirectionNone;
     }
     
-    ZZSpinDirection direction = velocity > 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
+    ZZSpinDirection direction = velocity < 0 ? ZZSpinDirectionClockwise : ZZSpinDirectionCounterClockwise;
     return direction;
 }
 
@@ -128,7 +135,6 @@
     
     if ((angle >= (self.gridView.calculatedCellsOffset - 0.09f)) || (angle <= (self.gridView.calculatedCellsOffset + 0.09f)))
     {
-        NSLog(@"Bounce");
         [self stopAnimations];
         [self bounceAnimationToAngle:angle withVelocity:velocity];
     }
