@@ -218,32 +218,33 @@
 
 - (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
-    if (![self.presenter isGridRotate])
+    if ([self.presenter isGridRotate])
     {
-        if (recognizer.state == UIGestureRecognizerStateBegan)
-        {
-            self.initialRecordPoint = [recognizer locationInView:recognizer.view];
-
-            [self didChangeRecordingState:YES completion:^(BOOL isRecordingSuccess) {
-                if (isRecordingSuccess)
-                {
-                    self.hasUploadedVideo = YES;
-                    [self.animationDelegate showUploadAnimation];
-                    self.usernameLabel.text = [self videoStatusString];
-                }
-            }];
-        }
-        else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
-        {
-            self.initialRecordPoint = CGPointZero;
-            [self _stopVideoRecording];
-        }
-        else
-        {
-            [self _checkIsCancelRecordingWithRecognizer:recognizer];
-        }
+        return;
     }
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        self.initialRecordPoint = [recognizer locationInView:recognizer.view];
 
+        [self didChangeRecordingState:YES completion:^(BOOL isRecordingSuccess) {
+            if (isRecordingSuccess)
+            {
+                self.hasUploadedVideo = YES;
+                [self.animationDelegate showUploadAnimation];
+                self.usernameLabel.text = [self videoStatusString];
+            }
+        }];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
+    {
+        self.initialRecordPoint = CGPointZero;
+        [self _stopVideoRecording];
+    }
+    else
+    {
+        [self _checkIsCancelRecordingWithRecognizer:recognizer];
+    }
 }
 
 - (void)_stopVideoRecording

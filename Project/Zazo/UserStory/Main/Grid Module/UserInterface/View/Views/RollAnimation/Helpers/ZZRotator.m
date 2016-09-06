@@ -159,7 +159,7 @@
 
 - (CGFloat)decelerationValue
 {
-    return 0.995f;
+    return 0.997f;
 }
 
 #pragma mark - Private

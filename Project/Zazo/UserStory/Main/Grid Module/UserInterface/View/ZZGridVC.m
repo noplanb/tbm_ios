@@ -13,7 +13,7 @@
 #import "ZZGridUIConstants.h"
 #import "ZZTabbarView.h"
 
-@interface ZZGridVC () <ZZGridRotationTouchObserverDelegate, ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, MenuOutput>
+@interface ZZGridVC () <ZZGridCollectionControllerDelegate, UIGestureRecognizerDelegate, MenuOutput>
 
 @property (nonatomic, strong) ZZGridView *gridView;
 @property (nonatomic, strong) ZZGridRotationTouchObserver *touchObserver;
@@ -39,7 +39,6 @@
         self.controller.delegate = self;
 
         self.touchObserver = [[ZZGridRotationTouchObserver alloc] initWithGridView:self.gridView];
-        self.touchObserver.delegate = self;
 
         self.gridView.itemsContainerView.touchObserver = self.touchObserver;
 
@@ -341,11 +340,15 @@
 
 #pragma mark - Touch Observer Delegate
 
-- (void)stopPlaying
-{
-    [self.eventHandler stopPlaying];
-}
-
+//- (void)didStartRotation
+//{
+////    [self.eventHandler stopPlaying];
+//}
+//
+//- (void)didFinishRotation
+//{
+//    
+//}
 
 #pragma mark - Update Record View State
 

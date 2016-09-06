@@ -12,17 +12,9 @@
 #import "ZZGridDataSource.h"
 #import "ANMemoryStorage.h"
 
-@protocol ZZGridRotationTouchObserverDelegate <NSObject>
-
-- (void)stopPlaying;
-
-@end
-
 @interface ZZGridRotationTouchObserver : NSObject
 
 @property (nonatomic, assign) BOOL enabled;
-
-@property (nonatomic, weak) id <ZZGridRotationTouchObserverDelegate> delegate;
 @property (nonatomic, assign, readonly) BOOL isRotating;
 
 - (instancetype)initWithGridView:(ZZGridView *)gridView;

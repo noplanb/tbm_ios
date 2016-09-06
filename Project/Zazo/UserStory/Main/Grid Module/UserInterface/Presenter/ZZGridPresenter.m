@@ -672,6 +672,11 @@
         return;
     }
     
+    if (self.isGridRotate)
+    {
+        return;
+    }
+    
     MenuItem *convertToText = [[MenuItem alloc] initWithType:MenuItemTypeConvertToText];
     MenuItem *playFullscreen = [[MenuItem alloc] initWithType:MenuItemTypePlayFullscreen];
     MenuItem *sendText = [[MenuItem alloc] initWithType:MenuItemTypeSendText];
