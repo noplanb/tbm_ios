@@ -51,12 +51,6 @@
 */
 - (NSString *)bounceAnimationName;
 
-/**
-* animate bounce on view
-* @param angle Angle to which bounce should be performed
-* @param grid Grid to animate
-*/
-- (void)bounceAnimationToAngle:(CGFloat)angle;
 
 /**
 * animate bounce on view with speed

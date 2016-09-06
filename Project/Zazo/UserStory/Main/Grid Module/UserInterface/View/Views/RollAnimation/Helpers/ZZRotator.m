@@ -42,6 +42,9 @@
 
 - (void)decayAnimationWithVelocity:(CGFloat)velocity
 {
+    CGFloat maximumVelocity = 18.0f;
+    velocity = MIN(maximumVelocity, MAX(-maximumVelocity, velocity)); // we don't wan't to spin it too fast
+    
     self.decayAnimation = [POPDecayAnimation animation];
 
     self.decayAnimation.property = [self animatableProperty];
@@ -52,11 +55,6 @@
     self.decayAnimation.delegate = self.delegate;
 
     [self.gridView pop_addAnimation:self.decayAnimation forKey:self.decayAnimationName];
-}
-
-- (void)bounceAnimationToAngle:(CGFloat)angle
-{
-    [self bounceAnimationToAngle:angle withVelocity:self.velocityOfBounce];
 }
 
 - (void)bounceAnimationToAngle:(CGFloat)angle withVelocity:(CGFloat)velocity
@@ -95,6 +93,7 @@
     
     CGFloat neededVelocity = clockwiseDistantion > counterDistantion ? -0.1 : 0.1;
     [self decayAnimationWithVelocity:neededVelocity];
+    
 }
 
 - (ZZSpinDirection)_currentDirection
@@ -113,31 +112,23 @@
 - (void)stopDecayAnimationIfNeeded
 {
     CGFloat velocity = [self.decayAnimation.velocity floatValue];
-
-    if (fabs(velocity) >= self.velocityOfBounce * 7.5f)
+    
+    CGFloat toAngle = self.gridView.calculatedCellsOffset;
+    CGFloat normalizedToAngle = [ZZGeometryHelper normalizedAngle:toAngle withMaxCellOffset:[self.gridView maxCellsOffset]];
+    CGFloat nextFixedAngle = [ZZGeometryHelper nextFixedPositionFrom:normalizedToAngle withDirection:[self _currentDirection]];
+    
+    if ((normalizedToAngle - self.gridView.calculatedCellsOffset) >= M_PI_4) // to avoid jumping over position
     {
         return;
     }
     
-    CGFloat angle = [self.decayAnimation.toValue floatValue];
-    angle = [ZZGeometryHelper normalizedAngle:angle withMaxCellOffset:[self.gridView maxCellsOffset]];
-
-    if ((angle - self.gridView.calculatedCellsOffset) >= M_PI_4)
+    if (ABS(velocity) > 3.0f) // do not stop if it is spinning fast enough
     {
         return;
     }
-    
-    //TODO: add better determining direction
-    velocity = [self.decayAnimation.velocity floatValue];
-    
-    angle = [self.decayAnimation.toValue floatValue];
-    angle = [ZZGeometryHelper nextFixedPositionFrom:angle withDirection:[self _currentDirection]];
-    
-    if ((angle >= (self.gridView.calculatedCellsOffset - 0.09f)) || (angle <= (self.gridView.calculatedCellsOffset + 0.09f)))
-    {
-        [self stopAnimations];
-        [self bounceAnimationToAngle:angle withVelocity:velocity];
-    }
+
+    [self stopAnimations];
+    [self bounceAnimationToAngle:nextFixedAngle withVelocity:velocity];
 }
 
 - (void)stopAnimations
@@ -168,12 +159,7 @@
 
 - (CGFloat)decelerationValue
 {
-    return 0.998f;
-}
-
-- (CGFloat)velocityOfBounce
-{
-    return 0.2f;
+    return 0.995f;
 }
 
 #pragma mark - Private
@@ -204,7 +190,7 @@
         };
         
         property.writeBlock = ^(ZZGridView *obj, const CGFloat values[]) {
-            
+//            NSLog(@"offset = %1.2f", values[0]);
             [obj setCalculatedCellsOffset:values[0]];
         };
         

@@ -12,7 +12,7 @@
 #import "ZZGridHelper.h"
 @import pop;
 
-static CGFloat const kStartGridRotationOffset = 5;
+static CGFloat const kStartGridRotationOffset = 50;
 
 @interface ZZGridRotationTouchObserver () <ZZRotatorDelegate, UIGestureRecognizerDelegate, ZZGridViewDelegate>
 
@@ -143,7 +143,6 @@ static CGFloat const kStartGridRotationOffset = 5;
         {
             case UIGestureRecognizerStateBegan:
             {
-                self.startOffset = self.gridView.calculatedCellsOffset;
                 [self.rotator stopAnimations];
                 self.pressRecognizer.enabled = NO;
             }
@@ -151,12 +150,10 @@ static CGFloat const kStartGridRotationOffset = 5;
 
             case UIGestureRecognizerStateChanged:
             {
-                CGPoint rotationOffset = [recognizer translationInView:self.gridView];
-
-                if (ABS(rotationOffset.x) > kStartGridRotationOffset ||
-                    ABS(rotationOffset.y) > kStartGridRotationOffset)
+                [self startRotationIfNeeded:recognizer];
+                
+                if (self.isRotating)
                 {
-                    self.isRotating = YES;
                     CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
                     CGFloat startAngle = [recognizer startAngleInView:self.gridView];
                     CGFloat deltaAngle = currentAngle - startAngle;
@@ -189,6 +186,29 @@ static CGFloat const kStartGridRotationOffset = 5;
             [self.rotator decayAnimationWithVelocity:[recognizer angleVelocityInView:self.gridView]];
         }
     }
+}
+
+- (void)startRotationIfNeeded:(ZZRotationGestureRecognizer *)recognizer
+{
+    CGPoint rotationOffset = [recognizer translationInView:self.gridView];
+    
+    if (self.isRotating)
+    {
+        return;
+    }
+    
+    if (ABS(rotationOffset.x) < kStartGridRotationOffset &&
+        ABS(rotationOffset.y) < kStartGridRotationOffset)
+    {
+        return;
+    }
+    
+    CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
+    CGFloat startAngle = [recognizer startAngleInView:self.gridView];
+    CGFloat deltaAngle = currentAngle - startAngle;
+    
+    self.startOffset = self.gridView.calculatedCellsOffset - deltaAngle;
+    self.isRotating = YES;
 }
 
 - (void)placeCells
