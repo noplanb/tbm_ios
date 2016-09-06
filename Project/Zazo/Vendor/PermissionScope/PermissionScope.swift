@@ -54,7 +54,8 @@ typealias resultsForConfigClosure = ([PermissionResult]) -> Void
     public var authorizedButtonBackgroundColor = UIColor.clearColor()
     public var unauthorizedButtonBackgroundColor = UIColor.orangeColor()
 
-
+    var configureBlock: (()->())?
+    
     /// Messages for the body label of the dialog presented when requesting access.
     lazy var permissionMessages: [PermissionType:String] = [PermissionType: String]()
 
@@ -310,7 +311,7 @@ typealias resultsForConfigClosure = ([PermissionResult]) -> Void
     - parameter message: Body label's text on the presented dialog when requesting access.
     */
     @objc public func addPermission(permission: Permission, message: String) {
-        assert(!message.isEmpty, "Including a message about your permission usage is helpful")
+//        assert(!message.isEmpty, "Including a message about your permission usage is helpful")
         assert(configuredPermissions.count < 3, "Ask for three or fewer permissions at a time")
         assert(configuredPermissions.first {
             $0.type == permission.type
@@ -1076,6 +1077,9 @@ typealias resultsForConfigClosure = ([PermissionResult]) -> Void
         // slide in the view
         self.view.alpha = 0
         self.effectView.transform = CGAffineTransformScale(self.view.transform, 0.9, 0.9);
+        
+        configureBlock?()
+        
         UIView.animateWithDuration(0.2, delay: 0.0, options: [], animations: {
             self.effectView.transform = CGAffineTransformIdentity;
             self.view.alpha = 1

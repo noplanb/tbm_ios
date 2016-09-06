@@ -47,10 +47,20 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
     permissionScope.headerLabel.text = @"Permissions";
     permissionScope.headerLabel.font = [UIFont zz_boldFontWithSize:21];
-    permissionScope.bodyLabel.text = @"Zazo is a video messaging app";
-    permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:16];
-    [permissionScope addPermission:[ContactsPermission new] message:@"To show your friends"];
+    permissionScope.bodyLabel.text = @"We need your contacts to show you a list of friends you can send Zazo's to. We only upload a contact's phone number and email to our servers to deliver your message when you send them a Zazo.";
+    permissionScope.bodyLabel.font = [UIFont zz_regularFontWithSize:13];
+    permissionScope.bodyLabel.numberOfLines = 6;
+    [permissionScope.bodyLabel sizeToFit];
+    [permissionScope addPermission:[ContactsPermission new] message:@""];
 
+    permissionScope.bodyLabel.transform = CGAffineTransformMakeTranslation(0, 13);
+    
+    @weakify(permissionScope);
+    permissionScope.configureBlock = ^{
+        @strongify(permissionScope);
+        permissionScope.permissionButtons.firstObject.transform = CGAffineTransformMakeTranslation(0, 40);
+    };
+    
     [permissionScope show:^(BOOL completed, NSArray<PermissionResult *> *_Nonnull result) {
         if (completed && completion)
         {
@@ -62,6 +72,9 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
             completion(NO);
         }
     }];
+    
+    
+    
 }
 
 - (void)loadData
