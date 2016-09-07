@@ -10,5 +10,7 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIButton *imageViewButton;
 
 @end
