@@ -41,7 +41,7 @@ CGFloat const ZZAvatarRadius = 60;
 - (void)_makePattern
 {
     _patternView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pattern"]];
-
+    [_patternView setTintAdjustmentMode:UIViewTintAdjustmentModeNormal];
     [self addSubview:_patternView];
 
     [_patternView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,6 +69,7 @@ CGFloat const ZZAvatarRadius = 60;
     _imageView = [UIImageView new];
     _imageView.layer.cornerRadius = ZZAvatarRadius;
     
+
     [self addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         CGSize avatarSize = CGSizeMake(ZZAvatarRadius*2, ZZAvatarRadius*2);
@@ -103,7 +104,7 @@ CGFloat const ZZAvatarRadius = 60;
     
     [_imageViewButton addSubview:noAvatarText];
     [noAvatarText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_imageViewButton);
+        make.center.equalTo(_imageViewButton).centerOffset(CGPointMake(0, 4));
         make.width.equalTo(_imageViewButton).offset(-12);
     }];
 }
