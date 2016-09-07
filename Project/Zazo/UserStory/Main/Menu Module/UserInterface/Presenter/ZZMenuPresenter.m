@@ -14,6 +14,8 @@
 
 @interface ZZMenuPresenter ()
 
+@property (nonatomic, strong) PhotoLibraryHelper *photoHelper;
+
 @end
 
 typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
@@ -37,6 +39,8 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
                                              selector:@selector(editFriendsUnlockedNotification:)
                                                  name:ZZFeatureUnlockedNotificationName
                                                object:nil];
+    
+    self.photoHelper = [PhotoLibraryHelper new];
 }
 
 - (void)editFriendsUnlockedNotification:(NSNotificationCenter *)notification
@@ -172,12 +176,16 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)didPickCameraMenuItem
 {
-    
+    [self.photoHelper presentCameraFrom:self.userInterface with:^(UIImage * _Nullable image) {
+        
+    }];
 }
 
 - (void)didPickLibraryMenuItem
 {
-    
+    [self.photoHelper presentLibraryFrom:self.userInterface with:^(UIImage * _Nullable image) {
+        
+    }];
 }
 
 - (void)didPickRemoveAvatarMenuItem

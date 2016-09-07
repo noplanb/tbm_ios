@@ -83,17 +83,20 @@ CGFloat const ZZAvatarRadius = 60;
 - (void)_makeImageViewButton
 {
     UILabel *noAvatarText = [UILabel new];
-    noAvatarText.text = @"Tap to set the avatar";
+    noAvatarText.text = @"Tap to set avatar";
     noAvatarText.numberOfLines = 2;
     noAvatarText.textAlignment = NSTextAlignmentCenter;
-    noAvatarText.textColor = [UIColor grayColor];
-    noAvatarText.font = [UIFont systemFontOfSize:13];
+    noAvatarText.textColor = [UIColor whiteColor];
+    noAvatarText.font = [UIFont boldSystemFontOfSize:13];
     
-    CGFloat radius = ZZAvatarRadius + 1;
+    CGFloat radius = ZZAvatarRadius + 4;
+    UIImage *emptyAvatarImage = [UIImage imageNamed:@"empty-avatar"];
     
     _imageViewButton = [UIButton new];
     _imageViewButton.layer.cornerRadius = radius;
-    _imageViewButton.backgroundColor = [UIColor whiteColor];
+    _imageViewButton.backgroundColor = [UIColor an_colorWithHexString:@"1976d2"];
+    [_imageViewButton setImage:emptyAvatarImage forState:UIControlStateNormal];
+    [_imageViewButton setTintAdjustmentMode:UIViewTintAdjustmentModeNormal];
     
     [self insertSubview:_imageViewButton belowSubview:self.imageView];
     [_imageViewButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,7 +108,7 @@ CGFloat const ZZAvatarRadius = 60;
     [_imageViewButton addSubview:noAvatarText];
     [noAvatarText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(_imageViewButton).centerOffset(CGPointMake(0, 4));
-        make.width.equalTo(_imageViewButton).offset(-12);
+        make.width.equalTo(_imageViewButton).offset(-40);
     }];
 }
 

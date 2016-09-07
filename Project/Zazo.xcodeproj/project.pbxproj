@@ -353,6 +353,8 @@
 		15B823081CB7BBD4006473E1 /* _TBMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822FB1CB7BBD4006473E1 /* _TBMUser.m */; };
 		15B823091CB7BBD4006473E1 /* _TBMVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B822FD1CB7BBD4006473E1 /* _TBMVideo.m */; };
 		15B8230A1CB7BBD4006473E1 /* tbm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */; };
+		15B938F91D80532300F6D84C /* PhotoLibraryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */; };
+		15B938FB1D805E7000F6D84C /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B938FA1D805E7000F6D84C /* CropViewController.swift */; };
 		15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */; };
 		15BA1DA41CA2D4CB00EAD614 /* contact-pattern-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */; };
 		15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */; };
@@ -362,7 +364,7 @@
 		15BDEA851CFDAA820002F78A /* ZZFeatureEventStrategyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */; };
 		15BDEA891CFDD6240002F78A /* ZZSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BDEA881CFDD6240002F78A /* ZZSettingsManager.m */; };
 		15D1BA551CF7049E001B6849 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1BA531CF7049E001B6849 /* iToast.m */; };
-		15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */; };
+		15D615231CAA7FD100F08EF9 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D615221CAA7FD100F08EF9 /* Menu.xcassets */; };
 		15D615251CABD7DF00F08EF9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */; };
 		15E3CF701D3F92F900EDF2AD /* ComposeTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3CF6F1D3F92F900EDF2AD /* ComposeTextViewDelegate.swift */; };
 		15FC5BC81C18166B005296C7 /* ZZDispatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FC5BC71C18166B005296C7 /* ZZDispatchHelper.m */; };
@@ -1466,6 +1468,8 @@
 		15B822FF1CB7BBD4006473E1 /* tbm-v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v2.xcdatamodel"; sourceTree = "<group>"; };
 		15B823001CB7BBD4006473E1 /* tbm.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tbm.xcdatamodel; sourceTree = "<group>"; };
 		15B823011CB7BBD4006473E1 /* tbmEntitiesHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbmEntitiesHeader.h; sourceTree = "<group>"; };
+		15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryHelper.swift; sourceTree = "<group>"; };
+		15B938FA1D805E7000F6D84C /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-1.png"; sourceTree = "<group>"; };
 		15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-2.png"; sourceTree = "<group>"; };
 		15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-3.png"; sourceTree = "<group>"; };
@@ -1480,7 +1484,7 @@
 		15BDEA881CFDD6240002F78A /* ZZSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsManager.m; sourceTree = "<group>"; };
 		15D1BA521CF7049E001B6849 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		15D1BA531CF7049E001B6849 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
-		15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MenuIcons.xcassets; sourceTree = "<group>"; };
+		15D615221CAA7FD100F08EF9 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		15D615241CABD7DF00F08EF9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		15DF96331C7C6FE2007B4699 /* empty.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = empty.xcappdata; sourceTree = "<group>"; };
 		15E3CF6F1D3F92F900EDF2AD /* ComposeTextViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTextViewDelegate.swift; sourceTree = "<group>"; };
@@ -2028,6 +2032,8 @@
 				07636B0B1BA49A0100925671 /* TextFieldsDelegate */,
 				15A177821C1AB6FD0031480F /* ZZDispatchHelper */,
 				677DB969DDCC3EB1B7E292C2 /* UpdateHelper */,
+				15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */,
+				15B938FA1D805E7000F6D84C /* CropViewController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3787,7 +3793,7 @@
 				677DBF53C2AFCBD7CE09D5E5 /* ZZMenuCellModel.h */,
 				677DB5DDAA060ED2FC95CE24 /* ZZMenuController.m */,
 				677DBBF668315CA24DAAAAA6 /* ZZMenuController.h */,
-				15D615221CAA7FD100F08EF9 /* MenuIcons.xcassets */,
+				15D615221CAA7FD100F08EF9 /* Menu.xcassets */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5837,7 +5843,7 @@
 				07636E8D1BA49A0100925671 /* Localizable.strings in Resources */,
 				152594E01CE8C9F200DDA507 /* Player.strings in Resources */,
 				153682411C99539D006EDC12 /* Main.strings in Resources */,
-				15D615231CAA7FD100F08EF9 /* MenuIcons.xcassets in Resources */,
+				15D615231CAA7FD100F08EF9 /* Menu.xcassets in Resources */,
 				15ACCB761C8089220025798A /* Animations.xcassets in Resources */,
 				07636DFA1BA49A0100925671 /* DK Crayon Crumble.ttf in Resources */,
 				15B1C2EB1D2A9BF900B9CDCD /* Transcript.xcassets in Resources */,
@@ -6469,6 +6475,7 @@
 				07636E9F1BA49A0100925671 /* ZZDebugStateController.m in Sources */,
 				3EB0D3721D4A474B001C3C2F /* ZZMessageDomainModel.m in Sources */,
 				3E3D3ECC1D48B2DE006FE502 /* MessagesService.swift in Sources */,
+				15B938FB1D805E7000F6D84C /* CropViewController.swift in Sources */,
 				07636E1C1BA49A0100925671 /* ZZRootWireframe.m in Sources */,
 				3EC963CC1D4798290063E58D /* NetworkClient.swift in Sources */,
 				158C66681CE9EAA800756E48 /* ZZPlayerBackgroundView.m in Sources */,
@@ -6542,6 +6549,7 @@
 				079E90171BD44695001A4718 /* ZZRollbarConstants.m in Sources */,
 				158960711CB7B61E0040D8E3 /* ANMemoryStorage.m in Sources */,
 				158960831CB7B61E0040D8E3 /* ANBaseTableViewCell.m in Sources */,
+				15B938F91D80532300F6D84C /* PhotoLibraryHelper.swift in Sources */,
 				15ACCB771C8089220025798A /* ZZLoadingAnimationView.m in Sources */,
 				07738E6C1BBC25C500CD3E7C /* ZZFriendDataUpdater.m in Sources */,
 				07636ECC1BA49A0100925671 /* ZZGeometryHelper.m in Sources */,
