@@ -131,10 +131,21 @@ static CGFloat const kStartGridRotationOffset = 20;
         
         UIPanGestureRecognizer *recognizer = (id)gestureRecognizer;
         
-        // Prevent scrolling from horizontal swiping:
         CGPoint velocity = [recognizer velocityInView:self.gridView];
-        BOOL shouldBegin = fabs(velocity.y) > fabs(velocity.x);
-        return shouldBegin;
+        CGPoint point = [recognizer locationInView:self.gridView];
+        CGFloat width = self.gridView.bounds.size.width;
+        CGFloat edgeWidth = width/6;
+        
+        BOOL isVertical = fabs(velocity.y) > fabs(velocity.x);
+        BOOL isDirectionRight = velocity.x > 0;
+        BOOL isDirectionLeft = velocity.x < 0;
+        BOOL isStartedFromRightEdge = isDirectionRight && point.x < edgeWidth;
+        BOOL isStartedFromLeftEdge = isDirectionLeft && width - point.x < edgeWidth;
+        BOOL isStartedFromEdge = isStartedFromLeftEdge || isStartedFromRightEdge;
+        
+        // WHY: https://zazo.fogbugz.com/f/cases/1108/Tweaks-to-touch-control-for-open-tabs-and-spin-friends
+        
+        return isVertical || !isStartedFromEdge;
     }
     
     return YES;
@@ -161,7 +172,6 @@ static CGFloat const kStartGridRotationOffset = 20;
                 CGFloat currentAngle = [recognizer currentAngleInView:self.gridView];
                 CGFloat startAngle = [recognizer startAngleInView:self.gridView];
                 CGFloat deltaAngle = currentAngle - startAngle;
-                NSLog(@"angle = %1.2f", deltaAngle);
                 self.gridView.calculatedCellsOffset = self.startOffset + deltaAngle;
             }
         }
