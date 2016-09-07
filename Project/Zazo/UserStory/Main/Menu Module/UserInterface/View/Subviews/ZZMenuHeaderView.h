@@ -5,7 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface ZZMenuHeaderView : UIView
 
 @property (nonatomic, strong) UILabel *titleLabel;

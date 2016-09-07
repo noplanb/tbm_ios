@@ -26,12 +26,20 @@
 {
     [super viewDidLoad];
 
-    self.controller = [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
+    self.controller =
+        [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
     self.controller.delegate = self;
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_logoTap)];
+    UITapGestureRecognizer *tapRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(_didTapUsername)];
+    
     [self.menuView.headerView.titleLabel addGestureRecognizer:tapRecognizer];
     self.menuView.headerView.titleLabel.userInteractionEnabled = YES;
+    
+    [self.menuView.headerView.imageViewButton addTarget:self
+                                                 action:@selector(_didTapAvatar)
+                                       forControlEvents:UIControlEventTouchUpInside];
 }
 
 @synthesize storage = _storage;
@@ -52,9 +60,14 @@
     return (id)self.view;
 }
 
-- (void)_logoTap
+- (void)_didTapUsername
 {
-    [self.eventHandler titleTap];
+    [self.eventHandler didTapUsername];
+}
+
+- (void)_didTapAvatar
+{
+    [self.eventHandler didTapAvatar];
 }
 
 #pragma mark Input

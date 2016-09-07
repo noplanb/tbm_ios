@@ -16,6 +16,15 @@
 
 @end
 
+typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
+    ZZAvatarChangeMenuActionCamera,
+    ZZAvatarChangeMenuActionLibrary,
+    ZZAvatarChangeMenuActionRemove,
+    ZZAvatarChangeMenuActionCancel
+};
+
+typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
+
 @implementation ZZMenuPresenter
 
 - (void)configurePresenterWithUserInterface:(UIViewController <ZZMenuViewInterface> *)userInterface
@@ -89,7 +98,7 @@
     return storage;
 }
 
-- (void)titleTap
+- (void)didTapUsername;
 {
     static NSUInteger tapCount;
     
@@ -99,6 +108,81 @@
     {
         [self.wireframe showSecretScreen];
     }
+}
+
+- (void)didTapAvatar
+{
+    UIAlertController *alertController =
+    [UIAlertController alertControllerWithTitle:@"Set avatar"
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    
+    UIAlertAction *takeFromCamera =
+        [UIAlertAction actionWithTitle:@"Take from the camera"
+                                 style:UIAlertActionStyleDefault
+                               handler:[self handlerForAction:ZZAvatarChangeMenuActionCamera]];
+    
+    UIAlertAction *pickFromLibrary =
+        [UIAlertAction actionWithTitle:@"Pick from the library"
+                                 style:UIAlertActionStyleDefault
+                               handler:[self handlerForAction:ZZAvatarChangeMenuActionLibrary]];
+    
+    UIAlertAction *removeAvatar =
+        [UIAlertAction actionWithTitle:@"Remove avatar"
+                                 style:UIAlertActionStyleDestructive
+                               handler:[self handlerForAction:ZZAvatarChangeMenuActionRemove]];
+    
+    UIAlertAction *cancel =
+        [UIAlertAction actionWithTitle:@"Cancel"
+                                 style:UIAlertActionStyleCancel
+                               handler:[self handlerForAction:ZZAvatarChangeMenuActionCancel]];
+    
+    [alertController addAction:takeFromCamera];
+    [alertController addAction:pickFromLibrary];
+    [alertController addAction:removeAvatar];
+    [alertController addAction:cancel];
+    
+    [self.userInterface presentViewController:alertController
+                                     animated:YES
+                                   completion:nil];
+}
+
+- (ZZAvatarChangeMenuActionHandler)handlerForAction:(ZZAvatarChangeMenuAction)action
+{
+    void (^ handler)(UIAlertAction *action) = ^(UIAlertAction *alertAction){
+        switch (action) {
+            case ZZAvatarChangeMenuActionCamera:
+                [self didPickCameraMenuItem];
+            break;
+            case ZZAvatarChangeMenuActionLibrary:
+                [self didPickLibraryMenuItem];
+            break;
+            case ZZAvatarChangeMenuActionRemove:
+                [self didPickRemoveAvatarMenuItem];
+            break;
+            default:
+                break;
+        }
+    };
+    
+    return handler;
+}
+
+- (void)didPickCameraMenuItem
+{
+    
+}
+
+- (void)didPickLibraryMenuItem
+{
+    
+}
+
+- (void)didPickRemoveAvatarMenuItem
+{
+    
 }
 
 #pragma mark - Output
