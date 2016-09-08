@@ -68,7 +68,6 @@ CGFloat const ZZAvatarRadius = 60;
 {
     _imageView = [UIImageView new];
     _imageView.layer.cornerRadius = ZZAvatarRadius;
-    
 
     [self addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -83,10 +82,10 @@ CGFloat const ZZAvatarRadius = 60;
 - (void)_makeImageViewButton
 {
     UILabel *noAvatarText = [UILabel new];
-    noAvatarText.text = @"Tap to set avatar";
+    noAvatarText.text = @"Tap to Set Profile Photo";
     noAvatarText.numberOfLines = 2;
     noAvatarText.textAlignment = NSTextAlignmentCenter;
-    noAvatarText.textColor = [UIColor whiteColor];
+    noAvatarText.textColor = [UIColor an_colorWithHexString:@"DBE6FF"];
     noAvatarText.font = [UIFont boldSystemFontOfSize:13];
     
     CGFloat radius = ZZAvatarRadius + 4;
