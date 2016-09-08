@@ -11,6 +11,7 @@
 #import "ZZMenuCellModel.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZDeleteFriendsFeatureEventHandler.h"
+#import "ZZVideoRecorder.h"
 
 @interface ZZMenuPresenter ()
 
@@ -176,8 +177,9 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)didPickCameraMenuItem
 {
+    [[ZZVideoRecorder shared] stopPreview];
     [self.photoHelper presentCameraFrom:self.userInterface with:^(UIImage * _Nullable image) {
-        
+        [[ZZVideoRecorder shared] startPreview];
     }];
 }
 
