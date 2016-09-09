@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropViewControllerDelegate {
     
     typealias Completion = (UIImage?)->()
     
@@ -22,28 +22,55 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
             logError("default completion called")
         }
         super.init()
+    }
+
+    func configurePickerController() {
         pickerController.allowsEditing = false
         pickerController.delegate = self
     }
     
+    func configureCropViewController() {
+        cropViewController.delegate = self
+    }
+    
     @objc func presentLibrary(from VC: UIViewController, with completion: Completion)
     {
+        configurePickerController()
         self.completion = completion
         pickerController.sourceType = .PhotoLibrary
+        
         VC.presentViewController(pickerController, animated: true) {
-            
+//            self.cropImage(UIImage(named: "ceo.jpg", inBundle: nil, compatibleWithTraitCollection: nil)!)
         }
     }
     
     @objc func presentCamera(from VC: UIViewController, with completion: Completion)
     {
+        configurePickerController()
         self.completion = completion
         pickerController.sourceType = .Camera
+        
         VC.presentViewController(pickerController, animated: true) { 
             
         }
     }
+   
+    func cropImage(image: UIImage) {
+        guard let vc = pickerController.presentingViewController else {
+            logError("internal inconsistency")
+            return
+        }
+        configureCropViewController()
+        
+        pickerController.dismissViewControllerAnimated(true) {
+            vc.presentViewController(self.cropViewController, animated: true, completion: {
+                self.cropViewController.image = image
+            })
+        }
+    }
     
+    // MARK: UIImagePickerControllerDelegate
+
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker.dismissViewControllerAnimated(true) { 
             self.completion(nil)
@@ -59,10 +86,17 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
         }
         
         cropImage(image)
-        imagePickerControllerDidCancel(picker)
     }
     
-    func cropImage(image: UIImage) {
-
+    // MARK: CropViewControllerDelegate
+    
+    func cropViewControllerDidComplete(controller: CropViewController) {
+        
+    }
+    
+    func cropViewControllerDidTapCancel(controller: CropViewController) {
+        controller.dismissViewControllerAnimated(true) {
+            self.completion(nil)
+        }
     }
 }

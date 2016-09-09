@@ -212,6 +212,7 @@
 		152594E21CE8C9F200DDA507 /* ZZPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594D81CE8C9F200DDA507 /* ZZPlayerVC.m */; };
 		152594E31CE8C9F200DDA507 /* ZZPlayerWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DC1CE8C9F200DDA507 /* ZZPlayerWireframe.m */; };
 		152594E41CE8C9F200DDA507 /* ZZPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 152594DE1CE8C9F200DDA507 /* ZZPlayer.m */; };
+		152706FA1D82BA7300F715FF /* CropViewOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152706F91D82BA7300F715FF /* CropViewOverlayLayer.swift */; };
 		152796281C8999140054D3D4 /* ZZSentBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 152796271C8999140054D3D4 /* ZZSentBadge.m */; };
 		1532603C1D40F828004298CB /* ZazoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532603B1D40F828004298CB /* ZazoTests.swift */; };
 		153260471D40FCFD004298CB /* ZazoCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153260461D40FCFD004298CB /* ZazoCRUD.swift */; };
@@ -355,6 +356,7 @@
 		15B8230A1CB7BBD4006473E1 /* tbm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */; };
 		15B938F91D80532300F6D84C /* PhotoLibraryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */; };
 		15B938FB1D805E7000F6D84C /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B938FA1D805E7000F6D84C /* CropViewController.swift */; };
+		15B938FD1D81776800F6D84C /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B938FC1D81776800F6D84C /* CropView.swift */; };
 		15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */; };
 		15BA1DA41CA2D4CB00EAD614 /* contact-pattern-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */; };
 		15BA1DA51CA2D4CB00EAD614 /* contact-pattern-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */; };
@@ -1219,6 +1221,7 @@
 		152594DC1CE8C9F200DDA507 /* ZZPlayerWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayerWireframe.m; sourceTree = "<group>"; };
 		152594DD1CE8C9F200DDA507 /* ZZPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPlayer.h; sourceTree = "<group>"; };
 		152594DE1CE8C9F200DDA507 /* ZZPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZPlayer.m; sourceTree = "<group>"; };
+		152706F91D82BA7300F715FF /* CropViewOverlayLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewOverlayLayer.swift; sourceTree = "<group>"; };
 		152796261C8999130054D3D4 /* ZZSentBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSentBadge.h; sourceTree = "<group>"; };
 		152796271C8999140054D3D4 /* ZZSentBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSentBadge.m; sourceTree = "<group>"; };
 		153260391D40F828004298CB /* ZazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1470,6 +1473,8 @@
 		15B823011CB7BBD4006473E1 /* tbmEntitiesHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbmEntitiesHeader.h; sourceTree = "<group>"; };
 		15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryHelper.swift; sourceTree = "<group>"; };
 		15B938FA1D805E7000F6D84C /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		15B938FC1D81776800F6D84C /* CropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		15B938FE1D81A2D000F6D84C /* ceo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ceo.jpg; sourceTree = "<group>"; };
 		15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-1.png"; sourceTree = "<group>"; };
 		15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-2.png"; sourceTree = "<group>"; };
 		15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-3.png"; sourceTree = "<group>"; };
@@ -2034,6 +2039,8 @@
 				677DB969DDCC3EB1B7E292C2 /* UpdateHelper */,
 				15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */,
 				15B938FA1D805E7000F6D84C /* CropViewController.swift */,
+				152706F91D82BA7300F715FF /* CropViewOverlayLayer.swift */,
+				15B938FC1D81776800F6D84C /* CropView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2495,6 +2502,7 @@
 		07636BD71BA49A0100925671 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				15B938FE1D81A2D000F6D84C /* ceo.jpg */,
 				07636BD81BA49A0100925671 /* Assets.xcassets */,
 				07636BDB1BA49A0100925671 /* contacts */,
 				07636BE01BA49A0100925671 /* Home */,
@@ -6402,6 +6410,7 @@
 				07636ED21BA49A0100925671 /* ZZGridVC.m in Sources */,
 				153550501D3E357F0080BE9A /* ComposeInteractor.swift in Sources */,
 				151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */,
+				15B938FD1D81776800F6D84C /* CropView.swift in Sources */,
 				153682421C99539D006EDC12 /* ZZMainPresenter.m in Sources */,
 				07636E931BA49A0100925671 /* ZZAuthVC.m in Sources */,
 				07636EB71BA49A0100925671 /* ZZEditFriendListController.m in Sources */,
@@ -6493,6 +6502,7 @@
 				07636EBB1BA49A0100925671 /* ZZGridAlertBuilder.m in Sources */,
 				15B823051CB7BBD4006473E1 /* TBMVideo.m in Sources */,
 				1535504C1D3E357E0080BE9A /* ComposeAssembly.swift in Sources */,
+				152706FA1D82BA7300F715FF /* CropViewOverlayLayer.swift in Sources */,
 				07636E981BA49A0100925671 /* ZZDebugStateInteractor.m in Sources */,
 				151BB3431CC124EC007CE007 /* Constants.swift in Sources */,
 				15B823021CB7BBD4006473E1 /* TBMFriend.m in Sources */,

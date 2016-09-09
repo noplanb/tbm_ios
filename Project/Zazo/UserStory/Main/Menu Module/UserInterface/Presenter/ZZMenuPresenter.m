@@ -117,10 +117,15 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)didTapAvatar
 {
+    UIAlertControllerStyle style =
+        UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ?
+        UIAlertControllerStyleAlert :
+        UIAlertControllerStyleActionSheet;
+    
     UIAlertController *alertController =
     [UIAlertController alertControllerWithTitle:@"Set avatar"
                                         message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
+                                 preferredStyle:style];
     
     
     
@@ -148,6 +153,8 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     [alertController addAction:pickFromLibrary];
     [alertController addAction:removeAvatar];
     [alertController addAction:cancel];
+    
+
     
     [self.userInterface presentViewController:alertController
                                      animated:YES
