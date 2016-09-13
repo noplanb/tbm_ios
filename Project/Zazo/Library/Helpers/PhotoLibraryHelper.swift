@@ -30,6 +30,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
     
     func configureCropViewController() {
+        cropViewController.image = nil
         cropViewController.delegate = self
     }
     
@@ -40,7 +41,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
         pickerController.sourceType = .PhotoLibrary
         
         VC.presentViewController(pickerController, animated: true) {
-//            self.cropImage(UIImage(named: "ceo.jpg", inBundle: nil, compatibleWithTraitCollection: nil)!)
+
         }
     }
     
@@ -56,10 +57,20 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
    
     func cropImage(image: UIImage) {
+        
         guard let vc = pickerController.presentingViewController else {
             logError("internal inconsistency")
             return
         }
+        
+        guard
+            image.size.width >= cropViewController.neededImageSize.width &&
+            image.size.height >= cropViewController.neededImageSize.height
+        else {
+            logError("image is too small")
+            return
+        }
+        
         configureCropViewController()
         
         pickerController.dismissViewControllerAnimated(true) {
@@ -97,7 +108,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
             return
         }
     
-        guard let resultImage = UIImage(CGImage: CGImage).an_scaleToSize(CGSize(width: 480, height: 640)) else {
+        guard let resultImage = UIImage(CGImage: CGImage).an_scaleToSize(controller.neededImageSize) else {
             didFailToScale()
             return
         }
@@ -123,3 +134,4 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
         logError("could not crop the image")
     }
 }
+
