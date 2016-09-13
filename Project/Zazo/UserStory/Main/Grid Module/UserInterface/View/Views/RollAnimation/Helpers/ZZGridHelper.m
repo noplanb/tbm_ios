@@ -36,15 +36,19 @@
 
 - (void)setFrame:(CGRect)rect
 {
-    _frame = rect;
-
-    self.horizontalInset = 0;
-    self.verticalInset = 0;
-
-    [self layoutCells];
-
-    [self setRails];
-    [self setRailsHeightToWidthRatio];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _frame = rect;
+        
+        self.horizontalInset = 0;
+        self.verticalInset = 0;
+        
+        [self layoutCells];
+        
+        [self setRails];
+        [self setRailsHeightToWidthRatio];
+    });
 }
 
 - (void)layoutCells

@@ -35,16 +35,12 @@
         NSInteger numberOfItemsInRow = 3;
         NSInteger numberOfLines = 3;
 
-        __block MASViewAttribute *previousLineViewAttribute = nil;
-
         NSMutableArray *items = [NSMutableArray new];
 
         UIView *view = nil;
 
         for (NSInteger line = 0; line < numberOfLines; line++)
         {
-            __block MASViewAttribute *previousViewAttribute = self.mas_left;
-
             CGFloat leftOffset = 0;
 
             for (NSInteger row = 0; row < numberOfItemsInRow; row++)
@@ -65,32 +61,19 @@
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(@(itemSize.width));
                     make.height.equalTo(@(itemSize.height));
-                    make.left.equalTo(previousViewAttribute).offset(leftOffset);
-                    if (previousLineViewAttribute)
-                    {
-                        make.top.equalTo(previousLineViewAttribute).offset(paddingBetweenLines);
-                    }
-                    else
-                    {
-                        make.top.equalTo(self.mas_top);
-                    }
                 }];
 
                 [items addObject:view];
-                previousViewAttribute = view.mas_right;
                 leftOffset = paddingBetweenItems;
             }
-            previousLineViewAttribute = view.mas_bottom;
         }
         self.items = [items copy];
     }
     return self;
 }
 
-
-- (void)restoreFrames
+- (void)layoutSublayersOfLayer:(CALayer *)layer
 {
-    [self layoutSubviews]; // placeCells doesn't work without this (why?!)
     [self.touchObserver placeCells];
 }
 

@@ -40,6 +40,7 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     {
         self.backgroundColor = [ZZColorTheme shared].gridCellBorderColor;
         self.clipsToBounds = NO;
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         
         self.layer.cornerRadius = ZZCellCornerRadius;
         self.layer.shadowColor = [ZZColorTheme shared].gridCellShadowColor.CGColor;
@@ -146,6 +147,11 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     }
 }
 
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    
+}
+
 - (void)setDownloadProgress:(CGFloat)progress
 {
     self.stateView.animationView.downloadProgress = progress;
@@ -169,6 +175,11 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     }
 
     return NO;
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
 }
 
 #pragma mark - Record recognizer;

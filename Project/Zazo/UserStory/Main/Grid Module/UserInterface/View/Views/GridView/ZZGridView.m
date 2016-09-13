@@ -25,7 +25,6 @@
 
         self.isRotationEnabled = YES;
         self.maxCellsOffset = (CGFloat)(M_PI * 2);
-
     }
     return self;
 }
@@ -61,6 +60,7 @@
     [super layoutSubviews];
     [self.delegate updatedFrame:self.bounds];
 }
+
 
 - (void)setCalculatedCellsOffset:(CGFloat)calculatedCellsOffset
 {
