@@ -29,9 +29,10 @@ class CropView: UIView, UIScrollViewDelegate {
             
         scrollView.delegate = self
         scrollView.clipsToBounds = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         
         navigationBar.barStyle = .BlackTranslucent
-        
         overlayView.userInteractionEnabled = false
     }
     

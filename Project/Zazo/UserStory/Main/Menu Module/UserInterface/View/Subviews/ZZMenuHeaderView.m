@@ -68,7 +68,9 @@ CGFloat const ZZAvatarRadius = 60;
 {
     _imageView = [UIImageView new];
     _imageView.layer.cornerRadius = ZZAvatarRadius;
-
+    _imageView.contentMode = UIViewContentModeCenter;
+    _imageView.clipsToBounds = YES;
+    
     [self addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         CGSize avatarSize = CGSizeMake(ZZAvatarRadius*2, ZZAvatarRadius*2);

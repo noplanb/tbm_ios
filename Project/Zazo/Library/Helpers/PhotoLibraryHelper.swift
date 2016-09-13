@@ -90,13 +90,36 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     // MARK: CropViewControllerDelegate
     
-    func cropViewControllerDidComplete(controller: CropViewController) {
+    func cropViewControllerDidComplete(controller: CropViewController, with rect: CGRect) {
         
+        guard let CGImage = CGImageCreateWithImageInRect(controller.image?.CGImage, rect) else {
+            didFailToScale()
+            return
+        }
+    
+        guard let resultImage = UIImage(CGImage: CGImage).an_scaleToSize(CGSize(width: 480, height: 640)) else {
+            didFailToScale()
+            return
+        }
+        
+        controller.dismissViewControllerAnimated(true) {
+            self.completion(resultImage)
+        }
+
     }
     
     func cropViewControllerDidTapCancel(controller: CropViewController) {
         controller.dismissViewControllerAnimated(true) {
             self.completion(nil)
         }
+    }
+    
+    // MARK: Misc 
+    
+    func didFailToScale() {
+        self.cropViewController.dismissViewControllerAnimated(true) {
+            self.completion(nil)
+        }
+        logError("could not crop the image")
     }
 }

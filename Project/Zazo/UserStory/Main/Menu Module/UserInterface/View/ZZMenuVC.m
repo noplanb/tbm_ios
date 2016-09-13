@@ -82,6 +82,11 @@
 #endif
 }
 
+- (void)showAvatar:(UIImage *)image
+{
+    self.menuView.headerView.imageView.image = image;
+}
+
 #pragma mark Menu Controller delegate
 
 - (void)controller:(ZZMenuController *)controller didSelectModel:(ZZMenuCellModel *)model

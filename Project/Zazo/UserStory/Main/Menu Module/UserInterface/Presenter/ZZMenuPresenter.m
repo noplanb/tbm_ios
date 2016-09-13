@@ -187,19 +187,25 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     [[ZZVideoRecorder shared] stopPreview];
     [self.photoHelper presentCameraFrom:self.userInterface with:^(UIImage * _Nullable image) {
         [[ZZVideoRecorder shared] startPreview];
+        [self updateAvatarWithImage:image];
     }];
 }
 
 - (void)didPickLibraryMenuItem
 {
     [self.photoHelper presentLibraryFrom:self.userInterface with:^(UIImage * _Nullable image) {
-        
+        [self updateAvatarWithImage:image];
     }];
+}
+
+- (void)updateAvatarWithImage:(UIImage *)image
+{
+    [self.userInterface showAvatar:image];
 }
 
 - (void)didPickRemoveAvatarMenuItem
 {
-    
+    [self.userInterface showAvatar:nil];
 }
 
 #pragma mark - Output

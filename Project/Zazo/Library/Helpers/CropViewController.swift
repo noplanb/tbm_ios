@@ -9,9 +9,10 @@
 import Foundation
 import GCDKit
 
+
 protocol CropViewControllerDelegate: class {
     func cropViewControllerDidTapCancel(controller: CropViewController);
-    func cropViewControllerDidComplete(controller: CropViewController);
+    func cropViewControllerDidComplete(controller: CropViewController, with cropRect: CGRect);
 }
 
 class CropViewController: UIViewController {
@@ -28,10 +29,12 @@ class CropViewController: UIViewController {
         }
     }
     
+    var neededImageSize = CGSize(width: 480, height: 640)
+    
     var cropSize: CGSize = {
         let screenSize = UIScreen.mainScreen().bounds.size
-        let width = screenSize.width * 2/3
-        let height = width * 1.5
+        let width = screenSize.width * 3/4
+        let height = width * 4/3
         return CGSize(width: width, height: height)
     }()
     
@@ -46,7 +49,9 @@ class CropViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         contentView.cropSize = cropSize
-        contentView.scrollView.maximumZoomScale = 1.25
+        
+        let scale = neededImageSize.width/cropSize.width
+        contentView.scrollView.maximumZoomScale = scale > 1 ? scale : 1
     }
     
     func configureNavigationBar() {
@@ -93,8 +98,6 @@ class CropViewController: UIViewController {
         contentView.scrollView.contentOffset = centerOffset
         centerToFaceIfPossible()
     }
-    
-    
     
     func centerToFaceIfPossible() {
         
@@ -146,6 +149,8 @@ extension CropViewController {
     }
     
     func didTapDone() {
-        self.delegate?.cropViewControllerDidComplete(self)
+        let scrollView = self.contentView.scrollView
+        let result = scrollView.convertRect(scrollView.bounds, toView: self.contentView.imageView)
+        self.delegate?.cropViewControllerDidComplete(self, with: result)
     }
 }
