@@ -23,4 +23,9 @@
     [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
 }
 
+- (void)updateAvatar:(UIImage *)image
+{
+    
+}
+
 @end
