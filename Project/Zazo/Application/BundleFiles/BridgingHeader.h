@@ -30,3 +30,4 @@
 #import "ZZTabbarView.h"
 #import "MessageView.h"
 #import "UIImage+ANAdditions.h"
+#import "AvatarService.h"

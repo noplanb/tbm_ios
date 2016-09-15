@@ -23,7 +23,37 @@
     [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
 }
 
-- (void)updateAvatar:(UIImage *)image
+- (void)checkAvatarForUpdate
+{
+    [self.updateService checkUpdate];
+}
+
+- (void)uploadAvatar:(UIImage *)image;
+{
+    [[self.networkService legacySet:image] subscribeError:^(NSError *error) {
+        [self.output uploadAvatarDidFail];
+    } completed:^{
+        [self.output uploadAvatarDidComplete];
+    }];
+}
+
+- (void)removeAvatar
+{
+    [self.networkService legacyDelete] subscribeError:^(NSError *error) {
+        
+    } completed:^{
+        
+    }
+}
+
+// MARK: AvatarUpdateServiceDelegate
+
+- (void)avatarNeedsToBeUpdated:(ANCodeBlock _Nonnull)completion
+{
+    
+}
+
+- (void)avatarFetchFailed:(NSString * _Nonnull)errorText
 {
     
 }

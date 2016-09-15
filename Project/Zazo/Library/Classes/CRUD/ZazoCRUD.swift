@@ -15,3 +15,9 @@ protocol MessagesService: NSObjectProtocol {
     func post(text: String, userID: String) -> SignalProducer<GenericResponse, ServiceError>
     func delete(by ID: String) -> SignalProducer<GenericResponse, ServiceError>
 }
+
+protocol AvatarService: NSObjectProtocol {
+    func get() -> SignalProducer<GetAvatarResponse, ServiceError>
+    func delete() -> SignalProducer<GenericResponse, ServiceError>
+    func set(avatar: UIImage) -> SignalProducer<GenericResponse, ServiceError>
+}

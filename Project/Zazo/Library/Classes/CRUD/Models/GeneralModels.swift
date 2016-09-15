@@ -28,12 +28,12 @@ enum ServiceError: ErrorType {
     case CocoaError(error: NSError)
     case UnknownError
     
-    func toString() -> String? {
+    func toString() -> String {
         switch self {
         case .InputError(let errorText):
             return errorText
         case .ClientError(let response):
-            return response.errors?.joinWithSeparator("\n")
+            return (response.errors?.joinWithSeparator("\n")) ?? "Unknown client error"
         case .ServerError(let code):
             return "Server error \(code)"
         case .AnotherError(let error):
@@ -41,7 +41,7 @@ enum ServiceError: ErrorType {
         case .CocoaError(let error):
             return error.localizedDescription
         default:
-            return nil
+            return "Unknown error"
         }
     }
 }
