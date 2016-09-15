@@ -86,6 +86,7 @@
 
 - (void)_putFriend:(ZZFriendDomainModel *)friendModel toGridModel:(ZZGridDomainModel *)gridModel
 {
+    ZZLogDebug(@"_putFriend: %@", friendModel.fullName);
     gridModel.relatedUser = friendModel;
 
     [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID

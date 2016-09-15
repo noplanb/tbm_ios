@@ -1476,7 +1476,6 @@
 		15B938F81D80532300F6D84C /* PhotoLibraryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryHelper.swift; sourceTree = "<group>"; };
 		15B938FA1D805E7000F6D84C /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		15B938FC1D81776800F6D84C /* CropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
-		15B938FE1D81A2D000F6D84C /* ceo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ceo.jpg; sourceTree = "<group>"; };
 		15BA1D9F1CA2D4CB00EAD614 /* contact-pattern-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-1.png"; sourceTree = "<group>"; };
 		15BA1DA01CA2D4CB00EAD614 /* contact-pattern-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-2.png"; sourceTree = "<group>"; };
 		15BA1DA11CA2D4CB00EAD614 /* contact-pattern-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contact-pattern-3.png"; sourceTree = "<group>"; };
@@ -2506,7 +2505,6 @@
 		07636BD71BA49A0100925671 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				15B938FE1D81A2D000F6D84C /* ceo.jpg */,
 				07636BD81BA49A0100925671 /* Assets.xcassets */,
 				07636BDB1BA49A0100925671 /* contacts */,
 				07636BE01BA49A0100925671 /* Home */,
