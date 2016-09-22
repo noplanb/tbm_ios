@@ -54,6 +54,7 @@
 
 - (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
+    ZZLogEvent(@"EditFriend -- changeContactStatusTypeForFriend: %@ %@", friendModel.fullName, friendModel.mKey);
     friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey

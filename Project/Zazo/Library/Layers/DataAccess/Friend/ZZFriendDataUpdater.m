@@ -13,6 +13,7 @@
 #import "ZZFriendDataProvider+Entities.h"
 #import "ZZContentDataAccessor.h"
 #import "ZZVideoStatusHandler.h"
+#import "ZZRootStateObserver.h"
 
 @implementation ZZFriendDataUpdater
 
@@ -102,35 +103,33 @@
 
 + (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)friendModel
 {
+    ZZLogEvent(@"Upsert: %@ %@", friendModel.fullName, friendModel.mKey);
+    
     return ZZDispatchOnMainThreadAndReturn(^id {
 
         TBMFriend *friendEntity = [self _userWithID:friendModel.idTbm];
 
         if (friendEntity)
         {
-            BOOL needsSave = NO;
-            
             if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
             {
                 ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
                 friendEntity.hasApp = @(friendModel.hasApp);
-                needsSave = YES;
+                [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
+                [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
             }
             
             if (friendEntity.abilitiesValue != friendModel.abilities)
             {
+                ZZLogEvent(@"Abilities are changed");
                 friendEntity.abilitiesValue = friendModel.abilities;
-                needsSave = YES;
-            }
-            
-            if (needsSave)
-            {
                 [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];
-                [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
+                [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventFriendAbilitiesChanged notificationObject:friendModel];
             }
         }
         else
         {
+            ZZLogDebug(@"No entity -- creation");
             friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
             friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
             [friendEntity.managedObjectContext MR_saveToPersistentStoreAndWait];

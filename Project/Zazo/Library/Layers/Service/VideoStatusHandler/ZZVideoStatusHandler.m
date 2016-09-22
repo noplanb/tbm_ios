@@ -76,14 +76,18 @@
     });
 }
 
-- (void)_notifyObserveresSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel videoId:(NSString *)videoID status:(NSString *)status
+- (void)_notifyObserveresSendNotificationForVideoStatusUpdate:(ZZFriendDomainModel *)friendModel
+                                                      videoId:(NSString *)videoID
+                                                       status:(NSString *)status
 {
     ANDispatchBlockToMainQueue(^{
         for (id <ZZVideoStatusHandlerDelegate> delegate in self.observers)
         {
             if ([delegate respondsToSelector:@selector(sendNotificationForVideoStatusUpdate: videoId: status:)])
             {
-                [delegate sendNotificationForVideoStatusUpdate:friendModel videoId:videoID status:status];
+                [delegate sendNotificationForVideoStatusUpdate:friendModel
+                                                       videoId:videoID
+                                                        status:status];
             }
         }
     });

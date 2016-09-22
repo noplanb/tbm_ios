@@ -528,7 +528,8 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)changeContactStatusTypeForFriend:(ZZFriendDomainModel *)friendModel
 {
     friendModel.friendshipStatusValue = [ZZUserFriendshipStatusHandler switchedContactStatusTypeForFriend:friendModel];
-
+    ZZLogEvent(@"GridInteractor -- changeContactStatusTypeForFriend: %@ %@", friendModel.fullName, friendModel.mKey);
+    
     BOOL shouldBeVisible = [ZZUserFriendshipStatusHandler shouldFriendBeVisible:friendModel];
 
     [[ZZFriendsTransportService changeModelContactStatusForUser:friendModel.mKey
@@ -573,14 +574,25 @@ static NSInteger const kGridFriendsCellCount = 8;
             [self _updatedFeatureWithFriendMkeys:notificationObject];
         }
     }
+    else if(event == ZZRootStateObserverEventFriendAbilitiesChanged)
+    {
+        if (!ANIsEmpty(notificationObject))
+        {
+            [self _updatedAbilitiesOfFriend:notificationObject];
+        }
+    }
+}
+
+- (void)_updatedAbilitiesOfFriend:(ZZFriendDomainModel *)friendModel
+{
+    ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+    [self.output reloadGridModel:gridModel];
 }
 
 - (void)_updatedFeatureWithFriendMkeys:(NSArray *)keys
 {
     EverSentHelper *helper = [EverSentHelper sharedInstance];
-    
     NSMutableArray *keysM = [keys mutableCopy];
-    
     [keysM removeObject:@""];
     
     [keysM enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
