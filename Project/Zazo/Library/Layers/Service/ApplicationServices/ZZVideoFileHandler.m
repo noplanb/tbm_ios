@@ -182,10 +182,9 @@
 
 - (void)updateS3CredentialsWithRequest
 {
-    [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
-
+    [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeVideo] subscribeNext:^(id x) {
         [self _updateCredentials];
-    }                                                            error:^(NSError *error) {
+    } error:^(NSError *error) {
         [self _loadS3CredentialsDidFailWithError:error];
     }];
 }

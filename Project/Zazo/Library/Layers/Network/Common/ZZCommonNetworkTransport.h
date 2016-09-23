@@ -12,8 +12,6 @@
 
 + (RACSignal *)checkApplicationVersionWithParameters:(NSDictionary *)parameters;
 
-+ (RACSignal *)loadS3Credentials;
-
 + (void)setupNetworkCredentials;
 
 @end

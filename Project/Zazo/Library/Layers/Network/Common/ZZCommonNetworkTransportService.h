@@ -12,7 +12,7 @@
 
 + (RACSignal *)checkApplicationVersion;
 
-+ (RACSignal *)loadS3Credentials;
++ (RACSignal *)loadS3CredentialsOfType:(NSString *)type;
 
 @end
 

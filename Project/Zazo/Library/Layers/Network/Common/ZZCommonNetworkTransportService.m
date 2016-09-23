@@ -12,6 +12,7 @@
 #import "ZZKeychainDataProvider.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZS3CredentialsDomainModel.h"
+#import "ZZNetworkTransport.h"
 
 @implementation ZZCommonNetworkTransportService
 
@@ -35,19 +36,20 @@
     return [ZZCommonNetworkTransport checkApplicationVersionWithParameters:parameters];
 }
 
-+ (RACSignal *)loadS3Credentials
++ (RACSignal *)loadS3CredentialsOfType:(NSString *)type
 {
     return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
 
         ZZLogInfo(@"s3 credentials start updating");
 
-        [[ZZCommonNetworkTransport loadS3Credentials] subscribeNext:^(id x) {
+        [[[ZZNetworkTransport shared] requestWithPath:type httpMethod:ANHttpMethodTypeGET] subscribeNext:^(id x) {
 
             FEMObjectMapping *mapping = [ZZS3CredentialsDomainModel mapping];
             ZZS3CredentialsDomainModel *model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:x
                                                                                                   usingMapping:mapping];
             if ([model isValid])
             {
+                model.type = type;
                 [ZZKeychainDataProvider updateWithCredentials:model];
                 [subscriber sendNext:model];
             }

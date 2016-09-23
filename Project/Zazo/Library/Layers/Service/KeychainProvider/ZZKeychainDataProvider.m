@@ -11,8 +11,8 @@
 #import "NSObject+ANUserDefaults.h"
 #import "ZZCredentialsKeyData.h"
 
-NSString * const ZZCredentialsTypeVideo = @"credentials_video";
-NSString * const ZZCredentialsTypeAvatar = @"credentials_avatar";
+NSString * const ZZCredentialsTypeVideo = @"s3_credentials/videos";
+NSString * const ZZCredentialsTypeAvatar = @"s3_credentials/avatars";
 
 @implementation ZZKeychainDataProvider
 
@@ -34,6 +34,7 @@ NSString * const ZZCredentialsTypeAvatar = @"credentials_avatar";
     ZZCredentialsKeyData *keyData = [ZZCredentialsKeyData keyDataForType:type];
     ZZS3CredentialsDomainModel *model = [ZZS3CredentialsDomainModel new];
 
+    model.type = type;
     model.region = [NSObject an_stringForKey:keyData.regionKey];
     model.bucket = [NSObject an_stringForKey:keyData.bucketKey];
     model.accessKey = [NSObject an_stringForKey:keyData.accessKey];

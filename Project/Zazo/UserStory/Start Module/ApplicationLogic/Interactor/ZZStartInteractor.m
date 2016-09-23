@@ -47,8 +47,11 @@
             [self.output applicationIsUpToDateAndUserLogged:YES];
         });
 
-        [[ZZCommonNetworkTransportService loadS3Credentials] subscribeNext:^(id x) {
+        [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeVideo] subscribeNext:^(id x) {
         }];
+        [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeAvatar] subscribeNext:^(id x) {
+        }];
+        
     }
     else
     {

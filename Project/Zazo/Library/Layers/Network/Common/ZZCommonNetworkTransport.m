@@ -25,11 +25,6 @@
                                              httpMethod:ANHttpMethodTypeGET];
 }
 
-+ (RACSignal *)loadS3Credentials
-{
-    return [[ZZNetworkTransport shared] requestWithPath:kApiS3Credentials httpMethod:ANHttpMethodTypeGET];
-}
-
 + (void)setupNetworkCredentials
 {
     [ZZNetworkTransport shared];
