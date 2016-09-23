@@ -53,7 +53,7 @@ ZZRemoteStorageVideoStatus ZZRemoteStorageVideoStatusEnumValueFromSrting(NSStrin
 
 static inline NSString *const remoteStorageS3Bucket()
 {
-    return [ZZKeychainDataProvider loadCredentials].bucket;
+    return [ZZKeychainDataProvider loadCredentialsOfType:ZZCredentialsTypeVideo].bucket;
 }
 
 static inline NSString *const remoteStorageBaseURL()

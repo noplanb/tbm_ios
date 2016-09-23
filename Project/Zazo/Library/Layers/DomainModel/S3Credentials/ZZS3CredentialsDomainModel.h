@@ -20,6 +20,7 @@ extern const struct ZZS3CredentialsDomainModelAttributes
 
 @interface ZZS3CredentialsDomainModel : ANBaseDomainModel
 
+@property (nonatomic, strong) NSString *type;
 @property (nonatomic, copy) NSString *region;
 @property (nonatomic, copy) NSString *bucket;
 @property (nonatomic, copy) NSString *accessKey;

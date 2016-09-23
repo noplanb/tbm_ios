@@ -30,8 +30,6 @@
     {
         CGSize itemSize = kGridItemSize();
 
-        CGFloat paddingBetweenItems = kGridItemSpacing();
-        CGFloat paddingBetweenLines = kGridItemSpacing();
         NSInteger numberOfItemsInRow = 3;
         NSInteger numberOfLines = 3;
 
@@ -41,8 +39,6 @@
 
         for (NSInteger line = 0; line < numberOfLines; line++)
         {
-            CGFloat leftOffset = 0;
-
             for (NSInteger row = 0; row < numberOfItemsInRow; row++)
             {
                 if ((line == 1) && (row == 1))
@@ -64,7 +60,6 @@
                 }];
 
                 [items addObject:view];
-                leftOffset = paddingBetweenItems;
             }
         }
         self.items = [items copy];

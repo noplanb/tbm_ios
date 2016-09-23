@@ -196,6 +196,10 @@
 		151BB3451CC124EC007CE007 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3401CC124EC007CE007 /* Permissions.swift */; };
 		151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3411CC124EC007CE007 /* PermissionScope.swift */; };
 		151BB3471CC124EC007CE007 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3421CC124EC007CE007 /* Structs.swift */; };
+		151DA6F11D93EEA80079D906 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151DA6EF1D93EEA80079D906 /* AWSS3.framework */; };
+		151DA6F21D93EEA80079D906 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151DA6F01D93EEA80079D906 /* AWSRuntime.framework */; };
+		151DA6F91D9405CB0079D906 /* ZZCredentialsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 151DA6F81D9405CB0079D906 /* ZZCredentialsProvider.m */; };
+		151DA6FC1D940A810079D906 /* ZZCredentialsKeyData.m in Sources */ = {isa = PBXBuildFile; fileRef = 151DA6FB1D940A810079D906 /* ZZCredentialsKeyData.m */; };
 		151E52441D5E11DB008D117D /* FullscreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E52431D5E11DB008D117D /* FullscreenView.swift */; };
 		151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */; };
 		152158261C84932A00260AFD /* ZZRecordButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 152158191C84932A00260AFD /* ZZRecordButtonView.m */; };
@@ -1191,6 +1195,12 @@
 		151BB3401CC124EC007CE007 /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		151BB3411CC124EC007CE007 /* PermissionScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionScope.swift; sourceTree = "<group>"; };
 		151BB3421CC124EC007CE007 /* Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		151DA6EF1D93EEA80079D906 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Pods/OBFileTransfer/AWSS3.framework; sourceTree = "<group>"; };
+		151DA6F01D93EEA80079D906 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = Pods/OBFileTransfer/AWSRuntime.framework; sourceTree = "<group>"; };
+		151DA6F71D9405CB0079D906 /* ZZCredentialsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCredentialsProvider.h; sourceTree = "<group>"; };
+		151DA6F81D9405CB0079D906 /* ZZCredentialsProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCredentialsProvider.m; sourceTree = "<group>"; };
+		151DA6FA1D940A810079D906 /* ZZCredentialsKeyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZCredentialsKeyData.h; sourceTree = "<group>"; };
+		151DA6FB1D940A810079D906 /* ZZCredentialsKeyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZCredentialsKeyData.m; sourceTree = "<group>"; };
 		151E52431D5E11DB008D117D /* FullscreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenView.swift; sourceTree = "<group>"; };
 		151EAD9F1CA18A9900CE0FDE /* ZZContactsTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZContactsTableHeaderView.h; sourceTree = "<group>"; };
 		151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZContactsTableHeaderView.m; sourceTree = "<group>"; };
@@ -1778,6 +1788,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151DA6F11D93EEA80079D906 /* AWSS3.framework in Frameworks */,
+				151DA6F21D93EEA80079D906 /* AWSRuntime.framework in Frameworks */,
 				185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */,
 				182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */,
 				2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */,
@@ -2363,6 +2375,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				151DA6F61D9405BE0079D906 /* CredentialsProvider */,
 				15E42DAF1D8AC7B100FAC6CA /* AvatarStorageService.swift */,
 				15E42DB11D8AD29600FAC6CA /* AvatarUpdateService.swift */,
 				3E3097C71D4A2F240010A482 /* MessageHandler.swift */,
@@ -2459,6 +2472,8 @@
 			children = (
 				07636BB21BA49A0100925671 /* ZZKeychainDataProvider.h */,
 				07636BB31BA49A0100925671 /* ZZKeychainDataProvider.m */,
+				151DA6FA1D940A810079D906 /* ZZCredentialsKeyData.h */,
+				151DA6FB1D940A810079D906 /* ZZCredentialsKeyData.m */,
 			);
 			path = KeychainProvider;
 			sourceTree = "<group>";
@@ -3836,6 +3851,15 @@
 				151BB3421CC124EC007CE007 /* Structs.swift */,
 			);
 			path = PermissionScope;
+			sourceTree = "<group>";
+		};
+		151DA6F61D9405BE0079D906 /* CredentialsProvider */ = {
+			isa = PBXGroup;
+			children = (
+				151DA6F71D9405CB0079D906 /* ZZCredentialsProvider.h */,
+				151DA6F81D9405CB0079D906 /* ZZCredentialsProvider.m */,
+			);
+			path = CredentialsProvider;
 			sourceTree = "<group>";
 		};
 		152158161C84932A00260AFD /* Components */ = {
@@ -5387,6 +5411,8 @@
 		220E90271909A18B003C4F82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				151DA6EF1D93EEA80079D906 /* AWSS3.framework */,
+				151DA6F01D93EEA80079D906 /* AWSRuntime.framework */,
 				185DE9081BDE757900106F83 /* CoreMotion.framework */,
 				182398D21BB27B36008D1324 /* CoreTelephony.framework */,
 				41A04DE71AD7C3AA00AD88D5 /* ExternalAccessory.framework */,
@@ -6337,6 +6363,7 @@
 				07636EBE1BA49A0100925671 /* ZZGridCenterCell.m in Sources */,
 				07636ED71BA49A0100925671 /* ZZContactsView.m in Sources */,
 				07636EBA1BA49A0100925671 /* ZZGridInteractor.m in Sources */,
+				151DA6FC1D940A810079D906 /* ZZCredentialsKeyData.m in Sources */,
 				158960811CB7B61E0040D8E3 /* ANBaseTableFooterView.m in Sources */,
 				07636ED01BA49A0100925671 /* ZZRotator.m in Sources */,
 				15443A9A1D255A91009F55CD /* TranscriptItemView.swift in Sources */,
@@ -6390,6 +6417,7 @@
 				152158281C84932A00260AFD /* ZZGridCellGradientView.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
+				151DA6F91D9405CB0079D906 /* ZZCredentialsProvider.m in Sources */,
 				1501715B1D2BCEC6007E49F5 /* Menu.swift in Sources */,
 				15B823061CB7BBD4006473E1 /* _TBMFriend.m in Sources */,
 				223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */,
@@ -6818,6 +6846,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)/Pods/OBFileTransfer",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";
@@ -7114,6 +7143,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)/Pods/OBFileTransfer",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -7151,6 +7181,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Zazo/Vendor",
+					"$(PROJECT_DIR)/Pods/OBFileTransfer",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zazo/Application/BundleFiles/Zazo-prefix.h";

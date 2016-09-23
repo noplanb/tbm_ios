@@ -72,7 +72,7 @@
 
 - (void)_updateCredentials
 {
-    ZZS3CredentialsDomainModel *credentials = [ZZKeychainDataProvider loadCredentials];
+    ZZS3CredentialsDomainModel *credentials = [ZZKeychainDataProvider loadCredentialsOfType:ZZCredentialsTypeVideo];
 
     NSDictionary *cparams = @{OBS3RegionParam : [NSObject an_safeString:credentials.region],
             OBS3NoTvmAccessKeyParam : [NSObject an_safeString:credentials.accessKey],

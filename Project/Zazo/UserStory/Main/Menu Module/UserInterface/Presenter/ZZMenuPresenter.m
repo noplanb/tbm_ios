@@ -215,6 +215,16 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     [self.wireframe.mainWireframe presentSendFeedbackWithModel:model];
 }
 
+- (void)avatarUpdateDidComplete
+{
+    [self.interactor checkAvatarForUpdate];
+}
+
+- (void)avatarUpdateDidFail
+{
+    
+}
+
 #pragma mark - Module Interface
 
 - (void)eventDidTapItemWithType:(ZZMenuItemType)type

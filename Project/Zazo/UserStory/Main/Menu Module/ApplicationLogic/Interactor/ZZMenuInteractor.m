@@ -8,6 +8,7 @@
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
 #import "ZZCommonModelsGenerator.h"
+#import "AmazonClientManager.h"
 
 @implementation ZZMenuInteractor
 
@@ -30,11 +31,11 @@
 
 - (void)uploadAvatar:(UIImage *)image;
 {
-//    [[self.networkService legacySet:image] subscribeError:^(NSError *error) {
-//        [self.output uploadAvatarDidFail];
-//    } completed:^{
-//        [self.output uploadAvatarDidComplete];
-//    }];
+    [[self.networkService legacySet:image] subscribeError:^(NSError *error) {
+        [self.output avatarUpdateDidComplete];
+    } completed:^{
+        [self.output avatarUpdateDidFail];
+    }];
 }
 
 - (void)removeAvatar
@@ -50,7 +51,8 @@
 
 - (void)avatarNeedsToBeUpdated:(ANCodeBlock _Nonnull)completion
 {
-    
+//    S3GetObjectRequest *request = [S3GetObjectRequest alloc] initWithKey:<#(NSString *)#> withBucket:<#(NSString *)#>
+//    [AmazonClientManager s3] getObject:( *)
 }
 
 - (void)avatarFetchFailed:(NSString * _Nonnull)errorText

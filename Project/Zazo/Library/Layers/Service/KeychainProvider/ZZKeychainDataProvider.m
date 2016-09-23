@@ -9,28 +9,35 @@
 #import "ZZKeychainDataProvider.h"
 #import "ZZS3CredentialsDomainModel.h"
 #import "NSObject+ANUserDefaults.h"
+#import "ZZCredentialsKeyData.h"
+
+NSString * const ZZCredentialsTypeVideo = @"credentials_video";
+NSString * const ZZCredentialsTypeAvatar = @"credentials_avatar";
 
 @implementation ZZKeychainDataProvider
 
 + (void)updateWithCredentials:(ZZS3CredentialsDomainModel *)model
 {
+    ZZCredentialsKeyData *keyData = [ZZCredentialsKeyData keyDataForType:model.type];
+    
     if ([model isValid])
     {
-        [NSObject an_updateObject:model.region forKey:ZZS3CredentialsDomainModelAttributes.region];
-        [NSObject an_updateObject:model.bucket forKey:ZZS3CredentialsDomainModelAttributes.bucket];
-        [NSObject an_updateObject:model.accessKey forKey:ZZS3CredentialsDomainModelAttributes.accessKey];
-        [NSObject an_updateObject:model.secretKey forKey:ZZS3CredentialsDomainModelAttributes.secretKey];
+        [NSObject an_updateObject:model.region forKey:keyData.regionKey];
+        [NSObject an_updateObject:model.bucket forKey:keyData.bucketKey];
+        [NSObject an_updateObject:model.accessKey forKey:keyData.accessKey];
+        [NSObject an_updateObject:model.secretKey forKey:keyData.secretKey];
     }
 }
 
-+ (ZZS3CredentialsDomainModel *)loadCredentials
++ (ZZS3CredentialsDomainModel *)loadCredentialsOfType:(NSString *)type
 {
+    ZZCredentialsKeyData *keyData = [ZZCredentialsKeyData keyDataForType:type];
     ZZS3CredentialsDomainModel *model = [ZZS3CredentialsDomainModel new];
 
-    model.region = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.region];
-    model.bucket = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.bucket];
-    model.accessKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.accessKey];
-    model.secretKey = [NSObject an_stringForKey:ZZS3CredentialsDomainModelAttributes.secretKey];
+    model.region = [NSObject an_stringForKey:keyData.regionKey];
+    model.bucket = [NSObject an_stringForKey:keyData.bucketKey];
+    model.accessKey = [NSObject an_stringForKey:keyData.accessKey];
+    model.secretKey = [NSObject an_stringForKey:keyData.secretKey];
 
     return model;
 }
