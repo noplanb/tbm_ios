@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FrameAccessor/FrameAccessor.framework"
@@ -113,6 +114,7 @@ fi
 if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FrameAccessor/FrameAccessor.framework"
@@ -140,6 +142,7 @@ fi
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FrameAccessor/FrameAccessor.framework"
