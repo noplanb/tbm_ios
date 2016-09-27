@@ -18,6 +18,7 @@
 @protocol ZZMenuInteractorOutput <NSObject>
 
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model;
+- (void)currentAvatarWasChanged:(UIImage *)avatar;
 - (void)avatarUpdateDidComplete;
 - (void)avatarUpdateDidFail;
 

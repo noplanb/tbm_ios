@@ -18,7 +18,7 @@ class AvatarData: NSObject {
 class ConcreteAvatarService: NSObject, AvatarService, LegacyAvatarService {
     
     var networkClient: NetworkClient! = nil
-    let path = "avatars"
+    let path = "api/v1/avatars"
     
     func get() -> SignalProducer<GetAvatarResponse, ServiceError> {
         return networkClient.get(path).attemptMap({ (data, response) -> Result<GetAvatarResponse, ServiceError> in
@@ -47,7 +47,7 @@ class ConcreteAvatarService: NSObject, AvatarService, LegacyAvatarService {
         
         let signal = get().map { (response) -> AvatarData in
             let data = AvatarData()
-            data.timestamp = response.data.timestamp
+            data.timestamp = response.data.timestamp ?? 0
             data.isAvatarEnabled = response.data.useAsThumbnail == .Avatar
             return data
         }

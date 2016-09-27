@@ -9,6 +9,8 @@
 #import "ZZUserDataProvider.h"
 #import "ZZCommonModelsGenerator.h"
 #import "AmazonClientManager.h"
+#import "ZZKeychainDataProvider.h"
+#import <AWSRuntime/AWSRuntime.h>
 
 @implementation ZZMenuInteractor
 
@@ -32,9 +34,9 @@
 - (void)uploadAvatar:(UIImage *)image;
 {
     [[self.networkService legacySet:image] subscribeError:^(NSError *error) {
-        [self.output avatarUpdateDidComplete];
-    } completed:^{
         [self.output avatarUpdateDidFail];
+    } completed:^{
+        [self.output avatarUpdateDidComplete];
     }];
 }
 
@@ -51,8 +53,33 @@
 
 - (void)avatarNeedsToBeUpdated:(ANCodeBlock _Nonnull)completion
 {
-//    S3GetObjectRequest *request = [S3GetObjectRequest alloc] initWithKey:<#(NSString *)#> withBucket:<#(NSString *)#>
-//    [AmazonClientManager s3] getObject:( *)
+    ANDispatchBlockToBackgroundQueue(^{
+        ZZS3CredentialsDomainModel *credentialsModel = [ZZKeychainDataProvider loadCredentialsOfType:ZZCredentialsTypeAvatar];
+        
+        if (!credentialsModel.isValid)
+        {
+            // TODO
+            return;
+        }
+        
+        ZZUserDomainModel *userModel = [ZZUserDataProvider authenticatedUser];
+        
+        S3GetObjectRequest *request = [[S3GetObjectRequest alloc] initWithKey:userModel.mkey
+                                                                   withBucket:credentialsModel.bucket];
+        
+        AmazonCredentials *credentials =
+            [[AmazonCredentials alloc] initWithAccessKey:credentialsModel.accessKey
+                                           withSecretKey:credentialsModel.secretKey];
+        request.credentials = credentials;
+        S3GetObjectResponse *response = [[AmazonClientManager s3] getObject:request];
+        
+        CGFloat scale = [UIScreen mainScreen].scale;
+        UIImage *image = [UIImage imageWithData:response.body scale:scale];
+        
+        ANDispatchBlockToMainQueue(^{
+            [self.output currentAvatarWasChanged:image];
+        });
+    });
 }
 
 - (void)avatarFetchFailed:(NSString * _Nonnull)errorText

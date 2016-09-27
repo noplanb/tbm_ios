@@ -200,7 +200,7 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)updateAvatarWithImage:(UIImage *)image
 {
-    [self.userInterface showAvatar:image];
+    [self.interactor uploadAvatar:image];
 }
 
 - (void)didPickRemoveAvatarMenuItem
@@ -223,6 +223,11 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 - (void)avatarUpdateDidFail
 {
     
+}
+
+- (void)currentAvatarWasChanged:(UIImage *)avatar
+{
+    [self.userInterface showAvatar:avatar];
 }
 
 #pragma mark - Module Interface

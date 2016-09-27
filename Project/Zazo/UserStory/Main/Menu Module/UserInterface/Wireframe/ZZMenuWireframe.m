@@ -37,8 +37,22 @@
     ZZMenuInteractor *interactor = [ZZMenuInteractor new];
     ZZMenuPresenter *presenter = [ZZMenuPresenter new];
 
+    NetworkClient *networkClient = [NetworkClient new];
+    networkClient.baseURL = [NSURL URLWithString: APIBaseURL()];
+    
+    ConcreteAvatarService *avatarService = [[ConcreteAvatarService alloc] init];
+    avatarService.networkClient = networkClient;
+    
+    NSString *persistenceKey = @"avatar";
+    AvatarUpdateService *updateService = [[AvatarUpdateService alloc] initWith:persistenceKey];
+    updateService.legacyAvatarService = avatarService;
+    updateService.delegate = interactor;
+    
+    interactor.networkService = avatarService;
     interactor.output = presenter;
-
+    interactor.updateService = updateService;
+    interactor.storageService = [AvatarStorageService sharedService];
+    
     menuController.eventHandler = presenter;
 
     presenter.interactor = interactor;

@@ -18,8 +18,8 @@ struct GetAvatarResponse {
             case Avatar = "avatar"
         }
         
-        let timestamp: NSTimeInterval
-        let useAsThumbnail: UseAsThumbnail
+        let timestamp: NSTimeInterval?
+        let useAsThumbnail: UseAsThumbnail?
     }
     
     let status: ResponseStatus

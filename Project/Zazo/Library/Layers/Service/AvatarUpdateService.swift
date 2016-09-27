@@ -18,7 +18,14 @@ class AvatarUpdateService: NSObject {
     weak var delegate: AvatarUpdateServiceDelegate?
     
     /// Dependencies:
-    let networkService: AvatarService! = nil
+    var legacyAvatarService: LegacyAvatarService! = nil {
+        didSet {
+            if let service = legacyAvatarService as? AvatarService {
+                avatarService = service
+            }
+        }
+    }
+    var avatarService: AvatarService! = nil
     let userDefaults = NSUserDefaults.standardUserDefaults()
     
     let persistenceKey: String
@@ -31,7 +38,7 @@ class AvatarUpdateService: NSObject {
     }
     
     func checkUpdate() {
-        networkService.get().start { (event) in
+        avatarService.get().start { (event) in
             switch event {
                 case .Next(let result): self.handleResult(result)
                 case .Failed(let error): self.handleError(error)
@@ -42,7 +49,7 @@ class AvatarUpdateService: NSObject {
     
     private func handleResult(result: GetAvatarResponse) {
         
-        let currentTimestamp = result.data.timestamp
+        let currentTimestamp = result.data.timestamp ?? 0
         guard currentTimestamp > lastTimestamp else {
             return
         }

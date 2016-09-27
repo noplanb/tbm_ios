@@ -46,10 +46,16 @@ class NetworkClient: NSObject {
         
         let request = NSMutableURLRequest(URL: URL)
         request.HTTPMethod = method
-        request.allHTTPHeaderFields!["Content-Type"] = "application/json"
 
-        if (!isGetRequest && parameters != nil) {
-            request.HTTPBody = jsonBody(parameters!)
+        if (parameters != nil) {
+            if (encodeAsFormData) {
+                request.allHTTPHeaderFields!["Content-Type"] = "multipart/form-data; charset=utf-8"
+                request.HTTPBody = formBody(parameters!)
+            }
+            else if (!isGetRequest) {
+                request.allHTTPHeaderFields!["Content-Type"] = "application/json"
+                request.HTTPBody = jsonBody(parameters!)
+            }
         }
         
         return SignalProducer<RawResponse, ServiceError> {
@@ -105,7 +111,7 @@ class NetworkClient: NSObject {
     
     func formBody(params: [String: AnyObject]) -> NSData {
         
-        let body = NSMutableData();
+        var body = ""
         let boundaryConstant = "----------V2ymHFg03ehbqgZCaKO6jy--";
 
         for (key, value) in params {
@@ -114,9 +120,9 @@ class NetworkClient: NSObject {
                 continue
             }
             
-            body.appendData("\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData("Content-Disposition: form-data; name=\"\(key.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData("\(value.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
+            body.appendContentsOf("\(boundaryConstant)\r\n");
+            body.appendContentsOf("Content-Disposition: form-data; name=\"\(key.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\"\r\n\r\n");
+            body.appendContentsOf("\(value.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\r\n");
         }
         
         for (key, value) in params {
@@ -127,16 +133,18 @@ class NetworkClient: NSObject {
             
             let imageData = UIImageJPEGRepresentation(image, 1.0);
             
-            body.appendData("\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData("Content-Disposition: form-data; name=\"\(key)\"; filename=\"image\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData(imageData!);
-            body.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
-            body.appendData("\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!);
+            body.appendContentsOf("\(boundaryConstant)\r\n");
+            body.appendContentsOf("Content-Disposition: form-data; name=\"\(key)\"; filename=\"image\"\r\n");
+            body.appendContentsOf("Content-Type: image/png\r\n\r\n");
+            
+            let stringData = String(data: imageData!, encoding: NSUTF8StringEncoding)
+            body.appendContentsOf(stringData!);
+            body.appendContentsOf("\r\n");
+            body.appendContentsOf("\(boundaryConstant)\r\n");
 
         }
         
-        return body
+        return body.dataUsingEncoding(NSUTF8StringEncoding)!
     }
 
     
