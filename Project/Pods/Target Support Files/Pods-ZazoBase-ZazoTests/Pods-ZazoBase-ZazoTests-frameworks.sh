@@ -86,6 +86,8 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCore/AWSCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSS3/AWSS3.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"
@@ -114,6 +116,8 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCore/AWSCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSS3/AWSS3.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"
@@ -142,6 +146,8 @@ fi
 if [[ "$CONFIGURATION" == "Ad-hoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/APAddressBook/APAddressBook.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCore/AWSCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSS3/AWSS3.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FastEasyMapping/FastEasyMapping.framework"

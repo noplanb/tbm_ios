@@ -34,6 +34,7 @@ abstract_target 'ZazoBase' do
     pod 'OBFileTransfer', '0.9.4'
     pod 'AFNetworking', '~> 2.6.0'
     pod 'Alamofire'
+    pod 'AWSS3'
 
     pod 'ObjectMapper', '~> 1.3'
 
