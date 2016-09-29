@@ -53,16 +53,23 @@
     }
     
     [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeAvatar] subscribeNext:^(id x) {
-        [self updateConfiguration];
-        [self.updateService checkUpdate];
-        self.areCredentialsLoaded = YES;
+        if ([self updateConfiguration])
+        {
+            self.areCredentialsLoaded = YES;
+            [self.updateService checkUpdate];
+        }
     }];
 
 }
 
-- (void)updateConfiguration
+- (BOOL)updateConfiguration
 {
     ZZS3CredentialsDomainModel *credentialsModel = [ZZKeychainDataProvider loadCredentialsOfType:ZZCredentialsTypeAvatar];
+    
+    if (!credentialsModel.isValid)
+    {
+        return NO;
+    }
     
     AWSStaticCredentialsProvider *credentials =
     [[AWSStaticCredentialsProvider alloc] initWithAccessKey:credentialsModel.accessKey
@@ -76,6 +83,8 @@
     
     [AWSS3 registerS3WithConfiguration:configuration
                                 forKey:ZZCredentialsTypeAvatar];
+    
+    return YES;
 }
 
 - (void)uploadAvatar:(UIImage *)image;
@@ -129,9 +138,6 @@
 
             return nil;
         }];
-        
-        
-        
     });
 }
 
