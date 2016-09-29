@@ -8,6 +8,7 @@
 
 import Foundation
 import ReactiveCocoa
+import Alamofire
 
 typealias RawResponse = (data: NSData, response: NSHTTPURLResponse)
 
@@ -16,90 +17,104 @@ class NetworkClient: NSObject {
     var baseURL: NSURL!
     
     func get(path: String, _ parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {
-        return request("GET", path: path, parameters)
+        return request(.GET, path: path, parameters)
     }
     
     func post(path: String, parameters: [String: AnyObject]? = nil, isFormData: Bool = false) -> SignalProducer<RawResponse, ServiceError> {
-        return request("POST",
+        return request(.POST,
                        path: path,
                        parameters,
                        encodeAsFormData: isFormData)
     }
     
     func delete(path: String, parameters: [String: String]? = nil) -> SignalProducer<RawResponse, ServiceError> {
-        return request("DELETE", path: path, parameters)
+        return request(.DELETE, path: path, parameters)
     }
     
-    private func request(method: String,
+    private func request(method: Alamofire.Method,
                          path: String,
                          _ parameters: [String: AnyObject]?,
                            encodeAsFormData: Bool = false)
         -> SignalProducer<RawResponse, ServiceError> {
         
-        let isGetRequest = method == "GET"
-        let URLParameters = (isGetRequest && parameters != nil) ? parameters! as! [String:String] : [:]
-        
-        guard let URL = url(path, parameters: URLParameters) else {
-            let error = ServiceError.InputError(errorText: "URL is nil")
-            return SignalProducer<RawResponse, ServiceError>(error: error)
-        }
-        
-        let request = NSMutableURLRequest(URL: URL)
-        request.HTTPMethod = method
+            return SignalProducer<RawResponse, ServiceError> {
+                observer, disposable in
+                
+                guard let path = NSURL(string: path, relativeToURL: self.baseURL) else {
+                    observer.sendFailed(ServiceError.InputError(errorText: "Invalid path"))
+                    return
+                }
+                
+                var request: Alamofire.Request! = nil
+                
+                let sendBlock = {
+                    if let credentials = self.credentials() {
+                        request.authenticate(usingCredential: credentials)
+                    }
+                    request.response(completionHandler: { (request, response, data, error) in
+                        
+                        guard (error == nil) else {
+                            observer.sendFailed(ServiceError.AnotherError(errorText: "\(error)"))
+                            return
+                        }
+                        
+                        if let data = data, let response = response {
+                            observer.sendNext(RawResponse(data, response))
+                            observer.sendCompleted()
+                            return
+                        }
+                        
+                        observer.sendFailed(ServiceError.UnknownError)
+                    })
+                }
+                
+                if encodeAsFormData {
+                    guard let parameters = parameters else {
+                        return
+                    }
+                    let data = self.multipartData(parameters)
+                    
+                    Alamofire.upload(.POST, path, headers: nil, multipartFormData: data, encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold) {result in
+                    
+                        switch result {
+                        case .Success(let postRequest, _, _):
+                            request = postRequest
+                        default: break
+                        }
+                        
+                        sendBlock()
+                    }
+                }
+                else {
+                    request = Alamofire.request(method, path, parameters: parameters, encoding: .JSON, headers: nil)
+                    sendBlock()
+                }
+                
+            }
+    }
 
-        if (parameters != nil) {
-            if (encodeAsFormData) {
-                request.allHTTPHeaderFields!["Content-Type"] = "multipart/form-data; charset=utf-8"
-                request.HTTPBody = formBody(parameters!)
-            }
-            else if (!isGetRequest) {
-                request.allHTTPHeaderFields!["Content-Type"] = "application/json"
-                request.HTTPBody = jsonBody(parameters!)
-            }
-        }
+    func multipartData(parameters: [String: AnyObject]) -> (MultipartFormData -> Void) {
         
-        return SignalProducer<RawResponse, ServiceError> {
-            observer, disposable in
-            
-            NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) in
-                
-                guard (error == nil) else {
-                    observer.sendFailed(ServiceError.AnotherError(errorText: "\(error)"))
-                    return
+        return { (formData) in
+            for (key, value) in parameters {
+                if let image = value as? UIImage {
+                    guard let data = UIImagePNGRepresentation(image) else {
+                        continue
+                    }
+                    formData.appendBodyPart(data: data, name: key, fileName: "\(key).png", mimeType: "image/png")
                 }
-                
-                if let data = data, let response = response as? NSHTTPURLResponse {
-                    observer.sendNext(RawResponse(data, response))
-                    observer.sendCompleted()
-                    return
+                if let text = value as? String {
+                    guard let data = text.dataUsingEncoding(NSUTF8StringEncoding) else {
+                        continue
+                    }
+                    formData.appendBodyPart(data: data, name: key)
                 }
-                
-                observer.sendFailed(ServiceError.UnknownError)
-            }).resume()
-            
-        }
-    }
-    
-    func jsonBody(parameters: [String: AnyObject]) -> NSData? {
-        return try? NSJSONSerialization.dataWithJSONObject(parameters, options: [])
-    }
-    
-    func url(path: String, parameters: [String: String]) -> NSURL? {
-        
-        guard let URL = NSURL(string: path, relativeToURL: self.baseURL) else {
-            return nil
+            }
         }
         
-        let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true)!
-        
-        components.queryItems = parameters.map({ (key, value) -> NSURLQueryItem in
-            return NSURLQueryItem(name: key, value: value)
-        })
-    
-        return components.URL
     }
-    
-    func credential() -> NSURLCredential? {
+
+    func credentials() -> NSURLCredential? {
         
         let password = ZZStoredSettingsManager.shared().authToken
         let username = ZZStoredSettingsManager.shared().userID
@@ -107,44 +122,6 @@ class NetworkClient: NSObject {
         return NSURLCredential(user: username,
                                password: password,
                                persistence: .ForSession)        
-    }
-    
-    func formBody(params: [String: AnyObject]) -> NSData {
-        
-        var body = ""
-        let boundaryConstant = "----------V2ymHFg03ehbqgZCaKO6jy--";
-
-        for (key, value) in params {
-            
-            guard value is String else {
-                continue
-            }
-            
-            body.appendContentsOf("\(boundaryConstant)\r\n");
-            body.appendContentsOf("Content-Disposition: form-data; name=\"\(key.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\"\r\n\r\n");
-            body.appendContentsOf("\(value.stringByAddingPercentEncodingWithAllowedCharacters(.symbolCharacterSet())!)\r\n");
-        }
-        
-        for (key, value) in params {
-            
-            guard let image = value as? UIImage else {
-                continue
-            }
-            
-            let imageData = UIImageJPEGRepresentation(image, 1.0);
-            
-            body.appendContentsOf("\(boundaryConstant)\r\n");
-            body.appendContentsOf("Content-Disposition: form-data; name=\"\(key)\"; filename=\"image\"\r\n");
-            body.appendContentsOf("Content-Type: image/png\r\n\r\n");
-            
-            let stringData = String(data: imageData!, encoding: NSUTF8StringEncoding)
-            body.appendContentsOf(stringData!);
-            body.appendContentsOf("\r\n");
-            body.appendContentsOf("\(boundaryConstant)\r\n");
-
-        }
-        
-        return body.dataUsingEncoding(NSUTF8StringEncoding)!
     }
 
     

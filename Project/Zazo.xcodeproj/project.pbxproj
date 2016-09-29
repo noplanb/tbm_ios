@@ -196,8 +196,6 @@
 		151BB3451CC124EC007CE007 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3401CC124EC007CE007 /* Permissions.swift */; };
 		151BB3461CC124EC007CE007 /* PermissionScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3411CC124EC007CE007 /* PermissionScope.swift */; };
 		151BB3471CC124EC007CE007 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151BB3421CC124EC007CE007 /* Structs.swift */; };
-		151DA6F11D93EEA80079D906 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151DA6EF1D93EEA80079D906 /* AWSS3.framework */; };
-		151DA6F21D93EEA80079D906 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151DA6F01D93EEA80079D906 /* AWSRuntime.framework */; };
 		151DA6FC1D940A810079D906 /* ZZCredentialsKeyData.m in Sources */ = {isa = PBXBuildFile; fileRef = 151DA6FB1D940A810079D906 /* ZZCredentialsKeyData.m */; };
 		151E52441D5E11DB008D117D /* FullscreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E52431D5E11DB008D117D /* FullscreenView.swift */; };
 		151EADA11CA18A9900CE0FDE /* ZZContactsTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151EADA01CA18A9900CE0FDE /* ZZContactsTableHeaderView.m */; };
@@ -1785,8 +1783,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				151DA6F11D93EEA80079D906 /* AWSS3.framework in Frameworks */,
-				151DA6F21D93EEA80079D906 /* AWSRuntime.framework in Frameworks */,
 				185DE9091BDE757900106F83 /* CoreMotion.framework in Frameworks */,
 				182398D31BB27B36008D1324 /* CoreTelephony.framework in Frameworks */,
 				2208E8A91A1419D400150C35 /* AddressBookUI.framework in Frameworks */,

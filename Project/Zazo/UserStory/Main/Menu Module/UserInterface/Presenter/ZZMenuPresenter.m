@@ -42,6 +42,8 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
                                                object:nil];
     
     self.photoHelper = [PhotoLibraryHelper new];
+    
+    [self.interactor checkAvatarForUpdate];
 }
 
 - (void)editFriendsUnlockedNotification:(NSNotificationCenter *)notification

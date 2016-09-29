@@ -12,6 +12,8 @@
 #import "ZZRollbarAdapter.h"
 #import "ZZUpdateHelper.h"
 
+@import AWSS3;
+
 @implementation ZZStartInteractor
 
 - (void)checkVersionStateAndSession
@@ -48,10 +50,8 @@
         });
 
         [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeVideo] subscribeNext:^(id x) {
-        }];
-        [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeAvatar] subscribeNext:^(id x) {
-        }];
         
+        }];
     }
     else
     {
