@@ -20,9 +20,18 @@
     self = [super init];
     if (self)
     {
+        if (type == ZZCredentialsTypeVideo) // for compability with older builds
+        {
+            type = nil;
+        }
+        
         if (type != nil)
         {
             type = [NSString stringWithFormat:@"%@-", type];
+        }
+        else
+        {
+            type = @"";
         }
         
         _regionKey = [NSString stringWithFormat:@"%@%@", type, ZZS3CredentialsDomainModelAttributes.region];
