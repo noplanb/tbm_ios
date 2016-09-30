@@ -174,6 +174,7 @@
             break;
     }
     NSString *line = [NSString stringWithFormat:@"%@ %@: %@\n",[self logPrefix],logLevel,message];
+    [self.logFileHandle seekToEndOfFile];
     [self.logFileHandle writeData:[line dataUsingEncoding:NSUTF8StringEncoding]];
     [self.logFileHandle synchronizeFile];
 }
