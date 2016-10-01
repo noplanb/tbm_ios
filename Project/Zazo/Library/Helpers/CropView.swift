@@ -34,6 +34,8 @@ class CropView: UIView, UIScrollViewDelegate {
         
         navigationBar.barStyle = .BlackTranslucent
         overlayView.userInteractionEnabled = false
+        
+        clipsToBounds = true
     }
     
     convenience init() {
