@@ -18,8 +18,6 @@
 #import "ZZGridDataProvider.h"
 #import "ZZGridDomainModel.h"
 #import "ZZRootStateObserver.h"
-#import "SVProgressHUD.h"
-
 
 @interface ZZEditFriendListInteractor ()
 

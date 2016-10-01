@@ -87,6 +87,18 @@
     self.menuView.headerView.imageView.image = image;
 }
 
+- (void)showLoading:(BOOL)visible
+{
+    if (visible)
+    {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+    }
+    else
+    {
+        [SVProgressHUD dismiss];
+    }
+}
+
 #pragma mark Menu Controller delegate
 
 - (void)controller:(ZZMenuController *)controller didSelectModel:(ZZMenuCellModel *)model
