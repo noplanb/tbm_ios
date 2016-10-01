@@ -27,4 +27,6 @@
 
 - (UIImage *)an_imageByTintingWithColor:(UIColor *)color;
 
+- (UIImage *)imageByNormalizingOrientation;
+
 @end

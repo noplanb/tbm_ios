@@ -103,7 +103,9 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     func cropViewControllerDidComplete(controller: CropViewController, with rect: CGRect) {
         
-        guard let CGImage = controller.image?.CGImage else {
+        let image = controller.image?.imageByNormalizingOrientation()
+        
+        guard let CGImage = image?.CGImage else {
             didFailToScale()
             return
         }
