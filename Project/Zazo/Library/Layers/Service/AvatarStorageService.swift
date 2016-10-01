@@ -63,7 +63,11 @@ class AvatarStorageService: NSObject {
             return nil;
         }
         
-        guard let image = UIImage(contentsOfFile: avatarFileURL.absoluteString) else {
+        guard let path = avatarFileURL.absoluteString else {
+            return nil
+        }
+        
+        guard let image = UIImage(contentsOfFile: path) else {
             return nil
         }
         
@@ -74,7 +78,11 @@ class AvatarStorageService: NSObject {
     
     private var isAvatarExists: Bool {
         get {
-            return fileManager.fileExistsAtPath(avatarFileURL.absoluteString)
+            guard let path = avatarFileURL.absoluteString else {
+                return false
+            }
+            
+            return fileManager.fileExistsAtPath(path)
         }
     }
 }

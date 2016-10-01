@@ -121,7 +121,10 @@ class CropViewController: UIViewController {
         
         let context = CIContext()
         let opts = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
-        let detector = CIDetector(ofType: CIDetectorTypeFace, context: context, options: opts)
+        
+        guard let detector = CIDetector(ofType: CIDetectorTypeFace, context: context, options: opts) else {
+            return nil
+        }
         
         let _image = image.CGImage != nil ? CIImage(CGImage: image.CGImage!) : image.CIImage
         
