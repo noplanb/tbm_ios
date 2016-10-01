@@ -203,6 +203,11 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)updateAvatarWithImage:(UIImage *)image
 {
+    if (!image)
+    {
+        return;
+    }
+    
     [self.userInterface showLoading:YES];
     [self.interactor uploadAvatar:image];
 }

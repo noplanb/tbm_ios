@@ -21,5 +21,7 @@
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model;
 - (void)currentAvatarWasChanged:(UIImage *)avatar;
 - (void)avatarUpdateDidComplete;
+- (void)avatarFetchDidComplete;
 - (void)avatarUpdateDidFail;
+
 @end

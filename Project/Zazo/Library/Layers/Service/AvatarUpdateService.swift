@@ -9,7 +9,8 @@
 import Foundation
 
 @objc protocol AvatarUpdateServiceDelegate: class {
-    func avatarNeedsToBeUpdated(with timestamp: NSTimeInterval, completion: ANCodeBlock)
+    func updateAvatar(with timestamp: NSTimeInterval, completion: ANCodeBlock)
+    func avatarRemoved()
     func avatarFetchFailed(errorText: String)
 }
 
@@ -49,12 +50,17 @@ class AvatarUpdateService: NSObject {
     
     private func handleResult(result: GetAvatarResponse) {
         
+        guard result.data.useAsThumbnail == .Avatar else {
+            self.delegate?.avatarRemoved()
+            return
+        }
+        
         let currentTimestamp = result.data.timestamp ?? 0
         guard currentTimestamp > lastTimestamp else {
             return
         }
         
-        self.delegate!.avatarNeedsToBeUpdated(with: currentTimestamp) {
+        self.delegate!.updateAvatar(with: currentTimestamp) {
             self.lastTimestamp = currentTimestamp
         }
     }

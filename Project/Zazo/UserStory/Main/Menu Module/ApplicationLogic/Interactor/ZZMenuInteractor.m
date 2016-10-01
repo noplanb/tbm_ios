@@ -44,6 +44,7 @@
 
 - (void)checkAvatarForUpdate
 {
+    [self.output currentAvatarWasChanged:[self.storageService get]];    
     [self updateConfiguration];
     
     if (self.areCredentialsLoaded)
@@ -113,6 +114,7 @@
     [self.output currentAvatarWasChanged:nil];
 }
 
+- (void)updateAvatarWith:(NSTimeInterval)timestamp completion:(ANCodeBlock)completion
 {
     ANDispatchBlockToBackgroundQueue(^{
         
@@ -136,9 +138,11 @@
             CGFloat scale = [UIScreen mainScreen].scale;
             AWSS3GetObjectOutput *output = (AWSS3GetObjectOutput*)task.result;
             UIImage *image = [UIImage imageWithData:output.body scale:scale];
+            [self.storageService updateWith:image];
             
             ANDispatchBlockToMainQueue(^{
                 [self.output currentAvatarWasChanged:image];
+                [self.output avatarFetchDidComplete];
             });
 
             return nil;
@@ -148,7 +152,7 @@
 
 - (void)avatarFetchFailed:(NSString * _Nonnull)errorText
 {
-    
+    [self.output avatarUpdateDidFail];
 }
 
 @end
