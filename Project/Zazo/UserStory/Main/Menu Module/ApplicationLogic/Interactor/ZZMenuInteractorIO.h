@@ -11,6 +11,7 @@
 - (void)checkAvatarForUpdate;
 - (void)uploadAvatar:(UIImage *)image;
 - (void)loadFeedbackModel;
+- (void)removeAvatar;
 
 @end
 
@@ -21,5 +22,4 @@
 - (void)currentAvatarWasChanged:(UIImage *)avatar;
 - (void)avatarUpdateDidComplete;
 - (void)avatarUpdateDidFail;
-
 @end

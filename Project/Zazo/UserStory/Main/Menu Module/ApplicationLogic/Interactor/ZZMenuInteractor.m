@@ -98,16 +98,21 @@
 
 - (void)removeAvatar
 {
-//    [[self.networkService legacyDelete] subscribeError:^(NSError *error) {
-//        
-//    } completed:^{
-//        
-//    }];
+    [[self.networkService legacyDelete] subscribeError:^(NSError *error) {
+        [self.output avatarUpdateDidFail];
+    } completed:^{
+        [self.output avatarUpdateDidComplete];
+    }];
 }
 
 // MARK: AvatarUpdateServiceDelegate
 
-- (void)avatarNeedsToBeUpdatedWith:(NSTimeInterval)timestamp completion:(ANCodeBlock)completion
+- (void)avatarRemoved
+{
+    [self.storageService remove];
+    [self.output currentAvatarWasChanged:nil];
+}
+
 {
     ANDispatchBlockToBackgroundQueue(^{
         
