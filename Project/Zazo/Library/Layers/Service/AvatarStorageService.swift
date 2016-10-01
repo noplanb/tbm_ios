@@ -34,22 +34,20 @@ class AvatarStorageService: NSObject {
         
         remove()
         
-        fileManager.createFileAtPath(avatarFileURL.absoluteString, contents: data, attributes: nil)
+        if !data.writeToURL(avatarFileURL, atomically: true) {
+            logError("avatar saving failed: \(errno) \(String.fromCString(strerror(errno)))")
+        }
     }
     
     /**
      Removes avatar from storage
      */
     func remove() {
-        guard isAvatarExists else {
-            return;
-        }
-        
         do {
            try fileManager.removeItemAtURL(avatarFileURL)
         }
         catch {
-            logError("avatar deletion error: \(error)")
+            
         }
     }
     
@@ -59,30 +57,17 @@ class AvatarStorageService: NSObject {
      - returns: avatar
      */
     func get() -> UIImage? {
-        guard isAvatarExists else {
-            return nil;
-        }
-        
-        guard let path = avatarFileURL.absoluteString else {
+    
+        guard let imageData = NSData(contentsOfURL: avatarFileURL) else {
             return nil
         }
         
-        guard let image = UIImage(contentsOfFile: path) else {
+        let screenScale = UIScreen.mainScreen().scale
+        
+        guard let image = UIImage(data: imageData, scale: screenScale) else {
             return nil
         }
         
         return image
-    }
-    
-    // MARK: Private
-    
-    private var isAvatarExists: Bool {
-        get {
-            guard let path = avatarFileURL.absoluteString else {
-                return false
-            }
-            
-            return fileManager.fileExistsAtPath(path)
-        }
     }
 }
