@@ -1292,6 +1292,7 @@
 		158297211D5362050028AEF0 /* ZZVideoObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZVideoObserver.m; sourceTree = "<group>"; };
 		1583CDB31C92C696001B30D1 /* ZZDownloadErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZDownloadErrorHandler.h; sourceTree = "<group>"; };
 		1583CDB41C92C696001B30D1 /* ZZDownloadErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZDownloadErrorHandler.m; sourceTree = "<group>"; };
+		158805941D9FBCA300023332 /* tbm-v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "tbm-v4.xcdatamodel"; sourceTree = "<group>"; };
 		15895F501CB7B61D0040D8E3 /* ANBaseListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseListTableCell.h; sourceTree = "<group>"; };
 		15895F511CB7B61D0040D8E3 /* ANBaseListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseListTableCell.m; sourceTree = "<group>"; };
 		15895F531CB7B61D0040D8E3 /* ANBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseVC.h; sourceTree = "<group>"; };
@@ -7238,11 +7239,12 @@
 		15B822FE1CB7BBD4006473E1 /* tbm.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				158805941D9FBCA300023332 /* tbm-v4.xcdatamodel */,
 				3E3097C01D4A24AF0010A482 /* tbm-v3.xcdatamodel */,
 				15B822FF1CB7BBD4006473E1 /* tbm-v2.xcdatamodel */,
 				15B823001CB7BBD4006473E1 /* tbm.xcdatamodel */,
 			);
-			currentVersion = 3E3097C01D4A24AF0010A482 /* tbm-v3.xcdatamodel */;
+			currentVersion = 158805941D9FBCA300023332 /* tbm-v4.xcdatamodel */;
 			path = tbm.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
