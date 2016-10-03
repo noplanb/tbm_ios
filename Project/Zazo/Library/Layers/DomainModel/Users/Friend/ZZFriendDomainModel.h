@@ -37,6 +37,9 @@ extern const struct ZZFriendDomainModelAttributes
     __unsafe_unretained NSString *abilities;
     __unsafe_unretained NSString *abilitiesArray;
     __unsafe_unretained NSString *cid;
+    __unsafe_unretained NSString *avatarTimestamp;
+    __unsafe_unretained NSString *useAsThumbnail;
+    
 } ZZFriendDomainModelAttributes;
 
 @interface ZZFriendDomainModel : ZZBaseDomainModel <ZZUserInterface>
@@ -77,6 +80,9 @@ extern const struct ZZFriendDomainModelAttributes
 
 @property (nonatomic, assign) ZZFriendAbilities abilities;
 @property (nonatomic, strong) NSArray <NSString *> *abilitiesArray;
+
+@property (nonatomic, assign) NSTimeInterval avatarTimestamp;
+@property (nonatomic, strong) NSString *useAsThumbnail;
 
 + (FEMObjectMapping *)mapping;
 - (NSString *)fullName;

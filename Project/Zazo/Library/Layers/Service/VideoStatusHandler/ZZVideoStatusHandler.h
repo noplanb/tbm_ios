@@ -30,7 +30,6 @@
 + (instancetype)sharedInstance;
 
 - (void)addVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
-
 - (void)removeVideoStatusHandlerObserver:(id <ZZVideoStatusHandlerDelegate>)observer;
 
 - (void)notifyOutgoingVideoWithStatus:(ZZVideoOutgoingStatus)status
@@ -54,7 +53,6 @@
 
 
 - (void)notifyFriendChangedWithId:(NSString *)friendID;
-
 - (void)notifyVideoID:(NSString *)videoID downloadProgress:(CGFloat)progress;
 
 - (void)setAndNotityViewedIncomingVideoWithFriendID:(NSString *)friendID videoID:(NSString *)videoID;

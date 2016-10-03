@@ -10,7 +10,6 @@
 
 #import "ZZGridCellViewModel.h"
 #import "ZZVideoDomainModel.h"
-#import "ZZThumbnailGenerator.h"
 #import "ZZStoredSettingsManager.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZFriendDataHelper.h"
@@ -95,7 +94,7 @@
         return ZZCellStateAdd;
     }
     
-    if (self.hasThumbnail)
+    if (self.thumbnail)
     {
         return ZZCellStatePreview;
     }
@@ -175,15 +174,15 @@
 
 #pragma mark - Video Thumbnail
 
-- (UIImage *)videoThumbnailImage
-{
-
-#ifdef MAKING_SCREENSHOTS
-    return [UIImage imageNamed:[NSString stringWithFormat:@"prethumb%ld", (long)self.item.index + 1]];
-#endif
-
-    return [self _videoThumbnail];
-}
+//- (UIImage *)videoThumbnailImage
+//{
+//
+//#ifdef MAKING_SCREENSHOTS
+//    return [UIImage imageNamed:[NSString stringWithFormat:@"prethumb%ld", (long)self.item.index + 1]];
+//#endif
+//
+//    return [self _videoThumbnail];
+//}
 
 - (void)setupRecorderRecognizerOnView:(UIView *)view
                 withAnimationDelegate:(id <ZZGridCellViewModelAnimationDelegate>)animationDelegate
@@ -283,32 +282,6 @@
         }
     }
 }
-
-#pragma mark - Generate Thumbnail
-
-- (UIImage *)_videoThumbnail
-{
-    NSSortDescriptor *sortDescriptor =
-            [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
-
-    NSPredicate *predicate =
-            [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
-
-    NSArray *videoModels = self.item.relatedUser.videos;
-
-    videoModels = [videoModels filteredArrayUsingPredicate:predicate];
-    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
-
-    ZZVideoDomainModel *lastModel = [videoModels lastObject];
-
-    if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
-    {
-        [ZZThumbnailGenerator generateThumbVideo:lastModel];
-    }
-
-    return [ZZThumbnailGenerator lastThumbImageForFriendID :self.item.relatedUser.idTbm];
-}
-
 
 #pragma mark  - Video Play Validation
 

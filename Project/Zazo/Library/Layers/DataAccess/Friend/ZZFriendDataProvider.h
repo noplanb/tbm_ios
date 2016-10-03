@@ -8,6 +8,8 @@
 
 #import "ZZFriendDomainModel.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZZFriendDataProvider : NSObject
 
 #pragma mark - Model fetching
@@ -20,11 +22,13 @@
 
 + (NSArray *)friendsOnGrid;
 
-+ (ZZFriendDomainModel *)friendWithItemID:(NSString *)itemID;
++ (nullable ZZFriendDomainModel *)friendWithItemID:(NSString *)itemID;
 
-+ (ZZFriendDomainModel *)friendWithMKeyValue:(NSString *)mKeyValue;
++ (nullable ZZFriendDomainModel *)friendWithMKeyValue:(NSString *)mKeyValue;
 
-+ (ZZFriendDomainModel *)friendWithMobileNumber:(NSString *)mobileNumber;
++ (nullable ZZFriendDomainModel *)friendWithMobileNumber:(NSString *)mobileNumber;
+
++ (nullable UIImage *)avatarOfFriendWithID:(nonnull NSString *)friendID;
 
 #pragma mark - Other
 
@@ -34,6 +38,8 @@
 
 + (BOOL)isFriendExistsWithItemID:(NSString *)itemID;
 
-+ (ZZFriendDomainModel *)lastActionFriendWithoutGrid;
++ (nullable ZZFriendDomainModel *)lastActionFriendWithoutGrid;
 
 @end
+
+NS_ASSUME_NONNULL_END

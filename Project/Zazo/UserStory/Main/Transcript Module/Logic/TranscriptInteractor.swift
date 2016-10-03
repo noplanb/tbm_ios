@@ -22,7 +22,10 @@ class TranscriptInteractor: TranscriptLogic {
         
         self.stopRecognition()
         
-        let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
+        guard let friendModel = ZZFriendDataProvider.friendWithItemID(friendID) else  {
+            return false
+        }
+        
         let videos = friendModel.videos.filter{ $0.incomingStatusValue == .Downloaded || $0.incomingStatusValue == .Viewed }
         let messages = friendModel.messages
         let alreadyRecognized = videos.filter{ $0.transcription != nil }
@@ -107,7 +110,7 @@ class TranscriptInteractor: TranscriptLogic {
     
     func fetchFriendData(forID friendID: String) -> (thumbnail: UIImage?, friendModel: ZZFriendDomainModel) {
         
-        let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)
+        let friendModel = ZZFriendDataProvider.friendWithItemID(friendID)!
         let thumb = ZZThumbnailGenerator.thumbImageForUser(friendModel)
         return (thumb, friendModel)
         

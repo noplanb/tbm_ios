@@ -12,6 +12,8 @@
 
 const struct TBMFriendAttributes TBMFriendAttributes = {
     .abilities = @"abilities",
+    .avatarImage = @"avatarImage",
+    .avatarTimestamp = @"avatarTimestamp",
     .cid = @"cid",
     .ckey = @"ckey",
     .everSent = @"everSent",
@@ -73,6 +75,12 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
     if ([key isEqualToString:@"abilitiesValue"])
     {
         NSSet *affectingKey = [NSSet setWithObject:@"abilities"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+        return keyPaths;
+    }
+    if ([key isEqualToString:@"avatarTimestampValue"])
+    {
+        NSSet *affectingKey = [NSSet setWithObject:@"avatarTimestamp"];
         keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
         return keyPaths;
     }
@@ -145,6 +153,21 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 - (void)setAbilitiesValue:(int32_t)value_
 {
     [self setAbilities:@(value_)];
+}
+
+@dynamic avatarImage;
+
+@dynamic avatarTimestamp;
+
+- (double)avatarTimestampValue
+{
+    NSNumber *result = [self avatarTimestamp];
+    return [result doubleValue];
+}
+
+- (void)setAvatarTimestampValue:(double)value_
+{
+    [self setAvatarTimestamp:@(value_)];
 }
 
 @dynamic cid;

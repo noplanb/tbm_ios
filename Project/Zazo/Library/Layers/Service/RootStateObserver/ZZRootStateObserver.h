@@ -15,7 +15,9 @@ typedef NS_ENUM(NSInteger, ZZRootStateObserverEvents)
     ZZRootStateObserverEventFriendWasAddedToGridWithVideo,
     ZZRootStateObserverEventFriendInContactChangeStauts,
     ZZRootStateObserverEventResetAllLoaderTask,
-    ZZRootStateObserverEventFriendAbilitiesChanged
+    ZZRootStateObserverEventFriendAbilitiesChanged,
+    ZZRootStateObserverEventAvatarChanged,
+    
 };
 
 @protocol ZZRootStateObserverDelegate <NSObject>

@@ -62,14 +62,13 @@ typedef NS_ENUM(NSUInteger, ZZCellVideoState) {
 @property (nonatomic, assign) BOOL hasUploadedVideo;
 @property (nonatomic, assign) BOOL hasDownloadedVideo;
 @property (nonatomic, assign) BOOL hasActiveContactIcon;
-@property (nonatomic, assign) BOOL hasThumbnail;
 @property (nonatomic, assign) BOOL hasMessages;
 @property (nonatomic, strong) NSDate *lastMessageDate;
 @property (nonatomic, assign, readonly) BOOL isRecording;
 @property (nonatomic, weak) UILabel *usernameLabel;
+@property (nonatomic, strong) UIImage *thumbnail;
 
 - (NSString *)firstName;
-- (UIImage *)videoThumbnailImage;
 
 - (ZZCellState)friendState;
 - (ZZCellVideoState)videoState;

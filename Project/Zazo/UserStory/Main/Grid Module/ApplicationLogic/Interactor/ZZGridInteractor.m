@@ -27,6 +27,7 @@
 #import "ZZSettingsManager.h"
 #import "ZZApplicationRootService.h"
 #import "ZZMessageDomainModel.h"
+#import "ZZThumbnailGenerator.h"
 
 static NSInteger const kGridFriendsCellCount = 8;
 
@@ -35,10 +36,13 @@ static NSInteger const kGridFriendsCellCount = 8;
         ZZVideoStatusHandlerDelegate,
         ZZRootStateObserverDelegate,
         ZZGridUpdateServiceDelegate,
-        MessageEventsObserver
+        MessageEventsObserver,
+        FriendsAvatarsServiceDelegate
         >
 
 @property (nonatomic, strong) ZZGridUpdateService *gridUpdateService;
+@property (nonatomic, strong) FriendsAvatarsService *avatarsService;
+
 
 @end
 
@@ -55,7 +59,10 @@ static NSInteger const kGridFriendsCellCount = 8;
 
         self.gridUpdateService = [ZZGridUpdateService new];
         self.gridUpdateService.delegate = self;
-
+        
+        self.avatarsService = [FriendsAvatarsService new];
+        self.avatarsService.delegate = self;
+        [[ZZRootStateObserver sharedInstance] addRootStateObserver:self.avatarsService];
     }
 
     return self;
@@ -71,8 +78,6 @@ static NSInteger const kGridFriendsCellCount = 8;
 {
     [self.output dataLoadedWithArray:[self _gridModels]];
     [self _configureFeatureObserver];
-    
-
 }
 
 - (void)reloadDataAfterResetUserData
@@ -111,7 +116,6 @@ static NSInteger const kGridFriendsCellCount = 8;
     if (isContainedOnGrid)
     {
         ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
-        
         gridModel = [ZZGridDataUpdater updateRelatedUserOnItemID:gridModel.itemID toValue:nil];
         
         [self updateLastActionForFriend:model];
@@ -650,6 +654,48 @@ static NSInteger const kGridFriendsCellCount = 8;
         [self.output reloadAfterMessageUpdateGridModel:gridModel];
     }
 
+}
+
+#pragma mark ZZThumbnailProvider
+
+- (UIImage *)thumbnailForFriend:(ZZFriendDomainModel *)friendModel
+{
+    return [self.avatarsService avatarForFriendForFriend: friendModel] ?: [self _videoThumbnailForFriend:friendModel];
+}
+
+- (UIImage *)_videoThumbnailForFriend:(ZZFriendDomainModel *)friendModel
+{
+    NSSortDescriptor *sortDescriptor =
+    [[NSSortDescriptor alloc] initWithKey:@"videoID" ascending:YES];
+    
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"%K = %@", ZZVideoDomainModelAttributes.status, @(ZZVideoIncomingStatusDownloaded)];
+    
+    NSArray *videoModels = friendModel.videos;
+    
+    videoModels = [videoModels filteredArrayUsingPredicate:predicate];
+    videoModels = [videoModels sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    ZZVideoDomainModel *lastModel = [videoModels lastObject];
+    
+    if (![ZZThumbnailGenerator hasThumbForVideo:lastModel])
+    {
+        [ZZThumbnailGenerator generateThumbVideo:lastModel];
+    }
+    
+    return [ZZThumbnailGenerator lastThumbImageForFriendID :friendModel.idTbm];
+}
+
+#pragma mark FriendsAvatarsServiceDelegate
+
+- (void)didDownloadAvatarForFriend:(ZZFriendDomainModel * _Nonnull)friendModel
+{
+    ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+    
+    if (gridModel)
+    {
+        [self.output reloadGridModel:gridModel];
+    }
 }
 
 @end

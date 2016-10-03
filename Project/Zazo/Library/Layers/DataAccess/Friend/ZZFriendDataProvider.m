@@ -99,6 +99,15 @@
     });
 }
 
++ (UIImage *)avatarOfFriendWithID:(NSString *)friendID
+{
+    return ZZDispatchOnMainThreadAndReturn(^id{
+        TBMFriend *friendEntity = [self friendEntityWithItemID:friendID];
+        UIImage *image = [UIImage imageWithData:friendEntity.avatarImage];
+        return image;
+    });
+}
+
 #pragma mark - Other
 
 + (NSSet <NSString *> *)allUsernamesExceptFriendWithID:(NSString *)friendID

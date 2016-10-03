@@ -47,6 +47,7 @@
     entity.isFriendshipCreator = @([model isCreator]);
 
     entity.abilities = @(model.abilities);
+    entity.avatarTimestampValue = model.avatarTimestamp;
     
     return entity;
 }
@@ -82,6 +83,7 @@
         
         model.hasOutgoingVideo = !ANIsEmpty(entity.outgoingVideoId);
         model.friendshipCreatorMkey = entity.friendshipCreatorMKey;
+        model.avatarTimestamp = entity.avatarTimestamp.doubleValue;
         
         model.abilities = entity.abilitiesValue;
     }

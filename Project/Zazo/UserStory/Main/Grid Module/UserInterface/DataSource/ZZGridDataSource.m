@@ -51,7 +51,6 @@ static NSInteger const kGridCenterCellIndex = 4;
     models = [[models.rac_sequence map:^id(ZZGridDomainModel *value) {
 
         ZZGridCellViewModel *viewModel = [ZZGridCellViewModel new];
-//        value.isDownloadAnimationViewed = !self.wasInitialSetuped;
         [self _configureCellViewModel:viewModel withDomainModel:value];
         return viewModel;
     }] array];
@@ -124,9 +123,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 
     viewModel.hasDownloadedVideo = [model.relatedUser hasDownloadedVideo];
     viewModel.hasMessages = !ANIsEmpty(model.relatedUser.messages);
-    viewModel.hasThumbnail = [ZZThumbnailGenerator hasLastThumbForUser:model.relatedUser];
+//    viewModel.hasThumbnail = [ZZThumbnailGenerator hasLastThumbForUser:model.relatedUser];
     viewModel.hasUploadedVideo = [model.relatedUser hasOutgoingVideo];
-
+    
+    viewModel.thumbnail = [self.thumbProvider thumbnailForFriend:model.relatedUser];
+    
     viewModel.isUploadedVideoViewed =
             model.relatedUser.lastOutgoingVideoStatus == ZZVideoOutgoingStatusViewed;
 

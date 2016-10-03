@@ -35,6 +35,8 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
         .cid = @"cid",
         .abilities = @"abilities",
         .abilitiesArray = @"abilitiesArray",
+        .avatarTimestamp = @"avatarTimestamp",
+        .useAsThumbnail = @"useAsThumbnail"
 };
 
 @implementation ZZFriendDomainModel
@@ -62,15 +64,17 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
 
         [mapping addAttributesFromDictionary:
                 @{ZZFriendDomainModelAttributes.firstName : @"first_name",
-                        ZZFriendDomainModelAttributes.lastName : @"last_name",
-                        ZZFriendDomainModelAttributes.mobileNumber : @"mobile_number",
-                        ZZFriendDomainModelAttributes.idTbm : @"id",
-                        ZZFriendDomainModelAttributes.mKey : @"mkey",
-                        ZZFriendDomainModelAttributes.cKey : @"ckey",
-                        ZZFriendDomainModelAttributes.friendshipStatus : @"connection_status",
-                        ZZFriendDomainModelAttributes.friendshipCreatorMkey : @"connection_creator_mkey",
-                        ZZFriendDomainModelAttributes.cid : @"cid",
-                        ZZFriendDomainModelAttributes.abilitiesArray: @"abilities",
+                    ZZFriendDomainModelAttributes.lastName : @"last_name",
+                    ZZFriendDomainModelAttributes.mobileNumber : @"mobile_number",
+                    ZZFriendDomainModelAttributes.idTbm : @"id",
+                    ZZFriendDomainModelAttributes.mKey : @"mkey",
+                    ZZFriendDomainModelAttributes.cKey : @"ckey",
+                    ZZFriendDomainModelAttributes.friendshipStatus : @"connection_status",
+                    ZZFriendDomainModelAttributes.friendshipCreatorMkey : @"connection_creator_mkey",
+                    ZZFriendDomainModelAttributes.cid : @"cid",
+                    ZZFriendDomainModelAttributes.abilitiesArray: @"abilities",
+                    ZZFriendDomainModelAttributes.avatarTimestamp: @"avatar.timestamp",
+                    ZZFriendDomainModelAttributes.useAsThumbnail: @"avatar.use_as_thumbnail"
                 }];
 
         FEMAttribute *attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp

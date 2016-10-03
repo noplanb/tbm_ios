@@ -27,7 +27,11 @@ import Foundation
     }
     
     @objc func handleNewMessage(notification m: ZZMessageNotificationDomainModel) {        
-        let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey)
+        
+        guard let friendModel = ZZFriendDataProvider.friendWithMKeyValue(m.from_mkey) else {
+            return
+        }
+        
         let messageModel = ZZMessageDomainModel()
         
         messageModel.body = m.body

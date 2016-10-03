@@ -14,6 +14,6 @@ extern NSString * const ZZCredentialsTypeAvatar;
 @interface ZZKeychainDataProvider : NSObject
 
 + (void)updateWithCredentials:(ZZS3CredentialsDomainModel *)model;
-+ (ZZS3CredentialsDomainModel *)loadCredentialsOfType:(NSString *)type;
++ (nullable ZZS3CredentialsDomainModel *)loadCredentialsOfType:(NSString *)type;
 
 @end

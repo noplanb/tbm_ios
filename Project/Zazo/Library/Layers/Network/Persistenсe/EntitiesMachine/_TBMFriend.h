@@ -10,6 +10,8 @@
 
 extern const struct TBMFriendAttributes {
 	__unsafe_unretained NSString *abilities;
+	__unsafe_unretained NSString *avatarImage;
+	__unsafe_unretained NSString *avatarTimestamp;
 	__unsafe_unretained NSString *cid;
 	__unsafe_unretained NSString *ckey;
 	__unsafe_unretained NSString *everSent;
@@ -57,6 +59,18 @@ extern const struct TBMFriendRelationships {
 - (void)setAbilitiesValue:(int32_t)value_;
 
 //- (BOOL)validateAbilities:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSData* avatarImage;
+
+//- (BOOL)validateAvatarImage:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* avatarTimestamp;
+
+@property (atomic) double avatarTimestampValue;
+- (double)avatarTimestampValue;
+- (void)setAvatarTimestampValue:(double)value_;
+
+//- (BOOL)validateAvatarTimestamp:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* cid;
 
@@ -205,6 +219,15 @@ extern const struct TBMFriendRelationships {
 
 - (int32_t)primitiveAbilitiesValue;
 - (void)setPrimitiveAbilitiesValue:(int32_t)value_;
+
+- (NSData*)primitiveAvatarImage;
+- (void)setPrimitiveAvatarImage:(NSData*)value;
+
+- (NSNumber*)primitiveAvatarTimestamp;
+- (void)setPrimitiveAvatarTimestamp:(NSNumber*)value;
+
+- (double)primitiveAvatarTimestampValue;
+- (void)setPrimitiveAvatarTimestampValue:(double)value_;
 
 - (NSNumber*)primitiveCid;
 - (void)setPrimitiveCid:(NSNumber*)value;

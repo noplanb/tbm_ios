@@ -57,9 +57,12 @@
     self.actionHandler.delegate = self;
     self.actionHandler.userInterface = self.userInterface;
 
-    self.dataSource = [ZZGridDataSource new];
-    self.dataSource.delegate = self;
-    self.dataSource.presenter = self;
+    ZZGridDataSource *dataSource = [ZZGridDataSource new];
+    dataSource.delegate = self;
+    dataSource.presenter = self;
+    dataSource.thumbProvider = self.interactor;
+    self.dataSource = dataSource;
+    
     [self.userInterface updateWithDataSource:self.dataSource];
 
     [self _setupNotifications];

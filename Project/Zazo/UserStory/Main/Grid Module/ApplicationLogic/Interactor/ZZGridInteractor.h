@@ -7,8 +7,9 @@
 //
 
 #import "ZZGridInteractorIO.h"
+#import "ZZGridDataSource.h"
 
-@interface ZZGridInteractor : NSObject <ZZGridInteractorInput>
+@interface ZZGridInteractor : NSObject <ZZGridInteractorInput, ZZThumbnailProvider>
 
 @property (nonatomic, weak) id <ZZGridInteractorOutput, ZZGridInteractorOutputActionHandler> output;
 

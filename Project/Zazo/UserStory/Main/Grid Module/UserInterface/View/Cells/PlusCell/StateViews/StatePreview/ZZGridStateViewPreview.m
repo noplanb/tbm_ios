@@ -67,8 +67,8 @@
 
 - (void)_setupThumbnailWithModel:(ZZGridCellViewModel *)model
 {
-    UIImage *thumbImage = [model videoThumbnailImage];
-
+    UIImage *thumbImage = model.thumbnail;
+    
     if (thumbImage)
     {
         self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;

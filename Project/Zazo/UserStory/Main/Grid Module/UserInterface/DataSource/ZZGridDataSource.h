@@ -13,13 +13,20 @@
 @class ANMemoryStorage;
 @class ZZGridDomainModel;
 @class ZZGridCellViewModel;
-@class TBMFriend;
+
+@protocol ZZThumbnailProvider <NSObject>
+
+- (UIImage *)thumbnailForFriend:(ZZFriendDomainModel *)friendModel;
+
+@end
 
 @interface ZZGridDataSource : NSObject
 
 @property (nonatomic, weak) id <ZZGridModelPresenterInterface> presenter;
 @property (nonatomic, weak) id <ZZGridDataSourceDelegate> delegate;
 @property (nonatomic, weak) id <ZZGridDataSourceControllerDelegate> controllerDelegate;
+
+@property (nonatomic, weak) id<ZZThumbnailProvider> thumbProvider;
 
 - (void)setupWithModels:(NSArray *)models;
 
