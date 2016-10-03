@@ -8,6 +8,7 @@
 
 
 #import "ZZMigrationManager.h"
+#import "MHWMigrationManager.h"
 
 static NSString *const kSourceBaseName = @"tbm";
 static NSString *const kDestinationBaseName = @"tbm-v2";
@@ -22,7 +23,7 @@ static NSString *const kDestinationBaseName = @"tbm-v2";
     BOOL isMigrationNeeded = YES;
 
     NSError *error = nil;
-    NSURL *storeUrl = [self sourceUrl];
+    NSURL *storeUrl = [self destinationUrl];
 
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
                                                                                               URL:storeUrl
@@ -43,53 +44,25 @@ static NSString *const kDestinationBaseName = @"tbm-v2";
 
 - (BOOL)migrate
 {
-
-//    NSURL *sourceUrl = [self sourceUrl];
-//    NSError *error = nil;
-//    NSManagedObjectModel *destinationModel = self.coordinator.managedObjectModel;
-//
-//    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType
-//                                                                                              URL:sourceUrl
-//                                                                                            error:&error];
-//
-//    if (!sourceMetadata)
-//    {
-//        ZZLogError(@"metadataForPersistentStoreOfType: %@", error);
-//        return NO;
-//    }
-//
-//    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
-//
-//    NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel
-//                                                                     destinationModel:destinationModel
-//                                                                                error:&error];
-//
-//    if (!mappingModel)
-//    {
-//        ZZLogError(@"inferredMappingModelForSourceModel: %@", error);
-//        return NO;
-//    }
-//
-//    NSMigrationManager *migrationManager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
-//    
-//    
-//    NSDictionary *options = nil;// @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-//                              //NSInferMappingModelAutomaticallyOption: @YES};
-//    
-//    if (![migrationManager migrateStoreFromURL:sourceUrl
-//                                                 type:NSSQLiteStoreType
-//                                              options:options
-//                                     withMappingModel:mappingModel
-//                                     toDestinationURL:nil
-//                                      destinationType:NSSQLiteStoreType
-//                                   destinationOptions:options
-//                                                error:&error])
-//    {
-//        ZZLogError(@"migrateStoreFromURL: %@", error);
-//        return NO;
-//    }
-//
-    return  YES;
+    MHWMigrationManager *migrationManager = [MHWMigrationManager new];
+//    migrationManager.delegate = self;
+    
+    NSError *error = nil;
+    
+    BOOL OK = [migrationManager progressivelyMigrateURL:[self destinationUrl]
+                                                 ofType:NSSQLiteStoreType
+                                                toModel:[self managedObjectModel]
+                                                  error:&error];
+    if (OK)
+    {
+        NSLog(@"migration complete");
+    }
+    else
+    {
+        NSLog(@"migration error: %@", error.localizedDescription);
+    }
+    
+    return OK;
 }
 
 
@@ -150,11 +123,6 @@ static NSString *const kDestinationBaseName = @"tbm-v2";
     }
 
     return _managedObjectModel;
-}
-
-- (NSURL *)sourceUrl
-{
-    return [NSURL fileURLWithPath:[[self applicationDocumentsDirectory].path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", kDestinationBaseName]]];
 }
 
 - (NSURL *)destinationUrl
