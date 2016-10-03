@@ -5,13 +5,16 @@
 
 @class ANMessageDomainModel;
 
+typedef void(^UploadCompletion)(NSError *error);
+
 @protocol ZZMenuInteractorInput <NSObject>
 
 - (NSString *)username;
 - (void)checkAvatarForUpdate;
-- (void)uploadAvatar:(UIImage *)image;
+- (void)uploadAvatar:(UIImage *)image completion:(UploadCompletion)completion;
+- (void)removeAvatarCompletion:(UploadCompletion)completion;
 - (void)loadFeedbackModel;
-- (void)removeAvatar;
+- (BOOL)hasAvatar;
 
 @end
 
@@ -20,7 +23,6 @@
 
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model;
 - (void)currentAvatarWasChanged:(UIImage *)avatar;
-- (void)avatarUpdateDidComplete;
 - (void)avatarFetchDidComplete;
 - (void)avatarUpdateDidFail;
 

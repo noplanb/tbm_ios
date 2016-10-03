@@ -16,6 +16,7 @@
 @interface ZZMenuInteractor ()
 
 @property (nonatomic, assign) BOOL areCredentialsLoaded;
+@property (nonatomic, strong) UIImage *imageForRetry;
 
 @end
 
@@ -60,7 +61,11 @@
             [self.updateService checkUpdate];
         }
     }];
+}
 
+- (BOOL)hasAvatar
+{
+    return self.storageService.get != nil;
 }
 
 - (BOOL)updateConfiguration
@@ -88,21 +93,21 @@
     return YES;
 }
 
-- (void)uploadAvatar:(UIImage *)image;
+- (void)uploadAvatar:(UIImage *)image completion:(UploadCompletion)completion;
 {
     [[self.networkService legacySet:image] subscribeError:^(NSError *error) {
-        [self.output avatarUpdateDidFail];
+        completion(error);
     } completed:^{
-        [self.output avatarUpdateDidComplete];
+        completion(nil);
     }];
 }
 
-- (void)removeAvatar
+- (void)removeAvatarCompletion:(UploadCompletion)completion
 {
     [[self.networkService legacyDelete] subscribeError:^(NSError *error) {
-        [self.output avatarUpdateDidFail];
+        completion(error);
     } completed:^{
-        [self.output avatarUpdateDidComplete];
+        completion(nil);
     }];
 }
 

@@ -153,7 +153,12 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     
     [alertController addAction:takeFromCamera];
     [alertController addAction:pickFromLibrary];
-    [alertController addAction:removeAvatar];
+    
+    if ([self.interactor hasAvatar])
+    {
+        [alertController addAction:removeAvatar];
+    }
+    
     [alertController addAction:cancel];
     
 
@@ -190,7 +195,6 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     [self.photoHelper presentCameraFrom:self.userInterface with:^(UIImage * _Nullable image) {
         [[ZZVideoRecorder shared] startPreview];
         [self updateAvatarWithImage:image];
-
     }];
 }
 
@@ -209,12 +213,47 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
     }
     
     [self.userInterface showLoading:YES];
-    [self.interactor uploadAvatar:image];
+    [self.interactor uploadAvatar:image completion:^(NSError *error) {
+        
+        [self.userInterface showLoading:NO];
+
+        if (error)
+        {
+            [self.userInterface askForRetry:error.localizedDescription
+                                 completion:^(BOOL confirmed) {
+                if (confirmed)
+                {
+                    [self updateAvatarWithImage:image];
+                }
+            }];
+            
+            return;
+        }
+        
+        [self currentAvatarWasChanged:image];
+    }];
 }
 
 - (void)didPickRemoveAvatarMenuItem
 {
-    [self.interactor removeAvatar];
+    [self.userInterface showLoading:YES];
+    [self.interactor removeAvatarCompletion:^(NSError *error) {
+        
+        [self.userInterface showLoading:NO];
+
+        if (error)
+        {
+            [self.userInterface askForRetry:error.localizedDescription
+                                 completion:^(BOOL confirmed) {
+                if (confirmed)
+                {
+                    [self didPickRemoveAvatarMenuItem];
+                }
+            }];
+            
+            return;
+        }
+    }];
 }
 
 #pragma mark - Output
@@ -226,12 +265,10 @@ typedef void(^ZZAvatarChangeMenuActionHandler)(UIAlertAction *action);
 
 - (void)avatarUpdateDidComplete
 {
-    [self.interactor checkAvatarForUpdate];
 }
 
 - (void)avatarUpdateDidFail
 {
-    [self.userInterface showLoading:NO];
 }
 
 - (void)currentAvatarWasChanged:(UIImage *)avatar
