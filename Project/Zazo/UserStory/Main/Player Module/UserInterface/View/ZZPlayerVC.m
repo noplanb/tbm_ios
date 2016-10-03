@@ -215,7 +215,7 @@
     initialPlayerFrame.origin.y -= [UIApplication sharedApplication].statusBarFrame.size.height - 20.0f; // Hack for in-call statusbar
  
     CGFloat frameBottom = CGRectGetMaxY(initialPlayerFrame);
-    CGFloat containerBottom = CGRectGetMaxY(self.dimView.frame);
+    CGFloat containerBottom = CGRectGetMaxY(self.view.frame);
     
     if (frameBottom > containerBottom)
     {
