@@ -8,12 +8,12 @@
 
 #import "ZZS3CredentialsDomainModel.h"
 
-extern NSString * const ZZCredentialsTypeVideo;
-extern NSString * const ZZCredentialsTypeAvatar;
+extern  NSString * _Nonnull const ZZCredentialsTypeVideo;
+extern  NSString * _Nonnull const ZZCredentialsTypeAvatar;
 
 @interface ZZKeychainDataProvider : NSObject
 
-+ (void)updateWithCredentials:(ZZS3CredentialsDomainModel *)model;
-+ (nullable ZZS3CredentialsDomainModel *)loadCredentialsOfType:(NSString *)type;
++ (void)updateWithCredentials:(nonnull ZZS3CredentialsDomainModel *)model;
++ (nullable ZZS3CredentialsDomainModel *)loadCredentialsOfType:(nonnull NSString *)type;
 
 @end

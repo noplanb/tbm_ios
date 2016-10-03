@@ -136,6 +136,8 @@
                 [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
             }
             
+            
+            
             if (friendEntity.abilitiesValue != friendModel.abilities)
             {
                 ZZLogEvent(@"Abilities are changed");
@@ -144,7 +146,17 @@
                 [observer notifyWithEvent:ZZRootStateObserverEventFriendAbilitiesChanged notificationObject:friendModel];
             }
             
-            if (friendEntity.avatarTimestampValue < friendModel.avatarTimestamp)
+            NSTimeInterval avatarTimestamp = friendModel.avatarTimestamp;
+            
+            if ([friendModel.useAsThumbnail isEqualToString:@"last_frame"])
+            {
+                avatarTimestamp = 0;
+            }
+            
+            BOOL avatarUpdated = friendEntity.avatarTimestampValue < avatarTimestamp;
+            BOOL avatarDeleted = friendEntity.avatarTimestampValue > 0 && avatarTimestamp == 0;
+            
+            if (avatarUpdated || avatarDeleted)
             {
                 ZZLogEvent(@"Avatar is updated");
                 [observer notifyWithEvent:ZZRootStateObserverEventAvatarChanged notificationObject:friendModel];
