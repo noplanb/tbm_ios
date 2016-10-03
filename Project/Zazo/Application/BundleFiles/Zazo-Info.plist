@@ -43,6 +43,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>To record a zazo</string>
+	<key>NSContactsUsageDescription</key>
+	<string>To deliver your message when you send a zazo to contacts</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To record a zazo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To update an avatar</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>DK Crayon Crumble.ttf</string>
