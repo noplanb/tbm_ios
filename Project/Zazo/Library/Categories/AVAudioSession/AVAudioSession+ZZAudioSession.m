@@ -20,7 +20,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     if (!zzAudioSessionIsSetup)
     {
-        ZZLogDebug(@"setupApplicationAudioSession");
+//        ZZLogDebug(@"setupApplicationAudioSession");
         [self _setupCategoryAndModeForForeground];
         [self _addObservers];
         zzAudioSessionIsSetup = YES;
@@ -29,7 +29,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (NSError *)activate
 {
-    ZZLogDebug(@"activate:");
+//    ZZLogDebug(@"activate:");
     NSError *error = nil;
     [self _setupCategoryAndModeForForeground];
     [self setActive:YES error:&error];
@@ -45,7 +45,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     if (zzAudioSessionIsSetup)
     {
-        ZZLogDebug(@"startPlaying");
+//        ZZLogDebug(@"startPlaying");
         [self _setupModePlay];
         [self _playBasedOnProximityAndRoute];
     }
@@ -55,7 +55,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 {
     if (zzAudioSessionIsSetup)
     {
-        ZZLogDebug(@"startRecording");
+//        ZZLogDebug(@"startRecording");
         [self _setupModeRecord];
         [self _playFromSpeaker];
     }
@@ -65,7 +65,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_setupCategoryAndModeForForeground
 {
-    ZZLogDebug(@"setApplicationCategory");
+//    ZZLogDebug(@"setApplicationCategory");
     NSError *error = nil;
     [self setCategory:AVAudioSessionCategoryPlayAndRecord
 //   Eliminate play from bluetooth see v2.2.1 release notes
@@ -90,7 +90,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 - (void)_setupModeRecord
 {
     [self _setupCategoryAndModeForForeground];
-    ZZLogDebug(@"_setupModeRecord");
+//    ZZLogDebug(@"_setupModeRecord");
     NSError *error = nil;
     [self setMode:AVAudioSessionModeVideoRecording error:&error];
     if (error) ZZLogError(@"_setupModeRecord: Error setting mode: %@", error);
@@ -99,7 +99,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 - (void)_setupModePlay
 {
     [self _setupCategoryAndModeForForeground];
-    ZZLogDebug(@"_setupModePlay");
+//    ZZLogDebug(@"_setupModePlay");
     NSError *error = nil;
     [self setMode:AVAudioSessionModeDefault error:&error];
     if (error) ZZLogError(@"_setupModePlay: Error setting mode: %@", error);
@@ -107,7 +107,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_deactivate
 {
-    ZZLogDebug(@"deactivate:");
+//    ZZLogDebug(@"deactivate:");
     NSError *error = nil;
     
     [self setActive:NO
@@ -119,7 +119,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playBasedOnProximityAndRoute
 {
-    ZZLogDebug(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
+//    ZZLogDebug(@"playBasedOnProximity: nearEar=%d", [self _isNearTheEar]);
 
     if ([self _currentRouteHasHeadphonesOutput])
     {
@@ -141,7 +141,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playFromEar
 {
-    ZZLogDebug(@"playFromEar");
+//    ZZLogDebug(@"playFromEar");
     NSError *error = nil;
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -156,7 +156,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_playFromSpeaker
 {
-    ZZLogDebug(@"playFromSpeaker");
+//    ZZLogDebug(@"playFromSpeaker");
     NSError *error = nil;
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -200,7 +200,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_handleRouteChange:(NSNotification *)notification
 {
-    ZZLogDebug(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
+//    ZZLogDebug(@"handleRouteChange: %@", notification.userInfo[AVAudioSessionRouteChangeReasonKey]);
     AVAudioSessionRouteDescription *previousRoute = (AVAudioSessionRouteDescription *)notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
 
     [self _printOutputsWithPrefix:@"previousRoute:" Route:previousRoute];
@@ -221,7 +221,7 @@ static BOOL zzAudioSessionIsSetup = NO;
 
 - (void)_handleProximityChange:(NSNotification *)notification
 {
-    ZZLogDebug(@"handleProximityChange");
+//    ZZLogDebug(@"handleProximityChange");
     [self _playBasedOnProximityAndRoute];
 }
 

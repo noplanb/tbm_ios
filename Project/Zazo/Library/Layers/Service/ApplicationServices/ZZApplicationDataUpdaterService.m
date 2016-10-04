@@ -111,7 +111,7 @@
         {
             ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:model.friendMkey];
             
-            if (friendModel.idTbm)
+            if (friendModel.idTbm && model.videoIds.count > 0)
             {
                 ZZLogInfo(@"%@  vids = %@", [NSObject an_safeString:[friendModel fullName]], model.videoIds ?: @[]);
                 [self _queueDownloadWithFriendID:friendModel.idTbm videoIds:model.videoIds];

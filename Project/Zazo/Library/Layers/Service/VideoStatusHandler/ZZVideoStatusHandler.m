@@ -183,17 +183,17 @@
         ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
 
         NSLog(@"OKS- videoID - %@, friendID - %@, friend.lastVideoID - %@ videoStatus: %li", videoID, friendModel.idTbm, friendModel.outgoingVideoItemID, (long)status);
-        NSLog(@"THREAD: %@", [NSThread currentThread]);
+//        NSLog(@"THREAD: %@", [NSThread currentThread]);
 
         if (![videoID isEqualToString:friendModel.outgoingVideoItemID])
         {
-            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoID, friendModel.outgoingVideoItemID, friendID);
+//            ZZLogWarning(@"setAndNotifyOutgoingVideoStatus: Unrecognized vidoeId:%@. != ougtoingVid:%@. friendId:%@ Ignoring.", videoID, friendModel.outgoingVideoItemID, friendID);
             return;
         }
 
         if (status == friendModel.lastOutgoingVideoStatus)
         {
-            ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
+//            ZZLogWarning(@"setAndNotifyOutgoingVideoStatusWithVideo: Identical status. Ignoring.");
             return;
         }
 
