@@ -9,6 +9,8 @@
 #import "ZZEditFriendEnumsAdditions.h"
 #import "ZZFriendDomainModel.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZZFriendDataUpdater : NSObject
 
 #pragma mark Updation
@@ -44,3 +46,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

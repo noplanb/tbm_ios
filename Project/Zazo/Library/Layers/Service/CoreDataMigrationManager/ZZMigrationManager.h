@@ -16,6 +16,5 @@
 - (BOOL)isMigrationNecessary;
 - (BOOL)migrate;
 - (NSURL *)destinationUrl;
-- (NSURL *)sourceUrl;
 
 @end
