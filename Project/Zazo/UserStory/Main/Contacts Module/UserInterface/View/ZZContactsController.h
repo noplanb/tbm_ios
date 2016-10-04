@@ -11,22 +11,19 @@
 @class ZZContactCellViewModel;
 @class ZZContactsDataSource;
 
-@protocol ZZMenuControllerDelegate <NSObject>
+@protocol ZZContactsControllerDelegate <NSObject>
 
 - (void)itemSelected:(ZZContactCellViewModel *)model;
-
 - (void)needToUpdateDataSource;
 
 @end
 
 @interface ZZContactsController : ANTableController
 
-@property (nonatomic, weak) id <ZZMenuControllerDelegate> delegate;
+@property (nonatomic, weak) id <ZZContactsControllerDelegate> delegate;
 
 - (void)updateDataSource:(ZZContactsDataSource *)dataSource;
-
 - (void)reset;
-
 - (void)reloadContactData;
 
 @end

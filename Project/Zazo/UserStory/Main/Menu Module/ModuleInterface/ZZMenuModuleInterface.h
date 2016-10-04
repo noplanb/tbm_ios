@@ -9,7 +9,9 @@ typedef enum : NSUInteger
     ZZMenuItemTypeEditFriends,
     ZZMenuItemTypeContacts,
     ZZMenuItemTypeHelp,
-    ZZMenuItemTypeSecretScreen
+    ZZMenuItemTypeSecretScreen,
+    ZZMenuItemTypeUseAvatar,
+    ZZMenuItemTypeUseLastFrame,
 } ZZMenuItemType;
 
 @protocol ZZMenuModuleInterface <NSObject>
