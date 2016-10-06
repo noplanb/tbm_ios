@@ -30,7 +30,7 @@
                                                object:nil];
     
     
-//    [self.interactor checkAvatarForUpdate];
+    [self.userInterface showAvatar: [self.interactor avatar]];
 }
 
 - (void)editFriendsUnlockedNotification:(NSNotificationCenter *)notification

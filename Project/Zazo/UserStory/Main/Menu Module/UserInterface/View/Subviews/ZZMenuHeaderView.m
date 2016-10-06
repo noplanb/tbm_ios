@@ -74,19 +74,12 @@ CGFloat const ZZDefaultAvatarRadius = 60;
 
 - (void)_makeImageView
 {
+    
     _imageView = [UIImageView new];
-    _imageView.layer.cornerRadius = ZZDefaultAvatarRadius;
     _imageView.contentMode = UIViewContentModeCenter;
     _imageView.clipsToBounds = YES;
     
     [self addSubview:_imageView];
-    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        CGSize avatarSize = CGSizeMake(ZZDefaultAvatarRadius*2, ZZDefaultAvatarRadius*2);
-        make.size.equalTo([NSValue valueWithCGSize:avatarSize]);
-        make.centerX.equalTo(self);
-        make.top.equalTo(self.mas_topMargin);
-        make.bottom.equalTo(self.titleLabel.mas_top).offset(-18);
-    }];
 }
 
 - (void)_makeImageViewButton
@@ -127,6 +120,16 @@ CGFloat const ZZDefaultAvatarRadius = 60;
     }];
     
     _imageViewButton.layer.cornerRadius = radius;
+    
+    [_imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        CGSize avatarSize = CGSizeMake(self.avatarRadius * 2, self.avatarRadius * 2);
+        make.size.equalTo([NSValue valueWithCGSize:avatarSize]);
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.mas_topMargin);
+        make.bottom.equalTo(self.titleLabel.mas_top).offset(-18);
+    }];
+    
+    _imageView.layer.cornerRadius = self.avatarRadius;
 }
 
 - (void)setTitle:(NSString *)title

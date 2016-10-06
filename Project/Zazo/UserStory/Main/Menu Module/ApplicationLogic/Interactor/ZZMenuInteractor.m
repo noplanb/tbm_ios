@@ -36,4 +36,9 @@
     [self.output feedbackModelLoadedSuccessfully:[ZZCommonModelsGenerator feedbackModelWithUser:user]];
 }
 
+- (UIImage *)avatar
+{
+    return [[AvatarStorageService sharedService] get];
+}
+
 @end

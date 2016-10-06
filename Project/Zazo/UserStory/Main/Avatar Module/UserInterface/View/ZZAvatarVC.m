@@ -25,6 +25,10 @@
     self = [super init];
     if (self) {
         _menuView = [ZZMenuView new];
+        _controller =
+        [[ZZMenuController alloc] initWithTableView:_menuView.tableView];
+        
+
     }
     return self;
 }
@@ -48,11 +52,8 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Avatar";
-    
-    self.controller =
-    [[ZZMenuController alloc] initWithTableView:self.menuView.tableView];
     self.controller.delegate = self;
+    self.navigationItem.title = @"Avatar";
     
     [self.menuView.headerView.imageViewButton addTarget:self
                                                  action:@selector(_didTapAvatar)
@@ -60,6 +61,12 @@
 
     self.menuView.headerView.layoutMargins = UIEdgeInsetsMake(48, 24, 48, 24);
     self.menuView.headerView.avatarRadius = 80;
+    
+    UITableView *tableView = self.menuView.tableView;
+    tableView.tableFooterView = [UIView new];
+    tableView.backgroundView = [UIView new];
+    tableView.backgroundView.backgroundColor = [UIColor an_colorWithHexString:@"CDDDEC"];
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)askForRetry:(NSString *)message completion:(void (^ _Nonnull)(BOOL confirmed))completion

@@ -31,6 +31,8 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     self.userInterface = userInterface;
     self.photoHelper = [PhotoLibraryHelper new];
 
+    [self.interactor checkAvatarForUpdate];
+    self.userInterface.storage = [self _makeStorage];
 }
 
 #pragma mark - Output
@@ -180,35 +182,16 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     ANMemoryStorage *storage = [ANMemoryStorage storage];
     
     ZZMenuCellModel *inviteFriends =
-    [ZZMenuCellModel modelWithTitle:@"1" iconWithImageNamed:nil];
+    [ZZMenuCellModel modelWithTitle:@"Use profile photo" iconWithImageNamed:@"checkmark"];
     
     ZZMenuCellModel *editFriends =
-    [ZZMenuCellModel modelWithTitle:@"2" iconWithImageNamed:nil];
+    [ZZMenuCellModel modelWithTitle:@"Use last zazo" iconWithImageNamed:@"no-checkmark"];
     
     inviteFriends.type = ZZMenuItemTypeInviteFriends;
     editFriends.type = ZZMenuItemTypeEditFriends;
     
     [storage addItem:inviteFriends toSection:0];
     [storage addItem:editFriends toSection:0];    
-    
-    BOOL showDebugRow = NO;
-    
-#ifdef DEBUG
-#ifndef MAKING_SCREENSHOTS
-    
-    showDebugRow = YES;
-    
-#endif
-#endif
-    
-    if (showDebugRow)
-    {
-        ZZMenuCellModel *secretScreen =
-        [ZZMenuCellModel modelWithTitle:@"Secret screen" iconWithImageNamed:@"settings"];
-        
-        secretScreen.type = ZZMenuItemTypeSecretScreen;
-        [storage addItem:secretScreen toSection:0];
-    }
     
     return storage;
 }

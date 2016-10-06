@@ -9,6 +9,7 @@
 
 - (NSString *)username;
 - (void)loadFeedbackModel;
+- (UIImage *)avatar;
 
 @end
 

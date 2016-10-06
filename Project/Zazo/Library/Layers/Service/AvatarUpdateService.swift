@@ -11,6 +11,7 @@ import Foundation
 @objc protocol AvatarUpdateServiceDelegate: class {
     func updateAvatar(with timestamp: NSTimeInterval, completion: ANCodeBlock)
     func avatarRemoved()
+    func avatarEnabled(enabled: Bool)
     func avatarFetchFailed(errorText: String)
 }
 
