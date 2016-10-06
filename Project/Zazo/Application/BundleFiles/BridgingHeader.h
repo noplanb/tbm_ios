@@ -32,5 +32,3 @@
 #import "UIImage+ANAdditions.h"
 #import "AvatarService.h"
 #import "ZZRootStateObserver.h"
-
-#import "AvatarModuleImports.h"

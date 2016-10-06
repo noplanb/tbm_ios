@@ -10,7 +10,7 @@
 #import "ZZContactsController.h"
 #import "ZZContactsView.h"
 
-@interface ZZContactsVC () <ZZContactsControllerDelegate>
+@interface ZZContactsVC () <ZZMenuControllerDelegate, ZZMenuControllerDelegate>
 
 @property (nonatomic, strong) ZZContactsView *menuView;
 @property (nonatomic, strong) ZZContactsController *controller;
