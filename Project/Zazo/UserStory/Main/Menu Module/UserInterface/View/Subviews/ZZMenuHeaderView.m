@@ -5,7 +5,7 @@
 
 #import "ZZMenuHeaderView.h"
 
-CGFloat const ZZAvatarRadius = 60;
+CGFloat const ZZDefaultAvatarRadius = 60;
 
 @interface ZZMenuHeaderView ()
 
@@ -20,6 +20,8 @@ CGFloat const ZZAvatarRadius = 60;
     self = [super init];
     if (self)
     {
+        _avatarRadius = ZZDefaultAvatarRadius;
+        
         self.clipsToBounds = YES;
         self.layoutMargins = UIEdgeInsetsMake(24, 24, 24, 24);
 
@@ -31,6 +33,12 @@ CGFloat const ZZAvatarRadius = 60;
     }
 
     return self;
+}
+
+- (void)setAvatarRadius:(CGFloat)avatarRadius
+{
+    _avatarRadius = avatarRadius;
+    [self _remakeLayout];    
 }
 
 - (void)_makeBackground
@@ -67,13 +75,13 @@ CGFloat const ZZAvatarRadius = 60;
 - (void)_makeImageView
 {
     _imageView = [UIImageView new];
-    _imageView.layer.cornerRadius = ZZAvatarRadius;
+    _imageView.layer.cornerRadius = ZZDefaultAvatarRadius;
     _imageView.contentMode = UIViewContentModeCenter;
     _imageView.clipsToBounds = YES;
     
     [self addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        CGSize avatarSize = CGSizeMake(ZZAvatarRadius*2, ZZAvatarRadius*2);
+        CGSize avatarSize = CGSizeMake(ZZDefaultAvatarRadius*2, ZZDefaultAvatarRadius*2);
         make.size.equalTo([NSValue valueWithCGSize:avatarSize]);
         make.centerX.equalTo(self);
         make.top.equalTo(self.mas_topMargin);
@@ -90,27 +98,35 @@ CGFloat const ZZAvatarRadius = 60;
     noAvatarText.textColor = [UIColor an_colorWithHexString:@"DBE6FF"];
     noAvatarText.font = [UIFont boldSystemFontOfSize:13];
     
-    CGFloat radius = ZZAvatarRadius + 4;
     UIImage *emptyAvatarImage = [UIImage imageNamed:@"empty-avatar"];
     
     _imageViewButton = [UIButton new];
-    _imageViewButton.layer.cornerRadius = radius;
     _imageViewButton.backgroundColor = [UIColor an_colorWithHexString:@"1976d2"];
     [_imageViewButton setImage:emptyAvatarImage forState:UIControlStateNormal];
     [_imageViewButton setTintAdjustmentMode:UIViewTintAdjustmentModeNormal];
     
     [self insertSubview:_imageViewButton belowSubview:self.imageView];
-    [_imageViewButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_imageViewButton addSubview:noAvatarText];
+    
+    [noAvatarText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(_imageViewButton).centerOffset(CGPointMake(0, 4));
+        make.width.equalTo(_imageViewButton).offset(-40);
+    }];
+
+    [self _remakeLayout];
+}
+
+- (void)_remakeLayout
+{
+    CGFloat radius = self.avatarRadius + 4;
+
+    [_imageViewButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         CGSize avatarSize = CGSizeMake(radius*2, radius*2);
         make.size.equalTo([NSValue valueWithCGSize:avatarSize]);
         make.center.equalTo(self.imageView);
     }];
     
-    [_imageViewButton addSubview:noAvatarText];
-    [noAvatarText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_imageViewButton).centerOffset(CGPointMake(0, 4));
-        make.width.equalTo(_imageViewButton).offset(-40);
-    }];
+    _imageViewButton.layer.cornerRadius = radius;
 }
 
 - (void)setTitle:(NSString *)title

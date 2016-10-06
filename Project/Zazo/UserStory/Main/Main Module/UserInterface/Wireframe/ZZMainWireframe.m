@@ -51,7 +51,8 @@
             [[UINavigationController alloc] initWithRootViewController:mainController];
 
     presentedController.navigationBarHidden = YES;
-
+    presentedController.navigationBar.barTintColor = [ZZColorTheme shared].tintColor;
+    
     ANDispatchBlockToMainQueue(^{
 
         [UIView transitionFromView:window.rootViewController.view

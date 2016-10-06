@@ -11,5 +11,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *imageViewButton;
+@property (nonatomic, assign) CGFloat avatarRadius;
 
 @end

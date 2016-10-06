@@ -3,14 +3,7 @@
 //  Zazo
 //
 
-typedef enum : NSUInteger
-{
-    ZZMenuItemTypeInviteFriends,
-    ZZMenuItemTypeEditFriends,
-    ZZMenuItemTypeContacts,
-    ZZMenuItemTypeHelp,
-    ZZMenuItemTypeSecretScreen
-} ZZMenuItemType;
+#import "ZZMenuItemTypes.h"
 
 @protocol ZZMenuModuleInterface <NSObject>
 

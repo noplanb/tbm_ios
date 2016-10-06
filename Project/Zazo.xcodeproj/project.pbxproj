@@ -185,6 +185,12 @@
 		07E09E361BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */; };
 		107C303D9F04AF4ED4B439C0 /* Pods_ZazoBase_Zazo_NetworkTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D83D2DA1D05501ADC5058 /* Pods_ZazoBase_Zazo_NetworkTest.framework */; };
 		1501715B1D2BCEC6007E49F5 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1501715A1D2BCEC5007E49F5 /* Menu.swift */; };
+		1501AA381DA6222D00F5841F /* ZZAvatarInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1501AA251DA6222D00F5841F /* ZZAvatarInteractor.m */; };
+		1501AA391DA6222D00F5841F /* Avatar.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1501AA2B1DA6222D00F5841F /* Avatar.strings */; };
+		1501AA3A1DA6222D00F5841F /* ZZAvatarPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1501AA2E1DA6222D00F5841F /* ZZAvatarPresenter.m */; };
+		1501AA3B1DA6222D00F5841F /* ZZAvatarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1501AA311DA6222D00F5841F /* ZZAvatarVC.m */; };
+		1501AA3C1DA6222D00F5841F /* ZZAvatarWireframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1501AA351DA6222D00F5841F /* ZZAvatarWireframe.m */; };
+		1501AA3D1DA6222D00F5841F /* ZZAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1501AA371DA6222D00F5841F /* ZZAvatar.m */; };
 		151A6C2F1CA5688800F2B53D /* ZZMenuInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */; };
 		151A6C301CA5688800F2B53D /* Menu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 151A6C221CA5688800F2B53D /* Menu.strings */; };
 		151A6C311CA5688800F2B53D /* ZZMenuPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A6C251CA5688800F2B53D /* ZZMenuPresenter.m */; };
@@ -1175,6 +1181,22 @@
 		07E09E351BD6B0D300A59389 /* ZZFileTransferMarkerDomainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZZFileTransferMarkerDomainModel.m; path = FileTransferModel/ZZFileTransferMarkerDomainModel.m; sourceTree = "<group>"; };
 		0F5472519E8A3F3020F32364 /* Pods-ZazoBase-ZazoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZazoBase-ZazoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZazoBase-ZazoTests/Pods-ZazoBase-ZazoTests.release.xcconfig"; sourceTree = "<group>"; };
 		1501715A1D2BCEC5007E49F5 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		1501AA241DA6222D00F5841F /* ZZAvatarInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarInteractor.h; sourceTree = "<group>"; };
+		1501AA251DA6222D00F5841F /* ZZAvatarInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarInteractor.m; sourceTree = "<group>"; };
+		1501AA261DA6222D00F5841F /* ZZAvatarInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarInteractorIO.h; sourceTree = "<group>"; };
+		1501AA281DA6222D00F5841F /* ZZAvatarModuleDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarModuleDelegate.h; sourceTree = "<group>"; };
+		1501AA291DA6222D00F5841F /* ZZAvatarModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarModuleInterface.h; sourceTree = "<group>"; };
+		1501AA2B1DA6222D00F5841F /* Avatar.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Avatar.strings; sourceTree = "<group>"; };
+		1501AA2D1DA6222D00F5841F /* ZZAvatarPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarPresenter.h; sourceTree = "<group>"; };
+		1501AA2E1DA6222D00F5841F /* ZZAvatarPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarPresenter.m; sourceTree = "<group>"; };
+		1501AA301DA6222D00F5841F /* ZZAvatarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarVC.h; sourceTree = "<group>"; };
+		1501AA311DA6222D00F5841F /* ZZAvatarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarVC.m; sourceTree = "<group>"; };
+		1501AA321DA6222D00F5841F /* ZZAvatarViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarViewInterface.h; sourceTree = "<group>"; };
+		1501AA341DA6222D00F5841F /* ZZAvatarWireframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarWireframe.h; sourceTree = "<group>"; };
+		1501AA351DA6222D00F5841F /* ZZAvatarWireframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarWireframe.m; sourceTree = "<group>"; };
+		1501AA361DA6222D00F5841F /* ZZAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatar.h; sourceTree = "<group>"; };
+		1501AA371DA6222D00F5841F /* ZZAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatar.m; sourceTree = "<group>"; };
+		1501AA3E1DA62C1800F5841F /* ZZMenuItemTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZMenuItemTypes.h; sourceTree = "<group>"; };
 		151A6C1B1CA5688800F2B53D /* ZZMenuInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuInteractor.h; sourceTree = "<group>"; };
 		151A6C1C1CA5688800F2B53D /* ZZMenuInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMenuInteractor.m; sourceTree = "<group>"; };
 		151A6C1D1CA5688800F2B53D /* ZZMenuInteractorIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZMenuInteractorIO.h; sourceTree = "<group>"; };
@@ -2948,6 +2970,7 @@
 		07636C781BA49A0100925671 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				1501AA211DA6222D00F5841F /* Avatar Module */,
 				153550401D3E357E0080BE9A /* Compose Module */,
 				3E81CA2C1D210E19005A9E7C /* Transcript Module */,
 				151A6C181CA5688800F2B53D /* Menu Module */,
@@ -3756,6 +3779,84 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		1501AA211DA6222D00F5841F /* Avatar Module */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA221DA6222D00F5841F /* ApplicationLogic */,
+				1501AA271DA6222D00F5841F /* ModuleInterface */,
+				1501AA2A1DA6222D00F5841F /* UserInterface */,
+				1501AA361DA6222D00F5841F /* ZZAvatar.h */,
+				1501AA371DA6222D00F5841F /* ZZAvatar.m */,
+			);
+			path = "Avatar Module";
+			sourceTree = "<group>";
+		};
+		1501AA221DA6222D00F5841F /* ApplicationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA231DA6222D00F5841F /* Interactor */,
+			);
+			path = ApplicationLogic;
+			sourceTree = "<group>";
+		};
+		1501AA231DA6222D00F5841F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA241DA6222D00F5841F /* ZZAvatarInteractor.h */,
+				1501AA251DA6222D00F5841F /* ZZAvatarInteractor.m */,
+				1501AA261DA6222D00F5841F /* ZZAvatarInteractorIO.h */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1501AA271DA6222D00F5841F /* ModuleInterface */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA281DA6222D00F5841F /* ZZAvatarModuleDelegate.h */,
+				1501AA291DA6222D00F5841F /* ZZAvatarModuleInterface.h */,
+			);
+			path = ModuleInterface;
+			sourceTree = "<group>";
+		};
+		1501AA2A1DA6222D00F5841F /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA2B1DA6222D00F5841F /* Avatar.strings */,
+				1501AA2C1DA6222D00F5841F /* Presenter */,
+				1501AA2F1DA6222D00F5841F /* View */,
+				1501AA331DA6222D00F5841F /* Wireframe */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		1501AA2C1DA6222D00F5841F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA2D1DA6222D00F5841F /* ZZAvatarPresenter.h */,
+				1501AA2E1DA6222D00F5841F /* ZZAvatarPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		1501AA2F1DA6222D00F5841F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA301DA6222D00F5841F /* ZZAvatarVC.h */,
+				1501AA311DA6222D00F5841F /* ZZAvatarVC.m */,
+				1501AA321DA6222D00F5841F /* ZZAvatarViewInterface.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1501AA331DA6222D00F5841F /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				1501AA341DA6222D00F5841F /* ZZAvatarWireframe.h */,
+				1501AA351DA6222D00F5841F /* ZZAvatarWireframe.m */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
 		151A6C181CA5688800F2B53D /* Menu Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -3791,6 +3892,7 @@
 			children = (
 				151A6C1F1CA5688800F2B53D /* ZZMenuModuleDelegate.h */,
 				151A6C201CA5688800F2B53D /* ZZMenuModuleInterface.h */,
+				1501AA3E1DA62C1800F5841F /* ZZMenuItemTypes.h */,
 			);
 			path = ModuleInterface;
 			sourceTree = "<group>";
@@ -5914,6 +6016,7 @@
 				1535505A1D3E7D900080BE9A /* Compose.xcassets in Resources */,
 				07636DF91BA49A0100925671 /* BeepSin30.wav in Resources */,
 				07636DFC1BA49A0100925671 /* head.png in Resources */,
+				1501AA391DA6222D00F5841F /* Avatar.strings in Resources */,
 				15BA1DA31CA2D4CB00EAD614 /* contact-pattern-1.png in Resources */,
 				07636E8C1BA49A0100925671 /* ANServerErrorLocalizable.strings in Resources */,
 				07636E751BA49A0100925671 /* app_logo.pdf in Resources */,
@@ -6447,6 +6550,7 @@
 				07636EC71BA49A0100925671 /* ZZGridCellViewModel.m in Sources */,
 				1535504D1D3E357F0080BE9A /* ComposeInterface.swift in Sources */,
 				151A6C321CA5688800F2B53D /* ZZMenuVC.m in Sources */,
+				1501AA3A1DA6222D00F5841F /* ZZAvatarPresenter.m in Sources */,
 				181D1C9E1BC51A4600044F83 /* ZZBaseEventHandler.m in Sources */,
 				07636EB51BA49A0100925671 /* ZZEditFriendCellViewModel.m in Sources */,
 				7952764B1BA6B4AB00E506D5 /* ZZContactCellViewModel.m in Sources */,
@@ -6520,6 +6624,7 @@
 				1589607E1CB7B61E0040D8E3 /* ANTableController+UITableViewDelegatesPrivate.m in Sources */,
 				07636E8F1BA49A0100925671 /* ZZAuthPresenter.m in Sources */,
 				07636E3A1BA49A0100925671 /* ZZNotificationsTransport.m in Sources */,
+				1501AA3D1DA6222D00F5841F /* ZZAvatar.m in Sources */,
 				07E09E171BD5953D00A59389 /* ZZRemoteStorageConstants.m in Sources */,
 				158960551CB7B61D0040D8E3 /* ANErrorBuilder.m in Sources */,
 				1589604B1CB7B61D0040D8E3 /* ANLabelColorTheme.m in Sources */,
@@ -6589,6 +6694,7 @@
 				070238D81BB430B200B8197E /* ZZApplicationVersionEnumHelper.m in Sources */,
 				07636EC61BA49A0100925671 /* ZZGridCell.m in Sources */,
 				159374871D65D10D00DD7320 /* SortingContainer.swift in Sources */,
+				1501AA381DA6222D00F5841F /* ZZAvatarInteractor.m in Sources */,
 				3EB0D3761D4A48B3001C3C2F /* ZZMessageDataProvider.m in Sources */,
 				181D1CA41BC51B2000044F83 /* ZZInviteEventHandler.m in Sources */,
 				1522AB841D2FB753001A8D82 /* ZZPlayerController.m in Sources */,
@@ -6626,6 +6732,7 @@
 				1589603A1CB7B61D0040D8E3 /* NSObject+ANSafeValues.m in Sources */,
 				153550561D3E65EF0080BE9A /* ComposeSubviews.swift in Sources */,
 				07636E961BA49A0100925671 /* ANDebugVC.m in Sources */,
+				1501AA3B1DA6222D00F5841F /* ZZAvatarVC.m in Sources */,
 				181D1CAD1BC5219300044F83 /* ZZSentMessageEventHandler.m in Sources */,
 				3EB0D36B1D4A45DA001C3C2F /* _TBMMessage.m in Sources */,
 				07636E231BA49A0100925671 /* ZZFriendDataProvider.m in Sources */,
@@ -6722,6 +6829,7 @@
 				07636E9D1BA49A0100925671 /* ZZDebugStateCell.m in Sources */,
 				07E09E2C1BD5B39000A59389 /* ZZApplicationPermissionsHandler.m in Sources */,
 				3E9FDA861D47BBE500809EA2 /* GetMessageResponse.swift in Sources */,
+				1501AA3C1DA6222D00F5841F /* ZZAvatarWireframe.m in Sources */,
 				07636E271BA49A0100925671 /* ZZUserDataProvider.m in Sources */,
 				07636EDD1BA49A0100925671 /* ZZStartInteractor.m in Sources */,
 				07636E341BA49A0100925671 /* ZZCommonNetworkTransport.m in Sources */,

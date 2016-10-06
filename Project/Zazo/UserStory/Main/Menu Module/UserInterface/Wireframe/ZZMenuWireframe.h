@@ -11,5 +11,6 @@
 @property (nonatomic, weak) ZZMainWireframe *mainWireframe;
 
 - (void)showSecretScreen;
+- (void)showAvatarScreen;
 
 @end

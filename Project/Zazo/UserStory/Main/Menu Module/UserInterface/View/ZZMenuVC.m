@@ -70,24 +70,6 @@
     [self.eventHandler didTapAvatar];
 }
 
-- (void)askForRetry:(NSString *)message completion:(void (^ _Nonnull)(BOOL confirmed))completion
-{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Operation failed" message:message preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *retry = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        completion(true);
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        completion(false);
-    }];
-    
-    [alert addAction:retry];
-    [alert addAction:cancel];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
 #pragma mark Input
 
 - (void)showUsername:(NSString *)username
@@ -105,17 +87,7 @@
     self.menuView.headerView.imageView.image = image;
 }
 
-- (void)showLoading:(BOOL)visible
-{
-    if (visible)
-    {
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
-    }
-    else
-    {
-        [SVProgressHUD dismiss];
-    }
-}
+
 
 #pragma mark Menu Controller delegate
 
