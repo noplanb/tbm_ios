@@ -65,7 +65,7 @@
     UITableView *tableView = self.menuView.tableView;
     tableView.tableFooterView = [UIView new];
     tableView.backgroundView = [UIView new];
-    tableView.backgroundView.backgroundColor = [UIColor an_colorWithHexString:@"CDDDEC"];
+    tableView.backgroundView.backgroundColor = [UIColor an_colorWithHexString:@"EEF2F7"];
     tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 

@@ -14,14 +14,13 @@
 @interface ZZAvatarInteractor ()
 
 @property (nonatomic, assign) BOOL areCredentialsLoaded;
-@property (nonatomic, strong) UIImage *imageForRetry;
 
 @end
 
 @implementation ZZAvatarInteractor
 
 
-- (void)checkAvatarForUpdate
+- (void)checkAvatarStatus
 {
     [self.output currentAvatarWasChanged:[self.storageService get]];
     [self updateConfiguration];
@@ -38,6 +37,8 @@
             self.areCredentialsLoaded = YES;
             [self.updateService checkUpdate];
         }
+    } error:^(NSError *error) {
+        [self avatarFetchFailed:error.localizedDescription];
     }];
 }
 
@@ -95,9 +96,15 @@
 {
     [self.storageService remove];
     [self.output currentAvatarWasChanged:nil];
+    [self.output avatarFetchDidComplete];
 }
 
-- (void)updateAvatarWith:(NSTimeInterval)timestamp completion:(ANCodeBlock)completion
+- (void)avatarEnabled:(BOOL)enabled
+{
+    [self.output avatarEnabled:enabled];
+}
+
+- (void)avatarUpdatedWith:(NSInteger)timestamp completion:(ANCodeBlock)completion
 {
     ANDispatchBlockToBackgroundQueue(^{
         
@@ -108,7 +115,7 @@
         
         AWSS3GetObjectRequest *request = [AWSS3GetObjectRequest new];
         request.bucket = credentialsModel.bucket;
-        request.key = [NSString stringWithFormat: @"%@_%1.0f", userModel.mkey, timestamp];
+        request.key = [NSString stringWithFormat: @"%@_%ld", userModel.mkey, (long)timestamp];
         
         [[avatarService getObject:request] continueWithBlock:^id _Nullable(AWSTask<AWSS3GetObjectOutput *> * _Nonnull task) {
             
@@ -123,6 +130,8 @@
             UIImage *image = [UIImage imageWithData:output.body scale:scale];
             [self.storageService updateWith:image];
             
+            completion();
+            
             ANDispatchBlockToMainQueue(^{
                 [self.output currentAvatarWasChanged:image];
                 [self.output avatarFetchDidComplete];
@@ -133,9 +142,14 @@
     });
 }
 
+- (void)avatarUpToDate
+{
+    [self.output avatarFetchDidComplete];
+}
+
 - (void)avatarFetchFailed:(NSString * _Nonnull)errorText
 {
-    [self.output avatarUpdateDidFail];
+    [self.output avatarFetchDidFail:errorText];
 }
 
 @end

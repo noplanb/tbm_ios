@@ -12,5 +12,7 @@ typedef enum : NSUInteger
     ZZMenuItemTypeEditFriends,
     ZZMenuItemTypeContacts,
     ZZMenuItemTypeHelp,
-    ZZMenuItemTypeSecretScreen
+    ZZMenuItemTypeSecretScreen,
+    ZZMenuItemTypeProfilePhoto,
+    ZZMenuItemTypeLastZazo
 } ZZMenuItemType;

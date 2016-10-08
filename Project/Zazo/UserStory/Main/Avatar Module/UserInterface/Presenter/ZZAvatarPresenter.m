@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 @interface ZZAvatarPresenter ()
 
 @property (nonatomic, strong) PhotoLibraryHelper *photoHelper;
+@property (nonatomic, assign) BOOL avatarEnabled;
 
 @end
 
@@ -31,8 +32,8 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     self.userInterface = userInterface;
     self.photoHelper = [PhotoLibraryHelper new];
 
-    [self.interactor checkAvatarForUpdate];
-    self.userInterface.storage = [self _makeStorage];
+    [self.interactor checkAvatarStatus];
+    [self.userInterface showLoading:YES];
 }
 
 #pragma mark - Output
@@ -136,10 +137,9 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     [self.userInterface showLoading:YES];
     [self.interactor uploadAvatar:image completion:^(NSError *error) {
         
-        [self.userInterface showLoading:NO];
-        
         if (error)
         {
+            [self.userInterface showLoading:NO];
             [self.userInterface askForRetry:error.localizedDescription
                                  completion:^(BOOL confirmed) {
                                      if (confirmed)
@@ -152,6 +152,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
         }
         
         [self currentAvatarWasChanged:image];
+        [self.interactor checkAvatarStatus];
     }];
 }
 
@@ -160,10 +161,9 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     [self.userInterface showLoading:YES];
     [self.interactor removeAvatarCompletion:^(NSError *error) {
         
-        [self.userInterface showLoading:NO];
-        
         if (error)
         {
+            [self.userInterface showLoading:NO];
             [self.userInterface askForRetry:error.localizedDescription
                                  completion:^(BOOL confirmed) {
                                      if (confirmed)
@@ -174,34 +174,42 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
             
             return;
         }
+        
+        [self.interactor checkAvatarStatus];
     }];
 }
 
-- (ANMemoryStorage *)_makeStorage
+- (ANMemoryStorage *)_makeStorageWithAvatarEnabled:(BOOL)flag
 {
     ANMemoryStorage *storage = [ANMemoryStorage storage];
     
-    ZZMenuCellModel *inviteFriends =
-    [ZZMenuCellModel modelWithTitle:@"Use profile photo" iconWithImageNamed:@"checkmark"];
+    NSDictionary *checkmarkIcon = @{@(YES): @"checkmark", @(NO): @"no-checkmark"};
     
-    ZZMenuCellModel *editFriends =
-    [ZZMenuCellModel modelWithTitle:@"Use last zazo" iconWithImageNamed:@"no-checkmark"];
+    ZZMenuCellModel *usePhoto =
+    [ZZMenuCellModel modelWithTitle:@"Use profile photo" iconWithImageNamed:checkmarkIcon[@(flag)]];
     
-    inviteFriends.type = ZZMenuItemTypeInviteFriends;
-    editFriends.type = ZZMenuItemTypeEditFriends;
+    ZZMenuCellModel *useZazo =
+    [ZZMenuCellModel modelWithTitle:@"Use last zazo" iconWithImageNamed:checkmarkIcon[@(!flag)]];
     
-    [storage addItem:inviteFriends toSection:0];
-    [storage addItem:editFriends toSection:0];    
+    usePhoto.type = ZZMenuItemTypeProfilePhoto;
+    useZazo.type = ZZMenuItemTypeLastZazo;
+    
+    [storage addItem:usePhoto toSection:0];
+    [storage addItem:useZazo toSection:0];    
     
     return storage;
 }
 
-- (void)avatarUpdateDidComplete
+- (void)avatarFetchDidFail:(NSString *)text
 {
-}
-
-- (void)avatarUpdateDidFail
-{
+    [self.userInterface showLoading:NO];
+    [self.userInterface askForRetry:text
+                         completion:^(BOOL confirmed) {
+                             if (confirmed)
+                             {
+                                 [self.interactor checkAvatarStatus];
+                             }
+                         }];
 }
 
 - (void)currentAvatarWasChanged:(UIImage *)avatar
@@ -214,8 +222,25 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     [self.userInterface showLoading:NO];
 }
 
+- (void)avatarEnabled:(BOOL)enabled
+{
+    self.avatarEnabled = enabled;
+    self.userInterface.storage = [self _makeStorageWithAvatarEnabled:enabled];
+}
+
 #pragma mark - Module Interface
 
-
+- (void)eventDidTapItemWithType:(ZZMenuItemType)type
+{
+    if (self.avatarEnabled && type == ZZMenuItemTypeLastZazo)
+    {
+        [self didPickRemoveAvatarMenuItem];
+    }
+    
+    if (!self.avatarEnabled && type == ZZMenuItemTypeProfilePhoto)
+    {
+        [self didTapAvatar];
+    }
+}
 
 @end

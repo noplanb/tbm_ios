@@ -11,7 +11,7 @@ import ReactiveCocoa
 import Result
 
 class AvatarData: NSObject {
-    var timestamp: NSTimeInterval = 0
+    var timestamp: NSInteger = 0
     var isAvatarEnabled = false
 }
 

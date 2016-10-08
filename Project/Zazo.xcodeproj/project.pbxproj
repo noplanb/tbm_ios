@@ -1527,6 +1527,7 @@
 		15BDEA831CFDAA820002F78A /* ZZFeatureEventStrategyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZFeatureEventStrategyBase.m; sourceTree = "<group>"; };
 		15BDEA871CFDD6240002F78A /* ZZSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZSettingsManager.h; sourceTree = "<group>"; };
 		15BDEA881CFDD6240002F78A /* ZZSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZSettingsManager.m; sourceTree = "<group>"; };
+		15C2B9161DA6B5E900C85E92 /* Zazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Zazo.entitlements; sourceTree = "<group>"; };
 		15C56C501D8848BD001CF043 /* AvatarService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
 		15C56C521D8848D6001CF043 /* Parsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		15C8A16E1DA689D100FCB883 /* Avatar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Avatar.xcassets; sourceTree = "<group>"; };
@@ -1970,6 +1971,7 @@
 		07636AE71BA49A0100925671 /* Zazo */ = {
 			isa = PBXGroup;
 			children = (
+				15C2B9161DA6B5E900C85E92 /* Zazo.entitlements */,
 				18061C1B1BDFD5920079641D /* TEST */,
 				07636AE81BA49A0100925671 /* Application */,
 				07636C021BA49A0100925671 /* UserStory */,
@@ -6961,7 +6963,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = DYQN26F8U9;
@@ -7276,7 +7278,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Emille Rinat (4677Q4H8LP)";
 				DEFINES_MODULE = YES;
@@ -7317,7 +7319,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = Zazo/Zazo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sani Elfishawy (7LZE948MXL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = DYQN26F8U9;

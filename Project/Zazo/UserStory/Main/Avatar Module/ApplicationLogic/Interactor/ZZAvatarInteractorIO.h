@@ -7,11 +7,10 @@ typedef void(^UploadCompletion)(NSError *error);
 
 @protocol ZZAvatarInteractorInput <NSObject>
 
-- (void)checkAvatarForUpdate;
+- (void)checkAvatarStatus;
 - (void)uploadAvatar:(UIImage *)image completion:(UploadCompletion)completion;
 - (void)removeAvatarCompletion:(UploadCompletion)completion;
 - (BOOL)hasAvatar;
-
 
 @end
 
@@ -19,7 +18,8 @@ typedef void(^UploadCompletion)(NSError *error);
 @protocol ZZAvatarInteractorOutput <NSObject>
 
 - (void)currentAvatarWasChanged:(UIImage *)avatar;
+- (void)avatarEnabled:(BOOL)enabled;
 - (void)avatarFetchDidComplete;
-- (void)avatarUpdateDidFail;
+- (void)avatarFetchDidFail:(NSString *)text;
 
 @end

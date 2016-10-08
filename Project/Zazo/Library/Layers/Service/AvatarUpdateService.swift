@@ -9,8 +9,9 @@
 import Foundation
 
 @objc protocol AvatarUpdateServiceDelegate: class {
-    func updateAvatar(with timestamp: NSTimeInterval, completion: ANCodeBlock)
+    func avatarUpdated(with timestamp: Int, completion: ANCodeBlock)
     func avatarRemoved()
+    func avatarUpToDate()
     func avatarEnabled(enabled: Bool)
     func avatarFetchFailed(errorText: String)
 }
@@ -36,7 +37,7 @@ class AvatarUpdateService: NSObject {
         self.persistenceKey = persistenceKey
         lastTimestamp = 0
         super.init()
-        lastTimestamp = NSTimeInterval(userDefaults.floatForKey(timestampPersistenceKey))
+        lastTimestamp = userDefaults.integerForKey(timestampPersistenceKey)
     }
     
     func checkUpdate() {
@@ -51,17 +52,19 @@ class AvatarUpdateService: NSObject {
     
     private func handleResult(result: GetAvatarResponse) {
         
-        guard result.data.useAsThumbnail == .Avatar else {
+        self.delegate?.avatarEnabled(result.data.useAsThumbnail == .Avatar)
+        
+        guard let currentTimestamp = result.data.timestamp else {
             self.delegate?.avatarRemoved()
             return
         }
-        
-        let currentTimestamp = result.data.timestamp ?? 0
+                
         guard currentTimestamp > lastTimestamp else {
+            self.delegate?.avatarUpToDate()
             return
         }
         
-        self.delegate!.updateAvatar(with: currentTimestamp) {
+        self.delegate!.avatarUpdated(with: currentTimestamp) {
             self.lastTimestamp = currentTimestamp
         }
     }
@@ -90,7 +93,7 @@ class AvatarUpdateService: NSObject {
         }
     }
     
-    private var lastTimestamp: NSTimeInterval {
+    private var lastTimestamp: Int {
         didSet {
             if oldValue != lastTimestamp {
                 persistTimestamp(lastTimestamp)
@@ -98,7 +101,8 @@ class AvatarUpdateService: NSObject {
         }
     }
     
-    private func persistTimestamp(value: NSTimeInterval) {
-        userDefaults.setDouble(value, forKey: timestampPersistenceKey)
+    private func persistTimestamp(value: Int) {
+        userDefaults.setInteger(value, forKey: timestampPersistenceKey)
+        userDefaults.synchronize()
     }
 }
