@@ -58,6 +58,8 @@ static CGFloat const kStartGridRotationOffset = 20;
 
         self.rotator.gridView = gridView;
         self.rotator.delegate = self;
+        
+        [self _setupStateObserver];
     }
     return self;
 }

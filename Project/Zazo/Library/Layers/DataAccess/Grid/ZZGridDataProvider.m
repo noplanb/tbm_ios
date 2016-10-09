@@ -62,7 +62,7 @@
 
         if (userEntity == nil)
         {
-            ZZLogWarning(@"modelWithRelatedUserID: userEntity == nil")
+            ZZLogWarning(@"modelWithRelatedUserID: userEntity == nil");
             return nil;
         }
         
