@@ -10,7 +10,7 @@
 #import "ZZUserPresentationHelper.h"
 #import "ZZThumbnailGenerator.h"
 #import "ZZFriendDomainModel.h"
-
+#import "ZZFriendDataProvider.h"
 
 static UIImage *kImagePlaceholder = nil;
 
@@ -69,7 +69,7 @@ static UIImage *kImagePlaceholder = nil;
 
         if (friendModel.isHasApp)
         {
-            self.image = [ZZThumbnailGenerator thumbImageForUser:(id)_item];
+            self.image = [ZZFriendDataProvider avatarOfFriendWithID:friendModel.idTbm] ?: [ZZThumbnailGenerator thumbImageForUser:(id)_item];
         }
     }
 
