@@ -536,11 +536,9 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
         return;
     }
     
-    self.isPlayingVideo = NO;
-    
     [self.player pause];
     [self.delegate videoPlayerDidCompletePlaying];
-
+    self.isPlayingVideo = NO;
     [ZZVideoStatusHandler sharedInstance].currentlyPlayedVideoID = nil;
     self.currentQueueItem = nil;
 }
@@ -588,6 +586,11 @@ static NSInteger const ZZPlayerCurrentVideoIndex = NSIntegerMax;
 
 - (ZZFriendDomainModel *)friendModel
 {
+    if (!self.isPlayingVideo)
+    {
+        return nil;
+    }
+    
     return self.queue.friendModel;
 }
 

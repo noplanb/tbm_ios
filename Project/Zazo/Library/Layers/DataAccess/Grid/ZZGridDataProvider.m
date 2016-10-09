@@ -60,6 +60,12 @@
 
         TBMFriend *userEntity = [ZZFriendDataProvider friendEntityWithItemID:userID];
 
+        if (userEntity == nil)
+        {
+            ZZLogWarning(@"modelWithRelatedUserID: userEntity == nil")
+            return nil;
+        }
+        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@", TBMGridElementRelationships.friend, userEntity];
         TBMGridElement *entity = [[TBMGridElement MR_findAllWithPredicate:predicate inContext:[self _context]] firstObject];
 

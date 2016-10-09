@@ -136,8 +136,6 @@
                 [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
             }
             
-            
-            
             if (friendEntity.abilitiesValue != friendModel.abilities)
             {
                 ZZLogEvent(@"Abilities are changed");

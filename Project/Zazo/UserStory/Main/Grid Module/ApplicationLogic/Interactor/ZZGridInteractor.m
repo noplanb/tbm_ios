@@ -180,6 +180,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 
 - (void)updateFriendAfterVideoStopped:(ZZFriendDomainModel *)model
 {
+    if (model == nil)
+    {
+        ZZLogError(@"updateFriendAfterVideoStopped: model == nil");
+        return;
+    }
+    
     ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:model.idTbm];
 //    gridModel.isDownloadAnimationViewed = YES;
     [self.output reloadGridModel:gridModel];
