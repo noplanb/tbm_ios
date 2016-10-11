@@ -8,7 +8,6 @@
 @protocol ZZPlayerModuleDelegate <NSObject>
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel;
-
 - (void)videoPlayerDidFinishPlayingWithModel:(ZZFriendDomainModel *)playedFriendModel;
 
 @end

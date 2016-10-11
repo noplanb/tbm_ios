@@ -87,4 +87,7 @@ typedef NS_ENUM(NSUInteger, ZZCellVideoState) {
 - (void)didTapEmptyCell;
 - (void)didTapOverflowButton:(UIButton *)button;
 
+- (void)recordPressed:(UILongPressGestureRecognizer *)recognizer;
+- (void)stopVideoRecording;
+
 @end

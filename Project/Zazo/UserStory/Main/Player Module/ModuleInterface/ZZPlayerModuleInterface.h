@@ -13,6 +13,7 @@
 - (void)playVideoForFriend:(ZZFriendDomainModel *)friendModel;
 - (void)showFullscreen;
 - (void)stop;
+- (void)installGestureRecognizer:(UIGestureRecognizer *)recognizer;
 
 // UI events:
 

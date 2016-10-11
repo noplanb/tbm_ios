@@ -207,7 +207,7 @@
     if (!_recordRecognizer)
     {
         _recordRecognizer =
-                [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_recordPressed:)];
+                [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(recordPressed:)];
         _recordRecognizer.minimumPressDuration = 0.2;
     }
     return _recordRecognizer;
@@ -215,7 +215,7 @@
 
 #pragma mark  - Recording recognizer handle
 
-- (void)_recordPressed:(UILongPressGestureRecognizer *)recognizer
+- (void)recordPressed:(UILongPressGestureRecognizer *)recognizer
 {
     if ([self.presenter isGridRotate])
     {
@@ -238,7 +238,7 @@
     else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
     {
         self.initialRecordPoint = CGPointZero;
-        [self _stopVideoRecording];
+        [self stopVideoRecording];
     }
     else
     {
@@ -246,7 +246,7 @@
     }
 }
 
-- (void)_stopVideoRecording
+- (void)stopVideoRecording
 {
     [self didChangeRecordingState:NO completion:^(BOOL isRecordingSuccess) {
         if (isRecordingSuccess)

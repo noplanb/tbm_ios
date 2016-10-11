@@ -44,6 +44,7 @@
 @property (nonatomic, strong) ZZGridActionHandler *actionHandler;
 @property (nonatomic, strong) RollbarReachability *reachability;
 @property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
+@property (nonatomic, strong) ZZFriendDomainModel *startedFromPlayerRecordForFriend;
 
 @end
 
@@ -70,6 +71,12 @@
     self.reachability = [RollbarReachability reachabilityForInternetConnection];
     
     [self _startTouchObserve];
+}
+
+- (void)setVideoPlayer:(id<ZZPlayerModuleInterface>)videoPlayer
+{
+    _videoPlayer = videoPlayer;
+    [self _setupRecognizerToPlayer];
 }
 
 - (void)_setupNotifications
@@ -100,6 +107,47 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)_setupRecognizerToPlayer
+{
+    UILongPressGestureRecognizer *recognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(_handlePlayerLongTap:)];
+
+    [self.videoPlayer installGestureRecognizer:recognizer];
+}
+
+- (void)_handlePlayerLongTap:(UILongPressGestureRecognizer *)recognizer
+{
+    ZZFriendDomainModel *friendModel = [self.videoPlayer playedFriendModel];
+    ZZGridCellViewModel *cellModel = [self _cellForFriend:friendModel];
+    
+    if (!cellModel)
+    {
+        return;
+    }
+    
+    self.startedFromPlayerRecordForFriend = friendModel;
+    [cellModel recordPressed:recognizer];
+}
+
+- (ZZGridCellViewModel *)_cellForFriend:(ZZFriendDomainModel *)friendModel
+{
+    if (!friendModel)
+    {
+        return nil;
+    }
+    
+    NSInteger cellModelIndex = [self.dataSource indexForFriendDomainModel:friendModel];
+    
+    if (cellModelIndex == NSNotFound)
+    {
+        return nil;
+    }
+    
+    ZZGridCellViewModel *cellModel = [self.dataSource viewModelAtIndex:cellModelIndex];
+
+    return cellModel;
+}
 
 #pragma mark - Notifications
 
@@ -640,6 +688,7 @@
                     [self _handleTouches:touches];
                 };
             }];
+    
 }
 
 - (void)_handleTouches:(NSSet *)touches
@@ -649,10 +698,23 @@
 
         BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
 
-        if ((touch.phase == UITouchPhaseBegan && recording) ||
-                (touch.phase == UITouchPhaseStationary && recording))
+        if (!recording)
+        {
+            return ;
+        }
+        
+        if ((touch.phase == UITouchPhaseBegan) ||
+            (touch.phase == UITouchPhaseStationary))
         {
             [self _cancelRecordingWithDoubleTap];
+            return;
+        }
+        
+        if (touch.phase == UITouchPhaseEnded && self.startedFromPlayerRecordForFriend)
+        {
+            ZZGridCellViewModel *cellModel = [self _cellForFriend:self.startedFromPlayerRecordForFriend];
+            self.startedFromPlayerRecordForFriend = nil;
+            [cellModel stopVideoRecording];
         }
     });
 }
