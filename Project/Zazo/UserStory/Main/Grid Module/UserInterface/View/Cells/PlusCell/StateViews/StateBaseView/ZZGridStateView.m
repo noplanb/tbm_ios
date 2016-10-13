@@ -20,6 +20,7 @@
 @interface ZZGridStateView ()
 
 @property (nonatomic, assign) BOOL isSentBadgeShifted;
+@property (nonatomic, assign) UIImage *backgroundImage;
 
 @end
 
@@ -30,6 +31,7 @@
     self = [super init];
     if (self)
     {
+        self.backgroundImage = [UIImage imageNamed:@"pattern"];
         self.backgroundColor = [ZZColorTheme shared].gridCellBackgroundColor1;
         self.presentedView = presentedView;
         self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -250,7 +252,7 @@
 
     UIImageView *backgroundView = [UIImageView new];
     backgroundView.layer.shouldRasterize = YES;
-    backgroundView.image = [UIImage imageNamed:@"pattern"];
+    backgroundView.image = self.backgroundImage;
     backgroundView.clipsToBounds = YES;
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     backgroundView.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -278,7 +280,7 @@
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    _backgroundView.hidden = YES;
+//    _backgroundView.hidden = YES;
     _backgroundView = backgroundView;
     
     return _backgroundView;

@@ -130,7 +130,9 @@
 
 + (RACSignal *)loadAllIncomingVideoIds
 {
-    return [[ZZRemoteStorageTransport loadAllIncomingVideoIds] map:^id(NSArray *videoIdData) {
+    return [[[ZZRemoteStorageTransport loadAllIncomingVideoIds]
+            deliverOn:[RACScheduler schedulerWithPriority: RACSchedulerPriorityDefault]]
+            map:^id(NSArray *videoIdData) {
 
         videoIdData = [[videoIdData.rac_sequence map:^id(id obj) {
             
@@ -156,7 +158,9 @@
 
 + (RACSignal *)loadAllOutgoingVideoStatuses
 {
-    return [[ZZRemoteStorageTransport loadAllOutgoingVideoStatuses] map:^id(NSArray *videoStatusData) {
+    return [[[ZZRemoteStorageTransport loadAllOutgoingVideoStatuses]
+            deliverOn:[RACScheduler schedulerWithPriority: RACSchedulerPriorityDefault]]
+            map:^id(NSArray *videoStatusData) {
 
         videoStatusData = [[videoStatusData.rac_sequence map:^id(id obj) {
             

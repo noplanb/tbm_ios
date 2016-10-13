@@ -109,7 +109,7 @@ static const NSInteger kDelayBetweenFriendUpdate = 30;
 
 - (void)_setupDataWithAddressBookRequest
 {
-    ANDispatchBlockToMainQueue(^{
+    ANDispatchBlockToBackgroundQueue(^{
         if (self.isForceUpdate)
         {
             [self _loadFriends];

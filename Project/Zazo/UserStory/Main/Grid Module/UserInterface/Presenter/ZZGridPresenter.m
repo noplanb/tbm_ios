@@ -178,7 +178,6 @@
     {
         [[ZZVideoRecorder shared] switchCamera:nil];
     }
-
 }
 
 - (void)_handleResignActive

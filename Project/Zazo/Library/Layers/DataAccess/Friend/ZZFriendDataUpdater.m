@@ -115,73 +115,70 @@
 }
 
 #pragma mark Upsert
+// for performance reasons should be called from main thread
 
-+ (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)friendModel
++ (void)upsertFriend:(ZZFriendDomainModel *)friendModel
 {
-    ZZLogEvent(@"Upsert: %@ %@", friendModel.fullName, friendModel.mKey);
+    if (![NSThread isMainThread])
+    {
+        ANDispatchBlockToMainQueue(^{
+            [ZZFriendDataUpdater upsertFriend:friendModel];
+        });
+    }
+    
+//    ZZLogEvent(@"Upsert: %@ %@", friendModel.fullName, friendModel.mKey);
     ZZRootStateObserver *observer = [ZZRootStateObserver sharedInstance];
     
-    return ZZDispatchOnMainThreadAndReturn(^id {
+    TBMFriend *friendEntity = [self _userWithID:friendModel.idTbm];
+    NSManagedObjectContext *context = friendEntity.managedObjectContext;
 
-        TBMFriend *friendEntity = [self _userWithID:friendModel.idTbm];
-        NSManagedObjectContext *context = friendEntity.managedObjectContext;
-
-        if (friendEntity)
+    if (friendEntity)
+    {
+        if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
         {
-            if ([friendEntity.hasApp boolValue] ^ friendModel.hasApp)
-            {
-                ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
-                friendEntity.hasApp = @(friendModel.hasApp);
-                [context MR_saveToPersistentStoreAndWait];
-                [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
-            }
-            
-            if (friendEntity.abilitiesValue != friendModel.abilities)
-            {
-                ZZLogEvent(@"Abilities are changed");
-                friendEntity.abilitiesValue = friendModel.abilities;
-                [context MR_saveToPersistentStoreAndWait];
-                [observer notifyWithEvent:ZZRootStateObserverEventFriendAbilitiesChanged notificationObject:friendModel];
-            }
-            
-            NSTimeInterval avatarTimestamp = friendModel.avatarTimestamp;
-            
-            if ([friendModel.useAsThumbnail isEqualToString:@"last_frame"])
-            {
-                avatarTimestamp = 0;
-            }
-            
-            BOOL avatarUpdated = friendEntity.avatarTimestampValue < avatarTimestamp;
-            BOOL avatarDeleted = friendEntity.avatarTimestampValue > 0 && avatarTimestamp == 0;
-            
-            if (avatarUpdated || avatarDeleted)
-            {
-                ZZLogEvent(@"Avatar is updated");
-                [observer notifyWithEvent:ZZRootStateObserverEventAvatarChanged notificationObject:friendModel];
-            }
-        }
-        else
-        {
-            ZZLogDebug(@"No entity -- creation");
-            friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
-            friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
+            ZZLogInfo(@"createWithServerParams: Friend exists updating hasApp only since it is different.");
+            friendEntity.hasApp = @(friendModel.hasApp);
             [context MR_saveToPersistentStoreAndWait];
             [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
-            
-            if (friendModel.avatarTimestamp > 0)
-            {
-                [observer notifyWithEvent:ZZRootStateObserverEventAvatarChanged notificationObject:friendModel];
-            }
         }
-
-        if (![friendEntity.friendshipStatus isEqualToString:friendModel.friendshipStatus])
+        
+        if (friendEntity.abilitiesValue != friendModel.abilities)
         {
-            friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
+            ZZLogEvent(@"Abilities are changed");
+            friendEntity.abilitiesValue = friendModel.abilities;
+            [context MR_saveToPersistentStoreAndWait];
+            [observer notifyWithEvent:ZZRootStateObserverEventFriendAbilitiesChanged notificationObject:friendModel];
         }
-
-        return [ZZFriendDataProvider modelFromEntity:friendEntity];
-
-    });
+        
+        NSTimeInterval avatarTimestamp = friendModel.avatarTimestamp;
+        
+        if ([friendModel.useAsThumbnail isEqualToString:@"last_frame"])
+        {
+            avatarTimestamp = 0;
+        }
+        
+        BOOL avatarUpdated = friendEntity.avatarTimestampValue < avatarTimestamp;
+        BOOL avatarDeleted = friendEntity.avatarTimestampValue > 0 && avatarTimestamp == 0;
+        
+        if (avatarUpdated || avatarDeleted)
+        {
+            ZZLogEvent(@"Avatar is updated");
+            [observer notifyWithEvent:ZZRootStateObserverEventAvatarChanged notificationObject:friendModel];
+        }
+    }
+    else
+    {
+        ZZLogDebug(@"No entity -- creation");
+        friendEntity = [TBMFriend MR_createEntityInContext:[self _context]];
+        friendEntity = [ZZFriendModelsMapper fillEntity:friendEntity fromModel:friendModel];
+        [context MR_saveToPersistentStoreAndWait];
+        [[ZZVideoStatusHandler sharedInstance] notifyFriendChangedWithId:friendModel.idTbm];
+        
+        if (friendModel.avatarTimestamp > 0)
+        {
+            [observer notifyWithEvent:ZZRootStateObserverEventAvatarChanged notificationObject:friendModel];
+        }
+    }
 }
 
 #pragma mark Deletion

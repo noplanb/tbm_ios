@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Upsert
 
-+ (ZZFriendDomainModel *)upsertFriend:(ZZFriendDomainModel *)model;
++ (void)upsertFriend:(ZZFriendDomainModel *)model;
 
 #pragma mark Deletion
 

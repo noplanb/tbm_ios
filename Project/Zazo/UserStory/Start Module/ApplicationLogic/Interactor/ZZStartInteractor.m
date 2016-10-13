@@ -27,18 +27,21 @@
 
 - (void)_checkSession
 {
-    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
+        ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
 #ifdef NETTEST
-    if (user.isRegistered)
-    {
-        [self.output presentNetworkTestController];
-    }
-    else
-    {
-        [self.output userRequiresAuthentication];
-    }
-#else
+        if (user.isRegistered)
+        {
+            [self.output presentNetworkTestController];
+        }
+        else
+        {
+            [self.output userRequiresAuthentication];
+        }
+        return;
+        
+#endif
+        
     if (user.isRegistered)
     {
         [[ZZRollbarAdapter shared] updateUserFullName:[user fullName]
@@ -50,15 +53,14 @@
         });
 
         [[ZZCommonNetworkTransportService loadS3CredentialsOfType:ZZCredentialsTypeVideo] subscribeNext:^(id x) {
-        
         }];
     }
     else
     {
-        [self.output userRequiresAuthentication];
+        ANDispatchBlockToMainQueue(^{
+            [self.output userRequiresAuthentication];
+        });
     }
-
-#endif
 
 }
 

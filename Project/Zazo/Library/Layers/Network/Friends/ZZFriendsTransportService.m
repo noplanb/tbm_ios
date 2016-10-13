@@ -16,6 +16,7 @@
 #import "ZZFriendDataProvider.h"
 #import "ZZUserDomainModel.h"
 #import "ZZUserDataProvider.h"
+#import "NSArray+ANAdditions.h"
 
 static const struct
 {
@@ -59,46 +60,58 @@ static const struct
 
 + (RACSignal *)loadFriendList
 {
-    return [[ZZFriendsTransport loadFriendList] map:^id(NSArray *friendsData) {
+    
+    
+    return [[[ZZFriendsTransport loadFriendList]
+            deliverOn:[RACScheduler schedulerWithPriority: RACSchedulerPriorityDefault]]
+            map:^id(NSArray *friendsData) {
 
-        NSArray *sorted = [self sortedFriendsByCreatedOn:friendsData];
+                
+                
+                NSArray *sorted = [self sortedFriendsByCreatedOn:friendsData];
 
-        if (sorted)
-        {
-            ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
+                if (sorted)
+                {
+                    ZZUserDomainModel *user = [ZZUserDataProvider authenticatedUser];
 
-            NSDictionary *firstFriend = sorted.firstObject;
+                    NSDictionary *firstFriend = sorted.firstObject;
 
-            if (!firstFriend)
-            {
-                user.isInvitee = NO;
-            }
-            else
-            {
-                NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
-                NSString *myMkey = user.mkey;
-                user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
-            }
+                    if (!firstFriend)
+                    {
+                        user.isInvitee = NO;
+                    }
+                    else
+                    {
+                        NSString *firstFriendCreatorMkey = firstFriend[@"connection_creator_mkey"];
+                        NSString *myMkey = user.mkey;
+                        user.isInvitee = ![firstFriendCreatorMkey isEqualToString:myMkey];
+                    }
 
-            ANDispatchBlockToBackgroundQueue(^{
-                [ZZUserDataProvider upsertUserWithModel:user];
-            });
-        }
+                    ANDispatchBlockToBackgroundQueue(^{
+                        [ZZUserDataProvider upsertUserWithModel:user];
+                    });
+                }
 
-        friendsData = [[friendsData.rac_sequence map:^id(id obj) {
+                
+                friendsData = [[friendsData.rac_sequence map:^id(id obj) {
+                    if (![obj isKindOfClass:[NSDictionary class]])
+                    {
+                        return nil;
+                    }
+                    
+                    FEMObjectMapping *mapping = [ZZFriendDomainModel mapping];
+                    ZZFriendDomainModel *friendModel = [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
+                                                                                                         usingMapping:mapping];
+                    return friendModel;
+                }] array];
 
-            if ([obj isKindOfClass:[NSDictionary class]])
-            {
-                FEMObjectMapping *mapping = [ZZFriendDomainModel mapping];
-                ZZFriendDomainModel *model = [FEMObjectDeserializer deserializeObjectExternalRepresentation:obj
-                                                                                               usingMapping:mapping];
-                obj = [ZZFriendDataUpdater upsertFriend:model];
-                return obj;
-            }
-            return nil;
-        }] array];
-
-        return friendsData;
+                ANDispatchBlockToMainQueue(^{
+                    for (ZZFriendDomainModel *friendModel in friendsData) {
+                        [ZZFriendDataUpdater upsertFriend:friendModel];
+                    }
+                });                
+                
+                return friendsData;
     }];
 }
 

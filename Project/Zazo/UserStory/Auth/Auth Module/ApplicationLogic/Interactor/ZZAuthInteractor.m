@@ -46,7 +46,7 @@
 //    user.lastName = @"B";
 //    user.mobileNumber = @"79093075049";
 
-    NSString *num = @"101";
+    NSString *num = @"100";
 
     user.firstName = num;
     user.lastName = num;
