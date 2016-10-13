@@ -74,6 +74,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (void)updateCellWithModel:(ZZGridDomainModel *)model
 {
+    if (model == nil)
+    {
+        return;
+    }
+    
     NSInteger index = [self viewModelIndexWithModelIndex:model.index];
     
     if (index != NSNotFound)

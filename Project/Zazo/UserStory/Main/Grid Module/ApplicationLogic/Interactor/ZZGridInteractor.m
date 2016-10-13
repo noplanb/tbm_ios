@@ -596,6 +596,12 @@ static NSInteger const kGridFriendsCellCount = 8;
 - (void)_updatedAbilitiesOfFriend:(ZZFriendDomainModel *)friendModel
 {
     ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+    
+    if (gridModel == nil)
+    {
+        return;
+    }
+    
     [self.output reloadGridModel:gridModel];
 }
 
