@@ -692,15 +692,15 @@
 
 - (void)_handleTouches:(NSSet *)touches
 {
+    BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
+    
+    if (!recording)
+    {
+        return ;
+    }
+    
     ANDispatchBlockToMainQueue(^{
         UITouch *touch = [[touches allObjects] firstObject];
-
-        BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
-
-        if (!recording)
-        {
-            return ;
-        }
         
         if ((touch.phase == UITouchPhaseBegan) ||
             (touch.phase == UITouchPhaseStationary))
