@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 
 @property (nonatomic, strong) PhotoLibraryHelper *photoHelper;
 @property (nonatomic, assign) BOOL avatarEnabled;
+@property (nonatomic, strong) ANMemoryStorage *storage;
 
 @end
 
@@ -34,6 +35,9 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 
     [self.interactor checkAvatarStatus];
     [self.userInterface showLoading:YES];
+    
+    self.storage = [ANMemoryStorage storage];
+    self.userInterface.storage = self.storage;
 }
 
 #pragma mark - Output
@@ -181,8 +185,8 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 
 - (void)_makeStorageWithAvatarEnabled:(BOOL)flag
 {
-    ANMemoryStorage *storage = [ANMemoryStorage storage];
-    self.userInterface.storage = storage;
+    [self.storage startUpdate];
+    [self.storage removeAllItems];
     
     NSDictionary *checkmarkIcon = @{@(YES): @"checkmark", @(NO): @"no-checkmark"};
     
@@ -195,10 +199,11 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     usePhoto.type = ZZMenuItemTypeProfilePhoto;
     useZazo.type = ZZMenuItemTypeLastZazo;
     
-    [storage addItem:usePhoto toSection:0];
-    [storage addItem:useZazo toSection:0];    
-    [storage setSectionHeaderModel:@"Thumbnail when sending a Zazo" forSectionIndex:0];
+    [self.storage addItem:usePhoto toSection:0];
+    [self.storage addItem:useZazo toSection:0];
+    [self.storage setSectionHeaderModel:@"Thumbnail when sending a Zazo" forSectionIndex:0];
 
+    [self.storage finishUpdate];
 }
 
 - (void)avatarFetchDidFail:(NSString *)text
