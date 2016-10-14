@@ -59,7 +59,8 @@
 - (void)showAvatarScreen
 {
     self.avatarWireframe = [ZZAvatarWireframe new];
-    [self.avatarWireframe presentAvatarControllerFromNavigationController:self.menuController.navigationController];
+    [self.avatarWireframe presentAvatarControllerFromNavigationController:self.menuController.navigationController delegate:self.presenter];
+    
 }
 
 @end

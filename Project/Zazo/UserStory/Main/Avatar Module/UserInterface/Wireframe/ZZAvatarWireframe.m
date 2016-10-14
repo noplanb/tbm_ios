@@ -20,10 +20,12 @@
 @implementation ZZAvatarWireframe
 
 - (void)presentAvatarControllerFromNavigationController:(UINavigationController *)nc
+                                               delegate:(id<ZZAvatarModuleDelegate>)delegate
 {
     ZZAvatarVC* avatarController = [ZZAvatarVC new];
     ZZAvatarInteractor* interactor = [ZZAvatarInteractor new];
     ZZAvatarPresenter* presenter = [ZZAvatarPresenter new];
+    presenter.avatarModuleDelegate = delegate;
     
     NetworkClient *networkClient = [NetworkClient new];
     networkClient.baseURL = [NSURL URLWithString: APIBaseURL()];

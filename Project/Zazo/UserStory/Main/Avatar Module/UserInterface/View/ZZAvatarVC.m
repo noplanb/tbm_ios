@@ -25,9 +25,7 @@
     self = [super init];
     if (self) {
         _menuView = [ZZMenuView new];
-        _controller =
-        [[ZZMenuController alloc] initWithTableView:_menuView.tableView];
-        
+        _controller = [[ZZMenuController alloc] initWithTableView:_menuView.tableView];
 
     }
     return self;
@@ -59,14 +57,27 @@
                                                  action:@selector(_didTapAvatar)
                                        forControlEvents:UIControlEventTouchUpInside];
 
-    self.menuView.headerView.layoutMargins = UIEdgeInsetsMake(48, 24, 48, 24);
+    self.menuView.headerView.layoutMargins = UIEdgeInsetsMake(48, 24, 30, 24);
     self.menuView.headerView.avatarRadius = 80;
     
     UITableView *tableView = self.menuView.tableView;
     tableView.tableFooterView = [UIView new];
     tableView.backgroundView = [UIView new];
     tableView.backgroundView.backgroundColor = [UIColor an_colorWithHexString:@"EEF2F7"];
-    tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+    
+    ZZMenuHeaderView *headerView = self.menuView.headerView;
+    
+    headerView.titleLabel.text = @"UPDATE PROFILE PHOTO";
+    headerView.titleLabel.textColor = [ZZColorTheme shared].tintColor;
+    headerView.backgroundColor = [UIColor an_colorWithHexString:@"ECF2F8"];
+    headerView.patternView.tintColor = [UIColor an_colorWithHexString:@"B2C1CF"];
+    headerView.imageViewButton.backgroundColor = [UIColor clearColor];
+    headerView.noImageLabel.hidden = YES;
+    
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_didTapAvatar)];
+    headerView.titleLabel.userInteractionEnabled = YES;
+    [headerView.titleLabel addGestureRecognizer:recognizer];
 }
 
 - (void)askForRetry:(NSString *)message completion:(void (^ _Nonnull)(BOOL confirmed))completion

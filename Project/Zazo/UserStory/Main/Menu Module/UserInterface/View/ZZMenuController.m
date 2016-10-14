@@ -6,7 +6,7 @@
 #import "ZZMenuController.h"
 #import "ZZMenuCell.h"
 #import "ZZMenuCellModel.h"
-
+#import "ANBaseTableHeaderView.h"
 
 @implementation ZZMenuController
 
@@ -20,7 +20,8 @@
     }
 
     [self registerCellClass:[ZZMenuCell class] forModelClass:[ZZMenuCellModel class]];
-
+    [self registerHeaderClass:[ANBaseTableHeaderView class] forModelClass:[NSString class]];
+    
     return self;
 }
 

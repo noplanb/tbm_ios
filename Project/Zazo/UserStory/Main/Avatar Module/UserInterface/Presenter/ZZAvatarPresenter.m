@@ -179,9 +179,10 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     }];
 }
 
-- (ANMemoryStorage *)_makeStorageWithAvatarEnabled:(BOOL)flag
+- (void)_makeStorageWithAvatarEnabled:(BOOL)flag
 {
     ANMemoryStorage *storage = [ANMemoryStorage storage];
+    self.userInterface.storage = storage;
     
     NSDictionary *checkmarkIcon = @{@(YES): @"checkmark", @(NO): @"no-checkmark"};
     
@@ -189,15 +190,15 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     [ZZMenuCellModel modelWithTitle:@"Use profile photo" iconWithImageNamed:checkmarkIcon[@(flag)]];
     
     ZZMenuCellModel *useZazo =
-    [ZZMenuCellModel modelWithTitle:@"Use last zazo" iconWithImageNamed:checkmarkIcon[@(!flag)]];
+    [ZZMenuCellModel modelWithTitle:@"Use last frame of Zazo" iconWithImageNamed:checkmarkIcon[@(!flag)]];
     
     usePhoto.type = ZZMenuItemTypeProfilePhoto;
     useZazo.type = ZZMenuItemTypeLastZazo;
     
     [storage addItem:usePhoto toSection:0];
     [storage addItem:useZazo toSection:0];    
-    
-    return storage;
+    [storage setSectionHeaderModel:@"Thumbnail when sending a Zazo" forSectionIndex:0];
+
 }
 
 - (void)avatarFetchDidFail:(NSString *)text
@@ -215,6 +216,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 - (void)currentAvatarWasChanged:(UIImage *)avatar
 {
     [self.userInterface showAvatar:avatar];
+    [self.avatarModuleDelegate didChangeAvatar];
 }
 
 - (void)avatarFetchDidComplete
@@ -225,7 +227,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 - (void)avatarEnabled:(BOOL)enabled
 {
     self.avatarEnabled = enabled;
-    self.userInterface.storage = [self _makeStorageWithAvatarEnabled:enabled];
+    [self _makeStorageWithAvatarEnabled:enabled];
 }
 
 #pragma mark - Module Interface

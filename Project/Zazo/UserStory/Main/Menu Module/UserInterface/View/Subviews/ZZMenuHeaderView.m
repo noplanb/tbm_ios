@@ -9,7 +9,6 @@ CGFloat const ZZDefaultAvatarRadius = 60;
 
 @interface ZZMenuHeaderView ()
 
-@property (nonatomic, strong, readonly) UIImageView *patternView;
 
 @end
 
@@ -90,6 +89,7 @@ CGFloat const ZZDefaultAvatarRadius = 60;
     noAvatarText.textAlignment = NSTextAlignmentCenter;
     noAvatarText.textColor = [UIColor an_colorWithHexString:@"DBE6FF"];
     noAvatarText.font = [UIFont boldSystemFontOfSize:13];
+    self.noImageLabel = noAvatarText;
     
     UIImage *emptyAvatarImage = [UIImage imageNamed:@"empty-avatar"];
     

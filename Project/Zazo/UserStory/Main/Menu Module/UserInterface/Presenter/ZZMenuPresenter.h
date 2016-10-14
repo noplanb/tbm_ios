@@ -8,8 +8,9 @@
 #import "ZZMenuViewInterface.h"
 #import "ZZMenuModuleDelegate.h"
 #import "ZZMenuModuleInterface.h"
+#import "ZZAvatarModuleDelegate.h"
 
-@interface ZZMenuPresenter : NSObject <ZZMenuInteractorOutput, ZZMenuModuleInterface>
+@interface ZZMenuPresenter : NSObject <ZZMenuInteractorOutput, ZZMenuModuleInterface, ZZAvatarModuleDelegate>
 
 @property (nonatomic, strong) id <ZZMenuInteractorInput> interactor;
 @property (nonatomic, strong) ZZMenuWireframe *wireframe;

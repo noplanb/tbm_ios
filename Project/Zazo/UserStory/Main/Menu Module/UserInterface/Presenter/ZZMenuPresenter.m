@@ -68,8 +68,7 @@
 
     [storage addItem:contacts toSection:0];
     [storage addItem:helpFeedback toSection:0];
-    
-    
+        
     BOOL showDebugRow = NO;
     
 #ifdef DEBUG
@@ -148,5 +147,11 @@
 
 }
 
+#pragma mark ZZAvatarModuleDelegate
+
+- (void)didChangeAvatar
+{
+    [self.userInterface showAvatar: [self.interactor avatar]];
+}
 
 @end
