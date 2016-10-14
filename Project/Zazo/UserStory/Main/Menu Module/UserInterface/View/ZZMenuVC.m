@@ -40,6 +40,14 @@
     [self.menuView.headerView.imageViewButton addTarget:self
                                                  action:@selector(_didTapAvatar)
                                        forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImage *editIcon = [UIImage imageNamed:@"avatar-edit-icon"];
+    UIImageView *editView = [[UIImageView alloc] initWithImage:editIcon];
+    [self.menuView.headerView addSubview:editView];
+    
+    [editView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.equalTo(self.menuView.headerView.imageView);
+    }];
 }
 
 @synthesize storage = _storage;

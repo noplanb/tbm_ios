@@ -706,10 +706,10 @@
         }
 
         BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
-        
+    
         if (!recording)
         {
-            return ;
+            return;
         }
 
         if ((touch.phase == UITouchPhaseBegan) ||
