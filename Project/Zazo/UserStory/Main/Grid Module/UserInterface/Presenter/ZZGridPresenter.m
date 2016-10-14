@@ -692,30 +692,36 @@
 
 - (void)_handleTouches:(NSSet *)touches
 {
-    BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
-    
-    if (!recording)
-    {
-        return ;
-    }
-    
-    ANDispatchBlockToMainQueue(^{
         UITouch *touch = [[touches allObjects] firstObject];
-        
-        if ((touch.phase == UITouchPhaseBegan) ||
-            (touch.phase == UITouchPhaseStationary))
-        {
-            [self _cancelRecordingWithDoubleTap];
-            return;
-        }
         
         if (touch.phase == UITouchPhaseEnded && self.startedFromPlayerRecordForFriend)
         {
             ZZGridCellViewModel *cellModel = [self _cellForFriend:self.startedFromPlayerRecordForFriend];
             self.startedFromPlayerRecordForFriend = nil;
-            [cellModel stopVideoRecording];
+            ANDispatchBlockToMainQueue(^{
+                [cellModel stopVideoRecording];
+            });
+            
+            return;
         }
-    });
+
+        BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
+        
+        if (!recording)
+        {
+            return ;
+        }
+
+        if ((touch.phase == UITouchPhaseBegan) ||
+            (touch.phase == UITouchPhaseStationary))
+        {
+            ANDispatchBlockToMainQueue(^{
+                [self _cancelRecordingWithDoubleTap];
+            });
+
+            return;
+        }
+        
 }
 
 - (void)_cancelRecordingWithDoubleTap
