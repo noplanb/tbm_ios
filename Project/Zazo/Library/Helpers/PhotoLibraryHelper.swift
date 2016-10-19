@@ -50,8 +50,9 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
         configurePickerController()
         self.completion = completion
         pickerController.sourceType = .Camera
+        pickerController.cameraDevice = .Front
         
-        VC.presentViewController(pickerController, animated: true) { 
+        VC.presentViewController(pickerController, animated: true) {
             
         }
     }

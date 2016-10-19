@@ -16,11 +16,13 @@
 #import "ZZAlertBuilder.h"
 #import "AVAudioSession+ZZAudioSession.h"
 
-NSString *const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
-NSString *const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
+NSString * const kVideoProcessorDidFinishProcessing = @"kZZVideoProcessorDidFinishProcessing";
+NSString * const kVideoProcessorDidFail = @"kZZVideoProcessorDidFailProcessing";
 
-NSString *const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
-NSString *const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
+NSString * const kZZVideoRecorderDidStartVideoCapture = @"kZZVideoRecorderDidStartVideoCapture";
+NSString * const kZZVideoRecorderDidEndVideoCapture = @"kZZVideoRecorderDidEndVideoCapture";
+
+NSString * const kZZVideoRecorderDidStartPreview = @"kZZVideoRecorderDidStartPreview";
 
 CGFloat const kZZVideoRecorderDelayBeforeNextMessage = 1.1;
 static CGFloat const kZZVideoRecorderStartDelayAfterDing = 0.3;
@@ -38,6 +40,8 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, assign) BOOL isSetup;
 @property (nonatomic, assign) BOOL onCallAlertShowing;
 @property (nonatomic, assign) BOOL isFirstLaunchAttempt;
+@property (nonatomic, strong) PBJVision *recorder;
+
 @end
 
 
@@ -66,44 +70,32 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)setup
 {
-    if (!self.isSetup)
-    {
-        self.isSetup = YES;
+    self.isSetup = YES;
 
-        self.videoProcessor = [TBMVideoProcessor new];
+    self.videoProcessor = [TBMVideoProcessor new];
 
-        self.isFirstLaunchAttempt = YES;
-        self.onCallAlertShowing = NO;
+    self.isFirstLaunchAttempt = YES;
+    self.onCallAlertShowing = NO;
 
-        self.recorder.delegate = self;
-
-        self.recorder.cameraMode = PBJCameraModeVideo;
-        [self.recorder setCameraDevice:PBJCameraDeviceFront];
-        self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
-        self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
-        self.recorder.outputFormat = PBJOutputFormatPreset;
-        self.recorder.videoBitRate = PBJVideoBitRate640x480;
-        self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
-        self.recorder.usesApplicationAudioSession = YES;
-        self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
-    }
-}
-
-- (PBJVision *)recorder
-{
-    return [PBJVision sharedInstance];
+    self.recorder = [[PBJVision alloc] init];
+    self.recorder.delegate = self;
+    self.recorder.cameraMode = PBJCameraModeVideo;
+    [self.recorder setCameraDevice:PBJCameraDeviceFront];
+    self.recorder.cameraOrientation = PBJCameraOrientationPortrait;
+    self.recorder.focusMode = PBJFocusModeContinuousAutoFocus;
+    self.recorder.outputFormat = PBJOutputFormatPreset;
+    self.recorder.videoBitRate = PBJVideoBitRate640x480;
+    self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
+    self.recorder.usesApplicationAudioSession = YES;
+    self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
 }
 
 #pragma mark - Preview
 
-- (AVCaptureVideoPreviewLayer *)previewLayer
-{
-    return self.recorder.previewLayer;
-}
-
 - (void)startPreview
 {
     [self.recorder startPreview];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidStartPreview object:self.recorder.previewLayer];
 }
 
 - (void)stopPreview

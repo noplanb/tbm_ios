@@ -119,6 +119,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 {
     [[ZZVideoRecorder shared] stopPreview];
     [self.photoHelper presentCameraFrom:self.userInterface with:^(UIImage * _Nullable image) {
+        [[ZZVideoRecorder shared] setup];
         [[ZZVideoRecorder shared] startPreview];
         [self updateAvatarWithImage:image];
     }];

@@ -79,7 +79,7 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
             [self.videoView addGestureRecognizer:tapRecognizer];
             [self bringSubviewToFront:self.switchCameraButton];
         }
-        if (!self.previewLayer)
+        if (!self.previewLayer.session.running)
         {
             self.previewLayer = model.previewLayer;
         }
@@ -179,23 +179,23 @@ static CGFloat const kLayoutConstRecordingBorderWidth = 3.5;
     {
         return;
     }
+    
     if (self.videoView == nil)
     {
         ZZLogError(@"attempting to set previewLayer while videoView is nil. This should never happen.");
         return;
     }
-    if (previewLayer != nil)
+   
+    _previewLayer = previewLayer;
+    for (CALayer *layer in [self.videoView.layer.sublayers copy])
     {
-        _previewLayer = previewLayer;
-        for (CALayer *layer in [self.videoView.layer.sublayers copy])
-        {
-            [layer removeFromSuperlayer];
-        }
-        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        [self.videoView.layer addSublayer:_previewLayer];
-
-        self.previewLayer.cornerRadius = 4;
+        [layer removeFromSuperlayer];
     }
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self.videoView.layer addSublayer:_previewLayer];
+    previewLayer.frame = self.videoView.layer.bounds;
+    self.previewLayer.cornerRadius = 4;
+
 }
 
 #pragma mark - Lazy Load

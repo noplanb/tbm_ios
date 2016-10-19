@@ -170,6 +170,7 @@ static NSInteger const kGridCenterCellIndex = 4;
 - (void)updateValueOnCenterCellWithPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer
 {
     [self centerViewModel].previewLayer = previewLayer;
+    [self _reloadModelAtIndex:kGridCenterCellIndex];
 }
 
 - (ZZGridCenterCellViewModel *)centerViewModel

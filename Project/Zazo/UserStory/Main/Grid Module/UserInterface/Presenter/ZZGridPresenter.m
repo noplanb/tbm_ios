@@ -100,6 +100,11 @@
                                              selector:@selector(_updateViewPositions)
                                                  name:UIApplicationWillResignActiveNotification //UIApplicationWillTerminateNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didStartPreview:)
+                                                 name:kZZVideoRecorderDidStartPreview
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -188,6 +193,13 @@
 - (void)_updateViewPositions
 {
     [self.userInterface configureViewPositions];
+}
+
+- (void)didStartPreview:(NSNotification *)note
+{
+    ANDispatchBlockToMainQueue(^{
+        [self.dataSource updateValueOnCenterCellWithPreviewLayer:note.object];
+    });
 }
 
 #pragma mark - Update User
@@ -301,8 +313,6 @@
 
         [self.dataSource updateValueOnCenterCellWithHandleCameraRotation:
                 isTwoCamerasAvailable && isSwitchCameraAvailable];
-
-        [self.dataSource updateValueOnCenterCellWithPreviewLayer:[ZZVideoRecorder shared].previewLayer];
 
         [self _showRecordWelcomeIfNeededWithData:data];
     });
@@ -536,9 +546,9 @@
 - (void)switchCamera
 {    
     [self.userInterface prepareForCameraSwitchAnimation];
-    [[ZZVideoRecorder shared] switchCamera:^{
+//    [[ZZVideoRecorder shared] switchCamera:^{
         [self.userInterface showCameraSwitchAnimation];
-    }];
+//    }];
 }
 
 - (void)stopPlaying
@@ -754,7 +764,6 @@
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID: viewModel.item.relatedUser.idTbm];
     
     BOOL showFullscreenItem = friendModel.videos.count > 0 && [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled;
-    
     NSArray<MenuItem *> *items = showFullscreenItem ? @[convertToText, sendText, playFullscreen] : @[convertToText, sendText];
     
     if (![ZZThumbnailGenerator hasLastThumbForUser:friendModel])

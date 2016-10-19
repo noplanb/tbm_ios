@@ -129,7 +129,6 @@
             [[ZZVideoRecorder shared] setup];
             [[ZZVideoRecorder shared] startPreview];
             [self.downloadErrorHandler startService];
-
         }];
     }
 }

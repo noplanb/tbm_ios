@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @import AVFoundation;
 
+extern NSString * const kZZVideoRecorderDidStartPreview;
+
 @interface ZZVideoRecorder : NSObject
 
 extern NSString *const kVideoProcessorDidFinishProcessing;
@@ -22,8 +24,6 @@ extern CGFloat const kZZVideoRecorderDelayBeforeNextMessage;
 + (instancetype)shared;
 
 - (void)setup;
-
-- (AVCaptureVideoPreviewLayer *)previewLayer;
 
 - (void)startPreview;
 
