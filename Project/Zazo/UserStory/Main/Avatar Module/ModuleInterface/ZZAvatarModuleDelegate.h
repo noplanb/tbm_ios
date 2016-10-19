@@ -5,6 +5,4 @@
 
 @protocol ZZAvatarModuleDelegate <NSObject>
 
-- (void)didChangeAvatar;
-
 @end

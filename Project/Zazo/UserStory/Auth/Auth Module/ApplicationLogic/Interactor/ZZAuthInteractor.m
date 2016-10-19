@@ -142,14 +142,15 @@
 {
     [ZZFriendDataUpdater deleteAllFriends];
 
-    [[ZZFriendsTransportService loadFriendList] subscribeNext:^(id x) {
+    [[[ZZFriendsTransportService loadFriendList]
+    deliverOn: [RACScheduler mainThreadScheduler]]
+    subscribeNext:^(id x) {
         [self.output loadedFriendsSuccessfully];
         [[ZZRootStateObserver sharedInstance] notifyWithEvent:ZZRootStateObserverEventsFriendsAfterAuthorizationLoaded
                                            notificationObject:nil];
         [self.output registrationFlowCompletedSuccessfully];
-
-    }                                                   error:^(NSError *error) {
-
+    }
+    error:^(NSError *error) {
         [self.output loadFriendsDidFailWithError:error];
     }];
 }

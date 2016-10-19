@@ -255,6 +255,7 @@
 		154C7F4D1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
 		1552F9091D5887E90025ED58 /* ZZMessageGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1552F9081D5887E90025ED58 /* ZZMessageGroup.m */; };
 		1555C7E71D6DAE5C00A852BC /* ZZAbilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C7E61D6DAE5C00A852BC /* ZZAbilities.m */; };
+		1556DD4E1DB7A054009F60F6 /* ZZAvatarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */; };
 		1559CB761D671B6800D87B00 /* NotificationActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */; };
 		156C62C11DA2826200BC31DA /* v3-v4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 156C62C01DA2826200BC31DA /* v3-v4.xcmappingmodel */; };
 		156C62C41DA289A100BC31DA /* MHWMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 156C62C31DA289A100BC31DA /* MHWMigrationManager.m */; };
@@ -1309,6 +1310,8 @@
 		1552F9081D5887E90025ED58 /* ZZMessageGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZMessageGroup.m; sourceTree = "<group>"; };
 		1555C7E51D6DAE1000A852BC /* ZZAbilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZAbilities.h; sourceTree = "<group>"; };
 		1555C7E61D6DAE5C00A852BC /* ZZAbilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAbilities.m; sourceTree = "<group>"; };
+		1556DD4C1DB7A054009F60F6 /* ZZAvatarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarManager.h; sourceTree = "<group>"; };
+		1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarManager.m; sourceTree = "<group>"; };
 		1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationActionHandler.swift; sourceTree = "<group>"; };
 		156C62C01DA2826200BC31DA /* v3-v4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "v3-v4.xcmappingmodel"; sourceTree = "<group>"; };
 		156C62C21DA289A100BC31DA /* MHWMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWMigrationManager.h; sourceTree = "<group>"; };
@@ -2402,6 +2405,7 @@
 		07636B7D1BA49A0100925671 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				1556DD4B1DB7A02D009F60F6 /* AvatarManager */,
 				158805951D9FFA0300023332 /* FriendsAvatarsService */,
 				15E42DAF1D8AC7B100FAC6CA /* AvatarStorageService.swift */,
 				15E42DB11D8AD29600FAC6CA /* AvatarUpdateService.swift */,
@@ -4296,6 +4300,15 @@
 				154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */,
 			);
 			path = OBLogger;
+			sourceTree = "<group>";
+		};
+		1556DD4B1DB7A02D009F60F6 /* AvatarManager */ = {
+			isa = PBXGroup;
+			children = (
+				1556DD4C1DB7A054009F60F6 /* ZZAvatarManager.h */,
+				1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */,
+			);
+			path = AvatarManager;
 			sourceTree = "<group>";
 		};
 		157F41F41D7473C7004D6108 /* Zazo */ = {
@@ -6529,6 +6542,7 @@
 				152158281C84932A00260AFD /* ZZGridCellGradientView.m in Sources */,
 				07636EA11BA49A0100925671 /* ZZDebugStateWireframe.m in Sources */,
 				07636E9E1BA49A0100925671 /* ZZDebugStateCellViewModel.m in Sources */,
+				1556DD4E1DB7A054009F60F6 /* ZZAvatarManager.m in Sources */,
 				1501715B1D2BCEC6007E49F5 /* Menu.swift in Sources */,
 				15B823061CB7BBD4006473E1 /* _TBMFriend.m in Sources */,
 				223A1F5A1BF97D9D00FA4EA7 /* AVAudioSession+ZZAudioSession.m in Sources */,

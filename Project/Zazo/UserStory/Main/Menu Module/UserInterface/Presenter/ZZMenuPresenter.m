@@ -11,6 +11,7 @@
 #import "ZZMenuCellModel.h"
 #import "ZZGridActionStoredSettings.h"
 #import "ZZDeleteFriendsFeatureEventHandler.h"
+#import "ZZAvatarManager.h"
 
 @interface ZZMenuPresenter ()
 
@@ -29,8 +30,12 @@
                                                  name:ZZFeatureUnlockedNotificationName
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(avatarChangedNotification:)
+                                                 name:ZZAvatarWasChangedNotificationName
+                                               object:nil];
     
-    [self.userInterface showAvatar: [self.interactor avatar]];
+    [[ZZAvatarManager sharedManager] checkAvatarStatus];
 }
 
 - (void)editFriendsUnlockedNotification:(NSNotificationCenter *)notification
@@ -108,6 +113,11 @@
     [self.wireframe showAvatarScreen];
 }
 
+- (void)avatarChangedNotification:(NSNotification *)notification
+{
+    [self.userInterface showAvatar:notification.object];
+}
+
 #pragma mark - Output
 
 - (void)feedbackModelLoadedSuccessfully:(ANMessageDomainModel *)model
@@ -144,14 +154,6 @@
         default:
             break;
     }
-
-}
-
-#pragma mark ZZAvatarModuleDelegate
-
-- (void)didChangeAvatar
-{
-    [self.userInterface showAvatar: [self.interactor avatar]];
 }
 
 @end

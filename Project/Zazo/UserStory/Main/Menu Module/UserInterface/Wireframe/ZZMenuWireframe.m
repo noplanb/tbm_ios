@@ -40,7 +40,7 @@
     ZZMenuPresenter *presenter = [ZZMenuPresenter new];
 
     interactor.output = presenter;
-    
+
     menuController.eventHandler = presenter;
 
     presenter.interactor = interactor;

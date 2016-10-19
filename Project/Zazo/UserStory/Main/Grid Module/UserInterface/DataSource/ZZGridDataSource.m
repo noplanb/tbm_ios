@@ -175,6 +175,11 @@ static NSInteger const kGridCenterCellIndex = 4;
 
 - (ZZGridCenterCellViewModel *)centerViewModel
 {
+    if (self.models.count < kGridCenterCellIndex)
+    {
+        return nil;
+    }
+    
     return self.models[kGridCenterCellIndex];
 }
 

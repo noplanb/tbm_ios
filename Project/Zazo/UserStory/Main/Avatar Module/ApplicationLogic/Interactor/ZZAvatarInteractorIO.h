@@ -3,13 +3,13 @@
 //  Zazo
 //
 
-typedef void(^UploadCompletion)(NSError *error);
+typedef void(^ZZAvatarInteractorUploadCompletion)(NSError *error);
 
 @protocol ZZAvatarInteractorInput <NSObject>
 
 - (void)checkAvatarStatus;
-- (void)uploadAvatar:(UIImage *)image completion:(UploadCompletion)completion;
-- (void)removeAvatarCompletion:(UploadCompletion)completion;
+- (void)uploadAvatar:(UIImage *)image completion:(ZZAvatarInteractorUploadCompletion)completion;
+- (void)removeAvatarCompletion:(ZZAvatarInteractorUploadCompletion)completion;
 - (BOOL)hasAvatar;
 
 @end

@@ -22,29 +22,14 @@
 - (void)presentAvatarControllerFromNavigationController:(UINavigationController *)nc
                                                delegate:(id<ZZAvatarModuleDelegate>)delegate
 {
-    ZZAvatarVC* avatarController = [ZZAvatarVC new];
-    ZZAvatarInteractor* interactor = [ZZAvatarInteractor new];
-    ZZAvatarPresenter* presenter = [ZZAvatarPresenter new];
+    ZZAvatarVC *avatarController = [ZZAvatarVC new];
+    ZZAvatarInteractor *interactor = [ZZAvatarInteractor new];
+    ZZAvatarPresenter *presenter = [ZZAvatarPresenter new];
     presenter.avatarModuleDelegate = delegate;
-    
-    NetworkClient *networkClient = [NetworkClient new];
-    networkClient.baseURL = [NSURL URLWithString: APIBaseURL()];
-    
-    ConcreteAvatarService *avatarService = [[ConcreteAvatarService alloc] init];
-    avatarService.networkClient = networkClient;
-    
-    NSString *persistenceKey = @"avatar";
-    AvatarUpdateService *updateService = [[AvatarUpdateService alloc] initWith:persistenceKey];
-    updateService.legacyAvatarService = avatarService;
-    updateService.delegate = interactor;
-    
-    interactor.networkService = avatarService;
-    interactor.output = presenter;
-    interactor.updateService = updateService;
-    interactor.storageService = [AvatarStorageService sharedService];
-    
+        
     avatarController.eventHandler = presenter;
-    
+    interactor.output = presenter;
+
     presenter.interactor = interactor;
     presenter.wireframe = self;
     [presenter configurePresenterWithUserInterface:avatarController];

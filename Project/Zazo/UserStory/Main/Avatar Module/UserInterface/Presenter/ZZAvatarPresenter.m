@@ -86,8 +86,6 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
     
     [alertController addAction:cancel];
     
-    
-    
     [self.userInterface presentViewController:alertController
                                      animated:YES
                                    completion:nil];
@@ -222,7 +220,6 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
 - (void)currentAvatarWasChanged:(UIImage *)avatar
 {
     [self.userInterface showAvatar:avatar];
-    [self.avatarModuleDelegate didChangeAvatar];
 }
 
 - (void)avatarFetchDidComplete
