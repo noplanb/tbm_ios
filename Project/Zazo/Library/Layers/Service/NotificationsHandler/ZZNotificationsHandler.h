@@ -15,7 +15,6 @@ extern NSString * const ZZMessageVideoActionIdentifier;
 @protocol ZZNotificationsHandlerDelegate <NSObject>
 
 - (void)requestBackground;
-
 - (void)handleVideoStatusUpdateNotification:(ZZNotificationDomainModel *)model;
 - (void)handleMessageReceivedNotification:(ZZMessageNotificationDomainModel *)notificationModel;
 - (void)handleVideoReceivedNotification:(ZZNotificationDomainModel *)model;
@@ -26,16 +25,13 @@ extern NSString * const ZZMessageVideoActionIdentifier;
 
 @property (nonatomic, weak) id <ZZNotificationsHandlerDelegate> delegate;
 
+@property (nonatomic, strong) NSString *shouldPlayVideosForUserID;
+
 + (void)registerToPushNotifications;
-
 - (void)receivedPushNotificationsToken:(NSData *)token;
-
 + (void)disablePushNotifications;
-
 - (void)handlePushNotification:(NSDictionary *)notification;
-
 - (void)applicationRegisteredWithSettings:(UIUserNotificationSettings *)settings;
-
 - (void)applicationDidFailToRegisterWithError:(NSError *)error;
 
 @end

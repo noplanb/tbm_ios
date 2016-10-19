@@ -75,7 +75,7 @@
 - (void)   application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self.appDependencies handlePushNotification:userInfo];
+    [self.appDependencies handlePushNotification:userInfo isLaunch:NO];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -97,7 +97,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [self.appDependencies handlePushNotification:userInfo];
+    [self.appDependencies handlePushNotification:userInfo isLaunch:YES];
 }
 
         - (void)application:(UIApplication *)application

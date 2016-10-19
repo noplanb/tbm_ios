@@ -16,13 +16,9 @@
 #pragma mark - Application States
 
 - (void)handleWillResignActive;
-
 - (void)handleApplicationDidBecomeActive;
-
 - (void)handleApplicationWillTerminate;
-
 - (void)handleApplicationDidEnterInBackground;
-
 - (void)handleApplicationWillEnterForeground;
 
 #pragma mark - Open External URL
@@ -32,11 +28,8 @@
 #pragma mark - Notifications
 
 - (void)handleApplicationDidRegisterForPushWithToken:(NSData *)token;
-
-- (void)handlePushNotification:(NSDictionary *)userInfo;
-
+- (void)handlePushNotification:(NSDictionary *)userInfo isLaunch:(BOOL)flag;
 - (void)handleNotificationSettings:(UIUserNotificationSettings *)settings;
-
 - (void)handleApplicationDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 - (void)handleActionWithIdentifier:(NSString *)identifier

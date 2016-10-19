@@ -37,6 +37,7 @@
 
 @property (nonatomic, assign) BOOL initializationCompleted;
 @property (nonatomic, strong) NSString *shouldShowComposeForUserID;
+@property (nonatomic, assign) BOOL isLaunchFromNotification;
 
 @end
 
@@ -74,9 +75,10 @@
         }];
         
         NSDictionary *remoteNotification = [options objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        
         if (remoteNotification)
         {
-            [self handlePushNotification:remoteNotification];
+            [self handlePushNotification:remoteNotification isLaunch:NO];
         }
         [self installRootViewControllerIntoWindow:window];
         
@@ -143,6 +145,7 @@
         {
             [self.rootService checkApplicationPermissionsAndResources];
             [self showComposeScreenIfNeeded];
+            [self playVideoIfNeeded];
         }
     }];
 }
@@ -169,8 +172,9 @@
     [self.notificationsHandler receivedPushNotificationsToken:token];
 }
 
-- (void)handlePushNotification:(NSDictionary *)userInfo
+- (void)handlePushNotification:(NSDictionary *)userInfo isLaunch:(BOOL)flag
 {
+    
     [self.notificationsHandler handlePushNotification:userInfo];
 }
 
@@ -237,17 +241,28 @@
     self.shouldShowComposeForUserID = friendModel.idTbm;
 }
 
-- (void)showComposeScreenIfNeeded {
+- (void)showComposeScreenIfNeeded
+{
     
-    if (ANIsEmpty(self.shouldShowComposeForUserID)) {
+    if (ANIsEmpty(self.shouldShowComposeForUserID))
+    {
         return;
     }
     
-    if (!self.initializationCompleted) {
+    if (!self.initializationCompleted)
+    {
         return;
     }
     
     [self.rootWireframe.startWireframe.mainWireframe.gridWireframe presentComposeForUserWithID:self.shouldShowComposeForUserID];
+}
+
+- (void)playVideoIfNeeded
+{
+    if (self.notificationsHandler.shouldPlayVideosForUserID == nil)
+    {
+        return;
+    }
 }
 
 @end

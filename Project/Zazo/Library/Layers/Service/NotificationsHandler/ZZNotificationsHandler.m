@@ -227,6 +227,7 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
     ZZLogInfo(@"handleVideoReceivedNotification:");
 
     ZZNotificationDomainModel *model = [self _modelFromNotificationData:userInfo];
+    self.shouldPlayVideosForUserID = model.fromUserMKey;
     [self.delegate handleVideoReceivedNotification:model];
 }
 
