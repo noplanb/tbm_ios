@@ -486,6 +486,30 @@
     
 }
 
+- (void)playVideosIfNoDownloadsForUser:(NSString *)mKey
+{
+    ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithMKeyValue:mKey];
+    
+    if (friendModel == nil)
+    {
+        return;
+    }
+    
+    if (friendModel.hasDownloadingVideo)
+    {
+        return;
+    }
+    
+    NSUInteger index = [self.dataSource indexForFriendDomainModel:friendModel];
+    
+    if (index == NSNotFound)
+    {
+        return;
+    }
+    
+    [self.videoPlayer playVideoForFriend:friendModel];
+}
+
 #pragma mark - DataSource Delegate
 
 - (void)showHint

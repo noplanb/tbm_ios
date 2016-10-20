@@ -19,6 +19,7 @@
 #import "ZZCacheCleaner.h"
 #import "FEMObjectDeserializer.h"
 #import "ZZFriendDataProvider.h"
+#import "ZZGridPresenter.h"
 
 #import "ZZRootWireframe.h"
 #import "ZZStartWireframe.h"
@@ -37,6 +38,7 @@
 
 @property (nonatomic, assign) BOOL initializationCompleted;
 @property (nonatomic, strong) NSString *shouldShowComposeForUserID;
+@property (nonatomic, strong) NSString *shouldPlayVideosForUserID;
 @property (nonatomic, assign) BOOL isLaunchFromNotification;
 
 @end
@@ -145,7 +147,7 @@
         {
             [self.rootService checkApplicationPermissionsAndResources];
             [self showComposeScreenIfNeeded];
-            [self playVideoIfNeeded];
+            [self playVideosIfNeeded];
         }
     }];
 }
@@ -174,8 +176,13 @@
 
 - (void)handlePushNotification:(NSDictionary *)userInfo isLaunch:(BOOL)flag
 {
+    NSString *fromMKey = [self.notificationsHandler handlePushNotification:userInfo];
     
-    [self.notificationsHandler handlePushNotification:userInfo];
+    if (flag && !ANIsEmpty(fromMKey))
+    {
+        self.shouldPlayVideosForUserID = fromMKey;
+        [self playVideosIfNeeded];
+    }
 }
 
 - (void)handleNotificationSettings:(UIUserNotificationSettings *)settings
@@ -243,7 +250,6 @@
 
 - (void)showComposeScreenIfNeeded
 {
-    
     if (ANIsEmpty(self.shouldShowComposeForUserID))
     {
         return;
@@ -255,14 +261,31 @@
     }
     
     [self.rootWireframe.startWireframe.mainWireframe.gridWireframe presentComposeForUserWithID:self.shouldShowComposeForUserID];
+    self.shouldShowComposeForUserID = nil;
 }
 
-- (void)playVideoIfNeeded
+- (void)playVideosIfNeeded
 {
-    if (self.notificationsHandler.shouldPlayVideosForUserID == nil)
+    if (ANIsEmpty(self.shouldPlayVideosForUserID))
     {
         return;
     }
+    
+    if (!self.initializationCompleted)
+    {
+        return;
+    }
+    
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+    {
+        return;
+    }
+    
+    ANDispatchBlockToMainQueue(^{
+        [self.rootWireframe.startWireframe.mainWireframe.gridWireframe.presenter playVideosIfNoDownloadsForUser:self.shouldPlayVideosForUserID];
+    });
+    
+    self.shouldPlayVideosForUserID = nil;
 }
 
 @end

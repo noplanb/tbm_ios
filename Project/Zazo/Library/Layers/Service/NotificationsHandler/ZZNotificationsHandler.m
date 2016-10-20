@@ -176,7 +176,7 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
     return self.notificationAllowedTypes != UIUserNotificationTypeNone;
 }
 
-- (void)handlePushNotification:(NSDictionary *)userInfo
+- (NSString *)handlePushNotification:(NSDictionary *)userInfo
 {
     ZZLogInfo(@"didReceiveRemoteNotification:fetchCompletionHandler %@", userInfo);
     [self.delegate requestBackground];
@@ -189,7 +189,7 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
         switch (type) {
                 
             case ZZNotificationTypeVideoReceived:
-                [self handleVideoReceivedNotification:userInfo];
+                return [self handleVideoReceivedNotification:userInfo];
                 break;
                 
             case ZZNotificationTypeVideoStatusUpdate:
@@ -205,6 +205,8 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
                 break;
         }
     }
+    
+    return nil;
 }
 
 - (NSString *)videoIdWithUserInfo:(NSDictionary *)userInfo
@@ -222,13 +224,14 @@ typedef void(^ZZNotificationsHandlerBlock)(NSDictionary *userData);
     [self.delegate handleMessageReceivedNotification:messageModel];
 }
 
-- (void)handleVideoReceivedNotification:(NSDictionary *)userInfo
+- (NSString *)handleVideoReceivedNotification:(NSDictionary *)userInfo
 {
     ZZLogInfo(@"handleVideoReceivedNotification:");
 
     ZZNotificationDomainModel *model = [self _modelFromNotificationData:userInfo];
-    self.shouldPlayVideosForUserID = model.fromUserMKey;
     [self.delegate handleVideoReceivedNotification:model];
+    
+    return model.fromUserMKey;
 }
 
 - (void)handleVideoStatusUpdateNotification:(NSDictionary *)userInfo
