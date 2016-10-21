@@ -42,7 +42,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.contentView.presentingView = self.presentingViewController.view;
+    UIView *presentingView = self.presentingViewController.view;
+    self.contentView.presentingView = presentingView;
+    
+    UIGestureRecognizer *fullscreenGestureRecognizer = self.fullscreenHelper.recognizer;
+    
+    if (![presentingView.gestureRecognizers containsObject:fullscreenGestureRecognizer])
+    {
+        [presentingView addGestureRecognizer:fullscreenGestureRecognizer];
+    }
 }
 
 - (AndroidButton *)nextButton
@@ -266,9 +274,12 @@
 {
     _playerView = playerView;
     [self.view addSubview:playerView];
-    [playerView addSubview:self.tapButton];
+//    [playerView addSubview:self.tapButton];
     self.fullscreenHelper = [[VideoPlayerFullscreenHelper alloc] initWithView:playerView];
+    
     RAC(self.fullscreenHelper, enabled) = RACObserve([ZZGridActionStoredSettings shared], fullscreenFeatureEnabled);
+    
+    self.playerView.userInteractionEnabled = NO;
 }
 
 - (void)setFullscreenEnabled:(BOOL)enabled completion:(ANCodeBlock)completion;

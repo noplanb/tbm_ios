@@ -10,7 +10,7 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-@objc public class VideoPlayerFullscreenHelper: NSObject
+@objc public class VideoPlayerFullscreenHelper: NSObject, UIGestureRecognizerDelegate
 {
     public var centerOffset = CGPoint.init(x: 0, y: -20)
     
@@ -98,8 +98,7 @@ import UIKit
         recognizer.addTarget(self,
                              action: #selector(VideoPlayerFullscreenHelper.handleGesture(_:)))
         
-        view.addGestureRecognizer(recognizer)
-        
+        recognizer.delegate = self
         
     }
     
@@ -271,5 +270,18 @@ import UIKit
     {
         return hypot(p1.x - p2.x,
                      p1.y - p2.y)
+    }
+    
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        
+        if isFullscreen {
+            return true
+        }
+        
+        let touchPoint = touch.locationInView(view)
+        let isInside = view.bounds.contains(touchPoint)
+        
+        return isInside
+        
     }
 };

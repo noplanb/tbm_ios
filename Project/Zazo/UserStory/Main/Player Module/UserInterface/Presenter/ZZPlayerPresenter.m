@@ -70,11 +70,6 @@
     return self.playerController.isPlayingVideo;
 }
 
-- (void)installGestureRecognizer:(UIGestureRecognizer *)recognizer
-{
-    [self.playerController.playerView addGestureRecognizer:recognizer];
-}
-
 #pragma mark Player Controller delegate
 
 - (void)videoPlayerDidStartVideoModel:(ZZVideoDomainModel *)videoModel

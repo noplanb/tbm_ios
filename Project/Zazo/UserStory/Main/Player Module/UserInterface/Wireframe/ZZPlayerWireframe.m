@@ -10,7 +10,7 @@
 #import "ZZPlayer.h"
 #import "ZZPlayerModuleDelegate.h"
 
-@interface ZZPlayerWireframe () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface ZZPlayerWireframe ()
 
 @property (nonatomic, weak) UIViewController *parentVC;
 @property (nonatomic, strong) ZZPlayerPresenter *presenter;
@@ -25,7 +25,6 @@
     self = [super init];
     if (self) {
         _parentVC = VC;
-        _parentVC.transitioningDelegate = self;
 
         [self _setup];
         
@@ -50,7 +49,6 @@
     self.presenter = presenter;
     self.playerVC = playerController;
     
-    playerController.transitioningDelegate = self;
     _player = presenter;
 }
 
@@ -87,34 +85,5 @@
         [self.playerVC dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
-- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    return self;
-}
-
-- (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext
-{
-    return 0.15f;
-}
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
-{
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    fromViewController.view.userInteractionEnabled = NO;
-    [transitionContext containerView].userInteractionEnabled = NO;
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        fromViewController.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        fromViewController.view.userInteractionEnabled = YES;
-        [fromViewController.view removeFromSuperview];
-        fromViewController.view.alpha = 1;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        
-    }];
-
-}
-
 
 @end

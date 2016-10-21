@@ -44,7 +44,6 @@
 @property (nonatomic, strong) ZZGridActionHandler *actionHandler;
 @property (nonatomic, strong) RollbarReachability *reachability;
 @property (nonatomic, strong) ZZGridAlertBuilder *alertBuilder;
-@property (nonatomic, strong) ZZFriendDomainModel *startedFromPlayerRecordForFriend;
 
 @end
 
@@ -76,7 +75,6 @@
 - (void)setVideoPlayer:(id<ZZPlayerModuleInterface>)videoPlayer
 {
     _videoPlayer = videoPlayer;
-    [self _setupRecognizerToPlayer];
 }
 
 - (void)_setupNotifications
@@ -110,29 +108,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)_setupRecognizerToPlayer
-{
-    UILongPressGestureRecognizer *recognizer =
-    [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(_handlePlayerLongTap:)];
-
-    [self.videoPlayer installGestureRecognizer:recognizer];
-}
-
-- (void)_handlePlayerLongTap:(UILongPressGestureRecognizer *)recognizer
-{
-    ZZFriendDomainModel *friendModel = [self.videoPlayer playedFriendModel];
-    ZZGridCellViewModel *cellModel = [self _cellForFriend:friendModel];
-    
-    if (!cellModel)
-    {
-        return;
-    }
-    
-    self.startedFromPlayerRecordForFriend = friendModel;
-    [cellModel recordPressed:recognizer];
 }
 
 - (ZZGridCellViewModel *)_cellForFriend:(ZZFriendDomainModel *)friendModel
@@ -727,18 +702,7 @@
 - (void)_handleTouches:(NSSet *)touches
 {
         UITouch *touch = [[touches allObjects] firstObject];
-        
-        if (touch.phase == UITouchPhaseEnded && self.startedFromPlayerRecordForFriend)
-        {
-            ZZGridCellViewModel *cellModel = [self _cellForFriend:self.startedFromPlayerRecordForFriend];
-            self.startedFromPlayerRecordForFriend = nil;
-            ANDispatchBlockToMainQueue(^{
-                [cellModel stopVideoRecording];
-            });
-            
-            return;
-        }
-
+    
         BOOL recording = [ZZVideoRecorder shared].isRecording && ![ZZVideoRecorder shared].isCompleting;
     
         if (!recording)
@@ -937,8 +901,5 @@ didChangeRecordingState:(BOOL)isRecording
     [self.userInterface updateRecordViewStateTo:NO];
 
 }
-
-
-
 
 @end
