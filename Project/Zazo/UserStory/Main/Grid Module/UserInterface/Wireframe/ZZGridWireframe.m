@@ -60,7 +60,7 @@
     
     ZZFriendDomainModel *friendModel = [ZZFriendDataProvider friendWithItemID:friendID];
     
-    self.composeAssembly = [[ComposeAssembly alloc] initWithPresentFromVC:self.gridController toFriendWithKey:friendModel.mKey];
+    self.composeAssembly = [[ComposeAssembly alloc] initWithPresentFromVC:self.gridController toFriendWithKey:friendModel.mKey delegate: self.presenter];
     
     ZZGridVC *gridVC = (ZZGridVC *)self.gridController;
     UIView *fromView = [gridVC.controller gridCellWithFriendModel:friendModel];
@@ -154,5 +154,6 @@
     
     self.presenter.videoPlayer = _playerWireframe.player;
 }
+
 
 @end

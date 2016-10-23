@@ -299,4 +299,11 @@ static CGFloat ZZCellBorderWidth = 4.0f;
     }];
 }
 
+- (void)showSentAnimation
+{
+    [self.stateView showUploadAnimationWithCompletionBlock:^{
+       
+    }];
+}
+
 @end

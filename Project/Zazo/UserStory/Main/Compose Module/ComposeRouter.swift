@@ -25,8 +25,12 @@ public class ComposeRouter: NSObject {
         parentVC.presentViewController(moduleVC, animated: true, completion: nil)
     }
     
-    public func hide() {
-        moduleVC.dismissViewControllerAnimated(true, completion: nil)
+    public func hide(completion: (Void -> Void)?) {
+        moduleVC.dismissViewControllerAnimated(true, completion: {
+            if completion != nil {
+                completion!()
+            }
+        })
         self.isBeingPresented = false
     }
 

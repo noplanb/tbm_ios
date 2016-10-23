@@ -22,6 +22,8 @@
 - (void)updateWithDataSource:(ZZGridDataSource *)dataSource;
 
 - (void)showFriendAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel;
+- (void)showSentAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel;
+
 
 - (void)updateRollingStateTo:(BOOL)isEnabled;
 

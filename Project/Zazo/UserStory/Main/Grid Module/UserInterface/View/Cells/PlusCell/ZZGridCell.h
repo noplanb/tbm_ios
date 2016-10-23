@@ -16,5 +16,6 @@
 //- (void)hideActiveBorder;
 - (void)setBadgesHidden:(BOOL)hidden;
 - (void)setDownloadProgress:(CGFloat)progress;
+- (void)showSentAnimation;
 
 @end

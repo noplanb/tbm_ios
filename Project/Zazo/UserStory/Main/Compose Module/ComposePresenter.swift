@@ -13,7 +13,9 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     let view: ComposeUIInput
     let logic: ComposeLogic
     let router: ComposeRouter
-        
+    
+    weak var delegate: ComposeModuleDelegate?
+    
     var friendModel: ZZFriendDomainModel!
     
     init(view: ComposeUIInput,
@@ -42,7 +44,7 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
     // MARK: ComposeUIOutput interface
 
     func didTapCancel() {
-        router.hide()
+        router.hide(nil)
     }
     
     func didTapSend() {
@@ -67,7 +69,9 @@ class ComposePresenter: ComposeModule, ComposeUIOutput, ComposeLogicOutput {
                 case .Failed(let error):
                     self.sending(text, didFailedWith: error)
                 case .Completed:
-                    self.router.hide()
+                    self.router.hide({
+                        self.delegate?.didSendMessage(to: self.friendModel)
+                    })
             default:
                 break
             }

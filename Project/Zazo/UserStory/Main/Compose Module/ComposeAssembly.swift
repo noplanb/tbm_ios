@@ -18,7 +18,7 @@ import Foundation
         return presenter
     }
     
-    init?(presentFromVC parentVC: UIViewController, toFriendWithKey mKey: String) {
+    init?(presentFromVC parentVC: UIViewController, toFriendWithKey mKey: String, delegate: ComposeModuleDelegate) {
         
         guard let friendModel = ZZFriendDataProvider.friendWithMKeyValue(mKey) else {
             logError("invalid mkey")
@@ -43,6 +43,8 @@ import Foundation
                                         router: router)
         
         presenter.friendModel = friendModel
+        presenter.delegate = delegate
+        
         viewController.output = presenter
         interactor.output = presenter
     }

@@ -286,6 +286,12 @@
     return result;
 }
 
+- (void)showSentAnimationWithFriendModel:(ZZFriendDomainModel *)friendModel
+{
+    ZZGridCell *cell = [self cellForFriendModel:friendModel];
+    [cell showSentAnimation];
+}
+
 #pragma mark - GridView Event Delgate
 
 - (void)updateRollingStateTo:(BOOL)isEnabled

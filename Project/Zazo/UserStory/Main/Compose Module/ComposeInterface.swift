@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc public protocol ComposeModuleDelegate {
-    
+@objc public protocol ComposeModuleDelegate: class {
+    func didSendMessage(to friend: ZZFriendDomainModel)
 }
 
 @objc public protocol ComposeModule {

@@ -29,7 +29,8 @@
         ZZEditFriendListModuleDelegate,
         ZZGridPresenterInterface,
         ZZGridInteractorOutputActionHandler,
-        ZZPlayerModuleDelegate
+        ZZPlayerModuleDelegate,
+        ComposeModuleDelegate
         >
 
 @property (nonatomic, strong) id <ZZGridInteractorInput> interactor;

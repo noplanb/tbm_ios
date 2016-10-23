@@ -902,4 +902,11 @@ didChangeRecordingState:(BOOL)isRecording
 
 }
 
+#pragma mark ComposeModuleDelegate
+
+- (void)didSendMessageTo:(ZZFriendDomainModel *)friendModel
+{
+    [self.userInterface showSentAnimationWithFriendModel:friendModel];
+}
+
 @end
