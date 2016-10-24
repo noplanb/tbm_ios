@@ -513,22 +513,28 @@ static NSInteger const kGridFriendsCellCount = 8;
                 friendModel.friendshipStatusValue == ZZFriendshipStatusTypeHiddenByBoth)
         {
             [self changeContactStatusTypeForFriend:friendModel];
+            return ;
         }
-        else
+        
+        if (!ANIsEmpty(contactModel.emails))
         {
-            if (!ANIsEmpty(contactModel.emails))
-            {
-                [[ZZGridTransportService updateContactEmails:contactModel friend:friendModel] subscribeNext:^(id x) {
-                }];
-            }
-            
-            [ZZFriendDataUpdater upsertFriend:friendModel];
-
-            [self.output friendRecievedFromServer:friendModel];
-            [self.output loadingStateUpdatedTo:NO];
+            [[ZZGridTransportService updateContactEmails:contactModel friend:friendModel] subscribeNext:^(id x) {
+            }];
         }
+        
+        [ZZFriendDataUpdater upsertFriend:friendModel];
+        
 
-
+        [self.output friendRecievedFromServer:friendModel];
+        [self.output loadingStateUpdatedTo:NO];
+        
+        ZZGridDomainModel *gridModel = [ZZGridDataProvider modelWithRelatedUserID:friendModel.idTbm];
+        
+        if (gridModel == nil)
+        {
+            [self _addUserAsFriendToGrid:friendModel fromNotification:NO];
+        }
+        
     }                                                              error:^(NSError *error) {
         [self.output loadingStateUpdatedTo:NO];
         [self.output addingUserToGridDidFailWithError:error forUser:contactModel];
