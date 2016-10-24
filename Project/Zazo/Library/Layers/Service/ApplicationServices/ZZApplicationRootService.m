@@ -126,7 +126,10 @@
             [ZZNotificationsHandler registerToPushNotifications];
             [ZZVideoDataProvider printAll];
             [self.videoFileHandler applicationBecameActive];
-            [[ZZVideoRecorder shared] setup];
+            if (![ZZVideoRecorder shared].isSetup)
+            {
+                [[ZZVideoRecorder shared] setup];                
+            }
             [[ZZVideoRecorder shared] startPreview];
             [self.downloadErrorHandler startService];
         }];

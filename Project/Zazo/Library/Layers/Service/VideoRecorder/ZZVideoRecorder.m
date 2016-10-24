@@ -37,7 +37,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 @property (nonatomic, copy) ANCodeBlock cameraSwitchCompleted;
 @property (nonatomic, assign) BOOL didCancelRecording;
 @property (nonatomic, strong) ZZSoundEffectPlayer *soundPlayer;
-@property (nonatomic, assign) BOOL isSetup;
+@property (nonatomic, assign, readwrite) BOOL isSetup;
 @property (nonatomic, assign) BOOL onCallAlertShowing;
 @property (nonatomic, assign) BOOL isFirstLaunchAttempt;
 @property (nonatomic, strong) PBJVision *recorder;
@@ -101,6 +101,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)stopPreview
 {
     [self.recorder stopPreview];
+    self.isSetup = NO;
 }
 
 #pragma mark - Recording indication

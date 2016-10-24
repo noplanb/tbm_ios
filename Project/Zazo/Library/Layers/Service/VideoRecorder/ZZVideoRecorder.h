@@ -23,10 +23,10 @@ extern CGFloat const kZZVideoRecorderDelayBeforeNextMessage;
 
 + (instancetype)shared;
 
+@property (nonatomic, assign, readonly) BOOL isSetup;
+
 - (void)setup;
-
 - (void)startPreview;
-
 - (void)stopPreview;
 
 - (void)startRecordingWithVideoURL:(NSURL *)url completionBlock:(void (^)(BOOL isRecordingSuccess))completionBlock;
