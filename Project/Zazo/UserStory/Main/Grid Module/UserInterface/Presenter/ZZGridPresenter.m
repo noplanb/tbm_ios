@@ -545,9 +545,9 @@
 - (void)switchCamera
 {    
     [self.userInterface prepareForCameraSwitchAnimation];
-//    [[ZZVideoRecorder shared] switchCamera:^{
+    [[ZZVideoRecorder shared] switchCamera:^{
         [self.userInterface showCameraSwitchAnimation];
-//    }];
+    }];
 }
 
 - (void)stopPlaying

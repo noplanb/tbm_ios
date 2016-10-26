@@ -64,6 +64,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     {
         [self _addObservers];
         self.isSetup = NO;
+        self.recorder = [[PBJVision alloc] init];
     }
     return self;
 }
@@ -77,7 +78,6 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     self.isFirstLaunchAttempt = YES;
     self.onCallAlertShowing = NO;
 
-    self.recorder = [[PBJVision alloc] init];
     self.recorder.delegate = self;
     self.recorder.cameraMode = PBJCameraModeVideo;
     [self.recorder setCameraDevice:PBJCameraDeviceFront];
@@ -88,6 +88,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
     self.recorder.captureSessionPreset = AVCaptureSessionPresetLow;
     self.recorder.usesApplicationAudioSession = YES;
     self.recorder.automaticallyConfiguresApplicationAudioSession = NO;
+
 }
 
 #pragma mark - Preview
@@ -101,6 +102,7 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 - (void)stopPreview
 {
     [self.recorder stopPreview];
+    self.recorder = [[PBJVision alloc] init];
     self.isSetup = NO;
 }
 
