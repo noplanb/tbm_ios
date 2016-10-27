@@ -121,7 +121,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 - (CGRect)_rectForEditFriendsCell
 {
     CGFloat rowHeight = 44;
-    CGFloat headerHeight = 150;
+    CGFloat headerHeight = 166;
     CGFloat rowIndex = 1;
     CGFloat tableTopInset = 8;
 
