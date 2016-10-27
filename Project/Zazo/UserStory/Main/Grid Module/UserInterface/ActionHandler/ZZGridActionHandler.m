@@ -226,7 +226,6 @@
     {
         [TBMNextFeatureDialogView showNextFeatureDialogWithPresentedView:[self.delegate presentedView]
                                                          completionBlock:^{
-
         }];
     }
 }

@@ -158,9 +158,7 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     return [self.allFeatureNames.rac_sequence filter:^BOOL(NSString *featureName) {
         
         ZZGridActionFeatureType feature = [self.allFeatureNames indexOfObject:featureName];
-        
         NSString *key = self.keyValuesForFeatureUnlocking[feature];
-        
         return [[[ZZGridActionStoredSettings shared] valueForKey:key] boolValue];
 
     }].array;
@@ -181,7 +179,6 @@ typedef NS_ENUM(NSInteger, ZZFeatureUnlockKeys)
     }
     
     openedFeatures = [openedFeatures filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
-    
     [self _unlockFeaturesWithNames:openedFeatures];
 }
 
