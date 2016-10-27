@@ -159,13 +159,13 @@ const struct TBMFriendRelationships TBMFriendRelationships = {
 
 @dynamic avatarTimestamp;
 
-- (double)avatarTimestampValue
+- (int64_t)avatarTimestampValue
 {
     NSNumber *result = [self avatarTimestamp];
-    return [result doubleValue];
+    return [result longLongValue];
 }
 
-- (void)setAvatarTimestampValue:(double)value_
+- (void)setAvatarTimestampValue:(int64_t)value_
 {
     [self setAvatarTimestamp:@(value_)];
 }

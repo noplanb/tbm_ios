@@ -83,7 +83,7 @@
     }];
 }
 
-+ (void)updateFriendWithID:(NSString *)friendID setAvatarTimestamp:(NSTimeInterval)avatarTimestamp
++ (void)updateFriendWithID:(NSString *)friendID setAvatarTimestamp:(UInt64)avatarTimestamp
 {
     [self _updateFriendWithID:friendID usingBlock:^(TBMFriend *friendEntity) {
         friendEntity.avatarTimestampValue = avatarTimestamp;

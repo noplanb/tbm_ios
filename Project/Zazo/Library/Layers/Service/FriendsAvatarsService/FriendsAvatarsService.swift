@@ -70,7 +70,7 @@ import AWSS3
         }
         
         let service = AWSS3.S3ForKey(ZZCredentialsTypeAvatar)
-        let key = "\(friendModel.mKey)_\(Int(friendModel.avatarTimestamp))"
+        let key = "\(friendModel.mKey)_\(friendModel.avatarTimestamp)"
         
         guard let credentialsKeys = ZZKeychainDataProvider.loadCredentialsOfType(ZZCredentialsTypeAvatar) else {
             return

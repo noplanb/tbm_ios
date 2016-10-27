@@ -66,9 +66,9 @@ extern const struct TBMFriendRelationships {
 
 @property (nonatomic, strong) NSNumber* avatarTimestamp;
 
-@property (atomic) double avatarTimestampValue;
-- (double)avatarTimestampValue;
-- (void)setAvatarTimestampValue:(double)value_;
+@property (atomic) int64_t avatarTimestampValue;
+- (int64_t)avatarTimestampValue;
+- (void)setAvatarTimestampValue:(int64_t)value_;
 
 //- (BOOL)validateAvatarTimestamp:(id*)value_ error:(NSError**)error_;
 
@@ -226,8 +226,8 @@ extern const struct TBMFriendRelationships {
 - (NSNumber*)primitiveAvatarTimestamp;
 - (void)setPrimitiveAvatarTimestamp:(NSNumber*)value;
 
-- (double)primitiveAvatarTimestampValue;
-- (void)setPrimitiveAvatarTimestampValue:(double)value_;
+- (int64_t)primitiveAvatarTimestampValue;
+- (void)setPrimitiveAvatarTimestampValue:(int64_t)value_;
 
 - (NSNumber*)primitiveCid;
 - (void)setPrimitiveCid:(NSNumber*)value;

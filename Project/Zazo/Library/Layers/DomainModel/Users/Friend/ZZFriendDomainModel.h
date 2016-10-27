@@ -81,7 +81,7 @@ extern const struct ZZFriendDomainModelAttributes
 @property (nonatomic, assign) ZZFriendAbilities abilities;
 @property (nonatomic, strong) NSArray <NSString *> *abilitiesArray;
 
-@property (nonatomic, assign) NSTimeInterval avatarTimestamp;
+@property (nonatomic, assign) UInt64 avatarTimestamp;
 @property (nonatomic, strong) NSString *useAsThumbnail;
 
 + (FEMObjectMapping *)mapping;

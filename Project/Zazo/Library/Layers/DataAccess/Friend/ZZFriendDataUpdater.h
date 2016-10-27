@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)updateFriendWithID:(NSString *)friendID setOutgoingVideoItemID:(NSString *)videoID;
 + (void)updateFriendWithID:(NSString *)friendID setConnectionStatus:(ZZFriendshipStatusType)status;
 + (void)updateFriendWithID:(NSString *)friendID setAvatar:(nullable UIImage *)avatar;
-+ (void)updateFriendWithID:(NSString *)friendID setAvatarTimestamp:(NSTimeInterval)avatarTimestamp;
++ (void)updateFriendWithID:(NSString *)friendID setAvatarTimestamp:(UInt64)avatarTimestamp;
 
 
 #pragma mark Batch updation

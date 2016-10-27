@@ -73,16 +73,43 @@ const struct ZZFriendDomainModelAttributes ZZFriendDomainModelAttributes = {
                     ZZFriendDomainModelAttributes.friendshipCreatorMkey : @"connection_creator_mkey",
                     ZZFriendDomainModelAttributes.cid : @"cid",
                     ZZFriendDomainModelAttributes.abilitiesArray: @"abilities",
-                    ZZFriendDomainModelAttributes.avatarTimestamp: @"avatar.timestamp",
+//                    ZZFriendDomainModelAttributes.avatarTimestamp: @"avatar.timestamp",
                     ZZFriendDomainModelAttributes.useAsThumbnail: @"avatar.use_as_thumbnail"
                 }];
 
-        FEMAttribute *attribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
+        FEMAttribute *hasAppAttribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.hasApp
                                                         toKeyPath:@"has_app"
                                                               map:^id(NSString *value) {
                                                                   return @([value isEqualToString:@"true"]);
                                                               }];
-        [mapping addAttribute:attribute];
+        
+        static NSNumberFormatter *formatter;
+        
+        if (formatter == nil)
+        {
+            formatter = [[NSNumberFormatter alloc] init];
+        }
+        
+        FEMAttribute *avatarAttribute = [FEMAttribute mappingOfProperty:ZZFriendDomainModelAttributes.avatarTimestamp
+                                                        toKeyPath:@"avatar.timestamp"
+                                                              map:^id(NSString *value) {
+                                                                  
+                                                                  if ([value isKindOfClass:[NSNull class]])
+                                                                  {
+                                                                      return nil;
+                                                                  }
+                                                                  
+                                                                  if (value == nil)
+                                                                  {
+                                                                      return nil;
+                                                                  }
+                                                                  
+                                                                  return [formatter numberFromString:value];
+                                                              }];
+        
+        
+        [mapping addAttribute:avatarAttribute];
+        [mapping addAttribute:hasAppAttribute];
     }];
 }
 
