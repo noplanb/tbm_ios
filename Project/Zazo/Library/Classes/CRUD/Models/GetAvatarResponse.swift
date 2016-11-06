@@ -18,7 +18,7 @@ struct GetAvatarResponse {
             case Avatar = "avatar"
         }
         
-        let timestamp: Int?
+        let timestamp: Int64?
         let useAsThumbnail: UseAsThumbnail?
     }
     

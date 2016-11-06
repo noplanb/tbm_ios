@@ -9,7 +9,7 @@
 import Foundation
 
 @objc protocol AvatarUpdateServiceDelegate: class {
-    func avatarUpdated(with timestamp: Int, completion: ANCodeBlock)
+    func avatarUpdated(with timestamp: Int64, completion: ANCodeBlock)
     func avatarRemoved()
     func avatarUpToDate()
     func avatarEnabled(enabled: Bool)
@@ -37,7 +37,8 @@ class AvatarUpdateService: NSObject {
         self.persistenceKey = persistenceKey
         lastTimestamp = 0
         super.init()
-        lastTimestamp = userDefaults.integerForKey(timestampPersistenceKey)
+        let timestamp = userDefaults.objectForKey(timestampPersistenceKey) as? NSNumber
+        lastTimestamp = timestamp?.longLongValue ?? 0
     }
     
     func checkUpdate() {
@@ -93,7 +94,7 @@ class AvatarUpdateService: NSObject {
         }
     }
     
-    private var lastTimestamp: Int {
+    private var lastTimestamp: Int64 {
         didSet {
             if oldValue != lastTimestamp {
                 persistTimestamp(lastTimestamp)
@@ -101,8 +102,9 @@ class AvatarUpdateService: NSObject {
         }
     }
     
-    private func persistTimestamp(value: Int) {
-        userDefaults.setInteger(value, forKey: timestampPersistenceKey)
+    private func persistTimestamp(value: Int64) {
+        let number = NSNumber(longLong: value)
+        userDefaults.setObject(number, forKey: timestampPersistenceKey)
         userDefaults.synchronize()
     }
 }

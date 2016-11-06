@@ -11,7 +11,7 @@ import ReactiveCocoa
 import Result
 
 class AvatarData: NSObject {
-    var timestamp: NSInteger = 0
+    var timestamp: Int64 = 0
     var isAvatarEnabled = false
 }
 

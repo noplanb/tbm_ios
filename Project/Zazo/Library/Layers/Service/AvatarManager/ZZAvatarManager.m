@@ -147,7 +147,7 @@ NSString * const ZZAvatarWasChangedNotificationName = @"ZZAvatarWasChangedNotifi
     [self.delegate avatarEnabled:enabled];
 }
 
-- (void)avatarUpdatedWith:(NSInteger)timestamp completion:(ANCodeBlock)completion
+- (void)avatarUpdatedWith:(int64_t)timestamp completion:(ANCodeBlock)completion
 {
     ANDispatchBlockToBackgroundQueue(^{
         
@@ -158,7 +158,7 @@ NSString * const ZZAvatarWasChangedNotificationName = @"ZZAvatarWasChangedNotifi
         
         AWSS3GetObjectRequest *request = [AWSS3GetObjectRequest new];
         request.bucket = credentialsModel.bucket;
-        request.key = [NSString stringWithFormat: @"%@_%ld", userModel.mkey, (long)timestamp];
+        request.key = [NSString stringWithFormat: @"%@_%lld", userModel.mkey, timestamp];
         
         [[avatarService getObject:request] continueWithBlock:^id _Nullable(AWSTask<AWSS3GetObjectOutput *> * _Nonnull task) {
             
