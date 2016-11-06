@@ -68,7 +68,6 @@
     
     ZZMenuHeaderView *headerView = self.menuView.headerView;
     
-    headerView.titleLabel.text = @"UPDATE PROFILE PHOTO";
     headerView.titleLabel.textColor = [ZZColorTheme shared].tintColor;
     headerView.backgroundColor = [UIColor an_colorWithHexString:@"ECF2F8"];
     headerView.patternView.tintColor = [UIColor an_colorWithHexString:@"B2C1CF"];
@@ -126,6 +125,7 @@
 - (void)showAvatar:(UIImage *)image
 {
     self.menuView.headerView.imageView.image = image;
+    self.menuView.headerView.titleLabel.text = image == nil ? @"SET PROFILE PHOTO" : @"UPDATE PROFILE PHOTO";
 }
 
 
