@@ -257,6 +257,7 @@
 		1555C7E71D6DAE5C00A852BC /* ZZAbilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C7E61D6DAE5C00A852BC /* ZZAbilities.m */; };
 		1556DD4E1DB7A054009F60F6 /* ZZAvatarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */; };
 		1559CB761D671B6800D87B00 /* NotificationActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */; };
+		155A9B081DCF1CCD00FD88A0 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A9B071DCF1CCD00FD88A0 /* UIAlertController.swift */; };
 		156C62C11DA2826200BC31DA /* v3-v4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 156C62C01DA2826200BC31DA /* v3-v4.xcmappingmodel */; };
 		156C62C41DA289A100BC31DA /* MHWMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 156C62C31DA289A100BC31DA /* MHWMigrationManager.m */; };
 		15718DA61C5BC25F00D9A207 /* OBLogger+ZZAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C7F4C1C567EDD00DFA0FD /* OBLogger+ZZAdditions.m */; };
@@ -1313,6 +1314,7 @@
 		1556DD4C1DB7A054009F60F6 /* ZZAvatarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarManager.h; sourceTree = "<group>"; };
 		1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarManager.m; sourceTree = "<group>"; };
 		1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationActionHandler.swift; sourceTree = "<group>"; };
+		155A9B071DCF1CCD00FD88A0 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		156C62C01DA2826200BC31DA /* v3-v4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "v3-v4.xcmappingmodel"; sourceTree = "<group>"; };
 		156C62C21DA289A100BC31DA /* MHWMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWMigrationManager.h; sourceTree = "<group>"; };
 		156C62C31DA289A100BC31DA /* MHWMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWMigrationManager.m; sourceTree = "<group>"; };
@@ -2058,6 +2060,7 @@
 				677DB6C1462C9189ADADF393 /* UIFont */,
 				677DBA770C79AEEDDCFDECA6 /* NSDate */,
 				677DB4240838A2DCA7E20B88 /* UIView */,
+				155A9B071DCF1CCD00FD88A0 /* UIAlertController.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -6840,6 +6843,7 @@
 				07636ED51BA49A0100925671 /* ZZContactsDataSource.m in Sources */,
 				7997E4FB1BAABE85001697D5 /* UIView+Round.m in Sources */,
 				152594E21CE8C9F200DDA507 /* ZZPlayerVC.m in Sources */,
+				155A9B081DCF1CCD00FD88A0 /* UIAlertController.swift in Sources */,
 				79123D791BB03359007E1CBF /* ZZHintsConstants.m in Sources */,
 				07636DBE1BA49A0100925671 /* TBMVideoProcessor.m in Sources */,
 				07636E971BA49A0100925671 /* ZZDebugStateEnumHelper.m in Sources */,

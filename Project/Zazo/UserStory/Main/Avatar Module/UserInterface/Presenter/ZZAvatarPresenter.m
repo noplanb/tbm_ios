@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, ZZAvatarChangeMenuAction) {
                                         message:nil
                                  preferredStyle:style];
     
-    
+    [alertController setHideOnApplicationResign];    
     
     UIAlertAction *takeFromCamera =
     [UIAlertAction actionWithTitle:@"Take from the camera"
