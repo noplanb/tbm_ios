@@ -795,20 +795,6 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		156ABEBD1DC08478002110D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 156ABEB71DC08478002110D4 /* CDEKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66E8B6D314D899500074EAA4;
-			remoteInfo = CDEKit;
-		};
-		156ABEBF1DC08478002110D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 156ABEB71DC08478002110D4 /* CDEKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 664A269514E3265400C297E6;
-			remoteInfo = CDEKitResources;
-		};
 		3E9FDA7E1D47AC7000809EA2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 220E901D1909A18B003C4F82 /* Project object */;
@@ -1327,7 +1313,6 @@
 		1556DD4C1DB7A054009F60F6 /* ZZAvatarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZAvatarManager.h; sourceTree = "<group>"; };
 		1556DD4D1DB7A054009F60F6 /* ZZAvatarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZAvatarManager.m; sourceTree = "<group>"; };
 		1559CB751D671B6800D87B00 /* NotificationActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationActionHandler.swift; sourceTree = "<group>"; };
-		156ABEB71DC08478002110D4 /* CDEKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CDEKit.xcodeproj; path = "../../../Downloads/Core-Data-Editor-master/CDEKit/CDEKit.xcodeproj"; sourceTree = "<group>"; };
 		156C62C01DA2826200BC31DA /* v3-v4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "v3-v4.xcmappingmodel"; sourceTree = "<group>"; };
 		156C62C21DA289A100BC31DA /* MHWMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWMigrationManager.h; sourceTree = "<group>"; };
 		156C62C31DA289A100BC31DA /* MHWMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWMigrationManager.m; sourceTree = "<group>"; };
@@ -4326,15 +4311,6 @@
 			path = AvatarManager;
 			sourceTree = "<group>";
 		};
-		156ABEB81DC08478002110D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				156ABEBE1DC08478002110D4 /* libCDEKit.a */,
-				156ABEC01DC08478002110D4 /* CDEKit.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		157F41F41D7473C7004D6108 /* Zazo */ = {
 			isa = PBXGroup;
 			children = (
@@ -5535,7 +5511,6 @@
 		220E901C1909A18B003C4F82 = {
 			isa = PBXGroup;
 			children = (
-				156ABEB71DC08478002110D4 /* CDEKit.xcodeproj */,
 				15DF96331C7C6FE2007B4699 /* empty.xcappdata */,
 				076369C41BA49A0000925671 /* tbm */,
 				07636AE71BA49A0100925671 /* Zazo */,
@@ -5983,12 +5958,6 @@
 			mainGroup = 220E901C1909A18B003C4F82;
 			productRefGroup = 220E90261909A18B003C4F82 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 156ABEB81DC08478002110D4 /* Products */;
-					ProjectRef = 156ABEB71DC08478002110D4 /* CDEKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				220E90241909A18B003C4F82 /* Zazo */,
@@ -5997,23 +5966,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		156ABEBE1DC08478002110D4 /* libCDEKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCDEKit.a;
-			remoteRef = 156ABEBD1DC08478002110D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		156ABEC01DC08478002110D4 /* CDEKit.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CDEKit.bundle;
-			remoteRef = 156ABEBF1DC08478002110D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		153260371D40F828004298CB /* Resources */ = {
