@@ -50,8 +50,11 @@ class CropViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         contentView.cropSize = cropSize
         
+        let isPad2 = UIScreen.mainScreen().scale == 1 && UIScreen.mainScreen().bounds.size.width == 768
+        let maxScale: CGFloat = isPad2 ? 1.2 : 1
+        
         let scale = neededImageSize.width/cropSize.width
-        contentView.scrollView.maximumZoomScale = scale > 1 ? scale : 1
+        contentView.scrollView.maximumZoomScale = scale > maxScale ? scale : maxScale
     }
     
     func configureNavigationBar() {
