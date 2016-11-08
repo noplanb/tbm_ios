@@ -273,7 +273,7 @@ static NSInteger const kGridFriendsCellCount = 8;
     ZZLogDebug(@"first empty grid model: %@", gridModel);
     ZZGridDomainModel *gridModelToSwap = nil;
 
-    if (ANIsEmpty(gridModel) && !isFromNotification)
+    if (ANIsEmpty(gridModel))
     {
         gridModel = [ZZGridDataProvider modelWithEarlierLastActionFriend];
         ZZLogDebug(@"no empty cell, use cell with earliest last action: %@", gridModel);
