@@ -57,11 +57,11 @@
     
     EverSentHelper *helper = [EverSentHelper sharedInstance];
 
-    BOOL isNewFriend = [helper isEverSentToFriend:viewModel.mKey];
+    BOOL isNewFriend = ![helper isEverSentToFriend:viewModel.mKey];
     
     [helper addToEverSent:viewModel.mKey];
     
-    if (!isNewFriend && helper.everSentCount >= minimalMessageCount) // we have sended messages enough to unlock this feature
+    if (isNewFriend && helper.everSentCount >= minimalMessageCount) // we have sended messages enough to unlock this feature
     {
         self.featureUnlocked = YES;
         featureUnlocked = YES;

@@ -19,15 +19,7 @@ public class EverSentHelper: NSObject
         return everSentFriends.count
     }
     
-    private var everSentFriends: [String] = []
-    {
-        didSet {
-            if everSentFriends.count > 0
-            {
-                saveToUserDefaults()
-            }
-        }
-    }
+    private var everSentFriends = [String]()
     
     override init()
     {
@@ -47,23 +39,14 @@ public class EverSentHelper: NSObject
         }
     }
     
-    func isEverSentToFriend(friendKey: String?) -> Bool
+    func isEverSentToFriend(friendKey: String) -> Bool
     {
-        guard let friendKey = friendKey else
-        {
-            return false
-        }
-        
-        return everSentFriends.indexOf(friendKey) != nil
+        return everSentFriends.contains(friendKey)
     }
     
-    func addToEverSent(friendKey: String?)
+    func addToEverSent(friendKey: String)
     {
-        guard let friendKey = friendKey else
-        {
-            return
-        }
-
+        
         guard !friendKey.isEmpty else
         {
             return
@@ -75,6 +58,7 @@ public class EverSentHelper: NSObject
         }
         
         everSentFriends.append(friendKey)
+        saveToUserDefaults()
     }
     
     func clear()

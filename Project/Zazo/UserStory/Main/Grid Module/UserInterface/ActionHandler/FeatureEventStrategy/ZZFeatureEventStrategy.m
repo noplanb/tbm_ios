@@ -37,7 +37,7 @@
         
         if (earlyFeatureUnlock)
         {
-            featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
+            featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:0];
         }
         else if (messageCount == 0)
         {
@@ -65,7 +65,7 @@
     
     if (![ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled && [ZZGridActionStoredSettings shared].switchCameraFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 3;
+        NSInteger minimalMessageCount = 1;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
@@ -84,7 +84,7 @@
     
     if (![ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled && [ZZGridActionStoredSettings shared].abortRecordingFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 4;
+        NSInteger minimalMessageCount = 2;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
@@ -103,7 +103,7 @@
     
     if (![ZZGridActionStoredSettings shared].fullscreenFeatureEnabled && [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 5;
+        NSInteger minimalMessageCount = 3;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
@@ -122,7 +122,7 @@
     
     if (![ZZGridActionStoredSettings shared].playbackControlsFeatureEnabled && [ZZGridActionStoredSettings shared].fullscreenFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 6;
+        NSInteger minimalMessageCount = 4;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
@@ -142,7 +142,7 @@
     
     if (![ZZGridActionStoredSettings shared].earpieceFeatureEnabled && [ZZGridActionStoredSettings shared].deleteFriendFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 7;
+        NSInteger minimalMessageCount = 5;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
@@ -161,7 +161,7 @@
     
     if (![ZZGridActionStoredSettings shared].carouselFeatureEnabled && [ZZGridActionStoredSettings shared].earpieceFeatureEnabled)
     {
-        NSInteger minimalMessageCount = 8;
+        NSInteger minimalMessageCount = 6;
         featureUnlocked = [self isFeatureEnabledWithModel:model beforeUnlockFeatureSentCount:minimalMessageCount];
     }
     
