@@ -71,6 +71,10 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)setup
 {
+#if TARGET_OS_SIMULATOR
+    return;
+#endif
+
     self.isSetup = YES;
 
     self.videoProcessor = [TBMVideoProcessor new];
@@ -95,12 +99,20 @@ static NSTimeInterval const kZZVideoRecorderMinimumRecordTime = 0.4;
 
 - (void)startPreview
 {
+#if TARGET_OS_SIMULATOR
+    return;
+#endif
+    
     [self.recorder startPreview];
     [[NSNotificationCenter defaultCenter] postNotificationName:kZZVideoRecorderDidStartPreview object:self.recorder.previewLayer];
 }
 
 - (void)stopPreview
 {
+#if TARGET_OS_SIMULATOR
+    return;
+#endif
+
     [self.recorder stopPreview];
     self.recorder = [[PBJVision alloc] init];
     self.isSetup = NO;

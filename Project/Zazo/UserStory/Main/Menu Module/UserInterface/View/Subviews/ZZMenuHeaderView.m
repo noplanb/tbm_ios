@@ -75,8 +75,10 @@ CGFloat const ZZDefaultAvatarRadius = 60;
 {
     
     _imageView = [UIImageView new];
-    _imageView.contentMode = UIViewContentModeCenter;
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
     _imageView.clipsToBounds = YES;
+    
+    
     
     [self addSubview:_imageView];
 }
