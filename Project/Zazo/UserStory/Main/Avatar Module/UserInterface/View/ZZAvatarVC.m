@@ -43,6 +43,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self showLoading:NO];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
