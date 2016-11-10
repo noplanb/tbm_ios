@@ -122,7 +122,7 @@ static CGFloat const kDelayBeforHintHidden = 3.5;
 {
     CGFloat rowHeight = 44;
     CGFloat headerHeight = 166;
-    CGFloat rowIndex = 1;
+    CGFloat rowIndex = 2;
     CGFloat tableTopInset = 8;
 
     return CGRectMake(0, headerHeight + rowHeight * rowIndex + self.frameOffset.y + tableTopInset, SCREEN_WIDTH, rowHeight);
