@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger, ZZAlertViewType)
 @interface ZZGridAlertBuilder () <UIAlertViewDelegate>
 
 @property (nonatomic, copy) ANCodeBlock completionBlock;
-@property (nonatomic, strong) UIAlertView *alertView;
 
 @end
 
